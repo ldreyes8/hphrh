@@ -14,8 +14,8 @@ File: Topbar,Left-sidebar,Right-sidebar
   z-index: 999;
 }
 .topbar .topbar-left {
-  background: #00b19d;
-  border-bottom: 1px solid #00b19d;
+  background: #3bafda;
+  border-bottom: 1px solid #3bafda;
   float: left;
   height: 70px;
   position: relative;
@@ -38,7 +38,7 @@ File: Topbar,Left-sidebar,Right-sidebar
   color: #ffffff;
 }
 .navbar-default {
-  background-color: #00b19d;
+  background-color: #3bafda;
   border-radius: 0px;
   border: none;
   margin-bottom: 0px;
@@ -120,12 +120,12 @@ File: Topbar,Left-sidebar,Right-sidebar
   overflow: hidden;
 }
 .noti-primary {
-  color: #00b19d;
-  border: 2px solid #00b19d;
-}
-.noti-success {
   color: #3bafda;
   border: 2px solid #3bafda;
+}
+.noti-success {
+  color: #00b19d;
+  border: 2px solid #00b19d;
 }
 .noti-info {
   color: #3ddcf7;
@@ -299,7 +299,7 @@ body.fixed-left .side-menu.left {
   border-top: 0;
 }
 #sidebar-menu ul ul li.active a {
-  color: #00b19d;
+  color: #3bafda;
 }
 #sidebar-menu ul ul a {
   color: #75767B;
@@ -307,7 +307,7 @@ body.fixed-left .side-menu.left {
   padding: 10px 25px 10px 65px;
 }
 #sidebar-menu ul ul a:hover {
-  color: #00b19d;
+  color: #3bafda;
 }
 #sidebar-menu ul ul a i {
   margin-right: 5px;
@@ -322,13 +322,13 @@ body.fixed-left .side-menu.left {
   padding: 12px 25px;
 }
 #sidebar-menu > ul > li > a:hover {
-  border-left-color: #00b19d !important;
+  border-left-color: #3bafda !important;
 }
 #sidebar-menu > ul > li > a:hover i {
-  color: #00b19d !important;
+  color: #3bafda !important;
 }
 #sidebar-menu > ul > li > a:hover span {
-  color: #00b19d;
+  color: #3bafda;
 }
 #sidebar-menu > ul > li > a > span {
   vertical-align: middle;
@@ -349,11 +349,11 @@ body.fixed-left .side-menu.left {
   margin: 3px 0 0 0;
 }
 #sidebar-menu > ul > li > a.active {
-  border-left: 2px solid #00b19d !important;
-  color: #00b19d;
+  border-left: 2px solid #3bafda !important;
+  color: #3bafda;
 }
 #sidebar-menu > ul > li > a.active i {
-  color: #00b19d !important;
+  color: #3bafda !important;
 }
 .menu-title {
   padding: 12px 20px !important;
@@ -368,13 +368,13 @@ body.fixed-left .side-menu.left {
   padding-left: 32px !important;
 }
 .subdrop {
-  border-left-color: #00b19d !important;
+  border-left-color: #3bafda !important;
 }
 .subdrop i {
-  color: #00b19d !important;
+  color: #3bafda !important;
 }
 .subdrop span {
-  color: #00b19d;
+  color: #3bafda;
 }
 .user-detail {
   position: absolute;
@@ -483,11 +483,11 @@ body.fixed-left .side-menu.left {
   position: relative;
   width: 260px;
   background: #ededed;
-  color: #00b19d;
-  border-color: #00b19d;
+  color: #3bafda;
+  border-color: #3bafda;
 }
 #wrapper.enlarged .left.side-menu #sidebar-menu ul > li:hover > a i {
-  color: #00b19d;
+  color: #3bafda;
 }
 #wrapper.enlarged .content-page {
   margin-left: 70px;
@@ -530,7 +530,7 @@ body.fixed-left .side-menu.left {
   display: none;
 }
 #wrapper.enlarged #sidebar-menu ul ul li.active a {
-  color: #00b19d;
+  color: #3bafda;
 }
 #wrapper.enlarged .footer {
   left: 70px;

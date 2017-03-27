@@ -12,13 +12,18 @@
 */
 
 
-Route::get('/avs', function () {
+/*Route::get('/avs', function () {
     return view('ejemplo/index');
-});
+});*/
 
 //Route::resource('solicitud','solicitud');
 
 
-Route::get('/solicitud', function () {
+/*Route::get('/solicitud', function () {
     return view('layouts/solicitud');
-});
+});*/
+
+Route::resource('persona','PersonaController');
+
+Route::get('persona/towns/{id}', 'PersonaController@getTowns');
+//Route::get('layouts/towns/{id}', 'PersonaController@getTowns');
