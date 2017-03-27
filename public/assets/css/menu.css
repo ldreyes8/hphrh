@@ -14,7 +14,7 @@ File: Topbar,Left-sidebar,Right-sidebar
   z-index: 999;
 }
 .topbar .topbar-left {
-  background: #00b19d;
+  background: #3bafda;
   float: left;
   height: 70px;
   position: relative;
@@ -34,7 +34,7 @@ File: Topbar,Left-sidebar,Right-sidebar
   text-align: center;
 }
 .navbar-default {
-  background-color: #00b19d;
+  background-color: #3bafda;
   border-radius: 0;
   border: none;
   margin-bottom: 0;
@@ -111,12 +111,12 @@ File: Topbar,Left-sidebar,Right-sidebar
   overflow: hidden;
 }
 .noti-primary {
-  color: #00b19d;
-  border: 2px solid #00b19d;
-}
-.noti-success {
   color: #3bafda;
   border: 2px solid #3bafda;
+}
+.noti-success {
+  color: #00b19d;
+  border: 2px solid #00b19d;
 }
 .noti-info {
   color: #3ddcf7;
@@ -313,7 +313,7 @@ body.fixed-left .side-menu.left {
   padding: 12px 25px;
 }
 #sidebar-menu > ul > li > a:hover {
-  border-left: 2px solid #00b19d;
+  border-left: 2px solid #3bafda;
   text-decoration: none;
   color: #ffffff;
 }
@@ -335,7 +335,7 @@ body.fixed-left .side-menu.left {
   margin: 3px 0 0 0;
 }
 #sidebar-menu > ul > li > a.active {
-  border-left: 2px solid #00b19d;
+  border-left: 2px solid #3bafda;
   color: #ffffff;
 }
 .menu-title {
@@ -351,7 +351,7 @@ body.fixed-left .side-menu.left {
   padding-left: 32px !important;
 }
 .subdrop {
-  border-left: 2px solid #00b19d !important;
+  border-left: 2px solid #3bafda !important;
 }
 .subdrop i,
 .subdrop span {
@@ -428,7 +428,7 @@ body.fixed-left .side-menu.left {
   z-index: 6;
 }
 #wrapper.enlarged .left.side-menu #sidebar-menu ul > li:hover > ul a:hover {
-  color: #00b19d;
+  color: #3bafda;
 }
 #wrapper.enlarged .left.side-menu #sidebar-menu ul > li:hover a span {
   display: inline;
@@ -472,7 +472,7 @@ body.fixed-left .side-menu.left {
   width: 260px;
   background: #202532;
   color: #ffffff;
-  border-color: #00b19d;
+  border-color: #3bafda;
 }
 #wrapper.enlarged .left.side-menu #sidebar-menu ul > li:hover > a i {
   color: #ffffff;
@@ -518,7 +518,7 @@ body.fixed-left .side-menu.left {
   display: none;
 }
 #wrapper.enlarged #sidebar-menu ul ul li.active a {
-  color: #00b19d;
+  color: #3bafda;
 }
 #wrapper.enlarged .footer {
   left: 70px;
