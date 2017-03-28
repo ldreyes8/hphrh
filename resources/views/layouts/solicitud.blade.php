@@ -21,6 +21,13 @@
         <link href="{{asset('assets/css/core.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/menu.css')}}" rel="stylesheet" type="text/css">
 
+<!-- Datapicker Files  -->
+
+        <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet" />
+
+        <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-standalone.css')}}" rel="stylesheet" />
+
+        
     </head>
 
 
@@ -158,21 +165,25 @@
                 <div class="content">
                     <div class="container">                       
                         <div class="row">
+                        {!!Form::open(array('url'=>'layouts','method'=>'POST','autocomplete'=>'off'))!!}
+                        {{Form::token()}}
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="card-box p-b-0">
                                     <h4 class="text-dark  header-title m-t-0">Solicitud de empleo</h4>
                                     <p class="text-muted m-b-25 font-13">
-                                        Same with basic wizard setup but with progress bar.
+                                        Llene los campos.
                                     </p>
 
                                     <div id="progressbarwizard" class="pull-in">
                                         <ul>
-                                            <li><a href="#account-2" data-toggle="tab">Datos personales</a></li>
-                                            <li><a href="#profile-tab-2" data-toggle="tab">Datos adicionales</a></li>
-                                            <li><a href="#finish-2" data-toggle="tab">Datos familiares</a></li>
-                                            <li><a href="#" data-toggle="tab">Datos academicos</a></li>
-                                            <li><a href="#" data-toggle="tab">Experiencia</a></li>
-                                            <li><a href="#" data-toggle="tab">Padecimientos</a></li>
+                                            <li><a href="#generales" data-toggle="tab">Datos generales</a></li>
+                                            <li><a href="#personales" data-toggle="tab">Datos personales</a></li>
+                                            <li><a href="#academico" data-toggle="tab">Informacion academicos</a></li>
+                                            <li><a href="#laboral" data-toggle="tab">Experiencia laboral</a></li>
+                                            <li><a href="#familia" data-toggle="tab">Datos familiares</a></li>
+                                            <li><a href="#referencia" data-toggle="tab">Referencias (No familiares)</a></li>
+                                            <li><a href="#deudas" data-toggle="tab">Deudas</a></li>
+                                            <li><a href="#padecimiento" data-toggle="tab">Padecimientos</a></li>
                                         </ul>
 
                                         <div class="tab-content bx-s-0 m-b-0">
@@ -181,137 +192,120 @@
                                                 <div class="bar progress-bar progress-bar-primary"></div>
                                             </div>
                                         
-                                            <!-- -->
-                                            <div class="tab-pane p-t-10 fade" id="account-2">
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="nit">Nit</label>
-                                                            <input type="text" name="nit" required value="{{old('nit')}}" class="form-control" placeholder="nit empleado">
-                                                        </div>
-                                                    </div>
-         
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                           <label for="afiliacionigss">Afiliacion igss</label>
-                                                           <input type="text" name="afiliacionigss" class="form-control" placeholder="afilacion igss">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Tipo Licencia</label>
-                                                            <select name="tipolicencia" class="form-control">
-                                                            <option value="A">A</option>
-                                                            <option value="B">B</option>
-                                                            <option value="C">C</option>
-                                                            <option value="M">M</option>
-                                                            <option value="T">T</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="aportemensual">Dependientes</label>
-                                                            <input type="number" name="numerodependientes" required value="{{old('numerodependientes')}}" class="form-control" placeholder="dependientes...">
-                                                        </div>
-                                                    </div>
-        
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="aportemensual">Aporte Mensual</label>
-                                                            <input type="number" name="aportemensual" class="form-control" placeholder="aporte mensual...">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Vivienda</label>
-                                                            <select name="vivienda" class="form-control">
-                                                            <option value="vive con familiares">vive con familiares</option>
-                                                            <option value="casa propia">casa propia</option>
-                                                            <option value="Alquila">Alquila</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="alquilermensual">Alquiler Mensual</label>
-                                                            <input type="number" name="alquilermensual" class="form-control" placeholder="Alquiler mensual...">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="otrosingresos">Otros ingresos</label>
-                                                            <input type="number" name="otrosingresos" class="form-control" placeholder="Otros ingresos...">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="pretension">Pretension</label>
-                                                            <input type="number" name="pretension" value="{{old('pretension')}}" class="form-control" placeholder="pretension salarial mensual quetzales...">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Estado Civil</label>
-                                                            <select name="idcivil" class="form-control selectpicker" data-live-search="true">
-                  
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-        
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Puesto</label>
-                                                            <select name="idpuesto" class="form-control selectpicker" data-live-search="true">
-                   
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>En qué Afiliado le gustaría aplicar</label>
-                                                            <select name="idafiliado" class="form-control selectpicker" data-live-search="true">                     
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="imagen">Imagen</label>
-                                                            <input type="file" name="imagen" class="form-control">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Idioma</label>
-                                                            <select name="ididioma" class="form-control selectpicker" data-live-search="true" >
-                                                            </select>
-                                                            <label class="radio-inline"><input type="radio" name="optradio">Avanzado</label>
-                                                            <label class="radio-inline"><input type="radio" name="optradio">Intermedio</label>
-                                                            <label class="radio-inline"><input type="radio" name="optradio">Principiante</label> 
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">    <div class="form-group">
-                                                            <button class="btn btn-info" type="submit">Guardar</button>
-                                                            <button class="btn btn-danger" type="reset">Cancelar</button>
-                                                        </div>
+                                            <!--Inicio de label y text y otros  -->
+                                        <!--Datos personales  -->
+                                            <div class="tab-pane p-t-10 fade" id="generales">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label for="identificacion">Identicación</label>
+                                                        <input type="text" name="identificacion" required value="{{old('identificacion')}}" class="form-control" placeholder="Identificación...">
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label for="nombre1">Primer nombre</label>
+                                                        <input type="text" name="nombre1" required value="{{old('nombre1')}}" class="form-control" placeholder="Primer nombre...">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label for="nombre2">Segundo nombre</label>
+                                                        <input type="text" name="nombre2" class="form-control" placeholder="Segundo nombre...">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label for="nombre3">Tercer nombre</label>
+                                                        <input type="text" name="nombre3" class="form-control" placeholder="Tercer nombre...">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label for="apellido1">Primer apellido</label>
+                                                        <input type="text" name="apellido1" required value="{{old('apellido1')}}" class="form-control" placeholder="Primer apellido...">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label for="apellido2">Segundo apellido</label>
+                                                        <input type="text" name="apellido2" required value="{{old('apellido2')}}" class="form-control" placeholder="Segundo apellido...">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label for="apellido3">Apellido de casado(a)</label>
+                                                        <input type="text" name="apellido3" class="form-control" placeholder="Apellido de casado...">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label for="telefono">Telefono</label>
+                                                        <input type="text" name="telefono" required value="{{old('telefono')}}" class="form-control" placeholder="Telefono...">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                <div class="form-group">
+                                                        <label for="fechanac">Fecha de nacimiento</label>
+                                                        <input type="text" class="form-control datepicker" name="fechanac" placeholder="Fecha de nacimiento...">
+                                                    </div>
+                                                </div>    
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                   <div class="form-group">
+                                                        <label for="avenida">Avenida</label>
+                                                        <input type="text" name="avenida" class="form-control" placeholder="Avenida...">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                   <div class="form-group">
+                                                        <label for="calle">Calle</label>
+                                                        <input type="text" name="calle" class="form-control" placeholder="Calle...">
+                                                    </div>
+                                                </div> 
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                   <div class="form-group">
+                                                        <label for="nomenclatura">Nomenclatura</label>
+                                                        <input type="text" name="nomenclatura" class="form-control" placeholder="Nomenclatura...">
+                                                    </div>
+                                                </div> 
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                   <div class="form-group">
+                                                        <label for="zona">Zona</label>
+                                                        <input type="text" name="zona" class="form-control" placeholder="Zona...">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                   <div class="form-group">
+                                                        <label for="barriocolonia">Barrio o colonia</label>
+                                                        <input type="text" name="barriocolonia" class="form-control" placeholder="barriocolonia...">
+                                                    </div>
+                                                </div>          
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label>Departamento</label>
+                                                        <select name="iddepartamento" id="iddepartamento" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
+                                                            @foreach($departamento as $depa)
+                                                            <option value="{{$depa->iddepartamento}}">{{$depa->nombre}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>                                                
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="form-group">
+                                                        <label>Municipio</label>
+                                                        {!! Form::select('idmunicipio',['placeholder'=>'Selecciona'],null,['id'=>'idmunicipio'])!!}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <!--Datos empleado  -->
+                                            <div class="tab-pane p-t-10 fade" id="personales">
+                                                <div class="row">
+                                                    
+                                                </div>
                                             </div>                            
-                                          
-                                            <div class="tab-pane p-t-10 fade" id="profile-tab-2">
+                                            <!--datos academicos --> 
+                                            <div class="tab-pane p-t-10 fade" id="academico">
                                             <div class="row">
                                                 <div class="form-group clearfix">
                                                     <label class="col-lg-2 control-label" for="name1"> First name *</label>
@@ -333,25 +327,83 @@
                                                         <input id="email1" name="email" type="text" class="required email form-control">
                                                     </div>
                                                 </div>
-
                                             </div>
                                             </div>
-
-                                            <div class="tab-pane p-t-10 fade" id="finish-2">
+                                            <!--Datos experiencia-->
+                                            <div class="tab-pane p-t-10 fade" id="laboral">
                                             <div class="row">
                                                 <div class="form-group clearfix">
                                                     <div class="col-lg-12">
                                                         <div class="checkbox checkbox-primary">
                                                         <input id="checkbox-h1" type="checkbox">
                                                             <label for="checkbox-h1">
-                                                                I agree with the Terms and Conditions.
+                                                                este es una experiencia.
                                                             </label>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             </div>
-                        
+                                            <!--Datos familia -->
+                                            <div class="tab-pane p-t-10 fade" id="familia">
+                                            <div class="row">
+                                                <div class="form-group clearfix">
+                                                    <div class="col-lg-12">
+                                                        <div class="checkbox checkbox-primary">
+                                                        <input id="checkbox-h1" type="checkbox">
+                                                            <label for="checkbox-h1">
+                                                                esta es una familia.
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <!--Datos referencia -->
+                                            <div class="tab-pane p-t-10 fade" id="referencia">
+                                            <div class="row">
+                                                <div class="form-group clearfix">
+                                                    <div class="col-lg-12">
+                                                        <div class="checkbox checkbox-primary">
+                                                        <input id="checkbox-h1" type="checkbox">
+                                                            <label for="checkbox-h1">
+                                                                esta es una referencia.
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <!--Datos deudas -->
+                                            <div class="tab-pane p-t-10 fade" id="deudas">
+                                            <div class="row">
+                                                <div class="form-group clearfix">
+                                                    <div class="col-lg-12">
+                                                        <div class="checkbox checkbox-primary">
+                                                        <input id="checkbox-h1" type="checkbox">
+                                                            <label for="checkbox-h1">
+                                                                esta es una deuda.
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <!--Datos Padecimientos -->
+                                            <div class="tab-pane p-t-10 fade" id="padecimiento">
+                                            <div class="row">
+                                                <div class="form-group clearfix">
+                                                    <div class="col-lg-12">
+                                                        <div class="checkbox checkbox-primary">
+                                                        <input id="checkbox-h1" type="checkbox">
+                                                            <label for="checkbox-h1">
+                                                                esta es un padecimiento.
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
                                             <ul class="pager m-b-0 wizard">
                                                 <li class="previous first" style="display:none;"><a href="#">First</a>
                                                 </li>
@@ -363,6 +415,7 @@
                                     </div>
                                 </div>
                             </div>
+                        {!!Form::close()!!}
                         </div>
                     </div>
                 </div>
@@ -393,6 +446,10 @@
         <script src="{{asset('assets/js/jquery.nicescroll.js')}}"></script>
         <script src="{{asset('assets/js/jquery.scrollTo.min.js')}}"></script>
         <script src="{{asset('assets/plugins/switchery/switchery.min.js')}}"></script>
+
+        <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
+        <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>
+
 
         <!-- Form wizard -->
         <script src="{{asset('assets/plugins/bootstrap-wizard/jquery.bootstrap.wizard.js')}}"></script>
@@ -435,6 +492,21 @@
                     }
                 });
 
+                $('.datepicker').datepicker({
+                    format: "yyyy/mm/dd",
+                    language: "es",
+                    autoclose: true
+                    });
+
+
+                $("#iddepartamento").change(event => {
+                $.get(`towns/${event.target.value}`, function(res, sta){
+                    $("#idmunicipio").empty();
+                    res.forEach(element => {
+                        $("#idmunicipio").append(`<option value=${element.idmunicipio}> ${element.nombre} </option>`);
+                            });
+                        });
+                    });
                 $('#rootwizard').bootstrapWizard({
                     'tabClass': 'nav nav-tabs navtab-custom nav-justified bg-muted',
                     'onNext': function (tab, navigation, index) {
