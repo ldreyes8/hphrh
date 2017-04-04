@@ -97,6 +97,7 @@ class PersonaController extends Controller
             }
             $persona->save();
             //dd($persona);
+            //dd($persona);
         //Datos empleado
     		$empleado = new empleado;
 			$empleado-> identificacion= $request->get('identificacion');
