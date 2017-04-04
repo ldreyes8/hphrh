@@ -30,7 +30,7 @@ class Persona extends Model
     	'idmunicipio',
         'ive',
         'parientepolitico',
-        'finiquito'
+        'finiquitoive'
     ];
 
     protected $guarder =[

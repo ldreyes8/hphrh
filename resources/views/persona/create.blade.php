@@ -66,7 +66,7 @@
                 <div class="content">
                     <div class="container" >                       
                         <div class="row">
-                        {!!Form::open(array('url'=>'persona','method'=>'POST','autocomplete'=>'off'))!!}
+                        {!!Form::open(array('url'=>'persona','method'=>'POST','autocomplete'=>'off','files'=>'true','enctype'=>'multipart/form_data'))!!}
                         {{Form::token()}}
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="card-box p-b-0">
@@ -79,14 +79,11 @@
                                     <div id="progressbarwizard" class="pull-in">
                                         <ul>
                                             <li><a href="#generales" data-toggle="tab">Datos generales</a></li>
-                                            <li><a href="#personales" data-toggle="tab">Datos personales</a></li>
                                             <li><a href="#familia" data-toggle="tab">Datos familiares</a></li>
-                                            <li><a href="#padecimiento" data-toggle="tab" >Padecimientos</a></li>
                                             <li><a href="#academico" data-toggle="tab">Informacion academicos</a></li>
                                             <li><a href="#laboral" data-toggle="tab">Experiencia laboral</a></li>
                                             <li><a href="#referencia" data-toggle="tab">Referencias(No familiares)</a></li>
-                                            <li><a href="#deudas" data-toggle="tab">Deudas</a></li>
-                                            
+                                            <li><a href="#deudas" data-toggle="tab">Otros</a></li>
                                         </ul>
 
                                         <div class="tab-content bx-s-0 m-b-0">
@@ -137,7 +134,7 @@
                                                     </div>
                                                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                         <div class="form-group">
-                                                            <label for="apellido3">Apellido de casado(a)</label>
+                                                            <label for="apellido3">Apellido de casada</label>
                                                             <input type="text" name="apellido3" class="form-control" onkeypress="return validaL(event)" maxlength="15">
                                                         </div>
                                                     </div>
@@ -205,53 +202,12 @@
                                                             {!! Form::select('idmunicipio',['placeholder'=>'Selecciona'],null,['id'=>'idmunicipio','class'=>'form-control'])!!}
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <label for="barriocolonia">Tipo de licencia</label>
-                                                       <div class="form-group">
-                                                            A <input type="checkbox" id="check">
-                                                            B <input type="checkbox" id="check">
-                                                            C <input type="checkbox" id="check">
-                                                            M <input type="checkbox" id="check">
-                                                            Ninguna <input type="checkbox" id="check">
-                                                        </div>
-                                                    </div>       
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="zona">¿Usted es una persona expuesta publicamente?</label>
-                                                            <label class="radio-inline"><input type="radio" name="ive" value="Si">Si</label>
-                                                            <label class="radio-inline"><input type="radio" name="ive" value="No">No</label>
-                                                            <!--<label>No</label>
-                                                            <input type="checkbox" id="check" onchange="javascript:showContent()"-->
-                                                        </div>
-                                                    </div> 
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="zona">¿Tiene ?</label>
-                                                            <label class="radio-inline"><input type="radio" name="parientepolitico" value="Si">Si</label>
-                                                            <label class="radio-inline"><input type="radio" name="parientepolitico" value="No">No</label>
-                                                            <!--<label>No</label>
-                                                            <input type="checkbox" id="check" onchange="javascript:showContent()"-->
-                                                        </div>
-                                                    </div>
-                                                    <!--div id="content" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                       <div class="form-group">
-                                                            <label for="barriocolonia">Barrio o colonia</label>
-                                                            <input type="text-area" name="barriocolonia" class="form-control">
-                                                        </div>
-                                                    </div-->
-                                                </div>
-                                                <ul class="pager m-b-0 wizard">
-                                                    <li class="previous"><a href="#" class="btn btn-primary waves-effect waves-light">Atras</a></li>
-                                                    <li class="next"><a href="#" class="btn btn-primary waves-effect waves-light">Siguiente</a></li>
-                                                </ul>
-                                            </div>
-                                        <!--Datos empleado  -->
-                                            <div class="tab-pane p-t-10 fade" id="personales">
-                                                <div class="row">
+
+
                                                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                        <div class="form-group">
                                                             <label for="nit">Nit *</label>
-                                                            <input type="text" name="nit" required value="{{old('nit')}}" class="form-control" maxlength="12">
+                                                            <input type="text" name="nit" required value="{{old('nit')}}" class="form-control" maxlength="9">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
@@ -260,18 +216,6 @@
                                                             <input type="text" name="afiliacionigss" class="form-control">
                                                         </div>
                                                     </div>
-                                                    <!--<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Tipo licencia</label>
-                                                            <select name="tipolicencia" class="form-control">
-                                                                <option value="N">Ninguno</option>
-                                                                <option value="A">A</option>
-                                                                <option value="B">B</option>
-                                                                <option value="C">C</option>
-                                                                <option value="M">M</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>-->
                                                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                         <div class="form-group">
                                                             <label for="numerodependientes">Numero dependientes</label>
@@ -349,12 +293,37 @@
                                                             </select>
                                                         </div>
                                                     </div>
+
+                                                    <!--<div class="col-lg-4">                                        
+                                                    <div class="col-lg-8">
+                                                        <div class="card-box">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="form-group ">
+                                                                    <label >Datos ive</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label>¿Usted es una persona expuesta publicamente?</label>
+                                                                    <label ><input type="radio" name="ive" value="Si">Si</label>
+                                                                    <label ><input type="radio" name="ive" value="No">No</label>
+                                                                </div>
+                                                            </div> 
+                                                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label>¿Tiene ?</label>
+                                                                    <label ><input type="radio" name="parientepolitico" value="Si">Si</label>
+                                                                    <label ><input type="radio" name="parientepolitico" value="No">No</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>-->
                                                 </div>
                                                 <ul class="pager m-b-0 wizard">
                                                     <li class="previous"><a href="#" class="btn btn-primary waves-effect waves-light">Atras</a></li>
                                                     <li class="next"><a href="#" class="btn btn-primary waves-effect waves-light">Siguiente</a></li>
                                                 </ul>
-                                            </div>                            
+                                            </div>
                                         <!--Datos familia -->
                                             <div class="tab-pane p-t-10 fade" id="familia">
                                                 <div class="row">
@@ -437,44 +406,16 @@
                                                     <li class="next"><a href="#" class="btn btn-primary waves-effect waves-light">Siguiente</a></li>
                                                 </ul>
                                             </div>
-                                        <!--Datos Padecimientos -->
-                                            <div class="tab-pane p-t-10 fade" id="padecimiento">
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="nombre">Padecimiento</label>
-                                                            <input type="text" id="nombre" name="nombre" class="form-control" onkeypress="return validaL(event)">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <label ></label>
-                                                        <div class="form-group">
-                                                            <button type="button" id="bt_add1" class="btn btn-primary">Agregar</button>
-                                                        </div>                 
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
-                                                        <label></label>
-                                                        <table id="detalle" class="table table-striped table-bordered table-condensed table-hover">
-                                                            <thead >
-                                                                <th>Nombre del padecimiento</th>
-                                                            </thead>
-                                                            <tfoot>
-                                                                <th></th>
-                                                            </tfoot>
-                                                            <tbody></tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                <ul class="pager m-b-0 wizard">
-                                                    <li class="previous"><a href="#" class="btn btn-primary waves-effect waves-light">Atras</a></li>
-                                                    <li class="next"><a href="#" class="btn btn-primary waves-effect waves-light">Siguiente</a></li>
-                                                </ul>
-                                            </div>
                                         <!--Datos Acaemicos -->
                                             <div class="tab-pane p-t-10 fade" id="academico">
                                                 <div class="row">
                                                     <div class="col-lg-8">
                                                         <div class="card-box">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="form-group ">
+                                                                    <label for="">Datos Academicos</label>
+                                                                </div>
+                                                            </div>
                                                             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
                                                                     <label for="titulo">Titulo *</label>
@@ -565,10 +506,10 @@
                                                         <div class="card-box">  
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="form-group ">
-                                                                    <label for="">Idiomas que maneja</label>
+                                                                    <label for="">Idiomas que domina</label>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
                                                                     <label>Idioma</label>
                                                                     <select name="ididioma" id="ididioma" class="form-control selectpicker" data-live-search="true" >
@@ -578,24 +519,25 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
                                                                     <label>Nivel</label>
-                                                                    <select name="nivel" id="nivel" class="form-control">
+                                                                    <select name="nivelI" id="niveli" class="form-control">
+                                                                        <option value="" selected="selected">Seleccione</option>
                                                                         <option value="Principiante">Principiante</option>
                                                                         <option value="Intermedio">Intermedio</option>
                                                                         <option value="Avanzado">Avanzado</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                                            <div class="col-lg-3 col-md-2 col-sm-2 col-xs-12">
                                                                 <label ></label>
                                                                 <div class="form-group">
-                                                                    <button type="button" id="bt_add8" class="btn btn-primary">Agregar</button>
+                                                                    <button type="button" id="bt_add7" class="btn btn-primary">+</button>
                                                                 </div>                 
                                                             </div>
-                                                            <div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
-                                                                <table id="detalle6" class="table table-striped table-bordered table-condensed table-hover">
+                                                            <div class="col-lg-8 col-sm-12 col-md-12 col-xs-12">
+                                                                <table id="detalle7" class="table table-striped table-bordered table-condensed table-hover">
                                                                     <thead>
                                                                         <th>Idioma</th>
                                                                         <th>Nivel</th>
@@ -758,67 +700,188 @@
                                                     <li class="next"><a href="#" class="btn btn-primary waves-effect waves-light">Siguiente</a></li>
                                                 </ul>
                                             </div>
-                                        <!--Datos deuda -->
+                                        <!--Datos varios -->
                                             <div class="tab-pane p-t-10 fade" id="deudas">
                                                 <div class="row">
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="acreedor">Acreedor</label>
-                                                            <input type="text" id="acreedor" name="acreedor" class="form-control" onkeypress="return validaL(event)">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                                        <label for="amortizacionmensual">Amortizacion mensual</label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon">Q</i></span>
-                                                            <input type="text" min="0" id="amortizacionmensual" name="amortizacionmensual" class="form-control" onkeypress="return valida(event)">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                                        <label for="montodeuda">Monto deuda</label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon">Q</i></span>
-                                                            <input type="text" min="0" id="montodeuda" name="montodeuda" class="form-control" onkeypress="return valida(event)">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                                        <label ></label>
-                                                        <div class="form-group">
-                                                            <button type="button" id="bt_add2" class="btn btn-primary">Agregar</button>
-                                                        </div>                 
-                                                    </div>
-                                                    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                                                        <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
-                                                            <thead style="background-color:#A9D0F5">
-                                                                <th>Acreedor</th>
-                                                                <th>Mensualidad</th>
-                                                                <th>Acreedor</th>
-                                                            </thead>
-                                                            <tfoot>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                            </tfoot>
-                                                            <tbody></tbody>
-                                                        </table>
-                                                    </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="form-group ">
+                                                                    <h4>PADECIMENTOS:</h4>
+                                                                    <h6>Ingrese los padecimientos que tenga o haya tenido en los últimos 6 meses.</h6>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label for="nombre">Padecimiento</label>
+                                                                    <input type="text" id="nombre" name="nombre" class="form-control" onkeypress="return validaL(event)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
+                                                                <label ></label>
+                                                                <div class="form-group">
+                                                                    <button type="button" id="bt_add1" class="btn btn-primary">Agregar</button>
+                                                                </div>                 
+                                                            </div>
+                                                        
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="form-group ">
+                                                                    <h4>LICENCIAS DE CONDUCIR:</h4>
+                                                                    <h6>Ingrese las licencias que tenga vigente actualmente para los distintos tipo de vehículo</h6>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label>Tipo licencia</label>
+                                                                    <select name="licencia" id="licencia" class="form-control selectpicker" data-live-search="true" >
+                                                                        @foreach($licencia as $cat)
+                                                                            <option value="{{$cat->idlicencia}}">{{$cat->tipolicencia}}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label for="vigencia">Vigencia</label>
+                                                                    <input type="text" id="vigencia" name="vigencia" maxlength="4" onkeypress="return valida(event)" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                                                <label ></label>
+                                                                <div class="form-group">
+                                                                    <button type="button" id="bt_add8" class="btn btn-primary">Agregar</button>
+                                                                </div>                 
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="form-group ">
+                                                                    <h4>INFORMACIÓN REQUERIDA POR IVE</h4>
+                                                                    <h6>Si tiene deudas con uno o varios acreedores por favor consignelo en el siguiente espacio, esta información es para cumplir con los requerimientos de IVE según la legislación actual y serán tratados confidencialmente.</h6>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label for="acreedor">Acreedor</label>
+                                                                    <input type="text" id="acreedor" name="acreedor" class="form-control" onkeypress="return validaL(event)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                                <label for="amortizacionmensual">Amortizacion mensual</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">Q</i></span>
+                                                                    <input type="text" min="0" id="amortizacionmensual" name="amortizacionmensual" class="form-control" onkeypress="return valida(event)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                                <label for="montodeuda">Monto deuda</label>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon">Q</i></span>
+                                                                    <input type="text" min="0" id="montodeuda" name="montodeuda" class="form-control" onkeypress="return valida(event)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
+                                                                <label ></label>
+                                                                <div class="form-group">
+                                                                    <button type="button" id="bt_add2" class="btn btn-primary">Agregar</button>
+                                                                </div>                 
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-4 col-sm-6 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label>¿Usted es una persona expuesta publicamente?</label>
+                                                                    <label ><input type="radio" name="ive" value="Si" onclick="Finiquito(this)">Si</label>
+                                                                    <label ><input type="radio" name="ive" value="No" onclick="Finiquito(this)">No</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-4 col-sm-6 col-xs-12" id="Dfini" style="display: none;">
+                                                                <div class="form-group">
+                                                                    <label for="archivo">Finiquito</label>
+                                                                    <input type="file" name="archivo" class="form-control">
+                                                                </div>
+                                                            </div> 
+                                                            <div class="col-lg-12 col-md-4 col-sm-6 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label>¿Tiene algun pariente politico?</label>
+                                                                    <label ><input type="radio" name="parientepolitico" value="Si" onclick="FPariente(this)">Si</label>
+                                                                    <label ><input type="radio" name="parientepolitico" value="No" onclick="FPariente(this)">No</label>
+                                                                </div>
+                                                            </div>
+                                                            <div id="Dpariente" style="display: none;">
+                                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <label for="nombrep">Nombre</label>
+                                                                        <input type="text" name="nombrep" class="form-control" onkeypress="return validaL(event)">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <label for="puestop">Puesto</label>
+                                                                        <input type="text" name="puestop" class="form-control" onkeypress="return validaL(event)">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <label for="dependencia">Dependencia</label>
+                                                                        <input type="text" name="dependencia" class="form-control" onkeypress="return validaL(event)">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                     <div class="col-lg-12 col-md-4 col-sm-6 col-xs-12">
                                                         <label for="montodeuda">Hago constar que toda la información consignada, es verídica y autorizo a Fundación Hábitat para la Humanidad, confirmar los datos indicados.</label>
-                                                        <input type="checkbox" id="confirma" onchange="javascript:showContent()">
+                                                        <input type="checkbox" class="checkbox-danger" id="confirma" onchange="javascript:showContent()">
                                                     </div>
+
+                                                            
+
+                                                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                                                <label></label>
+                                                                <table id="detalle" class="table table-striped table-bordered table-condensed table-hover">
+                                                                    <thead style="background-color: #A9D0F5">
+                                                                        <th>Nombre del padecimiento</th>
+                                                                    </thead>
+                                                                    <tfoot>
+                                                                        <th></th>
+                                                                    </tfoot>
+                                                                    <tbody></tbody>
+                                                                </table>
+                                                            </div>
+
+                                                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                                                <label></label>
+                                                                <table id="detalle8" class="table table-striped table-bordered table-condensed table-hover">
+                                                                    <thead style="background-color: #A9D0F5">
+                                                                        <th class="col-lg-3">Licencia</th>
+                                                                        <th class="col-lg-3">Vigencia</th>
+                                                                        <th class="col-lg-6">-</th>
+                                                                    </thead>
+                                                                    <tfoot>
+                                                                        <th></th>
+                                                                        <th></th>
+                                                                    </tfoot>
+                                                                    <tbody>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+
+                                                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                                                <label></label>
+                                                                <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
+                                                                    <thead style="background-color:#A9D0F5">
+                                                                        <th>Acreedor</th>
+                                                                        <th>Mensualidad</th>
+                                                                        <th>Acreedor</th>
+                                                                    </thead>
+                                                                    <tfoot>
+                                                                        <th></th>
+                                                                        <th></th>
+                                                                        <th></th>
+                                                                    </tfoot>
+                                                                    <tbody></tbody>
+                                                                </table>
+                                                            </div>
                                                 </div>
                                                 <ul class="pager m-b-0 wizard">
                                                     <li class="previous"><a href="#" class="btn btn-primary waves-effect waves-light">Atras</a></li>
                                                     <li class="next"><button class="btn btn-primary waves-effect waves-light" id="gdr" type="submit">Enviar datos</button></li>
                                                 </ul>
                                             </div>
-                                        <!--Otros Datos 
-                                                <ul class="pager m-b-0 wizard">
-                                               <li class="previous first" style="display:none;"><a href="#">First</a>
-                                                </li>
-                                                <li class="previous"><a href="#" class="btn btn-primary waves-effect waves-light">Atras</a></li>
-                                                <li class="next last" style="display:none;"><a href="#">Last</a></li>
-                                                <li class="next"><a href="#" class="btn btn-primary waves-effect waves-light">Siguiente</a></li></ul>-->
                                         </div>
                                     </div>
                                 </div>
@@ -890,6 +953,12 @@
                 $('#bt_add6').click(function() {
                     agregar6();
                 });
+                $('#bt_add7').click(function() {
+                    agregar7();
+                });
+                $('#bt_add8').click(function() {
+                    agregar8();
+                });
 
                 $('#basicwizard').bootstrapWizard({'tabClass': 'nav nav-tabs navtab-custom nav-justified bg-muted'});
 
@@ -943,6 +1012,7 @@
             var contEx=0;
             var contAc=0;
             var contId=0;
+            var contL=0;
             $("#gdr").hide();
         //confirmacion de formulario
             function showContent() {
@@ -952,6 +1022,28 @@
                 }
                 else {
                     $("#gdr").hide();
+                }
+            }
+            function Finiquito(elemento) {
+                element = document.getElementById("Dfini");
+                if (elemento.value=="Si") {
+                    element.style.display='block';
+                }
+                else 
+                { if (elemento.value=="No") {
+                    element.style.display='none';
+                }
+                }
+            }
+            function FPariente(elemento) {
+                element = document.getElementById("Dpariente");
+                if (elemento.value=="Si") {
+                    element.style.display='block';
+                }
+                else 
+                { if (elemento.value=="No") {
+                    element.style.display='none';
+                }
                 }
             }
         //Departamento combo
@@ -1053,6 +1145,10 @@
                 $("#nivel").val("");
                 $("#fingreso").val("");
                 $("#fsalida").val("");
+            }
+            function limpiar7()
+            {
+                $("#vigencia").val("");
             }
         //Funciones agregar
             function agregar1()
@@ -1172,7 +1268,7 @@
                 }
                 else
                 {
-                    alert('Ingrese una empresa')
+                    alert('Campos requerido')
                 }   
             }
 
@@ -1199,6 +1295,44 @@
                 {
                     alert('Ingrese un titulo')
                 }   
+            }
+            function agregar7()
+            {
+
+                idioma=$("#ididioma").val();
+                idiomaTex=$("#ididioma option:selected").text();
+                niveli=$("#niveli").val();
+                if(!$('#niveli').val())
+                {
+                    alert('seleccione un nivel')
+                }
+                else
+                {
+                    var fila='<tr class="selected" id="fila'+contId+'"><td><input type="hidden" name="eidioma[]" value="'+idioma+'">'+idiomaTex+'</td> <td><input type="hidden" name="niveli[]" value="'+niveli+'">'+niveli+'</td> </tr>';
+                    contId++;
+                    $('#detalle7').append(fila);
+                    //alert('valor seleccionado')
+                }
+
+            }
+            function agregar8()
+            {
+
+                licencia=$("#licencia").val();
+                licenciatex=$("#licencia option:selected").text();
+                vigencia=$("#vigencia").val();
+                if(vigencia!="")
+                {
+                    var fila='<tr class="selected" id="fila'+contL+'"><td><input type="hidden" name="licenciaid[]" value="'+licencia+'">'+licenciatex+'</td> <td><input type="hidden" name="vigencia[]" value="'+vigencia+'">'+vigencia+'</td> </tr>';
+                    contL++;
+                    limpiar7();
+                    $('#detalle8').append(fila);
+                }
+                else
+                {
+                    alert('Campo vigencia obligatorio')
+                }
+
             }
             function evaluar()
             {
