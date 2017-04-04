@@ -189,7 +189,7 @@ class PersonaController extends Controller
             $cont5 = 0;
             $cont6 = 0;
             $cont7 = 0;
-            //sentencias if 
+             
 
         //while Licencia
             if ($vigencia === null)
