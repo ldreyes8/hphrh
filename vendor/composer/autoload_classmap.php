@@ -28,7 +28,6 @@ return array(
     'App\\Http\\Middleware\\TrimStrings' => $baseDir . '/app/Http/Middleware/TrimStrings.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Http\\Requests\\PersonaRequest' => $baseDir . '/app/Http/Requests/PersonaRequest.php',
-    'App\\Http\\Requests\\VRequest' => $baseDir . '/app/Http/Requests/VRequest.php',
     'App\\Padecimientos' => $baseDir . '/app/Padecimientos.php',
     'App\\Persona' => $baseDir . '/app/Persona.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',

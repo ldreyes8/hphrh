@@ -329,7 +329,6 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\PersonaRequest' => __DIR__ . '/../..' . '/app/Http/Requests/PersonaRequest.php',
-        'App\\Http\\Requests\\VRequest' => __DIR__ . '/../..' . '/app/Http/Requests/VRequest.php',
         'App\\Padecimientos' => __DIR__ . '/../..' . '/app/Padecimientos.php',
         'App\\Persona' => __DIR__ . '/../..' . '/app/Persona.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
