@@ -6,9 +6,12 @@
         <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
         <meta name="author" content="Coderthemes">
 
-        <link rel="shortcut icon" href="{{asset('assets/images/logo.ico')}}">
+        
 
         <title>Habitat para la Humanidad</title>
+
+        @section('estilos')
+        <link rel="shortcut icon" href="{{asset('assets/images/logo.ico')}}">
 
         <link href="{{asset('assets/plugins/switchery/switchery.min.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/plugins/jquery-circliful/css/jquery.circliful.css')}}" rel="stylesheet" type="text/css" />
@@ -20,19 +23,13 @@
         <link href="{{asset('assets/css/pages.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/menu.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/responsive.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/icomoon/style.css')}}" rel="stylesheet" type="text/css">
 
         <script src="{{asset('assets/js/modernizr.min.js')}}"></script>
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
+        @show
 
-        
     </head>
-
 
     <body class="fixed-left">
         
@@ -46,7 +43,12 @@
                 <div class="topbar-left">
                     <div class="text-center">
                        <a href="#" class="logo">
+                       <!--
+                       <i class="icon-uRdebe4TIM"></i>
+                       -->
+                       <span>
                        <img src="{{asset('assets/images/Habitat/logoh.png')}}" alt="" />
+                       </span>
                        </a>
                     </div>
                 </div>
@@ -79,9 +81,9 @@
                             </ul>
 
                             <form role="search" class="navbar-left app-search pull-left hidden-xs">
-			                     <input type="text" placeholder="Search..." class="form-control app-search-input">
-			                     <a href=""><i class="fa fa-search"></i></a>
-			                </form>
+                                 <input type="text" placeholder="Search..." class="form-control app-search-input">
+                                 <a href=""><i class="fa fa-search"></i></a>
+                            </form>
 
                             <ul class="nav navbar-nav navbar-right pull-right">
 
@@ -172,18 +174,18 @@
 
                     <div id="sidebar-menu">
                         <ul>
-                            <li class="menu-title">Main</li>
+                            <li class="menu-title">Principal</li>
 
                             <li>
                                 <a href="index.html" class="waves-effect waves-primary"><i
-                                        class="md md-dashboard"></i><span> Dashboard </span></a>
+                                class="md md-dashboard"></i><span> Dashboard </span></a>
                             </li>
 
                             <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="md md-palette"></i> <span> UI Kit </span>
+                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="md md-palette"></i> <span>Ausencia</span>
                                  <span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">
-                                    <li><a href="ui-buttons.html">Buttons</a></li>
+                                    <li><a href="{{ url('/empleado/vacaciones')}}">Solicitud</a></li>
                                     <li><a href="ui-panels.html">Panels</a></li>
                                     <li><a href="ui-portlets.html">Portlets</a></li>
                                     <li><a href="ui-checkbox-radio.html">Checkboxs-Radios</a></li>
@@ -330,7 +332,7 @@
                 <div class="user-detail">
                     <div class="dropup">
                         <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true">
-                            <img  src="assets/images/users/avatar-2.jpg" alt="user-img" class="img-circle">
+                            <img  src="{{asset('assets/images/users/avatar-2.jpg')}}" alt="user-img" class="img-circle">
                             <span class="user-info-span">
                                 <h5 class="m-t-0 m-b-0">John Deo</h5>
                                 <p class="text-muted m-b-0">
@@ -356,46 +358,20 @@
             <!-- Start right Content here -->
           
 
-             <div class="content-page">
+            <div class="content-page">
                 <!-- Start content -->
                 <div class="content">
                     <div class="container">
-
-                        <!-- Page-Title -->
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="page-title-box">
-                                    <ol class="breadcrumb pull-right">
-                                        <li><a href="#">Minton</a></li>
-                                        <li class="active">Dashboard</li>
-                                    </ol>
-                                    <h4 class="page-title">Welcome !</h4>
-                                </div>
-                            </div>
-                        </div>
-
-                <!-- /.box-header -->
+                        @yield('contenido')
                
-                    <div class="row">
-                        <div class="col-sm-6 col-lg-3">
-                                  <!--Contenido-->
-                              @yield('contenido')
-                                  <!--Fin Contenido-->
-                           </div>
-                        </div>
                 
-                </div><!-- /.row -->
+                    </div><!-- /.row -->   
                 </div>
-              <footer class="footer text-right">
+                <footer class="footer text-right">
                     2017 © Minton.
                 </footer><!-- /.box-body -->
-              </div><!-- /.box -->
-            
-
-         
-            
-
-
+            </div><!-- /.box -->
+    
             
              
             
@@ -639,13 +615,13 @@
             <!-- /Right-bar -->
 
         </div>
-        <!-- END wrapper -->
 
+        <!-- END wrapper -->
+        @section('fin') 
+        
 
     
-        <script>
-            var resizefunc = [];
-        </script>
+       
 
         <!-- Plugins  -->
         <script src="{{asset('assets/js/jquery.min.js')}}"></script>
@@ -669,7 +645,7 @@
         <script src="{{asset('assets/plugins/jquery-sparkline/jquery.sparkline.min.js')}}"></script>
 
         <!-- skycons -->
-        <script src="{{asset('assets/plugins/skyicons/skycons.min.js" type="text/javascript')}}"></script>
+        <script src="{{asset('assets/plugins/skyicons/skycons.min.js')}}" type="text/javascript"></script>
         
         <!-- Page js  -->
         <script src="{{asset('assets/pages/jquery.dashboard.js')}}"></script>
@@ -677,8 +653,14 @@
         <!-- Custom main Js -->
         <script src="{{asset('assets/js/jquery.core.js')}}"></script>
         <script src="{{asset('assets/js/jquery.app.js')}}"></script>
-
         
+
+        @show
+
+        @section('text') 
+         <script>
+            var resizefunc = [];
+        </script>
         <script type="text/javascript">
             jQuery(document).ready(function($) {
                 $('.counter').counterUp({
@@ -707,6 +689,6 @@
             };
 
         </script>
-    
+        @show
     </body>
 </html>
