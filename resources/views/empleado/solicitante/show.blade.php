@@ -5,7 +5,7 @@
   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
     <div class="form-group">
       <label for="nombre">Solicitante</label>
-      <p>{{$persona->nombre1.': '.$persona->apellido1}}</p>
+      <p>{{$persona->nombre1.' '.$persona->nombre2.' '.$persona->apellido1.' '.$persona->apellido2}}</p>
     </div>
   </div>
   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">

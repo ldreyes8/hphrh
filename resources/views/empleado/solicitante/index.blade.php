@@ -36,6 +36,8 @@
                  <td>
                  <a href="{{URL::action('SController@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
                  <a href=""><button class="btn btn-danger">Anular</button></a>
+
+                 <a href="{{URL::action('SController@Spdf',$em->identificacion)}}"><button class="btn btn-primary">Descargar</button></a>
                  
                  </td>
                  </tr>
