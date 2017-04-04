@@ -967,7 +967,7 @@ table.focus-on tbody tr.focused td {
 }
 .table-rep-plugin .sticky-table-header.fixed-solution {
   top: 70px !important;
-}
+} 
 .modal-block {
   background: transparent;
   margin: 40px auto;

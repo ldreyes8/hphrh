@@ -27,3 +27,17 @@ Route::resource('persona','PersonaController');
 
 Route::get('persona/towns/{id}', 'PersonaController@getTowns');
 //Route::get('layouts/towns/{id}', 'PersonaController@getTowns');
+
+// Rutas Creados por LDRL
+
+Route::group(['prefix'=>'empleado'],function(){
+	Route::get('vacaciones','VController@create');
+	Route::post('vacaciones','VController@store');
+	Route::resource('solicitante','SController'); // SController = SolicitanteController
+	Route::get('Spdf/{id}', 'SController@Spdf');
+});
+
+Route::get('pdf','SController@pdf');
+
+
+///
