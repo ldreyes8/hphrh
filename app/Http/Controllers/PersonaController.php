@@ -84,11 +84,17 @@ class PersonaController extends Controller
     		$persona-> idmunicipio = $request->get('idmunicipio');
             $persona-> ive = $request->get('ive');
             $persona-> parientepolitico = $request->get('parientepolitico');
-
             $img=$request->file('archivo');
-            $file_route=time().'_'.$img->getClientOriginalName();
-            Storage::disk('archivos')->put($file_route, file_get_contents($img->getRealPath() ) );
-            $persona-> finiquitoive=$file_route;
+            if($img === null)
+            {
+                $persona->finiquitoive="";
+            }
+            else
+            {
+                $file_route=time().'_'.$img->getClientOriginalName();
+                Storage::disk('archivos')->put($file_route, file_get_contents($img->getRealPath() ) );
+                $persona-> finiquitoive=$file_route;    
+            }
             $persona->save();
             //dd($persona);
         //Datos empleado
