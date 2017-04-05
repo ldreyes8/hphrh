@@ -11,9 +11,11 @@ class VRequest extends FormRequest
      *
      * @return bool
      */
+    protected $redirect = "empleado/vacaciones";
+    
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +26,31 @@ class VRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'fechainicio'=>'required',
+            'fechafin'=>'required',
         ];
+    }
+
+    public function messages(){
+        return [
+        'fechainicio.required' => 'El campo fecha inicio es requerido',
+        'fechafin.required'=>'El campo fecha final es requerido'
+        //'fechainicio.min' => 'El minimo permitido son 3 caracteres'
+        //'fechainicio.max' => 'El maximo permitido son 12 caracteres'
+         ];
+    }
+
+    public function response(array $errors)
+    {
+        if($this->ajax())
+        {
+            return response()->json($errors,200);
+        }
+        else
+        {
+            return redirect($this->redirect)
+            ->withErrors($errors, 'formulario')
+            ->withInput();
+        }
     }
 }
