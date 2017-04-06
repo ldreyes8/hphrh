@@ -35,9 +35,19 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::post('vacaciones','VController@store');
 	Route::resource('solicitante','SController'); // SController = SolicitanteController
 	Route::get('Spdf/{id}', 'SController@Spdf');
+	Route::resource('perfil','PerController'); // PerController = PerfilController
 });
 
+Route::get('/', function () {
+    return view('auth/login');
+});
+
+Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('pdf','SController@pdf');
 
 
 ///
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+Route::resource('seguridad/usuario','UController'); 

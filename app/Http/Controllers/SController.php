@@ -19,15 +19,16 @@ use Illuminate\Support\Collection;
 
 class SController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function pdf()
     {
         $empleados = Persona::all();
         $pdf= PDF::loadView('empleado.solicitante.pdf',['empleados' => $empleados]);
         return $pdf->download('empleados.pdf');
     }
-
-
-
     public function Spdf($id)
     {
         $persona=DB::table('persona as p')
@@ -101,7 +102,7 @@ class SController extends Controller
         $factual = Carbon::now('America/Guatemala');
         $factual = $factual->format('d-m-Y h:i A'); 
         //$factual = $factual->toDateTimeString();
-/*
+        /*
         return view ('empleado.solicitante.pdf',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"factual"=>$factual,"fnac"=>$fnac]);
         */
         
@@ -124,7 +125,7 @@ class SController extends Controller
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre')
             ->orderBy('e.idempleado','desc')
             ->where('s.statusemp','=','solicitante')
-            ->paginate(15);
+            ->paginate(12);
 
             return view('empleado.solicitante.index',["empleados"=>$empleados,"searchText"=>$query]);
         }
@@ -191,10 +192,7 @@ class SController extends Controller
         ->select('pad.nombre')
         ->where('p.identificacion','=',$id)
         ->get();
-
-       
-
-        
+      
         return view('empleado.solicitante.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos]);
     }
 }
