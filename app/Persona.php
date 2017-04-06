@@ -21,7 +21,6 @@ class Persona extends Model
         'apellido3',
     	'telefono',
         'celular',
-        'fechanac',
         'avenida',
         'calle',
         'nomenclatura',
@@ -30,7 +29,12 @@ class Persona extends Model
     	'idmunicipio',
         'ive',
         'parientepolitico',
-        'finiquitoive'
+        'finiquitoive',
+        'fechanac',
+        'correo',
+        'genero',
+        'idetnia',
+        'idnacionalidad'
     ];
 
     protected $guarder =[

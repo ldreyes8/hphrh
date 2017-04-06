@@ -55,8 +55,9 @@ class PersonaController extends Controller
     	$afiliados=DB::table('afiliado')->get();
     	$idiomas = DB::table('idioma')->get();
         $licencia = DB::table('licencia')->get();
-        $empleado = DB::table('empleado')->get();
-    	return view("persona.create",["departamento"=>$departamento,"estadocivil"=>$estadocivil,"idiomas"=>$idiomas,"puestos"=>$puestos,"afiliados"=>$afiliados,"licencia"=>$licencia,"empleado"=>$empleado]);
+        $etnia = DB::table('etnia')->get();
+        $nacionalidad = DB::table('nacionalidad')->get();
+    	return view("persona.create",["departamento"=>$departamento,"estadocivil"=>$estadocivil,"idiomas"=>$idiomas,"puestos"=>$puestos,"afiliados"=>$afiliados,"licencia"=>$licencia,"etnia"=>$etnia,"nacionalidad"=>$nacionalidad]);
     }
 
     public function store(PersonaRequest $request)
@@ -75,7 +76,10 @@ class PersonaController extends Controller
             $persona-> apellido3 = $request->get('apellido3');
     		$persona-> telefono = $request->get('telefono');
             $persona-> celular = $request->get('celular');
-    		$persona-> fechanac = $request->get('fechanac');
+            $fechanacs=$request->get('fechanac');
+            $fechanacc=Carbon::createFromFormat('d/m/Y',$fechanacs);
+            $fecha=$fechanacc->format('Y-m-d');
+            $persona-> fechanac = $fecha;
             $persona-> avenida = $request->get('avenida');
             $persona-> calle = $request->get('calle');
             $persona-> nomenclatura = $request->get('nomenclatura');
@@ -95,9 +99,11 @@ class PersonaController extends Controller
                 Storage::disk('archivos')->put($file_route, file_get_contents($img->getRealPath() ) );
                 $persona-> finiquitoive=$file_route;    
             }
+            $persona-> correo=$request->get('correo');
+            $persona-> genero=$request->get('genero');
+            $persona-> idetnia=$request->get('idetnia');
+            $persona-> idnacionalidad=$request->get('idnacionalidad');
             $persona->save();
-            //dd($persona);
-            //dd($persona);
         //Datos empleado
     		$empleado = new empleado;
 			$empleado-> identificacion= $request->get('identificacion');
@@ -151,8 +157,8 @@ class PersonaController extends Controller
             $establecimiento=$request->get('establecimiento');
             $duracion=$request->get('duracion');
             $nivel=$request->get('nivel');
-            $fingreso=$request->get('fingreso');
-            $fsalida=$request->get('fsalida');
+            $fsalida = $request->get('fsalida');
+            $fechai=$request->get('fingreso');
             $pidmunicipio=$request->get('pidmunicipio');
         //Datos Experiencia
             $empresa=$request->get('empresa');
@@ -246,13 +252,17 @@ class PersonaController extends Controller
             {
                 while($cont5 < count($titulo))
                 {
+                    $fechai[$cont5]=Carbon::createFromFormat('d/m/Y',$fechai[$cont5]);
+                    $fechai[$cont5]=$fechai[$cont5]->format('Y-m-d');
+                    $fsalida[$cont5]=Carbon::createFromFormat('d/m/Y',$fsalida[$cont5]);
+                    $fsalida[$cont5]=$fsalida[$cont5]->format('Y-m-d');
                     $academicos = new Academico;
                     $academicos-> titulo = $titulo[$cont5];
                     $academicos-> establecimiento = $establecimiento[$cont5];
                     $academicos-> duracion = $duracion[$cont5];
                     $academicos-> nivel = $nivel[$cont5];
-                    $academicos-> fingreso = $fingreso[$cont5];
-                    $academicos-> fsalida = $fsalida[$cont5];
+                    $academicos-> fsalida=$fsalida[$cont5];
+                    $academicos-> fingreso =$fechai[$cont5];
                     $academicos-> idmunicipio = $pidmunicipio[$cont5];
                     $academicos-> idempleado = $empleado->idempleado;
                     $academicos-> identificacion = $empleado->identificacion;
@@ -375,7 +385,8 @@ class PersonaController extends Controller
     	{
     		DB::rollback();    		
     	}
-    	return Redirect::to('persona/create');
+    	//return Redirect::to('persona/create');
+        return Redirect::to('persona');
     }
 
 }
