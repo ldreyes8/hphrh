@@ -98,233 +98,251 @@
                                             <div class="tab-pane p-t-10 fade" id="generales">
                                                 <div class="row" >
                                                     <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="identificacion">Identicación *</label>
-                                                            <input type="text" name="identificacion" required value="{{old('identificacion')}}" maxlength="13" onkeypress="return valida(event)"  class="form-control" >
+                                                        <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                                                                <label for="identificacion">Identicación *</label>
+                                                            <div class="form-group">
+                                                                <input type="text" name="identificacion" maxlength="13" onkeypress="return valida(event)"  class="form-control">
+                                                                @if($errors->has('identificacion'))
+                                                                <span style="color: red;">{{$errors->first('identificacion')}}</span>
+                                                                @endif
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
+                                                    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <label for="nombre1">Primer nombre *</label>
-                                                            <input type="text" name="nombre1" required value="{{old('nombre1')}}" class="form-control" onkeypress="return validaL(event)" maxlength="12">
+                                                            <div class="form-group">
+                                                                <input type="text" name="nombre1"  class="form-control" onkeypress="return validaL(event)" maxlength="12" >
+                                                                @if($errors->has('nombre1'))
+                                                                <span style="color: red;">{{$errors->first('nombre1')}}</span>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label for="nombre2">Segundo nombre</label>
+                                                                <input type="text" name="nombre2" class="form-control" onkeypress="return validaL(event)" maxlength="12">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label for="nombre3">Tercer nombre</label>
+                                                                <input type="text" name="nombre3" class="form-control" onkeypress="return validaL(event)" maxlength="12">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label for="apellido1">Primer apellido *</label>
+                                                                <input type="text" name="apellido1"  class="form-control" onkeypress="return validaL(event)" maxlength="15">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label for="apellido2">Segundo apellido</label>
+                                                                <input type="text" name="apellido2" class="form-control" onkeypress="return validaL(event)" maxlength="15">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label for="apellido3">Apellido de casada</label>
+                                                                <input type="text" name="apellido3" class="form-control" onkeypress="return validaL(event)" maxlength="15">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="nombre2">Segundo nombre</label>
-                                                            <input type="text" name="nombre2" class="form-control" onkeypress="return validaL(event)" maxlength="12">
+                                                    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <label for="telefono">Telefono </label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">502</i></span>
+                                                                <input type="text" maxlength="8" name="telefono" onkeypress="return valida(event)" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <label for="celular">Celular *</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">502</i></span>
+                                                                <input type="text" maxlength="8" name="celular"  onkeypress="return valida(event)" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label for="fechanac">Fecha de nacimiento *</label>
+                                                                <input id="dato1" type="text" class="form-control" name="fechanac">
+                                                            </div>
+                                                        </div>    
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                           <div class="form-group">
+                                                                <label for="avenida">Avenida</label>
+                                                                <input type="text"  name="avenida" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                           <div class="form-group">
+                                                                <label for="calle">Calle</label>
+                                                                <input type="text" name="calle" class="form-control">
+                                                            </div>
+                                                        </div> 
+                                                        <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
+                                                           <div class="form-group">
+                                                                <label for="nomenclatura">Nomenclatura</label>
+                                                                <input type="text" name="nomenclatura" class="form-control">
+                                                            </div>
+                                                        </div> 
+                                                        <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
+                                                           <div class="form-group">
+                                                                <label for="zona">Zona</label>
+                                                                <input type="text" maxlength="2" name="zona" class="form-control">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="nombre3">Tercer nombre</label>
-                                                            <input type="text" name="nombre3" class="form-control" onkeypress="return validaL(event)" maxlength="12">
+                                                    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                           <div class="form-group">
+                                                                <label for="barriocolonia">Barrio o colonia</label>
+                                                                <input type="text-area" name="barriocolonia" class="form-control">
+                                                            </div>
+                                                        </div>          
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label>Departamento</label>
+                                                                <select name="iddepartamento" id="iddepartamento" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
+                                                                    @foreach($departamento as $depa)
+                                                                    <option value="{{$depa->iddepartamento}}">{{$depa->nombre}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>                                                
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label>Municipio</label>
+                                                                {!! Form::select('idmunicipio',['placeholder'=>'Selecciona'],null,['id'=>'idmunicipio','class'=>'form-control'])!!}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label>Nacionalidad</label>
+                                                                <select name="idnacionalidad" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
+                                                                    @foreach($nacionalidad as $nac)
+                                                                    <option value="{{$nac->idnacionalidad}}">{{$nac->nombre}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>                                                
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label>Etnia</label>
+                                                                <select name="idetnia" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
+                                                                    @foreach($etnia as $et)
+                                                                    <option value="{{$et->idetnia}}">{{$et->nombre}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>                                                
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="apellido1">Primer apellido *</label>
-                                                            <input type="text" name="apellido1" required value="{{old('apellido1')}}" class="form-control" onkeypress="return validaL(event)" maxlength="15">
+                                                    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                           <div class="form-group">
+                                                                <label for="nit">Nit *</label>
+                                                                <input type="text" name="nit"  class="form-control" maxlength="9">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label for="afiliacionigss">Afiliacion igss</label>
+                                                                <input type="text" name="afiliacionigss" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label for="numerodependientes">Numero dependientes</label>
+                                                                <input type="number" name="numerodependientes" min="0" class="form-control" onkeypress="return valida(event)">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label for="aportemensual">Aporte mensual</label>
+                                                                <input type="number" name="aportemensual" min="0" class="form-control" onkeypress="return valida(event)">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label>Vivienda</label>
+                                                                <select name="vivienda" class="form-control">
+                                                                    <option value="casa propia">casa propia</option>
+                                                                    <option value="vive con familiares">vive con familiares</option>
+                                                                    <option value="Alquila">Alquila</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <label for="alquilermensual">Alquiler mensual</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">Q</i></span>
+                                                                <input type="text" min="0" name="alquilermensual" class="form-control" onkeypress="return valida(event)">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="apellido2">Segundo apellido</label>
-                                                            <input type="text" name="apellido2" class="form-control" onkeypress="return validaL(event)" maxlength="15">
+                                                    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                                                        
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <label for="otrosingresos">Otros ingresos</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">Q</i></span>
+                                                                <input type="text" min="0" name="otrosingresos" class="form-control" onkeypress="return valida(event)">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <label for="pretension">Pretension *</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">Q</i></span>
+                                                                <input type="text" onkeypress="return valida(event)" min="0" name="pretension" class="form-control">
+                                                                <span class="input-group-addon">.00</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label>Estado civil</label>
+                                                                <select name="idcivil" class="form-control selectpicker" data-live-search="true">
+                                                                    @foreach($estadocivil as $cat)
+                                                                        <option value="{{$cat->idcivil}}">{{$cat->estado}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>              
+                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label>Puesto</label>
+                                                                <select name="idpuesto" class="form-control selectpicker" data-live-search="true">
+                                                                    @foreach($puestos as $cat)
+                                                                        <option value="{{$cat->idpuesto}}">{{$cat->nombre}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label>¿En qué afiliado le gustaría aplicar?</label>
+                                                                <select name="idafiliado" class="form-control selectpicker" data-live-search="true">
+                                                                    @foreach($afiliados as $cat)
+                                                                        <option value="{{$cat->idafiliado}}">{{$cat->nombre}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="apellido3">Apellido de casada</label>
-                                                            <input type="text" name="apellido3" class="form-control" onkeypress="return validaL(event)" maxlength="15">
+                                                    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                           <div class="form-group">
+                                                                <label for="correo">Email</label>
+                                                                <input type="email" name="correo" class="form-control">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <label for="telefono">Telefono </label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon">502</i></span>
-                                                            <input type="text" maxlength="8" name="telefono" onkeypress="return valida(event)" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <label for="celular">Celular *</label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon">502</i></span>
-                                                            <input type="text" maxlength="8" name="celular" required value="{{old('celular')}}" onkeypress="return valida(event)" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="fechanac">Fecha de nacimiento *</label>
-                                                            <input id="dato1" type="text" class="form-control" name="fechanac">
-                                                        </div>
-                                                    </div>    
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                       <div class="form-group">
-                                                            <label for="avenida">Avenida</label>
-                                                            <input type="text"  name="avenida" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                       <div class="form-group">
-                                                            <label for="calle">Calle</label>
-                                                            <input type="text" name="calle" class="form-control">
-                                                        </div>
-                                                    </div> 
-                                                    <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
-                                                       <div class="form-group">
-                                                            <label for="nomenclatura">Nomenclatura</label>
-                                                            <input type="text" name="nomenclatura" class="form-control">
-                                                        </div>
-                                                    </div> 
-                                                    <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
-                                                       <div class="form-group">
-                                                            <label for="zona">Zona</label>
-                                                            <input type="text" maxlength="2" name="zona" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                       <div class="form-group">
-                                                            <label for="barriocolonia">Barrio o colonia</label>
-                                                            <input type="text-area" name="barriocolonia" class="form-control">
-                                                        </div>
-                                                    </div>          
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Departamento</label>
-                                                            <select name="iddepartamento" id="iddepartamento" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
-                                                                @foreach($departamento as $depa)
-                                                                <option value="{{$depa->iddepartamento}}">{{$depa->nombre}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>                                                
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Municipio</label>
-                                                            {!! Form::select('idmunicipio',['placeholder'=>'Selecciona'],null,['id'=>'idmunicipio','class'=>'form-control'])!!}
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Nacionalidad</label>
-                                                            <select name="idnacionalidad" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
-                                                                @foreach($nacionalidad as $nac)
-                                                                <option value="{{$nac->idnacionalidad}}">{{$nac->nombre}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>                                                
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Etnia</label>
-                                                            <select name="idetnia" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
-                                                                @foreach($etnia as $et)
-                                                                <option value="{{$et->idetnia}}">{{$et->nombre}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>                                                
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                       <div class="form-group">
-                                                            <label for="nit">Nit *</label>
-                                                            <input type="text" name="nit" required value="{{old('nit')}}" class="form-control" maxlength="9">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="afiliacionigss">Afiliacion igss</label>
-                                                            <input type="text" name="afiliacionigss" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="numerodependientes">Numero dependientes</label>
-                                                            <input type="number" name="numerodependientes" min="0" class="form-control" onkeypress="return valida(event)">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="aportemensual">Aporte mensual</label>
-                                                            <input type="number" name="aportemensual" min="0" class="form-control" onkeypress="return valida(event)">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Vivienda</label>
-                                                            <select name="vivienda" class="form-control">
-                                                                <option value="casa propia">casa propia</option>
-                                                                <option value="vive con familiares">vive con familiares</option>
-                                                                <option value="Alquila">Alquila</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <label for="alquilermensual">Alquiler mensual</label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon">Q</i></span>
-                                                            <input type="text" min="0" name="alquilermensual" class="form-control" onkeypress="return valida(event)">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group" ></div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <label for="otrosingresos">Otros ingresos</label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon">Q</i></span>
-                                                            <input type="text" min="0" name="otrosingresos" class="form-control" onkeypress="return valida(event)">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <label for="pretension">Pretension *</label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon">Q</i></span>
-                                                            <input type="text" onkeypress="return valida(event)" min="0" name="pretension" value="{{old('pretension')}}" class="form-control">
-                                                            <span class="input-group-addon">.00</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Estado civil</label>
-                                                            <select name="idcivil" class="form-control selectpicker" data-live-search="true">
-                                                                @foreach($estadocivil as $cat)
-                                                                    <option value="{{$cat->idcivil}}">{{$cat->estado}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>              
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Puesto</label>
-                                                            <select name="idpuesto" class="form-control selectpicker" data-live-search="true">
-                                                                @foreach($puestos as $cat)
-                                                                    <option value="{{$cat->idpuesto}}">{{$cat->nombre}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>¿En qué afiliado le gustaría aplicar?</label>
-                                                            <select name="idafiliado" class="form-control selectpicker" data-live-search="true">
-                                                                @foreach($afiliados as $cat)
-                                                                    <option value="{{$cat->idafiliado}}">{{$cat->nombre}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                       <div class="form-group">
-                                                            <label for="correo">Email</label>
-                                                            <input type="email" name="correo" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                        <label>Genero</label>
-                                                        <div class="form-group">
-                                                            <label ><input type="radio" name="genero" value="M">Masculino</label>
-                                                            <label ><input type="radio" name="genero" value="F">Femenino</label>
+                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                            <label>Genero</label>
+                                                            <div class="form-group">
+                                                                <label ><input type="radio" name="genero" value="M">Masculino</label>
+                                                                <label ><input type="radio" name="genero" value="F">Femenino</label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -882,10 +900,19 @@
                                                         <label for="montodeuda">Hago constar que toda la información consignada, es verídica y autorizo a Fundación Hábitat para la Humanidad, confirmar los datos indicados.</label>
                                                         <input type="checkbox" class="checkbox-danger" id="confirma" onchange="javascript:showContent()">
                                                     </div>
+                                                    <div class="col-lg-12 col-md-4 col-sm-6 col-xs-12" name="validacion">
+                                                        <div class="form-group">
+                                                            {!! Recaptcha::render() !!}
+                                                            @if($errors->has('validacion'))
+                                                            <span style="color: red;">{{$errors->first('validacion')}}</span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <ul class="pager m-b-0 wizard">
                                                     <li class="previous"><a href="#" class="btn btn-primary waves-effect waves-light">Atras</a></li>
-                                                    <li class="next"><button class="btn btn-primary waves-effect waves-light" id="gdr" type="submit">Enviar datos</button></li>
+                                                    <li class=""><button class="btn btn-primary waves-effect waves-light" id="gdr" type="submit">Enviar datos</button></li>
+                                                    
                                                 </ul>
                                             </div>
                                         </div>

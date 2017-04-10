@@ -30,6 +30,7 @@ class PersonaRequest extends FormRequest
             'celular'=>'required',
             'nit'=>'required',
             'pretension'=>'required',
+            'validacion'=>'required',
             
             //
         ];
