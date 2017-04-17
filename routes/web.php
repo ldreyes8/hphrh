@@ -31,11 +31,12 @@ Route::get('persona/towns/{id}', 'PersonaController@getTowns');
 // Rutas Creados por LDRL
 
 Route::group(['prefix'=>'empleado'],function(){
+	Route::resource('permiso','PController');       // PController = PermisoController 
 	Route::get('vacaciones','VController@create');
 	Route::post('vacaciones','VController@store');
-	Route::resource('solicitante','SController'); // SController = SolicitanteController
+	Route::resource('solicitante','SController'); 	// SController = SolicitanteController
 	Route::get('Spdf/{id}', 'SController@Spdf');
-	Route::resource('perfil','PerController'); // PerController = PerfilController
+	Route::resource('perfil','PerController'); 		// PerController = PerfilController
 });
 
 Route::get('/', function () {

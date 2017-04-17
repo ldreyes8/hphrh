@@ -8,14 +8,15 @@ class Vacaciones extends Model
 {
     protected $primaryKey = 'idausencia';
     protected $table = 'ausencia';
-    protected $fillable = array('horainicio','horafin','totaldias','totalhoras','observaciones','descvaca','juzgadoinstitucion','tipocaso','autorizacion','idempleado','idmunicipio','idtipoausencia');
+    protected $fillable = array('fechainicio',
+    	'fechafin','horainicio','horafin','totaldias','totalhoras','observaciones','descvaca','juzgadoinstitucion','tipocaso','autorizacion','idempleado','idmunicipio','idtipoausencia','concurrencia');
 
     public $timestamps = false;
 
 
 
     protected $dates = [
-    	'fechainicio',
-    	'fechafin'
+    	'fini',
+    	'ffin'
     ];
 }

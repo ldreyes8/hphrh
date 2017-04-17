@@ -26,15 +26,15 @@ class VRequest extends FormRequest
     public function rules()
     {
         return [
-            'fechainicio'=>'required',
-            'fechafin'=>'required',
+            'fini'=>'required',
+            'ffin'=>'required',
         ];
     }
 
     public function messages(){
         return [
-        'fechainicio.required' => 'El campo fecha inicio es requerido',
-        'fechafin.required'=>'El campo fecha final es requerido'
+        'fini.required' => 'El campo fecha inicio es requerido',
+        'ffin.required'=>'El campo fecha final es requerido'
         //'fechainicio.min' => 'El minimo permitido son 3 caracteres'
         //'fechainicio.max' => 'El maximo permitido son 12 caracteres'
          ];
