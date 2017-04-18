@@ -101,10 +101,7 @@
                                                         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
                                                                 <label for="identificacion">Identicación *</label>
                                                             <div class="form-group">
-                                                                <input type="text" name="identificacion" maxlength="13" onkeypress="return valida(event)"  class="form-control">
-                                                                @if($errors->has('identificacion'))
-                                                                <span style="color: red;">{{$errors->first('identificacion')}}</span>
-                                                                @endif
+                                                                <input type="text" name="identificacion" maxlength="13" onkeypress="return valida(event)" required value="{{old('identificacion')}}" class="form-control">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -112,10 +109,7 @@
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <label for="nombre1">Primer nombre *</label>
                                                             <div class="form-group">
-                                                                <input type="text" name="nombre1"  class="form-control" onkeypress="return validaL(event)" maxlength="12" >
-                                                                @if($errors->has('nombre1'))
-                                                                <span style="color: red;">{{$errors->first('nombre1')}}</span>
-                                                                @endif
+                                                                <input type="text" name="nombre1"  class="form-control" onkeypress="return validaL(event)" required value="{{old('nombre1')}}"  maxlength="12" >
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
@@ -133,7 +127,7 @@
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label for="apellido1">Primer apellido *</label>
-                                                                <input type="text" name="apellido1"  class="form-control" onkeypress="return validaL(event)" maxlength="15">
+                                                                <input type="text" name="apellido1" required value="{{old('apellido1')}}" class="form-control" onkeypress="return validaL(event)" maxlength="15">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
@@ -161,7 +155,7 @@
                                                             <label for="celular">Celular *</label>
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">502</i></span>
-                                                                <input type="text" maxlength="8" name="celular"  onkeypress="return valida(event)" class="form-control">
+                                                                <input type="text" maxlength="8" name="celular"  required value="{{old('celular')}}" onkeypress="return valida(event)" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
@@ -243,7 +237,7 @@
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                            <div class="form-group">
                                                                 <label for="nit">Nit *</label>
-                                                                <input type="text" name="nit"  class="form-control" maxlength="9">
+                                                                <input type="text" name="nit" required value="{{old('nit')}}" class="form-control" maxlength="9">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
@@ -295,7 +289,7 @@
                                                             <label for="pretension">Pretension *</label>
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">Q</i></span>
-                                                                <input type="text" onkeypress="return valida(event)" min="0" name="pretension" class="form-control">
+                                                                <input type="text" onkeypress="return valida(event)" min="0" name="pretension" class="form-control" required value="{{old('pretension')}}" >
                                                                 <span class="input-group-addon">.00</span>
                                                             </div>
                                                         </div>
@@ -348,7 +342,7 @@
                                                 </div>
                                                 <ul class="pager m-b-0 wizard">
                                                     <li class="previous"><a href="#" class="btn btn-primary waves-effect waves-light">Atras</a></li>
-                                                    <li class="next"><a href="#" class="btn btn-primary waves-effect waves-light">Siguiente</a></li>
+                                                    <li class="next" ><a href="#" class="btn btn-primary waves-effect waves-light">Siguiente</a></li>
                                                 </ul>
                                             </div>
                                         <!--Datos familia -->
@@ -900,12 +894,11 @@
                                                         <label for="montodeuda">Hago constar que toda la información consignada, es verídica y autorizo a Fundación Hábitat para la Humanidad, confirmar los datos indicados.</label>
                                                         <input type="checkbox" class="checkbox-danger" id="confirma" onchange="javascript:showContent()">
                                                     </div>
-                                                    <div class="col-lg-12 col-md-4 col-sm-6 col-xs-12" name="validacion">
+                                                    <div class="col-lg-12 col-md-4 col-sm-6 col-xs-12">
                                                         <div class="form-group">
-                                                            {!! Recaptcha::render() !!}
-                                                            @if($errors->has('validacion'))
-                                                            <span style="color: red;">{{$errors->first('validacion')}}</span>
-                                                            @endif
+                                                            {!! Captcha::img(); !!}
+                                                            <p><input type="text" name="captcha" required value="{{old('captcha
+                                                            ')}}" class="form-control"></p>
                                                         </div>
                                                     </div>
                                                 </div>

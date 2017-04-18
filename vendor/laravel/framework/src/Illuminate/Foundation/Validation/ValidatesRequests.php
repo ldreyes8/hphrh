@@ -8,6 +8,7 @@ use Illuminate\Routing\UrlGenerator;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Redirect;
 
 trait ValidatesRequests
 {
@@ -17,7 +18,6 @@ trait ValidatesRequests
      * @var string
      */
     protected $validatesRequestErrorBag;
-
     /**
      * Run the validation routine against the given validator.
      *
@@ -116,13 +116,19 @@ trait ValidatesRequests
      */
     protected function buildFailedValidationResponse(Request $request, array $errors)
     {
+
         if ($request->expectsJson()) {
             return new JsonResponse($errors, 422);
         }
 
+        /*return redirect()->to($this->$redirect)
+                        ->withInput($request->input())
+                        ->withErrors($errors, $this->errorBag());
+        */
         return redirect()->to($this->getRedirectUrl())
                         ->withInput($request->input())
                         ->withErrors($errors, $this->errorBag());
+        
     }
 
     /**
@@ -153,6 +159,7 @@ trait ValidatesRequests
      */
     protected function getRedirectUrl()
     {
+        //return Redirect::to('persona/create');
         return app(UrlGenerator::class)->previous();
     }
 

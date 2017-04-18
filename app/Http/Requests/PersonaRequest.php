@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
 class PersonaRequest extends FormRequest
 {
     /**
@@ -30,9 +29,19 @@ class PersonaRequest extends FormRequest
             'celular'=>'required',
             'nit'=>'required',
             'pretension'=>'required',
-            'validacion'=>'required',
+            //'validacion'=>'required',
+            'captcha'=>'required|captcha',
             
             //
         ];
+    }
+    public function messages(){
+        return [
+        'nombre1.required' => 'Primer nombre es requerido',
+        'apellido1.required' => 'Primer apellido es requerido',
+        'captcha.required' => 'Campo obligatorio',
+        
+
+         ];
     }
 }

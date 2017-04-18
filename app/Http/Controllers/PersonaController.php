@@ -19,7 +19,7 @@ use App\Licencia;
 use App\PuestoPublico;
 use Storage;
 use DB;
-
+use Validator;
 use Carbon\Carbon;  // para poder usar la fecha y hora
 use Response;
 use Illuminate\Support\Collection;
@@ -67,6 +67,7 @@ class PersonaController extends Controller
 
     public function store(PersonaRequest $request)
     {
+
         try 
     	{
     	    DB::beginTransaction();
@@ -201,8 +202,6 @@ class PersonaController extends Controller
             $cont5 = 0;
             $cont6 = 0;
             $cont7 = 0;
-             
-
         //while Licencia
             if ($vigencia === null)
             {
@@ -390,6 +389,7 @@ class PersonaController extends Controller
     	{
     		DB::rollback();    		
     	}
+        
     	//return Redirect::to('persona/create');
         return Redirect::to('persona');
     }
