@@ -23,13 +23,10 @@ class Empleado extends Model
         'otrosingresos',
         'pretension',
         'nit',
-        'dpiadjunto',
         'fechasolicitud',
         'fechaingreso',
         'idcivil',
-        'idpuesto',
         'idstatus',
-        'idafiliado',
         'observacion'    
     ];
     

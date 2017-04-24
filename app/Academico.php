@@ -16,13 +16,13 @@ class Academico extends Model
     	'titulo',
     	'establecimiento',
     	'duracion',
-    	'nivel',
     	'fingreso',
     	'fsalida',
     	'adjunto',
     	'idmunicipio',
     	'idempleado',
-    	'identificacion'
+    	'identificacion',
+        'idnivel',
     ];
 
 }

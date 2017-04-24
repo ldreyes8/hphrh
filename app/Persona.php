@@ -34,7 +34,10 @@ class Persona extends Model
         'correo',
         'genero',
         'idetnia',
-        'idnacionalidad'
+        'idnacionalidad',
+        'iddocumento',
+        'idafiliado',
+        'idpuesto',
     ];
 
     protected $guarder =[
