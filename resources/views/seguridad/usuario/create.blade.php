@@ -46,7 +46,7 @@
                         <div class="form-group{{ $errors->has('empleado') ? ' has-error' : '' }}">
                             <label for="empleado" class="col-md-4 control-label">Empleado</label>
                             <div class="col-md-6">
-                                <input id="identificacion" type="text" class="form-control" name="identificacion" required>
+                                <input id="identificacion" type="text" class="form-control" name="identificacion" >
                             </div>
                         </div>
     	

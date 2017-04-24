@@ -43,6 +43,10 @@ return [
 
     'disks' => [
 
+        'fotografias' => [
+            'driver' => 'local',
+            'root' => public_path('fotografias'),
+        ],
         'archivos' => [
             'driver' => 'local',
             'root' => public_path('archivos'),

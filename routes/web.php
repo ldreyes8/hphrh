@@ -36,7 +36,17 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::post('vacaciones','VController@store');
 	Route::resource('solicitante','SController'); 	// SController = SolicitanteController
 	Route::get('Spdf/{id}', 'SController@Spdf');
-	Route::resource('perfil','PerController'); 		// PerController = PerfilController
+	Route::resource('perfil','PerController');
+//	Route::post('updatefoto', 'FotoController@agregarimagen'); 		// PerController = PerfilController
+	Route::post('/updatefoto','UController@subirimagen');
+	Route::get('galeria','UController@galeria');
+	Route::get('listaracademico','UController@listaracademico');
+	Route::get('createacademico','UController@academicocreate');
+	Route::get('towns/{id}', 'UController@getTowns'); 
+
+//FotoController@agregarimagen
+	//Route::put('/colaboradores/{id}',['uses' => 'Colaboradores@update', 'middleware' => 'auth']);
+
 });
 
 Route::get('/', function () {

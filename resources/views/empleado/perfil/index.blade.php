@@ -1,35 +1,44 @@
 @extends ('layouts.index')
+@section('estilos')
+    @parent
+<link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet" />
+        @endsection
 @section ('contenido')
-<div class="row">
+
+<div class="row"> 
+    
     <div class="col-lg-3 col-md-4">
-        <div class="text-center card-box">
-            <div class="member-card">
-                <div class="thumb-xl member-thumb m-b-10 center-block">
-                    @include('hr.foto')
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">Cambiar Fotografia</h3>
+            </div>             
+            <div id="notificacion_resul_fci"></div>
+            <form  id="f_subir_imagen" name="f_subir_imagen" method="post"  action="updatefoto" class="formarchivo" enctype="multipart/form-data" >
+                <input type="hidden" name="_token" id="_token"  value="<?= csrf_token(); ?>">
+                <input type="hidden" id="id" name="idusuario" value="{{Auth::user()->id}}">  
+                <div class="text-center card-box">
+                    <div class="member-card">
+                        <div class="thumb-xl member-thumb m-b-10 center-block">
+                            @if (Auth::user()->fotoperfil==="")
+                                <img  src="{{asset('imagenes/avatar.jpg')}}" alt="user-img" class="img-circle" width="118px height 118px" id="fotografiaus">
+                            @else
+                                <img  src="{{asset('fotografias/'.Auth::user()->fotoperfil)}}" alt="user-img" class="img-circle" width="118px height 118px" id="fotografiaus">
+                            @endif
                     
-                </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Imagen</label>
+                            <input type="file" name="fotoperfil" class="archivo form-control" id="imagen" required><br /><br />
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary btn-sm w-sm waves-effect m-t-10 waves-light">Guardar</button>
+                        </div>
+                    </div>
 
-                <div class="form-group">
-                    <label>imagen</label>   
-                    <input type="file" name="imagen" class="form-control">
-                </div>
-        
-                <button type="button" class="btn btn-success btn-sm w-sm waves-effect m-t-10 waves-light">Guardar</button>
-                <button type="button" class="btn btn-danger btn-sm w-sm waves-effect m-t-10 waves-light">Cancelar</button>
-
-
-                <div class="text-left m-t-40">
-                    <p class="text-muted font-13"><strong>Full Name :</strong> <span class="m-l-15">Johnathan Deo</span></p>
-
-                    <p class="text-muted font-13"><strong>Mobile :</strong><span class="m-l-15">(123) 123 1234</span></p>
-
-                    <p class="text-muted font-13"><strong>Email :</strong> <span class="m-l-15">coderthemes@gmail.com</span></p>
-
-                    <p class="text-muted font-13"><strong>Location :</strong> <span class="m-l-15">USA</span></p>
-                </div>
-            </div>
-
-        </div> <!-- end card-box -->
+                </div> <!-- end card-box -->
+            </form>
+        </div>
 
         <div class="card-box">
             <h4 class="m-t-0 m-b-20 header-title">Cambiar password</h4>
@@ -95,8 +104,9 @@
                             <span class="hidden-xs">Sobre Mi</span>
                         </a>
                     </li>
-                    <li class="active">
-                        <a href="#profile" data-toggle="tab" aria-expanded="false">
+                    <li class=""> <a href="javascript:void(0);" onclick="cargarlistado(1,1);">
+                    
+                    <a href="#profile" data-toggle="tab" aria-expanded="false" >
                             <span class="visible-xs"><i class="fa fa-photo"></i></span>
                             <span class="hidden-xs">GALLERY</span>
                         </a>
@@ -108,7 +118,8 @@
                         </a>
                     </li>
 
-                    <li class="">
+                    <li class="" <a href="javascript:void(0);" onclick="cargaracademico(1,1);">
+                    
                         <a href="#academicos" data-toggle="tab" aria-expanded="false">
                             <span class="visible-xs"><i class="fa fa-cog"></i></span>
                             <span class="hidden-xs">Academico</span>
@@ -170,75 +181,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane active" id="profile">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="gal-detail thumb">
-                                    <a href="#" class="image-popup" title="Screenshot-2">
-                                        <img src="{{asset('assets/images/gallery/1.jpg')}}" class="thumb-img" alt="work-thumbnail">
-                                    </a>
-                                    <h4 class="text-center">Gallary Image</h4>
-                                    <div class="ga-border"></div>
-                                    <p class="text-muted text-center"><small>Photography</small></p>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="gal-detail thumb">
-                                    <a href="#" class="image-popup" title="Screenshot-2">
-                                        <img src="{{asset('assets/images/gallery/2.jpg')}}" class="thumb-img" alt="work-thumbnail">
-                                    </a>
-                                    <h4 class="text-center">Gallary Image</h4>
-                                    <div class="ga-border"></div>
-                                    <p class="text-muted text-center"><small>Photography</small></p>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="gal-detail thumb">
-                                    <a href="#" class="image-popup" title="Screenshot-2">
-                                        <img src="{{asset('assets/images/gallery/3.jpg')}}" class="thumb-img" alt="work-thumbnail">
-                                    </a>
-                                    <h4 class="text-center">Gallary Image</h4>
-                                    <div class="ga-border"></div>
-                                    <p class="text-muted text-center"><small>Photography</small></p>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="gal-detail thumb">
-                                    <a href="#" class="image-popup" title="Screenshot-2">
-                                        <img src="{{asset('assets/images/gallery/4.jpg')}}" class="thumb-img" alt="work-thumbnail">
-                                    </a>
-                                    <h4 class="text-center">Gallary Image</h4>
-                                    <div class="ga-border"></div>
-                                    <p class="text-muted text-center"><small>Photography</small></p>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="gal-detail thumb">
-                                    <a href="#" class="image-popup" title="Screenshot-2">
-                                        <img src="{{asset('assets/images/gallery/5.jpg')}}" class="thumb-img" alt="work-thumbnail">
-                                    </a>
-                                    <h4 class="text-center">Gallary Image</h4>
-                                    <div class="ga-border"></div>
-                                    <p class="text-muted text-center"><small>Photography</small></p>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="gal-detail thumb">
-                                    <a href="#" class="image-popup" title="Screenshot-2">
-                                        <img src="{{asset('assets/images/gallery/6.jpg')}}" class="thumb-img" alt="work-thumbnail">
-                                    </a>
-                                    <h4 class="text-center">Gallary Image</h4>
-                                    <div class="ga-border"></div>
-                                    <p class="text-muted text-center"><small>Photography</small></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @include('hr.galeria')
                     <div class="tab-pane" id="settings">
                         <form role="form">
                             <div class="form-group">
@@ -257,12 +200,8 @@
                             <button class="btn btn-primary waves-effect waves-light w-md" type="submit">Save</button>
                         </form>
                     </div>
-                    <div class="tab-pane" id="academicos">
-                        <div class="panel-heading">
-                            <button class="btn btn-success" id="btnAgregar"><i class="icon-user icon-white" ></i> Agregar estudios</button>
-                        </div>
-                        @include('hr.academico')                       
-                    </div>
+
+                    @include('hr.academico')
                     <div class="tab-pane" ></div>
                 </div>
             </div>
@@ -273,16 +212,14 @@
 
 @section('fin')
     @parent
-    <script>
-
-        $('#btnAgregar').click(function(){
-        $('#inputTitle').html("Agregar informacion academico");
-        $('#formAgregar').trigger("reset");
-        $('#inRol').val(0);
-        $('#inPuesto').val(0);
-        $('#btnGuardar').val('add');
-        $('#formModal').modal('show');
-        });
-    </script>
+    <meta name="_token" content="{!! csrf_token() !!}" />
+    <script src="{{asset('assets/js/foto.js')}}"></script>
+    <script src="{{asset('assets/js/academico.js')}}"></script>
+    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
+    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>
+    
+    <script>cargarlistado(1);</script>
+    <script>cargaracademico(1);</script>
+    
 
 @endsection

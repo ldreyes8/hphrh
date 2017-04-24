@@ -24,9 +24,15 @@ class UFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            //'name' => 'required|max:255',
+            //'email' => 'required|email|max:255|unique:users',
+            //'password' => 'required|min:6|confirmed',
+            //'fotoperfil',
+            'name' => 'max:255',
+//            'email' => 'required|email|max:255|unique:users',
+//            //'password' => 'required|min:6|confirmed',
+            'fotoperfil',
+            'idusuario',
         ];
     }
 }
