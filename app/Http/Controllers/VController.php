@@ -26,9 +26,9 @@ class VController extends Controller
     
   public function create()
   {
-        #$roles=Rol::all();
-        #dd(Rol::all());
-        //$tausencia = tipoausencia
+    #$roles=Rol::all();
+    #dd(Rol::all());
+    //$tausencia = tipoausencia
 
     $vacaciones= DB::table('vacadetalle as vd')
       ->select('vd.acumulado')

@@ -19,7 +19,7 @@
 <div class="card-box">
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<h3>Solictud de permiso</h3>
+		<h3>Solictud de vacaciones</h3>
 		@if (count($errors)>0)
 			<div class="alert alert-danger">
             <ul>
@@ -48,35 +48,8 @@
 
 <div class="card-box">        
     <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="form-group">
-                <label>Motivo ausencia</label>
-                <select name="idtipoausencia" class="form-control selectpicker" data-live-search="true">
-                    @foreach($tausencia as $tau)
-                        <option value="{{$tau->idtipoausencia}}">{{$tau->ausencia}}</option>
-                    @endforeach
-                </select>
-            </div>
-            </div> 
-        </div>
-
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-            <div class="form-group">
-                <label>Juzgado o Institución</label>
-                <input type="text" name="Jusgado" class="form-control" placeholder="">                
-            </div>
-            </div>             
-            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-            <div class="form-group">
-                <label for="nombre">Tipo caso</label>
-                <input type="text" name="caso" class="form-control" placeholder="">                
-            </div>
-            </div>
-        </div>
-
+        
+       
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
             <div class="form-group">

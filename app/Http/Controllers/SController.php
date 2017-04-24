@@ -124,7 +124,7 @@ class SController extends Controller
             ->where('p.nombre1','LIKE','%'.$query.'%')
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre')
             ->orderBy('e.idempleado','desc')
-            ->where('s.statusemp','=','solicitante')
+            ->where('s.statusemp','=','Aspirante')
             ->paginate(12);
 
             return view('empleado.solicitante.index',["empleados"=>$empleados,"searchText"=>$query]);

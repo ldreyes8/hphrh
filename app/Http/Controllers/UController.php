@@ -21,7 +21,7 @@ class UController extends Controller
 {
 	public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
     
     public function index(Request $request)
@@ -41,7 +41,8 @@ class UController extends Controller
 		//return view("seguridad.usuario.create",["personas"=>$personas,"articulos"=>$articulos]);
 		//$empleados=DB::table('persona')->where('tipo_persona','=','empleado')->get();
 		//return view("seguridad.usuario.create",["empleados"=>$empleados]);
-		return view("seguridad.usuario.create");
+		$usuario = user::all();
+		return view("seguridad.usuario.create",["usuario"=>$usuario]);
 	}
 	public function store(UFormRequest $request)
 	{

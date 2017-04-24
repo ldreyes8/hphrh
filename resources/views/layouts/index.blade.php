@@ -177,8 +177,8 @@
                             <li class="menu-title">Principal</li>
 
                             <li>
-                                <a href="index.html" class="waves-effect waves-primary"><i
-                                class="md md-dashboard"></i><span> Dashboard </span></a>
+                                <a href="{{ url('/home')}}" class="waves-effect waves-primary"><i
+                                class="md md-dashboard"></i><span> Tablero </span></a>
                             </li>
 
                             <li class="has_sub">
@@ -196,7 +196,7 @@
                                         class="label label-success pull-right">6</span> --></a>
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/empleado/vacaciones')}}">Vacaciones</a></li>
-                                    <li><a href="#">Permisos</a></li>
+                                    <li><a href="{{ url('/empleado/permiso')}}">Permisos</a></li>
                                 </ul>
                             </li>
 
@@ -236,21 +236,26 @@
 
                 <div class="user-detail">
                     <div class="dropup">
+                     @if (Auth::guest())
+                     <li><a href="{{ url('/login') }}">Login</a></li>
+                     @else
                         <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true">
-                            <img  src="{{asset('assets/images/users/avatar-2.jpg')}}" alt="user-img" class="img-circle">
+                            @include('hr.foto')
+
                             <span class="user-info-span">
+                                <h5 class="m-t-0 m-b-0">{{ Auth::user()->name }}</h5>
                                 <h5 class="m-t-0 m-b-0"> </h5>
                                 <p class="text-muted m-b-0">
                                     <small><i class="fa fa-circle text-success"></i> <span>Online</span></small>
                                 </p>
+                              
                             </span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="javascript:void(0)"><i class="md md-face-unlock"></i> Profile</a></li>
-                            <li><a href="javascript:void(0)"><i class="md md-settings"></i> Settings</a></li>
-                            <li><a href="javascript:void(0)"><i class="md md-lock"></i> Lock screen</a></li>
+                            <li><a href="{{ url('/empleado/perfil')}}"><i class="md md-face-unlock"></i> Profile</a></li>
                             <li><a href="{{ url('/logout') }}"><i class="md md-settings-power"></i> Logout</a></li>
                         </ul>
+                    @endif
 
                     </div>
                 </div>

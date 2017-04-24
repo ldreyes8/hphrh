@@ -5,16 +5,17 @@
         <div class="text-center card-box">
             <div class="member-card">
                 <div class="thumb-xl member-thumb m-b-10 center-block">
-                    <img src="{{asset('assets/images/users/avatar-1.jpg')}}" class="img-circle img-thumbnail" alt="profile-image">
+                    @include('hr.foto')
+                    
                 </div>
 
-                <div class="">
-                    <h4 class="m-b-5">Mark A. McKnight</h4>
-                    <p class="text-muted">@webdesigner</p>
+                <div class="form-group">
+                    <label>imagen</label>   
+                    <input type="file" name="imagen" class="form-control">
                 </div>
-
-                <button type="button" class="btn btn-success btn-sm w-sm waves-effect m-t-10 waves-light">Follow</button>
-                <button type="button" class="btn btn-danger btn-sm w-sm waves-effect m-t-10 waves-light">Message</button>
+        
+                <button type="button" class="btn btn-success btn-sm w-sm waves-effect m-t-10 waves-light">Guardar</button>
+                <button type="button" class="btn btn-danger btn-sm w-sm waves-effect m-t-10 waves-light">Cancelar</button>
 
 
                 <div class="text-left m-t-40">
@@ -26,42 +27,58 @@
 
                     <p class="text-muted font-13"><strong>Location :</strong> <span class="m-l-15">USA</span></p>
                 </div>
-
-                <ul class="social-links list-inline m-t-30">
-                    <li>
-                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
-                    </li>
-                    <li>
-                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Twitter"><i class="fa fa-twitter"></i></a>
-                    </li>
-                    <li>
-                        <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Skype"><i class="fa fa-skype"></i></a>
-                    </li>
-                </ul>
-
             </div>
 
         </div> <!-- end card-box -->
 
         <div class="card-box">
-            <h4 class="m-t-0 m-b-20 header-title">Skills</h4>
-
+            <h4 class="m-t-0 m-b-20 header-title">Cambiar password</h4>
+            <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}" ALIGN=lef>
+            {{ csrf_field() }}
             <div class="p-b-10">
-                <p>HTML5</p>
-                <div class="progress progress-sm">
-                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                    <label for="email" class="control-label">E-Mail Address</label>
+
+                    <div class="col-md-12">
+                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+
+                        @if ($errors->has('email'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
-                <p>PHP</p>
-                <div class="progress progress-sm">
-                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+
+                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                    <label for="password" class="control-label">Password</label>
+
+                    <div class="col-md-12">
+                        <input id="password" type="password" class="form-control" name="password" required>
+                        @if ($errors->has('password'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
-                <p>Wordpress</p>
-                <div class="progress progress-sm m-b-0">
-                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+
+                <div class="form-group">
+                    <label for="password-confirm" class=" control-label" ALIGN="lef">Confirm Password</label>
+
+                    <div class="col-md-12">
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-2">
+                        <button type="submit" class="btn btn-primary">
+                            Cambiar datos
+                        </button>
+                    </div>
+                </div>
+                  </form>
             </div>
         </div>
 
@@ -88,6 +105,25 @@
                         <a href="#settings" data-toggle="tab" aria-expanded="false">
                             <span class="visible-xs"><i class="fa fa-cog"></i></span>
                             <span class="hidden-xs">Ajustes</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="#academicos" data-toggle="tab" aria-expanded="false">
+                            <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                            <span class="hidden-xs">Academico</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="#personal" data-toggle="tab" aria-expanded="false">
+                            <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                            <span class="hidden-xs">Personal</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="#familiar" data-toggle="tab" aria-expanded="false">
+                            <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                            <span class="hidden-xs">Familiar</span>
                         </a>
                     </li>
                 </ul>
@@ -221,10 +257,32 @@
                             <button class="btn btn-primary waves-effect waves-light w-md" type="submit">Save</button>
                         </form>
                     </div>
+                    <div class="tab-pane" id="academicos">
+                        <div class="panel-heading">
+                            <button class="btn btn-success" id="btnAgregar"><i class="icon-user icon-white" ></i> Agregar estudios</button>
+                        </div>
+                        @include('hr.academico')                       
+                    </div>
+                    <div class="tab-pane" ></div>
                 </div>
             </div>
         </div>
-
     </div> <!-- end col -->
 </div>
+@endsection
+
+@section('fin')
+    @parent
+    <script>
+
+        $('#btnAgregar').click(function(){
+        $('#inputTitle').html("Agregar informacion academico");
+        $('#formAgregar').trigger("reset");
+        $('#inRol').val(0);
+        $('#inPuesto').val(0);
+        $('#btnGuardar').val('add');
+        $('#formModal').modal('show');
+        });
+    </script>
+
 @endsection

@@ -12,7 +12,7 @@
 				</ul>
 			</div>
 			@endif
-			{!!Form::open(array('url'=>'seguridad/usuario','method'=>'POST','autocomplete'=>'off'))!!}
+			{!!Form::open(array('url'=>'seguridad/usuario','method'=>'POST','autocomplete'=>'off','files'=>'true'))!!}
             {{Form::token()}}
             
                  <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -73,11 +73,23 @@
                             </div>
                         </div>
 
-           
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <label for="imagen">Imagen</label>
+                <input type="file" name="imagen" class="form-control">
+            </div>
+            </div>
             <div class="form-group">
             	<button class="btn btn-primary" type="submit">Guardar</button>
             	<button class="btn btn-danger" type="reset">Cancelar</button>
             </div>
+
+       
+    
+
+
+
+
 
 			{!!Form::close()!!}		
             
