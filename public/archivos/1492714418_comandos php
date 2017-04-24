@@ -1,0 +1,9 @@
+sudo apt-get purge php7.* //eliminacion de php
+sudo apt install php7.0 // instalacion de php
+sudo apt-get install php7.0-mbstring
+sudo apt-get install php7.0-dom
+sudo apt-get install php-xml
+sudo apt-get install php7.0-gd
+
+
+

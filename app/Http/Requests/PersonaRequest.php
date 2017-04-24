@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
 class PersonaRequest extends FormRequest
 {
     /**
@@ -30,9 +29,20 @@ class PersonaRequest extends FormRequest
             'celular'=>'required',
             'nit'=>'required',
             'pretension'=>'required',
-            'validacion'=>'required',
-            
+            //'captcha'=>'required|captcha',
+            'g-recaptcha-response' => 'required|recaptcha',
             //
         ];
+    }
+    public function messages(){
+        return [
+        'identificacion.required'=>'Su identificacion es requerida',
+        'nombre1.required' => 'Primer nombre es requerido',
+        'apellido1.required' => 'Primer apellido es requerido',
+        'celular.required'=>'Campo celular es requerido',
+        'nit.required'=>'Campo nit es requerido',
+        'pretension.required'=>'Campo pretension es requerido',
+        'g-recaptcha-response.required'=>'Validación oligatoria',
+         ];
     }
 }

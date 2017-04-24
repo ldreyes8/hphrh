@@ -19,7 +19,6 @@ use App\Licencia;
 use App\PuestoPublico;
 use Storage;
 use DB;
-
 use Carbon\Carbon;  // para poder usar la fecha y hora
 use Response;
 use Illuminate\Support\Collection;
@@ -62,24 +61,25 @@ class PersonaController extends Controller
         $licencia = DB::table('licencia')->get();
         $etnia = DB::table('etnia')->get();
         $nacionalidad = DB::table('nacionalidad')->get();
-    	return view("persona.create",["departamento"=>$departamento,"estadocivil"=>$estadocivil,"idiomas"=>$idiomas,"puestos"=>$puestos,"afiliados"=>$afiliados,"licencia"=>$licencia,"etnia"=>$etnia,"nacionalidad"=>$nacionalidad]);
+        $tdocumento = DB::table('documento')->get();
+        $nivelacademico = DB::table('nivelacademico')->get();
+    	return view("persona.create",["departamento"=>$departamento,"estadocivil"=>$estadocivil,"idiomas"=>$idiomas,"puestos"=>$puestos,"afiliados"=>$afiliados,"licencia"=>$licencia,"etnia"=>$etnia,"nacionalidad"=>$nacionalidad,"tdocumento"=>$tdocumento,"nivelacademico"=>$nivelacademico]);
     }
-
     public function store(PersonaRequest $request)
     {
         try 
-    	{
-    	    DB::beginTransaction();
+        {
+            DB::beginTransaction();
         //Datos persona
-    	    $persona = new Persona;
-    	    $persona-> identificacion = $request->get('identificacion');
-    	    $persona-> nombre1 = $request->get('nombre1');
+            $persona = new Persona;
+            $persona-> identificacion = $request->get('identificacion');
+            $persona-> nombre1 = $request->get('nombre1');
             $persona-> nombre2 = $request->get('nombre2');
             $persona-> nombre3 = $request->get('nombre3');
-    	    $persona-> apellido1 = $request->get('apellido1');
+            $persona-> apellido1 = $request->get('apellido1');
             $persona-> apellido2 = $request->get('apellido2');
             $persona-> apellido3 = $request->get('apellido3');
-    		$persona-> telefono = $request->get('telefono');
+            $persona-> telefono = $request->get('telefono');
             $persona-> celular = $request->get('celular');
             $fechanacs=$request->get('fechanac');
             $fechanacc=Carbon::createFromFormat('d/m/Y',$fechanacs);
@@ -90,9 +90,11 @@ class PersonaController extends Controller
             $persona-> nomenclatura = $request->get('nomenclatura');
             $persona-> zona = $request->get('zona');
             $persona-> barriocolonia = $request->get('barriocolonia');
-    		$persona-> idmunicipio = $request->get('idmunicipio');
+            $persona-> idmunicipio = $request->get('idmunicipio');
             $persona-> ive = $request->get('ive');
             $persona-> parientepolitico = $request->get('parientepolitico');
+            $persona-> idpuesto= $request->get('idpuesto');
+            $persona-> idafiliado= $request->get('idafiliado');
             $img=$request->file('archivo');
             if($img === null)
             {
@@ -108,24 +110,24 @@ class PersonaController extends Controller
             $persona-> genero=$request->get('genero');
             $persona-> idetnia=$request->get('idetnia');
             $persona-> idnacionalidad=$request->get('idnacionalidad');
+            $persona-> iddocumento=$request->get('iddocumento');
             $persona->save();
+            //dd($persona);
         //Datos empleado
-    		$empleado = new empleado;
-			$empleado-> identificacion= $request->get('identificacion');
-        	$empleado-> afiliacionigss= $request->get('afiliacionigss');
-        	$empleado-> numerodependientes= $request->get('numerodependientes');
-        	$empleado-> aportemensual= $request->get('aportemensual');
-        	$empleado-> vivienda= $request->get('vivienda');
-        	$empleado-> alquilermensual= $request->get('alquilermensual');
-        	$empleado-> otrosingresos= $request->get('otrosingresos');
-        	$empleado-> pretension= $request->get('pretension');
-        	$empleado-> nit= $request->get('nit');
-        	$mytime = Carbon::now('America/Guatemala');
-        	$empleado-> fechasolicitud=$mytime->toDateTimeString();
-        	$empleado-> idcivil= $request->get('idcivil');
-        	$empleado-> idpuesto= $request->get('idpuesto');
-        	$empleado-> idstatus='1';
-        	$empleado-> idafiliado= $request->get('idafiliado');
+            $empleado = new empleado;
+            $empleado-> identificacion= $request->get('identificacion');
+            $empleado-> afiliacionigss= $request->get('afiliacionigss');
+            $empleado-> numerodependientes= $request->get('numerodependientes');
+            $empleado-> aportemensual= $request->get('aportemensual');
+            $empleado-> vivienda= $request->get('vivienda');
+            $empleado-> alquilermensual= $request->get('alquilermensual');
+            $empleado-> otrosingresos= $request->get('otrosingresos');
+            $empleado-> pretension= $request->get('pretension');
+            $empleado-> nit= $request->get('nit');
+            $mytime = Carbon::now('America/Guatemala');
+            $empleado-> fechasolicitud=$mytime->toDateTimeString();
+            $empleado-> idcivil= $request->get('idcivil');
+            $empleado-> idstatus='1';
             $empleado-> observacion=$request->get('observacion');
             $empleado-> save();
             //dd($persona,$empleado);
@@ -161,7 +163,7 @@ class PersonaController extends Controller
             $titulo=$request->get('titulo');
             $establecimiento=$request->get('establecimiento');
             $duracion=$request->get('duracion');
-            $nivel=$request->get('nivel');
+            $idnivel=$request->get('nivelid');
             $fsalida = $request->get('fsalida');
             $fechai=$request->get('fingreso');
             $pidmunicipio=$request->get('pidmunicipio');
@@ -193,7 +195,7 @@ class PersonaController extends Controller
             $vigencia=$request->get('vigencia');
             $licenciaid=$request->get('licenciaid');
         //contadores
-    		$cont = 0;
+            $cont = 0;
             $conts = 0;
             $cont2 = 0;
             $cont3 = 0;
@@ -265,7 +267,7 @@ class PersonaController extends Controller
                     $academicos-> titulo = $titulo[$cont5];
                     $academicos-> establecimiento = $establecimiento[$cont5];
                     $academicos-> duracion = $duracion[$cont5];
-                    $academicos-> nivel = $nivel[$cont5];
+                    $academicos-> idnivel = $idnivel[$cont5];
                     $academicos-> fsalida=$fsalida[$cont5];
                     $academicos-> fingreso =$fechai[$cont5];
                     $academicos-> idmunicipio = $pidmunicipio[$cont5];
@@ -274,7 +276,7 @@ class PersonaController extends Controller
                     $academicos-> save();
                     $cont5=$cont5 + 1;
                 }
-            }         
+            }           
         //dd($persona,$empleado,$familia,$academicos);
         //while Idioma
             if ($nivelI === null)
@@ -381,17 +383,17 @@ class PersonaController extends Controller
                     $cont=$cont + 1;
                 }
             }
-        //dd($persona,$empleado,$familia,$academicos,$experiencia,$referencia,$deuda,$padecimiento,$ppublico);
+        //dd($persona,$empleado,$familia,$academicos,$experiencia,$referencia,$deuda,$padecimiento,$ppublico,$idioma);
         //dd($persona,$empleado,$familia,$padecimiento);
         //commit
-    		DB::commit();
-    		
-    	}catch (\Exception $e) 
-    	{
-    		DB::rollback();    		
-    	}
-    	//return Redirect::to('persona/create');
+            DB::commit();
+            
+        }catch (\Exception $e) 
+        {
+            DB::rollback();         
+        }
         return Redirect::to('persona');
+        //return Redirect::to('persona/create');
     }
 
 }
