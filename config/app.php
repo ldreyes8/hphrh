@@ -179,7 +179,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Mews\Captcha\CaptchaServiceProvider::class,
 
 
     ],
@@ -234,8 +233,6 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
-        'Captcha' => Mews\Captcha\Facades\Captcha::class,
-
     ],
 
 ];
