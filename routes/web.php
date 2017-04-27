@@ -13,6 +13,7 @@
 
 
 Route::resource('persona','PersonaController');
+Route::resource('listados','ListadoController');
 
 Route::get('persona/towns/{id}', 'PersonaController@getTowns');
 //Route::get('layouts/towns/{id}', 'PersonaController@getTowns');
@@ -37,6 +38,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	//Route::put('/colaboradores/{id}',['uses' => 'Colaboradores@update', 'middleware' => 'auth']);
 
 });
+
 
 Route::get('/', function () {
     return view('auth/login');

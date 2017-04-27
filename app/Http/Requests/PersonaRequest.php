@@ -20,6 +20,8 @@ class PersonaRequest extends FormRequest
      *
      * @return array
      */
+    //protected $redirect;
+
     public function rules()
     {
         return [
@@ -29,7 +31,6 @@ class PersonaRequest extends FormRequest
             'celular'=>'required',
             'nit'=>'required',
             'pretension'=>'required',
-            //'captcha'=>'required|captcha',
             'g-recaptcha-response' => 'required|recaptcha',
             //
         ];
@@ -45,4 +46,17 @@ class PersonaRequest extends FormRequest
         'g-recaptcha-response.required'=>'Validación oligatoria',
          ];
     }
+    /*public function response(array $errors)
+    {
+        if($this->ajax())
+        {
+            return response()->json($errors,200);
+        }
+        else
+        {
+            return redirect($this->redirect)
+            ->withErrors($errors, 'formulario')
+            ->withInput();
+        }
+    }*/
 }
