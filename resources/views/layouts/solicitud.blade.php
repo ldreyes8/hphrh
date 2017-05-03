@@ -64,6 +64,10 @@
             <div class="content-page">
                 <!-- Start content -->
                 <div class="content">
+
+                <div id='message-error' class="alert alert-danger danger" role='alert' style="display: none">
+                      <strong id="error"></strong>
+                </div>
                     <div class="container" >                       
                         <div class="row">
 
@@ -85,7 +89,7 @@
         <script>
             var resizefunc = [];
         </script>
-        @stack('scripts')
+        @section('fin')
     <!-- jQuery  -->
         <script src="{{asset('assets/js/jquery.min.js')}}"></script>
         <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
@@ -109,7 +113,6 @@
         <script src="{{asset('assets/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/js/jquery.core.js')}}"></script>
         <script src="{{asset('assets/js/jquery.app.js')}}"></script>
-    <!--<script src="{{asset('assets/js/datos.js')}}"></script>-->
 
 
            
