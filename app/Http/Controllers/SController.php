@@ -133,6 +133,7 @@ class SController extends Controller
 
      public function show($id)
     {
+        //ss
         $persona=DB::table('persona as p')
         ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
         ->join('departamento as dp','m.iddepartamento','=','dp.iddepartamento')
