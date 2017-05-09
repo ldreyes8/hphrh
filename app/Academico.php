@@ -23,6 +23,7 @@ class Academico extends Model
     	'idempleado',
     	'identificacion',
         'idnivel',
+        'periodo',
     ];
 
 }

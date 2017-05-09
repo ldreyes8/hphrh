@@ -29,7 +29,7 @@ class PersonaController extends Controller
     //
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
     
     public function index (Request $request)
@@ -38,7 +38,13 @@ class PersonaController extends Controller
     	{
     	}
     }
+    public function show(Request $request)
+    {
+        if ($request)
+        {
+        }
 
+    }
     public static function  getTowns(Request $request, $id)
     {
         if ($request->ajax())
@@ -56,15 +62,19 @@ class PersonaController extends Controller
     {
     	$departamento=DB::table('departamento')->get();
     	$estadocivil=DB::table('estadocivil')->get();
-    	$puestos=DB::table('puesto')->get();
-    	$afiliados=DB::table('afiliado')->get();
+    	$puestos=DB::table('puesto as p')
+        ->where('p.statusp','=','2')
+        ->get();
+    	$afiliados=DB::table('afiliado as a')
+        ->where('a.statusa','=','2')
+        ->get();
     	$idiomas = DB::table('idioma')->get();
         $licencia = DB::table('licencia')->get();
         $etnia = DB::table('etnia')->get();
         $nacionalidad = DB::table('nacionalidad')->get();
         $tdocumento = DB::table('documento')->get();
         $nivelacademico = DB::table('nivelacademico')->get();
-    	return view("persona.create",["departamento"=>$departamento,"estadocivil"=>$estadocivil,"idiomas"=>$idiomas,"puestos"=>$puestos,"afiliados"=>$afiliados,"licencia"=>$licencia,"etnia"=>$etnia,"nacionalidad"=>$nacionalidad,"tdocumento"=>$tdocumento,"nivelacademico"=>$nivelacademico]);
+    	return view("solicitud",["departamento"=>$departamento,"estadocivil"=>$estadocivil,"idiomas"=>$idiomas,"puestos"=>$puestos,"afiliados"=>$afiliados,"licencia"=>$licencia,"etnia"=>$etnia,"nacionalidad"=>$nacionalidad,"tdocumento"=>$tdocumento,"nivelacademico"=>$nivelacademico]);
     }
     public function store(PersonaRequest $request)
     {
@@ -184,6 +194,7 @@ class PersonaController extends Controller
                         $idnivel=$request->get('nivelid');
                         $fsalida = $request->get('fsalida');
                         $fechai=$request->get('fingreso');
+                        $periodo=$request->get('periodo');
                         $pidmunicipio=$request->get('pidmunicipio');
                      //Datos Experiencia
                         $empresa=$request->get('empresa');
@@ -286,6 +297,7 @@ class PersonaController extends Controller
                                 $academicos-> idnivel = $idnivel[$cont5];
                                 $academicos-> fsalida=$fsalida[$cont5];
                                 $academicos-> fingreso =$fechai[$cont5];
+                                $academicos-> periodo =$periodo[$cont5];
                                 $academicos-> idmunicipio = $pidmunicipio[$cont5];
                                 $academicos-> idempleado = $empleado->idempleado;
                                 $academicos-> identificacion = $empleado->identificacion;
@@ -416,8 +428,7 @@ class PersonaController extends Controller
                 }
             }
         }*/
-        return Redirect::to('persona');
-        //return Redirect::to('persona/create');
+        return Redirect::to('https://www.habitatguate.org/');
     }
 
 }

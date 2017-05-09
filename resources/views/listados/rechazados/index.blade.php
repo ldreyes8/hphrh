@@ -2,8 +2,8 @@
 @section ('contenido')
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<h3>Listado de  empleaos</h3>
-		@include('listados.search')
+		<h3>Solicitudes rechazadas</h3>
+		@include('listados/rechazados.search')
 	</div>
 </div>
 <div class="row">
@@ -30,7 +30,7 @@
                  <td>{{$em->statusn}}</td>
                  <td>{{$em->afiliacionigss}}</td>
                  <td>
-                 <a href="#"><button class="btn btn-primary">Detalles</button></a>
+                 <a href="{{URL::action('Rechazados@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
                  <a href=""><button class="btn btn-danger">Anular</button></a>
                  </td>
                  </tr>

@@ -26,7 +26,7 @@
     </head>
 
 
-    <body class="fixed-left">
+    <body class="fixed-left" >
         
         <!-- Begin page -->
         <div id="wrapper">
@@ -70,7 +70,7 @@
                 </div>
                     <div class="container" >                       
                         <div class="row">
-{!!Form::open(array('url'=>'persona','method'=>'POST','autocomplete'=>'off','files'=>'true','id'=>'form','enctype'=>'multipart/form_data'))!!}
+{!!Form::open(array('url'=>'solicitud/ds','method'=>'POST','autocomplete'=>'off','files'=>'true','id'=>'form','onkeypress'=>'return anular(event)','enctype'=>'multipart/form_data'))!!}
 {{Form::token()}}
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card-box p-b-0">
@@ -501,18 +501,16 @@
                                                                     <input type="text" name="duracion" id="duracion" maxlength="3" class="form-control" onkeypress="return valida(event)">
                                                                 </div>    
                                                             </div>
-
                                                             <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
-                                                                <label for="duracion">-</label>
+                                                                <label for="per">-</label>
                                                                 <div class="form-group">
-                                                                    <select name="vivienda" class="form-control">
+                                                                    <select id="priodo" class="form-control">
                                                                         <option value="Dia">Día</option>
                                                                         <option value="Mes">Mes</option>
                                                                         <option value="Año">Año</option>
                                                                     </select>
                                                                 </div>    
                                                             </div>
-
                                                             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                                 <label for="nivel">Nivel</label>
                                                                 <div class="form-group">
@@ -603,12 +601,14 @@
                                                                 <th>Titulo</th>
                                                                 <th>Establecimiento</th>
                                                                 <th>Duracion</th>
+                                                                <th>-</th>
                                                                 <th>Nivel</th>
                                                                 <th>Fecha de ingreso</th>
                                                                 <th>Fecha de salida</th>
                                                                 <th>Lugar cursado</th>
                                                             </thead>
                                                             <tfoot>
+                                                                <th></th>
                                                                 <th></th>
                                                                 <th></th>
                                                                 <th></th>
@@ -878,12 +878,6 @@
                                                                     <label for="archivo">Finiquito</label>
                                                                     <input type="file" name="archivo" id="prs" class="form-control">
                                                                 </div>
-                                                                <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
-                                                                <label ></label>
-                                                                <div class="form-group">
-                                                                    <button type="button" id="prs2" class="btn btn-primary">Agregar</button>
-                                                                </div>                 
-                                                                </div>
                                                             </div> 
                                                             <div class="col-lg-12 col-md-4 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
@@ -964,6 +958,16 @@
                                                                     {!! Recaptcha::render() !!}
                                                                 </div>
                                                             </div>
+                                                            
+                                                            <!--
+                                                                <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
+                                                                <label ></label>
+                                                                <div class="form-group">
+                                                                    <button type="button" id="prs2" class="btn btn-primary">verificar</button>
+                                                                </div>                 
+                                                                </div>
+                                                            -->
+
                                                             <div class="col-lg-12 col-md-4 col-sm-6 col-xs-12">
                                                                 <label for="montodeuda">Hago constar que toda la información consignada, es verídica y autorizo a Fundación Hábitat para la Humanidad, confirmar los datos indicados.</label>
                                                                 <input type="checkbox" class="checkbox-danger" id="confirma" onchange="javascript:showContent()">
@@ -975,9 +979,6 @@
                                                     <li class="next"><button class="btn btn-primary waves-effect waves-light" id="gdr" type="submit">Enviar datos</button></li>
                                                 </ul>
                                             </div>
-            <div id="dialog">
-                
-            </div>
                     </div>
                 </div>
             </div>
@@ -1062,9 +1063,10 @@
                     apellido1=$("#apellido1").val();
                     celular=$("#celular").val();
                     nit=$("#nit").val();
-                    pretension=$("#pretension").val();
+                    pretension=$("#pretension").val();                    
                     if (identificacion!="" )
-                        {                     
+                        {  
+                                           
                         }
                     else
                         {
@@ -1115,60 +1117,74 @@
 
                $("#form").submit(function(e)
                 {
-                     identificacion=$("#identificacion").val();
+                    identificacion=$("#identificacion").val();
                     nombre1=$("#nombre1").val();
                     apellido1=$("#apellido1").val();
                     celular=$("#celular").val();
                     nit=$("#nit").val();
                     pretension=$("#pretension").val();
-                    if (identificacion!="" && nombre1!="" && apellido1!="" && celular!="" && nit!="" && pretension!="")
-                        {    
-                            alert('Sus datos an sido enviados correctamente');                 
+                    nom=$("#g-recaptcha-response").val();
+                    if (identificacion!="" )
+                        {  
+                                           
                         }
                     else
                         {
                             alert('Revise los campos obligatorios *');
                             return false;
                         }
+                    if (nombre1!="" )
+                        {                     
+                        }
+                    else
+                        {
+                            alert('Revise los campos obligatorios *');
+                            return false;
+                        }
+                    if (apellido1!="")
+                        {                     
+                        }
+                    else
+                        {
+                            alert('Revise los campos obligatorios *');
+                            return false;
+                        }
+                    if (celular!="")
+                        {                     
+                        }
+                    else
+                        {
+                            alert('Revise los campos obligatorios *');
+                            return false;
+                        }
+                    if (nit!="")
+                        {                     
+                        }
+                    else
+                        {
+                            alert('Revise los campos obligatorios *');
+                            return false;
+                        }
+                    if (pretension!="")
+                        {                     
+                        }
+                    else
+                        {
+                            alert('Revise los campos obligatorios *');
+                            return false;
+                        }
+                    if (nom==false) 
+                            {
+                                alert('Revise los campos obligatorios *');
+                                return false;
+                            }
+                    else
+                        {
+                            alert('Gracias por enviar su solicitud');
+
+                        }
  
                        
-                    /*var fields = $(this).serialize();
-
-                    $.post("{{url('persona')}}", fields, function(data){
-
-                        if(data.valid !== undefined){
-                            $("#result").html("Gracias, sus datos fueron enviados correctamente");
-                            $("#form")[0].reset();
-                            $("#error_identi").html('');
-                            $("#error_n1").html('');
-                        }
-                        else{
-                            alert('Revise los datos obligatorios')
-                            $("#error_identi").html('');
-                            $("#error_n1").html('');
-                            if (data.identificacion !== undefined){
-                                $("#error_identi").html(data.identificacion); 
-                            }
-                            if (data.nombre1 !== undefined){
-                                $("#error_n1").html(data.nombre1);
-                            }
-                        }
-                        var errHTML="";
-
-                        if(typeof data.error != 'undefined')
-                        {
-                            for(e in data.error){
-                                errHTML+=data.error[e];
-                                //$("#result").html("la fecha inicio no puede ser mayor a la fecha final");
-                        }
-                        
-                        $("#erroresContent").html(errHTML);
-                         $('#erroresModal').modal('show');
-                    }
-                          
-                    });
-
-                    return false;*/
                 });
 
                 $('#basicwizard').bootstrapWizard({'tabClass': 'nav nav-tabs navtab-custom nav-justified bg-muted'});
@@ -1223,6 +1239,7 @@
         //confirmacion de formulario
             function showContent() {
                 check = document.getElementById("confirma");
+                nom=$("#g-recaptcha-response").val();
                 if (check.checked) {
                     $("#gdr").show();
                 }
@@ -1230,6 +1247,12 @@
                     $("#gdr").hide();
                 }
             }
+
+            function anular(e) {
+                  tecla = (document.all) ? e.keyCode : e.which;
+                  return (tecla != 13);
+             }
+
             function Finiquito(elemento) {
                 element = document.getElementById("Dfini");
                 if (elemento.value=="Si") {
@@ -1360,9 +1383,22 @@
             function prs()
             {
 
-                nombre=$("#prs").val();
-                alert(nombre);
-                //dd(nombre);
+                nombre=$("#g-recaptcha-response").val();
+                alert(nombre);/*
+                if (nombre == true)
+                {
+                    alert('correcto');
+                }*/
+                if (nombre == false)
+                {
+                    alert('incorrecto');
+                }//dd(nombre);
+                else
+                {
+                    alert('bus');  
+                    $("#gdr").show();
+
+                }
 
                 
             }
@@ -1437,8 +1473,6 @@
                 emergencia=$("#emergencia").val();
                 emr=("No");
                 emrg=("Si");
-                //alert(emergencia);
-
                 
 
                 if (nombref!="")
@@ -1473,7 +1507,6 @@
                 ultimosalario=$("#ultimosalario").val();
                 fingresoex=$("#fingresoex").val();
                 fsalidaex=$("#fsalidaex").val();
-                //alert(tiporeferencia);
 
                 if (empresa!="")
                 {
@@ -1493,7 +1526,7 @@
                 titulo=$("#titulo").val();
                 establecimiento=$("#establecimiento").val();
                 duracion=$("#duracion").val();
-
+                periodo=$("#priodo").val();
                 idnivels=$("#idnivel").val();
                 idniveltx=$("#idnivel option:selected").text();
 
@@ -1501,11 +1534,10 @@
                 fsalida=$("#dato3").val();
                 pidmunicipio=$("#pidmunicipio").val();
                 municipio=$("#pidmunicipio option:selected").text();
-                //pidmunicipio=$("#pidmunicipio option:selected").text();
 
                 if (titulo!="")
                 {
-                    var fila='<tr class="selected" id="fila'+contAc+'"> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingreso+'">'+fingreso+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalida+'">'+fsalida+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+pidmunicipio+'">'+municipio+'</td> </tr>';
+                    var fila='<tr class="selected" id="fila'+contAc+'"> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingreso+'">'+fingreso+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalida+'">'+fsalida+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+pidmunicipio+'">'+municipio+'</td> </tr>';
                     contAc++;
                     limpiar6();
                     $('#detalle6').append(fila);

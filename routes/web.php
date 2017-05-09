@@ -12,11 +12,18 @@
 */
 
 
-Route::resource('persona','PersonaController');
-Route::resource('listados','ListadoController');
+Route::get('solicitud','PersonaController@create');
+Route::get('towns/{id}', 'PersonaController@getTowns');
+Route::post('solicitud/ds','PersonaController@store');
 
-Route::get('persona/towns/{id}', 'PersonaController@getTowns');
-//Route::get('layouts/towns/{id}', 'PersonaController@getTowns');
+Route::group(['prefix'=>'listados'],function(){
+	Route::resource('empleado','ListadoController');
+	Route::resource('pprueba','Pprueba');
+	Route::resource('rechazados','Rechazados');
+	Route::get('update/{id}','Pprueba@update');
+});
+
+
 
 // Rutas Creados por LDRL
 
@@ -29,6 +36,11 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::resource('perfil','PerController');
 //	Route::post('updatefoto', 'FotoController@agregarimagen'); 		// PerController = PerfilController
 	Route::post('/updatefoto','UController@subirimagen');
+
+	//Route::get('update/{id}','SController@update');
+
+	Route::get('rechazo/{id}','SController@rechazo');
+
 	Route::get('galeria','UController@galeria');
 	Route::get('listaracademico','UController@listaracademico');
 	Route::get('towns/{id}', 'UController@getTowns'); 
@@ -45,7 +57,6 @@ Route::group(['prefix'=>'empleado'],function(){
 Route::get('/', function () {
     return view('auth/login');
 });
-
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('pdf','SController@pdf');
 
