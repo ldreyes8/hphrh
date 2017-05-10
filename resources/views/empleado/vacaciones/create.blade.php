@@ -48,31 +48,6 @@
 
 <div class="card-box">        
     <div class="row">
-        
-       
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-            <div class="form-group">
-                <label>Departamento</label>
-                <select name="pidarticulo" class="form-control selectpicker" id="pidarticulo" data-live-search="true">
-                    
-                    <option value=""></option>
-                    
-                </select>
-            </div>
-            </div>
-            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-            <div class="form-group">
-                <label>Municipio</label>
-                <select name="pidarticulo" class="form-control selectpicker" id="pidarticulo" data-live-search="true">
-                    
-                    <option value=""></option>
-                    
-                </select>
-            </div>
-            </div>
-        </div>
-
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group">
@@ -100,17 +75,6 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
             <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
-                <div><label>Concurrencia</label></div>
-                <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12"> 
-                    <select name="concurrencia" class="form-control">
-                    <option value="No">No</option>
-                    <option value="Si">Si</option>
-                    </select>
-                </div>
-            </div>
-
-
-            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
                 <div><label for="horainicio">Hora inicio</label></div>
                 <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                     <select name="horainicio" id="hinicio" class="form-control">
@@ -127,19 +91,6 @@
                         <option value="16">16</option>
                         <option value="17">17</option>
                         <option value="18">18</option>
-                    </select>
-                </div>
-            </div>
-
-           
-            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
-                <div><label>Minutos inicio</label></div>               
-                <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12"> 
-                    <select name="mini" class="form-control">
-                        <option value="00">00</option>
-                        <option value="15">15</option>
-                        <option value="30">30</option>
-                        <option value="45">45</option>
                     </select>
                 </div>
             </div>
@@ -164,20 +115,6 @@
                     </select>
                 </div>
             </div>
-
-            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
-                <div>
-                <label>Minutos finales</label>
-                </div>
-                <div class="col-lg-8 col-md-3 col-sm-3 col-xs-12">
-                    <select name="mfin" class="form-control">
-                        <option value="00">00</option>
-                        <option value="15">15</option>
-                        <option value="30">30</option>
-                        <option value="45">45</option>
-                    </select>
-               </div>
-            </div>
         </div>
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -186,15 +123,6 @@
                 <textarea class="form-control" placeholder=".........." rows="3"></textarea>
             </div>
         </div>
-        <!--
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="form-group">
-                <label class="control-label">Fecha inicio - Fecha final</label>
-                <input class="form-control input-daterange-datepicker" id="frango" type="text" name="daterange" value=""/>  
-            </div>
-        </div>
-        -->
-
        
         <div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
             <div class="modal-dialog">

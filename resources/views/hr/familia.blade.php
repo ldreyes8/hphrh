@@ -14,15 +14,15 @@
           <th>Emergencia</th>
         </thead>
         <tbody>
-          @if (isset($empleado))
-            @for ($i=0;$i<count($empleado);$i++)
+          @if (isset($familia))
+            @for ($i=0;$i<count($familia);$i++)
               <tr class="even gradeA" id="ite">
-                <td>{{$empleado[$i]->parentezco}}</td>
-                <td>{{$empleado[$i]->nombref.' '.$empleado[$i]->apellidof}}</td>
-                <td>{{$empleado[$i]->ocupacion}}</td>
-                <td>{{$empleado[$i]->edad}}</td>
-                <td>{{$empleado[$i]->telefonof}}</td>
-                <td>{{$empleado[$i]->emergencia}}</td>
+                <td>{{$familia[$i]->parentezco}}</td>
+                <td>{{$familia[$i]->nombref.' '.$familia[$i]->apellidof}}</td>
+                <td>{{$familia[$i]->ocupacion}}</td>
+                <td>{{$familia[$i]->edad}}</td>
+                <td>{{$familia[$i]->telefonof}}</td>
+                <td>{{$familia[$i]->emergencia}}</td>
               </tr>
             @endfor
           @endif

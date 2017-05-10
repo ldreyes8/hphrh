@@ -14,15 +14,15 @@
           <th>Fecha Salida</th>
         </thead>
         <tbody>
-          @if (isset($empleado))
-            @for ($i=0;$i<count($empleado);$i++)
+          @if (isset($academico))
+            @for ($i=0;$i<count($academico);$i++)
               <tr class="even gradeA" id="ite">
-                <td>{{$empleado[$i]->titulo}}</td>
-                <td>{{$empleado[$i]->establecimiento}}</td>
-                <td>{{$empleado[$i]->duracion.': '.$empleado[$i]->periodo}}</td>
-                <td>{{$empleado[$i]->nombrena}}</td>
-                <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$empleado[$i]->fingreso)->format('d-m-Y')}}</td>
-                <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$empleado[$i]->fsalida)->format('d-m-Y')}}</td>
+                <td>{{$academico[$i]->titulo}}</td>
+                <td>{{$academico[$i]->establecimiento}}</td>
+                <td>{{$academico[$i]->duracion.': '.$academico[$i]->periodo}}</td>
+                <td>{{$academico[$i]->nombrena}}</td>
+                <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$academico[$i]->fingreso)->format('d-m-Y')}}</td>
+                <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$academico[$i]->fsalida)->format('d-m-Y')}}</td>
               </tr>
             @endfor
           @endif

@@ -161,7 +161,7 @@ class UController extends Controller
         
         $departamento=DB::table('departamento')->get();
         $nivelacademico = DB::table('nivelacademico')->get();
-        $empleado = DB::table('empleado as e')
+        $academico = DB::table('empleado as e')
         ->join('persona as p','e.identificacion','=','p.identificacion')
         ->join('personaacademico as pa','e.identificacion','=','pa.identificacion')
         ->join('users as u','p.identificacion','=','u.identificacion')
@@ -169,22 +169,33 @@ class UController extends Controller
         ->select('e.idempleado','p.identificacion','pa.titulo','pa.establecimiento','pa.duracion','pa.fingreso','pa.fsalida','pa.idmunicipio','pa.identificacion','pa.idnivel','pa.periodo','na.nombrena')
         ->where('u.id','=',Auth::user()->id)
         ->get();
+
+        $empleado = DB::table('empleado as e')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->join('users as u','p.identificacion','=','u.identificacion')
+        ->select('e.idempleado','p.identificacion')
+        ->where('u.id','=',Auth::user()->id)
+        ->get();
      
-        /*
-        $data =  array("users"=>$users);
-        return json_encode($data);*/
-        return view("hr.academico",["departamento"=>$departamento,"nivelacademico"=>$nivelacademico,"empleado"=>$empleado]);
+        return view("hr.academico",["departamento"=>$departamento,"nivelacademico"=>$nivelacademico,"empleado"=>$empleado,"academico"=>$academico]);
         
     }
 
     public function listarfamiliar()
     {
-        $familia = familia::all();
-        $empleado = DB::table('empleado as e')
+
+        $familia = DB::table('empleado as e')
         ->join('persona as p','e.identificacion','=','p.identificacion')
         ->join('users as u','p.identificacion','=','u.identificacion')
         ->join('personafamilia as pf','e.identificacion','=','pf.identificacion')
         ->select('e.idempleado','p.identificacion','pf.parentezco','pf.ocupacion','pf.edad','pf.nombref','pf.apellidof','pf.telefonof','pf.emergencia')
+        ->where('u.id','=',Auth::user()->id)
+        ->get();
+
+        $empleado = DB::table('empleado as e')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->join('users as u','p.identificacion','=','u.identificacion')
+        ->select('e.idempleado','p.identificacion')
         ->where('u.id','=',Auth::user()->id)
         ->get();
          return view("hr.familia",["familia"=>$familia,"empleado"=>$empleado]);

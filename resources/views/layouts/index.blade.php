@@ -221,7 +221,19 @@
                                         class="label label-success pull-right">6</span> --></a>
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/seguridad/usuario')}}">Registro usuario</a></li>
-                                    <li><a href="#">Permisos</a></li>
+                              
+                                </ul>
+                            </li>
+
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i
+                                        class="md md-assignment"></i><span>Permisos</span> 
+                                         <span class="menu-arrow"></span></a><!--<span
+                                        class="label label-success pull-right">6</span> --></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="{{ url('/empleado/confirmado')}}">Confirmados</a></li>
+                                    <li><a href="{{ url('/empleado/rechazado')}}">Rechazados</a></li>
+                                    <li><a href="{{ url('/empleado/permisos')}}">Solicitados</a></li>
                                 </ul>
                             </li>
 
@@ -272,7 +284,7 @@
             <div class="content-page">
                 <!-- Start content -->
                 <div class="content">
-                    <div class="container">
+                    <div class="container" id="contenidoprincipal">
                         @yield('contenido')
                
                 

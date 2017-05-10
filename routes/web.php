@@ -22,7 +22,8 @@ Route::get('persona/towns/{id}', 'PersonaController@getTowns');
 
 Route::group(['prefix'=>'empleado'],function(){
 	Route::resource('permiso','PController');       // PController = PermisoController 
-	Route::get('vacaciones','VController@create');
+	Route::get('vacaciones','VController@index');
+	Route::get('vacaciones/create','VController@create');
 	Route::post('vacaciones','VController@store');
 	Route::resource('solicitante','SController'); 	// SController = SolicitanteController
 	Route::get('Spdf/{id}', 'SController@Spdf');
@@ -35,11 +36,17 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::post('agregaracademico','UController@agregaracademico');
 	Route::get('listarfamilia','UController@listarfamiliar');
 	Route::post('agregarfamiliar','UController@agregarfamiliar');
+	Route::resource('permisos','PermisosController');
+	Route::get('verificar/{idpersona}','PermisosController@verificar');
+	Route::post('verificar/enviarpermiso','PermisosController@enviarpermiso');
+	Route::get('confirmado','PermisosController@indexconfirmado');
+	Route::get('rechazado','PermisosController@indexrechazado');
 
 //FotoController@agregarimagen
 	//Route::put('/colaboradores/{id}',['uses' => 'Colaboradores@update', 'middleware' => 'auth']);
 
 });
+
 
 
 Route::get('/', function () {
