@@ -22,13 +22,18 @@ Route::get('persona/towns/{id}', 'PersonaController@getTowns');
 
 Route::group(['prefix'=>'empleado'],function(){
 	Route::resource('permiso','PController');       // PController = PermisoController 
-	Route::get('vacaciones','VController@index');
+	Route::resource('vacaciones','VController');
 	Route::get('vacaciones/create','VController@create');
-	Route::post('vacaciones','VController@store');
+	Route::post('vacaciones/store','VController@store');
+	Route::get('vacaciones/diashatomar','VController@diashatomar');
+
+	Route::get('vacaciones/calculardias','VController@calculardias');
+
+
 	Route::resource('solicitante','SController'); 	// SController = SolicitanteController
 	Route::get('Spdf/{id}', 'SController@Spdf');
-	Route::resource('perfil','PerController');
-//	Route::post('updatefoto', 'FotoController@agregarimagen'); 		// PerController = PerfilController
+	Route::resource('perfil','PerController');		// PerController = PerfilController
+//	Route::post('updatefoto', 'FotoController@agregarimagen'); 		
 	Route::post('/updatefoto','UController@subirimagen');
 	Route::get('galeria','UController@galeria');
 	Route::get('listaracademico','UController@listaracademico');
@@ -36,6 +41,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::post('agregaracademico','UController@agregaracademico');
 	Route::get('listarfamilia','UController@listarfamiliar');
 	Route::post('agregarfamiliar','UController@agregarfamiliar');
+
 	Route::resource('permisos','PermisosController');
 	Route::get('verificar/{idpersona}','PermisosController@verificar');
 	Route::post('verificar/enviarpermiso','PermisosController@enviarpermiso');
@@ -46,7 +52,6 @@ Route::group(['prefix'=>'empleado'],function(){
 	//Route::put('/colaboradores/{id}',['uses' => 'Colaboradores@update', 'middleware' => 'auth']);
 
 });
-
 
 
 Route::get('/', function () {
