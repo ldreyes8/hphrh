@@ -12,7 +12,7 @@ use Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
-class Rechazados extends Controller
+class Interino extends Controller
 {
     public function __construct()
     {
@@ -30,30 +30,14 @@ class Rechazados extends Controller
         ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
         ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
         ->select('e.idempleado','e.identificacion','e.nit','p.nombre1 as nombre','p.apellido1 as apellido','af.nombre as fnombre','pu.nombre as pnombre','st.statusemp as statusn')
-        ->where('e.idstatus','=',8)
+        ->where('e.idstatus','=',9)
         ->where('p.nombre1','LIKE','%'.$query.'%')
         ->orderBy('e.idempleado','desc')
         //->orderBy('e.idempleado','desc')
          ->paginate(19);
-         /*
-
-        $query=trim($request->get('searchText'));
-        $empleado=DB::table('empleado as e')
-        ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
-        ->join('status as st','e.idstatus','=','st.idstatus')
-        ->join('persona as p','e.identificacion','=','p.identificacion')
-        ->join('nomytras as nt','e.idempleado','=','nt.idempleado')
-        ->join('puesto as po','nt.idpuesto','=','po.idpuesto')
-        ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
-        ->select('e.idempleado','e.identificacion','e.nit','p.nombre1 as nombre','p.apellido1 as apellido','st.statusemp as statusn','po.nombre as npo','af.nombre as naf')
-        ->where('e.idstatus','=',2)
-        ->where('p.nombre1','LIKE','%'.$query.'%')
-        ->orderBy('e.idempleado','asc')
-        //->orderBy('e.idempleado','desc')
-         ->paginate(19);*/
         }
 
-        return view('listados.rechazados.index',["empleado"=>$empleado,"searchText"=>$query]);
+        return view('listados.interino.index',["empleado"=>$empleado,"searchText"=>$query]);
     }
     public function show ($id)
     {

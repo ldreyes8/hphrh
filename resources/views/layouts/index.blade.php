@@ -208,8 +208,7 @@
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/empleado/solicitante')}}">Aspirantes</a></li>
                                     <li><a href="{{ url('/listados/empleado')}}">Listado de empleados</a></li>
-                                    <li><a href="#">Vacaciones solicitadas</a></li>
-                                    <li><a href="#">Permisos solicitados</a></li>
+                                    <li><a href="{{ url('/listados/interino')}}">Interinato</a></li>
                                     <li><a href="{{ url('/listados/pprueba')}}">Periodo de prueba</a></li>
                                     <li><a href="{{ url('/listados/rechazados')}}">Rechazados</a></li>
                                 </ul>

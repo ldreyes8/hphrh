@@ -505,9 +505,9 @@
                                                                 <label for="per">-</label>
                                                                 <div class="form-group">
                                                                     <select id="priodo" class="form-control">
-                                                                        <option value="Dia">Día</option>
+                                                                        <option value="Dia">Días</option>
                                                                         <option value="Mes">Mes</option>
-                                                                        <option value="Año">Año</option>
+                                                                        <option value="Año">Años</option>
                                                                     </select>
                                                                 </div>    
                                                             </div>

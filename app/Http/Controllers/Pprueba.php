@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Empleado;
 use App\Nomytras;
+use App\Vacadetalle;
 use App\Http\Requests\Nomrequest;
 
 
@@ -26,39 +27,22 @@ class Pprueba extends Controller
     public function index (Request $request)
     {
     	if ($request)
-    	{/*
+    	{
             $query=trim($request->get('searchText'));
             $empleado=DB::table('empleado as e')
             ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
             ->join('status as st','e.idstatus','=','st.idstatus')
             ->join('persona as p','e.identificacion','=','p.identificacion')
-            ->select('e.idempleado','e.identificacion','e.nit','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','ec.estado as estadocivil','p.nombre1 as nombre','p.apellido1 as apellido','st.statusemp as statusn')
+            ->join('nomytras as nt','e.idempleado','=','nt.idempleado')
+            ->join('puesto as po','nt.idpuesto','=','po.idpuesto')
+            ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
+            ->select('e.idempleado','e.identificacion','e.nit','p.nombre1 as nombre','p.apellido1 as apellido','st.statusemp as statusn','po.nombre as npo','af.nombre as naf','nt.salario as sal')
             ->where('e.idstatus','=',7)
             ->where('p.nombre1','LIKE','%'.$query.'%')
-            ->orderBy('e.idempleado','desc')
+            ->orderBy('e.idempleado','asc')
             //->orderBy('e.idempleado','desc')
-             ->paginate(19);
+            ->paginate(19);
         }
-*/
-
-        $query=trim($request->get('searchText'));
-        $empleado=DB::table('empleado as e')
-        ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
-        ->join('status as st','e.idstatus','=','st.idstatus')
-        ->join('persona as p','e.identificacion','=','p.identificacion')
-        ->join('nomytras as nt','e.idempleado','=','nt.idempleado')
-        ->join('puesto as po','nt.idpuesto','=','po.idpuesto')
-        ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
-        ->select('e.idempleado','e.identificacion','e.nit','p.nombre1 as nombre','p.apellido1 as apellido','st.statusemp as statusn','po.nombre as npo','af.nombre as naf')
-        ->where('e.idstatus','=',7)
-        ->where('p.nombre1','LIKE','%'.$query.'%')
-        ->orderBy('e.idempleado','asc')
-        //->orderBy('e.idempleado','desc')
-         ->paginate(19);
-     }
-
-
-
         return view('listados.pprueba.index',["empleado"=>$empleado,"searchText"=>$query]);
     }
     public function show ($id)
@@ -82,7 +66,7 @@ class Pprueba extends Controller
 
         $empleado=DB::table('empleado as e')
         ->join('persona as ec','e.identificacion','=','ec.identificacion')
-        ->select('e.idempleado','ec.nombre1')
+        ->select('e.idempleado','ec.nombre1','ec.apellido1')
         ->where('e.idempleado','=',$id)
         ->first();
 
@@ -93,38 +77,88 @@ class Pprueba extends Controller
         ->where('em.idempleado','=',$id)
         ->first();
 
+        $jefesinmediato=DB::table('jefesinmediato as ji')
+        ->join('persona as per','ji.identificacion','=','per.identificacion')
+        ->select('ji.idjefeinmediato','per.nombre1','per.apellido1')
+        ->get();
+
         $caso=DB::table('caso as c')
         ->select('c.idcaso','c.nombre')
         ->get();
 
-        return view("listados.pprueba.create",["puestos"=>$puestos,"afiliados"=>$afiliados,"caso"=>$caso,"empleado"=>$empleado]);
+        return view("listados.pprueba.create",["puestos"=>$puestos,"afiliados"=>$afiliados,"caso"=>$caso,"empleado"=>$empleado,"jefesinmediato"=>$jefesinmediato]);
         //return Redirect::to('listados/pprueba/create');
     }
 
     public function store(Nomrequest $request)
     {
-        try {
+        try 
+        {
             $idem = $request->get('idempleado');
-            $fecha=$request->get('fecha');
-            $fecha=Carbon::createFromFormat('d/m/Y',$fecha);
-            $fecha=$fecha->format('Y-m-d');
-            $nomtras=new Nomytras;
-            $nomtras-> idpuesto=$request->get('idpuesto');
-            $nomtras-> idempleado=$idem;
-            $nomtras-> fecha=$fecha;
-            $nomtras-> salario=$request->get('salario');
-            $nomtras-> descripcion=$request->get('descripcion');
-            $nomtras-> idafiliado=$request->get('idafiliado');
-            $nomtras-> idcaso=$request->get('idcaso');
-            $nomtras->save();
-
-            $st=Empleado::find($idem);
-            $st->idstatus='7';
-            $st->update();
-
-        } catch (Exception $e) {
+            $idco = $request->get('idcaso');
+            $idji = $request->get('idjefe');
+            $today = Carbon::now();
+            $year = $today->format('Y');
             
-        }        
+            if ($idco=="1")
+            {
+                //dd($idem,$idco);
+                $fecha=$request->get('fecha');
+                $fecha=Carbon::createFromFormat('d/m/Y',$fecha);
+                $fecha=$fecha->format('Y-m-d');
+
+                $nomtras=new Nomytras;
+                $nomtras-> idpuesto=$request->get('idpuesto');
+                $nomtras-> idempleado=$idem;
+                $nomtras-> fecha=$fecha;
+                $nomtras-> salario=$request->get('salario');
+                $nomtras-> descripcion=$request->get('descripcion');
+                $nomtras-> idafiliado=$request->get('idafiliado');
+                $nomtras-> idcaso=$idco;
+                $nomtras->save();
+
+                $vacas=new Vacadetalle;
+                $vacas-> idempleado=$idem;
+                $vacas-> periodo=$year;
+                $vacas-> acuhoras='0';
+                $vacas-> acudias='0';
+                $vacas-> solhoras='0';
+                $vacas-> fecharegistro=$fecha;
+                $vacas-> soldias='0';
+                $vacas->save();
+
+                $st=Empleado::find($idem);
+                $st-> fechaingreso=$fecha;
+                $st-> idjefeinmediato=$idji;
+                $st-> idstatus='7';
+                $st-> update();
+            }
+            if ($idco=="5") 
+            {
+                //dd($idem,$idco);
+                $fecha=$request->get('fecha');
+                $fecha=Carbon::createFromFormat('d/m/Y',$fecha);
+                $fecha=$fecha->format('Y-m-d');
+
+                $nomtras=new Nomytras;
+                $nomtras-> idpuesto=$request->get('idpuesto');
+                $nomtras-> idempleado=$idem;
+                $nomtras-> fecha=$fecha;
+                $nomtras-> salario=$request->get('salario');
+                $nomtras-> descripcion=$request->get('descripcion');
+                $nomtras-> idafiliado=$request->get('idafiliado');
+                $nomtras-> idcaso=$idco;
+                $nomtras->save();
+
+                $st=Empleado::find($idem);
+                $st-> fechaingreso=$fecha;
+                $st-> idjefeinmediato=$idji;
+                $st-> idstatus='9';
+                $st-> update();
+            }
+
+        } catch (Exception $e) 
+        {}
         return Redirect::to('listados/pprueba');
     }
 

@@ -30,7 +30,7 @@
                  <td>{{$em->statusn}}</td>
                  <td>{{$em->afiliacionigss}}</td>
                  <td>
-                 <a href="{{URL::action('ListadoController@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
+                 <a href="{{URL::action('SController@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
                  <a href=""><button class="btn btn-danger">Anular</button></a>
                  </td>
                  </tr>
@@ -41,5 +41,8 @@
          {{$empleado->render()}}
    </div>
 </div>
+
+
+
 @endsection
 

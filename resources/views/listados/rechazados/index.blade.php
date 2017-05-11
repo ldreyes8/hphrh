@@ -15,9 +15,9 @@
                      <th>Identificación</th>
                      <th>Nit</th>
                      <th>Nombre</th>
-                     <th>Estado civil</th>
+                     <th>Afiliado</th>
+                     <th>Puesto</th>
                      <th>Status</th>
-                     <th>Iggs</th>
                      <th>Opciones</th>
                  </thead>
                  @foreach ($empleado as $em)
@@ -26,15 +26,14 @@
                  <td>{{$em->identificacion}}</td>
                  <td>{{$em->nit}}</td>
                  <td>{{$em->nombre.': '.$em->apellido}}</td>
-                 <td>{{$em->estadocivil}}</td>
+                 <td>{{$em->fnombre}}</td>
+                 <td>{{$em->pnombre}}</td>
                  <td>{{$em->statusn}}</td>
-                 <td>{{$em->afiliacionigss}}</td>
                  <td>
-                 <a href="{{URL::action('Rechazados@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
+                 <a href="{{URL::action('SController@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
                  <a href=""><button class="btn btn-danger">Anular</button></a>
                  </td>
                  </tr>
-
                  @endforeach
              </table>
          </div>
