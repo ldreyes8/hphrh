@@ -16,7 +16,7 @@ use DateTime;
 use Carbon\Carbon;  // para poder usar la fecha y hora
 use Response;
 use Illuminate\Support\Collection;
-
+//
 class SController extends Controller
 {
     public function __construct()
