@@ -2,8 +2,8 @@
 @section ('contenido')
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<h3>Listado de  empleaos</h3>
-		@include('listados.search')
+		<h3>Personas en periodo de prueba</h3>
+		@include('listados/pprueba.search')
 	</div>
 </div>
 <div class="row">
@@ -15,9 +15,10 @@
                      <th>Identificación</th>
                      <th>Nit</th>
                      <th>Nombre</th>
-                     <th>Estado civil</th>
+                     <th>Afiliado</th>
+                     <th>Puesto</th>
+                     <th>Salario</th>
                      <th>Status</th>
-                     <th>Iggs</th>
                      <th>Opciones</th>
                  </thead>
                  @foreach ($empleado as $em)
@@ -26,12 +27,14 @@
                  <td>{{$em->identificacion}}</td>
                  <td>{{$em->nit}}</td>
                  <td>{{$em->nombre.': '.$em->apellido}}</td>
-                 <td>{{$em->estadocivil}}</td>
+                 <td>{{$em->naf}}</td>
+                 <td>{{$em->npo}}</td>
+                 <td>{{$em->sal}}</td>
                  <td>{{$em->statusn}}</td>
-                 <td>{{$em->afiliacionigss}}</td>
                  <td>
-                 <a href="#"><button class="btn btn-primary">Detalles</button></a>
-                 <a href=""><button class="btn btn-danger">Anular</button></a>
+                 <a href="{{URL::action('SController@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
+                 <a href="{{URL::action('Confirmacion@update',$em->idempleado)}}"><button class="btn btn-primary">Confirmar</button></a>
+                 <a href="{{URL::action('SController@rechazo',$em->idempleado)}}"><button class="btn btn-danger">Rechazar</button></a>
                  </td>
                  </tr>
 

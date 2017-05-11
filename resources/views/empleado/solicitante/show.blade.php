@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
     <div class="form-group">
-      <label for="nombre">Solicitante</label>
+      <label for="nombre">Nombre</label>
       <p>{{$persona->nombre1.' '.$persona->nombre2.' '.$persona->apellido1.' '.$persona->apellido2}}</p>
     </div>
   </div>
@@ -81,6 +81,12 @@
             @if($persona->calle == '' and $persona->avenida == '' and $persona->zona == '' and $persona->nomenclatura == '' and $persona->barriocolonia != '')
               <td>              
                  {{$persona->barriocolonia}}              
+              </td>
+            @endif
+
+            @if($persona->calle == '' and $persona->avenida == '' and $persona->zona == '' and $persona->nomenclatura == '' and $persona->barriocolonia == '')
+              <td>              
+                               
               </td>
             @endif
 
