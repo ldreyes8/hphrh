@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use Storage;
 use DB;
-use Carbon\Carbon;  // para poder usar la fecha y hora
+use Carbon\Carbon; //para poder usar la fecha y hora
 use Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -24,22 +24,43 @@ class ListadoController extends Controller
     	if ($request)
     	{
         $query=trim($request->get('searchText'));
-    	$empleado=DB::table('empleado as e')
+        $empleado=DB::table('empleado as e')
         ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
         ->join('status as st','e.idstatus','=','st.idstatus')
         ->join('persona as p','e.identificacion','=','p.identificacion')
         ->select('e.idempleado','e.identificacion','e.nit','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','ec.estado as estadocivil','p.nombre1 as nombre','p.apellido1 as apellido','st.statusemp as statusn')
         ->where('e.idstatus','=',2)
         ->where('p.nombre1','LIKE','%'.$query.'%')
-		->orderBy('e.idempleado','asc')
-		//->orderBy('e.idempleado','desc')
+        ->orderBy('e.idempleado','asc')
+        //->orderBy('e.idempleado','desc')
          ->paginate(19);
-    	}
+         /*
 
-    	return view('listados.index',["empleado"=>$empleado,"searchText"=>$query]);
+        $query=trim($request->get('searchText'));
+        $empleado=DB::table('empleado as e')
+        ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
+        ->join('status as st','e.idstatus','=','st.idstatus')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->join('nomytras as nt','e.idempleado','=','nt.idempleado')
+        ->join('puesto as po','nt.idpuesto','=','po.idpuesto')
+        ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
+        ->select('e.idempleado','e.identificacion','e.nit','p.nombre1 as nombre','p.apellido1 as apellido','st.statusemp as statusn','po.nombre as npo','af.nombre as naf')
+        ->where('e.idstatus','=',2)
+        ->where('p.nombre1','LIKE','%'.$query.'%')
+        ->orderBy('e.idempleado','asc')
+        //->orderBy('e.idempleado','desc')
+         ->paginate(19);*/
+        }
+
+        return view('listados.empleado.index',["empleado"=>$empleado,"searchText"=>$query]);
     }
-    public function show (Request $request)
+    public function show ($id)
     {
-    	
+        $empleado=DB::table('empleado as e')
+        ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
+        ->select('e.identificacion','e.numerodependientes','e.nit')
+        ->where('e.identificacion','=',$id)
+        ->first();
+        return view('listados.empleado.show',["empleado"=>$empleado]);
     }
 }

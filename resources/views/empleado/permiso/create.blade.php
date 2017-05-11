@@ -51,7 +51,7 @@
         
         <input type="hidden" name="idempleado" value="{{$usuarios->idempleado}}">
         <input type="hidden" name="idmunicipio" value="{{$usuarios->idmunicipio}}">
-      
+        <input type="hidden" name="name" value="{{$usuarios->nombre}}">
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -264,6 +264,7 @@
 
                     if(data.valid !== undefined){
                         $("#result").html("En hora buena formulario enviado correctamente");
+                        
                         $("#form")[0].reset();
                         $("#error_fechaini").html('');
                         $("#error_fechafin").html('');

@@ -28,13 +28,15 @@ class PRequest extends FormRequest
         return [
             'fini'=>'required',
             'ffin'=>'required',
+            'idausencia',
         ];
     }
 
     public function messages(){
         return [
         'fini.required' => 'El campo fecha inicio es requerido',
-        'ffin.required'=>'El campo fecha final es requerido'
+        'ffin.required'=>'El campo fecha final es requerido',
+
         //'fechainicio.min' => 'El minimo permitido son 3 caracteres'
         //'fechainicio.max' => 'El maximo permitido son 12 caracteres'
          ];

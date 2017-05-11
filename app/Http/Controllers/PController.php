@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 
 use Illuminate\Support\Facades\Redirect;
@@ -19,8 +20,11 @@ use Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
+use Mail;
+use Session;
 
-use DB;
+
+
 class PController extends Controller
 {
     public function __construct()
@@ -38,11 +42,14 @@ class PController extends Controller
         ->join('empleado as emp','a.idempleado','=','emp.idempleado')
         ->join('persona as per','emp.identificacion','=','per.identificacion')
         ->join('users as U','per.identificacion','=','U.identificacion')
-        ->select('a.fechainicio','a.fechafin','a.horainicio','a.horafin','a.juzgadoinstitucion','a.tipocaso','a.autorizacion')
+        ->join('tipoausencia as ta','a.idtipoausencia','=','ta.idtipoausencia')
+        ->select('a.fechainicio','a.fechafin','a.horainicio','a.horafin','a.juzgadoinstitucion','a.tipocaso','a.autorizacion','a.fechasolicitud')
         ->where('U.id','=',Auth::user()->id)
-        ->groupBy('a.fechainicio','a.fechafin','a.horainicio','a.horafin','a.juzgadoinstitucion','a.tipocaso','a.autorizacion')
+        ->where('ta.ausencia','!=','Vacaciones')
+
+        ->groupBy('a.fechainicio','a.fechafin','a.horainicio','a.horafin','a.juzgadoinstitucion','a.tipocaso','a.autorizacion','a.fechasolicitud')
         
-        ->paginate(10);
+        ->paginate(15);
     	}
 
     	return view('empleado.permiso.index',["ausencias"=>$ausencias,"searchText"=>$query]);
@@ -62,29 +69,27 @@ class PController extends Controller
           ->join('persona as per','U.identificacion','=','per.identificacion')
           ->join('empleado as E','per.identificacion','=','E.identificacion')
       	  ->join('municipio as M','per.idmunicipio','=','M.idmunicipio')
-      	  ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.idmunicipio','E.idempleado')
+      	  ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ",per.apellido2) AS nombre'),'per.idmunicipio','E.idempleado')
           ->where('U.id','=',Auth::user()->id)
           ->first();
 
 		  return view('empleado.permiso.create',array('tausencia' => $tausencia,'usuarios'=>$usuarios));
   	}
 
-
   	public function store(PRequest $request)
   	{
     	$vacaciones = new Vacaciones;
-
-      //$data = $request->all();
-    	$mytime = Carbon::now('America/Guatemala');
+      
     	$fechainicio = $request->fini; 
     	$fechafinal = $request->ffin;
       $concurrencia = $request->concurrencia;
-
 
       $hini = $request->horainicio;
       $hfin = $request->horafin;
       $mini = $request->mini;
       $mfin = $request->mfin;
+
+      $name = $request->name;
 
       $horainicio = $hini.':'.$mini;
       $horafinal = $hfin.':'.$mfin;
@@ -107,60 +112,108 @@ class PController extends Controller
 
     	if ($validator->valid())
     	{
-      		if ($request->ajax()){
-        		if($fechafinal >= $fechainicio){
-          			if($fechainicio === $today){
-            			return response()->json(array('error' => 'Fecha inicio no puede ser igual ala fecha actual'),200);
-            		}
+      	if ($request->ajax()){
+        	if($fechafinal >= $fechainicio){
+          	if($fechainicio === $today){
+            	return response()->json(array('error' => 'Fecha inicio no puede ser igual ala fecha actual'),200);
+            }
 
-                if($hfin < $hini)
-                {
-                  return response()->json(array('error' => 'Hora inicial debe ser menor a la hora final'),200);
-                }
+            if($hfin < $hini)
+            {
+              return response()->json(array('error' => 'Hora inicial debe ser menor a la hora final'),200);
+            }
 
-                //if($concurrencia === 'No')
+            $hinicio = $hini*60;
+            $hinicio = $hinicio + $mini;
 
-                //if($concurrencia === 'Si')           
+            $hfinal = $hfin * 60;
+            $hfinal = $hfinal + $mfin;
 
-                $vacaciones->fechainicio = $fechainicio;
-                $vacaciones->fechafin = $fechafinal;
-                $vacaciones->horainicio=$horainicio;
-                $vacaciones->horafin=$horafinal;
-                $vacaciones->juzgadoinstitucion= $request->get('juzgadoinstitucion');
-                $vacaciones->tipocaso= $request->get('tipocaso');
-                $vacaciones->idempleado = $request->get('idempleado');
-                $vacaciones->idmunicipio = $request->get('idmunicipio');
-                $vacaciones->idtipoausencia= $request->get('idtipoausencia');
-                $vacaciones->concurrencia = $request->get('concurrencia');
-                $vacaciones->autorizacion='solicitado';
-                $vacaciones->save();
+            if($hinicio > $hfinal)
+            {
+              return response()->json(array('error' => 'Verificar la hora y minutos solicitados'),200);                  
+            }
+            else
+            {
+              $vacaciones->fechainicio = $fechainicio;
+              $vacaciones->fechafin = $fechafinal;
+              $vacaciones->horainicio=$horainicio;
+              $vacaciones->horafin=$horafinal;
+              $vacaciones->juzgadoinstitucion= $request->get('juzgadoinstitucion');
+              $vacaciones->tipocaso= $request->get('tipocaso');
+              $vacaciones->idempleado = $request->get('idempleado');
+              $vacaciones->idmunicipio = $request->get('idmunicipio');
+              $vacaciones->idtipoausencia= $request->get('idtipoausencia');
+              $vacaciones->concurrencia = $request->get('concurrencia');
+              $vacaciones->autorizacion='solicitado';
+              $vacaciones->totalhoras = '00:00:00';
+
+              //dd($request->all());
+              $mytime = Carbon::now('America/Guatemala');
+              $vacaciones->fechasolicitud=$mytime->toDateString();
+              $vacaciones->save();
                 
+              $idausencia = $vacaciones->idausencia;
 
-                //$vacaciones = Vacaciones::create($data);
-          			return response()->json(["valid" => true], 200);
-        		}
-        		else{
-          			return response()->json(array('error'=>'la fecha inicio no puede ser mayor que la fecha final'),200);
-        		}
-      		}
-      		else
-      		{
-        		if($fechafinal >= $fechainicio){
-          			if($fechainicio === $today){
-          				return Redirect('empleado/permiso')
-            			->with('message','La fecha inicio no puede ser igual a la fecha actual');
-          			}
+              if($concurrencia === 'No')
+              {
+                $vac =DB::table('ausencia as au')                
+                ->select(DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, au.horainicio, au.horafin)) as horas'))
+                ->orderBy('au.idausencia','des')
+                ->first();
+
+                $vacacion = Vacaciones::findOrFail($idausencia);
+                $vacacion->totalhoras = $vac->horas;
+                $vacacion->update();                  
+              }
+
+              //dd($request->all());
+
+
+              //dd($emisor);
+
+
+              Mail::send('emails.envio',$request->all(), function($msj){
+
+
+              $emisor =DB::table('ausencia as au')
+              ->join('empleado as emp','au.idempleado','=','emp.idempleado')
+              ->join('persona as p','emp.identificacion','=','p.identificacion')
+              ->join('jefesinmediato as jf','emp.idjefeinmediato','=','jf.idjefeinmediato')
+              ->join('users as U','p.identificacion','=','U.identificacion')
+              ->select('jf.email')
+              ->where('U.id','=',Auth::user()->id)
+              ->first();
+
+                $msj->subject('Solicitud de permiso');
+                $msj->to($emisor->email);
+                //$msj->to('drdanielreyes5@gmail.com');
+              });
+          		return response()->json(["valid" => true], 200);
+            }
+        	}
+        	else{
+          	return response()->json(array('error'=>'la fecha inicio no puede ser mayor que la fecha final'),200);
+        	}
+      	}
+      	else
+      	{
+        	if($fechafinal >= $fechainicio){
+          	if($fechainicio === $today){
+          		return Redirect('empleado/permiso')
+            	->with('message','La fecha inicio no puede ser igual a la fecha actual');
+          		}
           			//dd($days,$fini,$ffin);
-          			return Redirect('empleado/permiso')
-          			->with('message','Envio correctamente');
-          			$request->input('fechainicio');
-          			$request->input('fechafin');
-        		}
-        		else{
-          			return Redirect('empleado/permiso')
-          			->with('message','La fecha inicio debe ser antes que la fecha final');                
-        		}         
-      		}
+          		return Redirect('empleado/permiso')
+          		->with('message','Envio correctamente');
+          		$request->input('fechainicio');
+          		$request->input('fechafin');
+        	}
+        	else{
+          	return Redirect('empleado/permiso')
+          	->with('message','La fecha inicio debe ser antes que la fecha final');                
+        	}         
+      	}
     	}     
   	}
 }

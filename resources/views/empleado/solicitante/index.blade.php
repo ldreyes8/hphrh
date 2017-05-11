@@ -9,7 +9,6 @@
         <a href="{{URL::action('SController@pdf')}}"><button class="btn btn-primary">Descargar</button></a>
     </div>
 </div>
-
 <div class="row">
    <div class=class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
          <div class="table-responsive">
@@ -35,13 +34,11 @@
                  <td>{{$em->puesto}}</td>
                  <td>
                  <a href="{{URL::action('SController@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
-                 <a href=""><button class="btn btn-danger">Anular</button></a>
-
+                 <a href="{{URL::action('Pprueba@update',$em->idempleado)}}"><button class="btn btn-primary">Aceptar</button></a>
+                 <a href="{{URL::action('SController@rechazo',$em->idempleado)}}"><button class="btn btn-primary">Rechazar</button></a>
                  <a href="{{URL::action('SController@Spdf',$em->identificacion)}}"><button class="btn btn-primary">Descargar</button></a>
-                 
                  </td>
                  </tr>
-
                  @endforeach
              </table>
          </div>
