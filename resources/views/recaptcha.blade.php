@@ -8,7 +8,9 @@ if (!function_exists('renderDataAttributes')) {
         };
  
         return implode(' ', $mapped);
+
     }
+
 }
 ?>
 <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
@@ -32,7 +34,7 @@ if (!function_exists('renderDataAttributes')) {
                     <div style="width: 250px; height: 80px; position: absolute; border-style: none;
                           bottom: 21px; left: 25px; margin: 0; padding: 0; right: 25px;">
                 <textarea id="g-recaptcha-response" name="g-recaptcha-response"
-                          class="g-recaptcha-response"
+                          class="g-recaptcha-response" 
                           style="width: 250px; height: 80px; border: 1px solid #c1c1c1;
                                  margin: 0; padding: 0; resize: none;"></textarea>
                     </div>

@@ -39,9 +39,6 @@ $(document).ready(function(){
             identificacion: $("#identificacion").val(),
             idnivel: $("#idnivel").val(),
             periodo: $("#periodo").val(),
-        
-
-
         };
         $.ajaxSetup({
             headers: {

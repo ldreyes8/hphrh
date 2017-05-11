@@ -53,8 +53,6 @@ class SController extends Controller
 
         $empleado=DB::table('empleado as e')
         ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
-        
-        
         ->select('e.identificacion','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','e.pretension','e.nit','e.fechasolicitud','ec.estado as estadocivil')
         ->where('e.identificacion','=',$id)
         ->first();
@@ -204,5 +202,21 @@ class SController extends Controller
         ->get();
       
         return view('empleado.solicitante.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos]);
+    }
+
+    /*public function update($id)
+    {
+         $st=Empleado::find($id);
+         $st->idstatus='7';
+         $st->update();
+        return Redirect::to('listados/pprueba');
+    }*/
+
+    public function rechazo($id)
+    {
+        $st=Empleado::find($id);
+        $st->idstatus='8';
+        $st->update();
+        return Redirect::to('listados/rechazados');
     }
 }

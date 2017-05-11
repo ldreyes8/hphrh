@@ -15,7 +15,6 @@ class Empleado extends Model
     protected $fillable = [
         'identificacion',
         'afiliacionigss',
-        'tipolicencia',
         'numerodependientes',
         'aportemensual',
         'vivienda',
@@ -27,7 +26,8 @@ class Empleado extends Model
         'fechaingreso',
         'idcivil',
         'idstatus',
-        'observacion'    
+        'observacion',
+        'idjefeinmediato',    
     ];
     
     protected $guarded =[
