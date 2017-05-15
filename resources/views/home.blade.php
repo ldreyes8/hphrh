@@ -2,12 +2,14 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <ol class="breadcrumb pull-right">
+                                        <li><a href="#">Minton</a></li>
+                                        <li class="active">Dashboard</li>
+                                    </ol>
+                                    <h4 class="page-title">Welcome !</h4>
+                                </div>
+                            </div>
+                        </div>
 @endsection
