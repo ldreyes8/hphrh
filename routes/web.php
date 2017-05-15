@@ -28,6 +28,7 @@ Route::group(['prefix'=>'listados'],function(){
 
 
 
+
 // Rutas Creados por LDRL
 
 Route::group(['prefix'=>'empleado'],function(){
