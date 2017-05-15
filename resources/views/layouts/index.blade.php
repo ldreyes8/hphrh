@@ -238,6 +238,18 @@
                                 </ul>
                             </li>
 
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i
+                                        class="md md-assignment"></i><span>Vacaciones</span> 
+                                         <span class="menu-arrow"></span></a><!--<span
+                                        class="label label-success pull-right">6</span> --></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="{{ url('/empleado/vconfirmado')}}">Confirmados</a></li>
+                                    <li><a href="{{ url('/empleado/vrechazado')}}">Rechazados</a></li>
+                                    <li><a href="{{ url('/empleado/vsolicitado')}}">Solicitados</a></li>
+                                </ul>
+                            </li>
+
                             <li class="menu-title">Mas</li>
 
                          
@@ -287,7 +299,7 @@
                 <div class="content">
                     <div class="container" id="contenidoprincipal">
                         @yield('contenido')
-               
+                
                 
                     </div><!-- /.row -->   
                 </div>
