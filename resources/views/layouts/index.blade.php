@@ -31,7 +31,7 @@
 
     </head>
 
-       <body class="fixed-left">
+    <body class="fixed-left">
         
         <!-- Begin page -->
         <div id="wrapper">
@@ -938,46 +938,52 @@
             <!-- /Right-bar -->
 
         </div>
-        <!-- END wrapper -->
 
+        <!-- END wrapper -->
+        @section('fin') 
+        
 
     
-        <script>
-            var resizefunc = [];
-        </script>
+       
 
         <!-- Plugins  -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
-        <script src="assets/js/detect.js"></script>
-        <script src="assets/js/fastclick.js"></script>
-        <script src="assets/js/jquery.slimscroll.js"></script>
-        <script src="assets/js/jquery.blockUI.js"></script>
-        <script src="assets/js/waves.js"></script>
-        <script src="assets/js/wow.min.js"></script>
-        <script src="assets/js/jquery.nicescroll.js"></script>
-        <script src="assets/js/jquery.scrollTo.min.js"></script>
-        <script src="../plugins/switchery/switchery.min.js"></script>
+        <script src="{{asset('assets/js/jquery.min.js')}}"></script>
+        <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+        <script src="{{asset('assets/js/detect.js')}}"></script>
+        <script src="{{asset('assets/js/fastclick.js')}}"></script>
+        <script src="{{asset('assets/js/jquery.slimscroll.js')}}"></script>
+        <script src="{{asset('assets/js/jquery.blockUI.js')}}"></script>
+        <script src="{{asset('assets/js/waves.js')}}"></script>
+        <script src="{{asset('assets/js/wow.min.js')}}"></script>
+        <script src="{{asset('assets/js/jquery.nicescroll.js')}}"></script>
+        <script src="{{asset('assets/js/jquery.scrollTo.min.js')}}"></script>
+        <script src="{{asset('assets/plugins/switchery/switchery.min.js')}}"></script>
         
         <!-- Counter Up  -->
-        <script src="../plugins/waypoints/lib/jquery.waypoints.js"></script>
-        <script src="../plugins/counterup/jquery.counterup.min.js"></script>
+        <script src="{{asset('assets/plugins/waypoints/lib/jquery.waypoints.js')}}"></script>
+        <script src="{{asset('assets/plugins/counterup/jquery.counterup.min.js')}}"></script>
 
         <!-- circliful Chart -->
-        <script src="../plugins/jquery-circliful/js/jquery.circliful.min.js"></script>
-        <script src="../plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+        <script src="{{asset('assets/plugins/jquery-circliful/js/jquery.circliful.min.js')}}"></script>
+        <script src="{{asset('assets/plugins/jquery-sparkline/jquery.sparkline.min.js')}}"></script>
 
         <!-- skycons -->
-        <script src="../plugins/skyicons/skycons.min.js" type="text/javascript"></script>
+        <script src="{{asset('assets/plugins/skyicons/skycons.min.js')}}" type="text/javascript"></script>
         
         <!-- Page js  -->
-        <script src="assets/pages/jquery.dashboard.js"></script>
+        <script src="{{asset('assets/pages/jquery.dashboard.js')}}"></script>
 
         <!-- Custom main Js -->
-        <script src="assets/js/jquery.core.js"></script>
-        <script src="assets/js/jquery.app.js"></script>
-
+        <script src="{{asset('assets/js/jquery.core.js')}}"></script>
+        <script src="{{asset('assets/js/jquery.app.js')}}"></script>
         
+
+        @show
+
+        @section('text') 
+         <script>
+            var resizefunc = [];
+        </script>
         <script type="text/javascript">
             jQuery(document).ready(function($) {
                 $('.counter').counterUp({
@@ -990,7 +996,7 @@
             // BEGIN SVG WEATHER ICON
             if (typeof Skycons !== 'undefined'){
             var icons = new Skycons(
-                {"color": "#3bafda"},
+                {"color": "#00b19d"},
                 {"resizeClear": true}
                 ),
                     list  = [
@@ -1006,6 +1012,6 @@
             };
 
         </script>
-    
+        @show
     </body>
 </html>
