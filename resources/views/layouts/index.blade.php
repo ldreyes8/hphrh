@@ -978,9 +978,7 @@
         <script src="{{asset('assets/js/jquery.app.js')}}"></script>
         
 
-        @show
-
-        @section('text') 
+       
          <script>
             var resizefunc = [];
         </script>
