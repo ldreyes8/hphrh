@@ -16,7 +16,7 @@ use DateTime;
 use Carbon\Carbon;  // para poder usar la fecha y hora
 use Response;
 use Illuminate\Support\Collection;
-//
+
 class SController extends Controller
 {
     public function __construct()
@@ -147,8 +147,6 @@ class SController extends Controller
         ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.fechanac','p.avenida','p.calle','p.nomenclatura','p.zona','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto')
         ->where('em.identificacion','=',$id)
         ->first();
-
-      
 
         $empleado=DB::table('empleado as e')
         ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
