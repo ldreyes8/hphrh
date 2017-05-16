@@ -13,8 +13,8 @@ return [
     | and private_key is the Secret key.
     |
     */
-    'public_key'     => env('RECAPTCHA_PUBLIC_KEY', '6Ldg7BsUAAAAAGK7OiR1MQv1XynQyBUNAeCOI0R-'),
-    'private_key'    => env('RECAPTCHA_PRIVATE_KEY', '6Ldg7BsUAAAAABPUbjNDUgV11t3tQUubp0UkgeRD'),
+    'public_key'     => env('RECAPTCHA_PUBLIC_KEY', '6LeKeCEUAAAAANMQvZuW8RP2-hQXcIURfl0XngDV'),
+    'private_key'    => env('RECAPTCHA_PRIVATE_KEY', '6LeKeCEUAAAAAJO1NDwj-6Js8p40xudhro-vWmPs'),
 
     /*
     |--------------------------------------------------------------------------

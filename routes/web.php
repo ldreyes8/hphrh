@@ -18,11 +18,12 @@ Route::post('solicitud/ds','PersonaController@store');
 
 Route::group(['prefix'=>'listados'],function(){
 	Route::resource('empleado','ListadoController');
-	Route::resource('pprueba','Pprueba');
+	Route::get('pprueba','Pprueba@index');
 	Route::resource('confirmacion','Confirmacion');
 	Route::resource('rechazados','Rechazados');
 	Route::resource('interino','Interino');
-	Route::get('update/{id}','Pprueba@update');
+	Route::get('pprueba/update/{id}','Pprueba@update');
+	Route::post('pprueba/agregar','Pprueba@store');
 	Route::get('update/{id}','Confirmacion@update');
 });
 
