@@ -2,10 +2,19 @@
 
 namespace Collective\Html;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class HtmlServiceProvider extends ServiceProvider
 {
+    /**
+     * Supported Blade Directives
+     *
+     * @var array
+     */
+    protected $directives = ['entities','decode','script','style','image','favicon','link','secureLink','linkAsset','linkSecureAsset','linkRoute','linkAction','mailto','email','ol','ul','dl','meta','tag','open','model','close','token','label','input','text','password','hidden','email','tel','number','date','datetime','datetimeLocal','time','url','file','textarea','select','selectRange','selectYear','selectMonth','getSelectOption','checkbox','radio','reset','image','color','submit','button','old'
+    ];
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -25,8 +34,11 @@ class HtmlServiceProvider extends ServiceProvider
 
         $this->registerFormBuilder();
 
-        $this->app->alias('html', 'Collective\Html\HtmlBuilder');
-        $this->app->alias('form', 'Collective\Html\FormBuilder');
+        $this->app->alias('html', HtmlBuilder::class);
+        $this->app->alias('form', FormBuilder::class);
+
+        $this->setBladeDirectives('Html', get_class_methods(HtmlBuilder::class));
+        $this->setBladeDirectives('Form', get_class_methods(FormBuilder::class));
     }
 
     /**
@@ -56,12 +68,34 @@ class HtmlServiceProvider extends ServiceProvider
     }
 
     /**
+     * Set blade directives
+     *
+     * @param string $namespace
+     * @param array $methods
+     *
+     * @return void
+     */
+    protected function setBladeDirectives($namespace, $methods)
+    {
+        foreach ($methods as $method) {
+            if (in_array($method, $this->directives)) {
+                $snakeMethod = Str::snake($method);
+                $directive = strtolower($namespace).'_'.$snakeMethod;
+
+                Blade::directive($directive, function ($expression) use ($namespace, $method) {
+                    return "<?php echo $namespace::$method($expression); ?>";
+                });
+            }
+        }
+    }
+
+    /**
      * Get the services provided by the provider.
      *
      * @return array
      */
     public function provides()
     {
-        return ['html', 'form', 'Collective\Html\HtmlBuilder', 'Collective\Html\FormBuilder'];
+        return ['html', 'form', HtmlBuilder::class, FormBuilder::class];
     }
 }

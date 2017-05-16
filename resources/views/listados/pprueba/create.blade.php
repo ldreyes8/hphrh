@@ -8,12 +8,12 @@
 @section ('contenido')
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<h3>Confirmacion</h3>
+		<h3>ConfirmacionGG</h3>
         <h5>Campos obligatorios *</h5>
 	</div>
 </div>
 <div class="row">
-    {!!Form::open(array('url'=>'listados/pprueba','method'=>'POST','autocomplete'=>'off','id'=>'form','onkeypress'=>'return anular(event)','enctype'=>'multipart/form_data'))!!}
+    {!!Form::open(array('url'=>'listados/pprueba/agregar','method'=>'POST','autocomplete'=>'off','id'=>'form','onkeypress'=>'return anular(event)','enctype'=>'multipart/form_data'))!!}
     {{Form::token()}}
         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
