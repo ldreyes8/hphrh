@@ -4,7 +4,7 @@ $(document).ready(function(){
         e.preventDefault();
         $.get('vacaciones/calculardias',function(data){
            
-             var horas = '';
+            var horas = '';
             var dias = '';
             var tdh;
 
@@ -14,20 +14,13 @@ $(document).ready(function(){
                 autorizacion = data[2];
             })
 
-            if(autorizacion == 'Autorizado')
+            if(autorizacion == 'Autorizado' || autorizacion == 'solicitado')
             {
                 //alert('No puede realizar una solicitud porque tiene una en proceso');
-                errHTML+='<li>No puede realizar una solicitud porque tiene una en proceso</li>';
-                $("#erroresContent").html(errHTML); 
-            $('#erroresModal').modal('show'); 
-
-
-
             swal({
                 title: "Solicitud denegada",
                 text: "No puede realizar una solicitud porque tiene una en proceso",
                 type: "error",
-                showCancelButton: true,
                 confirmButtonClass: 'btn-danger waves-effect waves-light',
                
             });
@@ -54,13 +47,88 @@ $(document).ready(function(){
         $('#Title').html("Confirmar goce de vacaciones");
         $('#formModificar').trigger("reset");
         $('#formGoce').modal('show');
-
         $("#oculto").hide();
+    });
+
+    $('#btnConfirmarV').click(function(e){
+        var resultado="ninguno";
+        var saldoh = 0;
+        var saldod = 0;
+
+        horas = $("#solhoras").val();
+        dias = $("#soldias").val();
 
 
- 
+        var porNombre=document.getElementsByName("autorizacion");
 
-       
+        // Recorremos todos los valores del radio button para encontrar el
+        // seleccionado
+        for(var i=0;i<porNombre.length;i++)
+        {
+            if(porNombre[i].checked)
+                resultado=porNombre[i].value;
+        }
+        if(resultado == "Si_gozado")
+        {
+            saldod ='0';
+            saldoh = '00:00:00';
+
+        }
+        if(resultado == "No_gozado")
+        {
+            saldod = dias;
+            saldoh = horas;
+        }
+        if(resultado == "Goce_temporal")
+        {
+            saldod = $("#dtomados").val();
+            saldoh = $("#htomadas").val();
+            saldoh = saldoh+':00'+':00';
+        }
+
+        var miurl="vacaciones/update";
+
+        var formData = {
+            idempleado: $('#idempleado').val(),
+            idvacadetalle: $('#idvacadetalle').val(),
+            solhoras: saldoh,
+            soldias: saldod,
+            goce: resultado,
+            name: $('#name').val(),
+        
+            
+        };
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: miurl,
+            data: formData,
+            dataType: 'json',
+
+            success: function (data) {
+                //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + td + "</td><td>" +th +"</td><td>" +"solicitado"+ "</td></tr>";
+                $('#formGoce').modal('hide');                
+            },
+            error: function (data) {
+                $('#loading').modal('hide');
+                var errHTML="";
+                if((typeof data.responseJSON != 'undefined')){
+                    for( var er in data.responseJSON){
+                        errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                    }
+                }else{
+                    errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                }
+                $("#erroresContent").html(errHTML); 
+                $('#erroresModal').modal('show');
+            }
+
+        });
     });
 
 
@@ -98,6 +166,8 @@ $(document).ready(function(){
             idmunicipio: $('#idmunicipio').val(),
             idempleado: $('#idempleado').val(),
             name: $('#name').val(),
+            tdias: $('#tdias').val(),
+            thoras: $("#thoras").val(),
             
         };
         $.ajaxSetup({

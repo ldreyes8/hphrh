@@ -37,8 +37,8 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('vacaciones/create','VController@create');
 	Route::post('vacaciones/store','VController@store');
 	Route::get('vacaciones/diashatomar','VController@diashatomar');
-
 	Route::get('vacaciones/calculardias','VController@calculardias');
+	Route::post('vacaciones/update','VController@update');
 
 
 	Route::resource('solicitante','SController'); 	// SController = SolicitanteController
@@ -69,6 +69,9 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::post('vverificar/enviarvacaciones','VacacionesController@enviarvacaciones');
 	Route::get('vconfirmado','VacacionesController@indexconfirmado');
 	Route::get('vrechazado','VacacionesController@indexrechazado');
+	Route::get('vautorizado','VacacionesController@indexautorizado');
+	Route::get('vconfirmar/{idpersona}','VacacionesController@confirmar');
+	Route::post('vconfirmar/enviarconfirmacion','VacacionesController@confirmavacaciones');
 
 //FotoController@agregarimagen
 	//Route::put('/colaboradores/{id}',['uses' => 'Colaboradores@update', 'middleware' => 'auth']);

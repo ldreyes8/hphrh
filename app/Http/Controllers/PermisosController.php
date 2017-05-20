@@ -24,78 +24,81 @@ class PermisosController extends Controller
     	if ($request)
     	{
         $query=trim($request->get('searchText'));
-
-        $usuarios = DB::table('users as U')
+      
+        $usuario = DB::table('users as U')
         ->join('persona as per','U.identificacion','=','per.identificacion')
-        ->join('empleado as emp','per.identificacion','=','emp.identificacion')
-        ->join('jefesinmediato as jf','per.identificacion','=','jf.identificacion')
-        ->select('jf.idjefeinmediato')
+        ->join('asignajefe as jf','per.identificacion','=','jf.identificacion')
+        ->select('jf.identificacion')
         ->where('U.id','=',Auth::user()->id)
         ->first();
 
-        $permisos =DB::table('ausencia as au')
-        ->join('empleado as emp','au.idempleado','=','emp.idempleado')
+        $permisos = DB::table('asignajefe as aj')
+        ->join('empleado as emp','aj.idempleado','=','emp.idempleado')
+        ->join('ausencia as au','emp.idempleado','=','au.idempleado')
         ->join('persona as per','emp.identificacion','=','per.identificacion')
-        ->join('jefesinmediato as jf','emp.idjefeinmediato','=','jf.idjefeinmediato')
+
         ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
-        
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ",per.apellido2) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
-        ->where('emp.idjefeinmediato','=',$usuarios->idjefeinmediato)
+        ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','solicitado')
-        ->where('tp.idtipoausencia','!=','3')          
-        ->paginate(15);
+        ->where('tp.idtipoausencia','!=','3')        
+   
+        ->paginate(15);       
+              
+
+
     	}
+     
 
     	return view('director.permisos.index',["permisos"=>$permisos,"searchText"=>$query]);
     }
 
     public function indexconfirmado (Request $request)
     {
-        $usuarios = DB::table('users as U')
+       $usuario = DB::table('users as U')
         ->join('persona as per','U.identificacion','=','per.identificacion')
-        ->join('empleado as emp','per.identificacion','=','emp.identificacion')
-        ->join('jefesinmediato as jf','per.identificacion','=','jf.identificacion')
-        ->select('jf.idjefeinmediato')
+        ->join('asignajefe as jf','per.identificacion','=','jf.identificacion')
+        ->select('jf.identificacion')
         ->where('U.id','=',Auth::user()->id)
         ->first();
 
-        $permisos =DB::table('ausencia as au')
-        ->join('empleado as emp','au.idempleado','=','emp.idempleado')
+        $permisos = DB::table('asignajefe as aj')
+        ->join('empleado as emp','aj.idempleado','=','emp.idempleado')
+        ->join('ausencia as au','emp.idempleado','=','au.idempleado')
         ->join('persona as per','emp.identificacion','=','per.identificacion')
-        ->join('jefesinmediato as jf','emp.idjefeinmediato','=','jf.idjefeinmediato')
+
         ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
-        
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ",per.apellido2) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
-        ->where('emp.idjefeinmediato','=',$usuarios->idjefeinmediato)
+        ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','Confirmado')
         ->where('tp.idtipoausencia','!=','3')        
-        
-        ->paginate(15);
+   
+        ->paginate(15);   
 
         return view('director.permisos.indexconfirmado',["permisos"=>$permisos])  ;        
     }
 
      public function indexrechazado (Request $request)
     {
-        $usuarios = DB::table('users as U')
+        $usuario = DB::table('users as U')
         ->join('persona as per','U.identificacion','=','per.identificacion')
-        ->join('empleado as emp','per.identificacion','=','emp.identificacion')
-        ->join('jefesinmediato as jf','per.identificacion','=','jf.identificacion')
-        ->select('jf.idjefeinmediato')
+        ->join('asignajefe as jf','per.identificacion','=','jf.identificacion')
+        ->select('jf.identificacion')
         ->where('U.id','=',Auth::user()->id)
         ->first();
-        
-        $permisos =DB::table('ausencia as au')
-        ->join('empleado as emp','au.idempleado','=','emp.idempleado')
+
+        $permisos = DB::table('asignajefe as aj')
+        ->join('empleado as emp','aj.idempleado','=','emp.idempleado')
+        ->join('ausencia as au','emp.idempleado','=','au.idempleado')
         ->join('persona as per','emp.identificacion','=','per.identificacion')
-        ->join('jefesinmediato as jf','emp.idjefeinmediato','=','jf.idjefeinmediato')
+
         ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
-        
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ",per.apellido2) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
-        ->where('emp.idjefeinmediato','=',$usuarios->idjefeinmediato)
-        ->where('au.autorizacion','=','Rechazado') 
-        ->where('tp.idtipoausencia','!=','3')         
-        ->paginate(15);
+        ->where('aj.identificacion','=',$usuario->identificacion)
+        ->where('au.autorizacion','=','Rechazado')
+        ->where('tp.idtipoausencia','!=','3')        
+   
+        ->paginate(15); 
 
         return view('director.permisos.indexrechazado',["permisos"=>$permisos])  ;        
     }
@@ -105,7 +108,7 @@ class PermisosController extends Controller
       $empleado =DB::table('ausencia as au')
         ->join('empleado as emp','au.idempleado','=','emp.idempleado')
         ->join('persona as per','emp.identificacion','=','per.identificacion')
-        ->join('jefesinmediato as jf','emp.idjefeinmediato','=','jf.idjefeinmediato')
+        //->join('jefesinmediato as jf','emp.idjefeinmediato','=','jf.idjefeinmediato')
         ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
         ->join('users as U','per.identificacion','=','U.identificacion')
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ",per.apellido2) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.horainicio','au.horafin','au.totaldias','au.totalhoras','au.concurrencia','emp.idempleado','U.email','au.idausencia')
@@ -128,7 +131,6 @@ class PermisosController extends Controller
       $ausencia->save();
 
       
-
       Mail::send('emails.envioempleado',$request->all(), function($msj) use ($request){
         $receptor = $request->receptor;
         $msj->subject('Respuesta de solicitud de permiso');

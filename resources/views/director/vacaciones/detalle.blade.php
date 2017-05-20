@@ -67,7 +67,7 @@
    		<div class="panel-body">
    			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             	<div class="form-group">
-            		<label class="radio-inline"><input type="radio" name="autorizacion" value="Confirmado" id="rconfirmar">Confirmar</label>
+            		<label class="radio-inline"><input type="radio" name="autorizacion" value="Autorizado" id="rconfirmar">Autorizar</label>
 					<label class="radio-inline"><input type="radio" name="autorizacion" value="Rechazado">Rechazar</label>
             	</div>
             	<div class="row">
