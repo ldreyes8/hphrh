@@ -38,7 +38,7 @@ class PermisosController extends Controller
         ->join('persona as per','emp.identificacion','=','per.identificacion')
 
         ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
-        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ",per.apellido2) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','solicitado')
         ->where('tp.idtipoausencia','!=','3')        
@@ -68,7 +68,7 @@ class PermisosController extends Controller
         ->join('persona as per','emp.identificacion','=','per.identificacion')
 
         ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
-        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ",per.apellido2) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','Confirmado')
         ->where('tp.idtipoausencia','!=','3')        
@@ -93,7 +93,7 @@ class PermisosController extends Controller
         ->join('persona as per','emp.identificacion','=','per.identificacion')
 
         ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
-        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ",per.apellido2) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','Rechazado')
         ->where('tp.idtipoausencia','!=','3')        
@@ -111,7 +111,7 @@ class PermisosController extends Controller
         //->join('jefesinmediato as jf','emp.idjefeinmediato','=','jf.idjefeinmediato')
         ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
         ->join('users as U','per.identificacion','=','U.identificacion')
-        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ",per.apellido2) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.horainicio','au.horafin','au.totaldias','au.totalhoras','au.concurrencia','emp.idempleado','U.email','au.idausencia')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.horainicio','au.horafin','au.totaldias','au.totalhoras','au.concurrencia','emp.idempleado','U.email','au.idausencia')
         ->where('au.idausencia','=',$id)
         ->first();
       //dd($empleado);
@@ -153,6 +153,37 @@ class PermisosController extends Controller
         'max'  => 'La capacidad del campo :attribute es :max',
         ];
         $this->validate($request, $rules,$messages);        
+    }
+
+
+     public function detalleconfirmado($id)
+    {
+      $empleado =DB::table('ausencia as au')
+        ->join('empleado as emp','au.idempleado','=','emp.idempleado')
+        ->join('persona as per','emp.identificacion','=','per.identificacion')
+        //->join('jefesinmediato as jf','emp.idjefeinmediato','=','jf.idjefeinmediato')
+        ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
+        ->join('users as U','per.identificacion','=','U.identificacion')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.horainicio','au.horafin','au.totaldias','au.totalhoras','au.concurrencia','emp.idempleado','U.email','au.idausencia')
+        ->where('au.idausencia','=',$id)
+        ->first();
+      //dd($empleado);
+      return view('director.permisos.confirmado',["empleado"=>$empleado]);            
+    }
+
+     public function detallerechazado($id)
+    {
+      $empleado =DB::table('ausencia as au')
+        ->join('empleado as emp','au.idempleado','=','emp.idempleado')
+        ->join('persona as per','emp.identificacion','=','per.identificacion')
+        //->join('jefesinmediato as jf','emp.idjefeinmediato','=','jf.idjefeinmediato')
+        ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
+        ->join('users as U','per.identificacion','=','U.identificacion')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.horainicio','au.horafin','au.totaldias','au.totalhoras','au.concurrencia','emp.idempleado','U.email','au.idausencia')
+        ->where('au.idausencia','=',$id)
+        ->first();
+      //dd($empleado);
+      return view('director.permisos.rechazado',["empleado"=>$empleado]);            
     }
 
     /*

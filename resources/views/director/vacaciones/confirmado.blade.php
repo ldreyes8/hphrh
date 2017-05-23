@@ -10,9 +10,10 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         	<div class="form-group">
-          		<div class="col-md-2 col-md-12 col-sm-12 col-xs-12">
-            		@include('hr.foto')
-          		</div>
+          		 <!--
+              <div class="col-md-2 col-md-12 col-sm-12 col-xs-12">
+                @include('hr.foto')
+              </div>-->
           		<div class="col-md-10 col-md-12 col-sm-12 col-xs-12">
             		<h3 class="text-center">SOLICITUD DE CONFIRMACIÓN</h3>
             		<h4 class="text-center">Nombre: {{$empleado->nombre}}</h4>

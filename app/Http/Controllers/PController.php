@@ -117,10 +117,7 @@ class PController extends Controller
     	{
       	if ($request->ajax()){
         	if($fechafinal >= $fechainicio){
-          	if($fechainicio === $today){
-            	return response()->json(array('error' => 'Fecha inicio no puede ser igual ala fecha actual'),200);
-            }
-
+          	
             if($hfin < $hini)
             {
               return response()->json(array('error' => 'Hora inicial debe ser menor a la hora final'),200);

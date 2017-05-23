@@ -234,7 +234,7 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
 
-        ),
+    
         'Ramsey\\Uuid\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',

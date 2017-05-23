@@ -10,9 +10,10 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         	<div class="form-group">
-          		<div class="col-md-2 col-md-12 col-sm-12 col-xs-12">
-            		@include('hr.foto')
-          		</div>
+          		 <!--
+              <div class="col-md-2 col-md-12 col-sm-12 col-xs-12">
+                @include('hr.foto')
+              </div>-->
           		<div class="col-md-10 col-md-12 col-sm-12 col-xs-12">
             		<h2 class="text-center">SOLICITUD DE PERMISO</h2>
             		<h4 class="text-center">Nombre: {{$empleado->nombre}}</h4>
@@ -51,12 +52,12 @@
 		</table>
 	</div>
 </div>
-<div class="row">
+<div class="row" id="doculto">
 	<div class="panel panel-primary">
    		<div class="panel-body">
    			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             	<div class="form-group">
-            		<label class="radio-inline"><input type="radio" name="autorizacion" value="Confirmado" id="rconfirmar">Confirmar</label>
+            		<label class="radio-inline"><input type="radio" name="autorizacion" value="Confirmado" id="rconfirmar" checked="true">Confirmar</label>
 					<label class="radio-inline"><input type="radio" name="autorizacion" value="Rechazado">Rechazar</label>
             	</div>
                 <!-- 

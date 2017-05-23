@@ -456,8 +456,13 @@ class VController extends Controller
     ->orderBy('nom.idnomytas','desc')
     ->first();
 
+    $today = Carbon::now();
+    $year = $today->format('d/m/Y');
+
+
+
     //return view('empleado.vacaciones.index',["ausencias"=>$ausencias,"searchText"=>$query,'usuarios'=>$usuarios,'ausencia'=>$ausencia,'vacaciones'=>$vacaciones]); 
-    return view ('reporte.gocevacaciones',["usuario"=>$usuario]);
+    return view ('reporte.gocevacaciones',["usuario"=>$usuario,"year"=>$year]);
     /*
       $pdf= PDF::loadView('reporte.gocevacaciones');
         return $pdf->download('reporte.pdf'); */

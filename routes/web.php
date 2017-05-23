@@ -90,6 +90,9 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('confirmado','PermisosController@indexconfirmado');
 	Route::get('rechazado','PermisosController@indexrechazado');
 
+	Route::get('detalleconfirmado/{idpersona}','PermisosController@detalleconfirmado');
+	Route::get('detallerechazado/{idpersona}','PermisosController@detallerechazado');
+
 	Route::resource('vsolicitado','VacacionesController');
 	Route::get('vverificar/{idpersona}','VacacionesController@verificar');
 	Route::post('vverificar/enviarvacaciones','VacacionesController@enviarvacaciones');

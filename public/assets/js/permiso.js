@@ -45,8 +45,8 @@ $(document).ready(function(){
             dataType: 'json',
 
             success: function (data) {
-                console.log(formData.txtmail);
-                //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +data.titulo+ "</td><td>" +data.establecimiento + "</td><td>" +data.duracion + ": " + data.periodo + "</td><td>" +nivel + "</td><td>" +fingreso + "</td><td>" +fsalida + "</td></tr>";    
+                //console.log(formData.txtmail);
+  $("#doculto").hide();                 //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +data.titulo+ "</td><td>" +data.establecimiento + "</td><td>" +data.duracion + ": " + data.periodo + "</td><td>" +nivel + "</td><td>" +fingreso + "</td><td>" +fsalida + "</td></tr>";    
                 //$('#formModal').modal('hide');
                 
             },
@@ -109,7 +109,7 @@ $(document).ready(function(){
             dataType: 'json',
 
             success: function (data) {
-                console.log(formData.txtmail);
+                $("#conte").hide();
                 //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +data.titulo+ "</td><td>" +data.establecimiento + "</td><td>" +data.duracion + ": " + data.periodo + "</td><td>" +nivel + "</td><td>" +fingreso + "</td><td>" +fsalida + "</td></tr>";    
                 //$('#formModal').modal('hide');
                 
