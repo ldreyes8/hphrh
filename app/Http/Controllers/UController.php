@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Requests\UFormRequest;
 use App\Empleado;
 use App\Persona;
+use App\Referencia;
+use App\Deudas;
+use App\Padecimientos;
+use App\Experiencia;
 use App\User;  
 use DB;
 
@@ -86,6 +90,32 @@ class UController extends Controller
 		$usuario =DB::table('users')->where('idusuario','=',$id)->delete();
 		return Redirect::to('seguridad/usuario');
 	}
+
+    public function cambiar_password(Request $request){
+                $this->validateRequestPassword($request);
+
+        $id=$request->get('idusuario');
+       
+       
+
+        $usuario=User::find($id);
+
+
+        $password=$request->input("password");
+
+        $usuario->password=bcrypt($password);
+
+
+        $r=$usuario->save();
+
+        if($r){
+            return response()->json($usuario);
+        }
+        else
+        {
+            return view("mensajes.msj_rechazado")->with("msj","Error al actualizar el password");
+        }
+    }
 
 	public function galeria()
 	{
@@ -207,7 +237,7 @@ class UController extends Controller
     }
 
     public function agregaracademico(Request $request)
-    {        
+    {
         $this->validateRequest($request);
         $academico = new Academico;
 
@@ -240,6 +270,82 @@ class UController extends Controller
 
     }
 
+    public function listarreferencia(Request $request)
+    {
+        $referencia = DB::table('empleado as e')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->join('users as u','p.identificacion','=','u.identificacion')
+        ->join('personareferencia as pr','e.identificacion','=','pr.identificacion')
+        ->select('e.idempleado','p.identificacion','pr.nombrer','pr.telefonor','pr.profesion','pr.tiporeferencia')
+        ->where('u.id','=',Auth::user()->id)
+        ->get();
+
+        $empleado = DB::table('empleado as e')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->join('users as u','p.identificacion','=','u.identificacion')
+        ->select('e.idempleado','p.identificacion')
+        ->where('u.id','=',Auth::user()->id)
+        ->first();
+         return view("hr.referencias",["referencia"=>$referencia,"empleado"=>$empleado]); 
+    }
+
+    public function listarcredito(Request $request)
+    {
+        $deuda = DB::table('empleado as e')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->join('users as u','p.identificacion','=','u.identificacion')
+        ->join('personadeudas as pd','e.identificacion','=','pd.identificacion')
+        ->select('e.idempleado','p.identificacion','pd.acreedor','pd.amortizacionmensual','pd.montodeuda')
+        ->where('u.id','=',Auth::user()->id)
+        ->get();
+
+        $empleado = DB::table('empleado as e')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->join('users as u','p.identificacion','=','u.identificacion')
+        ->select('e.idempleado','p.identificacion')
+        ->where('u.id','=',Auth::user()->id)
+        ->first();
+         return view("hr.credito",["deuda"=>$deuda,"empleado"=>$empleado]); 
+    }
+
+    public function listarpadecimiento(Request $request)
+    {
+        $padecimiento = DB::table('empleado as e')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->join('users as u','p.identificacion','=','u.identificacion')
+        ->join('personapadecimientos as pp','e.identificacion','=','pp.identificacion')
+        ->select('e.idempleado','p.identificacion','pp.nombre')
+        ->where('u.id','=',Auth::user()->id)
+        ->get();
+
+        $empleado = DB::table('empleado as e')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->join('users as u','p.identificacion','=','u.identificacion')
+        ->select('e.idempleado','p.identificacion')
+        ->where('u.id','=',Auth::user()->id)
+        ->first();
+         return view("hr.padecimientos",["padecimiento"=>$padecimiento,"empleado"=>$empleado]);
+    }
+
+    public function listarexperiencia(Request $request)
+    {
+        $experiencia = DB::table('empleado as e')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->join('users as u','p.identificacion','=','u.identificacion')
+        ->join('personaexperiencia as pe','e.identificacion','=','pe.identificacion')
+        ->select('e.idempleado','p.identificacion','pe.empresa','pe.puesto','pe.jefeinmediato','pe.motivoretiro','pe.ultimosalario','pe.fingresoex','pe.fsalidaex')
+        ->where('u.id','=',Auth::user()->id)
+        ->get();
+
+        $empleado = DB::table('empleado as e')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->join('users as u','p.identificacion','=','u.identificacion')
+        ->select('e.idempleado','p.identificacion')
+        ->where('u.id','=',Auth::user()->id)
+        ->first();
+         return view("hr.experiencia",["experiencia"=>$experiencia,"empleado"=>$empleado]);
+    }
+
     public function agregarfamiliar(Request $request)
     {
         $this->validateRequestF($request);
@@ -253,6 +359,69 @@ class UController extends Controller
         $familia->idempleado = $request->get('idempleado');
         $familia->identificacion = $request->get('identificacion');
         $familia->emergencia = $request->get('emergencia');
+
+        $familia->save();
+
+        return response()->json($familia);
+    }
+
+    public function agregarreferencia(Request $request)
+    {
+        $this->validateRequestR($request);
+        $familia = new referencia;
+        $familia->nombrer = $request->get('nombre');
+        $familia->telefonor = $request->get('telefono');
+        $familia->profesion = $request->get('profesion');
+        $familia->tiporeferencia = $request->get('tiporeferencia');
+        $familia->idempleado = $request->get('idempleado');
+        $familia->identificacion = $request->get('identificacion');
+
+        $familia->save();
+
+        return response()->json($familia);
+    }
+
+    public function agregarcredito(Request $request)
+    {
+        $this->validateRequestC($request);
+        $familia = new deudas;
+        $familia->acreedor = $request->get('acreedor');
+        $familia->amortizacionmensual = $request->get('amortizacionmensual');
+        $familia->montodeuda = $request->get('montodeuda');
+        $familia->idempleado = $request->get('idempleado');
+        $familia->identificacion = $request->get('identificacion');
+
+        $familia->save();
+
+        return response()->json($familia);
+    }
+
+    public function agregarpadecimiento(Request $request)
+    {
+        $this->validateRequestP($request);
+        $familia = new padecimientos;
+        $familia->nombre = $request->get('nombre');
+         $familia->idempleado = $request->get('idempleado');
+        $familia->identificacion = $request->get('identificacion');
+
+        $familia->save();
+
+        return response()->json($familia);
+    }
+
+    public function agregarexperiencia(Request $request)
+    {
+        $this->validateRequestE($request);
+        $familia = new experiencia;
+        $familia->empresa = $request->get('empresa');
+        $familia->puesto = $request->get('puesto');
+        $familia->jefeinmediato = $request->get('jefeinmediato');
+        $familia->motivoretiro = $request->get('motivoretiro');
+        $familia->ultimosalario = $request->get('ultimosalario');
+        $familia->fingresoex = $request->get('año_ingreso');
+        $familia->fsalidaex = $request->get('año_salida');
+        $familia->idempleado = $request->get('idempleado');
+        $familia->identificacion = $request->get('identificacion');
 
         $familia->save();
 
@@ -283,6 +452,81 @@ class UController extends Controller
         'nombre'=>'required|max:40',
         'apellido'=>'required|max:40',
 
+
+        ];
+        $messages=[
+        'required' => 'Debe ingresar :attribute.',
+        'max'  => 'La capacidad del campo :attribute es :max',
+        ];
+        $this->validate($request, $rules,$messages);        
+    }
+
+    public function validateRequestR($request){
+        $rules=[
+        'nombre' => 'required|max:75',
+        'telefono' => 'required|max:11',
+        'tiporeferencia'=> 'required|max:25',
+        'profesion'=>'required|max:100',
+
+
+        ];
+        $messages=[
+        'required' => 'Debe ingresar :attribute.',
+        'max'  => 'La capacidad del campo :attribute es :max',
+        ];
+        $this->validate($request, $rules,$messages);        
+    }
+
+    public function validateRequestC($request){
+        $rules=[
+        'acreedor' => 'required|max:60',
+        'amortizacionmensual' => 'required|max:10',
+        'montodeuda'=> 'required|max:10',
+
+
+        ];
+        $messages=[
+        'required' => 'Debe ingresar :attribute.',
+        'max'  => 'La capacidad del campo :attribute es :max',
+        ];
+        $this->validate($request, $rules,$messages);        
+    }
+
+    public function validateRequestP($request){
+        $rules=[
+        'nombre' => 'required|max:60',
+
+        ];
+        $messages=[
+        'required' => 'Debe ingresar :attribute.',
+        'max'  => 'La capacidad del campo :attribute es :max',
+        ];
+        $this->validate($request, $rules,$messages);        
+    }
+
+    public function validateRequestE($request){
+        $rules=[
+        'empresa' => 'required|max:100',
+        'puesto' => 'required|max:50',
+        'jefeinmediato' => 'required|max:50',
+        'motivoretiro' => 'required|max:40',
+        'ultimosalario' => 'required|max:10',
+        'año_ingreso' => 'required|max:4',
+        'año_salida' => 'required|max:4',
+
+
+        ];
+        $messages=[
+        'required' => 'Debe ingresar :attribute.',
+        'max'  => 'La capacidad del campo :attribute es :max',
+        ];
+        $this->validate($request, $rules,$messages);        
+    }
+
+
+    public function validateRequestPassword($request){
+        $rules=[
+        'password' => 'required',
 
         ];
         $messages=[

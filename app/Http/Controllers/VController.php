@@ -18,6 +18,8 @@ use Carbon\Carbon;  // para poder usar la fecha y hora
 use Illuminate\Support\Facades\Auth; 
 
 use DB;
+use PDF;
+
 use Mail;
 
 class VController extends Controller
@@ -441,7 +443,99 @@ class VController extends Controller
     return response()->json($vacaciones);
   }
 
-/*
+  public function goce(request $request)
+  {
+    $usuario = DB::table('users as U')
+    ->join('persona as per','U.identificacion','=','per.identificacion')
+    ->join('empleado as emp','per.identificacion','=','emp.identificacion')
+    ->join('nomytras as nom','emp.idempleado','=','nom.idempleado')
+    ->join('puesto as pue','nom.idpuesto','=','pue.idpuesto')
+    ->join('afiliado as afi','nom.idafiliado','=','afi.idafiliado')
+    ->select('emp.idempleado','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','pue.nombre as puesto','afi.nombre as afiliado')
+    ->where('U.id','=',Auth::user()->id)
+    ->orderBy('nom.idnomytas','desc')
+    ->first();
+
+    //return view('empleado.vacaciones.index',["ausencias"=>$ausencias,"searchText"=>$query,'usuarios'=>$usuarios,'ausencia'=>$ausencia,'vacaciones'=>$vacaciones]); 
+    return view ('reporte.gocevacaciones',["usuario"=>$usuario]);
+    /*
+      $pdf= PDF::loadView('reporte.gocevacaciones');
+        return $pdf->download('reporte.pdf'); */
+  }
+
+  public function rangogoce(request $request)
+  {
+    $this->validateRequest($request);
+
+    $idempleado = $request->idempleado;
+
+    $fechainicio = $request->fecha_inicio;
+    $fechafinal = $request->fecha_final;
+
+
+    $fechainicio = Carbon::createFromFormat('d/m/Y',$fechainicio);
+    $fechafinal = Carbon::createFromFormat('d/m/Y',$fechafinal);
+
+    $fini = $fechainicio;
+    $ffin = $fechafinal;
+
+    $fechainicio = $fechainicio->toDateString();
+    $fechafinal = $fechafinal->toDateString();
+
+
+    if($fechafinal >= $fechainicio){
+      $usuario = DB::table('ausencia as a')//select date_format(date, '%a %D %b %Y') 
+      //DB::raw('DATE_FORMAT(account.terminationdate,"%Y-%m-%d") as accountterminationdate')
+      ->join('vacadetalle as vd','a.idausencia','=','vd.idausencia')
+      ->select(DB::raw('DATE_FORMAT(a.fechasolicitud,"%d/%m/%Y") as fechasolicitud'),(DB::raw('DATE_FORMAT(a.fechainicio,"%d/%m/%Y") as fechainicio')),(DB::raw('DATE_FORMAT(a.fechafin,"%d/%m/%Y") as fechafin')),'a.horainicio','a.horafin','a.totaldias','a.idempleado','a.totalhoras','vd.solhoras','vd.soldias','vd.periodo')
+      ->where('a.fechainicio', '>=', $fechainicio, 'and', 'a.fechafin', '<=', $fechafinal, 'and','a.idempleado','=',$idempleado,'and','vd.estado','=','1')
+      ->get();
+
+      
+      return response()->json(($usuario));
+    }
+    else{
+      return response()->json(array('error'=>'la fecha inicio no puede ser mayor que la fecha final'),404);
+    }
+  }
+  public function Gpdf(request $request)
+  {      
+      $pdf= PDF::loadView('pdfs.gocevacaciones');
+      return $pdf->download('reporte.pdf');
+  
+    //return view('empleado.vacaciones.index',["ausencias"=>$ausencias,"searchText"=>$query,'usuarios'=>$usuarios,'ausencia'=>$ausencia,'vacaciones'=>$vacaciones]); 
+    //return view ('reporte.gocevacaciones') ;
+    
+  }
+
+
+  public function validateRequest($request){
+        $rules=[
+          'fecha_inicio'=>'required',
+          'fecha_final'=>'required',
+
+        ];
+        $messages=[
+        'required' => 'Debe ingresar :attribute.',
+        'max'  => 'La capacidad del campo :attribute es :max',
+        ];
+        $this->validate($request, $rules,$messages);        
+    }
+
+  public function validateRequest1($request){
+        $rules=[
+
+        ];
+        $messages=[
+        'required' => 'Debe ingresar :attribute.',
+        'max'  => 'La capacidad del campo :attribute es :max',
+        ];
+        $this->validate($request, $rules,$messages);        
+    }
+
+
+
+    /*
   public function store(request $request)
   {
     $this->validateRequest($request);      
@@ -532,27 +626,4 @@ class VController extends Controller
     }     
   }
 */
-  public function validateRequest($request){
-        $rules=[
-          'fecha_inicio'=>'required',
-          'fecha_final'=>'required',
-
-        ];
-        $messages=[
-        'required' => 'Debe ingresar :attribute.',
-        'max'  => 'La capacidad del campo :attribute es :max',
-        ];
-        $this->validate($request, $rules,$messages);        
-    }
-
-  public function validateRequest1($request){
-        $rules=[
-
-        ];
-        $messages=[
-        'required' => 'Debe ingresar :attribute.',
-        'max'  => 'La capacidad del campo :attribute es :max',
-        ];
-        $this->validate($request, $rules,$messages);        
-    }
 }

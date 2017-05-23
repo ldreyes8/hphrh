@@ -176,26 +176,31 @@ class PController extends Controller
 
                 Mail::send('emails.envio',$request->all(), function($msj) use ($request){
 
-                 
-
-                  $idpersona = DB::table('asignajefe as aj')
-                  ->join('persona as p','aj.identificacion','=','p.identificacion')
-                  ->select('aj.identificacion')
-                  ->where('aj.notifica','=','1')
-                  ->first();
 
 
-                  $emisor =DB::table('users as U')
-                  ->join('persona as p','U.identificacion','=','p.identificacion')
-                  ->select('U.email')
-                  ->where('U.identificacion','=',$idpersona->identificacion)
-                  ->first();
+                  $idpersona = DB::table('empleado as e')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+      ->join('users as U','p.identificacion','=','U.identificacion')
+      ->select('e.idempleado')
+      ->where('U.id','=',Auth::user()->id)
+      ->first();
 
 
-                  $msj->subject('Solicitud de permiso');
-                  $msj->to($emisor->email);
+                  $emisor =DB::table('asignajefe as aj')
+        ->join('persona as p','aj.identificacion','=','p.identificacion')
+        ->join('users as U','U.identificacion','=','p.identificacion')
+        ->join('empleado as e','e.idempleado','=','aj.idempleado')
+        ->select('U.email')
+        ->where('aj.notifica','=','1')
+        ->where('aj.idempleado','=',$idpersona->idempleado)
+        ->get();
 
-               
+ foreach ($emisor as $per) {
+        $msj->subject('Solicitud de vacaciones');
+   
+        $msj->to($per->email);
+      }
+                
                   //$msj->to('drdanielreyes5@gmail.com');
                 });
                 //DB::commit();

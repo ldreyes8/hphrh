@@ -65,7 +65,7 @@ class VacacionesController extends Controller
         ->join('persona as per','emp.identificacion','=','per.identificacion')
 
         ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
-        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ",per.apellido2) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','Confirmado')
         ->where('tp.idtipoausencia','=','3')        

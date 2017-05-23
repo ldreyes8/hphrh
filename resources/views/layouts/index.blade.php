@@ -201,6 +201,7 @@
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/empleado/vacaciones')}}">Vacaciones</a></li>
                                     <li><a href="{{ url('/empleado/permiso')}}">Permisos</a></li>
+                                    <li><a href="{{ url('/empleado/goce')}}">Constancia de vacaciones</a></li>
                                 </ul>
                             </li>
 

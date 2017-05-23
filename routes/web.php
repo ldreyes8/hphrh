@@ -32,6 +32,8 @@ Route::group(['prefix'=>'listados'],function(){
 // Rutas Creados por LDRL
 
 Route::group(['prefix'=>'empleado'],function(){
+
+	Route::post('cambiar_password', 'UController@cambiar_password');
 	Route::resource('permiso','PController');       // PController = PermisoController 
 	Route::get('vacaciones','VController@index');
 	Route::get('vacaciones/create','VController@create');
@@ -39,6 +41,9 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('vacaciones/diashatomar','VController@diashatomar');
 	Route::get('vacaciones/calculardias','VController@calculardias');
 	Route::post('vacaciones/update','VController@update');
+	Route::get('goce','VController@goce');
+	Route::get('diastomado','VController@rangogoce');
+	Route::get('Gpdf','VController@Gpdf');
 
 
 	Route::resource('solicitante','SController'); 	// SController = SolicitanteController
@@ -56,7 +61,19 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('towns/{id}', 'UController@getTowns'); 
 	Route::post('agregaracademico','UController@agregaracademico');
 	Route::get('listarfamilia','UController@listarfamiliar');
-	Route::post('agregarfamiliar','UController@agregarfamiliar');
+	Route::get('listarreferencia','UController@listarreferencia');
+	Route::post('agregarreferencia','UController@agregarreferencia');
+
+	Route::get('listarcredito','UController@listarcredito');
+	Route::post('agregarcredito','UController@agregarcredito');
+
+	Route::get('listarpadecimiento','UController@listarpadecimiento');
+	Route::post('agregarpadecimiento','UController@agregarpadecimiento');
+
+
+	Route::get('listarexperiencia','UController@listarexperiencia');
+	Route::post('agregarexperiencia','UController@agregarexperiencia');
+
 
 	Route::resource('permisos','PermisosController');
 	Route::get('verificar/{idpersona}','PermisosController@verificar');
@@ -72,6 +89,8 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('vautorizado','VacacionesController@indexautorizado');
 	Route::get('vconfirmar/{idpersona}','VacacionesController@confirmar');
 	Route::post('vconfirmar/enviarconfirmacion','VacacionesController@confirmavacaciones');
+	
+Route::get('/logout', 'Auth\LoginController@logout');
 
 //FotoController@agregarimagen
 	//Route::put('/colaboradores/{id}',['uses' => 'Colaboradores@update', 'middleware' => 'auth']);
