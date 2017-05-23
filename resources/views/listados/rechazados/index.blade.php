@@ -30,8 +30,8 @@
                  <td>{{$em->pnombre}}</td>
                  <td>{{$em->statusn}}</td>
                  <td>
-                 <a href="{{URL::action('SController@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
-                 <a href=""><button class="btn btn-danger">Anular</button></a>
+                 <a href="{{URL::action('Rechazados@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
+                 <a href="{{URL::action('Pprueba@update',$em->idempleado)}}"><button class="btn btn-primary">Contratar</button></a>
                  </td>
                  </tr>
                  @endforeach

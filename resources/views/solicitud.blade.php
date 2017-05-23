@@ -902,6 +902,41 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label>¿A trabajado en el extranjero?</label>
+                                                                    <label ><input type="radio" name="trabajoext" value="Si" onclick="Fextra(this)">Si</label>
+                                                                    <label ><input type="radio" name="trabajoext" value="No" onclick="Fextra(this)">No</label>
+                                                                </div>
+                                                            </div>
+                                                            <div id="Dextranjero" style="display: none;">
+                                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <label for="forma">En que forma</label>
+                                                                        <input type="text" name="forma" class="form-control" onkeypress="return validaL(event)">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <label for="idpais">País</label>
+                                                                        <label>Municipio</label>
+                                                                        <select name="idpais" class="form-control selectpicker" data-live-search="true">
+                                                                            <option value="" hidden>Seleccione</option>
+                                                                            @foreach($pais as $p)
+                                                                                <option value="{{$p->idpais}}">{{$p->nombre}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <label for="motivofin">Motivo de finalización de la relación laboral en el extranjero</label>
+                                                                        <input type="text" name="motivofin" class="form-control" onkeypress="return validaL(event)">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
                                                             <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                                                 <label></label>
                                                                 <table id="detalle" class="table table-striped table-bordered table-condensed table-hover">
@@ -1230,6 +1265,18 @@
                 }
                 else {
                     $("#gdr").hide();
+                }
+            }
+
+            function Fextra(elemento) {
+                element = document.getElementById("Dextranjero");
+                if (elemento.value=="Si") {
+                    element.style.display='block';
+                }
+                else 
+                { if (elemento.value=="No") {
+                    element.style.display='none';
+                }
                 }
             }
 

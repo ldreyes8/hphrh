@@ -32,6 +32,6 @@ class Nomrequest extends FormRequest
     public function messages(){
         return [
         'salario.required'=>'Salario requerido',
-        'fecha.required' => 'Primer nombre es requerido',         ];
+        'fecha.required' => 'Fecha es requerido',         ];
     }
 }

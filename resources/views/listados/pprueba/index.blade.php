@@ -3,7 +3,7 @@
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<h3>Personas en periodo de prueba</h3>
-		@include('listados/pprueba.search')
+		@include('listados.pprueba.search')
 	</div>
 </div>
 <div class="row">
@@ -32,7 +32,7 @@
                  <td>{{$em->sal}}</td>
                  <td>{{$em->statusn}}</td>
                  <td>
-                 <a href="{{URL::action('SController@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
+                 <a href="{{URL::action('Confirmacion@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
                  <a href="{{URL::action('Confirmacion@update',$em->idempleado)}}"><button class="btn btn-primary">Confirmar</button></a>
                  <a href="{{URL::action('SController@rechazo',$em->idempleado)}}"><button class="btn btn-danger">Rechazar</button></a>
                  </td>

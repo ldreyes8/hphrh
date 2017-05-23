@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Empleado;
 use App\Nomytras;
 use App\Vacadetalle;
+use App\Asignajefe;
 use App\Http\Requests\Nomrequest;
 
 
@@ -77,9 +78,16 @@ class Pprueba extends Controller
         ->where('em.idempleado','=',$id)
         ->first();
 
-        $jefesinmediato=DB::table('jefesinmediato as ji')
+        /*$jefesinmediato=DB::table('jefesinmediato as ji')
         ->join('persona as per','ji.identificacion','=','per.identificacion')
         ->select('ji.idjefeinmediato','per.nombre1','per.apellido1')
+        ->get();*/
+
+        $jefesinmediato=DB::table('persona as per')
+        ->join('empleado as em','per.identificacion','=','em.identificacion')
+        ->join('status as sts','em.idstatus','=','sts.idstatus')
+        ->select('per.identificacion','per.nombre1','per.apellido1')
+        ->where('em.idstatus','=',2)
         ->get();
 
         $caso=DB::table('caso as c')
@@ -95,7 +103,7 @@ class Pprueba extends Controller
         {
             $idem = $request->get('idempleado');
             $idco = $request->get('idcaso');
-            $idji = $request->get('idjefe');
+            //$idji = $request->get('idjefe');
             $today = Carbon::now();
             $year = $today->format('Y');
             
@@ -116,6 +124,29 @@ class Pprueba extends Controller
                 $nomtras-> idcaso=$idco;
                 $nomtras->save();
 
+                $identi=$request->get('idjefes');
+                $notifica=$request->get('confirma');
+
+                $cont = 0;
+
+                if ($notifica === Null) 
+                {
+                    $asjefe =new Asignajefe;
+                    $asjefe-> identificacion="";
+                } 
+                else 
+                {
+                    while ($cont<count($notifica)) 
+                    {
+                        $asjefe = new Asignajefe;
+                        $asjefe-> identificacion=$identi[$cont];
+                        $asjefe-> idempleado=$idem;
+                        $asjefe-> notifica=$notifica[$cont];
+                        $asjefe->save();
+                        $cont = $cont + 1;
+                    }
+                }
+
                 $vacas=new Vacadetalle;
                 $vacas-> idempleado=$idem;
                 $vacas-> periodo=$year;
@@ -128,7 +159,7 @@ class Pprueba extends Controller
 
                 $st=Empleado::find($idem);
                 $st-> fechaingreso=$fecha;
-                $st-> idjefeinmediato=$idji;
+                //$st-> idjefeinmediato=$idji;
                 $st-> idstatus='7';
                 $st-> update();
             }
@@ -149,17 +180,38 @@ class Pprueba extends Controller
                 $nomtras-> idcaso=$idco;
                 $nomtras->save();
 
+                $identi=$request->get('idjefes');
+                $notifica=$request->get('confirma');
+
+                $cont = 0;
+
+                if ($notifica === Null) 
+                {
+                    $asjefe =new Asignajefe;
+                    $asjefe-> identificacion="";
+                } 
+                else 
+                {
+                    while ($cont<count($notifica)) 
+                    {
+                        $asjefe = new Asignajefe;
+                        $asjefe-> identificacion=$identi[$cont];
+                        $asjefe-> idempleado=$idem;
+                        $asjefe-> notifica=$notifica[$cont];
+                        $asjefe->save();
+                        $cont = $cont + 1;
+                    }
+                }
+
                 $st=Empleado::find($idem);
                 $st-> fechaingreso=$fecha;
-                $st-> idjefeinmediato=$idji;
+                //$st-> idjefeinmediato=$idji;
                 $st-> idstatus='9';
                 $st-> update();
             }
 
         } catch (Exception $e) 
         {}
-        return view('empleado.perfil.index');
-        //return Redirect::to('listados/pprueba ');
-    }
+        return Redirect::to('empleado/solicitante');    }
 
 }
