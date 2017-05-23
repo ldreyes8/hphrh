@@ -3,6 +3,7 @@
     @parent
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet">
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet">
+         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 
@@ -10,13 +11,19 @@
 <div class="row">
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <h3>Listado de vacaciones  </h3><button type="button" class="btn btn-success" id="btnnuevo" >Nuevo</button>
+        <tr>
+                                                <td class="middle-align">A message with button danger</td>
+                                                <td>
+                                                    <button class="btn btn-danger waves-effect waves-light btn-sm" id="danger-alert">Click me</button>
+                                                </td>
+                                            </tr>
     </div>
 </div>
    <input type="hidden" name="idempleado" value="{{$usuarios->idempleado}}" id="idempleado">
         <input type="hidden" name="idmunicipio" value="{{$usuarios->idmunicipio}}" id="idmunicipio">
         <input type="hidden" name="name" value="{{$usuarios->nombre}}" id="name">
 <div class="row">
-   <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+    <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItems">
                 <thead>
@@ -26,23 +33,27 @@
                     <th>Total dias</th>
                     <th>Total horas</th>
                     <th>Autorizacion</th>
+                    <th>opciones</th>
                 </thead>
                 @foreach ($ausencias as $aus)
                 <tr>
                     <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechasolicitud)->format('d-m-Y')}}</td>
-
                     <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechainicio)->format('d-m-Y')}}</td>
                     <td>{{\Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechafin)->format('d-m-Y')}}</td> 
                     <td>{{$aus->totaldias}}</td>
                     <td>{{$aus->totalhoras}}</td>
                     <td>{{$aus->autorizacion}}</td>
-                 </tr>
-                
+                    @if ( $aus->autorizacion == 'Autorizado')
+                        <td> <button type="button" class="btn btn-primary" id="btnconfirmar">Confirmar goce</button></td>
+                    @else
+                        <td></td>
+                    @endif
+                </tr>                
                 @endforeach
-             </table>
-         </div>
+            </table>
+        </div>
          {{$ausencias->render()}}
-   </div>
+    </div>
 </div>
 
 <div class="col-lg-12">
@@ -139,6 +150,61 @@
     </div>
   </div>
 </div>
+
+<div class="col-lg-12">
+    <div class="modal fade" id="formGoce" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <input type="hidden" name="tdias" id="tdias">
+            <input type="hidden" name="thoras" id="thoras">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="Title"></h4>
+                </div>
+              
+                    <form role="form" id="formModificar">
+                        <div class="modal-header">
+                        <br>                           
+                        
+                            <div class="radio radio-danger radio-inline">
+                                <input type="radio" id="inlineRadio1" value="con_modificaciones" name="radioInline" checked onclick="mostrar()">
+                                <label for="inlineRadio1">con modificaciones</label>
+                            </div>
+                            <div class="radio radio-info radio-inline">
+                                <input type="radio" id="inlineRadio16" value="option2" name="radioInline" checked>
+                                <label for="inlineRadio16">sin modificaciones</label>
+                            </div>
+                        </div>
+                       
+
+                        <div class="modal-header" id="oculto">
+                            <br>                            
+                             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                <label for="numerodependientes">Dias</label>
+                                <input id="datomar" type="number" name="numerodependientes" min="0" class="form-control" onkeypress="return valida(event)">
+                            </div>
+
+                            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                <label for="horainicio">Hora</label>
+                                <select name="hhoras" id="hhoras" class="form-control">
+                                    <option value="00">00</option>
+                                    <option value="04">04</option>
+                                </select>
+                            </div>
+
+                        </div>          
+                    </form>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnguardarV">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 @section('fin')
     @parent
@@ -148,12 +214,22 @@
         <script src="{{asset('assets/js/fecha.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
         <script src="{{asset('assets/js/vacaciones.js')}}"></script>
+          <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
+        <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
+
         <script>
         function desactivar() {
             if($("#casilla:checked").val()==1) {
                 $("#casilla").attr('disabled', 'disabled');
                 $('#datomar').removeAttr("disabled");
                 $('#hhoras').removeAttr("disabled");
+            }
+        }
+
+        function mostrar() {
+            if($("#inlineRadio1:checked").val()=="con_modificaciones") {
+                $("#oculto").show();
+                $("#inlineRadio16").attr('disabled', 'disabled');
             }
         }
         </script>

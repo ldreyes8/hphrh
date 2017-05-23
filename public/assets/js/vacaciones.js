@@ -1,28 +1,69 @@
 $(document).ready(function(){
    	$('#btnnuevo').click(function(e){
-    	$('#inputTitle').html("Solicitud de vacaciones");
-    	$('#formAgregar').trigger("reset");
-    	$('#formModal').modal('show');
-        $('#datomar').attr('disabled', 'disabled');
-        $('#hhoras').attr('disabled', 'disabled');
-        $('#dacumulado').attr('disabled', 'disabled');
-        $('#btnguardarV').attr('disabled', 'disabled');
-
+        var errHTML="";
         e.preventDefault();
         $.get('vacaciones/calculardias',function(data){
-            var horas = '';
+           
+             var horas = '';
             var dias = '';
             var tdh;
+
             $.each(data,function(){
                 horas = data[0];
                 dias = data[1];
+                autorizacion = data[2];
             })
-            tdh = (dias + ' ' + 'dias' + ' ' + 'con' +' '+ horas +' '+ 'horas');
-            document.getElementById('dacumulado').value = tdh;
-            document.getElementById('tdias').value = dias;
-            document.getElementById('thoras').value = horas;
+
+            if(autorizacion == 'Autorizado')
+            {
+                //alert('No puede realizar una solicitud porque tiene una en proceso');
+                errHTML+='<li>No puede realizar una solicitud porque tiene una en proceso</li>';
+                $("#erroresContent").html(errHTML); 
+            $('#erroresModal').modal('show'); 
+
+
+
+            swal({
+                title: "Solicitud denegada",
+                text: "No puede realizar una solicitud porque tiene una en proceso",
+                type: "error",
+                showCancelButton: true,
+                confirmButtonClass: 'btn-danger waves-effect waves-light',
+               
+            });
+             
+            }
+            else{
+                $('#inputTitle').html("Solicitud de vacaciones");
+                $('#formAgregar').trigger("reset");
+                $('#formModal').modal('show');
+                $('#datomar').attr('disabled', 'disabled');
+                $('#hhoras').attr('disabled', 'disabled');
+                $('#dacumulado').attr('disabled', 'disabled');
+                $('#btnguardarV').attr('disabled', 'disabled'); 
+
+                tdh = (dias + ' ' + 'dias' + ' ' + 'con' +' '+ horas +' '+ 'horas');
+                document.getElementById('dacumulado').value = tdh;
+                document.getElementById('tdias').value = dias;
+                document.getElementById('thoras').value = horas;
+            }
         });
-	});
+    });
+
+    $('#btnconfirmar').click(function(e){
+        $('#Title').html("Confirmar goce de vacaciones");
+        $('#formModificar').trigger("reset");
+        $('#formGoce').modal('show');
+
+        $("#oculto").hide();
+
+
+ 
+
+       
+    });
+
+
     
 	$("#btnguardarV").click(function(e){
         var hoy = new Date();

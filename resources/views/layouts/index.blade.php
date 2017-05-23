@@ -554,7 +554,9 @@
         @section('fin') 
         
 
-    
+        <script>
+            var resizefunc = [];
+        </script>
        
 
         <!-- Plugins  -->
@@ -592,9 +594,7 @@
         @show
 
         @section('text') 
-         <script>
-            var resizefunc = [];
-        </script>
+         
         <script type="text/javascript">
             jQuery(document).ready(function($) {
                 $('.counter').counterUp({

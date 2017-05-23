@@ -80,8 +80,20 @@ class VController extends Controller
         ->join('users as U','per.identificacion','=','U.identificacion')
         ->select('va.idempleado','va.idausencia','va.acuhoras','va.acudias','va.fecharegistro')
         ->where('U.id','=',Auth::user()->id)
+        ->orderBy('va.idvacadetalle','DESC')
         ->first();
 
+    $ausencia= DB::table('ausencia as a')
+    ->join('empleado as emp','a.idempleado','=','emp.idempleado')
+    ->join('persona as per','emp.identificacion','=','per.identificacion')
+    ->join('users as U','per.identificacion','=','U.identificacion')
+    ->select('a.autorizacion')
+    ->orderBy('a.idausencia','DESC')
+    ->where('idtipoausencia','=','3')
+    ->first();
+
+
+    $autorizacion = $ausencia->autorizacion;
     $fecharegistro = $dias->fecharegistro;    
     $diasactual = $dias->acudias;   //obtiene la ultima fecha en donde se registro un nuevo registro
     $horasactual = $dias->acuhoras;
@@ -100,10 +112,10 @@ class VController extends Controller
     $ftoday = $today->toDateString();
 
    
-    if($fecharegistro > $ftoday)
+    if($fecharegistro >= $ftoday)
     {
-      $thoras = 0;
-      $dias = 0;
+      $thoras = $horasactual;
+      $dias = $diasactual; 
 
     }
     else
@@ -139,7 +151,7 @@ class VController extends Controller
       }      
     }
 
-    $calculo = array($thoras,$dias);
+    $calculo = array($thoras,$dias,$autorizacion);
     return response()->json($calculo);
   }
 
