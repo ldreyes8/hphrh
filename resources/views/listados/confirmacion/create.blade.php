@@ -17,7 +17,7 @@
     {!!Form::open(array('url'=>'listados/confirmacion','method'=>'POST','autocomplete'=>'off','id'=>'form','onkeypress'=>'return anular(event)','enctype'=>'multipart/form_data'))!!}
     {{Form::token()}}
         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Empleado</label>
                     <select name="idempleado" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
@@ -26,18 +26,7 @@
                 </div>                                                
             </div>
 
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label>Jefe inmediato</label>
-                    <select name="idjefe" class="form-control selectpicker" data-live-search="true">
-                        @foreach($jefesinmediato as $co)
-                            <option value="{{$co->idjefeinmediato}}">{{$co->nombre1.': '.$co->apellido1}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Afiliado al que aplica</label>
                     <select name="idafiliado" class="form-control selectpicker" data-live-search="true">
@@ -46,7 +35,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Puesto</label>
                     <select name="idpuesto" class="form-control selectpicker" data-live-search="true">
@@ -57,7 +46,7 @@
         </div>
 
         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Caso</label>
                     <select name="idcaso" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
@@ -68,7 +57,7 @@
                 </div>                                                
             </div>
 
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <label for="salario">Salario *</label>
                 <div class="input-group">
                     <span class="input-group-addon">Q</i></span>
@@ -79,7 +68,7 @@
                 @endif
             </div>
 
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="fecha">Fecha *</label>
                     <input id="dato1" type="text" class="form-control" name="fecha">
@@ -88,10 +77,10 @@
         </div>
 
         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
                 <label for="descripcion">Observaciones</label>
                 <div class="form-group">
-                    <textarea class="form-control" name="descripcion" placeholder=".........." rows="3"></textarea>
+                    <textarea class="form-control" maxlength="100" name="descripcion" placeholder=".........." rows="3"></textarea>
                 </div>
             </div>
 

@@ -34,9 +34,9 @@ class PersonaController extends Controller
     
     public function index (Request $request)
     {
-    	if ($request)
-    	{
-    	}
+        if ($request)
+        {
+        }
     }
     public function show(Request $request)
     {
@@ -60,21 +60,22 @@ class PersonaController extends Controller
 
     public function create()
     {
-    	$departamento=DB::table('departamento')->get();
-    	$estadocivil=DB::table('estadocivil')->get();
-    	$puestos=DB::table('puesto as p')
+        $departamento=DB::table('departamento')->get();
+        $estadocivil=DB::table('estadocivil')->get();
+        $puestos=DB::table('puesto as p')
         ->where('p.statusp','=','2')
         ->get();
-    	$afiliados=DB::table('afiliado as a')
+        $afiliados=DB::table('afiliado as a')
         ->where('a.statusa','=','2')
         ->get();
-    	$idiomas = DB::table('idioma')->get();
+        $idiomas = DB::table('idioma')->get();
         $licencia = DB::table('licencia')->get();
         $etnia = DB::table('etnia')->get();
         $nacionalidad = DB::table('nacionalidad')->get();
         $tdocumento = DB::table('documento')->get();
         $nivelacademico = DB::table('nivelacademico')->get();
-    	return view("solicitud",["departamento"=>$departamento,"estadocivil"=>$estadocivil,"idiomas"=>$idiomas,"puestos"=>$puestos,"afiliados"=>$afiliados,"licencia"=>$licencia,"etnia"=>$etnia,"nacionalidad"=>$nacionalidad,"tdocumento"=>$tdocumento,"nivelacademico"=>$nivelacademico]);
+        $pais=DB::table('pais')->get();
+        return view("solicitud",["departamento"=>$departamento,"estadocivil"=>$estadocivil,"idiomas"=>$idiomas,"puestos"=>$puestos,"afiliados"=>$afiliados,"licencia"=>$licencia,"etnia"=>$etnia,"nacionalidad"=>$nacionalidad,"tdocumento"=>$tdocumento,"nivelacademico"=>$nivelacademico,'pais'=>$pais]);
     }
     public function store(PersonaRequest $request)
     {
@@ -82,7 +83,10 @@ class PersonaController extends Controller
         $nombre1=$request->get('nombre1');
         $apellido1=$request->get('apellido1');
         $img=$request->file('archivo');
-//dd($img,$identificacion,$nombre1);
+        $forma=$request->get('forma');
+        $trabajos=$request->get('trabajoext');
+
+//dd($img,$identificacion,$nombre1,$forma);
       /*  $validator = Validator::make(
         $request->all(), 
         $request->rules(),
@@ -139,6 +143,22 @@ class PersonaController extends Controller
                         $persona-> idetnia=$request->get('idetnia');
                         $persona-> idnacionalidad=$request->get('idnacionalidad');
                         $persona-> iddocumento=$request->get('iddocumento');
+
+                        $persona-> trabajoext=$request->get('trabajoext');
+
+                        if ($forma == "null") 
+                        {    
+                            $persona-> forma="";
+                            $persona-> motivofin="";
+                            $persona-> idpais="";
+                        }
+                        else 
+                        {
+                            $persona-> forma=$forma;
+                            $persona-> motivofin=$request->get('motivofin');
+                            $persona-> idpais=$request->get('idpais');
+                        }
+
                         $persona->save();
                         //dd($persona);
                      //Datos empleado

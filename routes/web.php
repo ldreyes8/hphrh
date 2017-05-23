@@ -15,9 +15,19 @@
 Route::get('solicitud','PersonaController@create');
 Route::get('towns/{id}', 'PersonaController@getTowns');
 Route::post('solicitud/ds','PersonaController@store');
+Route::resource('mintrabf','Controllermintrab');
+Route::get('excel','Controllermintrab@excel');
+
+
 
 Route::group(['prefix'=>'listados'],function(){
-	Route::resource('empleado','ListadoController');
+	Route::get('empleado','ListadoController@index');
+	Route::get('laboral/{id}','ListadoController@laboral');
+	Route::get('show/{id}','ListadoController@show');
+	Route::get('historial/{id}','ListadoController@historial');
+	Route::get('empleado/Acta/{id}','ListadoController@Acta');
+	Route::post('empleado/agregar','ListadoController@store');
+	//Route::get('index/{id}','ListadoController@show');
 	Route::get('pprueba','Pprueba@index');
 	Route::resource('confirmacion','Confirmacion');
 	Route::resource('rechazados','Rechazados');
@@ -26,9 +36,6 @@ Route::group(['prefix'=>'listados'],function(){
 	Route::post('pprueba/agregar','Pprueba@store');
 	Route::get('update/{id}','Confirmacion@update');
 });
-
-
-
 
 // Rutas Creados por LDRL
 
@@ -41,16 +48,17 @@ Route::group(['prefix'=>'empleado'],function(){
 
 	Route::get('vacaciones/calculardias','VController@calculardias');
 
-
 	Route::resource('solicitante','SController'); 	// SController = SolicitanteController
 	Route::get('Spdf/{id}', 'SController@Spdf');
 	Route::resource('perfil','PerController');		// PerController = PerfilController
 //	Route::post('updatefoto', 'FotoController@agregarimagen'); 		
 	Route::post('/updatefoto','UController@subirimagen');
 
-	//Route::get('update/{id}','SController@update');
-
 	Route::get('rechazo/{id}','SController@rechazo');
+	
+	Route::post('solicitante/upt/','SController@upt');
+
+	//Route::get('update/{id}','SController@update');
 
 	Route::get('galeria','UController@galeria');
 	Route::get('listaracademico','UController@listaracademico');
