@@ -9,8 +9,8 @@ use DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\UserFormRequest;
-use App\Vacaciones;
-use App\Tausencia;
+//use App\Vacaciones;
+
 //use App\HPMEConstants;
 use App\Http\Requests\PRequest;
 use Validator;
@@ -22,6 +22,9 @@ use Illuminate\Support\Facades\Auth;
 
 use Mail;
 use Session;
+
+use App\Tausencia;
+use App\Vacaciones;
 
 
 
@@ -135,60 +138,76 @@ class PController extends Controller
             }
             else
             {
-              $vacaciones->fechainicio = $fechainicio;
-              $vacaciones->fechafin = $fechafinal;
-              $vacaciones->horainicio=$horainicio;
-              $vacaciones->horafin=$horafinal;
-              $vacaciones->juzgadoinstitucion= $request->get('juzgadoinstitucion');
-              $vacaciones->tipocaso= $request->get('tipocaso');
-              $vacaciones->idempleado = $request->get('idempleado');
-              $vacaciones->idmunicipio = $request->get('idmunicipio');
-              $vacaciones->idtipoausencia= $request->get('idtipoausencia');
-              $vacaciones->concurrencia = $request->get('concurrencia');
-              $vacaciones->autorizacion='solicitado';
-              $vacaciones->totalhoras = '00:00:00';
+              //try 
+              //{
+              //  DB::beginTransaction();
+                $vacaciones->fechainicio = $fechainicio;
+                $vacaciones->fechafin = $fechafinal;
+                $vacaciones->horainicio=$horainicio;
+                $vacaciones->horafin=$horafinal;
+                $vacaciones->juzgadoinstitucion= $request->get('juzgadoinstitucion');
+                $vacaciones->tipocaso= $request->get('tipocaso');
+                $vacaciones->idempleado = $request->get('idempleado');
+                $vacaciones->idmunicipio = $request->get('idmunicipio');
+                $vacaciones->idtipoausencia= $request->get('idtipoausencia');
+                $vacaciones->concurrencia = $request->get('concurrencia');
+                $vacaciones->autorizacion='solicitado';
+                $vacaciones->totalhoras = '00:00:00';
 
-              //dd($request->all());
-              $mytime = Carbon::now('America/Guatemala');
-              $vacaciones->fechasolicitud=$mytime->toDateString();
-              $vacaciones->save();
+                //dd($request->all());
+                $mytime = Carbon::now('America/Guatemala');
+                $vacaciones->fechasolicitud=$mytime->toDateString();
+                $vacaciones->save();
+
                 
-              $idausencia = $vacaciones->idausencia;
+                $idausencia = $vacaciones->idausencia;
 
-              if($concurrencia === 'No')
-              {
-                $vac =DB::table('ausencia as au')                
-                ->select(DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, au.horainicio, au.horafin)) as horas'))
-                ->orderBy('au.idausencia','des')
-                ->first();
+                if($concurrencia === 'No')
+                {
+                  $vac =DB::table('ausencia as au')                
+                  ->select(DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, au.horainicio, au.horafin)) as horas'))
+                  ->orderBy('au.idausencia','des')
+                  ->first();
 
-                $vacacion = Vacaciones::findOrFail($idausencia);
-                $vacacion->totalhoras = $vac->horas;
-                $vacacion->update();                  
-              }
+                  $vacacion = Vacaciones::findOrFail($idausencia);
+                  $vacacion->totalhoras = $vac->horas;
+                  $vacacion->update();                  
+                }
 
-              //dd($request->all());
-
-
-              //dd($emisor);
+                Mail::send('emails.envio',$request->all(), function($msj) use ($request){
 
 
-              Mail::send('emails.envio',$request->all(), function($msj){
+
+                  $idpersona = DB::table('empleado as e')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+      ->join('users as U','p.identificacion','=','U.identificacion')
+      ->select('e.idempleado')
+      ->where('U.id','=',Auth::user()->id)
+      ->first();
 
 
-              $emisor =DB::table('ausencia as au')
-              ->join('empleado as emp','au.idempleado','=','emp.idempleado')
-              ->join('persona as p','emp.identificacion','=','p.identificacion')
-              ->join('jefesinmediato as jf','emp.idjefeinmediato','=','jf.idjefeinmediato')
-              ->join('users as U','p.identificacion','=','U.identificacion')
-              ->select('jf.email')
-              ->where('U.id','=',Auth::user()->id)
-              ->first();
+                  $emisor =DB::table('asignajefe as aj')
+        ->join('persona as p','aj.identificacion','=','p.identificacion')
+        ->join('users as U','U.identificacion','=','p.identificacion')
+        ->join('empleado as e','e.idempleado','=','aj.idempleado')
+        ->select('U.email')
+        ->where('aj.notifica','=','1')
+        ->where('aj.idempleado','=',$idpersona->idempleado)
+        ->get();
 
-                $msj->subject('Solicitud de permiso');
-                $msj->to($emisor->email);
-                //$msj->to('drdanielreyes5@gmail.com');
-              });
+ foreach ($emisor as $per) {
+        $msj->subject('Solicitud de vacaciones');
+   
+        $msj->to($per->email);
+      }
+                
+                  //$msj->to('drdanielreyes5@gmail.com');
+                });
+                //DB::commit();
+              //}catch (\Exception $e) 
+              //{
+               // DB::rollback();         
+              //}
           		return response()->json(["valid" => true], 200);
             }
         	}

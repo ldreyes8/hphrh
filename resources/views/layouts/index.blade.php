@@ -10,6 +10,8 @@
 
         <title>Habitat para la Humanidad</title>
 
+
+        
         @section('estilos')
         <link rel="shortcut icon" href="{{asset('assets/images/Habitat.ico')}}">
 
@@ -199,6 +201,7 @@
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/empleado/vacaciones')}}">Vacaciones</a></li>
                                     <li><a href="{{ url('/empleado/permiso')}}">Permisos</a></li>
+                                    <li><a href="{{ url('/empleado/goce')}}">Constancia de vacaciones</a></li>
                                 </ul>
                             </li>
 
@@ -241,6 +244,19 @@
                                     <li><a href="{{ url('/empleado/confirmado')}}">Confirmados</a></li>
                                     <li><a href="{{ url('/empleado/rechazado')}}">Rechazados</a></li>
                                     <li><a href="{{ url('/empleado/permisos')}}">Solicitados</a></li>
+                                </ul>
+                            </li>
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i
+                                        class="md md-assignment"></i><span>Vacaciones</span> 
+                                         <span class="menu-arrow"></span></a><!--<span
+                                        class="label label-success pull-right">6</span> --></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="{{ url('/empleado/vconfirmado')}}">Confirmados</a></li>
+                                    <li><a href="{{ url('/empleado/vrechazado')}}">Rechazados</a></li>
+                                    <li><a href="{{ url('/empleado/vsolicitado')}}">Solicitados</a></li>
+                                    <li><a href="{{ url('/empleado/vautorizado')}}">Autorizados</a></li>
+
                                 </ul>
                             </li>
 
@@ -553,10 +569,8 @@
         <!-- END wrapper -->
         @section('fin') 
         
-
-        <script>
-            var resizefunc = [];
-        </script>
+     
+    
        
 
         <!-- Plugins  -->
@@ -589,12 +603,16 @@
         <!-- Custom main Js -->
         <script src="{{asset('assets/js/jquery.core.js')}}"></script>
         <script src="{{asset('assets/js/jquery.app.js')}}"></script>
+        <script src="{{asset('assets/js/modernizr.min.js')}}"></script>
+
         
 
         @show
 
         @section('text') 
-         
+         <script>
+            var resizefunc = [];
+        </script>
         <script type="text/javascript">
             jQuery(document).ready(function($) {
                 $('.counter').counterUp({
@@ -623,6 +641,7 @@
             };
 
         </script>
+        
         @show
     </body>
 </html>

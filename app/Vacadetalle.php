@@ -6,19 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vacadetalle extends Model
 {
-    protected $table='vacadetalle';
-    protected $primarykey='idvacadetalle';
-
-    public $timestamps=false;
-    
-    protected $fillable =[
-    	'idempleado',
+    protected $primaryKey = 'idvacadetalle';
+    protected $table = 'Vacadetalle';
+    protected $fillable = array('idempleado',
         'idausencia',
         'periodo',
-    	'acuhoras',
+        'acuhoras',
         'acudias',
         'solhoras',
-    	'fecharegistro',
-        'soldias',
-        ];
+        'fecharegistro',
+        'soldias');
+
+    public $timestamps = false;
+
+
+
+    protected $dates = [
+        'fini',
+        'ffin'
+    ];
 }

@@ -42,47 +42,21 @@
 
         <div class="card-box">
             <h4 class="m-t-0 m-b-20 header-title">Cambiar password</h4>
-            <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}" ALIGN=lef>
-            {{ csrf_field() }}
+           
+
             <div class="p-b-10">
-                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="email" class="control-label">E-Mail Address</label>
-
-                    <div class="col-md-12">
-                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                        @if ($errors->has('email'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('email') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <label for="password" class="control-label">Password</label>
-
-                    <div class="col-md-12">
-                        <input id="password" type="password" class="form-control" name="password" required>
-                        @if ($errors->has('password'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('password') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-
                 <div class="form-group">
-                    <label for="password-confirm" class=" control-label" ALIGN="lef">Confirm Password</label>
-
-                    <div class="col-md-12">
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                      <label for="exampleInputEmail1">Email </label>
+                      <input type="email" class="form-control" id="email" name="email" placeholder="Entrar email" value="{{Auth::user()->email}}" >
                     </div>
-                </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Password</label>
+                      <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                    </div>
 
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-2">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" id="btnchangepassword">
                             Cambiar datos
                         </button>
                     </div>
@@ -98,12 +72,14 @@
         <div class="">
             <div class="">
                 <ul class="nav nav-tabs navtab-custom">
+                <!--
                     <li class="">
                         <a href="#home" data-toggle="tab" aria-expanded="true">
                             <span class="visible-xs"><i class="fa fa-user"></i></span>
                             <span class="hidden-xs">Sobre Mi</span>
                         </a>
                     </li>
+                    -->
                     <li class=""> <a href="javascript:void(0);" onclick="cargarlistado(1,1);">
                     
                         <a href="#profile" data-toggle="tab" aria-expanded="false" >
@@ -111,13 +87,14 @@
                             <span class="hidden-xs">GALLERY</span>
                         </a>
                     </li>
+                    <!--
                     <li class="">
                         <a href="#settings" data-toggle="tab" aria-expanded="false">
                             <span class="visible-xs"><i class="fa fa-cog"></i></span>
                             <span class="hidden-xs">Ajustes</span>
                         </a>
                     </li>
-
+-->
                     <li class=""> <a href="javascript:void(0);" onclick="cargaracademico(1,1);">
                     
                         <a href="#academicos" data-toggle="tab" aria-expanded="false">
@@ -131,6 +108,34 @@
                         <a href="#familiares" data-toggle="tab" aria-expanded="false">
                             <span class="visible-xs"><i class="fa fa-cog"></i></span>
                             <span class="hidden-xs">Familia</span>
+                        </a>
+                    </li>
+                    <li class=""> <a href="javascript:void(0);" onclick="cargarreferencia(1,1);">
+
+                        <a href="#referencias" data-toggle="tab" aria-expanded="false">
+                            <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                            <span class="hidden-xs">Referencia</span>
+                        </a>
+                    </li>
+                    <li class=""> <a href="javascript:void(0);" onclick="cargarcredito(1,1);">
+
+                        <a href="#creditos" data-toggle="tab" aria-expanded="false">
+                            <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                            <span class="hidden-xs">Creditos</span>
+                        </a>
+                    </li>
+                    <li class=""> <a href="javascript:void(0);" onclick="cargarpadecimiento(1,1);">
+
+                        <a href="#padecimientos" data-toggle="tab" aria-expanded="false">
+                            <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                            <span class="hidden-xs">Padecimientos</span>
+                        </a>
+                    </li>
+                    <li class=""> <a href="javascript:void(0);" onclick="cargarexperiencia(1,1);">
+
+                        <a href="#experiencias" data-toggle="tab" aria-expanded="false">
+                            <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                            <span class="hidden-xs">Experiencia</span>
                         </a>
                     </li>
                 </ul>
@@ -198,9 +203,32 @@
                     </div>
                     @include('hr.academico')
                     @include('hr.familia')
+                    @include('hr.referencias')
+                    @include('hr.credito')
+                    @include('hr.padecimientos')
+                    @include('hr.experiencia')
 
-                 
+<div class="modal fade" id="erroresModalPassword" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Errores</h4>
+      </div>
 
+      <div class="modal-body">
+        <ul style="list-style-type:circle" id="erroresContentPassword"></ul>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+                
                 </div>
             </div>
         </div>
@@ -214,12 +242,23 @@
     <script src="{{asset('assets/js/foto.js')}}"></script>
     <script src="{{asset('assets/js/academico.js')}}"></script>
     <script src="{{asset('assets/js/familia.js')}}"></script>
+    <script src="{{asset('assets/js/referencia.js')}}"></script>
+    <script src="{{asset('assets/js/credito.js')}}"></script>
+    <script src="{{asset('assets/js/padecimiento.js')}}"></script>
+    <script src="{{asset('assets/js/experiencia.js')}}"></script>
+        <script src="{{asset('assets/js/changepassword.js')}}"></script>
+
+
     <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>
     
     <script>cargarlistado(1);   </script>
     <script>cargaracademico(1); </script>
     <script>cargarfamilia(1);   </script>
+    <script>cargarreferencia(1);   </script>
+    <script>cargarcredito(1);   </script>
+    <script>cargarpadecimiento(1);   </script>
+<script>cargarexperiencia(1);   </script>
     
 
 

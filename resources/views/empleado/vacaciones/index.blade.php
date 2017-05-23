@@ -11,17 +11,27 @@
 <div class="row">
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <h3>Listado de vacaciones  </h3><button type="button" class="btn btn-success" id="btnnuevo" >Nuevo</button>
-        <tr>
-                                                <td class="middle-align">A message with button danger</td>
-                                                <td>
-                                                    <button class="btn btn-danger waves-effect waves-light btn-sm" id="danger-alert">Click me</button>
-                                                </td>
-                                            </tr>
     </div>
 </div>
-   <input type="hidden" name="idempleado" value="{{$usuarios->idempleado}}" id="idempleado">
-        <input type="hidden" name="idmunicipio" value="{{$usuarios->idmunicipio}}" id="idmunicipio">
-        <input type="hidden" name="name" value="{{$usuarios->nombre}}" id="name">
+
+@if($ausencia != null)
+    <input type="hidden" name="idempleado" value="{{$usuarios->idempleado}}" id="idempleado">
+    <input type="hidden" name="idmunicipio" value="{{$usuarios->idmunicipio}}" id="idmunicipio">
+    <input type="hidden" name="name" value="{{$usuarios->nombre}}" id="name">
+    <input type="hidden" name="solhoras" value="{{$ausencia->totalhoras}}" id="solhoras">
+    <input type="hidden" name="soldias" value="{{$ausencia->totaldias}}" id="soldias">
+    <input type="hidden" name="idvacadetalle" value="{{$ausencia->idvacadetalle}}" id="idvacadetalle">
+@else
+    
+    <input type="hidden" name="idempleado" value="{{$usuarios->idempleado}}" id="idempleado">
+    <input type="hidden" name="idmunicipio" value="{{$usuarios->idmunicipio}}" id="idmunicipio">
+    <input type="hidden" name="name" value="{{$usuarios->nombre}}" id="name">
+    <input type="hidden" name="solhoras" value="0" id="solhoras">
+    <input type="hidden" name="soldias" value="0" id="soldias">
+    <input type="hidden" name="idvacadetalle" value="{{$vacaciones->idvacadetalle}}" id="idvacadetalle">
+
+@endif()
+
 <div class="row">
     <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <div class="table-responsive">
@@ -168,12 +178,17 @@
                         <br>                           
                         
                             <div class="radio radio-danger radio-inline">
-                                <input type="radio" id="inlineRadio1" value="con_modificaciones" name="radioInline" checked onclick="mostrar()">
-                                <label for="inlineRadio1">con modificaciones</label>
+                                <input type="radio" id="inlineRadio1" value="No_gozado" name="autorizacion" checked>
+                                <label for="inlineRadio1">No Gozadas</label> <!--No se tomo ningun dia solicitado-->
+                            </div>
+                            
+                            <div class="radio radio-success radio-inline">
+                                <input type="radio" id="inlineRadio2" value="Goce_temporal" name="autorizacion" checked onclick="mostrar()">
+                                <label for="inlineRadio2">Gozados temporalmente</label><!--No se tomo a su totalidad los dias solicitados-->
                             </div>
                             <div class="radio radio-info radio-inline">
-                                <input type="radio" id="inlineRadio16" value="option2" name="radioInline" checked>
-                                <label for="inlineRadio16">sin modificaciones</label>
+                                <input type="radio" id="inlineRadio16" value="Si_gozado" name="autorizacion" checked>
+                                <label for="inlineRadio16">Gozadas</label> <!-- Se tomo todos los dias solicitados -->
                             </div>
                         </div>
                        
@@ -182,12 +197,12 @@
                             <br>                            
                              <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                                 <label for="numerodependientes">Dias</label>
-                                <input id="datomar" type="number" name="numerodependientes" min="0" class="form-control" onkeypress="return valida(event)">
+                                <input id="dtomados" type="number" name="numerodependientes" min="0" class="form-control" onkeypress="return valida(event)">
                             </div>
 
                             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                                 <label for="horainicio">Hora</label>
-                                <select name="hhoras" id="hhoras" class="form-control">
+                                <select name="hhoras" id="htomadas" class="form-control">
                                     <option value="00">00</option>
                                     <option value="04">04</option>
                                 </select>
@@ -198,7 +213,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="btnguardarV">Guardar</button>
+                    <button type="button" class="btn btn-primary" id="btnConfirmarV">Guardar</button>
                 </div>
             </div>
         </div>
@@ -227,9 +242,10 @@
         }
 
         function mostrar() {
-            if($("#inlineRadio1:checked").val()=="con_modificaciones") {
+            if($("#inlineRadio2:checked").val()=="Goce_temporal") {
                 $("#oculto").show();
                 $("#inlineRadio16").attr('disabled', 'disabled');
+                $("#inlineRadio1").attr('disabled', 'disabled');
             }
         }
         </script>

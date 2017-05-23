@@ -25,25 +25,26 @@ class VacacionesController extends Controller
     	{
         $query=trim($request->get('searchText'));
 
-        $usuarios = DB::table('users as U')
+        $usuario = DB::table('users as U')
         ->join('persona as per','U.identificacion','=','per.identificacion')
-        ->join('empleado as emp','per.identificacion','=','emp.identificacion')
-        ->join('jefesinmediato as jf','per.identificacion','=','jf.identificacion')
-        ->select('jf.idjefeinmediato')
+        ->join('asignajefe as jf','per.identificacion','=','jf.identificacion')
+        ->select('jf.identificacion')
         ->where('U.id','=',Auth::user()->id)
         ->first();
 
-        $vacaciones =DB::table('ausencia as au')
-        ->join('empleado as emp','au.idempleado','=','emp.idempleado')
+        $vacaciones = DB::table('asignajefe as aj')
+        ->join('empleado as emp','aj.idempleado','=','emp.idempleado')
+        ->join('ausencia as au','emp.idempleado','=','au.idempleado')
         ->join('persona as per','emp.identificacion','=','per.identificacion')
-        ->join('jefesinmediato as jf','emp.idjefeinmediato','=','jf.idjefeinmediato')
+
         ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
-        
-        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
-        ->where('emp.idjefeinmediato','=',$usuarios->idjefeinmediato)
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
+        ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','solicitado')
-        ->where('tp.idtipoausencia','=','3')          
-        ->paginate(15);
+        ->where('tp.idtipoausencia','=','3')        
+   
+        ->paginate(15);       
+              
     	}
 
     	return view('director.vacaciones.index',["vacaciones"=>$vacaciones,"searchText"=>$query]);
@@ -51,53 +52,77 @@ class VacacionesController extends Controller
 
     public function indexconfirmado (Request $request)
     {
-        $usuarios = DB::table('users as U')
+        $usuario = DB::table('users as U')
         ->join('persona as per','U.identificacion','=','per.identificacion')
-        ->join('empleado as emp','per.identificacion','=','emp.identificacion')
-        ->join('jefesinmediato as jf','per.identificacion','=','jf.identificacion')
-        ->select('jf.idjefeinmediato')
+        ->join('asignajefe as jf','per.identificacion','=','jf.identificacion')
+        ->select('jf.identificacion')
         ->where('U.id','=',Auth::user()->id)
         ->first();
 
-        $permisos =DB::table('ausencia as au')
-        ->join('empleado as emp','au.idempleado','=','emp.idempleado')
+        $permisos = DB::table('asignajefe as aj')
+        ->join('empleado as emp','aj.idempleado','=','emp.idempleado')
+        ->join('ausencia as au','emp.idempleado','=','au.idempleado')
         ->join('persona as per','emp.identificacion','=','per.identificacion')
-        ->join('jefesinmediato as jf','emp.idjefeinmediato','=','jf.idjefeinmediato')
+
         ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
-        
-        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ",per.apellido2) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
-        ->where('emp.idjefeinmediato','=',$usuarios->idjefeinmediato)
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
+        ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','Confirmado')
         ->where('tp.idtipoausencia','=','3')        
-        
-        ->paginate(15);
+   
+        ->paginate(15);  
 
         return view('director.vacaciones.indexconfirmado',["permisos"=>$permisos])  ;        
     }
 
      public function indexrechazado (Request $request)
     {
-        $usuarios = DB::table('users as U')
+        $usuario = DB::table('users as U')
         ->join('persona as per','U.identificacion','=','per.identificacion')
-        ->join('empleado as emp','per.identificacion','=','emp.identificacion')
-        ->join('jefesinmediato as jf','per.identificacion','=','jf.identificacion')
-        ->select('jf.idjefeinmediato')
+        ->join('asignajefe as jf','per.identificacion','=','jf.identificacion')
+        ->select('jf.identificacion')
         ->where('U.id','=',Auth::user()->id)
         ->first();
-        
-        $permisos =DB::table('ausencia as au')
-        ->join('empleado as emp','au.idempleado','=','emp.idempleado')
-        ->join('persona as per','emp.identificacion','=','per.identificacion')
-        ->join('jefesinmediato as jf','emp.idjefeinmediato','=','jf.idjefeinmediato')
-        ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
-        
-        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ",per.apellido2) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
-        ->where('emp.idjefeinmediato','=',$usuarios->idjefeinmediato)
-        ->where('au.autorizacion','=','Rechazado') 
-        ->where('tp.idtipoausencia','=','3')         
-        ->paginate(15);
 
-        return view('director.vacaciones.indexrechazado',["permisos"=>$permisos])  ;        
+        $permisos = DB::table('asignajefe as aj')
+        ->join('empleado as emp','aj.idempleado','=','emp.idempleado')
+        ->join('ausencia as au','emp.idempleado','=','au.idempleado')
+        ->join('persona as per','emp.identificacion','=','per.identificacion')
+
+        ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
+        ->where('aj.identificacion','=',$usuario->identificacion)
+        ->where('au.autorizacion','=','Rechazado')
+        ->where('tp.idtipoausencia','=','3')        
+   
+        ->paginate(15);  
+
+        return view('director.vacaciones.indexconfirmado',["permisos"=>$permisos]);        
+    }
+
+    public function indexautorizado (Request $request)
+    {
+        $usuario = DB::table('users as U')
+        ->join('persona as per','U.identificacion','=','per.identificacion')
+        ->join('asignajefe as jf','per.identificacion','=','jf.identificacion')
+        ->select('jf.identificacion')
+        ->where('U.id','=',Auth::user()->id)
+        ->first();
+
+        $permisos = DB::table('asignajefe as aj')
+        ->join('empleado as emp','aj.idempleado','=','emp.idempleado')
+        ->join('ausencia as au','emp.idempleado','=','au.idempleado')
+        ->join('persona as per','emp.identificacion','=','per.identificacion')
+
+        ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
+        ->where('aj.identificacion','=',$usuario->identificacion)
+        ->where('au.autorizacion','=','Autorizado')
+        ->where('tp.idtipoausencia','=','3')        
+   
+        ->paginate(15);  
+
+        return view('director.vacaciones.indexautorizado',["permisos"=>$permisos]);        
     }
 
     public function verificar($id)
@@ -105,28 +130,30 @@ class VacacionesController extends Controller
       $empleado =DB::table('ausencia as au')
         ->join('empleado as emp','au.idempleado','=','emp.idempleado')
         ->join('persona as per','emp.identificacion','=','per.identificacion')
-        ->join('jefesinmediato as jf','emp.idjefeinmediato','=','jf.idjefeinmediato')
+      
         ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
         ->join('users as U','per.identificacion','=','U.identificacion')
-        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ",per.apellido2) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.horainicio','au.horafin','au.totaldias','au.totalhoras','emp.idempleado','U.email','au.idausencia')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.horainicio','au.horafin','au.totaldias','au.totalhoras','emp.idempleado','U.email','au.idausencia')
         ->where('au.idausencia','=',$id)
         ->first();
-      //dd($empleado);
-
+     
     	$dias =DB::table('vacadetalle as va')
         ->join('empleado as emp','va.idempleado','=','emp.idempleado')
         ->join('persona as per','emp.identificacion','=','per.identificacion')
-        ->join('ausencia as a','emp.idempleado','=','a.idempleado')        
-        ->select('va.idempleado','va.idausencia','va.acuhoras','va.acudias','va.fecharegistro','va.idvacadetalle')
-        ->where('a.idausencia','=',$id)
-        ->orderBy('va.idvacadetalle','ASC')
+        ->select('va.idempleado','va.idausencia','va.acuhoras','va.acudias','va.fecharegistro','va.idvacadetalle','va.soldias','va.solhoras')
+        ->where('emp.idempleado','=',$empleado->idempleado)
+        ->where('va.estado','=','1')
+        ->orderBy('va.idvacadetalle','desc')
         ->first();
+
 
 
     	$fecharegistro = $dias->fecharegistro;    
     	$diasactual = $dias->acudias;   //obtiene la ultima fecha en donde se registro un nuevo registro
     	$horasactual = $dias->acuhoras;
-    
+      $diasol = $dias->soldias;
+    $horasol = $dias->solhoras;
+
 
     	$dt = Carbon::parse($fecharegistro);  // convertimos la fecha en el formato Y-mm-dddd h:i:s
     	$today = Carbon::now();
@@ -142,34 +169,47 @@ class VacacionesController extends Controller
    
     	if($fecharegistro > $ftoday)
     	{
-      		$thoras = 0;
-      		$dias = 0;
-      	}
+      		$thoras = $horasactual + $horasol;
+      $dias = $diasactual + $diasol; 
+
+      }
+      elseif ($fecharegistro == $ftoday) {
+        $thoras =  $horasactual;
+        $dias = $diasactual;   
+      }
     	else
     	{
-
-      		$add = $today->dayOfYear;  //obtiene los dias transcurridos hasta la fecha actual
+        $add = $today->dayOfYear;  //obtiene los dias transcurridos hasta la fecha actual
       
-      		$dias = (strtotime($today)-strtotime($fecharegistro))/86400;
-      		$dias   = abs($dias); $dias = floor($dias); 
+      	$dias = (strtotime($today)-strtotime($fecharegistro))/86400;
+      	$dias   = abs($dias); $dias = floor($dias); 
        
-      		$dias = $dias * 20;
+      	$dias = $dias * 20;
 
-      		$dias = $dias / $year;
-      		$dias = round($dias, 2);
+      	$dias = $dias / $year;
+      	$dias = round($dias, 2);
 
-      		$tdia = explode(".",$dias);
-      		$dias = $tdia[0];
-      		$thoras = $tdia[1];
+      	$tdia = explode(".",$dias);
+      	$dias = $tdia[0];
+        if (empty($tdia[1])) {
+      	
+        $thoras =0;
+        $thoras = $horasactual + $thoras + $horasol;
+        $dias = $diasactual + $dias + $diasol;  
+      }
+      else{
+        $thoras = $tdia[1];
 
-		    $thoras = '0.'.$thoras;
-		    $thoras = $thoras * 8;
+        $thoras = '0.'.$thoras;
+        $thoras = $thoras * 8;
 
-		    $thora = explode(".",$thoras);
-		    $thoras = $thora[0];
+        $thora = explode(".",$thoras);
+        $thoras = $thora[0];
 
-		    $thoras = $horasactual + $thoras;
-		    $dias = $diasactual + $dias; 
+        $thoras = $horasactual + $thoras;
+        $dias = $diasactual + $dias;
+
+      }
 
 		    if($thoras >= 8)
 		    {
@@ -183,12 +223,37 @@ class VacacionesController extends Controller
     	return view('director.vacaciones.detalle',["empleado"=>$empleado,"calculo"=>$calculo]);            
     }
 
+
+     public function confirmar($id)
+     {
+      $empleado =DB::table('ausencia as au')
+        ->join('empleado as emp','au.idempleado','=','emp.idempleado')
+        ->join('persona as per','emp.identificacion','=','per.identificacion')
+      
+        ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
+        ->join('users as U','per.identificacion','=','U.identificacion')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ",per.apellido2) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.horainicio','au.horafin','au.totaldias','au.totalhoras','emp.idempleado','U.email','au.idausencia')
+        ->where('au.idausencia','=',$id)
+        ->first();
+        //dd($empleado);
+
+      $dias =DB::table('vacadetalle as va')
+        ->join('empleado as emp','va.idempleado','=','emp.idempleado')
+        ->join('persona as per','emp.identificacion','=','per.identificacion')
+        ->join('ausencia as a','emp.idempleado','=','a.idempleado')        
+        ->select('va.idempleado','va.idausencia','va.acuhoras','va.acudias','va.fecharegistro','va.idvacadetalle','va.solhoras','va.soldias','va.goce')
+        ->where('a.idausencia','=',$id)
+        ->orderBy('va.idvacadetalle','desc')
+        ->first();
+
+      return view('director.vacaciones.confirmado',["empleado"=>$empleado,"dias"=>$dias]);            
+    }
+
     public function enviarvacaciones(Request $request)
     {
       $today = Carbon::now();
       $year = $today->format('Y');
-      $fecha=Carbon::createFromFormat('d/m/Y',$today);
-
+      //$fecha=Carbon::createFromFormat('d/m/Y',$today);
 
       $this->validateRequest($request);      
 
@@ -196,26 +261,6 @@ class VacacionesController extends Controller
       $idempleado=$request->idempleado;
      
       $ausencia = Vacaciones::find($codigo);
-      $vacadetalle=new Vacadetalle;
-
-      $autorizacion = $request->autorizacion;
-
-      $hdisponible = $request->hdisponible;
-      $ddisponible = $request->ddisponible;
-      $hatomar = $request->hatomar;
-      $datomar = $request->datomar;
-
-      if($hatomar > $hdisponible)
-      {
-        $hdisponible = 8 + $hdisponible;
-        $hdisponible = $hdisponible - $hatomar;
-        $ddisponible = $ddisponible -1;
-        $ddisponible = $ddisponible - $datomar;
-      }
-      else{
-        $hdisponible = $hdisponible - $hatomar;
-        $ddisponible = $ddisponible - $datomar;
-      }
 
       try 
       {
@@ -223,17 +268,6 @@ class VacacionesController extends Controller
         $ausencia->observaciones = $request->observaciones;
         $ausencia->autorizacion = $request->autorizacion;
         $ausencia->save();
-
-        if($autorizacion ==='Confirmado')
-        {
-          $vacadetalle->idempleado = $idempleado;
-          $vacadetalle->idausencia = $codigo;
-          $vacadetalle->periodo = $year;
-          $vacadetalle->acuhoras = $hdisponible;
-          $vacadetalle->acudias =  $ddisponible;
-          $vacadetalle->fecharegistro = $fecha;
-          $vacadetalle->save();
-        } 
 
         Mail::send('emails.envioempleado',$request->all(), function($msj) use ($request){
           $receptor = $request->receptor;
@@ -250,6 +284,61 @@ class VacacionesController extends Controller
       return response()->json($ausencia);
     }
 
+    public function confirmavacaciones(Request $request)
+    {
+      $today = Carbon::now();
+      $year = $today->format('Y');
+      
+      $this->validateRequest($request);      
+
+      $codigo=$request->idausencia;
+      $idvacadetalle=$request->idvacadetalle;
+
+    
+     
+      $ausencia = Vacaciones::find($codigo);
+      $vacadetalle=Vacadetalle::find($idvacadetalle);
+
+        $idempleado=$request->idempleado;
+
+      $autorizacion = $request->autorizacion;
+
+      try 
+      {
+        DB::beginTransaction();
+        $ausencia->observaciones = $request->observaciones;
+        $ausencia->autorizacion = $request->autorizacion;
+        $ausencia->save();
+
+        if($autorizacion ==='Confirmado')
+        {
+          //$vacadetalle->idempleado = $idempleado;
+          $vacadetalle->idausencia = $codigo;
+          $vacadetalle->solhoras = $request->solhoras;
+          $vacadetalle->soldias = $request->soldias;
+          $vacadetalle->estado = 1;        
+        
+          $vacadetalle->save();
+        } 
+
+        Mail::send('emails.envioempleado',$request->all(), function($msj) use ($request){
+          $receptor = $request->receptor;
+          $msj->subject('Confirmacion de solicitud vacaciones');
+//          $msj->to($receptor,'lreyes@habitatguate.org');
+          $msj->setTo(array($receptor));
+                //$msj->to('drdanielreyes5@gmail.com');
+        });
+        DB::commit();
+      }catch (\Exception $e) 
+      {
+        DB::rollback();         
+      }
+
+      return response()->json($ausencia);
+    }      
+    
+
+
     public function validateRequest($request){
         $rules=[
         'observaciones' => 'required|max:100',
@@ -263,167 +352,5 @@ class VacacionesController extends Controller
         $this->validate($request, $rules,$messages);        
     }
 
-    /*
-    public function create()
-    {
-      #$roles=Rol::all();
-      #dd(Rol::all());
-      //$tausencia = tipoausencia
-
-    	$tausencia= Tausencia::orderBy('ausencia','ASC')
-      		->select('idtipoausencia','ausencia')
-      		->get();
-
-      $usuarios = DB::table('users as U')
-          ->join('persona as per','U.identificacion','=','per.identificacion')
-          ->join('empleado as E','per.identificacion','=','E.identificacion')
-      	  ->join('municipio as M','per.idmunicipio','=','M.idmunicipio')
-      	  ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ",per.apellido2) AS nombre'),'per.idmunicipio','E.idempleado')
-          ->where('U.id','=',Auth::user()->id)
-          ->first();
-
-		  return view('empleado.permiso.create',array('tausencia' => $tausencia,'usuarios'=>$usuarios));
-  	}
-
-  	public function store(PRequest $request)
-  	{
-    	$vacaciones = new Vacaciones;
-      
-    	$fechainicio = $request->fini; 
-    	$fechafinal = $request->ffin;
-      $concurrencia = $request->concurrencia;
-
-      $hini = $request->horainicio;
-      $hfin = $request->horafin;
-      $mini = $request->mini;
-      $mfin = $request->mfin;
-
-      $name = $request->name;
-
-      $horainicio = $hini.':'.$mini;
-      $horafinal = $hfin.':'.$mfin;
-
-      $today = Carbon::now();
-    	
-
-    	$today = $today->format('Y-m-d'); 
-    	$fechainicio = Carbon::createFromFormat('d/m/Y',$fechainicio);
-    	$fechafinal = Carbon::createFromFormat('d/m/Y',$fechafinal);
-
-    	$fechainicio = $fechainicio->toDateString();
-    	$fechafinal = $fechafinal->toDateString();
-      
-    	$validator = Validator::make(
-      	$request->all(), 
-      	$request->rules(),
-      	$request->messages()
-    	);
-
-    	if ($validator->valid())
-    	{
-      	if ($request->ajax()){
-        	if($fechafinal >= $fechainicio){
-          	if($fechainicio === $today){
-            	return response()->json(array('error' => 'Fecha inicio no puede ser igual ala fecha actual'),200);
-            }
-
-            if($hfin < $hini)
-            {
-              return response()->json(array('error' => 'Hora inicial debe ser menor a la hora final'),200);
-            }
-
-            $hinicio = $hini*60;
-            $hinicio = $hinicio + $mini;
-
-            $hfinal = $hfin * 60;
-            $hfinal = $hfinal + $mfin;
-
-            if($hinicio > $hfinal)
-            {
-              return response()->json(array('error' => 'Verificar la hora y minutos solicitados'),200);                  
-            }
-            else
-            {
-              $vacaciones->fechainicio = $fechainicio;
-              $vacaciones->fechafin = $fechafinal;
-              $vacaciones->horainicio=$horainicio;
-              $vacaciones->horafin=$horafinal;
-              $vacaciones->juzgadoinstitucion= $request->get('juzgadoinstitucion');
-              $vacaciones->tipocaso= $request->get('tipocaso');
-              $vacaciones->idempleado = $request->get('idempleado');
-              $vacaciones->idmunicipio = $request->get('idmunicipio');
-              $vacaciones->idtipoausencia= $request->get('idtipoausencia');
-              $vacaciones->concurrencia = $request->get('concurrencia');
-              $vacaciones->autorizacion='solicitado';
-              $vacaciones->totalhoras = '00:00:00';
-
-              //dd($request->all());
-              $mytime = Carbon::now('America/Guatemala');
-              $vacaciones->fechasolicitud=$mytime->toDateString();
-              $vacaciones->save();
-                
-              $idausencia = $vacaciones->idausencia;
-
-              if($concurrencia === 'No')
-              {
-                $vac =DB::table('ausencia as au')                
-                ->select(DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, au.horainicio, au.horafin)) as horas'))
-                ->orderBy('au.idausencia','des')
-                ->first();
-
-                $vacacion = Vacaciones::findOrFail($idausencia);
-                $vacacion->totalhoras = $vac->horas;
-                $vacacion->update();                  
-              }
-
-              //dd($request->all());
-
-
-              //dd($emisor);
-
-
-              Mail::send('emails.envio',$request->all(), function($msj){
-
-
-              $emisor =DB::table('ausencia as au')
-              ->join('empleado as emp','au.idempleado','=','emp.idempleado')
-              ->join('persona as p','emp.identificacion','=','p.identificacion')
-              ->join('jefesinmediato as jf','emp.idjefeinmediato','=','jf.idjefeinmediato')
-              ->join('users as U','p.identificacion','=','U.identificacion')
-              ->select('jf.email')
-              ->where('U.id','=',Auth::user()->id)
-              ->first();
-
-                $msj->subject('Solicitud de permiso');
-                $msj->to($emisor->email);
-                //$msj->to('drdanielreyes5@gmail.com');
-              });
-          		return response()->json(["valid" => true], 200);
-            }
-        	}
-        	else{
-          	return response()->json(array('error'=>'la fecha inicio no puede ser mayor que la fecha final'),200);
-        	}
-      	}
-      	else
-      	{
-        	if($fechafinal >= $fechainicio){
-          	if($fechainicio === $today){
-          		return Redirect('empleado/permiso')
-            	->with('message','La fecha inicio no puede ser igual a la fecha actual');
-          		}
-          			//dd($days,$fini,$ffin);
-          		return Redirect('empleado/permiso')
-          		->with('message','Envio correctamente');
-          		$request->input('fechainicio');
-          		$request->input('fechafin');
-        	}
-        	else{
-          	return Redirect('empleado/permiso')
-          	->with('message','La fecha inicio debe ser antes que la fecha final');                
-        	}         
-      	}
-    	}     
-  	}
-  	*/
+   
 }
