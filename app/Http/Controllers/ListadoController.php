@@ -37,7 +37,6 @@ class ListadoController extends Controller
         ->where('e.idstatus','=',2)
         ->where('p.nombre1','LIKE','%'.$query.'%')
         ->orderBy('e.idempleado','asc')
-        //->orderBy('e.idempleado','desc')
          ->paginate(19);
          /*
 
