@@ -10,6 +10,8 @@
 
         <title>Habitat para la Humanidad</title>
 
+
+        
         @section('estilos')
         <link rel="shortcut icon" href="{{asset('assets/images/Habitat.ico')}}">
 
@@ -104,7 +106,8 @@
                                                     </div>
                                                     <div class="media-body">
                                                         <h5 class="media-heading">A new order has been placed A new
-                                                            order has been placed</h5>
+                                                            order has been placed
+                                                        </h5>
                                                         <p class="m-0">
                                                             <small>There are new settings available</small>
                                                         </p>
@@ -183,7 +186,8 @@
 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="md md-person"></i> <span>Empleado</span>
-                                 <span class="menu-arrow"></span></a>
+                                 <span class="menu-arrow"></span>
+                                </a>
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/empleado/perfil')}}">Perfil</a></li>
                                 </ul>
@@ -192,25 +196,28 @@
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
                                         class="md md-assignment"></i><span> Solicitud </span> 
-                                         <span class="menu-arrow"></span></a><!--<span
-                                        class="label label-success pull-right">6</span> --></a>
+                                         <span class="menu-arrow"></span>
+                                </a>
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/empleado/vacaciones')}}">Vacaciones</a></li>
                                     <li><a href="{{ url('/empleado/permiso')}}">Permisos</a></li>
+                                    <li><a href="{{ url('/empleado/goce')}}">Constancia de vacaciones</a></li>
                                 </ul>
                             </li>
 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
                                         class="fa fa-vcard"></i><span>Recursos Humanos</span> 
-                                         <span class="menu-arrow"></span></a><!--<span
-                                        class="label label-success pull-right">6</span> --></a>
+                                         <span class="menu-arrow"></span>
+                                </a><!--<span
+                                        class="label label-success pull-right">6</span> -->
                                 <ul class="list-unstyled">
-                                    <li><a href="{{ url('/empleado/solicitante')}}">Aspirantes</a></li>
+                                    <li><a href="{{ url('/empleado/solicitante')}}">Solicitud</a></li>
                                     <li><a href="{{ url('/listados/empleado')}}">Listado de empleados</a></li>
                                     <li><a href="{{ url('/listados/interino')}}">Interinato</a></li>
                                     <li><a href="{{ url('/listados/pprueba')}}">Periodo de prueba</a></li>
-                                    <li><a href="{{ url('/listados/rechazados')}}">Rechazados</a></li>
+                                    <li><a href="{{ url('/listados/rechazados')}}">En espera</a></li>
+                                    <li><a href="{{ url('/mintrabf')}}">Ministerio de trabajo</a></li>
                                 </ul>
                             </li>
 
@@ -218,8 +225,9 @@
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
                                         class="md md-assignment"></i><span>Panel de control</span> 
-                                         <span class="menu-arrow"></span></a><!--<span
-                                        class="label label-success pull-right">6</span> --></a>
+                                         <span class="menu-arrow"></span>
+                                </a><!--<span
+                                        class="label label-success pull-right">6</span> -->
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/seguridad/usuario')}}">Registro usuario</a></li>
                               
@@ -229,18 +237,30 @@
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
                                         class="md md-assignment"></i><span>Permisos</span> 
-                                         <span class="menu-arrow"></span></a><!--<span
-                                        class="label label-success pull-right">6</span> --></a>
+                                         <span class="menu-arrow"></span>
+                                </a><!--<span
+                                        class="label label-success pull-right">6</span> -->
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/empleado/confirmado')}}">Confirmados</a></li>
                                     <li><a href="{{ url('/empleado/rechazado')}}">Rechazados</a></li>
                                     <li><a href="{{ url('/empleado/permisos')}}">Solicitados</a></li>
                                 </ul>
                             </li>
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i
+                                        class="md md-assignment"></i><span>Vacaciones</span> 
+                                         <span class="menu-arrow"></span></a><!--<span
+                                        class="label label-success pull-right">6</span> --></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="{{ url('/empleado/vconfirmado')}}">Confirmados</a></li>
+                                    <li><a href="{{ url('/empleado/vrechazado')}}">Rechazados</a></li>
+                                    <li><a href="{{ url('/empleado/vsolicitado')}}">Solicitados</a></li>
+                                    <li><a href="{{ url('/empleado/vautorizado')}}">Autorizados</a></li>
+
+                                </ul>
+                            </li>
 
                             <li class="menu-title">Mas</li>
-
-                         
                         </ul>
                         <div class="clearfix"></div>
                     </div>
@@ -285,10 +305,9 @@
             <div class="content-page">
                 <!-- Start content -->
                 <div class="content">
+                
                     <div class="container" id="contenidoprincipal">
                         @yield('contenido')
-               
-                
                     </div><!-- /.row -->   
                 </div>
                 <footer class="footer text-right">
@@ -297,18 +316,14 @@
             </div><!-- /.box -->
     
             
-             <div style="display: none;" id="cargador_empresa" align="center">
-            <br>
-         
-
-         <label style="color:#FFF; background-color:#ABB6BA; text-align:center">&nbsp;&nbsp;&nbsp;Espere... &nbsp;&nbsp;&nbsp;</label>
-
-         <img src="{{asset('imagenes/cargando.gif')}}" align="middle" alt="cargador"> &nbsp;<label style="color:#ABB6BA">Realizando tarea solicitada ...</label>
-
-          <br>
-         <hr style="color:#003" width="50%">
-         <br>
-       </div>
+            <div style="display: none;" id="cargador_empresa" align="center">
+                <br>
+                    <label style="color:#FFF; background-color:#ABB6BA; text-align:center">&nbsp;&nbsp;&nbsp;Espere... &nbsp;&nbsp;&nbsp;</label>
+                    <img src="{{asset('imagenes/cargando.gif')}}" align="middle" alt="cargador"> &nbsp;<label style="color:#ABB6BA">Realizando tarea solicitada ...</label>
+                <br>
+                    <hr style="color:#003" width="50%">
+                <br>
+            </div>
             
              
             <!-- ============================================================== -->
@@ -554,7 +569,7 @@
         <!-- END wrapper -->
         @section('fin') 
         
-
+     
     
        
 
@@ -588,6 +603,8 @@
         <!-- Custom main Js -->
         <script src="{{asset('assets/js/jquery.core.js')}}"></script>
         <script src="{{asset('assets/js/jquery.app.js')}}"></script>
+        <script src="{{asset('assets/js/modernizr.min.js')}}"></script>
+
         
 
         @show
@@ -624,6 +641,7 @@
             };
 
         </script>
+        
         @show
     </body>
 </html>

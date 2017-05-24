@@ -63,12 +63,9 @@
 
                 <div class="form-group m-t-30">
                     <div class="col-sm-7">
-                        <a href="pages-recoverpw.html" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot your
-                            password?</a>
+                                                       <a class="btn btn-link" href="{{ url('/password/reset') }}">Olvidaste tu contraseña
                     </div>
-                    <div class="col-sm-5 text-right">
-                        <a href="{{ route('register') }}" class="text-muted">Create an account</a>
-                    </div>
+                    
                 </div>
             </form>
         </div>

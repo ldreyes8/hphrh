@@ -30,8 +30,11 @@
                  <td>{{$em->statusn}}</td>
                  <td>{{$em->afiliacionigss}}</td>
                  <td>
-                 <a href="{{URL::action('SController@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
-                 <a href=""><button class="btn btn-danger">Anular</button></a>
+                 <a href="{{URL::action('ListadoController@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
+                 <a href="{{URL::action('ListadoController@historial',$em->idempleado)}}"><button class="btn btn-primary">Historial</button></a>
+                 <a href="{{URL::action('ListadoController@Acta',$em->idempleado)}}"><button class="btn btn-primary">Acta</button></a>
+                 <a href="{{URL::action('ListadoController@laboral',$em->idempleado)}}"><button class="btn btn-primary
+                 ">Historia laboral</button></a>
                  </td>
                  </tr>
 

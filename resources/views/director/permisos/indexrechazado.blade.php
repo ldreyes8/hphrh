@@ -30,7 +30,7 @@
                     <td>{{$per->fechainicio}}</td>
                     <td>{{$per->fechafin}}</td>
                     <td>{{$per->ausencia}}</td>
-                    <td><a href="{{URL::action('PermisosController@verificar',$per->idausencia)}}"><button class="btn btn-primary">Ver</button></a></td>
+                    <td><a href="{{URL::action('PermisosController@detallerechazado',$per->idausencia)}}"><button class="btn btn-primary">Ver</button></a></td>
                     
                  </tr>
                 

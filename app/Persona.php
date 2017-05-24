@@ -38,6 +38,10 @@ class Persona extends Model
         'iddocumento',
         'idafiliado',
         'idpuesto',
+        'trabajoext',
+        'forma',
+        'motivofin',
+        'idpais',
     ];
 
     protected $guarder =[

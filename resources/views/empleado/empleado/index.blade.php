@@ -32,7 +32,7 @@
                  <td>{{$em->puesto}}</td>
                  <td>
                  <a href="#"><button class="btn btn-primary">Detalles</button></a>
-                 <a href=""><button class="btn btn-danger">Anular</button></a>
+                 <a href="#"><button class="btn btn-danger">Anular</button></a>
                  </td>
                  </tr>
 

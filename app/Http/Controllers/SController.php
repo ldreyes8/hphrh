@@ -16,7 +16,7 @@ use DateTime;
 use Carbon\Carbon;  // para poder usar la fecha y hora
 use Response;
 use Illuminate\Support\Collection;
-//
+
 class SController extends Controller
 {
     public function __construct()
@@ -144,15 +144,18 @@ class SController extends Controller
         ->join('empleado as em','p.identificacion','=','em.identificacion')
         ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
         ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-        ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.fechanac','p.avenida','p.calle','p.nomenclatura','p.zona','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto')
+        ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.fechanac','p.avenida','p.calle','p.nomenclatura','p.zona','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
         ->where('em.identificacion','=',$id)
         ->first();
 
-      
+        /*$downloads=DB::table('persona as p')
+        ->select('p.finiquitoive')
+        ->where('p.identificacion','=',$id)
+        ->first();*/
 
         $empleado=DB::table('empleado as e')
         ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
-        ->select('e.identificacion','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','e.pretension','e.nit','e.fechasolicitud','ec.estado as estadocivil')
+        ->select('e.idempleado','e.identificacion','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','e.pretension','e.nit','e.fechasolicitud','ec.estado as estadocivil','e.observacion')
         ->where('e.identificacion','=',$id)
         ->first();
 
@@ -200,23 +203,36 @@ class SController extends Controller
         ->select('pad.nombre')
         ->where('p.identificacion','=',$id)
         ->get();
+
+        $pais=DB::table('persona as p')
+        ->join('pais as ps','ps.idpais','=','p.idpais')
+        ->select('p.trabajoext','p.forma','p.motivofin','ps.nombre')
+        ->where('p.identificacion','=',$id)
+        ->get();
+
+        $pariente=DB::table('puestopublico as pp')
+        ->join('persona as p','pp.identificacion','=','p.identificacion')
+        ->select('pp.nombre','pp.puesto','pp.dependencia')
+        ->where('p.identificacion','=',$id)
+        ->get();
       
-        return view('empleado.solicitante.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos]);
+        return view('empleado.solicitante.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente]);
     }
-
-    /*public function update($id)
-    {
-         $st=Empleado::find($id);
-         $st->idstatus='7';
-         $st->update();
-        return Redirect::to('listados/pprueba');
-    }*/
-
     public function rechazo($id)
     {
         $st=Empleado::find($id);
         $st->idstatus='8';
         $st->update();
         return Redirect::to('listados/rechazados');
+    }
+    public function upt (Request $request)
+    {
+       
+        $id = $request->get('idempleado');
+
+        $od=Empleado::findOrFail($id);
+        $od-> observacion=$request->get('observacion');
+        $od->save();
+        return response()->json($od);
     }
 }

@@ -12,6 +12,8 @@
     <div class="form-group">
       <label for="serie_comprobante">Identificacion</label>
       <p>{{$empleado->identificacion}}</p>
+      <input type="hidden" id="idempleado" value="{{$empleado->idempleado}}">
+      <p style="display: none;">{{$empleado->idempleado}}</p>
     </div>
   </div>
   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -300,6 +302,179 @@
              @endforeach
           </tbody>
         </table>
-  </div>   
+  </div>
+   
+  <div class="table-responsive">
+    <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
+      <p><h2 ALIGN=center>Experiencia en el extranjero</h2></p>
+        <thead style="background-color:#A9D0F5">
+          <th>Nombre</th>
+          <th>Forma en la que trabajo</th>
+          <th>Motivo de finalizacion</th>
+          <th>País</th>
+        </thead>
+ 
+        <tfoot>
+          <th></th>
+        </tfoot>
+        <tbody>
+          @foreach($pais as $pas)
+            <tr>
+              <td>{{$pas->trabajoext}}</td>
+              <td>{{$pas->forma}}</td>
+              <td>{{$pas->motivofin}}</td>
+              <td>{{$pas->nombre}}</td>
+            </tr>
+          @endforeach
+        </tbody>
+    </table>
+  </div>
+  <div class="table-responsive">
+    <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
+      <p><h2 ALIGN=center>Pariente Politio</h2></p>
+        <thead style="background-color:#A9D0F5">
+          <th>Nombre</th>
+          <th>Puesto</th>
+          <th>Dependencia</th>
+        </thead>
+        <tfoot>
+          <th></th>
+        </tfoot>
+        <tbody>
+          @foreach($pariente as $par)
+            <tr>
+              <td>{{$par->nombre}}</td>
+              <td>{{$par->puesto}}</td>
+              <td>{{$par->dependencia}}</td>
+            </tr>
+          @endforeach
+        </tbody>
+    </table>
+  </div>
+
+  <div class="table-responsive">
+        <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
+        <p><h2 ALIGN=center>Observaciones</h2></p>
+          <thead style="background-color:#A9D0F5">
+            <th>Observación</th>
+          </thead>
+ 
+          <tfoot>
+            <th></th>
+          </tfoot>
+          <tbody>
+            <tr>
+              <td>{{$empleado->observacion}}</td>
+             </tr>
+          </tbody>
+        </table>
+  </div>
 </div>
+  <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+              <div class="form-group">
+                <button class="btn btn-info" type="button" id="btncomentario" >Agregar una observación</button>
+              </div>
+  </div>
+ <div class="col-lg-12">
+    <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="inputTitle"></h4>
+          </div>
+          <div class="modal-body">
+          <form role="form" id="formAgregar">
+                  <div class="form-group">
+                      <label>Observacion</label>
+                      <textarea maxlength="300" class="form-control" id="observacion" name="observacion"></textarea>
+                  </div>  
+          </form>                                                                       
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="btnGuardar">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Errores</h4>
+      </div>
+
+      <div class="modal-body">
+        <ul style="list-style-type:circle" id="erroresContent"></ul>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection
+@section('fin')
+    @parent
+    <meta name="_token" content="{!! csrf_token() !!}" />
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#btncomentario').click(function(){
+      $('#inputTitle').html("Agregar observacion del solicitante");
+      $('#formAgregar').trigger("reset");
+      $('#formModal').modal('show');
+  });
+
+  $("#btnGuardar").click(function(e){
+        var miurl="upt";
+
+        var formData = {
+            observacion: $("#observacion").val(),
+            idempleado: $("#idempleado").val(),
+        };
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: miurl,
+            data: formData,
+            dataType: 'json',
+
+            success: function (data) {
+    
+                $('#formModal').modal('hide');
+                
+            },
+            error: function (data) {
+                $('#loading').modal('hide');
+                var errHTML="";
+                if((typeof data.responseJSON != 'undefined')){
+                    for( var er in data.responseJSON){
+                        errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                    }
+                }else{
+                    errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                }
+                $("#erroresContent").html(errHTML); 
+                $('#erroresModal').modal('show');
+            }
+        });
+    });
+
+});
+</script>
+
+
 @endsection

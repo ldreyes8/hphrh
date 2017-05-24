@@ -3,6 +3,7 @@
     @parent
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet">
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet">
+         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 
@@ -12,11 +13,27 @@
         <h3>Listado de vacaciones  </h3><button type="button" class="btn btn-success" id="btnnuevo" >Nuevo</button>
     </div>
 </div>
-   <input type="hidden" name="idempleado" value="{{$usuarios->idempleado}}" id="idempleado">
-        <input type="hidden" name="idmunicipio" value="{{$usuarios->idmunicipio}}" id="idmunicipio">
-        <input type="hidden" name="name" value="{{$usuarios->nombre}}" id="name">
+
+@if($ausencia != null)
+    <input type="hidden" name="idempleado" value="{{$usuarios->idempleado}}" id="idempleado">
+    <input type="hidden" name="idmunicipio" value="{{$usuarios->idmunicipio}}" id="idmunicipio">
+    <input type="hidden" name="name" value="{{$usuarios->nombre}}" id="name">
+    <input type="hidden" name="solhoras" value="{{$ausencia->totalhoras}}" id="solhoras">
+    <input type="hidden" name="soldias" value="{{$ausencia->totaldias}}" id="soldias">
+    <input type="hidden" name="idvacadetalle" value="{{$ausencia->idvacadetalle}}" id="idvacadetalle">
+@else
+    
+    <input type="hidden" name="idempleado" value="{{$usuarios->idempleado}}" id="idempleado">
+    <input type="hidden" name="idmunicipio" value="{{$usuarios->idmunicipio}}" id="idmunicipio">
+    <input type="hidden" name="name" value="{{$usuarios->nombre}}" id="name">
+    <input type="hidden" name="solhoras" value="0" id="solhoras">
+    <input type="hidden" name="soldias" value="0" id="soldias">
+    <input type="hidden" name="idvacadetalle" value="{{$vacaciones->idvacadetalle}}" id="idvacadetalle">
+
+@endif()
+
 <div class="row">
-   <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+    <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItems">
                 <thead>
@@ -26,23 +43,27 @@
                     <th>Total dias</th>
                     <th>Total horas</th>
                     <th>Autorizacion</th>
+                    <th>opciones</th>
                 </thead>
                 @foreach ($ausencias as $aus)
                 <tr>
                     <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechasolicitud)->format('d-m-Y')}}</td>
-
                     <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechainicio)->format('d-m-Y')}}</td>
                     <td>{{\Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechafin)->format('d-m-Y')}}</td> 
                     <td>{{$aus->totaldias}}</td>
                     <td>{{$aus->totalhoras}}</td>
                     <td>{{$aus->autorizacion}}</td>
-                 </tr>
-                
+                    @if ( $aus->autorizacion == 'Autorizado')
+                        <td> <button type="button" class="btn btn-primary" id="btnconfirmar">Confirmar goce</button></td>
+                    @else
+                        <td></td>
+                    @endif
+                </tr>                
                 @endforeach
-             </table>
-         </div>
+            </table>
+        </div>
          {{$ausencias->render()}}
-   </div>
+    </div>
 </div>
 
 <div class="col-lg-12">
@@ -139,6 +160,66 @@
     </div>
   </div>
 </div>
+
+<div class="col-lg-12">
+    <div class="modal fade" id="formGoce" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <input type="hidden" name="tdias" id="tdias">
+            <input type="hidden" name="thoras" id="thoras">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="Title"></h4>
+                </div>
+              
+                    <form role="form" id="formModificar">
+                        <div class="modal-header">
+                        <br>                           
+                        
+                            <div class="radio radio-danger radio-inline">
+                                <input type="radio" id="inlineRadio1" value="No_gozado" name="autorizacion" checked>
+                                <label for="inlineRadio1">No Gozadas</label> <!--No se tomo ningun dia solicitado-->
+                            </div>
+                            
+                            <div class="radio radio-success radio-inline">
+                                <input type="radio" id="inlineRadio2" value="Goce_temporal" name="autorizacion" checked onclick="mostrar()">
+                                <label for="inlineRadio2">Gozados temporalmente</label><!--No se tomo a su totalidad los dias solicitados-->
+                            </div>
+                            <div class="radio radio-info radio-inline">
+                                <input type="radio" id="inlineRadio16" value="Si_gozado" name="autorizacion" checked>
+                                <label for="inlineRadio16">Gozadas</label> <!-- Se tomo todos los dias solicitados -->
+                            </div>
+                        </div>
+                       
+
+                        <div class="modal-header" id="oculto">
+                            <br>                            
+                             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                <label for="numerodependientes">Dias</label>
+                                <input id="dtomados" type="number" name="numerodependientes" min="0" class="form-control" onkeypress="return valida(event)">
+                            </div>
+
+                            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                <label for="horainicio">Hora</label>
+                                <select name="hhoras" id="htomadas" class="form-control">
+                                    <option value="00">00</option>
+                                    <option value="04">04</option>
+                                </select>
+                            </div>
+
+                        </div>          
+                    </form>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnConfirmarV">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 @section('fin')
     @parent
@@ -148,12 +229,23 @@
         <script src="{{asset('assets/js/fecha.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
         <script src="{{asset('assets/js/vacaciones.js')}}"></script>
+          <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
+        <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
+
         <script>
         function desactivar() {
             if($("#casilla:checked").val()==1) {
                 $("#casilla").attr('disabled', 'disabled');
                 $('#datomar').removeAttr("disabled");
                 $('#hhoras').removeAttr("disabled");
+            }
+        }
+
+        function mostrar() {
+            if($("#inlineRadio2:checked").val()=="Goce_temporal") {
+                $("#oculto").show();
+                $("#inlineRadio16").attr('disabled', 'disabled');
+                $("#inlineRadio1").attr('disabled', 'disabled');
             }
         }
         </script>
