@@ -1,6 +1,6 @@
 <div class="tab-pane" id="experiencias">
     <div class="panel-heading">
-        <button class="btn btn-success" id="btnAgregarE"><i class="icon-user icon-white" ></i> Agregar credito</button>
+        <button class="btn btn-success" id="btnAgregarE"><i class="icon-user icon-white" ></i> Agregar Experiencia</button>
     </div>
   <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
     <div class="table-responsive" id="tabla">

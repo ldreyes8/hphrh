@@ -70,8 +70,11 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('towns/{id}', 'UController@getTowns'); 
 	Route::post('agregaracademico','UController@agregaracademico');
 	Route::get('listarfamilia','UController@listarfamiliar');
+
 	Route::get('listarreferencia','UController@listarreferencia');
 	Route::post('agregarreferencia','UController@agregarreferencia');
+	Route::post('agregarfamiliar','UController@agregarfamiliar');
+
 
 	Route::get('listarcredito','UController@listarcredito');
 	Route::post('agregarcredito','UController@agregarcredito');
@@ -95,6 +98,10 @@ Route::group(['prefix'=>'empleado'],function(){
 
 	Route::resource('vsolicitado','VacacionesController');
 	Route::get('vverificar/{idpersona}','VacacionesController@verificar');
+	Route::get('dconfirmar/{idpersona}','VacacionesController@dconfirmar');
+
+
+	
 	Route::post('vverificar/enviarvacaciones','VacacionesController@enviarvacaciones');
 	Route::get('vconfirmado','VacacionesController@indexconfirmado');
 	Route::get('vrechazado','VacacionesController@indexrechazado');
