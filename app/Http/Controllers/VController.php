@@ -34,13 +34,18 @@ class VController extends Controller
         ->join('empleado as emp','a.idempleado','=','emp.idempleado')
         ->join('persona as per','emp.identificacion','=','per.identificacion')
         ->join('users as U','per.identificacion','=','U.identificacion')
-        ->select('a.fechainicio','a.fechafin','a.autorizacion','a.fechasolicitud','a.totaldias','a.totalhoras')
         ->join('tipoausencia as ta','a.idtipoausencia','=','ta.idtipoausencia')
+        ->join('vacadetalle as vd','a.idausencia','=','vd.idausencia')
+        ->select('a.fechainicio','a.fechafin','a.autorizacion','a.fechasolicitud','a.totaldias','a.totalhoras',DB::raw('sum(a.totaldias - vd.soldias) as diastomados'),DB::raw('sum(a.totalhoras - vd.solhoras) as htomado'))
+        
         ->where('U.id','=',Auth::user()->id)
         ->where('ta.ausencia','=','Vacaciones')
         ->groupBy('a.fechainicio','a.fechafin','a.autorizacion','a.fechasolicitud','a.totaldias','a.totalhoras')
         ->orderBy('a.fechasolicitud','desc')
         ->paginate(15);
+              //DB::raw('DATE_FORMAT(account.terminationdate,"%Y-%m-%d") as accountterminationdate')
+        // DB::raw('ABS(ledger.OpeningBalance) as openingBalance')
+
       }
 
       $vacaciones=DB::table('vacadetalle as vd')
@@ -245,6 +250,10 @@ class VController extends Controller
       if($fechainicio === $today){
         return response()->json(array('error' => 'Fecha inicio no puede ser igual ala fecha actual'),404);
       }
+
+      elseif ($fechainicio < $today) {
+                return response()->json(array('error' => 'No se puede realizar esta accion'),404);
+      }
       else{
         while ($ffin >= $fini) {
           if($fini != $ffin){
@@ -343,13 +352,14 @@ class VController extends Controller
         
       }
 
-
        
           $vacadetalle->idempleado = $request->idempleado;;
           $vacadetalle->idausencia = $codigo;
           $vacadetalle->periodo = $year;
           $vacadetalle->acuhoras = $hdisponible;
           $vacadetalle->acudias =  $ddisponible;
+          $vacadetalle->solhoras = '00:00:00';
+          $vacadetalle->soldias = 0;
           $vacadetalle->estado = 0;
           $mytime = Carbon::now('America/Guatemala');
           $vacadetalle->fecharegistro=$mytime->toDateString();
@@ -494,6 +504,10 @@ class VController extends Controller
       ->join('vacadetalle as vd','a.idausencia','=','vd.idausencia')
       ->select(DB::raw('DATE_FORMAT(a.fechasolicitud,"%d/%m/%Y") as fechasolicitud'),(DB::raw('DATE_FORMAT(a.fechainicio,"%d/%m/%Y") as fechainicio')),(DB::raw('DATE_FORMAT(a.fechafin,"%d/%m/%Y") as fechafin')),'a.horainicio','a.horafin','a.totaldias','a.idempleado','a.totalhoras','vd.solhoras','vd.soldias','vd.periodo')
       ->where('a.fechainicio', '>=', $fechainicio, 'and', 'a.fechafin', '<=', $fechafinal, 'and','a.idempleado','=',$idempleado,'and','vd.estado','=','1')
+      ->where('a.fechafin', '<=', $fechafinal)
+      ->where('vd.estado','=',1)
+      ->where('a.idempleado','=',$idempleado)
+      ->where('vd.goce','!=','No_gozado')
       ->get();
 
       

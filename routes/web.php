@@ -42,7 +42,16 @@ Route::group(['prefix'=>'listados'],function(){
 Route::group(['prefix'=>'empleado'],function(){
 
 	Route::post('cambiar_password', 'UController@cambiar_password');
-	Route::resource('permiso','PController');       // PController = PermisoController 
+       // PController = PermisoController 
+
+	Route::get('permiso','PController@index');
+	Route::get('permiso/create','PController@create');
+
+	Route::post('permiso/store','PController@store');
+
+	Route::get('diashatomar','PController@diashatomar');
+
+
 	Route::get('vacaciones','VController@index');
 	Route::get('vacaciones/create','VController@create');
 	Route::post('vacaciones/store','VController@store');
@@ -88,6 +97,7 @@ Route::group(['prefix'=>'empleado'],function(){
 
 
 	Route::resource('permisos','PermisosController');
+
 	Route::get('verificar/{idpersona}','PermisosController@verificar');
 	Route::post('verificar/enviarpermiso','PermisosController@enviarpermiso');
 	Route::get('confirmado','PermisosController@indexconfirmado');
@@ -126,6 +136,6 @@ Route::get('pdf','SController@pdf');
 
 ///
 Auth::routes();
-
+Route::get('/{slug?}','HomeController@index');
 Route::get('/home', 'HomeController@index');
 Route::resource('seguridad/usuario','UController'); 

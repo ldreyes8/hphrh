@@ -16,18 +16,19 @@
              
             <div class="card-box">
                 <h4 class="text-center">Reporte</h4>
-                <div class="member-card">                     
+                <div class="member-card">
                     <div class="form-group">
                         <label class="control-label text-center">Fecha inicio</label>
-                        <div class="input-group">
+                        
+                        <div class="form-group">
                             <input type="text" id="fecha_inicio" class="form-control" name="fini">
-                            <span class="input-group-addon bg-primary b-0 text-white"><i class="ion-calendar"></i></span>
+                        <!--    <span class="input-group-addon bg-primary b-0 text-white"><i class="ion-calendar"></i></span> -->
                         </div>
                    
                         <label class="control-label">Fecha final</label>
-                        <div class="input-group">
+                        <div class="form-group">
                             <input type="text" id="fecha_final" class="form-control" name="ffin">
-                            <span class="input-group-addon bg-primary b-0 text-white"><i class="ion-calendar"></i></span>
+
                         </div>
                     </div>
                                   

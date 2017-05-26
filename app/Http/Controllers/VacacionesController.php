@@ -128,23 +128,23 @@ class VacacionesController extends Controller
     public function verificar($id)
     {
       $empleado =DB::table('ausencia as au')
-        ->join('empleado as emp','au.idempleado','=','emp.idempleado')
-        ->join('persona as per','emp.identificacion','=','per.identificacion')
+      ->join('empleado as emp','au.idempleado','=','emp.idempleado')
+      ->join('persona as per','emp.identificacion','=','per.identificacion')
       
-        ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
-        ->join('users as U','per.identificacion','=','U.identificacion')
-        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.horainicio','au.horafin','au.totaldias','au.totalhoras','emp.idempleado','U.email','au.idausencia')
-        ->where('au.idausencia','=',$id)
-        ->first();
+      ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
+      ->join('users as U','per.identificacion','=','U.identificacion')
+      ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.horainicio','au.horafin','au.totaldias','au.totalhoras','emp.idempleado','U.email','au.idausencia')
+      ->where('au.idausencia','=',$id)
+      ->first();
      
     	$dias =DB::table('vacadetalle as va')
-        ->join('empleado as emp','va.idempleado','=','emp.idempleado')
-        ->join('persona as per','emp.identificacion','=','per.identificacion')
-        ->select('va.idempleado','va.idausencia','va.acuhoras','va.acudias','va.fecharegistro','va.idvacadetalle','va.soldias','va.solhoras')
-        ->where('emp.idempleado','=',$empleado->idempleado)
-        ->where('va.estado','=','1')
-        ->orderBy('va.idvacadetalle','desc')
-        ->first();
+      ->join('empleado as emp','va.idempleado','=','emp.idempleado')
+      ->join('persona as per','emp.identificacion','=','per.identificacion')
+      ->select('va.idempleado','va.idausencia','va.acuhoras','va.acudias','va.fecharegistro','va.idvacadetalle','va.soldias','va.solhoras')
+      ->where('emp.idempleado','=',$empleado->idempleado)
+      ->where('va.estado','=','1')
+      ->orderBy('va.idvacadetalle','desc')
+      ->first();
 
 
 
@@ -152,7 +152,7 @@ class VacacionesController extends Controller
     	$diasactual = $dias->acudias;   //obtiene la ultima fecha en donde se registro un nuevo registro
     	$horasactual = $dias->acuhoras;
       $diasol = $dias->soldias;
-    $horasol = $dias->solhoras;
+      $horasol = $dias->solhoras;
 
 
     	$dt = Carbon::parse($fecharegistro);  // convertimos la fecha en el formato Y-mm-dddd h:i:s
@@ -174,8 +174,9 @@ class VacacionesController extends Controller
 
       }
       elseif ($fecharegistro == $ftoday) {
-        $thoras =  $horasactual;
-        $dias = $diasactual;   
+        $thoras =  $horasactual + $horasol;
+        $dias = $diasactual + $diasol;
+       
       }
     	else
     	{
@@ -191,23 +192,27 @@ class VacacionesController extends Controller
 
       	$tdia = explode(".",$dias);
       	$dias = $tdia[0];
+
         if (empty($tdia[1])) {
       	
         $thoras =0;
         $thoras = $horasactual + $thoras + $horasol;
-        $dias = $diasactual + $dias + $diasol;  
-      }
-      else{
-        $thoras = $tdia[1];
+        $dias = $diasactual + $dias + $diasol; 
 
-        $thoras = '0.'.$thoras;
-        $thoras = $thoras * 8;
 
-        $thora = explode(".",$thoras);
-        $thoras = $thora[0];
+        }
+        else{
+          $thoras = $tdia[1];
 
-        $thoras = $horasactual + $thoras;
-        $dias = $diasactual + $dias;
+          $thoras = '0.'.$thoras;
+          $thoras = $thoras * 8;
+
+          $thora = explode(".",$thoras);
+          $thoras = $thora[0];
+
+          $thoras = $horasactual + $thoras;
+          $dias = $diasactual + $dias;
+
 
       }
 
@@ -219,6 +224,7 @@ class VacacionesController extends Controller
 		  }
 
     	$calculo = array($thoras,$dias);
+   
 
     	return view('director.vacaciones.detalle',["empleado"=>$empleado,"calculo"=>$calculo]);            
     }
@@ -364,9 +370,21 @@ class VacacionesController extends Controller
         {
           //$vacadetalle->idempleado = $idempleado;
           $vacadetalle->idausencia = $codigo;
-          $vacadetalle->solhoras = $request->solhoras;
+          if($request->solhoras === "00:00:00")
+          {
+            $vacadetalle->solhoras = $request->solhoras;
+          }
+
+          elseif ($request->solhoras === "04:00:00") {
+            $vacadetalle->solhoras = $request->solhoras;
+          }
+          else
+          {
+            $vacadetalle->solhoras = $request->solhoras.":00:00";
+          } 
           $vacadetalle->soldias = $request->soldias;
-          $vacadetalle->estado = 1;        
+          $vacadetalle->estado = 1;
+
         
           $vacadetalle->save();
         } 

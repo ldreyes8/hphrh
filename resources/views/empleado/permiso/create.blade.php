@@ -8,8 +8,7 @@
         <link href="{{asset('assets/plugins/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css')}}" rel="stylesheet">
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet">
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet">
-        <link href="{{asset('assets/plugins/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
-
+    
         <link href="{{asset('assets/plugins/switchery/switchery.min.css')}}" rel="stylesheet" />
    
 
@@ -44,7 +43,7 @@
       <strong id="error"></strong>
 </div>
         
-{!!Form::open(array('url'=>'empleado/permiso','method'=>'POST','autocomplete'=>'off','id'=>'form')) !!}
+{!!Form::open(array('url'=>'empleado/permiso/create','method'=>'POST','autocomplete'=>'off','id'=>'form')) !!}
 {{Form::token()}}
 
 <div class="card-box">
@@ -67,7 +66,7 @@
             </div> 
         </div>
 
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="divJ">
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
             <div class="form-group">
                 <label>Juzgado o Institución</label>
@@ -106,7 +105,7 @@
             </div>  
         </div>
 
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="divCHM">
 
             <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
                 <div><label>Concurrencia</label></div>
@@ -189,7 +188,33 @@
             </div>
         </div>
 
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="divENF">
+            <div class="modal-header">
+                <br>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <br>
+                    <button type="button" class="btn btn-success" id="btndatomar">Dias a tomar</button>
+                </div>
+
+                                
+                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                    <label for="numerodependientes">Dias</label>
+                    <input id="datomar" type="number" name="numerodependientes" min="0" class="form-control" onkeypress="return valida(event)">
+                </div>
+
+                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                    <label for="horainicio">Hora</label>
+                    <select name="hhoras" id="hhoras" class="form-control">
+                        <option value="00">0</option>
+                        <option value="04">4</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+        <div><br></div>
             <div class="form-group">
                 <label>Observaciones</label>
                 <textarea class="form-control" placeholder=".........." rows="3"></textarea>
@@ -232,76 +257,16 @@
 @endsection
 
 @section('fin')
-    @parent
-       
-        <script src="{{asset('assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js')}}"></script>
-       
+    @parent       
         <script src="{{asset('assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('assets/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
-        <!--<script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>-->   
-        <script src="{{asset('assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js')}}"></script>
-       
-        <script src="{{asset('assets/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('assets/plugins/moment/moment.js')}}"></script>
-        <script src="{{asset('assets/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
-        <script src="{{asset('assets/plugins/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js')}}"></script>
-     
-        <script src="{{asset('assets/plugins/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
-        <script src="{{asset('assets/js/fecha.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
         <meta name="_token" content="{!! csrf_token() !!}" />
+        <script src="{{asset('assets/js/permisoU.js')}}"></script>
 
 
-        <script>
-
-        $(function(){
-            $("#form").submit(function(e){
-
-                var fields = $(this).serialize();
-
-                $.post("{{url('empleado/permiso')}}", fields, function(data){
-
-                    if(data.valid !== undefined){
-                        $("#result").html("En hora buena formulario enviado correctamente");
-                        
-                        $("#form")[0].reset();
-                        $("#error_fechaini").html('');
-                        $("#error_fechafin").html('');
-                    }
-                    else{
-                        $("#error_fechaini").html('');
-                        $("#error_fechafin").html('');
-                        if (data.fini !== undefined){
-                            $("#error_fechaini").html(data.fini); 
-                        }
-                        if (data.ffin !== undefined){
-                            $("#error_fechafin").html(data.ffin);
-                        }
-                    }
-                    var errHTML="";
-                 
-                
-
-                    if(typeof data.error != 'undefined')
-                    {
-                        for(e in data.error){
-                            errHTML+=data.error[e];
-                            //$("#result").html("la fecha inicio no puede ser mayor a la fecha final");
-                    }
-                    
-                    $("#erroresContent").html(errHTML);
-                    $('#erroresModal').modal('show');
-                }
-                      
-                });
-
-                return false;
-            });
-        });        
-        </script>
+        
 
 
 

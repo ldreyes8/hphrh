@@ -153,8 +153,7 @@ $(document).ready(function(){
         ffin = $("#fecha_final").val();
         td = $("#datomar").val();
         th = $("#hhoras").val();
-
-
+        th = th -0;
 
         var miurl="vacaciones/store";
         var formData = {
@@ -183,7 +182,7 @@ $(document).ready(function(){
             dataType: 'json',
 
             success: function (data) {
-                document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + td + "</td><td>" +th +"</td><td>" +"solicitado"+ "</td></tr>";
+                document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + td + "</td><td>" +th +"</td><td>"+0+"</td><td>"+0+"</td><td>" +"solicitado"+ "</td><td>"+"</td></tr>";
     
                 $('#formModal').modal('hide');
                 
