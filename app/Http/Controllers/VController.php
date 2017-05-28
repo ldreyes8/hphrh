@@ -408,23 +408,31 @@ class VController extends Controller
     
     $idempleado = $request->idempleado;
     $idvacadetalle = $request->idvacadetalle;
-  
+
 
 
     $vacaciones = vacadetalle::find($idvacadetalle);
 
-    $vacaciones->solhoras= $request->solhoras;
-    $vacaciones->soldias=$request->soldias; 
-    $vacaciones->goce=$request->goce;
 
+    if($request->goce ==="No_gozado")
+    {
+      $vacaciones->solhoras= $request->solhoras;
+      $vacaciones->soldias=$request->soldias; 
+      $vacaciones->goce=$request->goce;
+      $vacaciones->estado = '0';      
+    }
+    else
+    {
+      $vacaciones->solhoras= $request->solhoras;
+      $vacaciones->soldias=$request->soldias; 
+      $vacaciones->goce=$request->goce;
+    }
     
 
 
     $vacaciones->save();
 
-    
-    
-          Mail::send('emails.envio',$request->all(), function($msj){
+    Mail::send('emails.envio',$request->all(), function($msj){
 
       $empleado = DB::table('empleado as e')
       ->join('persona as p','e.identificacion','=','p.identificacion')

@@ -40,7 +40,7 @@
 			<tr>
 				<th>Fecha inicio</th><td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $empleado->fechainicio)->format('d-m-Y')}}</td>
 				<th>Fecha final</th><td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $empleado->fechafin)->format('d-m-Y')}}</td>
-				<th>Total días</th>	
+				<th>Total días</th><td>{{$empleado->totaldias}}</td>	
 			</tr>
 
 			<tr>

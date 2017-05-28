@@ -45,9 +45,9 @@
             <div class="modal-content">
             <input type="hidden" name="tdias" id="tdias">
             <input type="hidden" name="thoras" id="thoras">
-            <input type="hidden" name="idempleado" value="{{$usuarios->idempleado}}">
-            <input type="hidden" name="idmunicipio" value="{{$usuarios->idmunicipio}}">
-            <input type="hidden" name="name" value="{{$usuarios->nombre}}">
+            <input type="hidden" name="idempleado" id="idempleado" value="{{$usuarios->idempleado}}">
+            <input type="hidden" name="idmunicipio" id="idmunicipio" value="{{$usuarios->idmunicipio}}">
+            <input type="hidden" name="name"  id="name" value="{{$usuarios->nombre}}"> 
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -64,7 +64,7 @@
                     </select>
                 </div>
 
-                <div class="modal-header">
+                <div class="modal-header" id="divJ">
                     <div><p><br></p></div>
 
                     <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
@@ -97,7 +97,7 @@
                     </div>
                 </div>
 
-                <div class="modal-header">
+                <div class="modal-header" id="divCHM">
                     <div><p><br></p></div>
                     
 
@@ -141,7 +141,7 @@
                     </div>                    
                 </div>
                 
-                <div class="modal-header">
+                <div class="modal-header" id="divHMF">
 
                     <div class="col-lg-6 col-md-3 col-sm-3 col-xs-12">
                     </div>
@@ -201,12 +201,13 @@
                             </select>
                         </div>
                     </div>
+                     <input type="checkbox" id="casilla" value="1" onclick="desactivar()"/>Activar campo Dias y Hora 
                 </div>   
             </form>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="btnguardarV">Guardar</button>
+                    <button type="button" class="btn btn-primary" id="btnguardarP">Guardar</button>
                 </div>
             </div>
         </div>
@@ -242,6 +243,23 @@
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
         <script src="{{asset('assets/js/permisoU.js')}}"></script>
         <script type="text/javascript">
-            
+
+
+        function desactivar() {
+            if($("#casilla:checked").val()==1) {
+                $("#casilla").attr('disabled', 'disabled');
+                $('#datomar').removeAttr("disabled");
+                $('#hhoras').removeAttr("disabled");
+            }
+        }
+
+        function mostrar() {
+            if($("#inlineRadio2:checked").val()=="Goce_temporal") {
+                $("#oculto").show();
+                $("#inlineRadio16").attr('disabled', 'disabled');
+                $("#inlineRadio1").attr('disabled', 'disabled');
+            }
+        }            
         </script>
+
 @endsection

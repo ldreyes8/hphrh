@@ -83,8 +83,8 @@
                     <li class=""> <a href="javascript:void(0);" onclick="cargarlistado(1,1);">
                     
                         <a href="#profile" data-toggle="tab" aria-expanded="false" >
-                            <span class="visible-xs"><i class="fa fa-photo"></i></span>
-                            <span class="hidden-xs">GALLERY</span>
+                            <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                            <span class="hidden-xs">Contactos</span>
                         </a>
                     </li>
                     <!--
@@ -183,6 +183,7 @@
                         </div>
                     </div>
                     @include('hr.galeria')
+                    <!--
                     <div class="tab-pane" id="settings">
                         <form role="form">
                             <div class="form-group">
@@ -201,6 +202,7 @@
                             <button class="btn btn-primary waves-effect waves-light w-md" type="submit">Save</button>
                         </form>
                     </div>
+                    -->
                     @include('hr.academico')
                     @include('hr.familia')
                     @include('hr.referencias')

@@ -67,6 +67,8 @@
                                 <span class="clearfix"></span>
                             </div>
 
+                            <!--
+
                             <ul class="nav navbar-nav hidden-xs">
                                 <li><a href="#" class="waves-effect">Files</a></li>
                                 <li class="dropdown">
@@ -87,6 +89,8 @@
                                  <a href=""><i class="fa fa-search"></i></a>
                             </form>
 
+
+
                             <ul class="nav navbar-nav navbar-right pull-right">
 
                                 <li class="dropdown hidden-xs">
@@ -97,8 +101,10 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-lg">
                                         <li class="text-center notifi-title">Notification</li>
-                                        <li class="list-group nicescroll notification-list">
+                                        <li class="list-group nicescroll notification-list"> 
+                                        -->
                                             <!-- list item-->
+                                            <!--
                                             <a href="javascript:void(0);" class="list-group-item">
                                                 <div class="media">
                                                     <div class="pull-left p-r-10">
@@ -115,7 +121,10 @@
                                                 </div>
                                             </a>
 
+                                            -->
+
                                             <!-- list item-->
+                                            <!--
                                             <a href="javascript:void(0);" class="list-group-item">
                                                 <div class="media">
                                                     <div class="pull-left p-r-10">
@@ -129,8 +138,10 @@
                                                     </div>
                                                 </div>
                                             </a>
+                                            -->
 
                                             <!-- list item-->
+                                            <!--
                                             <a href="javascript:void(0);" class="list-group-item">
                                                 <div class="media">
                                                     <div class="pull-left p-r-10">
@@ -163,6 +174,7 @@
                                 </li>
 
                             </ul>
+                            -->
                         </div>
                         <!--/.nav-collapse -->
                     </div>
@@ -286,8 +298,8 @@
                             </span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('/empleado/perfil')}}"><i class="md md-face-unlock"></i> Profile</a></li>
-                            <li><a href="{{ url('/logout') }}"><i class="md md-settings-power"></i> Logout</a></li>
+                            <li><a href="{{ url('/empleado/perfil')}}"><i class="md md-face-unlock"></i> Perfil</a></li>
+                            <li><a href="{{ url('/logout') }}"><i class="md md-settings-power"></i> Cerrar sesion</a></li>
                         </ul>
                     @endif
 
