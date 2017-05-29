@@ -33,7 +33,7 @@ class VController extends Controller
         $ausencias=DB::table('ausencia as a')
         ->join('empleado as emp','a.idempleado','=','emp.idempleado')
         ->join('persona as per','emp.identificacion','=','per.identificacion')
-        ->join('users as U','per.identificacion','=','U.identificacion')
+        ->join('users as U','per.identificacion','=','U.identificacion')  
         ->join('tipoausencia as ta','a.idtipoausencia','=','ta.idtipoausencia')
         ->join('vacadetalle as vd','a.idausencia','=','vd.idausencia')
         ->select('a.fechainicio','a.fechafin','a.autorizacion','a.fechasolicitud','a.totaldias','a.totalhoras',DB::raw('sum(a.totaldias - vd.soldias) as diastomados'),DB::raw('sum(a.totalhoras - vd.solhoras) as htomado'))
@@ -118,9 +118,7 @@ class VController extends Controller
     $dias =DB::table('vacadetalle as va')
     ->join('empleado as emp','va.idempleado','=','emp.idempleado')
     ->join('persona as per','emp.identificacion','=','per.identificacion')
-    ->select('va.idempleado','va.idausencia','va.acuhoras','va.acudias','va.fecharegistro','va.idvacadetalle','va.solhoras','va.soldias')
-
-        
+    ->select('va.idempleado','va.idausencia','va.acuhoras','va.acudias','va.fecharegistro','va.idvacadetalle','va.solhoras','va.soldias') 
     ->where('emp.idempleado','=',$usuario->idempleado)
     ->where('va.estado','=','1')
     ->orderBy('va.idvacadetalle','desc')
@@ -133,7 +131,9 @@ class VController extends Controller
     ->select('a.autorizacion')
     ->orderBy('a.idausencia','DESC')
     ->where('idtipoausencia','=','3')
-    ->first();   
+    ->where('U.id','=',Auth::user()->id)
+    ->first();
+
 
     if($ausencia === null)
     {

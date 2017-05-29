@@ -229,6 +229,7 @@ class PController extends Controller
             
 
             $tho = $tho/10000;
+
             $total = $total *8; 
             $tdia = $tho + $total; 
 
@@ -259,7 +260,7 @@ class PController extends Controller
                 $resto = $resto / 8;
 
                 if ($resto - floor($resto) == 0) {
-                  $resto = $resto + " Días";
+                  $resto = $resto. " Días";
                 }
                 else{
                   $resto = $resto - 0.5;

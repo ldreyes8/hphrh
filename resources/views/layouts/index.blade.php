@@ -217,12 +217,14 @@
                                 </ul>
                             </li>
 
+                            <!--
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
                                         class="fa fa-vcard"></i><span>Recursos Humanos</span> 
                                          <span class="menu-arrow"></span>
                                 </a><!--<span
                                         class="label label-success pull-right">6</span> -->
+                            <!--
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/empleado/solicitante')}}">Solicitud</a></li>
                                     <li><a href="{{ url('/listados/empleado')}}">Listado de empleados</a></li>
@@ -232,7 +234,9 @@
                                     <li><a href="{{ url('/mintrabf')}}">Ministerio de trabajo</a></li>
                                 </ul>
                             </li>
+                            -->
 
+                            <!--
 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
@@ -240,18 +244,19 @@
                                          <span class="menu-arrow"></span>
                                 </a><!--<span
                                         class="label label-success pull-right">6</span> -->
-                                <ul class="list-unstyled">
+                            <!--    <ul class="list-unstyled">
                                     <li><a href="{{ url('/seguridad/usuario')}}">Registro usuario</a></li>
                               
                                 </ul>
                             </li>
+                            -->
 
+                            <!--
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
                                         class="md md-assignment"></i><span>Permisos</span> 
                                          <span class="menu-arrow"></span>
-                                </a><!--<span
-                                        class="label label-success pull-right">6</span> -->
+                                </a>
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/empleado/permisos')}}">Solicitados</a></li>
                                     <li><a href="{{ url('/empleado/confirmado')}}">Confirmados</a></li>
@@ -262,8 +267,8 @@
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
                                         class="md md-assignment"></i><span>Vacaciones</span> 
-                                         <span class="menu-arrow"></span></a><!--<span
-                                        class="label label-success pull-right">6</span> --></a>
+                                         <span class="menu-arrow"></span>
+                                </a>
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/empleado/vsolicitado')}}">Solicitados</a></li>
                                     <li><a href="{{ url('/empleado/vautorizado')}}">Autorizados</a></li>
@@ -271,6 +276,7 @@
                                     <li><a href="{{ url('/empleado/vrechazado')}}">Rechazados</a></li>
                                 </ul>
                             </li>
+                            -->
 
                             <li class="menu-title">Mas</li>
                         </ul>
