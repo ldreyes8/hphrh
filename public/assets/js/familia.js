@@ -8,7 +8,14 @@ $(document).ready(function(){
 
     $("#btnGuardarF").click(function(e){
         var miurl="agregarfamiliar";
-
+        if($('#emergencia').is(':checked'))
+        {
+            emer = "Si";
+        }
+        else
+        {
+            emer = "No";
+        }
         nombref =  $("#nombref").val();
         apellidof =  $("#apellidof").val();
 
@@ -20,7 +27,7 @@ $(document).ready(function(){
             ocupacion : $("#ocupacion").val(),
             idempleado: $("#idempleado").val(),
             identificacion: $("#identificacion").val(),
-            emergencia :$("#emergencia").val(),
+            emergencia :emer,
             telefonof: $("#telefonof").val(),
 
         };
