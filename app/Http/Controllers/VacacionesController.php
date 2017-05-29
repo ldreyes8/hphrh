@@ -97,7 +97,7 @@ class VacacionesController extends Controller
    
         ->paginate(15);  
 
-        return view('director.vacaciones.indexconfirmado',["permisos"=>$permisos]);        
+        return view('director.vacaciones.indexrechazado',["permisos"=>$permisos]);        
     }
 
     public function indexautorizado (Request $request)
@@ -265,19 +265,19 @@ class VacacionesController extends Controller
         ->join('users as U','per.identificacion','=','U.identificacion')
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ",per.apellido2) AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.horainicio','au.horafin','au.totaldias','au.totalhoras','emp.idempleado','U.email','au.idausencia')
         ->where('au.idausencia','=',$id)
+        ->orderBy('au.idausencia','desc')
         ->first();
-        //dd($empleado);
+
 
         $dias =DB::table('vacadetalle as va')
         ->join('empleado as emp','va.idempleado','=','emp.idempleado')
         ->join('persona as per','emp.identificacion','=','per.identificacion')
         ->join('ausencia as a','emp.idempleado','=','a.idempleado')        
         ->select('va.idempleado','va.idausencia','va.acuhoras','va.acudias','va.fecharegistro','va.idvacadetalle','va.solhoras','va.soldias','va.goce')
-        ->where('a.idausencia','=',$id)
-        ->orderBy('va.idvacadetalle','desc')
+        ->where('va.idausencia','=',$id)
         ->first();
 
-      return view('director.vacaciones.confirmado',["empleado"=>$empleado,"dias"=>$dias]);            
+      return view('director.vacaciones.dconfirmar',["empleado"=>$empleado,"dias"=>$dias]);            
     }
 
     public function rechazado($id)
@@ -298,11 +298,10 @@ class VacacionesController extends Controller
         ->join('persona as per','emp.identificacion','=','per.identificacion')
         ->join('ausencia as a','emp.idempleado','=','a.idempleado')        
         ->select('va.idempleado','va.idausencia','va.acuhoras','va.acudias','va.fecharegistro','va.idvacadetalle','va.solhoras','va.soldias','va.goce')
-        ->where('a.idausencia','=',$id)
-        ->orderBy('va.idvacadetalle','desc')
+        ->where('va.idausencia','=',$id)
         ->first();
 
-      return view('director.vacaciones.confirmado',["empleado"=>$empleado,"dias"=>$dias]);            
+      return view('director.vacaciones.rechazado',["empleado"=>$empleado,"dias"=>$dias]);            
     }
 
     public function enviarvacaciones(Request $request)

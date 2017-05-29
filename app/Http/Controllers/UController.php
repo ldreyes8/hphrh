@@ -119,15 +119,24 @@ class UController extends Controller
 
 	public function galeria()
 	{
-
+        /*
         $users=DB::table('users as U')
         ->join('persona as per','U.identificacion','=','per.identificacion')
         ->join('empleado as emp','per.identificacion','=','emp.identificacion')
         ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil')
         ->get();
 
+        */
+        $users=DB::table('users as U')
+        ->join('persona as per','U.identificacion','=','per.identificacion')
+        ->join('empleado as emp','per.identificacion','=','emp.identificacion')
+        ->join('nomytras as nt','emp.idempleado','=','nt.idempleado')
+        ->join('puesto as p','nt.idpuesto','=','p.idpuesto')
+        ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
+        ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado')
+        ->where('u.id','!=',Auth::user()->id)
+        ->get();
         
-
 		/*
 		$data =  array("users"=>$users);
 		return json_encode($data);*/

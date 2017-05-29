@@ -11,7 +11,7 @@
                         <img  src="{{asset('imagenes/avatar.jpg')}}" alt="user-img" class="img-circle" width="75px height 75px" id="fotografia_usuario">
                         <div class="caption">
                             <h3>{{$user->name}}</h3>
-                            <p>{{$user->email}}<br>{{$user->email}}<br>{{$user->email}}<br>{{$user->email}}<br></p>            
+                            <p>{{$user->email}}<!--<br>{{$user->celcorporativo}} --><br>{{$user->puesto}}<br>{{$user->afiliado}}<br></p>            
                         </div>
                     </div>
                   
@@ -21,7 +21,7 @@
                         <img  src="{{asset('fotografias/'.$user->fotoperfil)}}" alt="user-img" class="img-circle"  width="75px height 75px" id="fotografia_usuario">
                         <div class="caption">
                             <h3>{{$user->name}}</h3>
-                            <p>{{$user->email}}<br>{{$user->email}}<br>{{$user->email}}<br>{{$user->email}}<br></p>            
+                            <p>{{$user->email}}<!--<br>{{$user->celcorporativo}} --><br>{{$user->puesto}}<br>{{$user->afiliado}}<br></p>            
                         </div>
                     </div>            
                 @endif    

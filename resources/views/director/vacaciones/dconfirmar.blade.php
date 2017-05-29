@@ -61,64 +61,7 @@
   	</div>
   </div>
 </div>
-<div class="row" id="edit">
-	<div class="panel panel-primary">
-   		<div class="panel-body">
-   			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div class="form-group">
-            <label class="radio-inline"><input type="radio" checked="" name="autorizacion" value="Confirmado" id="rconfirmar">Confirmar</label>
-          </div>
-          <button type="button" class="btn btn-success" id="btneditar">Editar dias tomados</button>
-          <div class="row" id="oculto">
-            <div class="col-sm-10">
-              <div class="card-box m-t-20">
-                <div class="p-20">
-                  <form role="form">
-                    <div class="modal-header" >                
-                      <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                        <label for="dnotomado">Dias</label>
-                        <input id="dnotomado" type="number" name="dnotomado" min="0" class="form-control" onkeypress="return valida(event)" value="{{$dias->soldias}}">
-                      </div>
 
-                      <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                        <label for="horainicio">Hora</label>
-                        <select name="hhoras" id="hhoras" class="form-control">
-                          <option value="{{$dias->solhoras}}">{{$dias->solhoras}}</option>
-                          <option value="00">00</option>
-                          <option value="04">04</option>
-                        </select>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-10">
-              <div class="card-box m-t-20">
-                <div class="p-20">
-                  <form role="form">
-		                <div class="form-group">
-		                  <input type="email" class="form-control" name="receptor" id="receptor" value="{{$empleado->email}}">
-		                </div>
-		                <div class="form-group">
-                      <textarea class="form-control" placeholder=".........." id="observaciones" rows="3" maxlength="100"></textarea>
-		                </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-            	
-          <div class="form-group" id="botones">
-            <button class="btn btn-purple waves-effect waves-light" id="btnconfirmarv" <span>Enviar</span> <i class="fa fa-send m-l-10"></i> </button>
-        		<button class="btn btn-danger" type="reset">Cancelar</button>
-    			</div>
-        </div>
-   		</div>
-   	</div>
-</div>
 
 <div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
   <div class="modal-dialog">

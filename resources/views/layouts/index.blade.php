@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -253,9 +253,10 @@
                                 </a><!--<span
                                         class="label label-success pull-right">6</span> -->
                                 <ul class="list-unstyled">
+                                    <li><a href="{{ url('/empleado/permisos')}}">Solicitados</a></li>
                                     <li><a href="{{ url('/empleado/confirmado')}}">Confirmados</a></li>
                                     <li><a href="{{ url('/empleado/rechazado')}}">Rechazados</a></li>
-                                    <li><a href="{{ url('/empleado/permisos')}}">Solicitados</a></li>
+  
                                 </ul>
                             </li>
                             <li class="has_sub">
@@ -264,11 +265,10 @@
                                          <span class="menu-arrow"></span></a><!--<span
                                         class="label label-success pull-right">6</span> --></a>
                                 <ul class="list-unstyled">
-                                    <li><a href="{{ url('/empleado/vconfirmado')}}">Confirmados</a></li>
-                                    <li><a href="{{ url('/empleado/vrechazado')}}">Rechazados</a></li>
                                     <li><a href="{{ url('/empleado/vsolicitado')}}">Solicitados</a></li>
                                     <li><a href="{{ url('/empleado/vautorizado')}}">Autorizados</a></li>
-
+                                    <li><a href="{{ url('/empleado/vconfirmado')}}">Confirmados</a></li>
+                                    <li><a href="{{ url('/empleado/vrechazado')}}">Rechazados</a></li>
                                 </ul>
                             </li>
 
