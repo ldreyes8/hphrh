@@ -38,13 +38,15 @@
                 </div>
             </div> <!-- end card-box -->
         </div>
+        <!---
         <div class="card-box">
             <h4 class="m-t-0 m-b-20 header-title">opciones</h4>
-            <!--<button class="btn btn-primary" id="btndescargar">Descargar</button>
-            -->
+            <button class="btn btn-primary" id="btndescargar">Descargar</button>
+            
               <a href="{{URL::action('VController@Gpdf')}}"><button class="btn btn-primary">Descargar</button></a> 
   
         </div>
+        -->
     </div>
 
     <div class="col-md-8 col-lg-9">
