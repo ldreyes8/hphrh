@@ -47,7 +47,7 @@ $(document).ready(function(){
             success: function (data) {
                 //console.log(formData.txtmail);
   $("#doculto").hide();                 //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +data.titulo+ "</td><td>" +data.establecimiento + "</td><td>" +data.duracion + ": " + data.periodo + "</td><td>" +nivel + "</td><td>" +fingreso + "</td><td>" +fsalida + "</td></tr>";    
-                //$('#formModal').modal('hide');
+                //$('#formModal').modal('hide'); 
                 
             },
             error: function (data) {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -67,6 +67,8 @@
                                 <span class="clearfix"></span>
                             </div>
 
+                            <!--
+
                             <ul class="nav navbar-nav hidden-xs">
                                 <li><a href="#" class="waves-effect">Files</a></li>
                                 <li class="dropdown">
@@ -87,6 +89,8 @@
                                  <a href=""><i class="fa fa-search"></i></a>
                             </form>
 
+
+
                             <ul class="nav navbar-nav navbar-right pull-right">
 
                                 <li class="dropdown hidden-xs">
@@ -97,8 +101,10 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-lg">
                                         <li class="text-center notifi-title">Notification</li>
-                                        <li class="list-group nicescroll notification-list">
+                                        <li class="list-group nicescroll notification-list"> 
+                                        -->
                                             <!-- list item-->
+                                            <!--
                                             <a href="javascript:void(0);" class="list-group-item">
                                                 <div class="media">
                                                     <div class="pull-left p-r-10">
@@ -115,7 +121,10 @@
                                                 </div>
                                             </a>
 
+                                            -->
+
                                             <!-- list item-->
+                                            <!--
                                             <a href="javascript:void(0);" class="list-group-item">
                                                 <div class="media">
                                                     <div class="pull-left p-r-10">
@@ -129,8 +138,10 @@
                                                     </div>
                                                 </div>
                                             </a>
+                                            -->
 
                                             <!-- list item-->
+                                            <!--
                                             <a href="javascript:void(0);" class="list-group-item">
                                                 <div class="media">
                                                     <div class="pull-left p-r-10">
@@ -163,6 +174,7 @@
                                 </li>
 
                             </ul>
+                            -->
                         </div>
                         <!--/.nav-collapse -->
                     </div>
@@ -205,12 +217,14 @@
                                 </ul>
                             </li>
 
+                            <!--
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
                                         class="fa fa-vcard"></i><span>Recursos Humanos</span> 
                                          <span class="menu-arrow"></span>
                                 </a><!--<span
                                         class="label label-success pull-right">6</span> -->
+                            <!--
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/empleado/solicitante')}}">Solicitud</a></li>
                                     <li><a href="{{ url('/listados/empleado')}}">Listado de empleados</a></li>
@@ -220,7 +234,9 @@
                                     <li><a href="{{ url('/mintrabf')}}">Ministerio de trabajo</a></li>
                                 </ul>
                             </li>
+                            -->
 
+                            <!--
 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
@@ -228,37 +244,39 @@
                                          <span class="menu-arrow"></span>
                                 </a><!--<span
                                         class="label label-success pull-right">6</span> -->
-                                <ul class="list-unstyled">
+                            <!--    <ul class="list-unstyled">
                                     <li><a href="{{ url('/seguridad/usuario')}}">Registro usuario</a></li>
                               
                                 </ul>
                             </li>
+                            -->
 
+                            <!--
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
                                         class="md md-assignment"></i><span>Permisos</span> 
                                          <span class="menu-arrow"></span>
-                                </a><!--<span
-                                        class="label label-success pull-right">6</span> -->
+                                </a>
                                 <ul class="list-unstyled">
+                                    <li><a href="{{ url('/empleado/permisos')}}">Solicitados</a></li>
                                     <li><a href="{{ url('/empleado/confirmado')}}">Confirmados</a></li>
                                     <li><a href="{{ url('/empleado/rechazado')}}">Rechazados</a></li>
-                                    <li><a href="{{ url('/empleado/permisos')}}">Solicitados</a></li>
+  
                                 </ul>
                             </li>
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
                                         class="md md-assignment"></i><span>Vacaciones</span> 
-                                         <span class="menu-arrow"></span></a><!--<span
-                                        class="label label-success pull-right">6</span> --></a>
+                                         <span class="menu-arrow"></span>
+                                </a>
                                 <ul class="list-unstyled">
-                                    <li><a href="{{ url('/empleado/vconfirmado')}}">Confirmados</a></li>
-                                    <li><a href="{{ url('/empleado/vrechazado')}}">Rechazados</a></li>
                                     <li><a href="{{ url('/empleado/vsolicitado')}}">Solicitados</a></li>
                                     <li><a href="{{ url('/empleado/vautorizado')}}">Autorizados</a></li>
-
+                                    <li><a href="{{ url('/empleado/vconfirmado')}}">Confirmados</a></li>
+                                    <li><a href="{{ url('/empleado/vrechazado')}}">Rechazados</a></li>
                                 </ul>
                             </li>
+                            -->
 
                             <li class="menu-title">Mas</li>
                         </ul>
@@ -286,8 +304,8 @@
                             </span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('/empleado/perfil')}}"><i class="md md-face-unlock"></i> Profile</a></li>
-                            <li><a href="{{ url('/logout') }}"><i class="md md-settings-power"></i> Logout</a></li>
+                            <li><a href="{{ url('/empleado/perfil')}}"><i class="md md-face-unlock"></i> Perfil</a></li>
+                            <li><a href="{{ url('/logout') }}"><i class="md md-settings-power"></i> Cerrar sesion</a></li>
                         </ul>
                     @endif
 

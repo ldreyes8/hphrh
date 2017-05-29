@@ -86,19 +86,7 @@ class PersonaController extends Controller
         $forma=$request->get('forma');
         $trabajos=$request->get('trabajoext');
 
-//dd($img,$identificacion,$nombre1,$forma);
-      /*  $validator = Validator::make(
-        $request->all(), 
-        $request->rules(),
-        $request->messages()
-        );
 
-        if ($validator->valid())
-        {
-            if ($request->ajax())
-            {
-                if($nombre1 !="" || $apellido1 !="")
-                {*/
                     try 
                     {
                         DB::beginTransaction();
@@ -233,6 +221,7 @@ class PersonaController extends Controller
                         $acreedor=$request->get('acreedor');
                         $amortizacionmensual=$request->get('amortizacionmensual');
                         $montodeuda=$request->get('montodeuda');
+                        $modeuda=$request->get('mdeuda');
                      //Datos padecimientos
                         $nombre=$request->get('nombre');
                         //otros datos 
@@ -407,7 +396,8 @@ class PersonaController extends Controller
                                 $deuda-> amortizacionmensual=$amortizacionmensual[$conts];
                                 $deuda-> montodeuda=$montodeuda[$conts];
                                 $deuda-> idempleado=$empleado->idempleado;
-                                $deuda-> identificacion=$empleado->identificacion; 
+                                $deuda-> identificacion=$empleado->identificacion;
+                                $deuda-> motivodeuda=$modeuda[$conts];
                                 $deuda->save();
                                 $conts=$conts + 1;
                             }
@@ -449,6 +439,18 @@ class PersonaController extends Controller
             }
         }*/
         return Redirect::to('https://www.habitatguate.org/');
+    }
+
+    public function upsolicitud(Request $request)
+    {
+        $id = $request->get('uppadid');
+        dd($id);
+        $ac=Padecimientos::findOrFail($id);
+        $ac-> nombre=$request->get('uppadn');
+        $ac-> identificacion=$request->get('identificacionup');
+        $ac-> idempleado=$request->get('idempleado');
+        $ac->save();
+        return response()->json($ac);
     }
 
 }

@@ -40,8 +40,10 @@
                     <th>Solicitud</th>
                     <th>Iniicio</th>
                     <th>Fin</th>
-                    <th>Total dias</th>
-                    <th>Total horas</th>
+                    <th>Días solicitados</th>
+                    <th>Horas solicitados</th>
+                    <th>Días tomados</th>
+                    <th>Horas tomadas</th>
                     <th>Autorizacion</th>
                     <th>opciones</th>
                 </thead>
@@ -51,7 +53,15 @@
                     <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechainicio)->format('d-m-Y')}}</td>
                     <td>{{\Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechafin)->format('d-m-Y')}}</td> 
                     <td>{{$aus->totaldias}}</td>
-                    <td>{{$aus->totalhoras}}</td>
+                    <td>{{$aus->totalhoras - 0}}</td>
+                    @if(($aus->htomado/10000) == -4)
+
+                        <td>{{$aus->diastomados - 1}}</td>
+                        <td>{{abs($aus->htomado)/10000}}</td>
+                    @else
+                        <td>{{$aus->diastomados}}</td>
+                        <td>{{$aus->htomado / 10000}}</td>
+                    @endif
                     <td>{{$aus->autorizacion}}</td>
                     @if ( $aus->autorizacion == 'Autorizado')
                         <td> <button type="button" class="btn btn-primary" id="btnconfirmar">Confirmar goce</button></td>
@@ -122,8 +132,8 @@
                             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                                 <label for="horainicio">Hora</label>
                                 <select name="hhoras" id="hhoras" class="form-control">
-                                    <option value="00">00</option>
-                                    <option value="04">04</option>
+                                    <option value="00">0</option>
+                                    <option value="04">4</option>
                                 </select>
                             </div>
 
@@ -176,7 +186,7 @@
                     <form role="form" id="formModificar">
                         <div class="modal-header">
                         <br>                           
-                        
+                            
                             <div class="radio radio-danger radio-inline">
                                 <input type="radio" id="inlineRadio1" value="No_gozado" name="autorizacion" checked>
                                 <label for="inlineRadio1">No Gozadas</label> <!--No se tomo ningun dia solicitado-->
@@ -194,7 +204,9 @@
                        
 
                         <div class="modal-header" id="oculto">
-                            <br>                            
+                            <br>
+                            <h4>Seleccione los días no tomados</h4>
+
                              <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                                 <label for="numerodependientes">Dias</label>
                                 <input id="dtomados" type="number" name="numerodependientes" min="0" class="form-control" onkeypress="return valida(event)">

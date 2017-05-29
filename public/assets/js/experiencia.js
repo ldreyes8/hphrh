@@ -8,7 +8,7 @@ function cargarexperiencia(listado){
 
 $(document).ready(function(){
    	$('#btnAgregarE').click(function(){
-    	$('#inputTitleE').html("Agregar padecimiento");
+    	$('#inputTitleE').html("Agregar Experiencia");
     	$('#formAgregarE').trigger("reset");
     	$('#formModalE').modal('show');
 	});
