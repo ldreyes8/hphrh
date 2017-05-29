@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Vacadetalle extends Model
 {
     protected $primaryKey = 'idvacadetalle';
-    protected $table = 'Vacadetalle';
+    protected $table = 'vacadetalle';
     protected $fillable = array('idempleado',
         'idausencia',
         'periodo',

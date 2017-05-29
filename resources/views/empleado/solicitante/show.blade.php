@@ -1,4 +1,17 @@
 @extends ('layouts.index')
+@section('estilos')
+    @parent
+    <style >
+input[type=text] {
+
+    background: transparent;
+    width: 100%;
+    border: 0px;outline:none;
+    text-align: justify;
+    text-justify:inter-word;
+}
+    </style>
+@endsection
 @section ('contenido')
 
 <div class="row">
@@ -11,7 +24,7 @@
   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
     <div class="form-group">
       <label for="serie_comprobante">Identificacion</label>
-      <p>{{$empleado->identificacion}}</p>
+      <p id="identificacionup" >{{$empleado->identificacion}}</p>
       <input type="hidden" id="idempleado" value="{{$empleado->idempleado}}">
       <p style="display: none;">{{$empleado->idempleado}}</p>
     </div>
@@ -28,7 +41,7 @@
 
   <div class="table-responsive">
   
-        <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
+        <table id="detalles" class="table table-striped m-b-0 table-bordered table-condensed table-hover table-responsive" >
         <p><h2 ALIGN=center>Datos Personales</h2></p>
           <thead style="background-color:#A9D0F5">
             <th>Direccion </th>
@@ -62,27 +75,23 @@
            
 
             @if($persona->avenida != '' and $persona->calle =='')
-              <td>              
-                 {{'av'.' '.$persona->avenida.' '.$persona->nomenclatura.' '.'Zona'.' '.$persona->zona.' '.$persona->barriocolonia}}              
+              <td><input type="text" name="" value="{{'av'.' '.$persona->avenida.' '.$persona->nomenclatura.' '.'Zona'.' '.$persona->zona.' '.$persona->barriocolonia}} ">             
               </td>
             @endif
 
             @if($persona->calle != '' and $persona->avenida == '')
-              <td>              
-                 {{'calle'.' '.$persona->calle.' '.$persona->nomenclatura.' '.'Zona'.' '.$persona->zona.' '.$persona->barriocolonia}}              
+              <td><input type="text" name="" value="{{'calle'.' '.$persona->calle.' '.$persona->nomenclatura.' '.'Zona'.' '.$persona->zona.' '.$persona->barriocolonia}}">              
               </td>
             @endif
 
             @if($persona->calle != '' and $persona->avenida != '')
-              <td>              
-                 {{'calle'.' '.$persona->calle.' '.'av'.' '.$persona->avenida.' '.$persona->nomenclatura.' '.'Zona'.' '.$persona->zona.' '.$persona->barriocolonia}}              
+              <td><input type="text" name="" value="{{'calle'.' '.$persona->calle.' '.'av'.' '.$persona->avenida.' '.$persona->nomenclatura.' '.'Zona'.' '.$persona->zona.' '.$persona->barriocolonia}}">              
               </td>
             @endif
  
 
             @if($persona->calle == '' and $persona->avenida == '' and $persona->zona == '' and $persona->nomenclatura == '' and $persona->barriocolonia != '')
-              <td>              
-                 {{$persona->barriocolonia}}              
+              <td><input type="text" MAXLENGTH=7 name="" value="{{$persona->barriocolonia}}">              
               </td>
             @endif
 
@@ -93,27 +102,30 @@
             @endif
 
 
-              <td>{{$persona->telefono}}</td>
-              <td>{{$persona->fechanac}}</td>
-              <td>{{$persona->departamento}}</td>
-              <td>{{$persona->municipio}}</td>
-              <td>{{$empleado->estadocivil}}</td>
-              <td>{{$persona->afiliado}}</td>
-              <td>{{$persona->puesto}}</td>
-              <td>{{$empleado->afiliacionigss}}</td>
+              <td><input type="text" name="" value="{{$persona->telefono}}"></td>
+              <td><input type="text" name="" value="{{$persona->fechanac}}"></td>
+              <td><input type="text" name="" value="{{$persona->departamento}}"></td>
+              <td><input type="text" name="" value="{{$persona->municipio}}"></td>
+              <td><input type="text" name="" value="{{$empleado->estadocivil}}"></td>
+              <td><input type="text" name="" value="{{$persona->afiliado}}"></td>
+              <td><input type="text" name="" value="{{$persona->puesto}}"></td>
+              <td><input type="text" name="" value="{{$empleado->afiliacionigss}}"></td>
 
-              <td>{{$empleado->numerodependientes}}</td>
-              <td>{{$empleado->aportemensual}}</td>
-              <td>{{$empleado->vivienda}}</td>
-              <td>{{$empleado->alquilermensual}}</td>
-              <td>{{$empleado->otrosingresos}}</td>
-              <td>{{$empleado->pretension}}</td>
-              <td>{{$empleado->fechasolicitud}}</td>
+              <td><input type="text" name="" value="{{$empleado->numerodependientes}}"></td>
+              <td><input type="text" name="" value="{{$empleado->aportemensual}}"></td>
+              <td><input type="text" name="" value="{{$empleado->vivienda}}"></td>
+              <td><input type="text" name="" value="{{$empleado->alquilermensual}}"></td>
+              <td><input type="text" name="" value="{{$empleado->otrosingresos}}"></td>
+              <td><input type="text" name="" value="{{$empleado->pretension}}"></td>
+              <td><input type="text" name="" value="{{$empleado->fechasolicitud}}"></td>
             </tr>
           </tbody>
         </table>
   </div>
-  
+  <div class="form-group">
+      <label>Observacion</label>
+      <textarea maxlength="300" class="form-control" id="observacionP" name=""></textarea>
+  </div>
   <div class="table-responsive">  
         <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
         <p><h2 ALIGN=center>Datos Familiares</h2></p>
@@ -134,15 +146,19 @@
           <tbody>
           @foreach($familiares as $fam)
             <tr>
-              <td>{{$fam->nombref}}</td>
-              <td>{{$fam->parentezco}}</td>
-              <td>{{$fam->telefonof}}</td>
-              <td>{{$fam->ocupacion}}</td>
-              <td>{{$fam->edad}}</td>
+              <td><input type="text" name="" value="{{$fam->nombref}}"></td>
+              <td><input type="text" name="" value="{{$fam->parentezco}}"></td>
+              <td><input type="text" name="" value="{{$fam->telefonof}}"></td>
+              <td><input type="text" name="" value="{{$fam->ocupacion}}"></td>
+              <td><input type="text" name="" value="{{$fam->edad}}"></td>
             </tr>
             @endforeach
           </tbody>
         </table>
+  </div>
+  <div class="form-group">
+      <label>Observacion</label>
+      <textarea maxlength="300" class="form-control" id="observacionF" name=""></textarea>
   </div>
         <!-- -->
   <div class="table-responsive">
@@ -168,12 +184,12 @@
           <tbody>
             @foreach($academicos as $aca)
             <tr>
-              <td>{{$aca->titulo}}</td>
-              <td>{{$aca->establecimiento}}</td>
-              <td>{{$aca->duracion}}</td>
-              <td>{{$aca->nivel}}</td>
-              <td>{{$aca->fingreso}}</td>
-              <td>{{$aca->fsalida}}</td>
+              <td><input type="text" name="" value="{{$aca->titulo}}"></td>
+              <td><input type="text" name="" value="{{$aca->establecimiento}}"></td>
+              <td><input type="text" name="" value="{{$aca->duracion}}"></td>
+              <td><input type="text" name="" value="{{$aca->nivel}}"></td>
+              <td><input type="text" name="" value="{{$aca->fingreso}}"></td>
+              <td><input type="text" name="" value="{{$aca->fsalida}}"></td>
              </tr>
              @endforeach
           </tbody>
@@ -187,13 +203,17 @@
             <tbody>
               @foreach($idiomas as $idi)
               <tr>
-               <td>{{$idi->idioma}}</td>
-               <td>{{$idi->nivel}}</td>                
+               <td><input type="text" name="" value="{{$idi->idioma}}"></td>
+               <td><input type="text" name="" value="{{$idi->nivel}}"></td>                
               </tr>
               @endforeach              
             </tbody>
           </thead>
         </table>
+  </div>
+  <div class="form-group">
+      <label>Observacion</label>
+      <textarea maxlength="300" class="form-control" id="observacionaA" name=""></textarea>
   </div>
   <div class="table-responsive">      
         <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
@@ -214,14 +234,18 @@
           <tbody>
           @foreach($referencias as $ref)
             <tr>
-              <td>{{$ref->nombrer}}</td>
-              <td>{{$ref->telefonor}}</td>
-              <td>{{$ref->profesion}}</td>
-              <td>{{$ref->tiporeferencia}}</td>
+              <td><input type="text" name="" value="{{$ref->nombrer}}"></td>
+              <td><input type="text" name="" value="{{$ref->telefonor}}"></td>
+              <td><input type="text" name="" value="{{$ref->profesion}}"></td>
+              <td><input type="text" name="" value="{{$ref->tiporeferencia}}"></td>
             </tr>
             @endforeach
           </tbody>
         </table>
+  </div>
+  <div class="form-group">
+      <label>Observacion</label>
+      <textarea maxlength="300" class="form-control" id="observacionR" name=""></textarea>
   </div>
   <div class="table-responsive">    
         <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
@@ -248,17 +272,21 @@
           <tbody>
             @foreach($experiencias as $exp)
             <tr>
-              <td>{{$exp->empresa}}</td>
-              <td>{{$exp->puesto}}</td>
-              <td>{{$exp->jefeinmediato}}</td>
-              <td>{{$exp->motivoretiro}}</td>
-              <td>{{$exp->ultimosalario}}</td>
-              <td>{{$exp->fingresoex}}</td>
-              <td>{{$exp->fsalidaex}}</td>
+              <td><input type="text" name="" value="{{$exp->empresa}}"></td>
+              <td><input type="text" name="" value="{{$exp->puesto}}"></td>
+              <td><input type="text" name="" value="{{$exp->jefeinmediato}}"></td>
+              <td><input type="text" name="" value="{{$exp->motivoretiro}}"></td>
+              <td><input type="text" name="" value="{{$exp->ultimosalario}}"></td>
+              <td><input type="text" name="" value="{{$exp->fingresoex}}"></td>
+              <td><input type="text" name="" value="{{$exp->fsalidaex}}"></td>
              </tr>
              @endforeach
           </tbody>
         </table>
+  </div>
+  <div class="form-group">
+      <label>Observacion</label>
+      <textarea maxlength="300" class="form-control" id="observacionE" name=""></textarea>
   </div>
   <div class="table-responsive">
         <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
@@ -276,34 +304,39 @@
           <tbody>
             @foreach($deudas as $deu)
             <tr>
-              <td>{{$deu->acreedor}}</td>
-              <td>{{$deu->pago}}</td>
-              <td>{{$deu->montodeuda}}</td>
+              <td><input type="text" name="" value="{{$deu->acreedor}}"></td>
+              <td><input type="text" name="" value="{{$deu->pago}}"></td>
+              <td><input type="text" name="" value="{{$deu->montodeuda}}"></td>
              </tr>
              @endforeach
           </tbody>
         </table>
+  </div>
+  <div class="form-group">
+      <label>Observacion</label>
+      <textarea maxlength="300" class="form-control" id="observacionD" name=""></textarea>
   </div>
   <div class="table-responsive">
-        <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
+        <table id="detallesPad" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
         <p><h2 ALIGN=center>Padecimeintos</h2></p>
           <thead style="background-color:#A9D0F5">
+            <th style="width: 0.5%">Id</th>
             <th>Padecimientos</th>
           </thead>
- 
-          <tfoot>
-            <th></th>
-          </tfoot>
           <tbody>
             @foreach($padecimientos as $pad)
-            <tr>
-              <td>{{$pad->nombre}}</td>
-             </tr>
+            <tr class="filaTable">
+              <td><input type="text" id="uppadid" class="padRid" name="" value="{{$pad->idppadecimientos}}"></td>
+              <td><input type="text" id="uppadn" class="padRn" name="" value="{{$pad->nombre}}"></td>
+            </tr>
              @endforeach
           </tbody>
         </table>
   </div>
-   
+  <div class="form-group">
+      <label>Observacion</label>
+      <textarea maxlength="300" class="form-control" id="observacionPad" name=""></textarea>
+  </div>
   <div class="table-responsive">
     <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
       <p><h2 ALIGN=center>Experiencia en el extranjero</h2></p>
@@ -320,14 +353,18 @@
         <tbody>
           @foreach($pais as $pas)
             <tr>
-              <td>{{$pas->trabajoext}}</td>
-              <td>{{$pas->forma}}</td>
-              <td>{{$pas->motivofin}}</td>
-              <td>{{$pas->nombre}}</td>
+              <td><input type="text" name="" value="{{$pas->trabajoext}}"></td>
+              <td><input type="text" name="" value="{{$pas->forma}}"></td>
+              <td><input type="text" name="" value="{{$pas->motivofin}}"></td>
+              <td><input type="text" name="" value="{{$pas->nombre}}"></td>
             </tr>
           @endforeach
         </tbody>
     </table>
+  </div>
+  <div class="form-group">
+      <label>Observacion</label>
+      <textarea maxlength="300" class="form-control" id="observacionEE" name=""></textarea>
   </div>
   <div class="table-responsive">
     <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
@@ -343,15 +380,18 @@
         <tbody>
           @foreach($pariente as $par)
             <tr>
-              <td>{{$par->nombre}}</td>
-              <td>{{$par->puesto}}</td>
-              <td>{{$par->dependencia}}</td>
+              <td><input type="text" name="" value="{{$par->nombre}}"></td>
+              <td><input type="text" name="" value="{{$par->puesto}}"></td>
+              <td><input type="text" name="" value="{{$par->dependencia}}"></td>
             </tr>
           @endforeach
         </tbody>
     </table>
   </div>
-
+  <div class="form-group">
+      <label>Observacion</label>
+      <textarea maxlength="300" class="form-control" id="observacionPP" name=""></textarea>
+  </div>
   <div class="table-responsive">
         <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
         <p><h2 ALIGN=center>Observaciones</h2></p>
@@ -374,6 +414,7 @@
               <div class="form-group">
                 <button class="btn btn-info" type="button" id="btncomentario" >Agregar una observación</button>
               </div>
+              <button id="btnupsolicitud" class="btn btn-primary">Guardar cambios</button>
   </div>
  <div class="col-lg-12">
     <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -400,7 +441,6 @@
       </div>
     </div>
   </div>
-
 <div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -425,6 +465,7 @@
 @section('fin')
     @parent
     <meta name="_token" content="{!! csrf_token() !!}" />
+    <script src="{{asset('assets/js/updsolicitud.js')}}"></script>
 <script type="text/javascript">
 $(document).ready(function(){
   $('#btncomentario').click(function(){
@@ -472,7 +513,6 @@ $(document).ready(function(){
             }
         });
     });
-
 });
 </script>
 

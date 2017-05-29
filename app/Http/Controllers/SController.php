@@ -200,7 +200,7 @@ class SController extends Controller
 
         $padecimientos =DB::table('personapadecimientos as pad')
         ->join('persona as p','pad.identificacion','=','p.identificacion')
-        ->select('pad.nombre')
+        ->select('pad.idppadecimientos','pad.nombre')
         ->where('p.identificacion','=',$id)
         ->get();
 
