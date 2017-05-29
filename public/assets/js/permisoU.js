@@ -169,13 +169,20 @@ $(document).ready(function(){
             mm='0'+mm
         }
 
-        hoy = dd+'/'+mm+'/'+yyyy;
+        hoy = dd+'-'+mm+'-'+yyyy;
 
         finicio = $("#fecha_inicio").val();
         ffin = $("#fecha_final").val();
         td = $("#datomar").val();
         th = $("#hhoras").val();
         th = th -0;
+
+         hini= $("#hinicio").val();
+            hfin=$("#hfin").val();
+            mini= $("#mini").val();
+            mfin= $("#mfin").val();
+        hinic = hini+':'+mini+':00';
+        hfina = hfin+':'+mfin+':00';
 
 
         var miurl="permiso/store";
@@ -214,7 +221,7 @@ $(document).ready(function(){
 
             success: function (data) {
                 //console.log(data);
-                //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + td + "</td><td>" +th +"</td><td>" +"solicitado"+ "</td><td>"+"</td></tr>";
+                document.getElementById("dataTableItemsPermiso").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + hinic+ "</td><td>" +hfina +"</td><td>" +"solicitado"+ "</td><td>"+"</td></tr>";
     
                 $('#formModal').modal('hide');
                 

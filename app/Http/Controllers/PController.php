@@ -346,7 +346,7 @@ class PController extends Controller
               $vacacion->update();
             }                  
 
-            /*Mail::send('emails.envio',$request->all(), function($msj) use ($request){
+            Mail::send('emails.envio',$request->all(), function($msj) use ($request){
               $idpersona = DB::table('empleado as e')
               ->join('persona as p','e.identificacion','=','p.identificacion')
               ->join('users as U','p.identificacion','=','U.identificacion')
@@ -369,7 +369,7 @@ class PController extends Controller
               }
                   
               //$msj->to('drdanielreyes5@gmail.com');
-            });*/
+            });
           }
           //DB::commit();
           

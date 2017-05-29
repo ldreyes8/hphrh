@@ -9,7 +9,7 @@
 <div class="row">
    <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <div class="table-responsive">
-            <table class="table table-striped table-bordered table-condensed table-hover">
+            <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsPermiso"> 
                 <thead>
                     <th>Solicitud</th>
                     <th>Iniicio</th>
@@ -17,7 +17,6 @@
                     <th>Hora inicio</th>
                     <th>Hora final</th>
                     <th>Autorizacion</th>
-                    <th>Tipo caso</th>
                 </thead>
                 @foreach ($ausencias as $aus)
                 <tr>
@@ -28,7 +27,6 @@
                     <td>{{$aus->horainicio}}</td>
                     <td>{{$aus->horafin}}</td> 
                     <td>{{$aus->autorizacion}}</td>
-                    <td>{{$aus->tipocaso}}</td>
                  </tr>
                 
                 @endforeach
