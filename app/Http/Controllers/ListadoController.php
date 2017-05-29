@@ -38,22 +38,6 @@ class ListadoController extends Controller
         ->where('p.nombre1','LIKE','%'.$query.'%')
         ->orderBy('e.idempleado','asc')
          ->paginate(19);
-         /*
-
-        $query=trim($request->get('searchText'));
-        $empleado=DB::table('empleado as e')
-        ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
-        ->join('status as st','e.idstatus','=','st.idstatus')
-        ->join('persona as p','e.identificacion','=','p.identificacion')
-        ->join('nomytras as nt','e.idempleado','=','nt.idempleado')
-        ->join('puesto as po','nt.idpuesto','=','po.idpuesto')
-        ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
-        ->select('e.idempleado','e.identificacion','e.nit','p.nombre1 as nombre','p.apellido1 as apellido','st.statusemp as statusn','po.nombre as npo','af.nombre as naf')
-        ->where('e.idstatus','=',2)
-        ->where('p.nombre1','LIKE','%'.$query.'%')
-        ->orderBy('e.idempleado','asc')
-        //->orderBy('e.idempleado','desc')
-         ->paginate(19);*/
         }
 
         return view('listados.empleado.index',["empleado"=>$empleado,"searchText"=>$query]);
@@ -121,7 +105,6 @@ class ListadoController extends Controller
         ->where('p.identificacion','=',$id)
         ->get();
         return view('listados.empleado.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos]);
-        //return view('listados.empleado.show',["empleado"=>$empleado]);
     } 
 
     public function historial ($id)
@@ -129,22 +112,12 @@ class ListadoController extends Controller
         
 
         $historia=DB::table('historia as h')
-        //->join('persona as p','h.identificacion','=','p.identificacion')
         ->join('empleado as e','h.idempleado','=','e.idempleado')
         ->join('persona as p','e.identificacion','=','p.identificacion')
         ->join('asignajefe as aj','h.idasignajefe','=','aj.idasignajefe')
         ->select('h.idempleado','p.nombre1','p.apellido1','aj.idasignajefe','h.fecha','h.historia as hsa','h.comentario')
         ->where('e.idempleado','=',$id)
         ->get();
-
-        /*$asignajefe=DB::table('asignajefe as aj')
-            ->join('persona as p','aj.identificacion','=','p.identificacion')
-            ->join('historia as h','h.idasignajefe','=','aj.idasignajefe')
-            
-            ->select('p.nombre1','p.apellido1','aj.idasignajefe')               
-            ->groupBy('p.nombre1','p.apellido1','aj.idasignajefe')
-            ->where('h.idasignajefe','=','aj.idasignajefe')
-            ->get();*/
 
         for($i = 0; $i < sizeof($historia);$i++)
         {
@@ -163,8 +136,9 @@ class ListadoController extends Controller
 
     }
     public function Acta ($id)
-    {
-        $empleado=DB::table('empleado as e')
+    {   
+        try {
+            $empleado=DB::table('empleado as e')
         ->join('persona as ec','e.identificacion','=','ec.identificacion')
         ->select('e.idempleado','ec.nombre1','ec.apellido1')
         ->where('e.idempleado','=',$id)
@@ -177,7 +151,23 @@ class ListadoController extends Controller
         ->select('aj.idasignajefe','p.nombre1')
         ->where('us.id','=',Auth::user()->id)
         ->first();
-        //dd($asignajefe);
+            
+        } catch (Exception $e) {
+            
+        }
+        /*$empleado=DB::table('empleado as e')
+        ->join('persona as ec','e.identificacion','=','ec.identificacion')
+        ->select('e.idempleado','ec.nombre1','ec.apellido1')
+        ->where('e.idempleado','=',$id)
+        ->first();
+
+        $asignajefe=DB::table('asignajefe as aj')
+        ->join('persona as p','aj.identificacion','=','p.identificacion')
+        ->join('users as us','p.identificacion','=','us.identificacion')
+        ->join('empleado as e','aj.idempleado','=','e.idempleado')
+        ->select('aj.idasignajefe','p.nombre1')
+        ->where('us.id','=',Auth::user()->id)
+        ->first();*/
         return view("listados.empleado.acta",["empleado"=>$empleado,"asignajefe" =>$asignajefe]);
     }
     public function store(HistoriaRequest $request)

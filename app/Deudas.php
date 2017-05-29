@@ -17,7 +17,8 @@ class Deudas extends Model
     	'amortizacionmensual',
     	'montodeuda',
     	'idempleado',
-    	'identificacion'
+    	'identificacion',
+        'motivodeuda',
     ];
 
 }

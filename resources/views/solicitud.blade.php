@@ -434,7 +434,7 @@
                                                         </div>
                                                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                             <label> <br> <br> <br> </label>
-                                                             <input type="checkbox" id="emergencia" name="emergencia" value="Si"">LLamar en caso de emergencias
+                                                             <input type="checkbox" id="emergencia"  value="Si">LLamar en caso de emergencias
                                                         </div>
                                                         <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
                                                             <label ></label>
@@ -841,7 +841,7 @@
                                                                     <label for="acreedor">Acreedor</label>
                                                                     <input type="text" id="acreedor" name="acreedor" class="form-control" onkeypress="return validaL(event)">
                                                             </div>
-                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
                                                                 <label for="amortizacionmensual">Amortizacion mensual</label>
                                                                 <div class="input-group">
                                                                     <span class="input-group-addon">Q</i></span>
@@ -855,6 +855,10 @@
                                                                     <input type="text" min="0" id="montodeuda" name="montodeuda" class="form-control" onkeypress="return valida(event)">
                                                                 </div>
                                                             </div>
+                                                            <div class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
+                                                                    <label for="motivodeuda">Motivo de Deuda</label>
+                                                                    <input type="text" id="mdeuda" name="motivodeuda" maxlength="100" class="form-control" onkeypress="return validaL(event)">
+                                                            </div>
                                                             <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
                                                                 <label ></label>
                                                                 <div class="form-group">
@@ -863,7 +867,7 @@
                                                             </div>
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="form-group">
-                                                                    <label>¿Usted es una persona expuesta publicamente?</label>
+                                                                    <label>¿Usted es una persona expuesta politicamente?</label>
                                                                     <label ><input type="radio" name="ive" value="Si" onclick="Finiquito(this)">Si</label>
                                                                     <label ><input type="radio" name="ive" value="No" onclick="Finiquito(this)">No</label>
                                                                 </div>
@@ -974,8 +978,10 @@
                                                                         <th>Acreedor</th>
                                                                         <th>Mensualidad</th>
                                                                         <th>Acreedor</th>
+                                                                        <th>Motivo</th>
                                                                     </thead>
                                                                     <tfoot>
+                                                                        <th></th>
                                                                         <th></th>
                                                                         <th></th>
                                                                         <th></th>
@@ -1369,6 +1375,7 @@
                 $("#acreedor").val("");
                 $("#amortizacionmensual").val("");
                 $("#montodeuda").val("");
+                $("#mdeuda").val("");
             }
 
             function limpiar3()
@@ -1459,9 +1466,10 @@
                 acreedor=$("#acreedor").val();
                 amortizacionmensual=$("#amortizacionmensual").val();
                 montodeuda=$("#montodeuda").val();
+                mdeuda=$("#mdeuda").val();
                 if (acreedor!="")
                 {
-                    var fila='<tr class="selected" id="fila'+conts+'"> <td><input type="hidden" name="acreedor[]" value="'+acreedor+'">'+acreedor+'</td> <td><input type="hidden" name="amortizacionmensual[]" value="'+amortizacionmensual+'">'+amortizacionmensual+'</td> <td><input type="hidden" name="montodeuda[]" value="'+montodeuda+'">'+montodeuda+'</td> </tr>';
+                    var fila='<tr class="selected" id="fila'+conts+'"> <td><input type="hidden" name="acreedor[]" value="'+acreedor+'">'+acreedor+'</td> <td><input type="hidden" name="amortizacionmensual[]" value="'+amortizacionmensual+'">'+amortizacionmensual+'</td> <td><input type="hidden" name="montodeuda[]" value="'+montodeuda+'">'+montodeuda+'</td> <td><input type="hidden" name="mdeuda[]" value="'+mdeuda+'">'+mdeuda+'</td> </tr>';
                     conts++;
                     limpiar2();
                     $('#detalles').append(fila);
