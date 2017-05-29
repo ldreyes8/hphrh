@@ -134,7 +134,7 @@ class UController extends Controller
         ->join('puesto as p','nt.idpuesto','=','p.idpuesto')
         ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
         ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado')
-        ->where('u.id','!=',Auth::user()->id)
+        ->where('U.id','!=',Auth::user()->id)
         ->get();
         
 		/*

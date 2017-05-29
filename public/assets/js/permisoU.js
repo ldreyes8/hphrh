@@ -139,7 +139,7 @@ $(document).ready(function(){
              
             }
             else{
-                $('#inputTitle').html("Solicitud de vacaciones");
+                $('#inputTitle').html("Solicitud de permisos");
                 $('#formAgregar').trigger("reset");
                 $('#formModal').modal('show');
                 $('#datomar').attr('disabled', 'disabled');
