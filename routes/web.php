@@ -121,6 +121,12 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('listarexperiencia1/{id}','UController@listarexperiencia1');
 	Route::put('updatexp/{id}','UController@updatexp');
 	Route::delete('deletexp/{id}','UController@deletexp');
+	
+	//Route otros crud
+	Route::get('listarotros','UController@listarotros');
+	Route::post('agregarotros','UController@agregarotros');
+	Route::get('listarotros1/{id}','UController@listarotros1');
+
 
 	Route::resource('permisos','PermisosController');
 //
