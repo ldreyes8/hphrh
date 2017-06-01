@@ -28,6 +28,30 @@ $(document).ready(function(){
         });
     });
     
+    $(document).on('click','.btn-delete-padecimiento',function(){
+        var idpad=$(this).val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "DELETE",
+            url: 'deletepad/' + idpad,
+            success: function (data) {
+                console.log(data);
+                $("#pad" + idpad).remove();
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+
+        $("#erroresContentP").html(errHTML); 
+        $('#erroresModalP').modal('show');
+    });
+
     $("#btnGuardarP").click(function(e){
         $.ajaxSetup({
             headers: {
@@ -70,7 +94,7 @@ $(document).ready(function(){
                 var item = '<tr class="even gradeA" id="pad'+data.idppadecimientos+'">';
                     item += '<td>'+data.nombre+'</td>';
                     item += '<td><button class="fa fa-pencil btn-editar-padecimiento" value="'+data.idppadecimientos+'"></button>';
-                    item += '<button class="fa fa-trash-o btn-danger" value="'+data.idppadecimientos+'"></button></td></tr>';
+                    item += '<button class="fa fa-trash-o btn-delete-padecimiento" value="'+data.idppadecimientos+'"></button></td></tr>';
                 if (state == "add")
                 {
                     $('#productsP').append(item);

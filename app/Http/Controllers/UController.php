@@ -299,6 +299,13 @@ class UController extends Controller
             $academico->save();
             return response()->json($academico);
         }
+
+        public function deleteacad ($id)
+        {
+            $cre =  Academico::findOrFail($id); 
+                    Academico::destroy($id);
+            return response()->json($cre);
+        }
     //Datos Familiar
         public function listarfamiliar()
         {
@@ -363,6 +370,14 @@ class UController extends Controller
 
             return response()->json($familia);
         }
+
+        public function deletefam ($id)
+        {
+            $cre =  Familia::findOrFail($id); 
+                    Familia::destroy($id);
+            return response()->json($cre);
+        }
+
          public function listarpersonal()
         {
 
@@ -422,6 +437,12 @@ class UController extends Controller
             $refe->save();
             return response()->json($refe);
         }
+        public function deleteref ($id)
+        {
+            $cre =  Referencia::findOrFail($id); 
+                    Referencia::destroy($id);
+            return response()->json($cre);
+        }
     //Datos creditos
         public function listarcredito(Request $request)
         {
@@ -478,6 +499,13 @@ class UController extends Controller
 
             return response()->json($cre);
         }
+
+        public function deletecredito ($id)
+        {
+            $cre =  Deudas::findOrFail($id); 
+                    Deudas::destroy($id);
+            return response()->json($cre);
+        }
     //Datos padecimientos
         public function listarpadecimiento(Request $request)
         {
@@ -526,6 +554,12 @@ class UController extends Controller
             $pad-> nombre=$request->get('nombre');
             $pad->save();
             return response()->json($pad);
+        }
+        public function deletepad ($id)
+        {
+            $cre =  Padecimientos::findOrFail($id); 
+                    Padecimientos::destroy($id);
+            return response()->json($cre);
         }
     //Datos experiencia
         public function listarexperiencia(Request $request)
@@ -588,6 +622,13 @@ class UController extends Controller
             $ex->save();
             return response()->json($ex);
         }
+
+        public function deletexp ($id)
+        {
+            $cre =  Experiencia::findOrFail($id); 
+                    Experiencia::destroy($id);
+            return response()->json($cre);
+        }
     //Datos otros
        public function listarotros(Request $request)
         {
@@ -601,6 +642,14 @@ class UController extends Controller
              return view("hr.otros",["empleado"=>$empleado]);
         }
 
+        public function listarotros1(Request $request, $id)
+        {
+            $empleado = DB::table('empleado as e')
+            ->select('e.idempleado','e.peso','e.talla','e.altura','e.celcorporativo')
+            ->where('e.idempleado','=',$id)
+            ->first();
+             return response()->json($empleado);
+        }
         public function agregarotros(Request $request)
         {
             $this->validateRequestO($request);
@@ -615,6 +664,18 @@ class UController extends Controller
             $ao->save();
             return response()->json($ao);
         } 
+        /*public function updateotros(Request $request,$id)
+        {
+            $id = $request->get('idempleado');
+
+            $ao=Empleado::findOrFail($id);
+            $ao-> celcorporativo=$request->get('celcorporativo');
+            $ao-> talla=$request->get('talla');
+            $ao-> peso=$request->get('peso');
+            $ao-> altura=$request->get('altura');
+            $ao->save();
+            return response()->json($ao);
+        } */
     //Validaciones
 
         public function validateRequest($request){

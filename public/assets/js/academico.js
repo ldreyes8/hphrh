@@ -8,7 +8,7 @@ function cargaracademico(listado){
 
 $(document).ready(function(){
    	$('#btnAgregar').click(function(){
-    	$('#inputTitle').html("Agregar información academico");
+    	$('#inputTitle').html("Agregar información académica");
     	$('#formAgregar').trigger("reset");
         $('#btnGuardar').val('add');
     	$('#formModal').modal('show');
@@ -47,16 +47,36 @@ $(document).ready(function(){
         });
     });
 
-    $("#btnGuardar").click(function(e){
+    $(document).on('click','.btn-delete-academico',function(){
+        var idacad=$(this).val();
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
 
-        
-        
+        $.ajax({
+            type: "DELETE",
+            url: 'deleteacad/' + idacad,
+            success: function (data) {
+                console.log(data);
+                $("#academico" + idacad).remove();
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
 
+        $("#erroresContentC").html(errHTML); 
+        $('#erroresModalC').modal('show');
+    });
+
+    $("#btnGuardar").click(function(e){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
         var formData = {
             titulo: $("#titulo").val(),
             establecimiento: $("#establecimiento").val(),
@@ -78,13 +98,11 @@ $(document).ready(function(){
 
         if (state == "update") 
                 {
-                    alert(state);
                     type="PUT";
                     my_url = 'updateAca/'+idacad;
                 }
         if (state == "add") 
                 {
-                    alert(state);
                     type="POST";
                     my_url = 'agregaracademico';
                 }
@@ -99,7 +117,7 @@ $(document).ready(function(){
                 var item = '<tr class="even gradeA" id="academico'+data.idpacademico+'">';
                     item +='<td>'+data.titulo+'</td>'+'<td>' +data.establecimiento+ '</td>'+'<td>'+data.duracion+' '+data.periodo+'</td>'+'<td>'+nivel+'</td>'+'<td>'+data.fingreso+'</td>'+'<td>'+data.fsalida+'</td>';
                     item += '<td><button class="fa fa-pencil btn-editar-academico" value="'+data.idpacademico+'"></button>';
-                    item += '<button class="fa fa-trash-o btn-danger" value="'+data.idpacademico+'"></button></td></tr>';
+                    item += '<button class="fa fa-trash-o btn-delete-academico" value="'+data.idpacademico+'"></button></td></tr>';
                 if (state == "add")
                 {
                     $('#productsA').append(item);

@@ -36,7 +36,32 @@ $(document).ready(function(){
             $('#btnGuardarF').val('update');
             $('loading').modal('hide');
         });
+
     });
+    
+    $(document).on('click','.btn-delete-familia',function(){
+        var idfam=$(this).val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "DELETE",
+            url: 'deletefam/' + idfam,
+            success: function (data) {
+                console.log(data);
+                $("#fam" + idfam).remove();
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+
+            $("#erroresContentF").html(errHTML); 
+            $('#erroresModalF').modal('show');
+        });
     
     $("#btnGuardarF").click(function(e){
         //var miurl="agregarfamiliar";
@@ -95,7 +120,7 @@ $(document).ready(function(){
                 var item = '<tr class="even gradeA" id="fam'+data.idpfamilia+'">';
                     item += '<td>'+data.parentezco+'</td>'+'<td>'+data.nombref+' '+data.apellidof+'</td>'+'<td>'+data.ocupacion+'</td>'+'<td>'+data.edad+'</td>'+'<td>'+data.telefonof+'</td>'+'<td>'+data.emergencia+'</td>';
                     item += '<td><button class="fa fa-pencil btn-editar-familia" value="'+data.idpfamilia+'"></button>';
-                    item += '<button class="fa fa-trash-o btn-danger" value="'+data.idpfamilia+'"></button></td></tr>';
+                    item += '<button class="fa fa-trash-o btn-delete-familia" value="'+data.idpfamilia+'"></button></td></tr>';
                 if (state == "add")
                 {
                     $('#productsF').append(item);

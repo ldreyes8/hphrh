@@ -1,6 +1,6 @@
 <div class="tab-pane" id="otros">
     <div class="panel-heading">
-        <button class="btn btn-success" id="btnAgregarO"><i class="icon-user icon-white" ></i> Agregar otros</button>
+        <!--button class="btn btn-success" id="btnAgregarO"><i class="icon-user icon-white" ></i> Agregar otros</button-->
     </div>
   <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
     <div class="table-responsive" id="tabla">
@@ -14,14 +14,13 @@
         </thead>
         <tbody>
           @if (isset($empleado))
-              <tr class="even gradeA" id="ite">
+              <tr class="even gradeA" id="idem{{$empleado->idempleado}}">
                 <td>{{$empleado->celcorporativo}}</td>
                 <td>{{$empleado->talla}}</td>
                 <td>{{$empleado->altura}}</td>
                 <td>{{$empleado->peso}}</td>
                 <td>
-                  <button class="fa fa-pencil"></button>
-                  <button class="fa fa-trash-o"></button>
+                  <button class="fa fa-pencil btn-editar-cel" value="{{$empleado->idempleado}}"></button>
                 </td>
               </tr>
           @endif
@@ -77,6 +76,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
             <button type="button" class="btn btn-primary" id="btnGuardarO">Guardar</button>
+            <input type="hidden" id="idem" name="idem" value="0"/>
           </div>
         </div>
       </div>

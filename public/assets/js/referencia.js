@@ -7,29 +7,52 @@ function cargarreferencia(listado){
 }
 
 $(document).ready(function(){
-   	$('#btnAgregarR').click(function(){
-    	$('#inputTitleR').html("Agregar referencias");
-    	$('#formAgregarR').trigger("reset");
-        $('#btnGuardarR').val('add');
-    	$('#formModalR').modal('show');
-	});
+       	$('#btnAgregarR').click(function(){
+        	$('#inputTitleR').html("Agregar referencias");
+        	$('#formAgregarR').trigger("reset");
+            $('#btnGuardarR').val('add');
+        	$('#formModalR').modal('show');
+    	});
 
-    $(document).on('click','.btn-editar-referencia',function(){
-        var idref=$(this).val();
-        var miurl="listarreferencia1";
-        $.get(miurl+'/'+ idref,function(data){
-            console.log(data);
-            $('#idref').val(data.idpreferencia);
-            $('#nombre').val(data.nombrer);
-            $('#telefono').val(data.telefonor);
-            $('#profesion').val(data.profesion);
-            $('#tiporeferencia').val(data.tiporeferencia);
-            $('#inputTitleR').html("Modificar referencias");
-            $('#formModalR').modal('show');
-            $('#btnGuardarR').val('update');
-            $('loading').modal('hide');
+        $(document).on('click','.btn-editar-referencia',function(){
+            var idref=$(this).val();
+            var miurl="listarreferencia1";
+            $.get(miurl+'/'+ idref,function(data){
+                console.log(data);
+                $('#idref').val(data.idpreferencia);
+                $('#nombre').val(data.nombrer);
+                $('#telefono').val(data.telefonor);
+                $('#profesion').val(data.profesion);
+                $('#tiporeferencia').val(data.tiporeferencia);
+                $('#inputTitleR').html("Modificar referencias");
+                $('#formModalR').modal('show');
+                $('#btnGuardarR').val('update');
+                $('loading').modal('hide');
+            });
         });
-    });
+        $(document).on('click','.btn-delete-referencia',function(){
+            var idref=$(this).val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "DELETE",
+                url: 'deleteref/' + idref,
+                success: function (data) {
+                    console.log(data);
+                    $("#referencia" + idref).remove();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+
+            $("#erroresContentR").html(errHTML); 
+            $('#erroresModalR').modal('show');
+        });
 
     });
     $("#btnGuardarR").click(function(e){
@@ -75,7 +98,7 @@ $(document).ready(function(){
                 var item = '<tr class="even gradeA" id="referencia'+data.idpreferencia+'">';
                     item += '<td>'+data.nombrer+'</td>'+'<td>' +data.telefonor+ '</td>'+'<td>'+data.profesion+'</td>'+'<td>'+data.tiporeferencia+'</td>';
                     item += '<td><button class="fa fa-pencil btn-editar-referencia" value="'+data.idpreferencia+'"></button>';
-                    item += '<button class="fa fa-trash-o btn-danger" value="'+data.idpreferencia+'"></button></td></tr>';
+                    item += '<button class="fa fa-trash-o btn-delete-referencia" value="'+data.idpreferencia+'"></button></td></tr>';
                 if (state == "add")
                 {
                     $('#products-list').append(item);

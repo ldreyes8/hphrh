@@ -28,7 +28,7 @@
                 <td>{{$experiencia[$i]->fsalidaex}}</td>
                 <td>
                   <button class="fa fa-pencil btn-editar-experiencia" value="{{$experiencia[$i]->idpexperiencia}}"></button>
-                  <button class="fa fa-trash-o btn-danger"></button>
+                  <button class="fa fa-trash-o btn-delete-experiencia" value="{{$experiencia[$i]->idpexperiencia}}"></button>
                 </td>
               </tr>
             @endfor

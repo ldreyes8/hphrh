@@ -16,7 +16,7 @@
                 <td>{{$padecimiento[$i]->nombre}}</td>
                 <td>
                   <button value="{{$padecimiento[$i]->idppadecimientos}}" class="fa fa-pencil btn-editar-padecimiento "></button>
-                  <button value="{{$padecimiento[$i]->idppadecimientos}}" class="fa fa-trash-o btn-danger "></button>
+                  <button value="{{$padecimiento[$i]->idppadecimientos}}" class="fa fa-trash-o btn-delete-padecimiento"></button>
                 </td>
               </tr>
             @endfor

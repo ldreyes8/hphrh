@@ -26,7 +26,7 @@
                 <td>{{$familia[$i]->emergencia}}</td>
                 <td>
                   <button class="fa fa-pencil btn-editar-familia" value="{{$familia[$i]->idpfamilia}}"></button>
-                  <button class="fa fa-trash-o btn-danger"></button>
+                  <button class="fa fa-trash-o btn-delete-familia" value="{{$familia[$i]->idpfamilia}}"></button>
                 </td>
               </tr>
             @endfor

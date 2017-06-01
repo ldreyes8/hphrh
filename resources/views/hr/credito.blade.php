@@ -22,7 +22,7 @@
                 <td>{{$deuda[$i]->motivodeuda}}</td>
                 <td>
                   <button class="fa fa-pencil btn-editar-credito" value="{{$deuda[$i]->idpdeudas}}"></button>
-                  <button class="fa fa-trash-o btn-danger"></button>
+                  <button class="fa fa-trash-o btn-delete-credito" value="{{$deuda[$i]->idpdeudas}}"></button>
                 </td>
               </tr>
             @endfor
