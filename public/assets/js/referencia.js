@@ -10,16 +10,35 @@ $(document).ready(function(){
    	$('#btnAgregarR').click(function(){
     	$('#inputTitleR').html("Agregar referencias");
     	$('#formAgregarR').trigger("reset");
+        $('#btnGuardarR').val('add');
     	$('#formModalR').modal('show');
 	});
 
+    $(document).on('click','.btn-editar-referencia',function(){
+        var idref=$(this).val();
+        var miurl="listarreferencia1";
+        $.get(miurl+'/'+ idref,function(data){
+            console.log(data);
+            $('#idref').val(data.idpreferencia);
+            $('#nombre').val(data.nombrer);
+            $('#telefono').val(data.telefonor);
+            $('#profesion').val(data.profesion);
+            $('#tiporeferencia').val(data.tiporeferencia);
+            $('#inputTitleR').html("Modificar referencias");
+            $('#formModalR').modal('show');
+            $('#btnGuardarR').val('update');
+            $('loading').modal('hide');
+        });
+    });
 
+    });
     $("#btnGuardarR").click(function(e){
-        var miurl="agregarreferencia";
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
 
-        nombre = $("#nombre").val();
-        telefono = $("#telefono").val();
-    
         var formData = {
             nombre: $("#nombre").val(),
             telefono: $("#telefono").val(),
@@ -28,23 +47,46 @@ $(document).ready(function(){
             idempleado: $("#idempleado").val(),
             identificacion: $("#identificacion").val(),
         };
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
 
+        var state=$("#btnGuardarR").val();
+        //alert(state);
+        //var miurl="agregarreferencia";
+        var type;
+        var idref=$('#idref').val();
+        var my_url;
+
+        if (state == "update") 
+                {
+                    type="PUT";
+                    my_url = 'updateref/'+idref;
+                }
+        if (state == "add") 
+                {
+                    type="POST";
+                    my_url = 'agregarreferencia';
+                }
         $.ajax({
-            type: "POST",
-            url: miurl,
+            type: type,
+            url: my_url,
             data: formData,
             dataType: 'json',
 
             success: function (data) {
-              document.getElementById("dataTableItemsR").innerHTML += "<tr class='fila'><td>" +nombre+ "</td><td>" +telefono + "</td><td>" +data.profesion + "</td><td>" + data.tiporeferencia + "</td></tr>";
-    
+                var item = '<tr class="even gradeA" id="referencia'+data.idpreferencia+'">';
+                    item += '<td>'+data.nombrer+'</td>'+'<td>' +data.telefonor+ '</td>'+'<td>'+data.profesion+'</td>'+'<td>'+data.tiporeferencia+'</td>';
+                    item += '<td><button class="fa fa-pencil btn-editar-referencia" value="'+data.idpreferencia+'"></button>';
+                    item += '<button class="fa fa-trash-o btn-danger" value="'+data.idpreferencia+'"></button></td></tr>';
+                if (state == "add")
+                {
+                    $('#products-list').append(item);
+                }
+                if (state == "update")
+                {
+                    $("#referencia"+idref).replaceWith(item);
+                }
+                    //document.getElementById("dataTableItemsR").innerHTML += "<tr class='fila'><td>" +data.nombrer+ "</td><td>" +data.telefonor + "</td><td>" +data.profesion + "</td><td><button value=" + data.tiporeferencia + " class='fa fa-pencil btn-editar-referencia'></button> <button class='fa fa-trash-o'></button></td></tr>";
+                $('#formAgregarR').trigger("reset");
                 $('#formModalR').modal('hide');
-                
             },
             error: function (data) {
                 $('#loading').modal('hide');
@@ -61,4 +103,3 @@ $(document).ready(function(){
             }
         });
     });
-});

@@ -8,7 +8,7 @@ class Academico extends Model
 {
     //
     protected $table='personaacademico';
-    protected $primarykey='idpacademico';
+    protected $primaryKey='idpacademico';
 
     public $timestamps=false;
 

@@ -27,4 +27,8 @@ class PerController extends Controller
     	return view('empleado.perfil.index');
     }
 
+    public function store()
+    {
+        
+    }
 }

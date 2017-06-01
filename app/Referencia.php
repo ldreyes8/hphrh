@@ -8,7 +8,7 @@ class Referencia extends Model
 {
     //
     protected $table='personareferencia';
-    protected $primarykey='idpreferencia';
+    protected $primaryKey='idpreferencia';
 
     public $timestamps=false;
 

@@ -8,7 +8,7 @@ class Experiencia extends Model
 {
     //
     protected $table='personaexperiencia';
-    protected $primarykey='idpexperiencia';
+    protected $primaryKey='idpexperiencia';
 
     public $timestamps=false;
 

@@ -8,7 +8,7 @@ class Padecimientos extends Model
 {
     //
     protected $table='personapadecimientos';
-    protected $primarykey='idppadecimientos';
+    protected $primaryKey='idppadecimientos';
 
     public $timestamps=false;
 

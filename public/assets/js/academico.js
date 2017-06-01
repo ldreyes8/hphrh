@@ -8,25 +8,54 @@ function cargaracademico(listado){
 
 $(document).ready(function(){
    	$('#btnAgregar').click(function(){
-    	$('#inputTitle').html("Agregar informacion academico");
+    	$('#inputTitle').html("Agregar información academico");
     	$('#formAgregar').trigger("reset");
+        $('#btnGuardar').val('add');
     	$('#formModal').modal('show');
 	});
 
- $("#iddepartamento1").change(event => {
-    $.get(`towns/${event.target.value}`, function(res, sta){
-        $("#pidmunicipio").empty();
-            res.forEach(element => {
-                $("#pidmunicipio").append(`<option value=${element.idmunicipio}> ${element.nombre} </option>`);
+    $("#iddepartamento1").change(event => {
+        $.get(`towns/${event.target.value}`, function(res, sta){
+            $("#pidmunicipio").empty();
+                res.forEach(element => {
+                    $("#pidmunicipio").append(`<option value=${element.idmunicipio}> ${element.nombre} </option>`);
+                });
             });
+        });
+
+    $(document).on('click','.btn-editar-academico',function(){
+        var idacad=$(this).val();
+        var miurl="listaracademico1";
+        $.get(miurl+'/'+ idacad,function(data){
+            console.log(data);
+            $('#idacad').val(data.idpacademico);
+            $('#titulo').val(data.titulo);
+            $('#establecimiento').val(data.establecimiento);
+            $('#duracion').val(data.duracion);
+            $('#fecha_ingreso').val(data.fingreso);
+            $('#fecha_salida').val(data.fsalida);
+            $('#pidmunicipio option:selected').val(data.idmunicipio);
+            $('#pidmunicipio option:selected').text(data.nombre);
+            //$("#pidmunicipio").append(`<option value=${data.idmunicipio}> ${data.nombre} </option>`);
+            $('#idnivel').val(data.idnivel);
+            $('#periodo').val(data.periodo);
+
+            $('#inputTitle').html("Modificar información academica");
+            $('#formModal').modal('show');
+            $('#btnGuardar').val('update');
+            $('loading').modal('hide');
         });
     });
 
     $("#btnGuardar").click(function(e){
-        var miurl="agregaracademico";
-        nivel=$("#idnivel option:selected").text();
-        fingreso = $("#fecha_ingreso").val();
-        fsalida = $("#fecha_salida").val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+
+        
+        
 
         var formData = {
             titulo: $("#titulo").val(),
@@ -40,21 +69,48 @@ $(document).ready(function(){
             idnivel: $("#idnivel").val(),
             periodo: $("#periodo").val(),
         };
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
+            nivel=$("#idnivel option:selected").text();
+        var state=$("#btnGuardar").val();
 
+        var type;
+        var idacad=$('#idacad').val();
+        var my_url;
+
+        if (state == "update") 
+                {
+                    alert(state);
+                    type="PUT";
+                    my_url = 'updateAca/'+idacad;
+                }
+        if (state == "add") 
+                {
+                    alert(state);
+                    type="POST";
+                    my_url = 'agregaracademico';
+                }
+        
         $.ajax({
-            type: "POST",
-            url: miurl,
+            type: type,
+            url: my_url,
             data: formData,
             dataType: 'json',
 
             success: function (data) {
-                document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +data.titulo+ "</td><td>" +data.establecimiento + "</td><td>" +data.duracion + ": " + data.periodo + "</td><td>" +nivel + "</td><td>" +fingreso + "</td><td>" +fsalida + "</td></tr>";
-    
+                var item = '<tr class="even gradeA" id="academico'+data.idpacademico+'">';
+                    item +='<td>'+data.titulo+'</td>'+'<td>' +data.establecimiento+ '</td>'+'<td>'+data.duracion+' '+data.periodo+'</td>'+'<td>'+nivel+'</td>'+'<td>'+data.fingreso+'</td>'+'<td>'+data.fsalida+'</td>';
+                    item += '<td><button class="fa fa-pencil btn-editar-academico" value="'+data.idpacademico+'"></button>';
+                    item += '<button class="fa fa-trash-o btn-danger" value="'+data.idpacademico+'"></button></td></tr>';
+                if (state == "add")
+                {
+                    $('#productsA').append(item);
+                }
+                if (state == "update")
+                {
+                    $("#academico"+idacad).replaceWith(item);
+                }
+
+                //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +data.titulo+ "</td><td>" +data.establecimiento + "</td><td>" +data.duracion + ": " + data.periodo + "</td><td>" +nivel + "</td><td>" +fingreso + "</td><td>" +fsalida + "</td></tr>";
+                $('#formAgregar').trigger("reset");
                 $('#formModal').modal('hide');
                 
             },
