@@ -85,38 +85,45 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::post('agregaracademico','UController@agregaracademico');
 	Route::get('listaracademico1/{id}','UController@listaracademico1');
 	Route::put('updateAca/{id}','UController@updateAca');
+	Route::delete('deleteacad/{id}','UController@deleteacad');
+
 	//Route familia crud
 	Route::get('listarfamilia','UController@listarfamiliar');
 	Route::post('agregarfamiliar','UController@agregarfamiliar');
 	Route::get('listarfamilia1/{id}','UController@listarfamilia1');
 	Route::put('updatefam/{id}','UController@updatefam');
+	Route::delete('deletefam/{id}','UController@deletefam');
 
 	//Route referencia curd
 	Route::get('listarreferencia','UController@listarreferencia');
 	Route::post('agregarreferencia','UController@agregarreferencia');
 	Route::get('listarreferencia1/{id}','UController@listarreferencia1');
 	Route::put('updateref/{id}','UController@updateref');
+	Route::delete('deleteref/{id}','UController@deleteref');
 	
 	//Route credito crud
 	Route::get('listarcredito','UController@listarcredito');
 	Route::post('agregarcredito','UController@agregarcredito');
 	Route::get('listarcredito1/{id}','UController@listarcredito1');
 	Route::put('updateco/{id}','UController@updateco');
+	Route::delete('deletecredito/{id}','UController@deletecredito');
 
 	//Route padecimiento crud
 	Route::get('listarpadecimiento','UController@listarpadecimiento');
 	Route::post('agregarpadecimiento','UController@agregarpadecimiento');
 	Route::get('listarpadecimiento1/{id}','UController@listarpadecimiento1');
 	Route::put('updatepad/{id}','UController@updatepad');
+	Route::delete('deletepad/{id}','UController@deletepad');
 
 	//Route experiencia crud
 	Route::get('listarexperiencia','UController@listarexperiencia');
 	Route::post('agregarexperiencia','UController@agregarexperiencia');
 	Route::get('listarexperiencia1/{id}','UController@listarexperiencia1');
 	Route::put('updatexp/{id}','UController@updatexp');
+	Route::delete('deletexp/{id}','UController@deletexp');
 
 	Route::resource('permisos','PermisosController');
-
+//
 	Route::get('verificar/{idpersona}','PermisosController@verificar');
 	Route::post('verificar/enviarpermiso','PermisosController@enviarpermiso');
 	Route::get('confirmado','PermisosController@indexconfirmado');

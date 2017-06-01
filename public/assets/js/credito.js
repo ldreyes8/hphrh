@@ -32,6 +32,30 @@ $(document).ready(function(){
         });
     });
 
+    $(document).on('click','.btn-delete-credito',function(){
+        var idco=$(this).val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "DELETE",
+            url: 'deletecredito/' + idco,
+            success: function (data) {
+                console.log(data);
+                $("#deudas" + idco).remove();
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+
+        $("#erroresContentC").html(errHTML); 
+        $('#erroresModalC').modal('show');
+    });
+
     $("#btnGuardarC").click(function(e){
         $.ajaxSetup({
             headers: {
@@ -76,7 +100,7 @@ $(document).ready(function(){
                 var item = '<tr class="even gradeA" id="deudas'+data.idpdeudas+'">';
                     item += '<td>'+data.acreedor+'</td>'+'<td>' +data.amortizacionmensual+ '</td>'+'<td>'+data.montodeuda+'</td>'+'<td>'+data.motivodeuda+'</td>';
                     item += '<td><button class="fa fa-pencil btn-editar-credito" value="'+data.idpdeudas+'"></button>';
-                    item += '<button class="fa fa-trash-o btn-danger" value="'+data.idpdeudas+'"></button></td></tr>';
+                    item += '<button class="fa fa-trash-o btn-delete-credito" value="'+data.idpdeudas+'"></button></td></tr>';
                 if (state == "add")
                 {
                     $('#productsC').append(item);

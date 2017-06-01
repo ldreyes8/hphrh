@@ -24,7 +24,7 @@
                 <td>{{$referencia[$i]->tiporeferencia}}</td>
                 <td>
                   <button class="fa fa-pencil btn-editar-referencia" value="{{$referencia[$i]->idpreferencia}}"></button>
-                  <button class="fa fa-trash-o btn-danger"></button>
+                  <button class="fa fa-trash-o btn-delete-referencia" value="{{$referencia[$i]->idpreferencia}}"></button>
                 </td>
               </tr>
             @endfor

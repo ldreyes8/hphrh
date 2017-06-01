@@ -10,10 +10,29 @@ $(document).ready(function(){
     $('#btnAgregarO').click(function(){
         $('#inputTitleO').html("Agregar otros");
         $('#formAgregarO').trigger("reset");
+        $('#btnGuardarO').val('add');
         $('#formModalO').modal('show');
     });
 
+    $(document).on('click','.btn-editar-cel',function(){
 
+        var idem=$(this).val();
+        var miurl="listarotros1";
+        $.get(miurl+'/'+ idem,function(data){
+            console.log(data);
+            $('#idem').val(data.idempleado);
+            $('#celcorporativo').val(data.celcorporativo);
+            $('#talla').val(data.talla);
+            $('#altura').val(data.altura);
+            $('#peso').val(data.peso);
+
+            $('#inputTitleO').html("Actualizar otros");
+            $('#formModalO').modal('show');
+            $('#btnGuardarO').val('update');
+            $('loading').modal('hide');
+        });
+        
+    });
     $("#btnGuardarO").click(function(e){
         var miurl="agregarotros";
 
@@ -21,7 +40,7 @@ $(document).ready(function(){
         talla = $("#talla").val();
         altura = $("#altura").val();
         peso = $("#peso").val();
-    
+        var idem=$('#idem').val();
         var formData = {
             celcorporativo : $("#celcorporativo").val(),
             talla : $("#talla").val(),
@@ -42,8 +61,20 @@ $(document).ready(function(){
             dataType: 'json',
 
             success: function (data) {
-              document.getElementById("dataTableItemsO").innerHTML += "<tr class='fila'><td>" +celcorporativo+ "</td><td>" +talla + "</td><td>" +altura + "</td><td>" + peso + "</td><td><button class='fa fa-pencil'></button> <button class='fa fa-trash-o'></button></td></tr>";
-    
+                var item = '<tr class="even gradeA" id="idem'+data.idempleado+'">';
+                    item += '<td>'+data.celcorporativo+'</td>'+'<td>' +data.talla+ '</td>'+'<td>'+data.altura+'</td>'+'<td>'+data.peso+'</td>';
+                    item += '<td><button class="fa fa-pencil btn-editar-cel" value="'+data.idempleado+'"></button>';
+                    $("#idem"+idem).replaceWith(item);
+                /*if (state == "add")
+                {
+                    $('#products').append(item);
+                }
+                if (state == "update")
+                {
+                    $("#idem"+idex).replaceWith(item);
+                }*/
+              //document.getElementById("dataTableItemsO").innerHTML += "<tr class='fila'><td>" +celcorporativo+ "</td><td>" +talla + "</td><td>" +altura + "</td><td>" + peso + "</td><td><button class='fa fa-pencil'></button></tr>";
+                $('#formAgregarO').trigger("reset");
                 $('#formModalO').modal('hide');
                 
             },

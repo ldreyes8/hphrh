@@ -35,6 +35,30 @@ $(document).ready(function(){
         });
     });
 
+    $(document).on('click','.btn-delete-experiencia',function(){
+        var idex=$(this).val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "DELETE",
+            url: 'deletexp/' + idex,
+            success: function (data) {
+                console.log(data);
+                $("#experiencia" + idex).remove();
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+
+        $("#erroresContentE").html(errHTML); 
+        $('#erroresModalE').modal('show');
+    });
+
     $("#btnGuardarE").click(function(e){
         $.ajaxSetup({
             headers: {
@@ -80,7 +104,7 @@ $(document).ready(function(){
                 var item = '<tr class="even gradeA" id="experiencia'+data.idpexperiencia+'">';
                     item += '<td>'+data.empresa+'</td>'+'<td>' +data.puesto+ '</td>'+'<td>'+data.jefeinmediato+'</td>'+'<td>'+data.motivoretiro+'</td>'+'<td>'+data.ultimosalario+'</td>'+'<td>'+data.fingresoex+'</td>'+'<td>'+data.fsalidaex+'</td>';
                     item += '<td><button class="fa fa-pencil btn-editar-experiencia" value="'+data.idpexperiencia+'"></button>';
-                    item += '<button class="fa fa-trash-o btn-danger" value="'+data.idpexperiencia+'"></button></td></tr>';
+                    item += '<button class="fa fa-trash-o btn-delete-experiencia" value="'+data.idpexperiencia+'"></button></td></tr>';
                 if (state == "add")
                 {
                     $('#products').append(item);
