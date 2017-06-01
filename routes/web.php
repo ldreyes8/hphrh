@@ -42,16 +42,14 @@ Route::group(['prefix'=>'listados'],function(){
 Route::group(['prefix'=>'empleado'],function(){
 
 	Route::post('cambiar_password', 'UController@cambiar_password');
-       // PController = PermisoController 
-
-	Route::get('permiso','PController@index');
+        
+	//rutas del permiso del usuario
+	Route::get('permiso','PController@index');  // PController = PermisoController
 	Route::get('permiso/create','PController@create');
-
 	Route::post('permiso/store','PController@store');
-
 	Route::get('diashatomar','PController@diashatomar');
 
-
+	//Rutas de vacaciones del usuario
 	Route::get('vacaciones','VController@index');
 	Route::get('vacaciones/create','VController@create');
 	Route::post('vacaciones/store','VController@store');
@@ -62,11 +60,13 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('diastomado','VController@rangogoce');
 	Route::get('Gpdf','VController@Gpdf');
 
+
+	//Rutas de la solicitud de empleo
 	Route::resource('solicitante','SController'); 	// SController = SolicitanteController
 	Route::get('Spdf/{id}', 'SController@Spdf');
 	Route::resource('perfil','PerController');		// PerController = PerfilController
-//	Route::post('updatefoto', 'FotoController@agregarimagen'); 		
-	Route::post('/updatefoto','UController@subirimagen');
+	//	Route::post('updatefoto', 'FotoController@agregarimagen'); 		
+	
 
 	Route::get('rechazo/{id}','SController@rechazo');
 	
@@ -75,6 +75,8 @@ Route::group(['prefix'=>'empleado'],function(){
 
 	//Route::get('update/{id}','SController@update');
 
+	//rutas del perfil
+	Route::post('/updatefoto','UController@subirimagen');
 	Route::get('galeria','UController@galeria');
 
 	//Route academico crud
@@ -120,13 +122,8 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::put('updatexp/{id}','UController@updatexp');
 	Route::delete('deletexp/{id}','UController@deletexp');
 
-	//Route otros crud
-	Route::get('listarotros','UController@listarotros');
-	Route::post('agregarotros','UController@agregarotros');
-	Route::get('listarotros1/{id}','UController@listarotros1');
-
 	Route::resource('permisos','PermisosController');
-
+//
 	Route::get('verificar/{idpersona}','PermisosController@verificar');
 	Route::post('verificar/enviarpermiso','PermisosController@enviarpermiso');
 	Route::get('confirmado','PermisosController@indexconfirmado');
@@ -139,7 +136,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('vverificar/{idpersona}','VacacionesController@verificar');
 	Route::get('dconfirmar/{idpersona}','VacacionesController@dconfirmar');
 
-
+	//Rutas de vacaciones del jefeinmediato
 	
 	Route::post('vverificar/enviarvacaciones','VacacionesController@enviarvacaciones');
 	Route::get('vconfirmado','VacacionesController@indexconfirmado');
@@ -148,9 +145,9 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('vconfirmar/{idpersona}','VacacionesController@confirmar');
 	Route::post('vconfirmar/enviarconfirmacion','VacacionesController@confirmavacaciones');
 	
-Route::get('/logout', 'Auth\LoginController@logout');
+	Route::get('/logout', 'Auth\LoginController@logout');
 
-//FotoController@agregarimagen
+	//FotoController@agregarimagen
 	//Route::put('/colaboradores/{id}',['uses' => 'Colaboradores@update', 'middleware' => 'auth']);
 
 });

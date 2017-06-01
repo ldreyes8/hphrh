@@ -1,6 +1,7 @@
  @section('estilos')
     @parent
     <link rel="stylesheet" href="{{asset('assets/plugins/summernote/dist/summernote.css')}}">
+    <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @extends ('layouts.index')
@@ -26,13 +27,13 @@
 <div><br></div>
 
 <div class="row">
-    <input type="hidden" name="idausencia" id="idausencia"  value="{{$empleado->idausencia}}">
-    <input type="hidden" class="form-control" name="name" id="name" value="{{Auth::user()->email}}">
-    <input type="hidden" name="idempleado" id="idempleado" value="{{$empleado->idempleado}}">
-    <input type="hidden" name="hatomar" id="hatomar" value="{{$empleado->totalhoras}}">
-    <input type="hidden" name="datomar" id="datomar" value="{{$empleado->totaldias}}">
-    <input type="hidden" name="idvacadetalle" id="idvacadetalle" value="{{$dias->idvacadetalle}}">
-    <input type="hidden" name="goces" id="goce" value="{{$dias->goce}}">
+  <input type="hidden" name="idausencia" id="idausencia"  value="{{$empleado->idausencia}}">
+  <input type="hidden" class="form-control" name="name" id="name" value="{{$user->nombre1.' '.$user->nombre2.' '.$user->apellido1.' '.$user->apellido2}}"> 
+  <input type="hidden" name="idempleado" id="idempleado" value="{{$empleado->idempleado}}">
+  <input type="hidden" name="hatomar" id="hatomar" value="{{$empleado->totalhoras}}">
+  <input type="hidden" name="datomar" id="datomar" value="{{$empleado->totaldias}}">
+  <input type="hidden" name="idvacadetalle" id="idvacadetalle" value="{{$dias->idvacadetalle}}">
+  <input type="hidden" name="goces" id="goce" value="{{$dias->goce}}">
 
     
 	<div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
@@ -56,6 +57,8 @@
             <th>Días no tomados</th><td>{{$dias->soldias}} dias</td>
             <th>Horas no tomadas</th><td>{{$dias->solhoras}} horas</td>
           </tr>
+          <tr>
+          <th>Justificación</th><td colspan="3">{{$dias->observaciones}}</td></tr>
   			</tbody>
   		</table>
   	</div>
@@ -68,7 +71,7 @@
           <div class="form-group">
             <label class="radio-inline"><input type="radio" checked="" name="autorizacion" value="Confirmado" id="rconfirmar">Confirmar</label>
           </div>
-          <button type="button" class="btn btn-success" id="btneditar">Editar dias tomados</button>
+          <button type="button" class="btn btn-success" id="btneditar">Editar dias no tomados</button>
           <div class="row" id="oculto">
             <div class="col-sm-10">
               <div class="card-box m-t-20">
@@ -118,7 +121,7 @@
         </div>
    		</div>
    	</div>
-</div>
+</div> 
 
 <div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
   <div class="modal-dialog">
@@ -149,6 +152,8 @@
         <script src="{{asset('assets/plugins/summernote/dist/summernote.min.js')}}"></script>
         <script src="{{asset('assets/js/permiso.js')}}"></script>
         <meta name="_token" content="{!! csrf_token() !!}" />
+        <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
+        <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
 
 
 		<script>

@@ -9,6 +9,7 @@ use DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\UserFormRequest;
+use Illuminate\Notifications\Messages\MailMessage;
 //use App\Vacaciones;
 
 //use App\HPMEConstants;
@@ -49,8 +50,7 @@ class PController extends Controller
         ->where('U.id','=',Auth::user()->id)
         ->where('ta.ausencia','!=','Vacaciones')
 
-        ->groupBy('a.fechainicio','a.fechafin','a.horainicio','a.horafin','a.juzgadoinstitucion','a.tipocaso','a.autorizacion','a.fechasolicitud')
-        
+       
         ->paginate(15);
     	}
 
@@ -143,6 +143,7 @@ class PController extends Controller
 
   public function store(request $request)
   {
+
     $this->validateRequest($request);
     $vacaciones = new Vacaciones;
       
@@ -220,7 +221,6 @@ class PController extends Controller
 
             $tho =0;
             $total =0;
-
             
               foreach ($ausencias as $aus) { 
                 $total = $aus->total;
@@ -283,7 +283,7 @@ class PController extends Controller
                 $vacaciones->autorizacion='solicitado';
                 $vacaciones->totaldias = $request->dias;
                 $vacaciones->totalhoras = $request->horas.':00:00';
-                //dd($request->all());
+                $vacaciones->justificacion = $request->justificacion;                 //dd($request->all());
                 $mytime = Carbon::now('America/Guatemala');
                 $vacaciones->fechasolicitud=$mytime->toDateString();
                 $vacaciones->save();
@@ -304,13 +304,19 @@ class PController extends Controller
             $vacaciones->idtipoausencia= $request->idtipoausencia;
             $vacaciones->concurrencia = $request->get('concurrencia');
             $vacaciones->autorizacion='solicitado';
-            $vacaciones->totalhoras = '00:00:00';
-            //dd($request->all());
+            $vacaciones->totaldias = $request->dias;
+            $vacaciones->totalhoras = $request->horas.':00:00';
+            $vacaciones->justificacion = $request->justificacion; //dd($request->all());
             $mytime = Carbon::now('America/Guatemala');
             $vacaciones->fechasolicitud=$mytime->toDateString();
             $vacaciones->save();
           }
           $idausencia = $vacaciones->idausencia;
+          $url = url('empleado/verificar/'.$idausencia);
+          $calculo = array($name,$idausencia,$url);
+
+      
+
 
           if($concurrencia === 'No')
           {
@@ -319,6 +325,7 @@ class PController extends Controller
             ->orderBy('au.idausencia','des')
             ->first();
 
+            /*
             if($idtipoausencia === '7')
             {
               $days = 1;
@@ -333,21 +340,24 @@ class PController extends Controller
                   break;
                 }
               }
-            }
+            }*/              
+            
 
             if($vac->horas < 8)
             {
               $days = 0;
             }
-            if($idtipoausencia !== "4")
+            if($idtipoausencia !== "4" && $idtipoausencia !== "9" && $idtipoausencia !== "7" && $idtipoausencia !== "11" && $idtipoausencia !== "6") 
             {
-              $vacacion = Vacaciones::findOrFail($idausencia);
-              $vacacion->totalhoras = $vac->horas;
-              $vacacion->totaldias = $days; 
-              $vacacion->update();
-            }                  
+                $vacacion = Vacaciones::findOrFail($idausencia);
+                $vacacion->totalhoras = $vac->horas;
+                $vacacion->totaldias = $days; 
+                $vacacion->update();
+              
+            }
 
-            Mail::send('emails.envio',$request->all(), function($msj) use ($request){
+
+            Mail::send('emails.envio',['calculo' => $calculo],function($msj) use ($request){
               $idpersona = DB::table('empleado as e')
               ->join('persona as p','e.identificacion','=','p.identificacion')
               ->join('users as U','p.identificacion','=','U.identificacion')
@@ -365,8 +375,16 @@ class PController extends Controller
               ->get();        
               
               foreach ($emisor as $per) {
-                $msj->subject('Solicitud de vacaciones');
+                $msj->subject('Solicitud de permisos');
                 $msj->to($per->email);
+               // $msj->action('Recuperar contraseña', url('empleado.permisos'));
+                
+
+                 return (new MailMessage)
+                 ->line('Estás recibiendo este correo porque hiciste una solicitud de recuperación de contraseña para tu cuenta.')
+                 ->action('Recuperar contraseña', url('empleado.permisos'))
+                 ->line('Si no realizaste esta solicitud, no se requiere realizar ninguna otra acción.')
+                 ->salutation('Saludos, Solera informatica Habitat Guatemala');
               }
                   
               //$msj->to('drdanielreyes5@gmail.com');
@@ -400,23 +418,3 @@ class PController extends Controller
     $this->validate($request, $rules,$messages);        
   }
 }
-
-/*
-        else
-        {
-          if($fechafinal >= $fechainicio){
-            if($fechainicio === $today){
-              return Redirect('empleado/permiso')
-              ->with('message','La fecha inicio no puede ser igual a la fecha actual');
-              }
-                //dd($days,$fini,$ffin);
-              return Redirect('empleado/permiso')
-              ->with('message','Envio correctamente');
-              $request->input('fechainicio');
-              $request->input('fechafin');
-          }
-          else{
-            return Redirect('empleado/permiso')
-            ->with('message','La fecha inicio debe ser antes que la fecha final');                
-          }         
-        }*/
