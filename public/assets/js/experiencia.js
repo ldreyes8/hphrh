@@ -10,16 +10,38 @@ $(document).ready(function(){
    	$('#btnAgregarE').click(function(){
     	$('#inputTitleE').html("Agregar Experiencia");
     	$('#formAgregarE').trigger("reset");
+        $('#btnGuardarE').val('add');
     	$('#formModalE').modal('show');
 	});
 
+    $(document).on('click','.btn-editar-experiencia',function(){
+        var idex=$(this).val();
+        var miurl="listarexperiencia1";
+        $.get(miurl+'/'+ idex,function(data){
+            console.log(data);
+            $('#idex').val(data.idpexperiencia);
+            $('#empresa').val(data.empresa);
+            $('#puesto').val(data.puesto);
+            $('#jefeinmediato').val(data.jefeinmediato);
+            $('#motivoretiro').val(data.motivoretiro);
+            $('#ultimosalario').val(data.ultimosalario);
+            $('#año_ingreso').val(data.fingresoex);
+            $('#año_salida').val(data.fsalidaex);
+
+            $('#inputTitleE').html("Modificar experiencias");
+            $('#formModalE').modal('show');
+            $('#btnGuardarE').val('update');
+            $('loading').modal('hide');
+        });
+    });
 
     $("#btnGuardarE").click(function(e){
-        var miurl="agregarexperiencia";
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
 
-        añoi = $("#año_ingreso").val();
-        añof = $("#año_salida").val();
-    
         var formData = {
             empresa: $("#empresa").val(),
             puesto: $("#puesto").val(),
@@ -31,21 +53,44 @@ $(document).ready(function(){
             idempleado: $("#idempleado").val(),
             identificacion: $("#identificacion").val(),
         };
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
+        var state=$("#btnGuardarE").val();
+
+        var type;
+        var idex=$('#idex').val();
+        var my_url;
+
+        if (state == "update") 
+                {
+                    type="PUT";
+                    my_url = 'updatexp/'+idex;
+                }
+        if (state == "add") 
+                {
+                    type="POST";
+                    my_url = 'agregarexperiencia';
+                }
 
         $.ajax({
-            type: "POST",
-            url: miurl,
+            type: type,
+            url: my_url,
             data: formData,
             dataType: 'json',
 
             success: function (data) {
-              document.getElementById("dataTableItemsE").innerHTML += "<tr class='fila'><td>" +data.empresa+ "</td><td>"+data.puesto+"</td><td>"+data.jefeinmediato+"</td><td>"+data.motivoretiro+"</td><td>"+data.ultimosalario+"</td><td>"+añoi+"</td><td>"+añof+"</td></tr>";
-    
+                var item = '<tr class="even gradeA" id="experiencia'+data.idpexperiencia+'">';
+                    item += '<td>'+data.empresa+'</td>'+'<td>' +data.puesto+ '</td>'+'<td>'+data.jefeinmediato+'</td>'+'<td>'+data.motivoretiro+'</td>'+'<td>'+data.ultimosalario+'</td>'+'<td>'+data.fingresoex+'</td>'+'<td>'+data.fsalidaex+'</td>';
+                    item += '<td><button class="fa fa-pencil btn-editar-experiencia" value="'+data.idpexperiencia+'"></button>';
+                    item += '<button class="fa fa-trash-o btn-danger" value="'+data.idpexperiencia+'"></button></td></tr>';
+                if (state == "add")
+                {
+                    $('#products').append(item);
+                }
+                if (state == "update")
+                {
+                    $("#experiencia"+idex).replaceWith(item);
+                }
+              //document.getElementById("dataTableItemsE").innerHTML += "<tr class='fila'><td>" +data.empresa+ "</td><td>"+data.puesto+"</td><td>"+data.jefeinmediato+"</td><td>"+data.motivoretiro+"</td><td>"+data.ultimosalario+"</td><td>"+añoi+"</td><td>"+añof+"</td></tr>";
+                $('#formAgregarE').trigger("reset");
                 $('#formModalE').modal('hide');
                 
             },

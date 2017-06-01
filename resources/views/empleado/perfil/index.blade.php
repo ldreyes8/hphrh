@@ -99,7 +99,7 @@
                     
                         <a href="#academicos" data-toggle="tab" aria-expanded="false">
                             <span class="visible-xs"><i class="fa fa-cog"></i></span>
-                            <span class="hidden-xs">Academico</span>
+                            <span class="hidden-xs">Académico</span>
                         </a>
                     </li>
                    
@@ -121,7 +121,7 @@
 
                         <a href="#creditos" data-toggle="tab" aria-expanded="false">
                             <span class="visible-xs"><i class="fa fa-cog"></i></span>
-                            <span class="hidden-xs">Creditos</span>
+                            <span class="hidden-xs">Créditos</span>
                         </a>
                     </li>
                     <li class=""> <a href="javascript:void(0);" onclick="cargarpadecimiento(1,1);">
@@ -136,6 +136,14 @@
                         <a href="#experiencias" data-toggle="tab" aria-expanded="false">
                             <span class="visible-xs"><i class="fa fa-cog"></i></span>
                             <span class="hidden-xs">Experiencia</span>
+                        </a>
+                    </li>
+
+                    <li class=""> <a href="javascript:void(0);" onclick="cargarotros(1,1);">
+
+                        <a href="#otros" data-toggle="tab" aria-expanded="false">
+                            <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                            <span class="hidden-xs">Otros</span>
                         </a>
                     </li>
                 </ul>
@@ -209,6 +217,7 @@
                     @include('hr.credito')
                     @include('hr.padecimientos')
                     @include('hr.experiencia')
+                    @include('hr.otros')
 
 <div class="modal fade" id="erroresModalPassword" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
   <div class="modal-dialog">
@@ -248,6 +257,7 @@
     <script src="{{asset('assets/js/credito.js')}}"></script>
     <script src="{{asset('assets/js/padecimiento.js')}}"></script>
     <script src="{{asset('assets/js/experiencia.js')}}"></script>
+    <script src="{{asset('assets/js/otros.js')}}"></script>
         <script src="{{asset('assets/js/changepassword.js')}}"></script>
 
 
@@ -260,7 +270,8 @@
     <script>cargarreferencia(1);   </script>
     <script>cargarcredito(1);   </script>
     <script>cargarpadecimiento(1);   </script>
-<script>cargarexperiencia(1);   </script>
+    <script>cargarotros(1);   </script>
+    <script>cargarexperiencia(1);   </script>
     
 
 

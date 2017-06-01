@@ -13,12 +13,12 @@
           <th>Ultimo salario</th>
           <th>Año de ingreso</th>
           <th>Año de salida</th>
-
+          <th>Opciones</th>
         </thead>
-        <tbody>
+        <tbody id="products" name="products">
           @if (isset($experiencia))
             @for ($i=0;$i<count($experiencia);$i++)
-              <tr class="even gradeA" id="ite">
+              <tr class="even gradeA" id="experiencia{{$experiencia[$i]->idpexperiencia}}">
                 <td>{{$experiencia[$i]->empresa}}</td>
                 <td>{{$experiencia[$i]->puesto}}</td>
                 <td>{{$experiencia[$i]->jefeinmediato}}</td>
@@ -26,6 +26,10 @@
                 <td>{{$experiencia[$i]->ultimosalario}}</td>
                 <td>{{$experiencia[$i]->fingresoex}}</td>
                 <td>{{$experiencia[$i]->fsalidaex}}</td>
+                <td>
+                  <button class="fa fa-pencil btn-editar-experiencia" value="{{$experiencia[$i]->idpexperiencia}}"></button>
+                  <button class="fa fa-trash-o btn-danger"></button>
+                </td>
               </tr>
             @endfor
           @endif
@@ -103,6 +107,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
             <button type="button" class="btn btn-primary" id="btnGuardarE">Guardar</button>
+            <input type="hidden" name="idex" id="idex" value="0"/>
           </div>
         </div>
       </div>

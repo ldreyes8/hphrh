@@ -8,7 +8,7 @@ class Familia extends Model
 {
     //
     protected $table='personafamilia';
-    protected $primarykey='idpfamilia';
+    protected $primaryKey='idpfamilia';
 
     public $timestamps=false;
 

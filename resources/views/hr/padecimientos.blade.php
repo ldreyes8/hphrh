@@ -7,13 +7,17 @@
       <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsP">
         <thead>
           <th>padecimiento</th>
-
+          <th style="width: 10%">Opciones</th>
         </thead>
-        <tbody>
+        <tbody id="productsP" name="productsP">
           @if (isset($padecimiento))
             @for ($i=0;$i<count($padecimiento);$i++)
-              <tr class="even gradeA" id="ite">
+              <tr class="even gradeA" id="pad{{$padecimiento[$i]->idppadecimientos}}">
                 <td>{{$padecimiento[$i]->nombre}}</td>
+                <td>
+                  <button value="{{$padecimiento[$i]->idppadecimientos}}" class="fa fa-pencil btn-editar-padecimiento "></button>
+                  <button value="{{$padecimiento[$i]->idppadecimientos}}" class="fa fa-trash-o btn-danger "></button>
+                </td>
               </tr>
             @endfor
           @endif
@@ -52,6 +56,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
             <button type="button" class="btn btn-primary" id="btnGuardarP">Guardar</button>
+            <input type="hidden" id="idpad" name="idpad" value="0"/>
           </div>
         </div>
       </div>

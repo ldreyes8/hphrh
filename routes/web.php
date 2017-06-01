@@ -78,27 +78,43 @@ Route::group(['prefix'=>'empleado'],function(){
 	//rutas del perfil
 	Route::post('/updatefoto','UController@subirimagen');
 	Route::get('galeria','UController@galeria');
+
+	//Route academico crud
 	Route::get('listaracademico','UController@listaracademico');
 	Route::get('towns/{id}', 'UController@getTowns'); 
 	Route::post('agregaracademico','UController@agregaracademico');
+	Route::get('listaracademico1/{id}','UController@listaracademico1');
+	Route::put('updateAca/{id}','UController@updateAca');
+	//Route familia crud
 	Route::get('listarfamilia','UController@listarfamiliar');
+	Route::post('agregarfamiliar','UController@agregarfamiliar');
+	Route::get('listarfamilia1/{id}','UController@listarfamilia1');
+	Route::put('updatefam/{id}','UController@updatefam');
 
+	//Route referencia curd
 	Route::get('listarreferencia','UController@listarreferencia');
 	Route::post('agregarreferencia','UController@agregarreferencia');
-	Route::post('agregarfamiliar','UController@agregarfamiliar');
-
-
+	Route::get('listarreferencia1/{id}','UController@listarreferencia1');
+	Route::put('updateref/{id}','UController@updateref');
+	
+	//Route credito crud
 	Route::get('listarcredito','UController@listarcredito');
 	Route::post('agregarcredito','UController@agregarcredito');
+	Route::get('listarcredito1/{id}','UController@listarcredito1');
+	Route::put('updateco/{id}','UController@updateco');
 
+	//Route padecimiento crud
 	Route::get('listarpadecimiento','UController@listarpadecimiento');
 	Route::post('agregarpadecimiento','UController@agregarpadecimiento');
+	Route::get('listarpadecimiento1/{id}','UController@listarpadecimiento1');
+	Route::put('updatepad/{id}','UController@updatepad');
 
-
+	//Route experiencia crud
 	Route::get('listarexperiencia','UController@listarexperiencia');
 	Route::post('agregarexperiencia','UController@agregarexperiencia');
+	Route::get('listarexperiencia1/{id}','UController@listarexperiencia1');
+	Route::put('updatexp/{id}','UController@updatexp');
 
-	//rutas del permiso
 	Route::resource('permisos','PermisosController');
 
 	Route::get('verificar/{idpersona}','PermisosController@verificar');

@@ -6,23 +6,28 @@
     <div class="table-responsive" id="tabla">
       <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItems">
         <thead>
-          <th>Titulo</th>
-          <th>Institucion</th>
-          <th>Duracion</th>
+          <th>Título</th>
+          <th>Institución</th>
+          <th>Duración</th>
           <th>Nivel</th>
           <th>Fecha Ingreso</th>
           <th>Fecha Salida</th>
+          <th>Opciones</th>
         </thead>
-        <tbody>
+        <tbody id="productsA" name="productsA">
           @if (isset($academico))
             @for ($i=0;$i<count($academico);$i++)
-              <tr class="even gradeA" id="ite">
+              <tr class="even gradeA" id="academico{{$academico[$i]->idpacademico}}">
                 <td>{{$academico[$i]->titulo}}</td>
                 <td>{{$academico[$i]->establecimiento}}</td>
                 <td>{{$academico[$i]->duracion.': '.$academico[$i]->periodo}}</td>
                 <td>{{$academico[$i]->nombrena}}</td>
                 <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$academico[$i]->fingreso)->format('d-m-Y')}}</td>
                 <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$academico[$i]->fsalida)->format('d-m-Y')}}</td>
+                <td>
+                  <button class="fa fa-pencil btn-editar-academico" value="{{$academico[$i]->idpacademico}}"></button>
+                  <button class="fa fa-trash-o btn-danger"></button>
+                </td>
               </tr>
             @endfor
           @endif
@@ -49,7 +54,7 @@
                 @endif
 
                   <div class="form-group">
-                      <label>Titulo</label>
+                      <label>Título</label>
                       <input class="form-control" id="titulo" name="titulo">
                   </div>                                          
                                                 
@@ -58,7 +63,7 @@
                       <input class="form-control" id="establecimiento" name="establecimiento"/>
                   </div>                                                           
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                  <label for="duracion">Duracion</label>
+                  <label for="duracion">Duración</label>
                       <div class="form-group">
                         
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -120,6 +125,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
             <button type="button" class="btn btn-primary" id="btnGuardar">Guardar</button>
+            <input type="hidden" name="idacad" id="idacad" value="0"/>
           </div>
         </div>
       </div>

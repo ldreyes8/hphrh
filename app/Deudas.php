@@ -8,7 +8,7 @@ class Deudas extends Model
 {
     //
     protected $table='personadeudas';
-    protected $primarykey='idpdeudas';
+    protected $primaryKey='idpdeudas';
 
     public $timestamps=false;
 

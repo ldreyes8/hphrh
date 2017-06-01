@@ -1,6 +1,6 @@
 <div class="tab-pane" id="familiares">
     <div class="panel-heading">
-        <button class="btn btn-success" id="btnagregarF"><i class="icon-user icon-white" ></i> Agregar Familiar</button>
+        <button class="btn btn-success" id="btnAgregarF"><i class="icon-user icon-white" ></i> Agregar Familiar</button>
     </div>
   <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
     <div class="table-responsive" id="tabla">
@@ -8,21 +8,26 @@
         <thead>
           <th>Parentezco</th>
           <th>Nombre</th>
-          <th>Ocupacion</th>
+          <th>Ocupación</th>
           <th>Edad</th>
-          <th>Telefono</th>
+          <th>Teléfono</th>
           <th>Emergencia</th>
+          <th>Opciones</th>
         </thead>
-        <tbody>
+        <tbody id="productsF" name="productsF">
           @if (isset($familia))
             @for ($i=0;$i<count($familia);$i++)
-              <tr class="even gradeA" id="ite">
+              <tr class="even gradeA" id="fam{{$familia[$i]->idpfamilia}}">
                 <td>{{$familia[$i]->parentezco}}</td>
                 <td>{{$familia[$i]->nombref.' '.$familia[$i]->apellidof}}</td>
                 <td>{{$familia[$i]->ocupacion}}</td>
                 <td>{{$familia[$i]->edad}}</td>
                 <td>{{$familia[$i]->telefonof}}</td>
                 <td>{{$familia[$i]->emergencia}}</td>
+                <td>
+                  <button class="fa fa-pencil btn-editar-familia" value="{{$familia[$i]->idpfamilia}}"></button>
+                  <button class="fa fa-trash-o btn-danger"></button>
+                </td>
               </tr>
             @endfor
           @endif
@@ -75,7 +80,7 @@
               </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              <label for="telefonof">Telefono de familiar</label>
+              <label for="telefonof">Teléfono de familiar</label>
               <div class="input-group">
                 <span class="input-group-addon">502</i></span>
                 <input type="text" id="telefonof" name="telefonof" class="form-control" maxlength="8" onkeypress="return valida(event)">
@@ -85,7 +90,7 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
               <div class="form-group">
-                <label for="ocupacion">Ocupacion</label>
+                <label for="ocupacion">Ocupación</label>
                 <input type="text" id="ocupacion" name="ocupacion" maxlength="40" class="form-control" onkeypress="return validaL(event)">
               </div>
             </div>                                                                         
@@ -94,6 +99,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
           <button type="button" class="btn btn-primary" id="btnGuardarF">Guardar</button>
+          <input type="hidden" name="idfam" id="idfam" value="0"/>
         </div>
       </div>
     </div>

@@ -1,13 +1,51 @@
+function cargarfamilia(listado){
+    
+    $("#familiares").html($("#cargador_empresa").html());
+    if(listado==1){var url = "listarfamilia";}
+    $.get(url,function(resul){
+    $("#familiares").html(resul);
+    });
+    
+}
+
 $(document).ready(function(){
-   	$('#btnagregarF').click(function(){
-    	$('#inputTitleF').html("Agregar informacion familiar");
+   	$('#btnAgregarF').click(function(){
+        
+    	$('#inputTitleF').html("Agregar información familiar");
     	$('#formAgregarF').trigger("reset");
+        $('#btnGuardarF').val('add');
     	$('#formModalF').modal('show');
 	});
 
+    $(document).on('click','.btn-editar-familia',function(){
+        var idfam=$(this).val();
+        var miurl="listarfamilia1";
+        $.get(miurl+'/'+ idfam,function(data){
+            console.log(data);
+            $('#idfam').val(data.idpfamilia);
+            $('#nombref').val(data.nombref);
+            $('#apellidof').val(data.apellidof);
+            $('#parentezco').val(data.parentezco);
+            $('#edad').val(data.edad);
+            $('#ocupacion').val(data.ocupacion);
+            $('#emergencia').val(data.emergencia);
+            $('#telefonof').val(data.telefonof);
 
+            $('#inputTitleF').html("Modificar información familiar");
+            $('#formModalF').modal('show');
+            $('#btnGuardarF').val('update');
+            $('loading').modal('hide');
+        });
+    });
+    
     $("#btnGuardarF").click(function(e){
-        var miurl="agregarfamiliar";
+        //var miurl="agregarfamiliar";
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+
         if($('#emergencia').is(':checked'))
         {
             emer = "Si";
@@ -16,8 +54,6 @@ $(document).ready(function(){
         {
             emer = "No";
         }
-        nombref =  $("#nombref").val();
-        apellidof =  $("#apellidof").val();
 
         var formData = {
             nombre: $("#nombref").val(),
@@ -31,28 +67,47 @@ $(document).ready(function(){
             telefonof: $("#telefonof").val(),
 
         };
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
+        
+        var state=$("#btnGuardarF").val();
+
+        var type;
+        var idfam=$('#idfam').val();
+        var my_url;
+
+        if (state == "update") 
+                {
+                    type="PUT";
+                    my_url = 'updatefam/'+idfam;
+                }
+        if (state == "add") 
+                {   
+                    type="POST";
+                    my_url = 'agregarfamiliar';
+                }
 
         $.ajax({
-            type: "POST",
-            url: miurl,
+            type: type,
+            url: my_url,
             data: formData,
             dataType: 'json',
 
             success: function (data) {
-                document.getElementById("dataTablefamilia").innerHTML += "<tr class='fila'><td>" +data.parentezco+ "</td><td>" +nombref + " " + apellidof + "</td><td>" +data.ocupacion + "</td><td>" +data.edad + "</td><td>" +data.telefonof + "</td><td>" +data.emergencia + "</td></tr>";
-       
+                var item = '<tr class="even gradeA" id="fam'+data.idpfamilia+'">';
+                    item += '<td>'+data.parentezco+'</td>'+'<td>'+data.nombref+' '+data.apellidof+'</td>'+'<td>'+data.ocupacion+'</td>'+'<td>'+data.edad+'</td>'+'<td>'+data.telefonof+'</td>'+'<td>'+data.emergencia+'</td>';
+                    item += '<td><button class="fa fa-pencil btn-editar-familia" value="'+data.idpfamilia+'"></button>';
+                    item += '<button class="fa fa-trash-o btn-danger" value="'+data.idpfamilia+'"></button></td></tr>';
+                if (state == "add")
+                {
+                    $('#productsF').append(item);
+                }
+                if (state == "update")
+                {
+                    $("#fam"+idfam).replaceWith(item);
+                }
 
+                //document.getElementById("dataTablefamilia").innerHTML += "<tr class='fila'><td>" +data.parentezco+ "</td><td>" +nombref + " " + apellidof + "</td><td>" +data.ocupacion + "</td><td>" +data.edad + "</td><td>" +data.telefonof + "</td><td>" +data.emergencia + "</td></tr>";
+                $('#formAgregarF').trigger("reset");
                 $('#formModalF').modal('hide');
-
-                //$('#tabla').load("#dataTableItems");
-
-                //cargaracademico(1,1);
-                
             },
             error: function (data) {
                 $('#loading').modal('hide');
@@ -71,13 +126,3 @@ $(document).ready(function(){
     });
 
 });
-
-function cargarfamilia(listado){
-    
-    $("#familiares").html($("#cargador_empresa").html());
-    if(listado==1){var url = "listarfamilia";}
-    $.get(url,function(resul){
-    $("#familiares").html(resul);
-    });
-    
-}

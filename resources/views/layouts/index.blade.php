@@ -63,7 +63,10 @@
                                 </button>
                                 <span class="clearfix"></span>
                             </div>
-
+                            <div  >
+                                <br>
+                                <h4 style="text-align: right; color: white;"> {{ Auth::user()->name }}</h4>
+                            </div>
                             <!--
 
                             <ul class="nav navbar-nav hidden-xs">

@@ -7,20 +7,25 @@
       <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsR">
         <thead>
           <th>Nombre</th>
-          <th>Telefono</th>
-          <th>Profesion</th>
+          <th>Teléfono</th>
+          <th>Profesión</th>
           <th>Tipo de referencia</th>
+          <th>Opciones</th>
 
         </thead>
-        <tbody>
+        <tbody id="products-list" name="products-list">
           @if (isset($referencia))
             @for ($i=0;$i<count($referencia);$i++)
-              <tr class="even gradeA" id="ite">
+              <tr class="even gradeA" id="referencia{{$referencia[$i]->idpreferencia}}">
+                
                 <td>{{$referencia[$i]->nombrer}}</td>
                 <td>{{$referencia[$i]->telefonor}}</td>
                 <td>{{$referencia[$i]->profesion}}</td>
                 <td>{{$referencia[$i]->tiporeferencia}}</td>
-
+                <td>
+                  <button class="fa fa-pencil btn-editar-referencia" value="{{$referencia[$i]->idpreferencia}}"></button>
+                  <button class="fa fa-trash-o btn-danger"></button>
+                </td>
               </tr>
             @endfor
           @endif
@@ -51,14 +56,14 @@
                     </div>
                                                     
                     <div class="form-group">
-                        <label for="telefonor">Telefono *</label>
+                        <label for="telefonor">Teléfono *</label>
                         <div class="input-group">
                             <span class="input-group-addon">502</i></span>
                             <input type="text" id="telefono"  maxlength="8" name="telefono" class="form-control" onkeypress="return valida(event)">
                         </div>
                     </div>
                          <div class="form-group">
-                            <label for="profesion">Profesion</label>
+                            <label for="profesion">Profesión</label>
                             <input type="text" id="profesion" name="profesion" maxlength="100" class="form-control" onkeypress="return validaL(event)">
                         </div>
                         <div class="form-group">
@@ -74,6 +79,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
             <button type="button" class="btn btn-primary" id="btnGuardarR">Guardar</button>
+            <input type="hidden" name="idref" id="idref" value="0"/>
           </div>
         </div>
       </div>

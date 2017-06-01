@@ -8,40 +8,86 @@ function cargarcredito(listado){
 
 $(document).ready(function(){
    	$('#btnAgregarC').click(function(){
-    	$('#inputTitleC').html("Agregar credito");
+    	$('#inputTitleC').html("Agregar crédito");
     	$('#formAgregarC').trigger("reset");
+        $('#btnGuardarC').val('add');
     	$('#formModalC').modal('show');
 	});
 
+    $(document).on('click','.btn-editar-credito',function(){
+        var idco=$(this).val();
+        var miurl="listarcredito1";
+        $.get(miurl+'/'+ idco,function(data){
+            console.log(data);
+            $('#idco').val(data.idpdeudas);
+            $('#acreedor').val(data.acreedor);
+            $('#amortizacionmensual').val(data.amortizacionmensual);
+            $('#montodeuda').val(data.montodeuda);
+            $('#mdeuda').val(data.motivodeuda);
+
+            $('#inputTitleC').html("Modificar crédito");
+            $('#formModalC').modal('show');
+            $('#btnGuardarC').val('update');
+            $('loading').modal('hide');
+        });
+    });
 
     $("#btnGuardarC").click(function(e){
-        var miurl="agregarcredito";
-
-        nombre = $("#nombre").val();
-        telefono = $("#telefono").val();
-    
-        var formData = {
-            acreedor: $("#acreedor").val(),
-            amortizacionmensual: $("#amortizacionmensual").val(),
-            montodeuda: $("#montodeuda").val(),
-            idempleado: $("#idempleado").val(),
-            identificacion: $("#identificacion").val(),
-        };
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
 
+        var formData = {
+            acreedor: $("#acreedor").val(),
+            amortizacionmensual: $("#amortizacionmensual").val(),
+            montodeuda: $("#montodeuda").val(),
+            mdeuda:$("#mdeuda").val(),
+            idempleado: $("#idempleado").val(),
+            identificacion: $("#identificacion").val(),
+        };
+
+        var state=$("#btnGuardarC").val();
+        var type;
+        var idco=$('#idco').val();
+        var my_url;
+
+        if (state == "update") 
+                {
+                    type="PUT";
+                    my_url = 'updateco/'+idco;
+                }
+        if (state == "add") 
+                {
+                    type="POST";
+                    my_url = 'agregarcredito';
+                }
+
+        //var miurl="agregarcredito";
+
         $.ajax({
-            type: "POST",
-            url: miurl,
+            type: type,
+            url: my_url,
             data: formData,
             dataType: 'json',
 
             success: function (data) {
-              document.getElementById("dataTableItemsC").innerHTML += "<tr class='fila'><td>" +data.acreedor+ "</td><td>" +data.amortizacionmensual + "</td><td>" +data.montodeuda + "</td></tr>";
-    
+                var item = '<tr class="even gradeA" id="deudas'+data.idpdeudas+'">';
+                    item += '<td>'+data.acreedor+'</td>'+'<td>' +data.amortizacionmensual+ '</td>'+'<td>'+data.montodeuda+'</td>'+'<td>'+data.motivodeuda+'</td>';
+                    item += '<td><button class="fa fa-pencil btn-editar-credito" value="'+data.idpdeudas+'"></button>';
+                    item += '<button class="fa fa-trash-o btn-danger" value="'+data.idpdeudas+'"></button></td></tr>';
+                if (state == "add")
+                {
+                    $('#productsC').append(item);
+                }
+                if (state == "update")
+                {
+                    $("#deudas"+idco).replaceWith(item);
+                }
+
+              //document.getElementById("dataTableItemsC").innerHTML += "<tr class='fila'><td>" +data.acreedor+ "</td><td>" +data.amortizacionmensual + "</td><td>" +data.montodeuda + "</td></tr>";
+                $('#formAgregarC').trigger("reset");
                 $('#formModalC').modal('hide');
                 
             },

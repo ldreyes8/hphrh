@@ -182,7 +182,7 @@
                                         </div>
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                            <label for="telefono">Telefono </label>
+                                                            <label for="telefono">Teléfono </label>
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">502</i></span>
                                                                 <input type="text" maxlength="8" name="telefono" onkeypress="return valida(event)" class="form-control">
@@ -318,7 +318,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                            <label for="pretension">Pretension *</label>
+                                                            <label for="pretension">Pretensión *</label>
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">Q</i></span>
                                                                 <input type="text" onkeypress="return valida(event)" min="0" name="pretension" id="pretension" class="form-control" >
@@ -418,7 +418,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                            <label for="telefonof">Telefono de familiar</label>
+                                                            <label for="telefonof">Teléfono de familiar</label>
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">502</i></span>
                                                                 <input type="text" id="telefonof" name="telefonof" class="form-control" maxlength="8" onkeypress="return valida(event)">
@@ -428,7 +428,7 @@
                                                         
                                                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
-                                                                <label for="ocupacion">Ocupacion</label>
+                                                                <label for="ocupacion">Ocupación</label>
                                                                 <input type="text" id="ocupacion" name="ocupacion" maxlength="40" class="form-control" onkeypress="return validaL(event)">
                                                             </div>
                                                         </div>
@@ -451,9 +451,9 @@
                                                                     <th>Nombre</th>
                                                                     <th>Apellido</th>
                                                                     <th>Edad</th>
-                                                                    <th>Telefono</th>
+                                                                    <th>Teléfono</th>
                                                                     <th>Parentezco</th>
-                                                                    <th>Ocupacion</th>
+                                                                    <th>Ocupación</th>
                                                                     <th>Emergencias</th>
                                                                 </thead>
                                                                 <tfoot>
@@ -487,7 +487,7 @@
                                                             </div>
                                                             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
-                                                                    <label for="titulo">Titulo *</label>
+                                                                    <label for="titulo">Título *</label>
                                                                     <input type="text" id="titulo" name="titulo" maxlength="100" class="form-control" onkeypress="return validaL(event)">
                                                                 </div>
                                                             </div>
@@ -499,7 +499,7 @@
                                                             </div>
                                                             <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
-                                                                    <label for="duracion">Duracion</label>
+                                                                    <label for="duracion">Duración</label>
                                                                     <input type="text" name="duracion" id="duracion" maxlength="3" class="form-control" onkeypress="return valida(event)">
                                                                 </div>    
                                                             </div>
@@ -600,9 +600,9 @@
                                                     <div class="col-lg-8 col-sm-12 col-md-12 col-xs-12">
                                                         <table id="detalle6" class="table table-striped table-bordered table-condensed table-hover">
                                                             <thead>
-                                                                <th>Titulo</th>
+                                                                <th>Título</th>
                                                                 <th>Establecimiento</th>
-                                                                <th>Duracion</th>
+                                                                <th>Duración</th>
                                                                 <th>-</th>
                                                                 <th>Nivel</th>
                                                                 <th>Fecha de ingreso</th>
@@ -737,7 +737,7 @@
                                                             
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                            <label for="telefonor">Telefono *</label>
+                                                            <label for="telefonor">Teléfono *</label>
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">502</i></span>
                                                                 <input type="text" id="telefonor"  maxlength="8" name="telefonor" class="form-control" onkeypress="return valida(event)">
@@ -763,7 +763,7 @@
                                                             <table id="detalle3" class="table table-striped table-bordered table-condensed table-hover">
                                                                 <thead style="background-color:#A9D0F5">
                                                                     <th>Nombre</th>
-                                                                    <th>Telefono</th>
+                                                                    <th>Teléfono</th>
                                                                     <th>Profesion</th>
                                                                     <th>Tipo referencia</th>
                                                                 </thead>
@@ -842,7 +842,7 @@
                                                                     <input type="text" id="acreedor" name="acreedor" class="form-control" onkeypress="return validaL(event)">
                                                             </div>
                                                             <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
-                                                                <label for="amortizacionmensual">Amortizacion mensual</label>
+                                                                <label for="amortizacionmensual">Amortización mensual</label>
                                                                 <div class="input-group">
                                                                     <span class="input-group-addon">Q</i></span>
                                                                     <input type="text" min="0" id="amortizacionmensual" name="amortizacionmensual" class="form-control" onkeypress="return valida(event)">
@@ -867,7 +867,7 @@
                                                             </div>
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="form-group">
-                                                                    <label>¿Usted es una persona expuesta politicamente?</label>
+                                                                    <label>¿Usted es una persona expuesta políticamente?</label>
                                                                     <label ><input type="radio" name="ive" value="Si" onclick="Finiquito(this)">Si</label>
                                                                     <label ><input type="radio" name="ive" value="No" onclick="Finiquito(this)">No</label>
                                                                 </div>
@@ -880,7 +880,7 @@
                                                             </div> 
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="form-group">
-                                                                    <label>¿Tiene algun pariente politico?</label>
+                                                                    <label>¿Tiene algún pariente político?</label>
                                                                     <label ><input type="radio" name="parientepolitico" value="Si" onclick="FPariente(this)">Si</label>
                                                                     <label ><input type="radio" name="parientepolitico" value="No" onclick="FPariente(this)">No</label>
                                                                 </div>
@@ -909,7 +909,7 @@
 
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="form-group">
-                                                                    <label>¿A trabajado en el extranjero?</label>
+                                                                    <label>¿Ha trabajado en el extranjero?</label>
                                                                     <label ><input type="radio" name="trabajoext" value="Si" onclick="Fextra(this)">Si</label>
                                                                     <label ><input type="radio" name="trabajoext" value="No" onclick="Fextra(this)">No</label>
                                                                 </div>
