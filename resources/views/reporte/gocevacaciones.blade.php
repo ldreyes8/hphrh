@@ -22,7 +22,6 @@
                         
                         <div class="form-group">
                             <input type="text" id="fecha_inicio" class="form-control" name="fini">
-                        <!--    <span class="input-group-addon bg-primary b-0 text-white"><i class="ion-calendar"></i></span> -->
                         </div>
                    
                         <label class="control-label">Fecha final</label>
@@ -36,17 +35,19 @@
                         <button type="button" id="btngoce" class="btn btn-primary btn-sm w-sm waves-effect m-t-10 waves-light">Guardar</button>
                     </div>
                 </div>
-            </div> <!-- end card-box -->
+            </div> 
         </div>
-        <!---
+        
         <div class="card-box">
             <h4 class="m-t-0 m-b-20 header-title">opciones</h4>
-            <button class="btn btn-primary" id="btndescargar">Descargar</button>
-            
-              <a href="{{URL::action('VController@Gpdf')}}"><button class="btn btn-primary">Descargar</button></a> 
+
+            <!--            <button class="btn btn-primary" id="btndescargar">Descargar</button> 
+
+              <a href="{{URL::action('VController@Gpdf')}}"><button class="btn btn-primary" id="btndescargar">Descargar</button></a> 
+            -->
   
         </div>
-        -->
+    
     </div>
 
     <div class="col-md-8 col-lg-9">

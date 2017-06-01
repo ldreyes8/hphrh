@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddSpecialRoleColumn' => $baseDir . '/database/migrations/2015_12_04_003040_add_special_role_column.php',
     'Anhskohbo\\NoCaptcha\\Facades\\NoCaptcha' => $vendorDir . '/anhskohbo/no-captcha/src/Facades/NoCaptcha.php',
     'Anhskohbo\\NoCaptcha\\NoCaptcha' => $vendorDir . '/anhskohbo/no-captcha/src/NoCaptcha.php',
     'Anhskohbo\\NoCaptcha\\NoCaptchaServiceProvider' => $vendorDir . '/anhskohbo/no-captcha/src/NoCaptchaServiceProvider.php',
@@ -72,6 +73,14 @@ return array(
     'Barryvdh\\DomPDF\\Facade' => $vendorDir . '/barryvdh/laravel-dompdf/src/Facade.php',
     'Barryvdh\\DomPDF\\PDF' => $vendorDir . '/barryvdh/laravel-dompdf/src/PDF.php',
     'Barryvdh\\DomPDF\\ServiceProvider' => $vendorDir . '/barryvdh/laravel-dompdf/src/ServiceProvider.php',
+    'Caffeinated\\Shinobi\\Facades\\Shinobi' => $vendorDir . '/caffeinated/shinobi/src/Facades/Shinobi.php',
+    'Caffeinated\\Shinobi\\Middleware\\UserHasPermission' => $vendorDir . '/caffeinated/shinobi/src/Middleware/UserHasPermission.php',
+    'Caffeinated\\Shinobi\\Middleware\\UserHasRole' => $vendorDir . '/caffeinated/shinobi/src/Middleware/UserHasRole.php',
+    'Caffeinated\\Shinobi\\Models\\Permission' => $vendorDir . '/caffeinated/shinobi/src/Models/Permission.php',
+    'Caffeinated\\Shinobi\\Models\\Role' => $vendorDir . '/caffeinated/shinobi/src/Models/Role.php',
+    'Caffeinated\\Shinobi\\Shinobi' => $vendorDir . '/caffeinated/shinobi/src/Shinobi.php',
+    'Caffeinated\\Shinobi\\ShinobiServiceProvider' => $vendorDir . '/caffeinated/shinobi/src/ShinobiServiceProvider.php',
+    'Caffeinated\\Shinobi\\Traits\\ShinobiTrait' => $vendorDir . '/caffeinated/shinobi/src/Traits/ShinobiTrait.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
     'Carbon\\CarbonInterval' => $vendorDir . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
     'Carbon\\Exceptions\\InvalidDateException' => $vendorDir . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
@@ -84,6 +93,10 @@ return array(
     'Collective\\Html\\HtmlServiceProvider' => $vendorDir . '/laravelcollective/html/src/HtmlServiceProvider.php',
     'Cpdf' => $vendorDir . '/dompdf/dompdf/lib/Cpdf.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+    'CreatePermissionRoleTable' => $baseDir . '/database/migrations/2015_01_24_080433_create_permission_role_table.php',
+    'CreatePermissionsTable' => $baseDir . '/database/migrations/2015_01_24_080208_create_permissions_table.php',
+    'CreateRoleUserTable' => $baseDir . '/database/migrations/2015_01_20_084525_create_role_user_table.php',
+    'CreateRolesTable' => $baseDir . '/database/migrations/2015_01_20_084450_create_roles_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'Cron\\AbstractField' => $vendorDir . '/mtdowling/cron-expression/src/Cron/AbstractField.php',
     'Cron\\CronExpression' => $vendorDir . '/mtdowling/cron-expression/src/Cron/CronExpression.php',

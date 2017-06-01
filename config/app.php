@@ -180,7 +180,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        //Caffeinated\Shinobi\ShinobiServiceProvider::class,
+        Caffeinated\Shinobi\ShinobiServiceProvider::class,
 
 
     ],
@@ -236,7 +236,7 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
-        //'Shinobi' => Caffeinated\Shinobi\Facades\Shinobi::class,
+        'Shinobi' => Caffeinated\Shinobi\Facades\Shinobi::class,
     ],
 
 ];
