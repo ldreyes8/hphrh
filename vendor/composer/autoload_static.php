@@ -107,6 +107,7 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
             'Cron\\' => 5,
             'Collective\\Html\\' => 16,
             'Carbon\\' => 7,
+            'Caffeinated\\Shinobi\\' => 20,
         ),
         'B' => 
         array (
@@ -294,6 +295,10 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
+        'Caffeinated\\Shinobi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/caffeinated/shinobi/src',
+        ),
         'Barryvdh\\DomPDF\\' => 
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src',
@@ -367,6 +372,7 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
     );
 
     public static $classMap = array (
+        'AddSpecialRoleColumn' => __DIR__ . '/../..' . '/database/migrations/2015_12_04_003040_add_special_role_column.php',
         'Anhskohbo\\NoCaptcha\\Facades\\NoCaptcha' => __DIR__ . '/..' . '/anhskohbo/no-captcha/src/Facades/NoCaptcha.php',
         'Anhskohbo\\NoCaptcha\\NoCaptcha' => __DIR__ . '/..' . '/anhskohbo/no-captcha/src/NoCaptcha.php',
         'Anhskohbo\\NoCaptcha\\NoCaptchaServiceProvider' => __DIR__ . '/..' . '/anhskohbo/no-captcha/src/NoCaptchaServiceProvider.php',
@@ -433,6 +439,14 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
         'Barryvdh\\DomPDF\\Facade' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/Facade.php',
         'Barryvdh\\DomPDF\\PDF' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/PDF.php',
         'Barryvdh\\DomPDF\\ServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/ServiceProvider.php',
+        'Caffeinated\\Shinobi\\Facades\\Shinobi' => __DIR__ . '/..' . '/caffeinated/shinobi/src/Facades/Shinobi.php',
+        'Caffeinated\\Shinobi\\Middleware\\UserHasPermission' => __DIR__ . '/..' . '/caffeinated/shinobi/src/Middleware/UserHasPermission.php',
+        'Caffeinated\\Shinobi\\Middleware\\UserHasRole' => __DIR__ . '/..' . '/caffeinated/shinobi/src/Middleware/UserHasRole.php',
+        'Caffeinated\\Shinobi\\Models\\Permission' => __DIR__ . '/..' . '/caffeinated/shinobi/src/Models/Permission.php',
+        'Caffeinated\\Shinobi\\Models\\Role' => __DIR__ . '/..' . '/caffeinated/shinobi/src/Models/Role.php',
+        'Caffeinated\\Shinobi\\Shinobi' => __DIR__ . '/..' . '/caffeinated/shinobi/src/Shinobi.php',
+        'Caffeinated\\Shinobi\\ShinobiServiceProvider' => __DIR__ . '/..' . '/caffeinated/shinobi/src/ShinobiServiceProvider.php',
+        'Caffeinated\\Shinobi\\Traits\\ShinobiTrait' => __DIR__ . '/..' . '/caffeinated/shinobi/src/Traits/ShinobiTrait.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
@@ -445,6 +459,10 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
         'Collective\\Html\\HtmlServiceProvider' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlServiceProvider.php',
         'Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+        'CreatePermissionRoleTable' => __DIR__ . '/../..' . '/database/migrations/2015_01_24_080433_create_permission_role_table.php',
+        'CreatePermissionsTable' => __DIR__ . '/../..' . '/database/migrations/2015_01_24_080208_create_permissions_table.php',
+        'CreateRoleUserTable' => __DIR__ . '/../..' . '/database/migrations/2015_01_20_084525_create_role_user_table.php',
+        'CreateRolesTable' => __DIR__ . '/../..' . '/database/migrations/2015_01_20_084450_create_roles_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/CronExpression.php',

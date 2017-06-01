@@ -1,6 +1,7 @@
  @section('estilos')
     @parent
     <link rel="stylesheet" href="{{asset('assets/plugins/summernote/dist/summernote.css')}}">
+    <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @extends ('layouts.index')
@@ -26,7 +27,8 @@
 
 <div class="row">
     <input type="hidden" name="idausencia" id="idausencia"  value="{{$empleado->idausencia}}">
-    <input type="hidden" class="form-control" name="name" id="name" value="{{Auth::user()->email}}">
+    <input type="hidden" class="form-control" name="emisor" id="emisor" value="{{Auth::user()->email}}">
+    <input type="hidden" class="form-control" name="name" id="name" value="{{$user->nombre1.' '.$user->nombre2.' '.$user->apellido1 }}">
 	<div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-condensed table-hover">
@@ -48,6 +50,9 @@
 				<th>Hora final</th><td>{{$empleado->horafin}}</td>
 				<th>Total horas</th><td>{{$empleado->totalhoras}}</td>
 			</tr>
+      <tr>
+        <th>Justificación</th><td colspan="5">{{$empleado->justificacion}}</td>
+      </tr>      
 			</tbody>
 		</table>
 	</div>
@@ -140,7 +145,10 @@
     @parent
         <script src="{{asset('assets/plugins/summernote/dist/summernote.min.js')}}"></script>
         <script src="{{asset('assets/js/permiso.js')}}"></script>
-            <meta name="_token" content="{!! csrf_token() !!}" />
+        <meta name="_token" content="{!! csrf_token() !!}" />        
+        <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
+        <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
+
 
 
 		<script>

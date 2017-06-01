@@ -1,6 +1,6 @@
 $(document).ready(function(){
     var x = $("#idtipoausencia").val();
-    if(x ==="4")
+    if(x ==="4" || x ==="9")
     {
         $("#divCHM").hide();
         $("#divHMF").hide();
@@ -8,7 +8,6 @@ $(document).ready(function(){
         $("#divJ").hide();
 
     }
-
     if(x == "5")
     {
         $("#divJ").show();
@@ -16,7 +15,7 @@ $(document).ready(function(){
         $("#divHMF").show();
         $("#divENF").hide();                   
     }
-    if(x != "5" && x != "4")
+    if(x != "5" && x != "4" && x != "9")
     {
         $("#divJ").hide();
         $("#divCHM").show();
@@ -26,7 +25,7 @@ $(document).ready(function(){
     $("#idtipoausencia").change(event => {
         var x = $("#idtipoausencia").val();
        
-        if(x ==="4")
+        if(x ==="4" || x ==="9" || x ==="7" || x ==="11" || x ==="6")
         {
             $("#divCHM").hide();
             $("#divHMF").hide();
@@ -41,7 +40,7 @@ $(document).ready(function(){
             $("#divHMF").show();
             $("#divENF").hide();                   
         }
-        if(x != "5" && x != "4")
+        if(x != "5" && x != "4" && x != "9" && x != "7" && x != "11" && x != "6")
         {
             $("#divJ").hide();
             $("#divCHM").show();
@@ -111,18 +110,14 @@ $(document).ready(function(){
             });
     });
 
-    $('#btnnuevo').click(function(e){
-        
-          
-                            $('#inputTitle').html("Solicitud de permiso");
-                $('#formAgregar').trigger("reset");
-                $('#formModal').modal('show');
-                $('#datomar').attr('disabled', 'disabled');
-                $('#hhoras').attr('disabled', 'disabled');
-                $('#dacumulado').attr('disabled', 'disabled');
-                $('#btnguardarV').attr('disabled', 'disabled'); 
-
-            
+    $('#btnnuevo').click(function(e){      
+        $('#inputTitle').html("Solicitud de permiso");
+        $('#formAgregar').trigger("reset");
+        $('#formModal').modal('show');
+        $('#datomar').attr('disabled', 'disabled');
+        $('#hhoras').attr('disabled', 'disabled');
+        $('#dacumulado').attr('disabled', 'disabled');
+        $('#btnguardarV').attr('disabled', 'disabled');           
     });
 
     $("#btnguardarP").click(function(e){
@@ -175,6 +170,7 @@ $(document).ready(function(){
             concurrencia : $("#concurrencia").val(),
             tipocaso : $("#tipocaso").val(),
             juzgadoinstitucion: $("#Jusgado").val(),
+            justificacion: $("#observaciones").val(),
 
         };
         $.ajaxSetup({
@@ -194,6 +190,8 @@ $(document).ready(function(){
                 document.getElementById("dataTableItemsPermiso").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + hinic+ "</td><td>" +hfina +"</td><td>" +"solicitado"+ "</td><td>"+"</td></tr>";
     
                 $('#formModal').modal('hide');
+                $("#erroresContent").html("La solicitud ha sido enviada correctamente"); 
+                $('#erroresModal').modal('show');
                 
             },
             error: function (data) {
@@ -208,13 +206,14 @@ $(document).ready(function(){
                 }
                 $("#erroresContent").html(errHTML); 
                 $('#erroresModal').modal('show');
+                $("#inputError").html("Errores");
             }
 
         });
     });
 });
 
-
+/*
 $(function(){
             $("#form").submit(function(e){
 
@@ -260,3 +259,4 @@ $(function(){
             });
                  
         });
+        */

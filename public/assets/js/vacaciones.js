@@ -48,7 +48,7 @@ $(document).ready(function(){
         $('#formModificar').trigger("reset");
         $('#formGoce').modal('show');
         $("#oculto").hide();
-    });
+    }); 
 
     $('#btnConfirmarV').click(function(e){
         var resultado="ninguno";
@@ -89,12 +89,14 @@ $(document).ready(function(){
         var miurl="vacaciones/update";
 
         var formData = {
+            idausencia: $('#idausencia').val(),
             idempleado: $('#idempleado').val(),
             idvacadetalle: $('#idvacadetalle').val(),
             solhoras: saldoh,
             soldias: saldod,
             goce: resultado,
             name: $('#name').val(),
+            observaciones: $('#observaciones').val(),
         
             
         };
@@ -112,7 +114,13 @@ $(document).ready(function(){
 
             success: function (data) {
                 //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + td + "</td><td>" +th +"</td><td>" +"solicitado"+ "</td></tr>";
-                $('#formGoce').modal('hide');                
+                $('#formGoce').modal('hide');
+                 swal({
+                        title:"Envio correcto",
+                        text: "La solicitud ha sido enviada correctamente",
+                        type: "success",
+                    });
+                                
             },
             error: function (data) {
                 $('#loading').modal('hide');
@@ -185,6 +193,7 @@ $(document).ready(function(){
                 document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + td + "</td><td>" +th +"</td><td>"+0+"</td><td>"+0+"</td><td>" +"solicitado"+ "</td><td>"+"</td></tr>";
     
                 $('#formModal').modal('hide');
+                swal("Envio correcto", "Su jefe inmediato ha sido notificado", "success");
                 
             },
             error: function (data) {
@@ -199,6 +208,8 @@ $(document).ready(function(){
                 }
                 $("#erroresContent").html(errHTML); 
                 $('#erroresModal').modal('show');
+                $("#inputError").html("Errores");
+
             }
 
         });

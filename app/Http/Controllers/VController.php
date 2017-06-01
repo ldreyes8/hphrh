@@ -279,40 +279,39 @@ class VController extends Controller
     $this->validateRequest($request);
     $vacaciones = new Vacaciones;
     $vacadetalle= new Vacadetalle;
-    try 
-    {
-      DB::beginTransaction();
+    //try 
+    //{
+      //DB::beginTransaction();
   
 
-    $fechainicio = $request->fecha_inicio; 
-    $fechafinal = $request->fecha_final;
+      $fechainicio = $request->fecha_inicio; 
+      $fechafinal = $request->fecha_final;
 
-    $fechainicio = Carbon::createFromFormat('d/m/Y',$fechainicio);
-    $fechafinal = Carbon::createFromFormat('d/m/Y',$fechafinal);
+      $fechainicio = Carbon::createFromFormat('d/m/Y',$fechainicio);
+      $fechafinal = Carbon::createFromFormat('d/m/Y',$fechafinal);
 
-    $fechainicio = $fechainicio->toDateString();
-    $fechafinal = $fechafinal->toDateString();
-    
+      $fechainicio = $fechainicio->toDateString();
+      $fechafinal = $fechafinal->toDateString();
+      
 
-    $vacaciones->fechainicio = $fechainicio;
-    $vacaciones->fechafin = $fechafinal;
-    $vacaciones->horainicio = '00:00:00';
-    $vacaciones->horafin = '00:00:00';
-    $vacaciones->idempleado = $request->idempleado;
-    $vacaciones->idmunicipio = $request->idmunicipio;
-    $vacaciones->totaldias = $request->dias;
-    $vacaciones->totalhoras = $request->horas.':00:00';
-    $vacaciones->autorizacion='solicitado';
-    $mytime = Carbon::now('America/Guatemala');
-    $vacaciones->fechasolicitud=$mytime->toDateString();
-    $vacaciones->idtipoausencia= '3';
+      $vacaciones->fechainicio = $fechainicio;
+      $vacaciones->fechafin = $fechafinal;
+      $vacaciones->horainicio = '00:00:00';
+      $vacaciones->horafin = '00:00:00';
+      $vacaciones->idempleado = $request->idempleado;
+      $vacaciones->idmunicipio = $request->idmunicipio;
+      $vacaciones->totaldias = $request->dias;
+      $vacaciones->totalhoras = $request->horas.':00:00';
+      $vacaciones->autorizacion='solicitado';
+      $mytime = Carbon::now('America/Guatemala');
+      $vacaciones->fechasolicitud=$mytime->toDateString();
+      $vacaciones->idtipoausencia= '3';
 
-    $vacaciones->save();
+      $vacaciones->save();
 
+      //Vaca detalle.
 
-    //Vaca detalle.
-
-    $today = Carbon::now();
+      $today = Carbon::now();
       $year = $today->format('Y');
       //$fecha=Carbon::createFromFormat('d/m/Y',$today);
 
@@ -351,88 +350,102 @@ class VController extends Controller
         $ddisponible = $ddisponible - $datomar;
         
       }
-
+ 
+      $vacadetalle->idempleado = $request->idempleado;;
+      $vacadetalle->idausencia = $codigo;
+      $vacadetalle->periodo = $year;
+      $vacadetalle->acuhoras = $hdisponible;
+      $vacadetalle->acudias =  $ddisponible;
+      $vacadetalle->solhoras = '00:00:00';
+      $vacadetalle->soldias = 0;
+      $vacadetalle->estado = 0;
+      $mytime = Carbon::now('America/Guatemala');
+      $vacadetalle->fecharegistro=$mytime->toDateString();
        
-          $vacadetalle->idempleado = $request->idempleado;;
-          $vacadetalle->idausencia = $codigo;
-          $vacadetalle->periodo = $year;
-          $vacadetalle->acuhoras = $hdisponible;
-          $vacadetalle->acudias =  $ddisponible;
-          $vacadetalle->solhoras = '00:00:00';
-          $vacadetalle->soldias = 0;
-          $vacadetalle->estado = 0;
-          $mytime = Carbon::now('America/Guatemala');
-          $vacadetalle->fecharegistro=$mytime->toDateString();
-         
-          $vacadetalle->save();
+      $vacadetalle->save();
 
-          Mail::send('emails.envio',$request->all(), function($msj){
+      $name = $request->name;
 
-      $empleado = DB::table('empleado as e')
-      ->join('persona as p','e.identificacion','=','p.identificacion')
-      ->join('users as U','p.identificacion','=','U.identificacion')
-      ->select('e.idempleado')
-      ->where('U.id','=',Auth::user()->id)
-      ->first();
-  
-      $idpersona = DB::table('asignajefe as aj')
-        ->join('persona as p','aj.identificacion','=','p.identificacion')
-        ->join('users as U','U.identificacion','=','p.identificacion')
-        ->join('empleado as e','e.idempleado','=','aj.idempleado')
-        ->select('U.email')
-        ->where('aj.notifica','=','1')
-        ->where('aj.idempleado','=',$empleado->idempleado)
-        ->get();
-      foreach ($idpersona as $per) {
-        $msj->subject('Solicitud de vacaciones');
-   
-        $msj->to($per->email);
-      }
+      $url = url('empleado/vverificar/'.$codigo);
+      $calculo = array($name,$url);
       
+
+      Mail::send('emails.envacaciones',['calculo' => $calculo], function($msj) use ($request){
+
+        $empleado = DB::table('empleado as e')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->join('users as U','p.identificacion','=','U.identificacion')
+        ->select('e.idempleado')
+        ->where('U.id','=',Auth::user()->id)
+        ->first();
     
-    });
-               DB::commit();
-      }catch (\Exception $e) 
-      {
-        DB::rollback();         
-      }
-
-    //
-
-
+        $idpersona = DB::table('asignajefe as aj')
+          ->join('persona as p','aj.identificacion','=','p.identificacion')
+          ->join('users as U','U.identificacion','=','p.identificacion')
+          ->join('empleado as e','e.idempleado','=','aj.idempleado')
+          ->select('U.email')
+          ->where('aj.notifica','=','1')
+          ->where('aj.idempleado','=',$empleado->idempleado)
+          ->get();
+        foreach ($idpersona as $per) {
+          $msj->subject('Solicitud de vacaciones');
+          $msj->to($per->email);
+        }
+    
+      });
+    //DB::commit();
+    //}catch (\Exception $e) 
+    //{
+      //DB::rollback();         
+    //}
     return response()->json($vacaciones);
   }
 
    public function update(request $request)
   {
+    $idausencia = $request->idausencia;
     
     $idempleado = $request->idempleado;
     $idvacadetalle = $request->idvacadetalle;
 
-
-
     $vacaciones = vacadetalle::find($idvacadetalle);
 
+
+    $ausencia = DB::table('ausencia as a')
+    ->join('vacadetalle as vd','a.idausencia','=','vd.idausencia')
+    ->select('a.idausencia')
+    ->where('vd.idvacadetalle','=',$idvacadetalle)
+    ->first();
+
+   
+    $va = $ausencia->idausencia;
+    
 
     if($request->goce ==="No_gozado")
     {
       $vacaciones->solhoras= $request->solhoras;
       $vacaciones->soldias=$request->soldias; 
       $vacaciones->goce=$request->goce;
-      $vacaciones->estado = '0';      
+      $vacaciones->estado = '0';
+      $vacaciones->observaciones = $request->observaciones;      
     }
     else
     {
       $vacaciones->solhoras= $request->solhoras;
       $vacaciones->soldias=$request->soldias; 
       $vacaciones->goce=$request->goce;
+      $vacaciones->observaciones = $request->observaciones;
     }
-    
+
+    $name = $request->name;
+    $url = url('empleado/vconfirmar/'.$va);
+
+    $calculo = array($name,$url);
 
 
     $vacaciones->save();
 
-    Mail::send('emails.envio',$request->all(), function($msj){
+    Mail::send('emails.envautorizacion',['calculo' => $calculo], function($msj) use ($request){
 
       $empleado = DB::table('empleado as e')
       ->join('persona as p','e.identificacion','=','p.identificacion')
@@ -449,13 +462,11 @@ class VController extends Controller
         ->where('aj.notifica','=','1')
         ->where('aj.idempleado','=',$empleado->idempleado)
         ->get();
+
       foreach ($idpersona as $per) {
-        $msj->subject('Solicitud de vacaciones');
-   
+        $msj->subject('Solicitud de goce vacaciones');   
         $msj->to($per->email);
       }
-      
-    
     });
     
     return response()->json($vacaciones);
@@ -526,13 +537,27 @@ class VController extends Controller
     }
   }
   public function Gpdf(request $request)
-  {      
-      $pdf= PDF::loadView('pdfs.gocevacaciones');
-      return $pdf->download('reporte.pdf');
-  
+  {
+    $usuario = DB::table('users as U')
+    ->join('persona as per','U.identificacion','=','per.identificacion')
+    ->join('empleado as emp','per.identificacion','=','emp.identificacion')
+    ->join('nomytras as nom','emp.idempleado','=','nom.idempleado')
+    ->join('puesto as pue','nom.idpuesto','=','pue.idpuesto')
+    ->join('afiliado as afi','nom.idafiliado','=','afi.idafiliado')
+    ->select('emp.idempleado','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','pue.nombre as puesto','afi.nombre as afiliado')
+    ->where('U.id','=',Auth::user()->id)
+    ->orderBy('nom.idnomytas','desc')
+    ->first();
+
+    $today = Carbon::now();
+    $year = $today->format('d/m/Y');
+
+
+ 
+    $pdf= PDF::loadView('pdfs.gocevacaciones',["usuario"=>$usuario,"year"=>$year]);
+    return $pdf->download('reporte.pdf');
     //return view('empleado.vacaciones.index',["ausencias"=>$ausencias,"searchText"=>$query,'usuarios'=>$usuarios,'ausencia'=>$ausencia,'vacaciones'=>$vacaciones]); 
     //return view ('reporte.gocevacaciones') ;
-    
   }
 
 
@@ -547,7 +572,7 @@ class VController extends Controller
         'max'  => 'La capacidad del campo :attribute es :max',
         ];
         $this->validate($request, $rules,$messages);        
-    }
+  }
 
   public function validateRequest1($request){
         $rules=[
@@ -558,99 +583,5 @@ class VController extends Controller
         'max'  => 'La capacidad del campo :attribute es :max',
         ];
         $this->validate($request, $rules,$messages);        
-    }
-
-
-
-    /*
-  public function store(request $request)
-  {
-    $this->validateRequest($request);      
-
-    $vacaciones = new Vacaciones;
-    $mytime = Carbon::now('America/Guatemala');
-    $fechainicio = $request->fechainicio;
-    $fechafinal = $request->fechafin;
-
-    $today = Carbon::now();
-    $days = 1;
-
-    $today = $today->format('Y-m-d'); 
-    $fechainicio = Carbon::createFromFormat('d/m/Y',$fechainicio);
-    $fechafinal = Carbon::createFromFormat('d/m/Y',$fechafinal);
-  
-    $fini = $fechainicio;
-    $ffin = $fechafinal;
-
-    $fechainicio = $fechainicio->toDateString();
-    $fechafinal = $fechafinal->toDateString();
-      
-    $validator = Validator::make(
-      $request->all(), 
-      $request->rules(),
-      $request->messages()
-    );
-
-    if ($validator->valid())
-    {
-      if ($request->ajax()){
-        if($fechafinal >= $fechainicio){
-          if($fechainicio === $today){
-            return response()->json(array('error' => 'Fecha inicio no puede ser igual ala fecha actual'),200);
-          }
-          else{
-            while ($ffin >= $fini) {
-              if($fini != $ffin){
-                if($fini->isWeekend() === false){ 
-                  $days++;
-                }
-                $fini->addDay();
-              }
-              else{
-                //dd($days);
-                break;
-              }
-            }
-          }
-          return response()->json(["valid" => true], 200);
-        }
-        else{
-          return response()->json(array('error'=>'la fecha inicio no puede ser mayor que la fecha final'),200);
-        }
-      }
-      else
-      {
-        if($fechafinal >= $fechainicio){
-          if($fechainicio === $today){
-            return Redirect('empleado/vacaciones')
-            ->with('message','La fecha inicio no puede ser igual a la fecha actual');
-          }
-          else{
-            while ($ffin >= $fini) {
-              if($fini != $ffin){
-                if($fini->isWeekend() === false){ 
-                  $days++;
-                }
-                $fini->addDay();
-              }
-              else{
-                //dd($days);
-                break;
-              }
-            }
-          }
-          dd($days,$fini,$ffin);
-          return Redirect('empleado/vacaciones')
-          ->with('message','Envio correctamente');
-          $request->input('fechainicio');
-          $request->input('fechafin');
-        }
-        else{
-          return Redirect('empleado/vacaciones')
-          ->with('message','La fecha inicio debe ser antes que la fecha final');                
-        }         
-      }
-    }     
   }
-*/
 }

@@ -9,6 +9,7 @@ function cargaracademico(listado){
 
 $(document).ready(function(){
 	$('#btnguardar').click(function(e){
+
 		var miurl = "enviarpermiso";
 		nivel = $("#emisor").val();
 
@@ -31,6 +32,7 @@ $(document).ready(function(){
 			receptor: $("#receptor").val(),
 			idausencia: $("#idausencia").val(),
 			name: $("#name").val(),
+            emisor: $("#emisor").val(), 
 		};
 		$.ajaxSetup({
             headers: {
@@ -45,9 +47,16 @@ $(document).ready(function(){
             dataType: 'json',
 
             success: function (data) {
-                //console.log(formData.txtmail);
-  $("#doculto").hide();                 //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +data.titulo+ "</td><td>" +data.establecimiento + "</td><td>" +data.duracion + ": " + data.periodo + "</td><td>" +nivel + "</td><td>" +fingreso + "</td><td>" +fsalida + "</td></tr>";    
-                //$('#formModal').modal('hide'); 
+          
+            swal({
+                title:"Envio correcto",
+                text: "El permiso ha sido autorizado, se ha enviado un correo automaticamente al empleado",
+                type: "success"
+            },
+            function(){
+                window.location.href="/empleado/permisos"
+            });
+ 
                 
             },
             error: function (data) {
@@ -68,9 +77,10 @@ $(document).ready(function(){
 	});
 
     $('#btnguardarv').click(function(e){
+
+
         var miurl = "enviarvacaciones";
         nivel = $("#emisor").val();
-
 
         var resultado="ninguno";
 
@@ -109,7 +119,18 @@ $(document).ready(function(){
             dataType: 'json',
 
             success: function (data) {
-                $("#conte").hide();
+                swal({
+                title:"Envio correcto",
+                text: "La vacaciones ha sido autorizado, se ha enviado un correo automaticamente al empleado",
+                type: "success"
+            },
+            function(){
+                window.location.href="/empleado/vsolicitado";
+            });
+               
+                //window.location.replace("vsolicitado");
+        
+                //$("#conte").hide();
                 //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +data.titulo+ "</td><td>" +data.establecimiento + "</td><td>" +data.duracion + ": " + data.periodo + "</td><td>" +nivel + "</td><td>" +fingreso + "</td><td>" +fsalida + "</td></tr>";    
                 //$('#formModal').modal('hide');
                 
@@ -135,6 +156,8 @@ $(document).ready(function(){
         $("#oculto").show();
     });
 
+    ////
+    ////
     $('#btnconfirmarv').click(function(e){
         var miurl = "enviarconfirmacion";
         nivel = $("#emisor").val();
@@ -176,10 +199,14 @@ $(document).ready(function(){
             dataType: 'json',
 
             success: function (data) {
-                console.log(formData.txtmail);
-                
-        $("#botones").hide();
-        $("#edit").hide(); 
+            swal({
+                title:"Envio correcto",
+                text: "La vacaciones han sido confirmadas, se ha enviado un correo automaticamente al empleado",
+                type: "success"
+            },
+            function(){
+                window.location.href="/empleado/vautorizado";
+            }); 
                 //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +data.titulo+ "</td><td>" +data.establecimiento + "</td><td>" +data.duracion + ": " + data.periodo + "</td><td>" +nivel + "</td><td>" +fingreso + "</td><td>" +fsalida + "</td></tr>";    
                 //$('#formModal').modal('hide');
                 

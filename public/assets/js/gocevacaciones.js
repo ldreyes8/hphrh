@@ -305,6 +305,7 @@ $(document).ready(function(){
         });
 
     });
+    /*
 
     $("#btndescargar").click(function(e){
 
@@ -343,5 +344,5 @@ $(document).ready(function(){
             }
         });
 
-    });
+    });*/
 });

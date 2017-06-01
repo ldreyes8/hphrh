@@ -5,13 +5,10 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
         <meta name="author" content="Coderthemes">
-
         
 
         <title>Habitat para la Humanidad</title>
 
-
-        
         @section('estilos')
         <link rel="shortcut icon" href="{{asset('assets/images/Habitat.ico')}}">
 
@@ -217,17 +214,19 @@
                                     <li><a href="{{ url('/empleado/vacaciones')}}">Vacaciones</a></li>
                                     <li><a href="{{ url('/empleado/permiso')}}">Permisos</a></li>
                                     <li><a href="{{ url('/empleado/goce')}}">Constancia de vacaciones</a></li>
+
                                 </ul>
                             </li>
 
-                            <!--
+                            
+                            @role('RH') 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
                                         class="fa fa-vcard"></i><span>Recursos Humanos</span> 
                                          <span class="menu-arrow"></span>
                                 </a><!--<span
                                         class="label label-success pull-right">6</span> -->
-                            <!--
+                            
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/empleado/solicitante')}}">Solicitud</a></li>
                                     <li><a href="{{ url('/listados/empleado')}}">Listado de empleados</a></li>
@@ -237,27 +236,26 @@
                                     <li><a href="{{ url('/mintrabf')}}">Ministerio de trabajo</a></li>
                                 </ul>
                             </li>
-                            -->
+                            @endrole
 
-                            <!--
-
+                            @role('informatica') 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
                                         class="md md-assignment"></i><span>Panel de control</span> 
                                          <span class="menu-arrow"></span>
                                 </a><!--<span
                                         class="label label-success pull-right">6</span> -->
-                            <!--    <ul class="list-unstyled">
+                                <ul class="list-unstyled">
                                     <li><a href="{{ url('/seguridad/usuario')}}">Registro usuario</a></li>
                               
                                 </ul>
                             </li>
-                            -->
+                            @endrole
+                            
 
-                            <!--
+                            @role('jefeinmediato') 
                             <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i
-                                        class="md md-assignment"></i><span>Permisos</span> 
+                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Permisos</span> 
                                          <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="list-unstyled">
@@ -268,8 +266,7 @@
                                 </ul>
                             </li>
                             <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i
-                                        class="md md-assignment"></i><span>Vacaciones</span> 
+                                <a href="javascript:void(0);" class="waves-effect waves-primary"> <i class="fa fa-address-card-o"></i><span>Vacaciones</span> 
                                          <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="list-unstyled">
@@ -279,7 +276,8 @@
                                     <li><a href="{{ url('/empleado/vrechazado')}}">Rechazados</a></li>
                                 </ul>
                             </li>
-                            -->
+                            @endrole
+
 
                             <li class="menu-title">Mas</li>
                         </ul>

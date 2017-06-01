@@ -184,7 +184,6 @@
                             <br>
                             <button type="button" class="btn btn-success" id="btndatomar">Dias a tomar</button>
                         </div>
-
                                         
                         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                             <label for="numerodependientes">Dias</label>
@@ -199,10 +198,22 @@
                             </select>
                         </div>
                     </div>
-                     <input type="checkbox" id="casilla" value="1" onclick="desactivar()"/>Activar campo Dias y Hora 
-                </div>   
-            </form>
+                    <div class="modal-header">
+                        <input type="checkbox" id="casilla" value="1" onclick="desactivar()"/>Activar campo Dias y Hora
+                    </div> 
+                </div>
 
+
+                <div class="modal-header">
+                    <div><p><br></p></div>
+                    <div class="form-group">
+                        <label>Justificación</label>
+                        <textarea class="form-control" placeholder=".........." id="observaciones" rows="3" maxlength="100"></textarea>
+                    </div>
+                </div>
+               
+
+            </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-primary" id="btnguardarP">Guardar</button>
@@ -218,7 +229,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">Errores</h4>
+        <h4 class="modal-title" id="inputError"></h4>
+
       </div>
 
       <div class="modal-body">

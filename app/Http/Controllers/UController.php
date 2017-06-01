@@ -32,6 +32,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
+
+
+
 class UController extends Controller
 {
 	public function __construct()

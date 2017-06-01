@@ -157,7 +157,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">Errores</h4>
+        <h4 class="modal-title" id="inputError"></h4>
       </div>
 
       <div class="modal-body">
@@ -202,7 +202,6 @@
                             </div>
                         </div>
                        
-
                         <div class="modal-header" id="oculto">
                             <br>
                             <h4>Seleccione los días no tomados</h4>
@@ -220,6 +219,14 @@
                                 </select>
                             </div>
 
+                        </div>
+
+                        <div class="modal-header">
+                            <div><p><br></p></div>
+                            <div class="form-group">
+                                <label>Justificación</label>
+                                <textarea class="form-control" placeholder=".........." id="observaciones" rows="3" maxlength="100"></textarea>
+                            </div>
                         </div>          
                     </form>
 
