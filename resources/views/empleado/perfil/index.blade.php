@@ -3,6 +3,8 @@
     @parent
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet" />
+        
+
 @endsection
 @section ('contenido')
 
@@ -21,9 +23,9 @@
                     <div class="member-card">
                         <div class="thumb-xl member-thumb m-b-10 center-block">
                             @if (Auth::user()->fotoperfil==="")
-                                <img  src="{{asset('imagenes/avatar.jpg')}}" alt="user-img" class="img-circle" width="118px height 118px" id="fotografiaus">
+                                <img  src="{{asset('imagenes/avatar.jpg')}}" class="img-circle" alt="profile-image" width="118px" height ="118px" id="fotografiaus">
                             @else
-                                <img  src="{{asset('fotografias/'.Auth::user()->fotoperfil)}}" alt="user-img" class="img-circle" width="118px height 118px" id="fotografiaus">
+                                <img  src="{{asset('fotografias/'.Auth::user()->fotoperfil)}}" class="img-circle" alt="profile-image" width="118px" height ="118px" id="fotografiaus">
                             @endif
                     
                         </div>
