@@ -1,10 +1,10 @@
-<div class="tab-pane" id="otros">
+<div class="tab-pane" id="eventos">
     <div class="panel-heading">
         <!--button class="btn btn-success" id="btnAgregarO"><i class="icon-user icon-white" ></i> Agregar otros</button-->
     </div>
   <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
     <div class="table-responsive" id="tabla">
-      <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsO">
+      <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsEv">
         <thead>
           <th style="width: 20%">Cel. institucional</th>
           <th>Talla</th>
@@ -17,8 +17,8 @@
               <tr class="even gradeA" id="idem{{$empleado->idempleado}}">
                 <td>{{$empleado->celcorporativo}}</td>
                 <td>{{$empleado->talla}}</td>
-                <td>{{$empleado->altura}}&nbsp;Metros</td>
-                <td>{{$empleado->peso}}&nbsp;Libras</td>
+                <td>{{$empleado->altura}}</td>
+                <td>{{$empleado->peso}}</td>
                 <td>
                   <button class="fa fa-pencil btn-editar-cel" value="{{$empleado->idempleado}}"></button>
                 </td>
@@ -30,15 +30,15 @@
   </div>
 </div>
   <div class="col-lg-12">
-    <div class="modal fade" id="formModalO" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="formModalEv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="inputTitleO"></h4>
+              <h4 class="modal-title" id="inputTitleEv"></h4>
           </div>
           <div class="modal-body">
-             	<form role="form" id="formAgregarO">
+             	<form role="form" id="formAgregarEv">
                 @if (isset($empleado))
                   <input type="hidden" id="idempleado" name="idempleado" value="{{$empleado->idempleado}}">                 
                 @endif
@@ -60,24 +60,22 @@
                       </div>
                   </div>
                   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" >
-                    <label for="altura">Altura</label>
-                      <div class="input-group">
-                        <input type="text" id="altura" placeholder="Metros" name="altura" maxlength="15" class="form-control">
-                        <span class="input-group-addon">Mts.</i></span>
+                      <div class="form-group">
+                        <label for="altura">Altura</label>
+                        <input type="text" id="altura" placeholder="1.75 mts" name="altura" maxlength="15" class="form-control">
                       </div>
                   </div>
                   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" >
-                    <label for="profesion">Peso</label>
-                      <div class="input-group">
-                        <input type="text" id="peso" placeholder="Libras" name="peso" maxlength="15" class="form-control">
-                        <span class="input-group-addon">Lbs.</i></span>
+                      <div class="form-group">
+                        <label for="profesion">Peso</label>
+                        <input type="text" id="peso" placeholder="120 lbs" name="peso" maxlength="15" class="form-control">
                       </div>
                   </div>                    
               	</form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" id="btnGuardarO">Guardar</button>
+            <button type="button" class="btn btn-primary" id="btnGuardarEv">Guardar</button>
             <input type="hidden" id="idem" name="idem" value="0"/>
           </div>
         </div>
@@ -85,7 +83,7 @@
     </div>
   </div>
 
-<div class="modal fade" id="erroresModalO" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+<div class="modal fade" id="erroresModalEv" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -96,7 +94,7 @@
       </div>
 
       <div class="modal-body">
-        <ul style="list-style-type:circle" id="erroresContentO"></ul>
+        <ul style="list-style-type:circle" id="erroresContentEv"></ul>
       </div>
 
       <div class="modal-footer">
@@ -106,7 +104,7 @@
   </div>
 </div>
 
-<script src="{{asset('assets/js/otros.js')}}"></script>
+<script src="{{asset('assets/js/eventos.js')}}"></script>
 <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/datapickerf.js')}}"></script>
 <script type="text/javascript">
   function valida(e){

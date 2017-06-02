@@ -62,7 +62,7 @@ $(document).ready(function(){
 
             success: function (data) {
                 var item = '<tr class="even gradeA" id="idem'+data.idempleado+'">';
-                    item += '<td>'+data.celcorporativo+'</td>'+'<td>' +data.talla+ '</td>'+'<td>'+data.altura+'</td>'+'<td>'+data.peso+'</td>';
+                    item += '<td>'+data.celcorporativo+'</td>'+'<td>' +data.talla+ '</td>'+'<td>'+data.altura+'&nbsp;Metros</td>'+'<td>'+data.peso+'&nbsp;Libras</td>';
                     item += '<td><button class="fa fa-pencil btn-editar-cel" value="'+data.idempleado+'"></button>';
                     $("#idem"+idem).replaceWith(item);
                 /*if (state == "add")
