@@ -39,8 +39,24 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
+        if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) {
+            return false;
+            }
+        else {
+                $.ajax({
+                    type: "DELETE",
+                    url: 'deletecredito/' + idco,
+                    success: function (data) {
+                        console.log(data);
+                        $("#deudas" + idco).remove();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+            }
 
-        $.ajax({
+        /*$.ajax({
             type: "DELETE",
             url: 'deletecredito/' + idco,
             success: function (data) {
@@ -50,7 +66,7 @@ $(document).ready(function(){
             error: function (data) {
                 console.log('Error:', data);
             }
-        });
+        });*/
 
         $("#erroresContentC").html(errHTML); 
         $('#erroresModalC').modal('show');
