@@ -58,7 +58,7 @@ $(document).ready(function(){
               
                 swal({
                     title:"Envio correcto",
-                    text: "El permiso ha sido autorizado, se ha enviado un correo automaticamente al empleado",
+                    text: "Se ha notificado al empleado",
                     type: "success"
                 },
                 function(){
@@ -138,7 +138,7 @@ $(document).ready(function(){
                 success: function (data) {
                     swal({
                     title:"Envio correcto",
-                    text: "La vacaciones ha sido autorizado, se ha enviado un correo automaticamente al empleado",
+                    text: "se ha notificado al empleado",
                     type: "success"
                 },
                 function(){
@@ -231,7 +231,7 @@ $(document).ready(function(){
                 success: function (data) {
                 swal({
                     title:"Envio correcto",
-                    text: "La vacaciones han sido confirmadas, se ha enviado un correo automaticamente al empleado",
+                    text: "se ha notificado al empleado",
                     type: "success"
                 },
                 function(){
