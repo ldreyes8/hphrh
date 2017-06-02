@@ -8,47 +8,48 @@ function cargarcredito(listado){
 
 $(document).ready(function(){
    	$('#btnAgregarC').click(function(){
-    	$('#inputTitleC').html("Agregar crédito");
+    	$('#inputTitleC').html("Agregar crédito"); //asignar un titulo al modal
     	$('#formAgregarC').trigger("reset");
-        $('#btnGuardarC').val('add');
-    	$('#formModalC').modal('show');
+        $('#btnGuardarC').val('add'); //le asignamos un valor al boton guardar para que el evento se guardar y no actualizar
+    	$('#formModalC').modal('show'); //inicializa en modal  e invocamos al metodo show inmediatemaente 
 	});
 
     $(document).on('click','.btn-editar-credito',function(){
-        var idco=$(this).val();
-        var miurl="listarcredito1";
-        $.get(miurl+'/'+ idco,function(data){
-            console.log(data);
-            $('#idco').val(data.idpdeudas);
-            $('#acreedor').val(data.acreedor);
-            $('#amortizacionmensual').val(data.amortizacionmensual);
-            $('#montodeuda').val(data.montodeuda);
-            $('#mdeuda').val(data.motivodeuda);
+        var idco=$(this).val(); //obtenemos el valor del fila que deceamos actualizar 
+        var miurl="listarcredito1"; // url que nos va a cagar toda la data de este id fila a modificar 
+        $.get(miurl+'/'+ idco,function(data){  //obteneomos toda la data de la url y del id especificado
+            console.log(data); //mostramos la data en consola 
+            $('#idco').val(data.idpdeudas); //obtenemos el id para cargar DB
+            $('#acreedor').val(data.acreedor); //obtenemos el valor campo acreedor de la DB
+            $('#amortizacionmensual').val(data.amortizacionmensual);//
+            $('#montodeuda').val(data.montodeuda);//
+            $('#mdeuda').val(data.motivodeuda);//
 
-            $('#inputTitleC').html("Modificar crédito");
-            $('#formModalC').modal('show');
-            $('#btnGuardarC').val('update');
-            $('loading').modal('hide');
+            $('#inputTitleC').html("Modificar crédito");// cargamos el tiulo del modal 
+            $('#formModalC').modal('show');//abrimos el modal ya con los datos del id que deceamos modificar ya con la data 
+            $('#btnGuardarC').val('update');//asignamos valor al boton guardar para que actualize
+            $('loading').modal('hide');//carga del modal
         });
     });
 
     $(document).on('click','.btn-delete-credito',function(){
-        var idco=$(this).val();
+        var idco=$(this).val(); //obtenemo id de la fila que deceamos eliminar
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
+        //mensaje de alerta para la eliminación
         if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) {
-            return false;
+            return false;//Si es cancelar retornanmos el false que es el cierre de la alerta sin que se realiza ningun  cambio 
             }
         else {
                 $.ajax({
-                    type: "DELETE",
-                    url: 'deletecredito/' + idco,
+                    type: "DELETE", //DELETE significa el tipon de metodo que estamos utiliando para la eliminación 
+                    url: 'deletecredito/' + idco, //mandamos el id a la url para que elimine el campo de la DB
                     success: function (data) {
-                        console.log(data);
-                        $("#deudas" + idco).remove();
+                        console.log(data);//cargamos la data
+                        $("#deudas" + idco).remove();//eliminamos la fila de la tabla 
                     },
                     error: function (data) {
                         console.log('Error:', data);
@@ -75,7 +76,7 @@ $(document).ready(function(){
     $("#btnGuardarC").click(function(e){
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')// token para poder enviar el formullario de lo contrario no podremos realizar el crud
             }
         });
 
@@ -93,7 +94,7 @@ $(document).ready(function(){
         var idco=$('#idco').val();
         var my_url;
 
-        if (state == "update") 
+        if (state == "update") //validacion para que sea de tipo actualizar el campo que deceamos 
                 {
                     type="PUT";
                     my_url = 'updateco/'+idco;
