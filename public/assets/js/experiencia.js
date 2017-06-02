@@ -43,7 +43,24 @@ $(document).ready(function(){
             }
         });
 
-        $.ajax({
+        if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) {
+            return false;
+            }
+        else {
+                $.ajax({
+                    type: "DELETE",
+                    url: 'deletexp/' + idex,
+                    success: function (data) {
+                        console.log(data);
+                        $("#experiencia" + idex).remove();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+            }
+
+        /*$.ajax({
             type: "DELETE",
             url: 'deletexp/' + idex,
             success: function (data) {
@@ -53,7 +70,7 @@ $(document).ready(function(){
             error: function (data) {
                 console.log('Error:', data);
             }
-        });
+        });*/
 
         $("#erroresContentE").html(errHTML); 
         $('#erroresModalE').modal('show');

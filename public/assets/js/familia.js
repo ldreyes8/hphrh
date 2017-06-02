@@ -47,7 +47,24 @@ $(document).ready(function(){
             }
         });
 
-        $.ajax({
+        if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) {
+            return false;
+            }
+            else {
+                $.ajax({
+                    type: "DELETE",
+                    url: 'deletefam/' + idfam,
+                    success: function (data) {
+                        console.log(data);
+                        $("#fam" + idfam).remove();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+            }
+
+        /*$.ajax({
             type: "DELETE",
             url: 'deletefam/' + idfam,
             success: function (data) {
@@ -57,7 +74,7 @@ $(document).ready(function(){
             error: function (data) {
                 console.log('Error:', data);
             }
-        });
+        });*/
 
             $("#erroresContentF").html(errHTML); 
             $('#erroresModalF').modal('show');

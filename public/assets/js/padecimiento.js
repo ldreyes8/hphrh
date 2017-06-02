@@ -36,7 +36,24 @@ $(document).ready(function(){
             }
         });
 
-        $.ajax({
+        if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) {
+            return false;
+            }
+        else {
+                $.ajax({
+                    type: "DELETE",
+                    url: 'deletepad/' + idpad,
+                    success: function (data) {
+                        console.log(data);
+                        $("#pad" + idpad).remove();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+            }
+
+        /*$.ajax({
             type: "DELETE",
             url: 'deletepad/' + idpad,
             success: function (data) {
@@ -46,7 +63,7 @@ $(document).ready(function(){
             error: function (data) {
                 console.log('Error:', data);
             }
-        });
+        });*/
 
         $("#erroresContentP").html(errHTML); 
         $('#erroresModalP').modal('show');
