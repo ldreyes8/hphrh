@@ -219,7 +219,7 @@
                             </li>
 
                             
-                            @role('RH') 
+                            @role('recurso') 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
                                         class="fa fa-vcard"></i><span>Recursos Humanos</span> 
