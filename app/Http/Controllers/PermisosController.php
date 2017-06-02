@@ -123,23 +123,32 @@ class PermisosController extends Controller
 
     public function enviarpermiso(Request $request)
     {
-      $this->validateRequest($request);  
+      try 
+      {
+        $this->validateRequest($request);  
 
-      $codigo=$request->idausencia;
-     
-      $ausencia = Vacaciones::find($codigo);
+        $codigo=$request->idausencia;
+       
+        $ausencia = Vacaciones::find($codigo);
 
-      $ausencia->observaciones = $request->observaciones;
-      $ausencia->autorizacion = $request->autorizacion;
-      $ausencia->save();
+        $ausencia->observaciones = $request->observaciones;
+        $ausencia->autorizacion = $request->autorizacion;
+        $ausencia->save();
 
-      
-      Mail::send('emails.envempermiso',$request->all(), function($msj) use ($request){
-        $receptor = $request->receptor;
-        $msj->subject('Respuesta de solicitud de permiso');
-        $msj->to($receptor);
-                //$msj->to('drdanielreyes5@gmail.com');
-      });
+        
+        Mail::send('emails.envempermiso',$request->all(), function($msj) use ($request){
+          $receptor = $request->receptor;
+          $msj->subject('Respuesta de solicitud de permiso');
+          $msj->to($receptor);
+                  //$msj->to('drdanielreyes5@gmail.com');
+        });
+
+        DB::commit();
+      }catch (\Exception $e) 
+      {
+        DB::rollback();
+        return response()->json(array('error' => 'No se ha podido enviar la respuesta'),404);         
+      }
 
       return response()->json($ausencia);
     }

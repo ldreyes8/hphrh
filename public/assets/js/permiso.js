@@ -9,146 +9,168 @@ function cargaracademico(listado){
 
 $(document).ready(function(){
 	$('#btnguardar').click(function(e){
-
-		var miurl = "enviarpermiso";
-		nivel = $("#emisor").val();
-
-
-		var resultado="ninguno";
-
-        var porNombre=document.getElementsByName("autorizacion");
-
-        // Recorremos todos los valores del radio button para encontrar el
-        // seleccionado
-        for(var i=0;i<porNombre.length;i++)
+        e.preventDefault();
+        //Guardamos la referencia al formulario
+        var $f = $(this);
+        //Comprobamos si el semaforo esta en verde (1)
+        if($f.data('locked') == undefined && !$f.data('locked'))
         {
-        	if(porNombre[i].checked)
-        		resultado=porNombre[i].value;
-        }
+    		var miurl = "enviarpermiso";
+    		nivel = $("#emisor").val();
 
-		var formData = {
-			observaciones :$("#observaciones").val(),
-			autorizacion: resultado,
-			receptor: $("#receptor").val(),
-			idausencia: $("#idausencia").val(),
-			name: $("#name").val(),
-            emisor: $("#emisor").val(), 
-		};
-		$.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+    		var resultado="ninguno";
+
+            var porNombre=document.getElementsByName("autorizacion");
+
+            // Recorremos todos los valores del radio button para encontrar el
+            // seleccionado
+            for(var i=0;i<porNombre.length;i++)
+            {
+            	if(porNombre[i].checked)
+            		resultado=porNombre[i].value;
             }
-        });
 
-        $.ajax({
-            type: "POST",
-            url: miurl,
-            data: formData,
-            dataType: 'json',
-
-            success: function (data) {
-          
-            swal({
-                title:"Envio correcto",
-                text: "El permiso ha sido autorizado, se ha enviado un correo automaticamente al empleado",
-                type: "success"
-            },
-            function(){
-                window.location.href="/empleado/permisos"
-            });
- 
-                
-            },
-            error: function (data) {
-                $('#loading').modal('hide');
-                var errHTML="";
-                if((typeof data.responseJSON != 'undefined')){
-                    for( var er in data.responseJSON){
-                        errHTML+="<li>"+data.responseJSON[er]+"</li>";
-                    }
-                }else{
-                    errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+    		var formData = {
+    			observaciones :$("#observaciones").val(),
+    			autorizacion: resultado,
+    			receptor: $("#receptor").val(),
+    			idausencia: $("#idausencia").val(),
+    			name: $("#name").val(),
+                emisor: $("#emisor").val(), 
+    		};
+    		$.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                 }
-                $("#erroresContent").html(errHTML); 
-                $('#erroresModal').modal('show');
-            }
-        });
-        
+            });
+
+            $.ajax({
+                type: "POST",
+                url: miurl,
+                data: formData,
+                dataType: 'json',
+
+
+                beforeSend: function(){ $f.data('locked', true);  // (2)
+                },
+
+                success: function (data) {
+              
+                swal({
+                    title:"Envio correcto",
+                    text: "El permiso ha sido autorizado, se ha enviado un correo automaticamente al empleado",
+                    type: "success"
+                },
+                function(){
+                    window.location.href="/empleado/permisos"
+                });
+     
+                    
+                },
+                error: function (data) {
+                    $('#loading').modal('hide');
+                    var errHTML="";
+                    if((typeof data.responseJSON != 'undefined')){
+                        for( var er in data.responseJSON){
+                            errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                        }
+                    }else{
+                        errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                    }
+                    $("#erroresContent").html(errHTML); 
+                    $('#erroresModal').modal('show');
+                },
+                complete: function(){ $f.data('locked', false);  // (3)
+                }
+            });
+        }else{
+            alert("se esta enviando su solicitud");
+        }        
 	});
 
     $('#btnguardarv').click(function(e){
+        e.preventDefault();
+        var $f = $(this);
 
-
-        var miurl = "enviarvacaciones";
-        nivel = $("#emisor").val();
-
-        var resultado="ninguno";
-
-        var porNombre=document.getElementsByName("autorizacion");
-
-        // Recorremos todos los valores del radio button para encontrar el
-        // seleccionado
-        for(var i=0;i<porNombre.length;i++)
+        if($f.data('locked') == undefined && !$f.data('locked'))
         {
-            if(porNombre[i].checked)
-                resultado=porNombre[i].value;
-        }
+            var miurl = "enviarvacaciones";
+            nivel = $("#emisor").val();
 
-        var formData = {
-            observaciones :$("#observaciones").val(),
-            autorizacion: resultado,
-            receptor: $("#receptor").val(),
-            idausencia: $("#idausencia").val(),
-            name: $("#name").val(),
-            idempleado: $("#idempleado").val(),
-            hatomar: $("#hatomar").val(),
-            datomar: $("#datomar").val(),
-            hdisponible: $("#hdisponible").val(),
-            ddisponible: $("#ddisponible").val(),
-        };
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            var resultado="ninguno";
+
+            var porNombre=document.getElementsByName("autorizacion");
+
+            // Recorremos todos los valores del radio button para encontrar el
+            // seleccionado
+            for(var i=0;i<porNombre.length;i++)
+            {
+                if(porNombre[i].checked)
+                    resultado=porNombre[i].value;
             }
-        });
 
-        $.ajax({
-            type: "POST",
-            url: miurl,
-            data: formData,
-            dataType: 'json',
-
-            success: function (data) {
-                swal({
-                title:"Envio correcto",
-                text: "La vacaciones ha sido autorizado, se ha enviado un correo automaticamente al empleado",
-                type: "success"
-            },
-            function(){
-                window.location.href="/empleado/vsolicitado";
-            });
-               
-                //window.location.replace("vsolicitado");
-        
-                //$("#conte").hide();
-                //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +data.titulo+ "</td><td>" +data.establecimiento + "</td><td>" +data.duracion + ": " + data.periodo + "</td><td>" +nivel + "</td><td>" +fingreso + "</td><td>" +fsalida + "</td></tr>";    
-                //$('#formModal').modal('hide');
-                
-            },
-            error: function (data) {
-                $('#loading').modal('hide');
-                var errHTML="";
-                if((typeof data.responseJSON != 'undefined')){
-                    for( var er in data.responseJSON){
-                        errHTML+="<li>"+data.responseJSON[er]+"</li>";
-                    }
-                }else{
-                    errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+            var formData = {
+                observaciones :$("#observaciones").val(),
+                autorizacion: resultado,
+                receptor: $("#receptor").val(),
+                idausencia: $("#idausencia").val(),
+                name: $("#name").val(),
+                idempleado: $("#idempleado").val(),
+                hatomar: $("#hatomar").val(),
+                datomar: $("#datomar").val(),
+                hdisponible: $("#hdisponible").val(),
+                ddisponible: $("#ddisponible").val(),
+            };
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                 }
-                $("#erroresContent").html(errHTML); 
-                $('#erroresModal').modal('show');
-            }
-        });
+            });
+
+            $.ajax({
+                type: "POST",
+                url: miurl,
+                data: formData,
+                dataType: 'json',
+
+                beforeSend: function(){ $f.data('locked', true);  // (2)
+                },
+                success: function (data) {
+                    swal({
+                    title:"Envio correcto",
+                    text: "La vacaciones ha sido autorizado, se ha enviado un correo automaticamente al empleado",
+                    type: "success"
+                },
+                function(){
+                    window.location.href="/empleado/vsolicitado";
+                });
+                   
+                    //window.location.replace("vsolicitado");
+            
+                    //$("#conte").hide();
+                    //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +data.titulo+ "</td><td>" +data.establecimiento + "</td><td>" +data.duracion + ": " + data.periodo + "</td><td>" +nivel + "</td><td>" +fingreso + "</td><td>" +fsalida + "</td></tr>";    
+                    //$('#formModal').modal('hide');
+                    
+                },
+                error: function (data) {
+                    $('#loading').modal('hide');
+                    var errHTML="";
+                    if((typeof data.responseJSON != 'undefined')){
+                        for( var er in data.responseJSON){
+                            errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                        }
+                    }else{
+                        errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                    }
+                    $("#erroresContent").html(errHTML); 
+                    $('#erroresModal').modal('show');
+                },
+                complete: function(){ $f.data('locked', false);  // (3)
+                }
+            });
+        }else{
+            alert("se esta enviando su solicitud");
+        }
         
     });
 
@@ -159,73 +181,86 @@ $(document).ready(function(){
     ////
     ////
     $('#btnconfirmarv').click(function(e){
-        var miurl = "enviarconfirmacion";
-        nivel = $("#emisor").val();
+        e.preventDefault();
+        var $f = $(this);
 
-
-        var resultado="ninguno";
-
-        var porNombre=document.getElementsByName("autorizacion");
-
-        // Recorremos todos los valores del radio button para encontrar el
-        // seleccionado
-        for(var i=0;i<porNombre.length;i++)
+        if($f.data('locked') == undefined && !$f.data('locked'))
         {
-            if(porNombre[i].checked)
-                resultado=porNombre[i].value;
-        }
+            var miurl = "enviarconfirmacion";
+            nivel = $("#emisor").val();
 
-        var formData = {
-            observaciones :$("#observaciones").val(),
-            autorizacion: resultado,
-            receptor: $("#receptor").val(),
-            idausencia: $("#idausencia").val(),
-            name: $("#name").val(),
-            idempleado: $("#idempleado").val(),
-            idvacadetalle: $("#idvacadetalle").val(),
-            solhoras: $("#hhoras").val(),
-            soldias: $("#dnotomado").val(),
-        };
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+
+            var resultado="ninguno";
+
+            var porNombre=document.getElementsByName("autorizacion");
+
+            // Recorremos todos los valores del radio button para encontrar el
+            // seleccionado
+            for(var i=0;i<porNombre.length;i++)
+            {
+                if(porNombre[i].checked)
+                    resultado=porNombre[i].value;
             }
-        });
 
-        $.ajax({
-            type: "POST",
-            url: miurl,
-            data: formData,
-            dataType: 'json',
-
-            success: function (data) {
-            swal({
-                title:"Envio correcto",
-                text: "La vacaciones han sido confirmadas, se ha enviado un correo automaticamente al empleado",
-                type: "success"
-            },
-            function(){
-                window.location.href="/empleado/vautorizado";
-            }); 
-                //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +data.titulo+ "</td><td>" +data.establecimiento + "</td><td>" +data.duracion + ": " + data.periodo + "</td><td>" +nivel + "</td><td>" +fingreso + "</td><td>" +fsalida + "</td></tr>";    
-                //$('#formModal').modal('hide');
-                
-            },
-            error: function (data) {
-                $('#loading').modal('hide');
-                var errHTML="";
-                if((typeof data.responseJSON != 'undefined')){
-                    for( var er in data.responseJSON){
-                        errHTML+="<li>"+data.responseJSON[er]+"</li>";
-                    }
-                }else{
-                    errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+            var formData = {
+                observaciones :$("#observaciones").val(),
+                autorizacion: resultado,
+                receptor: $("#receptor").val(),
+                idausencia: $("#idausencia").val(),
+                name: $("#name").val(),
+                idempleado: $("#idempleado").val(),
+                idvacadetalle: $("#idvacadetalle").val(),
+                solhoras: $("#hhoras").val(),
+                soldias: $("#dnotomado").val(),
+            };
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                 }
-                $("#erroresContent").html(errHTML); 
-                $('#erroresModal').modal('show');
-            }
-        });
-        
+            });
+
+            $.ajax({
+                type: "POST",
+                url: miurl,
+                data: formData,
+                dataType: 'json',
+
+                beforeSend: function(){ $f.data('locked', true);  // (2)
+                },
+
+                success: function (data) {
+                swal({
+                    title:"Envio correcto",
+                    text: "La vacaciones han sido confirmadas, se ha enviado un correo automaticamente al empleado",
+                    type: "success"
+                },
+                function(){
+                    window.location.href="/empleado/vautorizado";
+                }); 
+                    //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +data.titulo+ "</td><td>" +data.establecimiento + "</td><td>" +data.duracion + ": " + data.periodo + "</td><td>" +nivel + "</td><td>" +fingreso + "</td><td>" +fsalida + "</td></tr>";    
+                    //$('#formModal').modal('hide');
+                    
+                },
+                error: function (data) {
+                    $('#loading').modal('hide');
+                    var errHTML="";
+                    if((typeof data.responseJSON != 'undefined')){
+                        for( var er in data.responseJSON){
+                            errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                        }
+                    }else{
+                        errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                    }
+                    $("#erroresContent").html(errHTML); 
+                    $('#erroresModal').modal('show');
+                }
+                ,
+                complete: function(){ $f.data('locked', false);  // (3)
+                }
+            });
+        }else{
+            alert("se esta enviando su solicitud");
+        }
     });
 
 });

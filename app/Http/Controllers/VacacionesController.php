@@ -323,7 +323,8 @@ class VacacionesController extends Controller
       DB::commit();
     }catch (\Exception $e) 
     {
-      DB::rollback();         
+      DB::rollback();
+      return response()->json(array('error' => 'No se ha podido enviar la respuesta de solicitud de vacaciones'),404);         
     }
     return response()->json($ausencia);
   }
@@ -379,7 +380,8 @@ class VacacionesController extends Controller
       DB::commit();
     }catch (\Exception $e) 
     {
-       DB::rollback();         
+       DB::rollback();
+       return response()->json(array('error' => 'No se ha podido enviar la respuesta de goce vacaciones'),404);         
     }
     return response()->json($ausencia);
   }      
