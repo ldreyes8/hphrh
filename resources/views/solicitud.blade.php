@@ -995,8 +995,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                <label for="montodeuda">Hago constar que toda la información consignada, es verídica y autorizo a Fundación Hábitat para la Humanidad, confirmar los datos indicados.</label>
-                                                                <input type="checkbox" class="checkbox-danger" id="confirma" onchange="javascript:showContent()">
+                                                                <label><h3>Hago constar que toda la información consignada, es verídica y autorizo a Fundación Hábitat para la Humanidad, confirmar los datos indicados.&nbsp;&nbsp;</h3></label>
+                                                                <input type="checkbox" class="checkbox-danger" style="transform: scale(1.4);" id="confirma" onchange="javascript:showContent()">
                                                             </div>
 
                                                 </div>
