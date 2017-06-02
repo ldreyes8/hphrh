@@ -148,6 +148,13 @@
                             <span class="hidden-xs">Otros</span>
                         </a>
                     </li>
+                    <!--li class=""> <a href="javascript:void(0);" onclick="cargareventos(1,1);">
+
+                        <a href="#otros" data-toggle="tab" aria-expanded="false">
+                            <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                            <span class="hidden-xs">Crear un evento</span>
+                        </a>
+                    </li-->
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane" id="home">
@@ -220,6 +227,7 @@
                     @include('hr.padecimientos')
                     @include('hr.experiencia')
                     @include('hr.otros')
+                    @include('hr.eventos')
 
 <div class="modal fade" id="erroresModalPassword" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
   <div class="modal-dialog">
@@ -260,6 +268,7 @@
     <script src="{{asset('assets/js/padecimiento.js')}}"></script>
     <script src="{{asset('assets/js/experiencia.js')}}"></script>
     <script src="{{asset('assets/js/otros.js')}}"></script>
+    <script src="{{asset('assets/js/eventos.js')}}"></script>
         <script src="{{asset('assets/js/changepassword.js')}}"></script>
 
 
@@ -273,6 +282,7 @@
     <script>cargarcredito(1);   </script>
     <script>cargarpadecimiento(1);   </script>
     <script>cargarotros(1);   </script>
+    <script>cargareventos(1);   </script>
     <script>cargarexperiencia(1);   </script>
     
 

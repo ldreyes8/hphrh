@@ -809,7 +809,6 @@ class UController extends Controller
 
         public function validateRequestO($request){
             $rules=[
-            'celcorporativo' => 'required',
             'talla' => 'required',
             'altura' => 'required',
             'peso' => 'required',
