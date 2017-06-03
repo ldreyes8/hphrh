@@ -193,9 +193,9 @@ class PController extends Controller
       }
       else
       {
-        //try 
-        //{
-        //  DB::beginTransaction();
+        try 
+        {
+          DB::beginTransaction();
 
           $idempleado = $request->idempleado;
           $idtipoausencia = $request->idtipoausencia;        
@@ -315,9 +315,6 @@ class PController extends Controller
           $url = url('empleado/verificar/'.$idausencia);
           $calculo = array($name,$idausencia,$url);
 
-      
-
-
           if($concurrencia === 'No')
           {
             $vac =DB::table('ausencia as au')                
@@ -390,13 +387,13 @@ class PController extends Controller
               //$msj->to('drdanielreyes5@gmail.com');
             });
           }
-          //DB::commit();
-          
-              
-        //}catch (\Exception $e) 
-        //{
-         //DB::rollback();         
-        //}
+          DB::commit();
+                        
+        }catch (\Exception $e) 
+        {
+          DB::rollback();
+          return response()->json(array('error' => 'No se ha podido enviar la solicitud'),404);         
+        }
       }
     }
     else{

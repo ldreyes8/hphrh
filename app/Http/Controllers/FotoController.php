@@ -28,14 +28,12 @@ class FotoController extends Controller
       	
     	$fotoperfil = $request->file('fotoperfil');
         
-
         $input  = array('image' => $fotoperfil) ;
-        $reglas = array('image' => 'required|image|mimes:jpeg,jpg,png|max:2000');
+        $reglas = array('image' => 'required|image|mimes:jpeg,jpg,png|max:1024');
         $validacion = Validator::make($input,  $reglas);
 
         if ($validacion->fails())
-        {
-           
+        {   
           return view("mensajes.msj_rechazado")->with("msj","El archivo no es una imagen valida");
         }
         else

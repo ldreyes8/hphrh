@@ -51,168 +51,191 @@ $(document).ready(function(){
     }); 
 
     $('#btnConfirmarV').click(function(e){
-        var resultado="ninguno";
-        var saldoh = 0;
-        var saldod = 0;
+        e.preventDefault();
+        var $f = $(this);
 
-        horas = $("#solhoras").val();
-        dias = $("#soldias").val();
-
-
-        var porNombre=document.getElementsByName("autorizacion");
-
-        // Recorremos todos los valores del radio button para encontrar el
-        // seleccionado
-        for(var i=0;i<porNombre.length;i++)
+        if($f.data('locked') == undefined && !$f.data('locked'))
         {
-            if(porNombre[i].checked)
-                resultado=porNombre[i].value;
-        }
-        if(resultado == "Si_gozado")
-        {
-            saldod ='0';
-            saldoh = '00:00:00';
 
-        }
-        if(resultado == "No_gozado")
-        {
-            saldod = dias;
-            saldoh = horas;
-        }
-        if(resultado == "Goce_temporal")
-        {
-            saldod = $("#dtomados").val();
-            saldoh = $("#htomadas").val();
-            saldoh = saldoh+':00'+':00';
-        }
+            var resultado="ninguno";
+            var saldoh = 0;
+            var saldod = 0;
 
-        var miurl="vacaciones/update";
+            horas = $("#solhoras").val();
+            dias = $("#soldias").val();
 
-        var formData = {
-            idausencia: $('#idausencia').val(),
-            idempleado: $('#idempleado').val(),
-            idvacadetalle: $('#idvacadetalle').val(),
-            solhoras: saldoh,
-            soldias: saldod,
-            goce: resultado,
-            name: $('#name').val(),
-            observaciones: $('#observaciones').val(),
-        
+
+            var porNombre=document.getElementsByName("autorizacion");
+
+            // Recorremos todos los valores del radio button para encontrar el
+            // seleccionado
+            for(var i=0;i<porNombre.length;i++)
+            {
+                if(porNombre[i].checked)
+                    resultado=porNombre[i].value;
+            }
+            if(resultado == "Si_gozado")
+            {
+                saldod ='0';
+                saldoh = '00:00:00';
+
+            }
+            if(resultado == "No_gozado")
+            {
+                saldod = dias;
+                saldoh = horas;
+            }
+            if(resultado == "Goce_temporal")
+            {
+                saldod = $("#dtomados").val();
+                saldoh = $("#htomadas").val();
+                saldoh = saldoh+':00'+':00';
+            }
+
+            var miurl="vacaciones/update";
+
+            var formData = {
+                idausencia: $('#idausencia').val(),
+                idempleado: $('#idempleado').val(),
+                idvacadetalle: $('#idvacadetalle').val(),
+                solhoras: saldoh,
+                soldias: saldod,
+                goce: resultado,
+                name: $('#name').val(),
+                observaciones: $('#observaciones').val(),
             
-        };
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: "POST",
-            url: miurl,
-            data: formData,
-            dataType: 'json',
-
-            success: function (data) {
-                //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + td + "</td><td>" +th +"</td><td>" +"solicitado"+ "</td></tr>";
-                $('#formGoce').modal('hide');
-                 swal({
-                        title:"Envio correcto",
-                        text: "La solicitud ha sido enviada correctamente",
-                        type: "success",
-                    });
-                                
-            },
-            error: function (data) {
-                $('#loading').modal('hide');
-                var errHTML="";
-                if((typeof data.responseJSON != 'undefined')){
-                    for( var er in data.responseJSON){
-                        errHTML+="<li>"+data.responseJSON[er]+"</li>";
-                    }
-                }else{
-                    errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                
+            };
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                 }
-                $("#erroresContent").html(errHTML); 
-                $('#erroresModal').modal('show');
-            }
+            });
 
-        });
+            $.ajax({
+                type: "POST",
+                url: miurl,
+                data: formData,
+                dataType: 'json',
+
+                beforeSend: function(){ $f.data('locked', true);  // (2)
+                },
+
+                success: function (data) {
+                    //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + td + "</td><td>" +th +"</td><td>" +"solicitado"+ "</td></tr>";
+                    $('#formGoce').modal('hide');
+                     swal({
+                            title:"Envio correcto",
+                            text: "La solicitud ha sido enviada correctamente",
+                            type: "success",
+                        });
+                                    
+                },
+                error: function (data) {
+                    $('#loading').modal('hide');
+                    var errHTML="";
+                    if((typeof data.responseJSON != 'undefined')){
+                        for( var er in data.responseJSON){
+                            errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                        }
+                    }else{
+                        errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                    }
+                    $("#erroresContent").html(errHTML); 
+                    $('#erroresModal').modal('show');
+                },
+                complete: function(){ $f.data('locked', false);  // (3)
+                }
+            });
+        }else{
+            alert("se esta enviando su solicitud");
+        }
     });
-
-
     
 	$("#btnguardarV").click(function(e){
-        var hoy = new Date();
-        var dd = hoy.getDate();
-        var mm = hoy.getMonth()+1; //hoy es 0!
-        var yyyy = hoy.getFullYear();
+        e.preventDefault();
+        var $f = $(this);
 
-        if(dd<10) {
-            dd='0'+dd
-        } 
+        if($f.data('locked') == undefined && !$f.data('locked'))
+        {
+            var hoy = new Date();
+            var dd = hoy.getDate();
+            var mm = hoy.getMonth()+1; //hoy es 0!
+            var yyyy = hoy.getFullYear();
 
-        if(mm<10) {
-            mm='0'+mm
-        }
+            if(dd<10) {
+                dd='0'+dd
+            } 
 
-        hoy = dd+'/'+mm+'/'+yyyy;
-
-        finicio = $("#fecha_inicio").val();
-        ffin = $("#fecha_final").val();
-        td = $("#datomar").val();
-        th = $("#hhoras").val();
-        th = th -0;
-
-        var miurl="vacaciones/store";
-        var formData = {
-                       
-            fecha_inicio: $("#fecha_inicio").val(),
-            fecha_final : $("#fecha_final").val(),
-            dias: $('#datomar').val(),
-            horas: $('#hhoras').val(),
-            idmunicipio: $('#idmunicipio').val(),
-            idempleado: $('#idempleado').val(),
-            name: $('#name').val(),
-            tdias: $('#tdias').val(),
-            thoras: $("#thoras").val(),
-            
-        };
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            if(mm<10) {
+                mm='0'+mm
             }
-        });
 
-        $.ajax({
-            type: "POST",
-            url: miurl,
-            data: formData,
-            dataType: 'json',
+            hoy = dd+'/'+mm+'/'+yyyy;
 
-            success: function (data) {
-                document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + td + "</td><td>" +th +"</td><td>"+0+"</td><td>"+0+"</td><td>" +"solicitado"+ "</td><td>"+"</td></tr>";
-    
-                $('#formModal').modal('hide');
-                swal("Envio correcto", "Su jefe inmediato ha sido notificado", "success");
+            finicio = $("#fecha_inicio").val();
+            ffin = $("#fecha_final").val();
+            td = $("#datomar").val();
+            th = $("#hhoras").val();
+            th = th -0;
+
+            var miurl="vacaciones/store";
+            var formData = {
+                           
+                fecha_inicio: $("#fecha_inicio").val(),
+                fecha_final : $("#fecha_final").val(),
+                dias: $('#datomar').val(),
+                horas: $('#hhoras').val(),
+                idmunicipio: $('#idmunicipio').val(),
+                idempleado: $('#idempleado').val(),
+                name: $('#name').val(),
+                tdias: $('#tdias').val(),
+                thoras: $("#thoras").val(),
                 
-            },
-            error: function (data) {
-                $('#loading').modal('hide');
-                var errHTML="";
-                if((typeof data.responseJSON != 'undefined')){
-                    for( var er in data.responseJSON){
-                        errHTML+="<li>"+data.responseJSON[er]+"</li>";
-                    }
-                }else{
-                    errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+            };
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                 }
-                $("#erroresContent").html(errHTML); 
-                $('#erroresModal').modal('show');
-                $("#inputError").html("Errores");
+            });
 
-            }
+            $.ajax({
+                type: "POST",
+                url: miurl,
+                data: formData,
+                dataType: 'json',
 
-        });
+                beforeSend: function(){ $f.data('locked', true);  // (2)
+                },
+
+                success: function (data) {
+                    document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + td + "</td><td>" +th +"</td><td>"+0+"</td><td>"+0+"</td><td>" +"solicitado"+ "</td><td>"+"</td></tr>";
+        
+                    $('#formModal').modal('hide');
+                    swal("Envio correcto", "Su jefe inmediato ha sido notificado", "success");
+                    
+                },
+                error: function (data) {
+                    $('#loading').modal('hide');
+                    var errHTML="";
+                    if((typeof data.responseJSON != 'undefined')){
+                        for( var er in data.responseJSON){
+                            errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                        }
+                    }else{
+                        errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                    }
+                    $("#erroresContent").html(errHTML); 
+                    $('#erroresModal').modal('show');
+                    $("#inputError").html("Errores");
+                },
+                complete: function(){ $f.data('locked', false);  // (3)
+                }
+
+            });
+        }else{
+            alert("se esta enviando su solicitud");
+        }
     });
 
     $("#btndatomar").click(function(e){
@@ -274,6 +297,5 @@ $(document).ready(function(){
                 $('#erroresModal').modal('show');
             }
         });
-
     });
 });

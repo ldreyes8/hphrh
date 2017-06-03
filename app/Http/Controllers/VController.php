@@ -279,9 +279,9 @@ class VController extends Controller
     $this->validateRequest($request);
     $vacaciones = new Vacaciones;
     $vacadetalle= new Vacadetalle;
-    //try 
-    //{
-      //DB::beginTransaction();
+    try 
+    {
+      DB::beginTransaction();
   
 
       $fechainicio = $request->fecha_inicio; 
@@ -393,23 +393,22 @@ class VController extends Controller
         }
     
       });
-    //DB::commit();
-    //}catch (\Exception $e) 
-    //{
-      //DB::rollback();         
-    //}
+    DB::commit();
+    }catch (\Exception $e) 
+    {
+      DB::rollback();
+      return response()->json(array('error' => 'No se ha podido enviar la solicitud'),404);         
+    }
     return response()->json($vacaciones);
   }
 
-   public function update(request $request)
+  public function update(request $request)
   {
-    $idausencia = $request->idausencia;
-    
+    $idausencia = $request->idausencia;    
     $idempleado = $request->idempleado;
     $idvacadetalle = $request->idvacadetalle;
 
     $vacaciones = vacadetalle::find($idvacadetalle);
-
 
     $ausencia = DB::table('ausencia as a')
     ->join('vacadetalle as vd','a.idausencia','=','vd.idausencia')
@@ -419,55 +418,63 @@ class VController extends Controller
 
    
     $va = $ausencia->idausencia;
-    
-
-    if($request->goce ==="No_gozado")
+    try 
     {
-      $vacaciones->solhoras= $request->solhoras;
-      $vacaciones->soldias=$request->soldias; 
-      $vacaciones->goce=$request->goce;
-      $vacaciones->estado = '0';
-      $vacaciones->observaciones = $request->observaciones;      
-    }
-    else
-    {
-      $vacaciones->solhoras= $request->solhoras;
-      $vacaciones->soldias=$request->soldias; 
-      $vacaciones->goce=$request->goce;
-      $vacaciones->observaciones = $request->observaciones;
-    }
+      DB::beginTransaction();
 
-    $name = $request->name;
-    $url = url('empleado/vconfirmar/'.$va);
-
-    $calculo = array($name,$url);
-
-
-    $vacaciones->save();
-
-    Mail::send('emails.envautorizacion',['calculo' => $calculo], function($msj) use ($request){
-
-      $empleado = DB::table('empleado as e')
-      ->join('persona as p','e.identificacion','=','p.identificacion')
-      ->join('users as U','p.identificacion','=','U.identificacion')
-      ->select('e.idempleado')
-      ->where('U.id','=',Auth::user()->id)
-      ->first();
-  
-      $idpersona = DB::table('asignajefe as aj')
-        ->join('persona as p','aj.identificacion','=','p.identificacion')
-        ->join('users as U','U.identificacion','=','p.identificacion')
-        ->join('empleado as e','e.idempleado','=','aj.idempleado')
-        ->select('U.email')
-        ->where('aj.notifica','=','1')
-        ->where('aj.idempleado','=',$empleado->idempleado)
-        ->get();
-
-      foreach ($idpersona as $per) {
-        $msj->subject('Solicitud de goce vacaciones');   
-        $msj->to($per->email);
+      if($request->goce ==="No_gozado")
+      {
+        $vacaciones->solhoras= $request->solhoras;
+        $vacaciones->soldias=$request->soldias; 
+        $vacaciones->goce=$request->goce;
+        $vacaciones->estado = '0';
+        $vacaciones->observaciones = $request->observaciones;      
       }
-    });
+      else
+      {
+        $vacaciones->solhoras= $request->solhoras;
+        $vacaciones->soldias=$request->soldias; 
+        $vacaciones->goce=$request->goce;
+        $vacaciones->observaciones = $request->observaciones;
+      }
+
+      $name = $request->name;
+      $url = url('empleado/vconfirmar/'.$va);
+
+      $calculo = array($name,$url);
+
+
+      $vacaciones->save();
+
+      Mail::send('emails.envautorizacion',['calculo' => $calculo], function($msj) use ($request){
+
+        $empleado = DB::table('empleado as e')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->join('users as U','p.identificacion','=','U.identificacion')
+        ->select('e.idempleado')
+        ->where('U.id','=',Auth::user()->id)
+        ->first();
+    
+        $idpersona = DB::table('asignajefe as aj')
+          ->join('persona as p','aj.identificacion','=','p.identificacion')
+          ->join('users as U','U.identificacion','=','p.identificacion')
+          ->join('empleado as e','e.idempleado','=','aj.idempleado')
+          ->select('U.email')
+          ->where('aj.notifica','=','1')
+          ->where('aj.idempleado','=',$empleado->idempleado)
+          ->get();
+
+        foreach ($idpersona as $per) {
+          $msj->subject('Solicitud de goce vacaciones');   
+          $msj->to($per->email);
+        }
+      });
+      DB::commit();
+    }catch (\Exception $e) 
+    {
+      DB::rollback();
+      return response()->json(array('error' => 'No se ha podido enviar la solicitud'),404);         
+    }
     
     return response()->json($vacaciones);
   }

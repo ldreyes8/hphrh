@@ -121,95 +121,107 @@ $(document).ready(function(){
     });
 
     $("#btnguardarP").click(function(e){
-        var hoy = new Date();
-        var dd = hoy.getDate();
-        var mm = hoy.getMonth()+1; //hoy es 0!
-        var yyyy = hoy.getFullYear();
+        e.preventDefault();
+        var $f = $(this);
 
-        if(dd<10) {
-            dd='0'+dd
-        } 
+        if($f.data('locked') == undefined && !$f.data('locked'))
+        {
+            var hoy = new Date();
+            var dd = hoy.getDate();
+            var mm = hoy.getMonth()+1; //hoy es 0!
+            var yyyy = hoy.getFullYear();
 
-        if(mm<10) {
-            mm='0'+mm
-        }
+            if(dd<10) {
+                dd='0'+dd
+            } 
 
-        hoy = dd+'-'+mm+'-'+yyyy;
-
-        finicio = $("#fecha_inicio").val();
-        ffin = $("#fecha_final").val();
-        td = $("#datomar").val();
-        th = $("#hhoras").val();
-        th = th -0;
-
-         hini= $("#hinicio").val();
-            hfin=$("#hfin").val();
-            mini= $("#mini").val();
-            mfin= $("#mfin").val();
-        hinic = hini+':'+mini+':00';
-        hfina = hfin+':'+mfin+':00';
-
-
-        var miurl="permiso/store";
-        var formData = {
-                       
-            fecha_inicio: $("#fecha_inicio").val(),
-            fecha_final : $("#fecha_final").val(),
-            dias: $('#datomar').val(),
-            horas: $('#hhoras').val(),
-            idmunicipio: $('#idmunicipio').val(),
-            idempleado: $('#idempleado').val(),
-            name: $('#name').val(),
-            tdias: $('#tdias').val(),
-            thoras: $("#thoras").val(),
-            hini: $("#hinicio").val(),
-            hfin: $("#hfin").val(),
-            mini: $("#mini").val(),
-            mfin: $("#mfin").val(),
-            idtipoausencia: $("#idtipoausencia").val(),
-            concurrencia : $("#concurrencia").val(),
-            tipocaso : $("#tipocaso").val(),
-            juzgadoinstitucion: $("#Jusgado").val(),
-            justificacion: $("#observaciones").val(),
-
-        };
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            if(mm<10) {
+                mm='0'+mm
             }
-        });
 
-        $.ajax({
-            type: "POST",
-            url: miurl,
-            data: formData,
-            dataType: 'json',
+            hoy = dd+'-'+mm+'-'+yyyy;
 
-            success: function (data) {
-                //console.log(data);
-                document.getElementById("dataTableItemsPermiso").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + hinic+ "</td><td>" +hfina +"</td><td>" +"solicitado"+ "</td><td>"+"</td></tr>";
-    
-                $('#formModal').modal('hide');
-                $("#erroresContent").html("La solicitud ha sido enviada correctamente"); 
-                $('#erroresModal').modal('show');
-                
-            },
-            error: function (data) {
-                $('#loading').modal('hide');
-                var errHTML="";
-                if((typeof data.responseJSON != 'undefined')){
-                    for( var er in data.responseJSON){
-                        errHTML+="<li>"+data.responseJSON[er]+"</li>";
-                    }
-                }else{
-                    errHTML+='<li>Error.</li>';
+            finicio = $("#fecha_inicio").val();
+            ffin = $("#fecha_final").val();
+            td = $("#datomar").val();
+            th = $("#hhoras").val();
+            th = th -0;
+
+             hini= $("#hinicio").val();
+                hfin=$("#hfin").val();
+                mini= $("#mini").val();
+                mfin= $("#mfin").val();
+            hinic = hini+':'+mini+':00';
+            hfina = hfin+':'+mfin+':00';
+
+
+            var miurl="permiso/store";
+            var formData = {
+                           
+                fecha_inicio: $("#fecha_inicio").val(),
+                fecha_final : $("#fecha_final").val(),
+                dias: $('#datomar').val(),
+                horas: $('#hhoras').val(),
+                idmunicipio: $('#idmunicipio').val(),
+                idempleado: $('#idempleado').val(),
+                name: $('#name').val(),
+                tdias: $('#tdias').val(),
+                thoras: $("#thoras").val(),
+                hini: $("#hinicio").val(),
+                hfin: $("#hfin").val(),
+                mini: $("#mini").val(),
+                mfin: $("#mfin").val(),
+                idtipoausencia: $("#idtipoausencia").val(),
+                concurrencia : $("#concurrencia").val(),
+                tipocaso : $("#tipocaso").val(),
+                juzgadoinstitucion: $("#Jusgado").val(),
+                justificacion: $("#observaciones").val(),
+
+            };
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                 }
-                $("#erroresContent").html(errHTML); 
-                $('#erroresModal').modal('show');
-                $("#inputError").html("Errores");
-            }
+            });
 
-        });
+            $.ajax({
+                type: "POST",
+                url: miurl,
+                data: formData,
+                dataType: 'json',
+
+                beforeSend: function(){ $f.data('locked', true);  // (2)
+                },
+
+                success: function (data) {
+                    //console.log(data);
+                    document.getElementById("dataTableItemsPermiso").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + hinic+ "</td><td>" +hfina +"</td><td>" +"solicitado"+ "</td><td>"+"</td></tr>";
+        
+                    $('#formModal').modal('hide');
+                    $("#erroresContent").html("La solicitud ha sido enviada correctamente"); 
+                    $('#erroresModal').modal('show');
+                    
+                },
+                error: function (data) {
+                    $('#loading').modal('hide');
+                    var errHTML="";
+                    if((typeof data.responseJSON != 'undefined')){
+                        for( var er in data.responseJSON){
+                            errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                        }
+                    }else{
+                        errHTML+='<li>Error.</li>';
+                    }
+                    $("#erroresContent").html(errHTML); 
+                    $('#erroresModal').modal('show');
+                    $("#inputError").html("Errores");
+                },
+                complete: function(){ $f.data('locked', false);  // (3)
+                }
+            });
+        }else{
+            alert("se esta enviando su solicitud");
+        }
     });
 });
 

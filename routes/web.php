@@ -79,6 +79,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	//rutas del perfil
 	Route::post('/updatefoto','UController@subirimagen');
 	Route::get('galeria','UController@galeria');
+	Route::get('buscar_usuarios/{pais}/{dato?}', 'UController@buscar_usuarios');
 
 	//Route academico crud
 	Route::get('listaracademico','UController@listaracademico');

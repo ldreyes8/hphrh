@@ -218,7 +218,7 @@
                                 </ul>
                             </li>
                             
-                            @role('RH') 
+                            @role('recurso') 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
                                         class="fa fa-vcard"></i><span>Recursos Humanos</span> 
@@ -251,6 +251,7 @@
                             </li>
                             @endrole
                             
+
                             @role('jefeinmediato') 
                             <li><a href="{{ url('/eventos')}}"><i class="md md-event"></i><span> Agregar una Evento</span></a></li>
                             <li class="has_sub">
@@ -267,11 +268,35 @@
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"> <i class="fa fa-address-card-o"></i><span>Vacaciones</span> 
                                          <span class="menu-arrow"></span>
                                 </a>
+
+                            @role('jefeinmediato')
+                            <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Autorizaciones</span> 
+                                    <span class="menu-arrow"></span>
+                                    </a>
                                 <ul class="list-unstyled">
-                                    <li><a href="{{ url('/empleado/vsolicitado')}}">Solicitados</a></li>
-                                    <li><a href="{{ url('/empleado/vautorizado')}}">Autorizados</a></li>
-                                    <li><a href="{{ url('/empleado/vconfirmado')}}">Confirmados</a></li>
-                                    <li><a href="{{ url('/empleado/vrechazado')}}">Rechazados</a></li>
+                                    <li class="has_sub">
+                                        <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Permisos</span> 
+                                        <span class="menu-arrow"></span>
+                                        </a>
+                                        <ul class="list-unstyled">
+                                            <li><a href="{{ url('/empleado/permisos')}}">Solicitados</a></li>
+                                            <li><a href="{{ url('/empleado/confirmado')}}">Confirmados</a></li>
+                                            <li><a href="{{ url('/empleado/rechazado')}}">Rechazados</a></li>
+          
+                                        </ul>
+                                    </li>
+                                    <li class="has_sub">
+                                        <a href="javascript:void(0);" class="waves-effect waves-primary"> <i class="fa fa-address-card-o"></i><span>Vacaciones</span> 
+                                                 <span class="menu-arrow"></span>
+                                        </a>
+                                        <ul class="list-unstyled">
+                                            <li><a href="{{ url('/empleado/vsolicitado')}}">Solicitados</a></li>
+                                            <li><a href="{{ url('/empleado/vautorizado')}}">Autorizados</a></li>
+                                            <li><a href="{{ url('/empleado/vconfirmado')}}">Confirmados</a></li>
+                                            <li><a href="{{ url('/empleado/vrechazado')}}">Rechazados</a></li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </li>
                             @endrole

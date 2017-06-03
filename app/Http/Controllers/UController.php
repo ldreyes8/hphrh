@@ -14,8 +14,12 @@ use App\Referencia;
 use App\Deudas;
 use App\Padecimientos;
 use App\Experiencia;
+
 use App\Eventos;
 use App\User;  
+
+use App\Afiliado;  
+
 use DB;
 
 use Validator;
@@ -139,7 +143,9 @@ class UController extends Controller
             ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
             ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado')
             ->where('U.id','!=',Auth::user()->id)
-            ->get();
+            ->get(); 
+            
+            
             
     		/*
     		$data =  array("users"=>$users);
@@ -147,6 +153,21 @@ class UController extends Controller
     		return view("hr.galeria",["usuario"=>$users]);
     		
     	}
+
+        public function buscar_usuarios($afiliado,$dato="")
+        {
+
+            $usuarioactual=\Auth::user();
+            $afiliados = Afiliado::all();
+            $usuarios= User::Busqueda($afiliado,$dato)->paginate(25);  
+            $afiliadosel = $afiliados->find($afiliado);
+
+            return view('hr.galeria')
+            ->with("afiliadosel",$afiliadosel)
+            ->with("afiliados",$afiliados)
+            ->with("usuarios", $usuarios )
+            ->with("usuario_actual", $usuarioactual);       
+        }
 
 
     	 public function subirimagen(Request $request)
