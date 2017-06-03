@@ -17,6 +17,7 @@ Route::get('towns/{id}', 'PersonaController@getTowns');
 Route::post('solicitud/ds','PersonaController@store');
 Route::resource('mintrabf','Controllermintrab');
 Route::get('excel','Controllermintrab@excel');
+Route::get('eventos','UController@listartablero');
 
 
 
