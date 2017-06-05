@@ -35,4 +35,26 @@ class User extends Authenticatable
     {
         $this->notify(new MyResetPassword($token));
     }
+
+
+    public function scopeBusqueda($query,$afiliado,$dato="")
+    {
+        if($afiliado==0){ 
+            $resultado= $query->where('nombres','like','%'.$dato.'%')
+            ->orWhere('apellidos','like', '%'.$dato.'%')
+            ->orWhere('email','like', '%'.$dato.'%');
+        }
+        else{
+               
+            //select * from users where pais = $pais  and (nombres like %$dato% or apellidos like %$dato%  or email like  %$dato% )
+            $resultado= $query->where("idafiliado","=",$afiliado)
+            ->Where(function($q) use ($afiliado,$dato)  {
+            $q->where('nombres','like','%'.$dato.'%')
+            ->orWhere('apellidos','like', '%'.$dato.'%')
+            ->orWhere('email','like', '%'.$dato.'%');       
+            });
+
+        }                     
+    return  $resultado;
+    }
 }

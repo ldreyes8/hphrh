@@ -163,7 +163,7 @@ class UController extends Controller
             ->with("afiliados",$afiliados)
             ->with("usuarios", $usuarios )
             ->with("usuario_actual", $usuarioactual);       
-        }
+        } 
 
 
     	 public function subirimagen(Request $request)
