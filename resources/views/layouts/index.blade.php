@@ -271,6 +271,8 @@
                                             <li><a href="{{ url('/empleado/vrechazado')}}">Rechazados</a></li>
                                         </ul>
                                     </li>
+
+                                
                                 </ul>
                             </li>
                             @endrole
