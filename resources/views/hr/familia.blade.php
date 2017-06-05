@@ -1,7 +1,7 @@
 <div class="tab-pane" id="familiares">
-    <div class="panel-heading">
+  <div class="panel-heading">
         <button class="btn btn-success" id="btnAgregarF"><i class="icon-user icon-white" ></i> Agregar Familiar</button>
-    </div>
+  </div>
   <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
     <div class="table-responsive" id="tabla">
       <table class="table table-striped table-bordered table-condensed table-hover" id="dataTablefamilia">

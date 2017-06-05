@@ -17,7 +17,7 @@ input[type=text] {
 <div class="row">
   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
     <div class="form-group">
-      <label for="nombre">Nombre</label>
+      <label for="nombre">Nombre</label> 
       <p>{{$persona->nombre1.' '.$persona->nombre2.' '.$persona->apellido1.' '.$persona->apellido2}}</p>
     </div>
   </div>
@@ -104,8 +104,14 @@ input[type=text] {
 
               <td><input type="text" name="" value="{{$persona->telefono}}"></td>
               <td><input type="text" name="" value="{{$persona->fechanac}}"></td>
-              <td><input type="text" name="" value="{{$persona->departamento}}"></td>
-              <td><input type="text" name="" value="{{$persona->municipio}}"></td>
+              @if (empty($persona->departamento)) 
+                <td></td>
+                <td></td>
+              
+              @else
+                <td><input type="text" name="" value="{{$persona->departamento}}"></td> 
+                <td><input type="text" name="" value="{{$persona->municipio}}"></td>
+              @endif
               <td><input type="text" name="" value="{{$empleado->estadocivil}}"></td>
               <td><input type="text" name="" value="{{$persona->afiliado}}"></td>
               <td><input type="text" name="" value="{{$persona->puesto}}"></td>

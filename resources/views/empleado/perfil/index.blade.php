@@ -149,7 +149,6 @@
                         </a>
                     </li>
                     <!--li class=""> <a href="javascript:void(0);" onclick="cargareventos(1,1);">
-
                         <a href="#otros" data-toggle="tab" aria-expanded="false">
                             <span class="visible-xs"><i class="fa fa-cog"></i></span>
                             <span class="hidden-xs">Crear un evento</span>
