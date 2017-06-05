@@ -428,7 +428,8 @@ class PersonaController extends Controller
                         
                     }catch (\Exception $e) 
                     {
-                        DB::rollback();         
+                        DB::rollback();
+                        dd('Error al enviar los datos, por favor intente mas tarde');         
                     }
 
                     /*return response()->json(["valid" => true], 200);
@@ -443,14 +444,14 @@ class PersonaController extends Controller
 
     public function upsolicitud(Request $request)
     {
-        $id = $request->get('uppadid');
+        /*$id = $request->get('uppadid');
         dd($id);
         $ac=Padecimientos::findOrFail($id);
         $ac-> nombre=$request->get('uppadn');
         $ac-> identificacion=$request->get('identificacionup');
         $ac-> idempleado=$request->get('idempleado');
         $ac->save();
-        return response()->json($ac);
+        return response()->json($ac);*/
     }
 
 }
