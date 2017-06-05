@@ -17,9 +17,9 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
+        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
-        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -381,6 +381,7 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Deudas' => __DIR__ . '/../..' . '/app/Deudas.php',
         'App\\Empleado' => __DIR__ . '/../..' . '/app/Empleado.php',
+        'App\\Eventos' => __DIR__ . '/../..' . '/app/Eventos.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Experiencia' => __DIR__ . '/../..' . '/app/Experiencia.php',
         'App\\Familia' => __DIR__ . '/../..' . '/app/Familia.php',
@@ -422,6 +423,7 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
         'App\\Idioma' => __DIR__ . '/../..' . '/app/Idioma.php',
         'App\\Licencia' => __DIR__ . '/../..' . '/app/Licencia.php',
         'App\\Nomytras' => __DIR__ . '/../..' . '/app/Nomytras.php',
+        'App\\Notifications\\MyResetPassword' => __DIR__ . '/../..' . '/app/Notifications/MyResetPassword.php',
         'App\\Padecimientos' => __DIR__ . '/../..' . '/app/Padecimientos.php',
         'App\\Persona' => __DIR__ . '/../..' . '/app/Persona.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
@@ -436,6 +438,8 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
         'App\\Vacaciones' => __DIR__ . '/../..' . '/app/Vacaciones.php',
         'App\\Vacadetalle' => __DIR__ . '/../..' . '/app/Vacadetalle.php',
         'App\\Vdetalle' => __DIR__ . '/../..' . '/app/Vdetalle.php',
+        'App\\afiliado' => __DIR__ . '/../..' . '/app/Afiliado.php',
+        'App\\nomytas' => __DIR__ . '/../..' . '/app/Nomytas.php',
         'Barryvdh\\DomPDF\\Facade' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/Facade.php',
         'Barryvdh\\DomPDF\\PDF' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/PDF.php',
         'Barryvdh\\DomPDF\\ServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/ServiceProvider.php',

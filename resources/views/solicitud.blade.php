@@ -108,15 +108,17 @@
                                     <div class="row" >
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
-                                                <label for="identificacion">Identicación *</label>
                                                 <div class="form-group">
-                                                    <input type="text" name="identificacion" id="identificacion" maxlength="13" onkeypress="return valida(event)" class="form-control">
-                                                    <!--<div class="text-danger" id="error_identi">{{$errors->formulario->first('identificacion')}}</div>-->
-                                                        @if($errors->has('identificacion'))
-                                                            <span style="color: red;">{{$errors->first('identificacion')}}</span>
-                                                        @endif
-                                                </div>
+                                                    <label>País de origen *</label>
+                                                    <select name="idpaisPS" id="idpaisPS" class="form-control selectpicker" data-live-search="true">
+                                                        <option value="" hidden>Seleccione</option>
+                                                        @foreach($pais as $p)
+                                                            <option value="{{$p->idpais}}">{{$p->nombre}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>                                                
                                             </div>
+
                                             <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Tipo Documento</label>
@@ -126,6 +128,16 @@
                                                         @endforeach
                                                     </select>
                                                 </div>                                                
+                                            </div>
+                                            <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+                                                <label for="identificacion">Identicación *</label>
+                                                <div class="form-group">
+                                                    <input type="text" name="identificacion" id="identificacion" maxlength="13" onkeypress="return valida(event)" class="form-control">
+                                                    <!--<div class="text-danger" id="error_identi">{{$errors->formulario->first('identificacion')}}</div>-->
+                                                        @if($errors->has('identificacion'))
+                                                            <span style="color: red;">{{$errors->first('identificacion')}}</span>
+                                                        @endif
+                                                </div>
                                             </div>
                                             <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                            <div class="form-group">
@@ -235,7 +247,7 @@
                                                         </div>          
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
-                                                                <label>Departamento *</label>
+                                                                <label>Departamento </label>
                                                                 <select name="iddepartamento" id="iddepartamento" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
                                                                     @foreach($departamento as $depa)
                                                                     <option value="{{$depa->iddepartamento}}">{{$depa->nombre}}</option>
@@ -485,77 +497,94 @@
                                                                     <label for="">Datos Academicos</label>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                                <div class="form-group">
-                                                                    <label for="titulo">Título *</label>
-                                                                    <input type="text" id="titulo" name="titulo" maxlength="100" class="form-control" onkeypress="return validaL(event)">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                                                <div class="form-group">
-                                                                    <label for="establecimiento">Establecimiento *</label>
-                                                                    <input type="text" name="establecimiento" maxlength="100" id="establecimiento" class="form-control" onkeypress="return validaL(event)">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                                <label for="duracion">Duración *</label>
-                                                                <div class="form-group">
-                                                                    <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
-                                                                        <input type="text" name="duracion" id="duracion" maxlength="3" class="form-control" onkeypress="return valida(event)">
-                                                                    </div> 
-                                                                    <div class="col-lg-7 col-md-4 col-sm-6 col-xs-12">
-                                                                        <select id="priodo" class="form-control">
-                                                                            <option value="Dia">Días</option>
-                                                                            <option value="Mes">Mes</option>
-                                                                            <option value="Año">Años</option>
-                                                                        </select>  
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <label for="titulo">Título *</label>
+                                                                        <input type="text" id="titulo" name="titulo" maxlength="100" class="form-control" onkeypress="return validaL(event)">
                                                                     </div>
-                                                                </div>    
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                                                <label for="nivel">Nivel</label>
-                                                                <div class="form-group">
-                                                                    <select name="idnivel" id="idnivel" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
-                                                                        @foreach($nivelacademico as $depa)
-                                                                        <option value="{{$depa->idnivel}}">{{$depa->nombrena}}</option>
-                                                                        @endforeach
-                                                                    </select>
+                                                                </div>
+                                                                <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <label for="establecimiento">Establecimiento *</label>
+                                                                        <input type="text" name="establecimiento" maxlength="100" id="establecimiento" class="form-control" onkeypress="return validaL(event)">
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                                <div class="form-group ">
-                                                                    <label >Fecha de ingreso</label>
-                                                                    <input type="text" id="dato2" class="form-control">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                                    <label for="duracion">Duración *</label>
+                                                                    <div class="form-group">
+                                                                        <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
+                                                                            <input type="text" name="duracion" id="duracion" maxlength="3" class="form-control" onkeypress="return valida(event)">
+                                                                        </div> 
+                                                                        <div class="col-lg-7 col-md-4 col-sm-6 col-xs-12">
+                                                                            <select id="priodo" class="form-control">
+                                                                                <option value="Dia">Días</option>
+                                                                                <option value="Mes">Mes</option>
+                                                                                <option value="Año">Años</option>
+                                                                            </select>  
+                                                                        </div>
+                                                                    </div>    
                                                                 </div>
+                                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                                    <label for="nivel">Nivel</label>
+                                                                    <div class="form-group">
+                                                                        <select name="idnivel" id="idnivel" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
+                                                                            @foreach($nivelacademico as $depa)
+                                                                            <option value="{{$depa->idnivel}}">{{$depa->nombrena}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                                    <div class="form-group ">
+                                                                        <label >Fecha de ingreso</label>
+                                                                        <input type="text" id="dato2" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                                    <div class="form-group ">
+                                                                        <label for="fsalida">Fecha de salida</label>
+                                                                        <input type="text" id="dato3" name="fsalida" class="form-control">
+                                                                    </div>
+                                                                </div> 
                                                             </div>
-                                                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                                <div class="form-group ">
-                                                                    <label for="fsalida">Fecha de salida</label>
-                                                                    <input type="text" id="dato3" name="fsalida" class="form-control">
-                                                                </div>
-                                                            </div>      
-                                                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                                <div class="form-group">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                                    <label>País de origen *</label>
+                                                                    <div class="form-group">
+                                                                        <select id="idpaisPA" name="idpaisPA" class="form-control selectpicker" data-live-search="true">
+                                                                            <option value="" hidden>Seleccione</option>
+                                                                            @foreach($pais as $p)
+                                                                                <option value="{{$p->idpais}}">{{$p->nombre}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>                                                
+                                                                </div>     
+                                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                                     <label>Departamento *</label>
-                                                                    <select name="iddepartamento1" id="iddepartamento1" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
-                                                                        @foreach($departamento as $depa)
-                                                                        <option value="{{$depa->iddepartamento}}">{{$depa->nombre}}</option>
-                                                                        @endforeach
-                                                                    </select>
+                                                                    <div class="form-group">
+                                                                        <select name="iddepartamento1" id="iddepartamento1" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
+                                                                            @foreach($departamento as $depa)
+                                                                            <option value="{{$depa->iddepartamento}}">{{$depa->nombre}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                                                <div class="form-group">
-                                                                    <label>Municipio</label>
-                                                                    {!! Form::select('pidmunicipio',['placeholder'=>'Selecciona'],null,['id'=>'pidmunicipio','class'=>'form-control']) !!}
+                                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <label>Municipio</label>
+                                                                        {!! Form::select('pidmunicipio',['placeholder'=>'Selecciona'],null,['id'=>'pidmunicipio','class'=>'form-control']) !!}
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        
-                                                            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12">
-                                                                <label ></label>
-                                                                <div class="form-group">
-                                                                    <button type="button" id="bt_add6" class="btn btn-primary">Agregar</button>
-                                                                </div>                 
+                                                            
+                                                                <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12">
+                                                                    <label ></label>
+                                                                    <div class="form-group">
+                                                                        <button type="button" id="bt_add6" class="btn btn-primary">Agregar</button>
+                                                                    </div>                 
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1088,9 +1117,10 @@
                     apellido1=$("#apellido1").val();
                     celular=$("#celular").val();
                     nit=$("#nit").val();
-                    pretension=$("#pretension").val();  
-                    iddepartamento=$("#iddepartamento").val();
-                    dato1=$("#dato1").val();              
+                    pretension=$("#pretension").val();
+                    dato1=$("#dato1").val();   
+                    idpaisPS=$("#idpaisPS").val();    
+                    iddepartamento=$("#iddepartamento").val();       
                     if (identificacion!="" )
                         {  
                                            
@@ -1140,20 +1170,35 @@
                             alert('Su fecha de nacimiento es requerida *');
                             return false;
                         }
-                    if(iddepartamento!="1")
-                        {
-                        }
-                    else
-                        {
-                            alert('Debe elegir un departamento');
-                            return false;
-                        }
                     if (pretension!="")
                         {                     
                         }
                     else
                         {
                             alert('Su pretensión salarial es requerida *');
+                            return false;
+                        }
+                    if(idpaisPS!="")
+                        {
+                            if (idpaisPS == "73") 
+                            {
+                                if(iddepartamento!="1")
+                                {
+                                }
+                                else
+                                {
+                                    alert('Departamento es un campo obligatorio *');
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                    else
+                        {
+                            alert('El pais es un compo obligatorio');
                             return false;
                         }
                 });
@@ -1167,6 +1212,7 @@
                     nit=$("#nit").val();
                     pretension=$("#pretension").val();
                     nom=$("#g-recaptcha-response").val();
+                    idpaisPS=$("#idpaisPS").val();
                     iddepartamento=$("#iddepartamento").val();
                     if (identificacion!="" )
                         {  
@@ -1217,14 +1263,30 @@
                             alert('En Datos Generales existen campos obligatorios *');
                             return false;
                         }
-                    if(iddepartamento!="1")
+                    if(idpaisPS!="")
                         {
+                            if (idpaisPS == "73") 
+                            {
+                                if(iddepartamento!="1")
+                                {
+                                }
+                                else
+                                {
+                                    alert('Departamento es un campo obligatorio *');
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                    
+                            }
                         }
                     else
                         {
                             alert('En Datos Generales existen campos obligatorios *');
                             return false;
                         }
+
                     if (nom==false) 
                             {
                                 alert('Revise los campos obligatorios *');
@@ -1234,9 +1296,7 @@
                         {
                             alert('Gracias por enviar su solicitud');
 
-                        }
- 
-                       
+                        }                       
                 });
 
                 $('#basicwizard').bootstrapWizard({'tabClass': 'nav nav-tabs navtab-custom nav-justified bg-muted'});
@@ -1599,38 +1659,59 @@
                 fsalida=$("#dato3").val();
                 fsalidaDT=("00/00/0000");
 
+                idpaisPA=$("#idpaisPA").val();
                 iddepartamento1=$("#iddepartamento1").val();
                 pidmunicipio=$("#pidmunicipio").val();
                 municipio=$("#pidmunicipio option:selected").text();
-
+                munid=("");
                 if ((titulo!="") && (establecimiento!="") && (duracion!=""))
                 {
                     if (fingreso!="" && fsalida!="") 
                     {
-                        if(iddepartamento1!="1")
+                        if (idpaisPA !="73") 
                         {
-                            var fila='<tr class="selected" id="fila'+contAc+'"> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingreso+'">'+fingreso+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalida+'">'+fsalida+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+pidmunicipio+'">'+municipio+'</td> </tr>';
-                            contAc++;
-                            limpiar6();
-                            $('#detalle6').append(fila);
+                                var fila='<tr class="selected" id="fila'+contAc+'"> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingreso+'">'+fingreso+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalida+'">'+fsalida+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+munid+'"></td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
+                                contAc++;
+                                limpiar6();
+                                $('#detalle6').append(fila);
                         }
                         else
                         {
-                            alert('Debe seleccionar almenos un departamento')
+                            if(iddepartamento1!="1")
+                            {
+                                var fila='<tr class="selected" id="fila'+contAc+'"> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingreso+'">'+fingreso+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalida+'">'+fsalida+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+pidmunicipio+'">'+municipio+'</td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
+                                contAc++;
+                                limpiar6();
+                                $('#detalle6').append(fila);
+                            }
+                            else
+                            {
+                                alert('Debe seleccionar almenos un departamento')
+                            }
                         }
                     }
                     else
                     {
-                        if(iddepartamento1!="1")
+                        if (idpaisPA !="73") 
                         {
-                            var fila='<tr class="selected" id="fila'+contAc+'"> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingresoDT+'">'+fingresoDT+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalidaDT+'">'+fsalidaDT+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+pidmunicipio+'">'+municipio+'</td> </tr>';
-                            contAc++;
-                            limpiar6();
-                            $('#detalle6').append(fila);
+                                var fila='<tr class="selected" id="fila'+contAc+'"> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingresoDT+'">'+fingresoDT+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalidaDT+'">'+fsalidaDT+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+munid+'"></td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
+                                contAc++;
+                                limpiar6();
+                                $('#detalle6').append(fila);
                         }
                         else
                         {
-                            alert('Debe seleccionar almenos un departamento')
+                            if(iddepartamento1!="1")
+                            {
+                                var fila='<tr class="selected" id="fila'+contAc+'"> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingresoDT+'">'+fingresoDT+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalidaDT+'">'+fsalidaDT+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+pidmunicipio+'">'+municipio+'</td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
+                                contAc++;
+                                limpiar6();
+                                $('#detalle6').append(fila);
+                            }
+                            else
+                            {
+                                alert('Debe seleccionar almenos un departamento')
+                            }
                         }
                     }
                 }
@@ -1654,7 +1735,6 @@
                     var fila='<tr class="selected" id="fila'+contId+'"><td><input type="hidden" name="eidioma[]" value="'+idioma+'">'+idiomaTex+'</td> <td><input type="hidden" name="niveli[]" value="'+niveli+'">'+niveli+'</td> </tr>';
                     contId++;
                     $('#detalle7').append(fila);
-                    //alert('valor seleccionado')
                 }
 
             }

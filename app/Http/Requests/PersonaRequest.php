@@ -31,7 +31,7 @@ class PersonaRequest extends FormRequest
             'celular'=>'required',
             'nit'=>'required',
             'pretension'=>'required',
-            'g-recaptcha-response' => 'required|recaptcha',
+            //'g-recaptcha-response' => 'required|recaptcha',
             //
         ];
     }
@@ -43,7 +43,7 @@ class PersonaRequest extends FormRequest
         'celular.required'=>'Campo celular es requerido',
         'nit.required'=>'Campo nit es requerido',
         'pretension.required'=>'Campo pretension es requerido',
-        'g-recaptcha-response.required'=>'Validación oligatoria',
+        //'g-recaptcha-response.required'=>'Validación oligatoria',
          ];
     }
     /*public function response(array $errors)
