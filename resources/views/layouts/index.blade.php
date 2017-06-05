@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -68,7 +68,6 @@
                                 <h4 style="text-align: right; color: white;"> {{ Auth::user()->name }}</h4>
                             </div>
                             <!--
-
                             <ul class="nav navbar-nav hidden-xs">
                                 <li><a href="#" class="waves-effect">Files</a></li>
                                 <li class="dropdown">
@@ -83,16 +82,11 @@
                                     </ul>
                                 </li>
                             </ul>
-
                             <form role="search" class="navbar-left app-search pull-left hidden-xs">
                                  <input type="text" placeholder="Search..." class="form-control app-search-input">
                                  <a href=""><i class="fa fa-search"></i></a>
                             </form>
-
-
-
                             <ul class="nav navbar-nav navbar-right pull-right">
-
                                 <li class="dropdown hidden-xs">
                                     <a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light"
                                        data-toggle="dropdown" aria-expanded="true">
@@ -120,7 +114,6 @@
                                                     </div>
                                                 </div>
                                             </a>
-
                                             -->
 
                                             <!-- list item-->
@@ -157,22 +150,18 @@
                                                     </div>
                                                 </div>
                                             </a>
-
                                         </li>
-
                                         <li>
                                             <a href="javascript:void(0);" class=" text-right">
                                                 <small><b>See all notifications</b></small>
                                             </a>
                                         </li>
-
                                     </ul>
                                 </li>
                                 <li class="hidden-xs">
                                     <a href="#" class="right-bar-toggle waves-effect waves-light"><i
                                             class="md md-settings"></i></a>
                                 </li>
-
                             </ul>
                             -->
                         </div>
@@ -662,7 +651,6 @@
                 });
                 $('.circliful-chart').circliful();
             });
-
             // BEGIN SVG WEATHER ICON
             if (typeof Skycons !== 'undefined'){
             var icons = new Skycons(
@@ -675,12 +663,10 @@
                         "fog"
                     ],
                     i;
-
                 for(i = list.length; i--; )
                 icons.set(list[i], list[i]);
                 icons.play();
             };
-
         </script>
         
         @show
