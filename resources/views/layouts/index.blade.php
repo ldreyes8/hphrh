@@ -258,7 +258,7 @@
                                          <span class="menu-arrow"></span>
                                 </a>
 
-                            @role('jefeinmediato')
+                            
                             <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Autorizaciones</span> 
                                     <span class="menu-arrow"></span>
