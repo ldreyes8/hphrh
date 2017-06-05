@@ -90,10 +90,10 @@
                 <div id="progressbarwizard" class="pull-in">
                     <ul>
                         <li><a href="#generales" data-toggle="tab">Datos generales</a></li>
-                        <li><a href="#familia" data-toggle="tab">Datos familiares</a></li>
-                        <li><a href="#academico" data-toggle="tab">Informacion academicos</a></li>
+                        <li><a href="#familia" data-toggle="tab">Datos famíliares</a></li>
+                        <li><a href="#academico" data-toggle="tab">Información academicos</a></li>
                         <li><a href="#laboral" data-toggle="tab">Experiencia laboral</a></li>
-                        <li><a href="#referencia" data-toggle="tab">Referencias(No familiares)</a></li>
+                        <li><a href="#referencia" data-toggle="tab">Referencias</a></li>
                         <li><a href="#deudas" data-toggle="tab">Otros</a></li>
                     </ul>
 
@@ -108,15 +108,17 @@
                                     <div class="row" >
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
-                                                <label for="identificacion">Identicación *</label>
                                                 <div class="form-group">
-                                                    <input type="text" name="identificacion" id="identificacion" maxlength="13" onkeypress="return valida(event)" class="form-control">
-                                                    <!--<div class="text-danger" id="error_identi">{{$errors->formulario->first('identificacion')}}</div>-->
-                                                        @if($errors->has('identificacion'))
-                                                            <span style="color: red;">{{$errors->first('identificacion')}}</span>
-                                                        @endif
-                                                </div>
+                                                    <label>País de origen *</label>
+                                                    <select name="idpaisPS" id="idpaisPS" class="form-control selectpicker" data-live-search="true">
+                                                        <option value="" hidden>Seleccione</option>
+                                                        @foreach($pais as $p)
+                                                            <option value="{{$p->idpais}}">{{$p->nombre}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>                                                
                                             </div>
+
                                             <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Tipo Documento</label>
@@ -126,6 +128,16 @@
                                                         @endforeach
                                                     </select>
                                                 </div>                                                
+                                            </div>
+                                            <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+                                                <label for="identificacion">Identicación *</label>
+                                                <div class="form-group">
+                                                    <input type="text" name="identificacion" id="identificacion" maxlength="13" onkeypress="return valida(event)" class="form-control">
+                                                    <!--<div class="text-danger" id="error_identi">{{$errors->formulario->first('identificacion')}}</div>-->
+                                                        @if($errors->has('identificacion'))
+                                                            <span style="color: red;">{{$errors->first('identificacion')}}</span>
+                                                        @endif
+                                                </div>
                                             </div>
                                             <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                            <div class="form-group">
@@ -235,7 +247,7 @@
                                                         </div>          
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
-                                                                <label>Departamento</label>
+                                                                <label>Departamento </label>
                                                                 <select name="iddepartamento" id="iddepartamento" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
                                                                     @foreach($departamento as $depa)
                                                                     <option value="{{$depa->iddepartamento}}">{{$depa->nombre}}</option>
@@ -485,78 +497,94 @@
                                                                     <label for="">Datos Academicos</label>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                                                <div class="form-group">
-                                                                    <label for="titulo">Título *</label>
-                                                                    <input type="text" id="titulo" name="titulo" maxlength="100" class="form-control" onkeypress="return validaL(event)">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <label for="titulo">Título *</label>
+                                                                        <input type="text" id="titulo" name="titulo" maxlength="100" class="form-control" onkeypress="return validaL(event)">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <label for="establecimiento">Establecimiento *</label>
+                                                                        <input type="text" name="establecimiento" maxlength="100" id="establecimiento" class="form-control" onkeypress="return validaL(event)">
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                                                <div class="form-group">
-                                                                    <label for="establecimiento">Establecimiento *</label>
-                                                                    <input type="text" name="establecimiento" maxlength="100" id="establecimiento" class="form-control" onkeypress="return validaL(event)">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                                    <label for="duracion">Duración *</label>
+                                                                    <div class="form-group">
+                                                                        <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
+                                                                            <input type="text" name="duracion" id="duracion" maxlength="3" class="form-control" onkeypress="return valida(event)">
+                                                                        </div> 
+                                                                        <div class="col-lg-7 col-md-4 col-sm-6 col-xs-12">
+                                                                            <select id="priodo" class="form-control">
+                                                                                <option value="Dia">Días</option>
+                                                                                <option value="Mes">Mes</option>
+                                                                                <option value="Año">Años</option>
+                                                                            </select>  
+                                                                        </div>
+                                                                    </div>    
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
-                                                                <div class="form-group">
-                                                                    <label for="duracion">Duración</label>
-                                                                    <input type="text" name="duracion" id="duracion" maxlength="3" class="form-control" onkeypress="return valida(event)">
-                                                                </div>    
-                                                            </div>
-                                                            <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
-                                                                <label for="per">-</label>
-                                                                <div class="form-group">
-                                                                    <select id="priodo" class="form-control">
-                                                                        <option value="Dia">Días</option>
-                                                                        <option value="Mes">Mes</option>
-                                                                        <option value="Año">Años</option>
-                                                                    </select>
-                                                                </div>    
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                                                <label for="nivel">Nivel</label>
-                                                                <div class="form-group">
-                                                                    <select name="idnivel" id="idnivel" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
-                                                                        @foreach($nivelacademico as $depa)
-                                                                        <option value="{{$depa->idnivel}}">{{$depa->nombrena}}</option>
-                                                                        @endforeach
-                                                                    </select>
+                                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                                    <label for="nivel">Nivel</label>
+                                                                    <div class="form-group">
+                                                                        <select name="idnivel" id="idnivel" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
+                                                                            @foreach($nivelacademico as $depa)
+                                                                            <option value="{{$depa->idnivel}}">{{$depa->nombrena}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                                <div class="form-group ">
-                                                                    <label >Fecha de ingreso</label>
-                                                                    <input type="text" id="dato2" class="form-control">
+                                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                                    <div class="form-group ">
+                                                                        <label >Fecha de ingreso</label>
+                                                                        <input type="text" id="dato2" class="form-control">
+                                                                    </div>
                                                                 </div>
+                                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                                    <div class="form-group ">
+                                                                        <label for="fsalida">Fecha de salida</label>
+                                                                        <input type="text" id="dato3" name="fsalida" class="form-control">
+                                                                    </div>
+                                                                </div> 
                                                             </div>
-                                                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                                <div class="form-group ">
-                                                                    <label for="fsalida">Fecha de salida</label>
-                                                                    <input type="text" id="dato3" name="fsalida" class="form-control">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                                    <label>País de origen *</label>
+                                                                    <div class="form-group">
+                                                                        <select id="idpaisPA" name="idpaisPA" class="form-control selectpicker" data-live-search="true">
+                                                                            <option value="" hidden>Seleccione</option>
+                                                                            @foreach($pais as $p)
+                                                                                <option value="{{$p->idpais}}">{{$p->nombre}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>                                                
+                                                                </div>     
+                                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                                    <label>Departamento *</label>
+                                                                    <div class="form-group">
+                                                                        <select name="iddepartamento1" id="iddepartamento1" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
+                                                                            @foreach($departamento as $depa)
+                                                                            <option value="{{$depa->iddepartamento}}">{{$depa->nombre}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
-                                                            </div>      
-                                                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                                <div class="form-group">
-                                                                    <label>Departamento</label>
-                                                                    <select name="iddepartamento1" id="iddepartamento1" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
-                                                                        @foreach($departamento as $depa)
-                                                                        <option value="{{$depa->iddepartamento}}">{{$depa->nombre}}</option>
-                                                                        @endforeach
-                                                                    </select>
+                                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <label>Municipio</label>
+                                                                        {!! Form::select('pidmunicipio',['placeholder'=>'Selecciona'],null,['id'=>'pidmunicipio','class'=>'form-control']) !!}
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                                                <div class="form-group">
-                                                                    <label>Municipio</label>
-                                                                    {!! Form::select('pidmunicipio',['placeholder'=>'Selecciona'],null,['id'=>'pidmunicipio','class'=>'form-control']) !!}
+                                                            
+                                                                <div class="col-lg-1 col-md-2 col-sm-2 col-xs-12">
+                                                                    <label ></label>
+                                                                    <div class="form-group">
+                                                                        <button type="button" id="bt_add6" class="btn btn-primary">Agregar</button>
+                                                                    </div>                 
                                                                 </div>
-                                                            </div>
-                                                        
-                                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                                                <label ></label>
-                                                                <div class="form-group">
-                                                                    <button type="button" id="bt_add6" class="btn btn-primary">Agregar</button>
-                                                                </div>                 
                                                             </div>
                                                         </div>
                                                     </div>
@@ -758,7 +786,7 @@
                                                             <label> <br> <br> </label>
                                                                 <button type="button" id="bt_add3" class="btn btn-primary">Agregar</button>   
                                                         </div>
-                                                        <div> <label><br></label> </div>
+                                                        <div> <label><br><br></label> </div>
                                                         <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                                             <table id="detalle3" class="table table-striped table-bordered table-condensed table-hover">
                                                                 <thead style="background-color:#A9D0F5">
@@ -1089,38 +1117,17 @@
                     apellido1=$("#apellido1").val();
                     celular=$("#celular").val();
                     nit=$("#nit").val();
-                    pretension=$("#pretension").val();                    
+                    pretension=$("#pretension").val();
+                    dato1=$("#dato1").val();   
+                    idpaisPS=$("#idpaisPS").val();    
+                    iddepartamento=$("#iddepartamento").val();       
                     if (identificacion!="" )
                         {  
                                            
                         }
                     else
                         {
-                            alert('Revise los campos obligatorios *');
-                            return false;
-                        }
-                    if (nombre1!="" )
-                        {                     
-                        }
-                    else
-                        {
-                            alert('Revise los campos obligatorios *');
-                            return false;
-                        }
-                    if (apellido1!="")
-                        {                     
-                        }
-                    else
-                        {
-                            alert('Revise los campos obligatorios *');
-                            return false;
-                        }
-                    if (celular!="")
-                        {                     
-                        }
-                    else
-                        {
-                            alert('Revise los campos obligatorios *');
+                            alert('Su Identicación es requerida *');
                             return false;
                         }
                     if (nit!="")
@@ -1128,7 +1135,39 @@
                         }
                     else
                         {
-                            alert('Revise los campos obligatorios *');
+                            alert('Nit es un campo obligatorio *');
+                            return false;
+                        }
+                    if (nombre1!="" )
+                        {                     
+                        }
+                    else
+                        {
+                            alert('Almenos el primer nombre debe ingresar *');
+                            return false;
+                        }
+                    if (apellido1!="")
+                        {                     
+                        }
+                    else
+                        {
+                            alert('Almenos el primer apellido debe ingresar *');
+                            return false;
+                        }
+                    if (celular!="")
+                        {                     
+                        }
+                    else
+                        {
+                            alert('Celular, campo requerido *');
+                            return false;
+                        }
+                    if (dato1!="")
+                        {                     
+                        }
+                    else
+                        {
+                            alert('Su fecha de nacimiento es requerida *');
                             return false;
                         }
                     if (pretension!="")
@@ -1136,7 +1175,30 @@
                         }
                     else
                         {
-                            alert('Revise los campos obligatorios *');
+                            alert('Su pretensión salarial es requerida *');
+                            return false;
+                        }
+                    if(idpaisPS!="")
+                        {
+                            if (idpaisPS == "73") 
+                            {
+                                if(iddepartamento!="1")
+                                {
+                                }
+                                else
+                                {
+                                    alert('Departamento es un campo obligatorio *');
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                    else
+                        {
+                            alert('El pais es un compo obligatorio');
                             return false;
                         }
                 });
@@ -1150,13 +1212,15 @@
                     nit=$("#nit").val();
                     pretension=$("#pretension").val();
                     nom=$("#g-recaptcha-response").val();
+                    idpaisPS=$("#idpaisPS").val();
+                    iddepartamento=$("#iddepartamento").val();
                     if (identificacion!="" )
                         {  
                                            
                         }
                     else
                         {
-                            alert('Revise los campos obligatorios *');
+                            alert('En Datos Generales existen campos obligatorios *');
                             return false;
                         }
                     if (nombre1!="" )
@@ -1164,7 +1228,7 @@
                         }
                     else
                         {
-                            alert('Revise los campos obligatorios *');
+                            alert('En Datos Generales existen campos obligatorios *');
                             return false;
                         }
                     if (apellido1!="")
@@ -1172,7 +1236,7 @@
                         }
                     else
                         {
-                            alert('Revise los campos obligatorios *');
+                            alert('En Datos Generales existen campos obligatorios *');
                             return false;
                         }
                     if (celular!="")
@@ -1180,7 +1244,7 @@
                         }
                     else
                         {
-                            alert('Revise los campos obligatorios *');
+                            alert('En Datos Generales existen campos obligatorios *');
                             return false;
                         }
                     if (nit!="")
@@ -1188,7 +1252,7 @@
                         }
                     else
                         {
-                            alert('Revise los campos obligatorios *');
+                            alert('En Datos Generales existen campos obligatorios *');
                             return false;
                         }
                     if (pretension!="")
@@ -1196,9 +1260,33 @@
                         }
                     else
                         {
-                            alert('Revise los campos obligatorios *');
+                            alert('En Datos Generales existen campos obligatorios *');
                             return false;
                         }
+                    if(idpaisPS!="")
+                        {
+                            if (idpaisPS == "73") 
+                            {
+                                if(iddepartamento!="1")
+                                {
+                                }
+                                else
+                                {
+                                    alert('Departamento es un campo obligatorio *');
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                    
+                            }
+                        }
+                    else
+                        {
+                            alert('En Datos Generales existen campos obligatorios *');
+                            return false;
+                        }
+
                     if (nom==false) 
                             {
                                 alert('Revise los campos obligatorios *');
@@ -1208,9 +1296,7 @@
                         {
                             alert('Gracias por enviar su solicitud');
 
-                        }
- 
-                       
+                        }                       
                 });
 
                 $('#basicwizard').bootstrapWizard({'tabClass': 'nav nav-tabs navtab-custom nav-justified bg-muted'});
@@ -1437,9 +1523,7 @@
                     alert('bus');  
                     $("#gdr").show();
 
-                }
-
-                
+                }             
             }
 
             function agregar1()
@@ -1467,7 +1551,7 @@
                 amortizacionmensual=$("#amortizacionmensual").val();
                 montodeuda=$("#montodeuda").val();
                 mdeuda=$("#mdeuda").val();
-                if (acreedor!="")
+                if ((acreedor!="") && (amortizacionmensual!="") && (montodeuda!=""))
                 {
                     var fila='<tr class="selected" id="fila'+conts+'"> <td><input type="hidden" name="acreedor[]" value="'+acreedor+'">'+acreedor+'</td> <td><input type="hidden" name="amortizacionmensual[]" value="'+amortizacionmensual+'">'+amortizacionmensual+'</td> <td><input type="hidden" name="montodeuda[]" value="'+montodeuda+'">'+montodeuda+'</td> <td><input type="hidden" name="mdeuda[]" value="'+mdeuda+'">'+mdeuda+'</td> </tr>';
                     conts++;
@@ -1476,7 +1560,7 @@
                 }
                 else
                 {
-                    alert('Campo acreedor requerido')
+                    alert('Si usted esta ingresando un Crédito, todos los campos son obligatorios')
                 }   
             }
 
@@ -1489,7 +1573,7 @@
                 tiporeferencia=$("#tiporeferencia").val();
                 //alert(tiporeferencia);
 
-                if (nombrer!="")
+                if ((nombrer!="") && (telefonor!="") && (profesion!="") )
                 {
                     var fila='<tr class="selected" id="fila'+contss+'"> <td><input type="hidden" name="nombrer[]" value="'+nombrer+'">'+nombrer+'</td> <td><input type="hidden" name="telefonor[]" value="'+telefonor+'">'+telefonor+'</td> <td><input type="hidden" name="profesion[]" value="'+profesion+'">'+profesion+'</td> <td><input type="hidden" name="tiporeferencia[]" value="'+tiporeferencia+'">'+tiporeferencia+'</td> </tr>';
                     contss++;
@@ -1498,7 +1582,7 @@
                 }
                 else
                 {
-                    alert('Existen campos obligatorios')
+                    alert('Si esta ingresando una referencia, todos los campos son obligatorios')
                 }   
             }
 
@@ -1515,9 +1599,9 @@
                 emrg=("Si");
                 
 
-                if (nombref!="")
+                if ((nombref!="") && (apellidof!="") && (edad!=""))
                 {
-                    if ( $('#emergencia').is(':checked'))
+                    if ( ($('#emergencia').is(':checked')) && (telefonof!=""))
                     {
                         var fila='<tr class="selected" id="fila'+contsss+'"> <td><input type="hidden" name="nombref[]" value="'+nombref+'">'+nombref+'</td> <td><input type="hidden" name="apellidof[]" value="'+apellidof+'">'+apellidof+'</td> <td><input type="hidden" name="edad[]" value="'+edad+'">'+edad+'</td> <td><input type="hidden" name="telefonof[]" value="'+telefonof+'">'+telefonof+'</td> <td><input type="hidden" name="parentezco[]" value="'+parentezco+'">'+parentezco+'</td> <td><input type="hidden" name="ocupacion[]" value="'+ocupacion+'">'+ocupacion+'</td> <td><input type="hidden" name="emergencia[]" value="'+emergencia+'">'+emrg+'</td> </tr>';
                     contsss++;
@@ -1534,7 +1618,7 @@
                 }
                 else
                 {
-                    alert('Existen campos obligatorios')
+                    alert('Existen campos obligatorios');
                 }   
             }
 
@@ -1548,7 +1632,7 @@
                 fingresoex=$("#fingresoex").val();
                 fsalidaex=$("#fsalidaex").val();
 
-                if (empresa!="")
+                if ((empresa!="") && (puesto!="") && (jefeinmediato!="") && (motivoretiro!="") && (ultimosalario!="") && (fingresoex!="") && (fsalidaex!=""))
                 {
                     var fila='<tr class="selected" id="fila'+contEx+'"> <td><input type="hidden" name="empresa[]" value="'+empresa+'">'+empresa+'</td> <td><input type="hidden" name="puesto[]" value="'+puesto+'">'+puesto+'</td> <td><input type="hidden" name="jefeinmediato[]" value="'+jefeinmediato+'">'+jefeinmediato+'</td> <td><input type="hidden" name="motivoretiro[]" value="'+motivoretiro+'">'+motivoretiro+'</td> <td><input type="hidden" name="ultimosalario[]" value="'+ultimosalario+'">'+ultimosalario+'</td> <td><input type="hidden" name="fingresoex[]" value="'+fingresoex+'">'+fingresoex+'</td> <td><input type="hidden" name="fsalidaex[]" value="'+fsalidaex+'">'+fsalidaex+'</td> </tr>';
                     contEx++;
@@ -1557,7 +1641,7 @@
                 }
                 else
                 {
-                    alert('Campos requerido')
+                    alert('Si esta agregando un Experiencia Laboral, todos los campos son obligatorios');
                 }   
             }
 
@@ -1571,20 +1655,69 @@
                 idniveltx=$("#idnivel option:selected").text();
 
                 fingreso=$("#dato2").val();
+                fingresoDT=("00/00/0000");
                 fsalida=$("#dato3").val();
+                fsalidaDT=("00/00/0000");
+
+                idpaisPA=$("#idpaisPA").val();
+                iddepartamento1=$("#iddepartamento1").val();
                 pidmunicipio=$("#pidmunicipio").val();
                 municipio=$("#pidmunicipio option:selected").text();
-
-                if (titulo!="")
+                munid=("");
+                if ((titulo!="") && (establecimiento!="") && (duracion!=""))
                 {
-                    var fila='<tr class="selected" id="fila'+contAc+'"> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingreso+'">'+fingreso+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalida+'">'+fsalida+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+pidmunicipio+'">'+municipio+'</td> </tr>';
-                    contAc++;
-                    limpiar6();
-                    $('#detalle6').append(fila);
+                    if (fingreso!="" && fsalida!="") 
+                    {
+                        if (idpaisPA !="73") 
+                        {
+                                var fila='<tr class="selected" id="fila'+contAc+'"> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingreso+'">'+fingreso+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalida+'">'+fsalida+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+munid+'"></td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
+                                contAc++;
+                                limpiar6();
+                                $('#detalle6').append(fila);
+                        }
+                        else
+                        {
+                            if(iddepartamento1!="1")
+                            {
+                                var fila='<tr class="selected" id="fila'+contAc+'"> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingreso+'">'+fingreso+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalida+'">'+fsalida+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+pidmunicipio+'">'+municipio+'</td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
+                                contAc++;
+                                limpiar6();
+                                $('#detalle6').append(fila);
+                            }
+                            else
+                            {
+                                alert('Debe seleccionar almenos un departamento')
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (idpaisPA !="73") 
+                        {
+                                var fila='<tr class="selected" id="fila'+contAc+'"> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingresoDT+'">'+fingresoDT+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalidaDT+'">'+fsalidaDT+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+munid+'"></td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
+                                contAc++;
+                                limpiar6();
+                                $('#detalle6').append(fila);
+                        }
+                        else
+                        {
+                            if(iddepartamento1!="1")
+                            {
+                                var fila='<tr class="selected" id="fila'+contAc+'"> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingresoDT+'">'+fingresoDT+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalidaDT+'">'+fsalidaDT+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+pidmunicipio+'">'+municipio+'</td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
+                                contAc++;
+                                limpiar6();
+                                $('#detalle6').append(fila);
+                            }
+                            else
+                            {
+                                alert('Debe seleccionar almenos un departamento')
+                            }
+                        }
+                    }
                 }
                 else
                 {
-                    alert('Ingrese un titulo')
+                    alert('Revise los datos obligatorios')
                 }   
             }
             function agregar7()
@@ -1602,7 +1735,6 @@
                     var fila='<tr class="selected" id="fila'+contId+'"><td><input type="hidden" name="eidioma[]" value="'+idioma+'">'+idiomaTex+'</td> <td><input type="hidden" name="niveli[]" value="'+niveli+'">'+niveli+'</td> </tr>';
                     contId++;
                     $('#detalle7').append(fila);
-                    //alert('valor seleccionado')
                 }
 
             }
@@ -1623,7 +1755,6 @@
                 {
                     alert('Campo vigencia obligatorio')
                 }
-
             }
             function evaluar()
             {

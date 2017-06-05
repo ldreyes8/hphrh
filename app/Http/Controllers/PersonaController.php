@@ -85,6 +85,8 @@ class PersonaController extends Controller
         $img=$request->file('archivo');
         $forma=$request->get('forma');
         $trabajos=$request->get('trabajoext');
+        $paisP = $request->get('idpaisPS');
+        //dd($paisP);
 
 
                     try 
@@ -110,7 +112,16 @@ class PersonaController extends Controller
                         $persona-> nomenclatura = $request->get('nomenclatura');
                         $persona-> zona = $request->get('zona');
                         $persona-> barriocolonia = $request->get('barriocolonia');
-                        $persona-> idmunicipio = $request->get('idmunicipio');
+
+                        if ($paisP === "73") 
+                        {
+                            $persona-> idmunicipio = $request->get('idmunicipio');
+                        }
+                        else
+                        {
+                            $persona-> idmunicipio =NULL;
+                        }
+
                         $persona-> ive = $request->get('ive');
                         $persona-> parientepolitico = $request->get('parientepolitico');
                         $persona-> idpuesto= $request->get('idpuesto');
@@ -148,7 +159,7 @@ class PersonaController extends Controller
                         }
 
                         $persona->save();
-                        //dd($persona);
+                        //dd($paisP,$persona);
                      //Datos empleado
                         $empleado = new empleado;
                         $empleado-> identificacion= $request->get('identificacion');
@@ -204,6 +215,8 @@ class PersonaController extends Controller
                         $fechai=$request->get('fingreso');
                         $periodo=$request->get('periodo');
                         $pidmunicipio=$request->get('pidmunicipio');
+                        //dd($pidmunicipio);
+                        $idpaisA=$request->get('idpaisPAAT');
                      //Datos Experiencia
                         $empresa=$request->get('empresa');
                         $puesto=$request->get('puesto');
@@ -295,23 +308,34 @@ class PersonaController extends Controller
                         {
                             while($cont5 < count($titulo))
                             {
-                                $fechai[$cont5]=Carbon::createFromFormat('d/m/Y',$fechai[$cont5]);
-                                $fechai[$cont5]=$fechai[$cont5]->format('Y-m-d');
-                                $fsalida[$cont5]=Carbon::createFromFormat('d/m/Y',$fsalida[$cont5]);
-                                $fsalida[$cont5]=$fsalida[$cont5]->format('Y-m-d');
-                                $academicos = new Academico;
-                                $academicos-> titulo = $titulo[$cont5];
-                                $academicos-> establecimiento = $establecimiento[$cont5];
-                                $academicos-> duracion = $duracion[$cont5];
-                                $academicos-> idnivel = $idnivel[$cont5];
-                                $academicos-> fsalida=$fsalida[$cont5];
-                                $academicos-> fingreso =$fechai[$cont5];
-                                $academicos-> periodo =$periodo[$cont5];
-                                $academicos-> idmunicipio = $pidmunicipio[$cont5];
-                                $academicos-> idempleado = $empleado->idempleado;
-                                $academicos-> identificacion = $empleado->identificacion;
-                                $academicos-> save();
-                                $cont5=$cont5 + 1;
+                                
+                                    $fechai[$cont5]=Carbon::createFromFormat('d/m/Y',$fechai[$cont5]);
+                                    $fechai[$cont5]=$fechai[$cont5]->format('Y-m-d');
+                                    $fsalida[$cont5]=Carbon::createFromFormat('d/m/Y',$fsalida[$cont5]);
+                                    $fsalida[$cont5]=$fsalida[$cont5]->format('Y-m-d');
+                                    $academicos = new Academico;
+                                    $academicos-> titulo = $titulo[$cont5];
+                                    $academicos-> establecimiento = $establecimiento[$cont5];
+                                    $academicos-> duracion = $duracion[$cont5];
+                                    $academicos-> idnivel = $idnivel[$cont5];
+                                    $academicos-> fsalida=$fsalida[$cont5];
+                                    $academicos-> fingreso =$fechai[$cont5];
+                                    $academicos-> periodo =$periodo[$cont5];
+                                    if ($idpaisA[$cont5] ==="73") 
+                                    {
+                                        $academicos-> idmunicipio = $pidmunicipio[$cont5];
+                                        $academicos-> idpais = $idpaisA[$cont5];
+                                    }
+                                    else
+                                    {
+                                        $academicos-> idmunicipio = NULL[$cont5];
+                                        $academicos-> idpais = $idpaisA[$cont5];
+                                    }
+                                    
+                                    $academicos-> idempleado = $empleado->idempleado;
+                                    $academicos-> identificacion = $empleado->identificacion;
+                                    $academicos-> save();
+                                    $cont5=$cont5 + 1;   
                             }
                         }           
                      //dd($persona,$empleado,$familia,$academicos);
@@ -428,7 +452,8 @@ class PersonaController extends Controller
                         
                     }catch (\Exception $e) 
                     {
-                        DB::rollback();         
+                        DB::rollback();
+                        dd('Error al enviar los datos, por favor intente mas tarde');         
                     }
 
                     /*return response()->json(["valid" => true], 200);
@@ -443,14 +468,14 @@ class PersonaController extends Controller
 
     public function upsolicitud(Request $request)
     {
-        $id = $request->get('uppadid');
+        /*$id = $request->get('uppadid');
         dd($id);
         $ac=Padecimientos::findOrFail($id);
         $ac-> nombre=$request->get('uppadn');
         $ac-> identificacion=$request->get('identificacionup');
         $ac-> idempleado=$request->get('idempleado');
         $ac->save();
-        return response()->json($ac);
+        return response()->json($ac);*/
     }
 
 }

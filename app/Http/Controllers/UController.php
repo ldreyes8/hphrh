@@ -14,8 +14,12 @@ use App\Referencia;
 use App\Deudas;
 use App\Padecimientos;
 use App\Experiencia;
-use App\User;
+
+use App\Eventos;
+use App\User;  
+
 use App\Afiliado;  
+
 use DB;
 
 use Validator;
@@ -697,6 +701,27 @@ class UController extends Controller
             $ao->save();
             return response()->json($ao);
         } */
+    //Creación de notícias
+        public function listartablero()
+        {
+            $tablero = DB::table('tablero as t')
+            ->join('empleado as e','t.idempleado','=','e.idempleado')
+            ->select('t.id','t.titulo','t.post','t.fechapublica','t.imagen','t.idempleado')
+            ->get();
+            return view('eventos.eventos',["tablero"=>$tablero]);
+
+        }
+
+        public function cnoticia(Request $request)
+        {
+            /*$noticia = new Eventos;
+            $noticia = titulo = $request->get('titulo');
+            $noticia = post = $request->get('post');
+            $noticia = imagen = $request->get('imagen');
+            $noticia = fechapublica = $request->get('fechap');
+            $noticia = idempleado = $request->get('idempleado');
+            $noticia->save();*/
+        }
     //Validaciones
 
         public function validateRequest($request){
