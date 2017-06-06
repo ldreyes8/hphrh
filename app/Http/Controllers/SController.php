@@ -221,9 +221,10 @@ class SController extends Controller
         ->where('p.identificacion','=',$id)
         ->get();
 
-        $pais=DB::table('persona as p')
-        ->join('pais as ps','ps.idpais','=','p.idpais')
-        ->select('p.trabajoext','p.forma','p.motivofin','ps.nombre')
+        $pais=DB::table('trabajoextranjero as te')
+        ->join('pais as ps','te.idpais','=','ps.idpais')
+        ->join('persona as p','te.identificacion','=','p.identificacion')
+        ->select('te.trabajoext','te.forma','te.motivofin','ps.nombre')
         ->where('p.identificacion','=',$id)
         ->get();
 
@@ -238,7 +239,7 @@ class SController extends Controller
     public function rechazo($id)
     {
         $st=Empleado::find($id);
-        $st->idstatus='8';
+        $st->idstatus='10';
         $st->update();
         return Redirect::to('listados/rechazados');
     }

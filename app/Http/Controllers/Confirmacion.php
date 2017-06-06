@@ -65,7 +65,7 @@ class Confirmacion extends Controller
             $today = Carbon::now();
             $year = $today->format('Y');
 
-            if ($idco=="2")
+            if ($idco=="6")
             {
                 //dd($idem,$idco);
                 $fecha=$request->get('fecha');

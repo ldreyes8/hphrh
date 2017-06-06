@@ -30,7 +30,7 @@ class Rechazados extends Controller
         ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
         ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
         ->select('e.idempleado','e.identificacion','e.nit','p.nombre1 as nombre','p.apellido1 as apellido','af.nombre as fnombre','pu.nombre as pnombre','st.statusemp as statusn')
-        ->where('e.idstatus','=',8)
+        ->where('e.idstatus','=',10)
         ->where('p.nombre1','LIKE','%'.$query.'%')
         ->orderBy('e.idempleado','desc')
         //->orderBy('e.idempleado','desc')
