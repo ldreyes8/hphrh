@@ -17,6 +17,7 @@ use App\Referencia;
 use App\Idioma;
 use App\Licencia;
 use App\PuestoPublico;
+use App\Textranjero;
 use Storage;
 use DB;
 use Carbon\Carbon;  // para poder usar la fecha y hora
@@ -83,8 +84,11 @@ class PersonaController extends Controller
         $nombre1=$request->get('nombre1');
         $apellido1=$request->get('apellido1');
         $img=$request->file('archivo');
-        $forma=$request->get('forma');
-        $trabajos=$request->get('trabajoext');
+        $forma=$request->get('formate');
+        $trabE=$request->get('trabajoext');
+        $paisTe=$request->get('paisTe');
+        $motivofint=$request->get('finmotivo');
+        //dd($trabE);
         $paisP = $request->get('idpaisPS');
         //dd($paisP);
 
@@ -142,22 +146,7 @@ class PersonaController extends Controller
                         $persona-> idetnia=$request->get('idetnia');
                         $persona-> idnacionalidad=$request->get('idnacionalidad');
                         $persona-> iddocumento=$request->get('iddocumento');
-
-                        $persona-> trabajoext=$request->get('trabajoext');
-
-                        if ($forma == "null") 
-                        {    
-                            $persona-> forma="";
-                            $persona-> motivofin="";
-                            $persona-> idpais="";
-                        }
-                        else 
-                        {
-                            $persona-> forma=$forma;
-                            $persona-> motivofin=$request->get('motivofin');
-                            $persona-> idpais=$request->get('idpais');
-                        }
-
+                        $persona-> idpais=$paisP;
                         $persona->save();
                         //dd($paisP,$persona);
                      //Datos empleado
@@ -197,7 +186,37 @@ class PersonaController extends Controller
                             $ppublico-> identificacion= $request->get('identificacion');
                             $ppublico-> save();
                         }
+
                         //dd($persona,$empleado,$ppublico);
+                    //Datos trabajo extranjer
+                        $contTE=0;
+                        if ($trabE === "No" ) 
+                        {   
+                            $ptextra=new Textranjero;
+                            $ptextra-> idpais=NULL;
+                            $ptextra-> identificacion=$request->get('identificacion');
+                            $ptextra-> trabajoext=$trabE; 
+                            $ptextra-> forma="";
+                            $ptextra-> motivofin="";
+                            $ptextra->save();
+                            
+                        }
+                        else 
+                        {
+                            while($contTE < count($forma))
+                            {
+                                $ptextra=new Textranjero;
+                                $ptextra-> idpais=$paisTe[$contTE];
+                                $ptextra-> identificacion=$request->get('identificacion');
+                                $ptextra-> trabajoext=$trabE;
+                                $ptextra-> forma=$forma[$contTE];
+                                $ptextra-> motivofin=$motivofint[$contTE];
+                                $ptextra->save();
+                                $contTE=$contTE +1;
+                            }   
+                        }
+
+                        //dd($persona,$empleado,$ptextra);
                      //Datos familia
                         $nombref=$request->get('nombref');
                         $apellidof=$request->get('apellidof');
