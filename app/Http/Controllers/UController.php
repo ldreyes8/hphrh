@@ -100,20 +100,11 @@ class UController extends Controller
     	}
 
         public function cambiar_password(Request $request){
-                    $this->validateRequestPassword($request);
-
+            $this->validateRequestPassword($request);
             $id=$request->get('idusuario');
-           
-           
-
             $usuario=User::find($id);
-
-
             $password=$request->input("password");
-
             $usuario->password=bcrypt($password);
-
-
             $r=$usuario->save();
 
             if($r){
@@ -127,14 +118,6 @@ class UController extends Controller
 
     	public function galeria()
     	{
-            /*
-            $users=DB::table('users as U')
-            ->join('persona as per','U.identificacion','=','per.identificacion')
-            ->join('empleado as emp','per.identificacion','=','emp.identificacion')
-            ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil')
-            ->get();
-
-            */
             $users=DB::table('users as U')
             ->join('persona as per','U.identificacion','=','per.identificacion')
             ->join('empleado as emp','per.identificacion','=','emp.identificacion')
@@ -143,16 +126,43 @@ class UController extends Controller
             ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
             ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado')
             ->where('U.id','!=',Auth::user()->id)
-            ->get(); 
+            ->paginate(30); 
             
-            
-            
+        
     		/*
     		$data =  array("users"=>$users);
     		return json_encode($data);*/
-    		return view("hr.galeria",["usuario"=>$users]);
-    		
+            return view("hr.galeria")->with("usuario",$users);    		
     	}
+
+        public function buscar_personal($dato){
+          
+            if($dato=="general")
+            {
+                $users=DB::table('users as U')
+            ->join('persona as per','U.identificacion','=','per.identificacion')
+            ->join('empleado as emp','per.identificacion','=','emp.identificacion')
+            ->join('nomytras as nt','emp.idempleado','=','nt.idempleado')
+            ->join('puesto as p','nt.idpuesto','=','p.idpuesto')
+            ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
+            ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado')
+            ->where('U.id','!=',Auth::user()->id)
+            ->paginate(30);                 
+            }
+            else{
+
+            $users=DB::table('users as U')
+            ->join('persona as per','U.identificacion','=','per.identificacion')
+            ->join('empleado as emp','per.identificacion','=','emp.identificacion')
+            ->join('nomytras as nt','emp.idempleado','=','nt.idempleado')
+            ->join('puesto as p','nt.idpuesto','=','p.idpuesto')
+            ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
+            ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado')
+            ->where("U.name","like","%".$dato."%")->orwhere("U.email","like","%".$dato."%")->paginate(20);
+            
+            }
+            return view("hr.galeria")->with("usuario",$users);
+        }
 
         public function buscar_usuarios($afiliado,$dato="")
         {

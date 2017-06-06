@@ -14,7 +14,7 @@
     <div class="col-lg-3 col-md-4">
         <div class="box box-primary">                        
              
-            <div class="card-box">
+            <div class="card-box"> 
                 <h4 class="text-center">Reporte</h4>
                 <div class="member-card">
                     <div class="form-group">
@@ -40,12 +40,10 @@
         
         <div class="card-box">
             <h4 class="m-t-0 m-b-20 header-title">opciones</h4>
+            <!--
 
-            <!--            <button class="btn btn-primary" id="btndescargar">Descargar</button> 
-
-              <a href="{{URL::action('VController@Gpdf')}}"><button class="btn btn-primary" id="btndescargar">Descargar</button></a> 
-            -->
-  
+                        <button class="btn btn-primary" id="btndescargar">Descargar</button> 
+            !-->    
         </div>
     
     </div>

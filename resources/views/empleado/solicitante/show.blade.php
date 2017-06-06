@@ -13,29 +13,7 @@ input[type=text] {
     </style>
 @endsection
 @section ('contenido')
-  <form role="form" id="formUpdate">  
-    <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-          <div class="form-group">
-            <label for="nombre">Nombre</label>
-            <p>{{$persona->nombre1.' '.$persona->nombre2.' '.$persona->apellido1.' '.$persona->apellido2}}</p>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-          <div class="form-group">
-            <label for="serie_comprobante">Identificacion</label>
-            <p id="identificacionup" >{{$empleado->identificacion}}</p>
-            <input type="hidden" id="identificacion" value="{{$empleado->identificacion}}">
-            <input type="hidden" id="idempleado" value="{{$empleado->idempleado}}">
-            <p style="display: none;">{{$empleado->idempleado}}</p>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-          <div class="form-group">
-          <label for="serie_comprobante">Nit</label>
-            <p>{{$empleado->nit}}</p>
-          </div>
-        </div>
+
     </div>
 
     <div class="row">
@@ -99,16 +77,6 @@ input[type=text] {
                                    
                   </td>
                 @endif
-
-
-                  <td><input type="text" name="" value="{{$persona->telefono}}"></td>
-                  <td><input type="text" name="" value="{{$persona->fechanac}}"></td>
-                  <td><input type="text" name="" value="{{$persona->departamento}}"></td>
-                  <td><input type="text" name="" value="{{$persona->municipio}}"></td>
-                  <td><input type="text" name="" value="{{$empleado->estadocivil}}"></td>
-                  <td><input type="text" name="" value="{{$persona->afiliado}}"></td>
-                  <td><input type="text" name="" value="{{$persona->puesto}}"></td>
-                  <td><input type="text" name="" value="{{$empleado->afiliacionigss}}"></td>
 
                   <td><input type="text" name="" value="{{$empleado->numerodependientes}}"></td>
                   <td><input type="text" name="" value="{{$empleado->aportemensual}}"></td>

@@ -543,8 +543,11 @@ class VController extends Controller
       return response()->json(array('error'=>'la fecha inicio no puede ser mayor que la fecha final'),404);
     }
   }
-  public function Gpdf(request $request)
+
+  /*
+  public function Gpdf($idempleado)
   {
+
     $usuario = DB::table('users as U')
     ->join('persona as per','U.identificacion','=','per.identificacion')
     ->join('empleado as emp','per.identificacion','=','emp.identificacion')
@@ -560,13 +563,40 @@ class VController extends Controller
     $year = $today->format('d/m/Y');
 
 
+
  
     $pdf= PDF::loadView('pdfs.gocevacaciones',["usuario"=>$usuario,"year"=>$year]);
     return $pdf->download('reporte.pdf');
     //return view('empleado.vacaciones.index',["ausencias"=>$ausencias,"searchText"=>$query,'usuarios'=>$usuarios,'ausencia'=>$ausencia,'vacaciones'=>$vacaciones]); 
     //return view ('reporte.gocevacaciones') ;
   }
+*/
 
+   public function Gpdf()
+  {
+
+    $usuario = DB::table('users as U')
+    ->join('persona as per','U.identificacion','=','per.identificacion')
+    ->join('empleado as emp','per.identificacion','=','emp.identificacion')
+    ->join('nomytras as nom','emp.idempleado','=','nom.idempleado')
+    ->join('puesto as pue','nom.idpuesto','=','pue.idpuesto')
+    ->join('afiliado as afi','nom.idafiliado','=','afi.idafiliado')
+    ->select('emp.idempleado','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','pue.nombre as puesto','afi.nombre as afiliado')
+    ->where('U.id','=',Auth::user()->id)
+    ->orderBy('nom.idnomytas','desc')
+    ->first();
+
+    $today = Carbon::now();
+    $year = $today->format('d/m/Y');
+
+
+
+ 
+    $pdf= PDF::loadView('pdfs.gocevacaciones',["usuario"=>$usuario,"year"=>$year]);
+    return $pdf->download('reporte.pdf');
+    //return view('empleado.vacaciones.index',["ausencias"=>$ausencias,"searchText"=>$query,'usuarios'=>$usuarios,'ausencia'=>$ausencia,'vacaciones'=>$vacaciones]); 
+    //return view ('reporte.gocevacaciones') ;
+  }
 
   public function validateRequest($request){
         $rules=[

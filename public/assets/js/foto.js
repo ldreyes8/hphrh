@@ -60,6 +60,28 @@ $('html, body').animate({scrollTop:0}, 300);
         })
     }
     
+    $(document).on("click",".pagination li a",function(e){
+        //para que la pagina se cargen los elementos
+        e.preventDefault();
+        var url =$( this).attr("href");
+        $("#profile").html($("#cargador_empresa").html());
+        $.get(url,function(resul){
+        $("#profile").html(resul); 
+        })
+    })
+
+    function buscarusuario(){
+        var dato=$("#dato_buscado").val();
+        if(dato == "")
+        {
+            dato ="general";
+        }
+        var url="buscar_personal/"+dato+"";
+        $("#profile").html($("#cargador_empresa").html());
+        $.get(url,function(resul){
+        $("#profile").html(resul);  
+        })
+    }
 
 
     /*

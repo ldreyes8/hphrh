@@ -59,7 +59,9 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::post('vacaciones/update','VController@update');
 	Route::get('goce','VController@goce');
 	Route::get('diastomado','VController@rangogoce');
-	Route::get('Gpdf','VController@Gpdf');
+	Route::get('Gpdf/{idempleado?}','VController@Gpdf');
+		//Route::get('Gpdf/{fini}/{ffin}/{idempleado?}','VController@Gpdf');
+	//Route::get('Gpdf','VController@Gpdf');
 
 
 	//Rutas de la solicitud de empleo
@@ -79,7 +81,8 @@ Route::group(['prefix'=>'empleado'],function(){
 	//rutas del perfil
 	Route::post('/updatefoto','UController@subirimagen');
 	Route::get('galeria','UController@galeria');
-	Route::get('buscar_usuarios/{pais}/{dato?}', 'UController@buscar_usuarios');
+	Route::get('buscar_personal/{dato?}', 'UController@buscar_personal');
+	//Route::get('buscar_usuarios/{pais}/{dato?}', 'UController@buscar_usuarios');
 
 	//Route academico crud
 	Route::get('listaracademico','UController@listaracademico');
