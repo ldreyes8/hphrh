@@ -28,11 +28,11 @@
                     </div>    
                 @endforeach
             </div>
-            <!--
+            
             <?php
-            // echo str_replace('/?', '?', $usuario->render() )  ;
+            echo str_replace('/?', '?', $usuario->render() )  ;
             ?>
-            -->
+            
 
         @endif
     
@@ -41,7 +41,7 @@
         @if (isset($usuario))
             <div>
 
-            {{ $usuario->links() }}
+            
             </div>
 
             @if(count($usuario)==0)
@@ -56,3 +56,4 @@
         @endif
         </div>
 </div>
+<script src="{{asset('assets/js/foto.js')}}"></script>
