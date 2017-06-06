@@ -101,7 +101,7 @@
                 </div>                 
             </div>
             <div class="col-lg-3 col-sm-12 col-md-12 col-xs-12">
-                <table id="detalle7" class="table table-striped table-bordered table-condensed table-hover">
+                <table id="detalle7" class="table table-striped table-bordered table-condensed table-hover ">
                     <thead>
                         <th>opciones</th>
                         <th>Jefe</th>
@@ -131,8 +131,8 @@
         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group">
-                    <button class="btn btn-info" id="btnguardar" type="submit">Guardar</button>
-                    <a href=""><button class="btn btn-danger" type="button">Cancelar</button></a>
+                    <button class="btn btn-primary" id="btnguardar">Guardar</button>
+                    <a href=""><button class="btn btn-danger" id="btncancelar" type="button">Cancelar</button></a>
                 </div>
             </div>
         </div>
@@ -152,6 +152,10 @@
                     agregar7();
                 });
         });
+            
+            $("#btnguardar").hide();
+            $("#btncancelar").hide();
+
             function valida(e){
                 tecla = e.keyCode || e.which;
                 tecla_final = String.fromCharCode(tecla);
@@ -187,12 +191,14 @@
                         contJI++;
                         $('#detalle7').append(fila);
                         limpiar();
+                        $("#btnguardar").show();
                     }
                     else
                     {
                         var fila='<tr class="selected" id="fila'+contJI+'"><td><button type="button" style="background-color:#E6E6E6"  class="btn " onclick="eliminar('+contJI+');">X</button></td><td><input type="hidden" name="idjefes[]" value="'+idjefe+'">'+jefeTex+'</td> <td><input type="hidden" name="confirma[]" value="2">'+no+'</td> </tr>';
                         contJI++;
                         $('#detalle7').append(fila);
+                        $("#btnguardar").show();
                     }
                 }
                 else
@@ -206,5 +212,19 @@
             {
                 $("#fila" + index).remove();
             }
+
+        /*$("#btnguardar").click(function()
+        { 
+            re=$("#detalle7").val();
+            if (re!="") {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }  
+              
+        });*/
         </script>
+        
 @endsection
