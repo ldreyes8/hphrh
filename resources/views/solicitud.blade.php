@@ -141,7 +141,7 @@
                                             </div>
                                             <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                            <div class="form-group">
-                                                                <label for="nit">Nit *</label>
+                                                                <label for="nit">Nit </label>
                                                                 <input type="text" name="nit" id="nit" class="form-control" maxlength="9">
                                                             </div>
                                                         </div>
@@ -241,8 +241,8 @@
                                                         </div>
                                                         <div class="col-lg-4 col-md-8 col-sm-8 col-xs-12">
                                                            <div class="form-group">
-                                                                <label for="barriocolonia">Barrio o colonia</label>
-                                                                <input type="text-area" maxlength="100" name="barriocolonia" class="form-control">
+                                                                <label for="barriocolonia">Direcció completa *</label>
+                                                                <input type="text-area" maxlength="100" name="barriocolonia" id="barriocolonia" class="form-control">
                                                             </div>
                                                         </div>          
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
@@ -460,6 +460,7 @@
                                                         <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                                             <table id="detalle4" class="table table-striped table-bordered table-condensed table-hover">
                                                                 <thead style="background-color:#A9D0F5">
+                                                                    <th style="width: 1%">Opciones</th>
                                                                     <th>Nombre</th>
                                                                     <th>Apellido</th>
                                                                     <th>Edad</th>
@@ -469,6 +470,7 @@
                                                                     <th>Emergencias</th>
                                                                 </thead>
                                                                 <tfoot>
+                                                                    <th></th>
                                                                     <th></th>
                                                                     <th></th>
                                                                     <th></th>
@@ -628,6 +630,7 @@
                                                     <div class="col-lg-8 col-sm-12 col-md-12 col-xs-12">
                                                         <table id="detalle6" class="table table-striped table-bordered table-condensed table-hover">
                                                             <thead>
+                                                                <th style="width: 1%">Opciones</th>
                                                                 <th>Título</th>
                                                                 <th>Establecimiento</th>
                                                                 <th>Duración</th>
@@ -646,6 +649,7 @@
                                                                 <th></th>
                                                                 <th></th>
                                                                 <th></th>
+                                                                <th></th>
                                                             </tfoot>
                                                             <tbody>
                                                                         
@@ -655,10 +659,12 @@
                                                     <div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
                                                         <table id="detalle7" class="table table-striped table-bordered table-condensed table-hover">
                                                             <thead>
+                                                                <th style="width: 1%">Opciones</th>
                                                                 <th>Idioma</th>
                                                                 <th>Nivel</th>
                                                             </thead>
                                                             <tfoot>
+                                                                <th></th>
                                                                 <th></th>
                                                                 <th></th>
                                                             </tfoot>
@@ -728,6 +734,7 @@
                                                     <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                                         <table id="detalle5" class="table table-striped table-bordered table-condensed table-hover">
                                                             <thead style="background-color:#A9D0F5">
+                                                                <th style="width: 1%">Opciones</th>
                                                                 <th>Empresa</th>
                                                                 <th>Puesto</th>
                                                                 <th>Jefe inmediato</th>
@@ -737,6 +744,7 @@
                                                                 <th>Salida</th>
                                                             </thead>
                                                             <tfoot>
+                                                                <th></th>
                                                                 <th></th>
                                                                 <th></th>
                                                                 <th></th>
@@ -790,12 +798,14 @@
                                                         <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                                             <table id="detalle3" class="table table-striped table-bordered table-condensed table-hover">
                                                                 <thead style="background-color:#A9D0F5">
+                                                                    <th style="width: 1%">Opciones</th>
                                                                     <th>Nombre</th>
                                                                     <th>Teléfono</th>
                                                                     <th>Profesion</th>
                                                                     <th>Tipo referencia</th>
                                                                 </thead>
                                                                 <tfoot>
+                                                                    <th></th>
                                                                     <th></th>
                                                                     <th></th>
                                                                     <th></th>
@@ -939,21 +949,20 @@
                                                                 <div class="form-group">
                                                                     <label>¿Ha trabajado en el extranjero?</label>
                                                                     <label ><input type="radio" name="trabajoext" value="Si" onclick="Fextra(this)">Si</label>
-                                                                    <label ><input type="radio" name="trabajoext" value="No" onclick="Fextra(this)">No</label>
+                                                                    <label ><input type="radio" name="trabajoext" value="No" checked onclick="Fextra(this)">No</label>
                                                                 </div>
                                                             </div>
                                                             <div id="Dextranjero" style="display: none;">
                                                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                                     <div class="form-group">
                                                                         <label for="forma">En que forma</label>
-                                                                        <input type="text" name="forma" class="form-control" onkeypress="return validaL(event)">
+                                                                        <input type="text" id="format" name="forma" class="form-control" onkeypress="return validaL(event)">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                                     <div class="form-group">
                                                                         <label for="idpais">País</label>
-                                                                        <label>Municipio</label>
-                                                                        <select name="idpais" class="form-control selectpicker" data-live-search="true">
+                                                                        <select name="idpaisTE" id="idpaist" class="form-control selectpicker" data-live-search="true">
                                                                             <option value="" hidden>Seleccione</option>
                                                                             @foreach($pais as $p)
                                                                                 <option value="{{$p->idpais}}">{{$p->nombre}}</option>
@@ -961,11 +970,35 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                                                                <div class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
                                                                     <div class="form-group">
-                                                                        <label for="motivofin">Motivo de finalización de la relación laboral en el extranjero</label>
-                                                                        <input type="text" name="motivofin" class="form-control" onkeypress="return validaL(event)">
+                                                                        <label for="motivofin">Motívo de finalización de la relación laboral en el extranjero</label>
+                                                                        <input type="text" id="motivofint" name="motivofin" class="form-control" onkeypress="return validaL(event)">
                                                                     </div>
+                                                                </div>
+                                                                <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
+                                                                    <label ></label>
+                                                                    <div class="form-group">
+                                                                        <button type="button" id="bt_addTE" class="btn btn-primary">Agregar</button>
+                                                                    </div>                 
+                                                                </div>
+                                                                <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                                                    <label></label>
+                                                                    <table id="detalleTE" class="table table-striped table-bordered table-condensed table-hover">
+                                                                        <thead style="background-color: #A9D0F5">
+                                                                            <th style="width: 1%">Opciones</th>
+                                                                            <th>Forma en la que trabajo</th>
+                                                                            <th>País en el que trabajo</th>
+                                                                            <th>Motívo de finalización laboral</th>
+                                                                        </thead>
+                                                                        <tfoot>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                        </tfoot>
+                                                                        <tbody></tbody>
+                                                                    </table>
                                                                 </div>
                                                             </div>
 
@@ -973,9 +1006,11 @@
                                                                 <label></label>
                                                                 <table id="detalle" class="table table-striped table-bordered table-condensed table-hover">
                                                                     <thead style="background-color: #A9D0F5">
+                                                                        <th style="width: 1%">Opciones</th>
                                                                         <th>Nombre del padecimiento</th>
                                                                     </thead>
                                                                     <tfoot>
+                                                                        <th></th>
                                                                         <th></th>
                                                                     </tfoot>
                                                                     <tbody></tbody>
@@ -986,11 +1021,12 @@
                                                                 <label></label>
                                                                 <table id="detalle8" class="table table-striped table-bordered table-condensed table-hover">
                                                                     <thead style="background-color: #A9D0F5">
-                                                                        <th class="col-lg-3">Licencia</th>
+                                                                        <th style="width: 1%">Opciones</th>
+                                                                        <th style="width: 3%" class="col-lg-3">Licencia</th>
                                                                         <th class="col-lg-3">Vigencia</th>
-                                                                        <th class="col-lg-6">-</th>
                                                                     </thead>
                                                                     <tfoot>
+                                                                        <th></th>
                                                                         <th></th>
                                                                         <th></th>
                                                                     </tfoot>
@@ -1003,12 +1039,14 @@
                                                                 <label></label>
                                                                 <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
                                                                     <thead style="background-color:#A9D0F5">
+                                                                        <th style="width: 1%">Opciones</th>
                                                                         <th>Acreedor</th>
                                                                         <th>Mensualidad</th>
                                                                         <th>Acreedor</th>
                                                                         <th>Motivo</th>
                                                                     </thead>
                                                                     <tfoot>
+                                                                        <th></th>
                                                                         <th></th>
                                                                         <th></th>
                                                                         <th></th>
@@ -1108,6 +1146,9 @@
                 $('#bt_add8').click(function() {
                     agregar8();
                 });
+                $('#bt_addTE').click(function() {
+                    agregarTE();
+                });
                 $('#prs2').click(function() {
                     prs();
                 });
@@ -1120,7 +1161,8 @@
                     pretension=$("#pretension").val();
                     dato1=$("#dato1").val();   
                     idpaisPS=$("#idpaisPS").val();    
-                    iddepartamento=$("#iddepartamento").val();       
+                    iddepartamento=$("#iddepartamento").val();
+                    barriocolonia=$("#barriocolonia").val();       
                     if (identificacion!="" )
                         {  
                                            
@@ -1130,14 +1172,7 @@
                             alert('Su Identicación es requerida *');
                             return false;
                         }
-                    if (nit!="")
-                        {                     
-                        }
-                    else
-                        {
-                            alert('Nit es un campo obligatorio *');
-                            return false;
-                        }
+                    
                     if (nombre1!="" )
                         {                     
                         }
@@ -1162,6 +1197,14 @@
                             alert('Celular, campo requerido *');
                             return false;
                         }
+                    if (barriocolonia!="")
+                        {                     
+                        }
+                    else
+                        {
+                            alert('Direción, campo obligatorio *');
+                            return false;
+                        }
                     if (dato1!="")
                         {                     
                         }
@@ -1180,7 +1223,7 @@
                         }
                     if(idpaisPS!="")
                         {
-                            if (idpaisPS == "73") 
+                            if (idpaisPS == "73" ) 
                             {
                                 if(iddepartamento!="1")
                                 {
@@ -1190,6 +1233,14 @@
                                     alert('Departamento es un campo obligatorio *');
                                     return false;
                                 }
+                                if (nit!="")
+                                    {                     
+                                    }
+                                else
+                                    {
+                                        alert('Nit es un campo obligatorio *');
+                                        return false;
+                                    }
                             }
                             else
                             {
@@ -1214,6 +1265,7 @@
                     nom=$("#g-recaptcha-response").val();
                     idpaisPS=$("#idpaisPS").val();
                     iddepartamento=$("#iddepartamento").val();
+                    barriocolonia=$("#barriocolonia").val();
                     if (identificacion!="" )
                         {  
                                            
@@ -1247,7 +1299,7 @@
                             alert('En Datos Generales existen campos obligatorios *');
                             return false;
                         }
-                    if (nit!="")
+                    if (barriocolonia!="")
                         {                     
                         }
                     else
@@ -1275,6 +1327,14 @@
                                     alert('Departamento es un campo obligatorio *');
                                     return false;
                                 }
+                                if (nit!="")
+                                    {                     
+                                    }
+                                else
+                                    {
+                                        alert('Nit es un campo obligatorio *');
+                                        return false;
+                                    }
                             }
                             else
                             {
@@ -1347,6 +1407,7 @@
             var contAc=0;
             var contId=0;
             var contL=0;
+            var contTE=0;
             $("#gdr").hide();
         //confirmacion de formulario
             function showContent() {
@@ -1504,6 +1565,12 @@
             {
                 $("#vigencia").val("");
             }
+            function limpiarTE()
+            {
+                $("#format").val("");
+                $("#idpaist").val("");
+                $("#motivofint").val("");
+            }
         //Funciones agregar
             function prs()
             {
@@ -1533,16 +1600,28 @@
 
                 if (nombre!="")
                 {
-                    var fila='<tr class="selected" id="fila'+cont+'"><td><input type="hidden" name="nombre[]" value="'+nombre+'">'+nombre+'</td>  </tr>';
+                    var filaP='<tr class="selected" id="filaP'+cont+'"><td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarP('+cont+');">X</button></td><td><input type="hidden" name="nombre[]" value="'+nombre+'">'+nombre+'</td>  </tr>';
                     cont++;
                     limpiar1();
                     //evaluar();
-                    $('#detalle').append(fila);
+                    $('#detalle').append(filaP);
                 }
                 else
                 {
                     alert('Ingrese un padecimiento')
                 }   
+            }
+
+            function eliminarP(index)
+            {
+                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                {
+                    return false;
+                }
+                else 
+                {
+                    $("#filaP" + index).remove();
+                }
             }
 
             function agregar2()
@@ -1553,15 +1632,27 @@
                 mdeuda=$("#mdeuda").val();
                 if ((acreedor!="") && (amortizacionmensual!="") && (montodeuda!=""))
                 {
-                    var fila='<tr class="selected" id="fila'+conts+'"> <td><input type="hidden" name="acreedor[]" value="'+acreedor+'">'+acreedor+'</td> <td><input type="hidden" name="amortizacionmensual[]" value="'+amortizacionmensual+'">'+amortizacionmensual+'</td> <td><input type="hidden" name="montodeuda[]" value="'+montodeuda+'">'+montodeuda+'</td> <td><input type="hidden" name="mdeuda[]" value="'+mdeuda+'">'+mdeuda+'</td> </tr>';
+                    var filaC='<tr class="selected" id="filaC'+conts+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarC('+conts+');">X</button></td> <td><input type="hidden" name="acreedor[]" value="'+acreedor+'">'+acreedor+'</td> <td><input type="hidden" name="amortizacionmensual[]" value="'+amortizacionmensual+'">'+amortizacionmensual+'</td> <td><input type="hidden" name="montodeuda[]" value="'+montodeuda+'">'+montodeuda+'</td> <td><input type="hidden" name="mdeuda[]" value="'+mdeuda+'">'+mdeuda+'</td> </tr>';
                     conts++;
                     limpiar2();
-                    $('#detalles').append(fila);
+                    $('#detalles').append(filaC);
                 }
                 else
                 {
                     alert('Si usted esta ingresando un Crédito, todos los campos son obligatorios')
                 }   
+            }
+
+            function eliminarC(index)
+            {
+                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                {
+                    return false;
+                }
+                else 
+                {
+                    $("#filaC" + index).remove();
+                }
             }
 
             function agregar3()
@@ -1575,15 +1666,27 @@
 
                 if ((nombrer!="") && (telefonor!="") && (profesion!="") )
                 {
-                    var fila='<tr class="selected" id="fila'+contss+'"> <td><input type="hidden" name="nombrer[]" value="'+nombrer+'">'+nombrer+'</td> <td><input type="hidden" name="telefonor[]" value="'+telefonor+'">'+telefonor+'</td> <td><input type="hidden" name="profesion[]" value="'+profesion+'">'+profesion+'</td> <td><input type="hidden" name="tiporeferencia[]" value="'+tiporeferencia+'">'+tiporeferencia+'</td> </tr>';
+                    var filaR='<tr class="selected" id="filaR'+contss+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarR('+contss+');">X</button></td> <td><input type="hidden" name="nombrer[]" value="'+nombrer+'">'+nombrer+'</td> <td><input type="hidden" name="telefonor[]" value="'+telefonor+'">'+telefonor+'</td> <td><input type="hidden" name="profesion[]" value="'+profesion+'">'+profesion+'</td> <td><input type="hidden" name="tiporeferencia[]" value="'+tiporeferencia+'">'+tiporeferencia+'</td> </tr>';
                     contss++;
                     limpiar3();
-                    $('#detalle3').append(fila);
+                    $('#detalle3').append(filaR);
                 }
                 else
                 {
                     alert('Si esta ingresando una referencia, todos los campos son obligatorios')
                 }   
+            }
+
+            function eliminarR(index)
+            {
+                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                {
+                    return false;
+                }
+                else 
+                {
+                    $("#filaR" + index).remove();
+                }
             }
 
             function agregar4()
@@ -1603,23 +1706,34 @@
                 {
                     if ( ($('#emergencia').is(':checked')) && (telefonof!=""))
                     {
-                        var fila='<tr class="selected" id="fila'+contsss+'"> <td><input type="hidden" name="nombref[]" value="'+nombref+'">'+nombref+'</td> <td><input type="hidden" name="apellidof[]" value="'+apellidof+'">'+apellidof+'</td> <td><input type="hidden" name="edad[]" value="'+edad+'">'+edad+'</td> <td><input type="hidden" name="telefonof[]" value="'+telefonof+'">'+telefonof+'</td> <td><input type="hidden" name="parentezco[]" value="'+parentezco+'">'+parentezco+'</td> <td><input type="hidden" name="ocupacion[]" value="'+ocupacion+'">'+ocupacion+'</td> <td><input type="hidden" name="emergencia[]" value="'+emergencia+'">'+emrg+'</td> </tr>';
+                        var filaF='<tr class="selected" id="filaF'+contsss+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarF('+contsss+');">X</button></td> <td><input type="hidden" name="nombref[]" value="'+nombref+'">'+nombref+'</td> <td><input type="hidden" name="apellidof[]" value="'+apellidof+'">'+apellidof+'</td> <td><input type="hidden" name="edad[]" value="'+edad+'">'+edad+'</td> <td><input type="hidden" name="telefonof[]" value="'+telefonof+'">'+telefonof+'</td> <td><input type="hidden" name="parentezco[]" value="'+parentezco+'">'+parentezco+'</td> <td><input type="hidden" name="ocupacion[]" value="'+ocupacion+'">'+ocupacion+'</td> <td><input type="hidden" name="emergencia[]" value="'+emergencia+'">'+emrg+'</td> </tr>';
                     contsss++;
                     limpiar4();
-                    $('#detalle4').append(fila);
+                    $('#detalle4').append(filaF);
                     }
                     else 
                     {
-                        var fila='<tr class="selected" id="fila'+contsss+'"> <td><input type="hidden" name="nombref[]" value="'+nombref+'">'+nombref+'</td> <td><input type="hidden" name="apellidof[]" value="'+apellidof+'">'+apellidof+'</td> <td><input type="hidden" name="edad[]" value="'+edad+'">'+edad+'</td> <td><input type="hidden" name="telefonof[]" value="'+telefonof+'">'+telefonof+'</td> <td><input type="hidden" name="parentezco[]" value="'+parentezco+'">'+parentezco+'</td> <td><input type="hidden" name="ocupacion[]" value="'+ocupacion+'">'+ocupacion+'</td> <td><input type="hidden" name="emergencia[]" value="no">'+emr+'</td> </tr>';
+                        var filaF='<tr class="selected" id="filaF'+contsss+'"><td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarF('+contsss+');">X</button></td> <td><input type="hidden" name="nombref[]" value="'+nombref+'">'+nombref+'</td> <td><input type="hidden" name="apellidof[]" value="'+apellidof+'">'+apellidof+'</td> <td><input type="hidden" name="edad[]" value="'+edad+'">'+edad+'</td> <td><input type="hidden" name="telefonof[]" value="'+telefonof+'">'+telefonof+'</td> <td><input type="hidden" name="parentezco[]" value="'+parentezco+'">'+parentezco+'</td> <td><input type="hidden" name="ocupacion[]" value="'+ocupacion+'">'+ocupacion+'</td> <td><input type="hidden" name="emergencia[]" value="no">'+emr+'</td> </tr>';
                     contsss++;
                     limpiar4();
-                    $('#detalle4').append(fila);
+                    $('#detalle4').append(filaF);
                     }
                 }
                 else
                 {
                     alert('Existen campos obligatorios');
                 }   
+            }
+            function eliminarF(index)
+            {
+                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                {
+                    return false;
+                }
+                else 
+                {
+                    $("#filaF" + index).remove();
+                }
             }
 
             function agregar5()
@@ -1634,15 +1748,26 @@
 
                 if ((empresa!="") && (puesto!="") && (jefeinmediato!="") && (motivoretiro!="") && (ultimosalario!="") && (fingresoex!="") && (fsalidaex!=""))
                 {
-                    var fila='<tr class="selected" id="fila'+contEx+'"> <td><input type="hidden" name="empresa[]" value="'+empresa+'">'+empresa+'</td> <td><input type="hidden" name="puesto[]" value="'+puesto+'">'+puesto+'</td> <td><input type="hidden" name="jefeinmediato[]" value="'+jefeinmediato+'">'+jefeinmediato+'</td> <td><input type="hidden" name="motivoretiro[]" value="'+motivoretiro+'">'+motivoretiro+'</td> <td><input type="hidden" name="ultimosalario[]" value="'+ultimosalario+'">'+ultimosalario+'</td> <td><input type="hidden" name="fingresoex[]" value="'+fingresoex+'">'+fingresoex+'</td> <td><input type="hidden" name="fsalidaex[]" value="'+fsalidaex+'">'+fsalidaex+'</td> </tr>';
+                    var filaEl='<tr class="selected" id="filaEl'+contEx+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarEl('+contEx+');">X</button></td> <td><input type="hidden" name="empresa[]" value="'+empresa+'">'+empresa+'</td> <td><input type="hidden" name="puesto[]" value="'+puesto+'">'+puesto+'</td> <td><input type="hidden" name="jefeinmediato[]" value="'+jefeinmediato+'">'+jefeinmediato+'</td> <td><input type="hidden" name="motivoretiro[]" value="'+motivoretiro+'">'+motivoretiro+'</td> <td><input type="hidden" name="ultimosalario[]" value="'+ultimosalario+'">'+ultimosalario+'</td> <td><input type="hidden" name="fingresoex[]" value="'+fingresoex+'">'+fingresoex+'</td> <td><input type="hidden" name="fsalidaex[]" value="'+fsalidaex+'">'+fsalidaex+'</td> </tr>';
                     contEx++;
                     limpiar5();
-                    $('#detalle5').append(fila);
+                    $('#detalle5').append(filaEl);
                 }
                 else
                 {
                     alert('Si esta agregando un Experiencia Laboral, todos los campos son obligatorios');
                 }   
+            }
+            function eliminarEl(index)
+            {
+                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                {
+                    return false;
+                }
+                else 
+                {
+                    $("#filaEl" + index).remove();
+                }
             }
 
             function agregar6()
@@ -1670,16 +1795,16 @@
                     {
                         if (idpaisPA !="73") 
                         {
-                                var fila='<tr class="selected" id="fila'+contAc+'"> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingreso+'">'+fingreso+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalida+'">'+fsalida+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+munid+'"></td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
+                                var filaA='<tr class="selected" id="filaA'+contAc+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarA('+contAc+');">X</button></td> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingreso+'">'+fingreso+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalida+'">'+fsalida+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+munid+'"></td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
                                 contAc++;
                                 limpiar6();
-                                $('#detalle6').append(fila);
+                                $('#detalle6').append(filaA);
                         }
                         else
                         {
                             if(iddepartamento1!="1")
                             {
-                                var fila='<tr class="selected" id="fila'+contAc+'"> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingreso+'">'+fingreso+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalida+'">'+fsalida+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+pidmunicipio+'">'+municipio+'</td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
+                                var fila='<tr class="selected" id="filaA'+contAc+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarA('+contAc+');">X</button></td> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingreso+'">'+fingreso+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalida+'">'+fsalida+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+pidmunicipio+'">'+municipio+'</td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
                                 contAc++;
                                 limpiar6();
                                 $('#detalle6').append(fila);
@@ -1694,19 +1819,19 @@
                     {
                         if (idpaisPA !="73") 
                         {
-                                var fila='<tr class="selected" id="fila'+contAc+'"> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingresoDT+'">'+fingresoDT+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalidaDT+'">'+fsalidaDT+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+munid+'"></td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
+                                var filaA='<tr class="selected" id="filaA'+contAc+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarA('+contAc+');">X</button></td> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingresoDT+'">'+fingresoDT+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalidaDT+'">'+fsalidaDT+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+munid+'"></td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
                                 contAc++;
                                 limpiar6();
-                                $('#detalle6').append(fila);
+                                $('#detalle6').append(filaA);
                         }
                         else
                         {
                             if(iddepartamento1!="1")
                             {
-                                var fila='<tr class="selected" id="fila'+contAc+'"> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingresoDT+'">'+fingresoDT+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalidaDT+'">'+fsalidaDT+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+pidmunicipio+'">'+municipio+'</td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
+                                var filaA='<tr class="selected" id="filaA'+contAc+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarA('+contAc+');">X</button></td> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingresoDT+'">'+fingresoDT+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalidaDT+'">'+fsalidaDT+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+pidmunicipio+'">'+municipio+'</td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
                                 contAc++;
                                 limpiar6();
-                                $('#detalle6').append(fila);
+                                $('#detalle6').append(filaA);
                             }
                             else
                             {
@@ -1720,6 +1845,17 @@
                     alert('Revise los datos obligatorios')
                 }   
             }
+            function eliminarA(index)
+            {
+                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                {
+                    return false;
+                }
+                else 
+                {
+                    $("#filaA" + index).remove();
+                }
+            }
             function agregar7()
             {
 
@@ -1732,11 +1868,22 @@
                 }
                 else
                 {
-                    var fila='<tr class="selected" id="fila'+contId+'"><td><input type="hidden" name="eidioma[]" value="'+idioma+'">'+idiomaTex+'</td> <td><input type="hidden" name="niveli[]" value="'+niveli+'">'+niveli+'</td> </tr>';
+                    var filaI='<tr class="selected" id="filaI'+contId+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarI('+contId+');">X</button></td> <td><input type="hidden" name="eidioma[]" value="'+idioma+'">'+idiomaTex+'</td> <td><input type="hidden" name="niveli[]" value="'+niveli+'">'+niveli+'</td> </tr>';
                     contId++;
-                    $('#detalle7').append(fila);
+                    $('#detalle7').append(filaI);
                 }
 
+            }
+            function eliminarI(index)
+            {
+                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                {
+                    return false;
+                }
+                else 
+                {
+                    $("#filaI" + index).remove();
+                }
             }
             function agregar8()
             {
@@ -1746,16 +1893,60 @@
                 vigencia=$("#vigencia").val();
                 if(vigencia!="")
                 {
-                    var fila='<tr class="selected" id="fila'+contL+'"><td><input type="hidden" name="licenciaid[]" value="'+licencia+'">'+licenciatex+'</td> <td><input type="hidden" name="vigencia[]" value="'+vigencia+'">'+vigencia+'</td> </tr>';
+                    var filaL='<tr class="selected" id="filaL'+contL+'"><td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarL('+contL+');">X</button> </td><td><input type="hidden" name="licenciaid[]" value="'+licencia+'">'+licenciatex+'</td> <td><input type="hidden" name="vigencia[]" value="'+vigencia+'">'+vigencia+'</td> </tr>';
                     contL++;
                     limpiar7();
-                    $('#detalle8').append(fila);
+                    $('#detalle8').append(filaL);
                 }
                 else
                 {
                     alert('Campo vigencia obligatorio')
                 }
             }
+            function eliminarL(index)
+            {
+                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                {
+                    return false;
+                }
+                else 
+                {
+                    $("#filaL" + index).remove();
+                }
+            }
+
+            function agregarTE()
+            {
+                formate=$("#format").val();
+                paisid=$("#idpaist").val();
+                finmotivo=$("#motivofint").val();
+                paistext=$("#idpaist option:selected").text();
+                
+                if ((formate!="") && (finmotivo!="") && (paisid!=""))
+                {
+                    
+                                var filaTE='<tr class="selected" id="filaTE'+contTE+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarTE('+contTE+');">X</button></td> <td><input type="hidden" name="formate[]" value="'+formate+'">'+formate+'</td> <td><input type="hidden" name="paisTe[]" value="'+paisid+'">'+paistext+'</td> <td><input type="hidden" name="finmotivo[]" value="'+finmotivo+'">'+finmotivo+'</td> </tr>';
+                                contTE++;
+                                limpiarTE();
+                                $('#detalleTE').append(filaTE);   
+                }
+                else
+                {
+                    alert('Revise los datos obligatorios')
+                }   
+            }
+            function eliminarTE(index)
+            {
+                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                {
+                    return false;
+                }
+                else 
+                {
+                    $("#filaTE" + index).remove();
+                }
+            }
+
             function evaluar()
             {
                 if (cont>0){
