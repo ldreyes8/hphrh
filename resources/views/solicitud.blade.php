@@ -174,9 +174,6 @@
                                                             <div class="form-group">
                                                                 <label for="apellido1">Primer apellido *</label>
                                                                 <input type="text" name="apellido1" id="apellido1" class="form-control" onkeypress="return validaL(event)" maxlength="15">
-                                                                <!--@if($errors->has('apellido1'))
-                                                                    <span style="color: red;">{{$errors->first('apellido1')}}</span>
-                                                                @endif-->
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
@@ -193,6 +190,13 @@
                                                         </div>
                                         </div>
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <label>Genero</label>
+                                                            <div class="form-group">
+                                                                <label ><input type="radio" name="genero" value="M">Masculino</label>
+                                                                <label ><input type="radio" name="genero" value="F">Femenino</label>
+                                                            </div>
+                                                        </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <label for="telefono">Teléfono </label>
                                                             <div class="input-group">
@@ -212,39 +216,16 @@
                                                                 <label for="fechanac">Fecha de nacimiento *</label>
                                                                 <input id="dato1" type="text" class="form-control" name="fechanac">
                                                             </div>
-                                                        </div>    
-                                                        <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
-                                                           <div class="form-group">
-                                                                <label for="avenida">Avenida</label>
-                                                                <input type="text"  name="avenida" maxlength="40" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
-                                                            <div class="form-group">
-                                                                <label for="calle">Calle</label>
-                                                                <input type="text" name="calle" class="form-control" maxlength="40">
-                                                            </div>
-                                                        </div> 
-                                                        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                                                            <label for="nomenclatura">Nomenclatura</label>
-                                                           <div class="form-group">
-                                                                <input type="text" name="nomenclatura" class="form-control" maxlength="25">
-                                                            </div>
-                                                        </div>                                                             
-                                                    </div>
-                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="col-lg-1 col-md-1 col-sm-4 col-xs-12">
-                                                            <label for="zona" class="text-center">Zona</label>
-                                                            <div class="form-group">
-                                                                <input type="text" maxlength="2" name="zona" class="form-control" onkeypress="return valida(event)">
-                                                            </div>
                                                         </div>
                                                         <div class="col-lg-4 col-md-8 col-sm-8 col-xs-12">
                                                            <div class="form-group">
                                                                 <label for="barriocolonia">Direcció completa *</label>
                                                                 <input type="text-area" maxlength="100" name="barriocolonia" id="barriocolonia" class="form-control">
                                                             </div>
-                                                        </div>          
+                                                        </div>
+                                                                                                                    
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">     
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label>Departamento </label>
@@ -255,7 +236,7 @@
                                                                 </select>
                                                             </div>                                                
                                                         </div>
-                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label>Municipio</label>
                                                                 {!! Form::select('idmunicipio',['placeholder'=>'Selecciona'],null,['id'=>'idmunicipio','class'=>'form-control'])!!}
@@ -271,9 +252,6 @@
                                                                 </select>
                                                             </div>                                                
                                                         </div>
-                                                        
-                                                    </div>
-                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label>Etnia</label>
@@ -290,6 +268,18 @@
                                                                 <input type="text" name="afiliacionigss" class="form-control" maxlength="13">
                                                             </div>
                                                         </div>
+                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label>Estado civil</label>
+                                                                <select name="idcivil" class="form-control selectpicker" data-live-search="true">
+                                                                    @foreach($estadocivil as $cat)
+                                                                        <option value="{{$cat->idcivil}}">{{$cat->estado}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label for="numerodependientes">Dependientes</label>
@@ -319,9 +309,6 @@
                                                                 <input type="text" min="0" name="alquilermensual" class="form-control" onkeypress="return valida(event)">
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                        
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <label for="otrosingresos">Otros ingresos</label>
                                                             <div class="input-group">
@@ -336,38 +323,15 @@
                                                                 <input type="text" onkeypress="return valida(event)" min="0" name="pretension" id="pretension" class="form-control" >
                                                                 <span class="input-group-addon">.00</span>
                                                             </div>
-                                                            <!--@if($errors->has('pretension'))
-                                                                    <span style="color: red;">{{$errors->first('pretension')}}</span>
-                                                                @endif-->
                                                         </div>
-                                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                                            <div class="form-group">
-                                                                <label>Estado civil</label>
-                                                                <select name="idcivil" class="form-control selectpicker" data-live-search="true">
-                                                                    @foreach($estadocivil as $cat)
-                                                                        <option value="{{$cat->idcivil}}">{{$cat->estado}}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                            <div class="form-group">
                                                                 <label for="correo">Email</label>
                                                                 <input type="email" name="correo" maxlength="40" class="form-control">
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                                            <label>Genero</label>
-                                                            <div class="form-group">
-                                                                <label ><input type="radio" name="genero" value="M">Masculino</label>
-                                                                <label ><input type="radio" name="genero" value="F">Femenino</label>
-                                                            </div>
-                                                        </div>
-
-                                                        
-                                                    </div>
-                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label>Puesto</label>
@@ -378,10 +342,11 @@
                                                                 </select>
                                                             </div>
                                                         </div>
+                                                        
                                                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label>¿En qué afiliado le gustaría aplicar?</label>
-                                                                <select name="idafiliado" class="form-control selectpicker" data-live-search="true">
+                                                                <select name="idafiliado" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
                                                                     @foreach($afiliados as $cat)
                                                                         <option value="{{$cat->idafiliado}}">{{$cat->nombre}}</option>
                                                                     @endforeach

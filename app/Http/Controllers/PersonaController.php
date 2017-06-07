@@ -111,10 +111,10 @@ class PersonaController extends Controller
                         $fechanacc=Carbon::createFromFormat('d/m/Y',$fechanacs);
                         $fecha=$fechanacc->format('Y-m-d');
                         $persona-> fechanac = $fecha;
-                        $persona-> avenida = $request->get('avenida');
+                        /*$persona-> avenida = $request->get('avenida');
                         $persona-> calle = $request->get('calle');
                         $persona-> nomenclatura = $request->get('nomenclatura');
-                        $persona-> zona = $request->get('zona');
+                        $persona-> zona = $request->get('zona');*/
                         $persona-> barriocolonia = $request->get('barriocolonia');
 
                         if ($paisP === "73") 
