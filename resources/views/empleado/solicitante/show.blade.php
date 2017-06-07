@@ -13,8 +13,29 @@ input[type=text] {
     </style>
 @endsection
 @section ('contenido')
-
+<form  role="form" id="formUpdate" >
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <label >Nombre</label>
+      <div class="form-group">
+        <input type="text"  value="{{$persona->nombre1.' '.$persona->nombre2.' '.$persona->apellido1.' '.$persona->apellido2}}">
+      </div>
     </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <label >Identificación</label>
+        <input type="text" id="identificacionup" value="{{$empleado->identificacion}}">
+        <input type="hidden" id="idempleado" value="{{$empleado->identificacion}}">
+        <input type="hidden" id="idempleado" value="{{$empleado->idempleado}}">
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="form-group">
+      <label for="serie_comprobante">Nit</label>
+        <input type="text" value="{{$empleado->nit}}">
+      </div>
+    </div>
+  </div>
 
     <div class="row">
       <div class="table-responsive">
@@ -39,44 +60,23 @@ input[type=text] {
                 <th>Pretension</th>
                 <th>Fecha Solicitud</th>
               </thead>
-     
-              <tfoot>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tfoot>
               <tbody>
                 <tr>
-               
+                  <td><input type="text" name="" id="barriocolonia" value="{{$persona->barriocolonia}} "></td>
+                  <td><input type="text" name="" id="telefono" value="{{$persona->telefono}}"></td>
+                  <td><input type="text" name="" value="{{$persona->fechanac}}"></td>
+                  @if (!empty($persona->departamento))
+                    <td><input type="text" name="" value="{{$persona->departamento}}"></td>
+                    <td><input type="text" name="" value="{{$persona->municipio}}"></td>
+                  @else
+                    <td><input type="text" name="" value=""></td>
+                    <td><input type="text" name="" value=""></td>
+                  @endif
 
-                @if($persona->avenida != '' and $persona->calle =='')
-                  <td><input type="text" name="" value="{{'av'.' '.$persona->avenida.' '.$persona->nomenclatura.' '.'Zona'.' '.$persona->zona.' '.$persona->barriocolonia}} ">             
-                  </td>
-                @endif
-
-                @if($persona->calle != '' and $persona->avenida == '')
-                  <td><input type="text" name="" value="{{'calle'.' '.$persona->calle.' '.$persona->nomenclatura.' '.'Zona'.' '.$persona->zona.' '.$persona->barriocolonia}}">              
-                  </td>
-                @endif
-
-                @if($persona->calle != '' and $persona->avenida != '')
-                  <td><input type="text" name="" value="{{'calle'.' '.$persona->calle.' '.'av'.' '.$persona->avenida.' '.$persona->nomenclatura.' '.'Zona'.' '.$persona->zona.' '.$persona->barriocolonia}}">              
-                  </td>
-                @endif
-     
-
-                @if($persona->calle == '' and $persona->avenida == '' and $persona->zona == '' and $persona->nomenclatura == '' and $persona->barriocolonia != '')
-                  <td><input type="text" MAXLENGTH=7 name="" value="{{$persona->barriocolonia}}">              
-                  </td>
-                @endif
-
-                @if($persona->calle == '' and $persona->avenida == '' and $persona->zona == '' and $persona->nomenclatura == '' and $persona->barriocolonia == '')
-                  <td>              
-                                   
-                  </td>
-                @endif
+                  <td><input type="text" name="" value="{{$empleado->estadocivil}}"></td>
+                  <td><input type="text" name="" value="{{$persona->afiliado}}"></td>
+                  <td><input type="text" name="" value="{{$persona->puesto}}"></td>
+                  <td><input type="text" name="" value="{{$empleado->afiliacionigss}}"></td>
 
                   <td><input type="text" name="" value="{{$empleado->numerodependientes}}"></td>
                   <td><input type="text" name="" value="{{$empleado->aportemensual}}"></td>
@@ -381,9 +381,9 @@ input[type=text] {
                   <div class="form-group">
                     <button class="btn btn-info" type="button" id="btncomentario" >Agregar una observación</button>
                   </div>
-                  <button id="btnupsolicitud" type="button" class="btn btn-primary">Guardar cambios</button>
+                  <button id="btnupsolicitud" type="button" class="btn btn-primary" >Guardar cambios</button>
       </div>
-  </form>
+</form>
      <div class="col-lg-12">
         <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -482,23 +482,7 @@ $(document).ready(function(){
             }
         });
     });
-  $("#btnupsolicitud").click(function()
-  {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
-    //alert('update');
-    var miurl="upsolicitud";
-
-        /*var formData = {
-            observacion: $("#observacion").val(),
-            idempleado: $("#idempleado").val(),
-        };
-        */
-
-  });
+  
 });
 </script>
 
