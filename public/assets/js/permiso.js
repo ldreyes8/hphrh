@@ -56,7 +56,7 @@ $(document).ready(function(){
 
                 success: function (data) {
               
-                swal({
+                swal({ 
                     title:"Envio correcto",
                     text: "Se ha notificado al empleado",
                     type: "success"

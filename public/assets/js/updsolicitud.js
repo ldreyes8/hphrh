@@ -5,23 +5,46 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
-        var my_url=;
-
+        
+        var my_url='upsolicitud';
+        var idpad=$('#idpad').val();
+        alert(idpad);
         var formData = {
-            identificacionup: $('#identificacionup').val(),
-            barriocolonia: $('#barriocolonia').val(),
-            telefono: $('#telefono').val(),
+            //Datos persona
+                identificacionup: $('#identificacionup').val(),
+                nombre1: $('#nombre1').val(),
+                nombre2: $('#nombre2').val(),
+                apellido1: $('#apellido1').val(), 
+                apellido2: $('#apellido2').val(),
+                barriocolonia: $('#barriocolonia').val(),
+                telefono: $('#telefono').val(),
+                fechanac: $('#fechanac').val(),
+            //Datos empleado
+                idempleado: $('#idempleado').val(),
+                nit: $('#nit').val(),
+                dependientes: $('#dependientes').val(),
+                iggs: $('#iggs').val(),
+                aportemensual: $('#aportemensual').val(),
+                vivienda: $('#vivienda').val(),
+                alquilermensual: $('#alquilermensual').val(),
+                otrosingresos: $('#otrosingresos').val(),
         }
         console.log(formData);
         $.ajax({
-            type: "PUT",
+            type: "POST",
             url: my_url,
-            data: formData(identificacionup),
+            data: formData,
             dataType: 'json',
 
             success: function (data) {
-    
-                $('#formModal').modal('hide');
+                swal({ 
+                    title:"Envio correcto",
+                    text: "Información actualizada correctamente",
+                    type: "success"
+                },
+                function(){
+                    //window.location.href="/empleado/solicitante"
+                });
                 
             },
             error: function (data) {

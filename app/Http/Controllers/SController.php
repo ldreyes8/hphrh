@@ -145,13 +145,10 @@ class SController extends Controller
 
         if (empty($municipio->idmunicipio)) {
           $persona=DB::table('persona as p')
-
-            ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
-            ->join('departamento as dp','m.iddepartamento','=','dp.iddepartamento')
             ->join('empleado as em','p.identificacion','=','em.identificacion')
             ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
             ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.fechanac','p.barriocolonia','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive','dp.nombre as departamento','m.nombre as municipio')
+            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.fechanac','p.barriocolonia','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
             ->where('em.identificacion','=',$id)
             ->first();
         }
@@ -167,7 +164,7 @@ class SController extends Controller
             ->where('em.identificacion','=',$id)
             ->first();
         }
-
+        //dd($persona);
         /*$downloads=DB::table('persona as p')
         ->select('p.finiquitoive')
         ->where('p.identificacion','=',$id)

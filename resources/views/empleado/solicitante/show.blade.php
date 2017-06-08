@@ -1,6 +1,7 @@
 @extends ('layouts.index')
 @section('estilos')
     @parent
+    <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
     <style >
 input[type=text] {
 
@@ -16,23 +17,33 @@ input[type=text] {
 <form  role="form" id="formUpdate" >
   <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-      <label >Nombre</label>
-      <div class="form-group">
-        <input type="text"  value="{{$persona->nombre1.' '.$persona->nombre2.' '.$persona->apellido1.' '.$persona->apellido2}}">
-      </div>
+      <label >Nombre Completo</label>
+        <div class="row">
+          <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <input type="text" id="nombre1" value="{{$persona->nombre1}}">
+                <input type="text" id="apellido1" value="{{$persona->apellido1}}">
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <input type="text" id="nombre2" value="{{$persona->nombre2}}">
+                <input type="text" id="apellido2" value="{{$persona->apellido2}}">
+            </div>
+          </div>
+        </div>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
       <div class="form-group">
         <label >Identificación</label>
         <input type="text" id="identificacionup" value="{{$empleado->identificacion}}">
-        <input type="hidden" id="idempleado" value="{{$empleado->identificacion}}">
         <input type="hidden" id="idempleado" value="{{$empleado->idempleado}}">
       </div>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
       <div class="form-group">
-      <label for="serie_comprobante">Nit</label>
-        <input type="text" value="{{$empleado->nit}}">
+      <label>Nit</label>
+        <input type="text" id="nit" value="{{$empleado->nit}}">
       </div>
     </div>
   </div>
@@ -64,27 +75,26 @@ input[type=text] {
                 <tr>
                   <td><input type="text" name="" id="barriocolonia" value="{{$persona->barriocolonia}} "></td>
                   <td><input type="text" name="" id="telefono" value="{{$persona->telefono}}"></td>
-                  <td><input type="text" name="" value="{{$persona->fechanac}}"></td>
+                  <td><input type="text" name="" id="fechanac" value="{{ \Carbon\Carbon::createFromFormat('Y-m-d', $persona->fechanac)->format('d-m-Y')}}"></td>
                   @if (!empty($persona->departamento))
-                    <td><input type="text" name="" value="{{$persona->departamento}}"></td>
-                    <td><input type="text" name="" value="{{$persona->municipio}}"></td>
+                    <td><input type="text" name="" id="departamento" value="{{$persona->departamento}}"></td>
+                    <td><input type="text" name="" id="municipio" value="{{$persona->municipio}}"></td>
                   @else
-                    <td><input type="text" name="" value=""></td>
-                    <td><input type="text" name="" value=""></td>
+                    <td><input type="text" name="" id="departamento" value=""></td>
+                    <td><input type="text" name="" id="municipio" value=""></td>
                   @endif
-
                   <td><input type="text" name="" value="{{$empleado->estadocivil}}"></td>
                   <td><input type="text" name="" value="{{$persona->afiliado}}"></td>
                   <td><input type="text" name="" value="{{$persona->puesto}}"></td>
-                  <td><input type="text" name="" value="{{$empleado->afiliacionigss}}"></td>
+                  <td><input type="text" name="" id="iggs" value="{{$empleado->afiliacionigss}}"></td>
 
-                  <td><input type="text" name="" value="{{$empleado->numerodependientes}}"></td>
-                  <td><input type="text" name="" value="{{$empleado->aportemensual}}"></td>
-                  <td><input type="text" name="" value="{{$empleado->vivienda}}"></td>
-                  <td><input type="text" name="" value="{{$empleado->alquilermensual}}"></td>
-                  <td><input type="text" name="" value="{{$empleado->otrosingresos}}"></td>
-                  <td><input type="text" name="" value="{{$empleado->pretension}}"></td>
-                  <td><input type="text" name="" value="{{$empleado->fechasolicitud}}"></td>
+                  <td><input type="text" name="" id="dependientes" value="{{$empleado->numerodependientes}}"></td>
+                  <td><input type="text" name="" id="aportemensual" value="{{$empleado->aportemensual}}"></td>
+                  <td><input type="text" name="" id="vivienda" value="{{$empleado->vivienda}}"></td>
+                  <td><input type="text" name="" id="alquilermensual" value="{{$empleado->alquilermensual}}"></td>
+                  <td><input type="text" name="" id="otrosingresos" value="{{$empleado->otrosingresos}}"></td>
+                  <td>{{$empleado->pretension}}</td>
+                  <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d',$empleado->fechasolicitud)->format('d-m-Y')}}</td>
                 </tr>
               </tbody>
             </table>
@@ -287,14 +297,14 @@ input[type=text] {
             <table id="detallesPad" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Padecimeintos</h2></p>
               <thead style="background-color:#A9D0F5">
-                <th style="width: 0.5%">Id</th>
+                <th style="width: 1%">Id</th>
                 <th>Padecimientos</th>
               </thead>
               <tbody>
                 @foreach($padecimientos as $pad)
-                <tr class="filaTable">
-                  <td><input type="text" id="uppadid" class="padRid" name="" value="{{$pad->idppadecimientos}}"></td>
-                  <td><input type="text" id="uppadn" class="padRn" name="" value="{{$pad->nombre}}"></td>
+                <tr>
+                  <td><input type="text" id="idpad" name="" value="{{$pad->idppadecimientos}}"></td>
+                  <td><input type="text" id="nombrepa" class="padRn" name="" value="{{$pad->nombre}}"></td>
                 </tr>
                  @endforeach
               </tbody>
@@ -433,6 +443,9 @@ input[type=text] {
 @endsection
 @section('fin')
     @parent
+
+    <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
+    <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
     <meta name="_token" content="{!! csrf_token() !!}" />
     <script src="{{asset('assets/js/updsolicitud.js')}}"></script>
 <script type="text/javascript">
