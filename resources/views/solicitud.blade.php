@@ -219,7 +219,7 @@
                                                         </div>
                                                         <div class="col-lg-4 col-md-8 col-sm-8 col-xs-12">
                                                            <div class="form-group">
-                                                                <label for="barriocolonia">Direcció completa *</label>
+                                                                <label for="barriocolonia">Dirección completa *</label>
                                                                 <input type="text-area" maxlength="100" name="barriocolonia" id="barriocolonia" class="form-control">
                                                             </div>
                                                         </div>
@@ -1314,7 +1314,7 @@
 
                     if (nom==false) 
                             {
-                                alert('Revise los campos obligatorios *');
+                                alert('Campo No soy un robot es obligatorio *');
                                 return false;
                             }
                     else
