@@ -312,7 +312,8 @@
                         </td>
                     </tr>
                 </table>
-                <strong>Copyright &copy; <a href="www.solera.com">Solera</a>.</strong> All rights reserved.
+                <strong>Copyright &copy; Solera.</strong> All rights reserved.
+
             </td>
         </tr>
     </table>

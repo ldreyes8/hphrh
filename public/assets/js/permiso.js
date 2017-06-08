@@ -55,6 +55,7 @@ $(document).ready(function(){
                 },
 
                 success: function (data) {
+                    $f.data('locked', true);
               
                 swal({
                     title:"Envio correcto",
@@ -83,6 +84,7 @@ $(document).ready(function(){
                 complete: function(){ $f.data('locked', false);  // (3)
                 }
             });
+
         }else{
             alert("se esta enviando su solicitud");
         }        

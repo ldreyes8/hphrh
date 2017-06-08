@@ -133,6 +133,7 @@ class PermisosController extends Controller
 
         $ausencia->observaciones = $request->observaciones;
         $ausencia->autorizacion = $request->autorizacion;
+        $ausencia->id=Auth::user()->id;
         $ausencia->save();
 
         

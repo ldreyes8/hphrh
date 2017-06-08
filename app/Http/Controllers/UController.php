@@ -124,10 +124,11 @@ class UController extends Controller
             ->join('nomytras as nt','emp.idempleado','=','nt.idempleado')
             ->join('puesto as p','nt.idpuesto','=','p.idpuesto')
             ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
-            ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado')
+            ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado','emp.idempleado',DB::raw('max(nt.idnomytas) as idnomytas'))
             ->where('U.id','!=',Auth::user()->id)
+            ->groupBy('emp.idempleado')            
             ->paginate(30); 
-            
+           
         
     		/*
     		$data =  array("users"=>$users);
@@ -145,8 +146,9 @@ class UController extends Controller
             ->join('nomytras as nt','emp.idempleado','=','nt.idempleado')
             ->join('puesto as p','nt.idpuesto','=','p.idpuesto')
             ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
-            ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado')
+            ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado','emp.idempleado')
             ->where('U.id','!=',Auth::user()->id)
+            ->groupBy('emp.idempleado') 
             ->paginate(30);                 
             }
             else{
@@ -157,8 +159,15 @@ class UController extends Controller
             ->join('nomytras as nt','emp.idempleado','=','nt.idempleado')
             ->join('puesto as p','nt.idpuesto','=','p.idpuesto')
             ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
-            ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado')
-            ->where("U.name","like","%".$dato."%")->orwhere("U.email","like","%".$dato."%")->paginate(20);
+            ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado','emp.idempleado')
+            ->where("U.name","like","%".$dato."%")
+            ->orwhere("U.email","like","%".$dato."%")
+            ->orwhere("p.nombre","like","%".$dato."%")
+            ->orwhere("a.nombre","like","%".$dato."%")
+            ->groupBy('emp.idempleado') 
+
+
+            ->paginate(30);
             
             }
             return view("hr.galeria")->with("usuario",$users);
@@ -180,7 +189,7 @@ class UController extends Controller
         } 
 
 
-    	 public function subirimagen(Request $request)
+    	public function subirimagen(Request $request)
         {
             $id=$request->input('idusuario');
             $user =User::findOrFail($id);
@@ -220,9 +229,7 @@ class UController extends Controller
                 {
                     return view("mensajes.msj_rechazado")->with("msj","no se cargo la imagen");
                 }
-
             }   
-
         }
     //Datos Academicos
         public static function  getTowns(Request $request, $id)

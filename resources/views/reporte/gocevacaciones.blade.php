@@ -9,44 +9,44 @@
 @section ('contenido')
 
 <div class="row"> 
-<input type="hidden" name="idempleado" value="{{$usuario->idempleado}}" id="idempleado">
+    {!!Form::open(array('url'=>'empleado/Gpdf','method'=>'POST','autocomplete'=>'off','files'=>'true'))!!}
+    {{Form::token()}}
 
-    <div class="col-lg-3 col-md-4">
-        <div class="box box-primary">                        
-             
-            <div class="card-box"> 
-                <h4 class="text-center">Reporte</h4>
-                <div class="member-card">
-                    <div class="form-group">
-                        <label class="control-label text-center">Fecha inicio</label>
-                        
+        <input type="hidden" name="idempleado" value="{{$usuario->idempleado}}" id="idempleado">
+     
+        <div class="col-lg-3 col-md-4">
+            <div class="box box-primary">                        
+                 
+                <div class="card-box"> 
+                    <h4 class="text-center">Reporte</h4>
+                    <div class="member-card">
                         <div class="form-group">
-                            <input type="text" id="fecha_inicio" class="form-control" name="fini">
+                      
+                            <label class="control-label text-center">Fecha inicio</label>
+                            
+                            <div class="form-group">
+                                <input type="text" id="fecha_inicio" class="form-control" name="fini" required="Este campo es requerido">
+                            </div>
+                       
+                            <label class="control-label">Fecha final</label>
+                            <div class="form-group">
+                                <input type="text" id="fecha_final" class="form-control" name="ffin" required="Este campo es requerido">
+                            </div>
                         </div>
-                   
-                        <label class="control-label">Fecha final</label>
-                        <div class="form-group">
-                            <input type="text" id="fecha_final" class="form-control" name="ffin">
-
+                                      
+                        <div class="box-footer">
+                            <button type="button" id="btngoce" class="btn btn-primary btn-sm w-sm waves-effect m-t-10 waves-light">Guardar</button>
                         </div>
                     </div>
-                                  
-                    <div class="box-footer">
-                        <button type="button" id="btngoce" class="btn btn-primary btn-sm w-sm waves-effect m-t-10 waves-light">Guardar</button>
-                    </div>
-                </div>
-            </div> 
+                </div> 
+            </div>
+            
+            <div class="card-box">
+                <h4 class="m-t-0 m-b-20 header-title">opciones</h4>
+                <button type="submit" class="btn btn-primary" id="btndescargar">Descargar</button> 
+            </div>
         </div>
-        
-        <div class="card-box">
-            <h4 class="m-t-0 m-b-20 header-title">opciones</h4>
-            <!--
-
-                        <button class="btn btn-primary" id="btndescargar">Descargar</button> 
-            !-->    
-        </div>
-    
-    </div>
+    {{Form::close()}}                
 
     <div class="col-md-8 col-lg-9">
         <div class="tab-content"> 
@@ -55,10 +55,10 @@
                   <h3 class="text-center">Constancia de vacaciones</h3>
                     <h4>Nombre:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$usuario->nombre1.' '.$usuario->nombre2.' '.$usuario->nombre3.' '.$usuario->apellido1.' '.$usuario->apellido2}}</h4>
                     <h4>Puesto:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$usuario->puesto}}</h4>
-                    <h4>Ubicación:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$usuario->afiliado}}</h4>
-                    <h4>Fecha de ingreso a la fundacion</h4>
+                    <h4>Ubicaci&oacute;n:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$usuario->afiliado}}</h4>
+                    <h4>Fecha de ingreso a la fundaci&oacute;n</h4>
                     <h4>Fecha de emision de la constancia:&nbsp;&nbsp;&nbsp;{{$year}}</h4>
-                    <p>Se hace constar que el colaborador (a) gozó de su período vacacional como se detalla a continuación</p>
+                    <p>Se hace constar que el colaborador (a) gozó de su período vacacional como se detalla a continuaci&oacute;n</p>
             	</div>
             </div>
             <div class="row">
@@ -71,18 +71,12 @@
                                 <th>TOTAL DE DIAS</th>
                                 <th>PERÌODO VACACIONAL</th>
                             </thead>
-                            
                         </table>
                     </div>
                </div>
             </div>
 
             <h5 class="text-center">TOTAL DE DIAS &nbsp;&nbsp;&nbsp;&nbsp; <label id="dtomado"></label></h5>
-
-
-            <p>Quedando completo el período vacacional correspondiente al: <strong><u>03/03/11-02/03/12.</u></strong></p>
-                  
-            <div class="text-align: right"><p>&nbsp;&nbsp;SALDO DEL PERIODO: <strong>03/03/11 AL 02/03/12_____ (Llenar este espacio solo si hubiera saldo del periodo).</strong></p></div>
 
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FIRMAS DE CONFORMIDAD:</p>
 

@@ -28,6 +28,17 @@ Route::group(['prefix'=>'listados'],function(){
 	Route::get('historial/{id}','ListadoController@historial');
 	Route::get('empleado/Acta/{id}','ListadoController@Acta');
 	Route::post('empleado/agregar','ListadoController@store');
+	Route::get('empleado/calculardias/{id}','ListadoController@calculardias');
+	Route::get('vconfirmado','ListadoController@indexconfirmado');
+	Route::get('vrechazado','ListadoController@indexrechazado');
+	Route::get('vautorizado','ListadoController@indexautorizado');
+	Route::get('vsolicitado','ListadoController@indexsolicitado');
+
+	Route::get('psolicitado','RHPermiso@indexsolicitado');
+	Route::get('prechazado','RHPermiso@indexrechazado');
+	Route::get('pconfirmado','RHPermiso@indexconfirmado');
+
+
 	//Route::get('index/{id}','ListadoController@show');
 	Route::get('pprueba','Pprueba@index');
 	Route::resource('confirmacion','Confirmacion');
@@ -56,12 +67,14 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::post('vacaciones/store','VController@store');
 	Route::get('vacaciones/diashatomar','VController@diashatomar');
 	Route::get('vacaciones/calculardias','VController@calculardias');
+
+
 	Route::post('vacaciones/update','VController@update');
 	Route::get('goce','VController@goce');
 	Route::get('diastomado','VController@rangogoce');
-	Route::get('Gpdf/{idempleado?}','VController@Gpdf');
-		//Route::get('Gpdf/{fini}/{ffin}/{idempleado?}','VController@Gpdf');
-	//Route::get('Gpdf','VController@Gpdf');
+	//Route::get('Gpdf/{idempleado?}','VController@Gpdf');
+	//Route::get('Gpdf/{fini}/{ffin}/{idempleado?}','VController@Gpdf');
+	Route::post('Gpdf','VController@Gpdf');
 
 
 	//Rutas de la solicitud de empleo
