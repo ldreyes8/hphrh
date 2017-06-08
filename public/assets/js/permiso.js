@@ -57,7 +57,7 @@ $(document).ready(function(){
                 success: function (data) {
                     $f.data('locked', true);
               
-                swal({
+                swal({ 
                     title:"Envio correcto",
                     text: "Se ha notificado al empleado",
                     type: "success"

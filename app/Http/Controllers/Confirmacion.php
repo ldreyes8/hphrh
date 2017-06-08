@@ -48,7 +48,7 @@ class Confirmacion extends Controller
 
         $caso=DB::table('caso as c')
         ->select('c.idcaso','c.nombre')
-        ->where('c.idcaso','=',2)
+        ->where('c.idcaso','=',6)
         ->get();
 
         return view("listados.confirmacion.create",["puestos"=>$puestos,"afiliados"=>$afiliados,"caso"=>$caso,"empleado"=>$empleado]);
@@ -65,7 +65,7 @@ class Confirmacion extends Controller
             $today = Carbon::now();
             $year = $today->format('Y');
 
-            if ($idco=="2")
+            if ($idco=="6")
             {
                 //dd($idem,$idco);
                 $fecha=$request->get('fecha');

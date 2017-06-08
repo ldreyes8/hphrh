@@ -8,7 +8,7 @@ class Persona extends Model
 {
     //
     protected $table='persona';
-    protected $primarykey='identificacion';
+    protected $primaryKey='identificacion';
 
     public $timestamps=false;
     

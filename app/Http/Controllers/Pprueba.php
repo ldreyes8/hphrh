@@ -38,7 +38,7 @@ class Pprueba extends Controller
             ->join('puesto as po','nt.idpuesto','=','po.idpuesto')
             ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
             ->select('e.idempleado','e.identificacion','e.nit','p.nombre1 as nombre','p.apellido1 as apellido','st.statusemp as statusn','po.nombre as npo','af.nombre as naf','nt.salario as sal')
-            ->where('e.idstatus','=',7)
+            ->where('e.idstatus','=',9)
             ->where('p.nombre1','LIKE','%'.$query.'%')
             ->orderBy('e.idempleado','asc')
             //->orderBy('e.idempleado','desc')
@@ -107,7 +107,7 @@ class Pprueba extends Controller
             $today = Carbon::now();
             $year = $today->format('Y');
             
-            if ($idco=="1")
+            if ($idco=="4")
             {
                 //dd($idem,$idco);
                 $fecha=$request->get('fecha');
@@ -160,10 +160,67 @@ class Pprueba extends Controller
                 $st=Empleado::find($idem);
                 $st-> fechaingreso=$fecha;
                 //$st-> idjefeinmediato=$idji;
-                $st-> idstatus='7';
+                $st-> idstatus='9';
                 $st-> update();
             }
-            if ($idco=="5") 
+            if ($idco=="6")
+            {
+                //dd($idem,$idco);
+                $fecha=$request->get('fecha');
+                $fecha=Carbon::createFromFormat('d/m/Y',$fecha);
+                $fecha=$fecha->format('Y-m-d');
+
+                $nomtras=new Nomytras;
+                $nomtras-> idpuesto=$request->get('idpuesto');
+                $nomtras-> idempleado=$idem;
+                $nomtras-> fecha=$fecha;
+                $nomtras-> salario=$request->get('salario');
+                $nomtras-> descripcion=$request->get('descripcion');
+                $nomtras-> idafiliado=$request->get('idafiliado');
+                $nomtras-> idcaso=$idco;
+                $nomtras->save();
+
+                $identi=$request->get('idjefes');
+                $notifica=$request->get('confirma');
+
+                $cont = 0;
+
+                if ($notifica === Null) 
+                {
+                    $asjefe =new Asignajefe;
+                    $asjefe-> identificacion="";
+                } 
+                else 
+                {
+                    while ($cont<count($notifica)) 
+                    {
+                        $asjefe = new Asignajefe;
+                        $asjefe-> identificacion=$identi[$cont];
+                        $asjefe-> idempleado=$idem;
+                        $asjefe-> notifica=$notifica[$cont];
+                        $asjefe->save();
+                        $cont = $cont + 1;
+                    }
+                }
+
+                $vacas=new Vacadetalle;
+                $vacas-> idempleado=$idem;
+                $vacas-> periodo=$year;
+                $vacas-> acuhoras='0';
+                $vacas-> acudias='0';
+                $vacas-> solhoras='0';
+                $vacas-> fecharegistro=$fecha;
+                $vacas-> soldias='0';
+                $vacas->save();
+
+                $st=Empleado::find($idem);
+                $st-> fechaingreso=$fecha;
+                //$st-> idjefeinmediato=$idji;
+                $st-> idstatus='2';
+                $st-> update();
+            }
+
+            if ($idco=="7") 
             {
                 //dd($idem,$idco);
                 $fecha=$request->get('fecha');
@@ -206,7 +263,7 @@ class Pprueba extends Controller
                 $st=Empleado::find($idem);
                 $st-> fechaingreso=$fecha;
                 //$st-> idjefeinmediato=$idji;
-                $st-> idstatus='9';
+                $st-> idstatus='11';
                 $st-> update();
             }
 

@@ -148,23 +148,23 @@ class SController extends Controller
             ->join('empleado as em','p.identificacion','=','em.identificacion')
             ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
             ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.fechanac','p.avenida','p.calle','p.nomenclatura','p.zona','p.barriocolonia','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
+            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.fechanac','p.barriocolonia','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
             ->where('em.identificacion','=',$id)
             ->first();
         }
         else
         {    
-        $persona=DB::table('persona as p')
-        ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
-        ->join('departamento as dp','m.iddepartamento','=','dp.iddepartamento')
-        ->join('empleado as em','p.identificacion','=','em.identificacion')
-        ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
-        ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-        ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.fechanac','p.avenida','p.calle','p.nomenclatura','p.zona','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
-        ->where('em.identificacion','=',$id)
-        ->first();
+            $persona=DB::table('persona as p')
+            ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
+            ->join('departamento as dp','m.iddepartamento','=','dp.iddepartamento')
+            ->join('empleado as em','p.identificacion','=','em.identificacion')
+            ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
+            ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.fechanac','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
+            ->where('em.identificacion','=',$id)
+            ->first();
         }
-
+        //dd($persona);
         /*$downloads=DB::table('persona as p')
         ->select('p.finiquitoive')
         ->where('p.identificacion','=',$id)
@@ -221,9 +221,10 @@ class SController extends Controller
         ->where('p.identificacion','=',$id)
         ->get();
 
-        $pais=DB::table('persona as p')
-        ->join('pais as ps','ps.idpais','=','p.idpais')
-        ->select('p.trabajoext','p.forma','p.motivofin','ps.nombre')
+        $pais=DB::table('trabajoextranjero as te')
+        ->join('pais as ps','te.idpais','=','ps.idpais')
+        ->join('persona as p','te.identificacion','=','p.identificacion')
+        ->select('te.trabajoext','te.forma','te.motivofin','ps.nombre')
         ->where('p.identificacion','=',$id)
         ->get();
 
@@ -238,7 +239,7 @@ class SController extends Controller
     public function rechazo($id)
     {
         $st=Empleado::find($id);
-        $st->idstatus='8';
+        $st->idstatus='10';
         $st->update();
         return Redirect::to('listados/rechazados');
     }
