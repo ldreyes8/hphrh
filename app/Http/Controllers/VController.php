@@ -17,6 +17,8 @@ use Validator;
 use Carbon\Carbon;  // para poder usar la fecha y hora
 use Illuminate\Support\Facades\Auth; 
 
+use Illuminate\Support\Collection as Collection;
+
 use DB;
 use PDF;
 
@@ -348,7 +350,6 @@ class VController extends Controller
         $hdisponible = '0'.$hdisponible.':'.'00'.':'.'00';
 
         $ddisponible = $ddisponible - $datomar;
-        
       }
  
       $vacadetalle->idempleado = $request->idempleado;;
@@ -456,13 +457,13 @@ class VController extends Controller
         ->first();
     
         $idpersona = DB::table('asignajefe as aj')
-          ->join('persona as p','aj.identificacion','=','p.identificacion')
-          ->join('users as U','U.identificacion','=','p.identificacion')
-          ->join('empleado as e','e.idempleado','=','aj.idempleado')
-          ->select('U.email')
-          ->where('aj.notifica','=','1')
-          ->where('aj.idempleado','=',$empleado->idempleado)
-          ->get();
+        ->join('persona as p','aj.identificacion','=','p.identificacion')
+        ->join('users as U','U.identificacion','=','p.identificacion')
+        ->join('empleado as e','e.idempleado','=','aj.idempleado')
+        ->select('U.email')
+        ->where('aj.notifica','=','1')
+        ->where('aj.idempleado','=',$empleado->idempleado)
+        ->get();
 
         foreach ($idpersona as $per) {
           $msj->subject('Solicitud de goce vacaciones');   
@@ -536,7 +537,6 @@ class VController extends Controller
       ->where('vd.goce','!=','No_gozado')
       ->get();
 
-      
       return response()->json(($usuario));
     }
     else{
@@ -544,9 +544,12 @@ class VController extends Controller
     }
   }
 
-  /*
-  public function Gpdf($idempleado)
+  
+  public function Gpdf(request $request)
   {
+    $idempleado = $request->idempleado;
+    $fechainicio = $request->fini;
+    $fechafinal = $request->ffin;
 
     $usuario = DB::table('users as U')
     ->join('persona as per','U.identificacion','=','per.identificacion')
@@ -562,38 +565,95 @@ class VController extends Controller
     $today = Carbon::now();
     $year = $today->format('d/m/Y');
 
+    $fechainicio = Carbon::createFromFormat('d/m/Y',$fechainicio);
+    $fechafinal = Carbon::createFromFormat('d/m/Y',$fechafinal);
+
+    $fini = $fechainicio;
+    $ffin = $fechafinal;
+
+    $fechainicio = $fechainicio->toDateString();
+    $fechafinal = $fechafinal->toDateString();
+
+    if($fechafinal >= $fechainicio){
+      $rangogoce = DB::table('ausencia as a')//select date_format(date, '%a %D %b %Y') 
+      //DB::raw('DATE_FORMAT(account.terminationdate,"%Y-%m-%d") as accountterminationdate')
+      ->join('vacadetalle as vd','a.idausencia','=','vd.idausencia')
+      ->select(DB::raw('DATE_FORMAT(a.fechasolicitud,"%d/%m/%Y") as fechasolicitud'),(DB::raw('DATE_FORMAT(a.fechainicio,"%d/%m/%Y") as fechainicio')),(DB::raw('DATE_FORMAT(a.fechafin,"%d/%m/%Y") as fechafin')),'a.horainicio','a.horafin','a.totaldias','a.idempleado','a.totalhoras','vd.solhoras','vd.soldias','vd.periodo')
+      ->where('a.fechainicio', '>=', $fechainicio, 'and', 'a.fechafin', '<=', $fechafinal, 'and','a.idempleado','=',$idempleado,'and','vd.estado','=','1')
+      ->where('a.fechafin', '<=', $fechafinal)
+      ->where('vd.estado','=',1)
+      ->where('a.idempleado','=',$idempleado)
+      ->where('vd.goce','!=','No_gozado')
+      ->get();
+
+      $sum =0;
+      $res =0;
+      if(count($rangogoce)>0)
+      {
+        for ($i=0; $i < count($rangogoce); $i++) { 
+          $dsolicitado = $rangogoce[$i]->totaldias;
+          $hsolicitado = $rangogoce[$i]->totalhoras;
+          $dnotomado = $rangogoce[$i]->soldias;
+          $hnotomado = $rangogoce[$i]->solhoras;
+
+          $hsolicitado =(int)$hsolicitado; 
+          $hnotomado = (int)$hnotomado;
+
+          $tdsolicitado =0;
+          $tdnotomado = 0;
+
+          $td =0;
+
+          $resul =0;
 
 
- 
-    $pdf= PDF::loadView('pdfs.gocevacaciones',["usuario"=>$usuario,"year"=>$year]);
-    return $pdf->download('reporte.pdf');
-    //return view('empleado.vacaciones.index',["ausencias"=>$ausencias,"searchText"=>$query,'usuarios'=>$usuarios,'ausencia'=>$ausencia,'vacaciones'=>$vacaciones]); 
-    //return view ('reporte.gocevacaciones') ;
-  }
-*/
 
-   public function Gpdf()
-  {
+          $dsolicitado = $dsolicitado * 8;
+          $dnotomado = $dnotomado *8;
 
-    $usuario = DB::table('users as U')
-    ->join('persona as per','U.identificacion','=','per.identificacion')
-    ->join('empleado as emp','per.identificacion','=','emp.identificacion')
-    ->join('nomytras as nom','emp.idempleado','=','nom.idempleado')
-    ->join('puesto as pue','nom.idpuesto','=','pue.idpuesto')
-    ->join('afiliado as afi','nom.idafiliado','=','afi.idafiliado')
-    ->select('emp.idempleado','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','pue.nombre as puesto','afi.nombre as afiliado')
-    ->where('U.id','=',Auth::user()->id)
-    ->orderBy('nom.idnomytas','desc')
-    ->first();
+          $tdsolicitado = $dsolicitado + $hsolicitado;
+          $tdnotomado = $dnotomado + $hnotomado;
 
-    $today = Carbon::now();
-    $year = $today->format('d/m/Y');
+          $td = $tdsolicitado - $tdnotomado;
+          $td = $td/8;
+          $sum += $td;
+          
+          if ($td - floor($td) == 0) {
+            $resul = $td." Días";
+
+          }
+          else{
+            $td = $td - 0.5;
+            $resul = $td." ½ "."Días";
+          }
+
+          $calculo[] = $resul;
+        }
+
+        if ($sum - floor($sum) == 0) {
+          $res = $sum." Días";
+        }
+        else{
+          $sum = $sum - 0.5;
+          $res = $sum." ½ "."Días";
+        }
+      }
+      else{
+        $calculo[] = 0;
+      }
+      
+
+      $collection = Collection::make($calculo);
+      //dd($calculo,$collection,$res,$rangogoce);
 
 
-
- 
-    $pdf= PDF::loadView('pdfs.gocevacaciones',["usuario"=>$usuario,"year"=>$year]);
-    return $pdf->download('reporte.pdf');
+      $pdf= PDF::loadView('pdfs.gocevacaciones',["usuario"=>$usuario,"year"=>$year,"rangogoce"=>$rangogoce,"collection"=>$collection,"res"=>$res]);
+      return $pdf->download($usuario->nombre1.'.pdf');
+      
+    }
+    else{
+      return response()->json(array('error'=>'la fecha inicio no puede ser mayor que la fecha final'),404);
+    }
     //return view('empleado.vacaciones.index',["ausencias"=>$ausencias,"searchText"=>$query,'usuarios'=>$usuarios,'ausencia'=>$ausencia,'vacaciones'=>$vacaciones]); 
     //return view ('reporte.gocevacaciones') ;
   }

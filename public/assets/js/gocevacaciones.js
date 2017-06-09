@@ -305,8 +305,8 @@ $(document).ready(function(){
         });
 
     });
-    /*
-
+    
+/*
     $("#btndescargar").click(function(e){
 
         var miurl="Gpdf";
@@ -323,12 +323,13 @@ $(document).ready(function(){
         });
 
         $.ajax({
-            type: "get",
+            type: "post",
             url: miurl,
             data: formData,
             dataType: 'json',
 
             success: function (data) {
+                console.log("mensjae");
                               
             },
             error: function (data) {

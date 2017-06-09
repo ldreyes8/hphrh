@@ -1,5 +1,5 @@
 function cargaracademico(listado){
-	$("#academicos").html($("#cargador_empresa").html());
+    $("#academicos").html($("#cargador_empresa").html());
     if(listado==1){var url = "verificar";}
     $.get(url,function(resul){
     $("#academicos").html(resul);
@@ -8,17 +8,17 @@ function cargaracademico(listado){
 
 
 $(document).ready(function(){
-	$('#btnguardar').click(function(e){
+    $('#btnguardar').click(function(e){
         e.preventDefault();
         //Guardamos la referencia al formulario
         var $f = $(this);
         //Comprobamos si el semaforo esta en verde (1)
         if($f.data('locked') == undefined && !$f.data('locked'))
         {
-    		var miurl = "enviarpermiso";
-    		nivel = $("#emisor").val();
+            var miurl = "enviarpermiso";
+            nivel = $("#emisor").val();
 
-    		var resultado="ninguno";
+            var resultado="ninguno";
 
             var porNombre=document.getElementsByName("autorizacion");
 
@@ -26,19 +26,19 @@ $(document).ready(function(){
             // seleccionado
             for(var i=0;i<porNombre.length;i++)
             {
-            	if(porNombre[i].checked)
-            		resultado=porNombre[i].value;
+                if(porNombre[i].checked)
+                    resultado=porNombre[i].value;
             }
 
-    		var formData = {
-    			observaciones :$("#observaciones").val(),
-    			autorizacion: resultado,
-    			receptor: $("#receptor").val(),
-    			idausencia: $("#idausencia").val(),
-    			name: $("#name").val(),
+            var formData = {
+                observaciones :$("#observaciones").val(),
+                autorizacion: resultado,
+                receptor: $("#receptor").val(),
+                idausencia: $("#idausencia").val(),
+                name: $("#name").val(),
                 emisor: $("#emisor").val(), 
-    		};
-    		$.ajaxSetup({
+            };
+            $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                 }
@@ -86,7 +86,7 @@ $(document).ready(function(){
         }else{
             alert("se esta enviando su solicitud");
         }        
-	});
+    });
 
     $('#btnguardarv').click(function(e){
         e.preventDefault();

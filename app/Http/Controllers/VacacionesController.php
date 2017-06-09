@@ -313,6 +313,7 @@ class VacacionesController extends Controller
       DB::beginTransaction();
       $ausencia->observaciones = $request->observaciones;
       $ausencia->autorizacion = $request->autorizacion;
+      $ausencia->id=Auth::user()->id;
       $ausencia->save();
 
       Mail::send('emails.envempermiso',$request->all(), function($msj) use ($request){
@@ -349,6 +350,7 @@ class VacacionesController extends Controller
       DB::beginTransaction();
       $ausencia->observaciones = $request->observaciones;
       $ausencia->autorizacion = $request->autorizacion;
+      $ausencia->id=Auth::user()->id;
       $ausencia->save();
 
       if($autorizacion ==='Confirmado')

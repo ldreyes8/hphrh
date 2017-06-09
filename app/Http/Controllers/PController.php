@@ -320,24 +320,8 @@ class PController extends Controller
             $vac =DB::table('ausencia as au')                
             ->select(DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, au.horainicio, au.horafin)) as horas'))
             ->orderBy('au.idausencia','des')
-            ->first();
-
-            /*
-            if($idtipoausencia === '7')
-            {
-              $days = 1;
-              while ($ffin >= $fini) {
-                if($fini != $ffin){
-                  if($fini->isWeekend() === false){ 
-                    $days++;
-                  }
-                  $fini->addDay();
-                }
-                else{
-                  break;
-                }
-              }
-            }*/              
+            ->where('au.idausencia','=',$idausencia)
+            ->first();       
             
 
             if($vac->horas < 8)
@@ -352,7 +336,7 @@ class PController extends Controller
                 $vacacion->update();
               
             }
-
+          }
 
             Mail::send('emails.envio',['calculo' => $calculo],function($msj) use ($request){
               $idpersona = DB::table('empleado as e')
@@ -374,19 +358,9 @@ class PController extends Controller
               foreach ($emisor as $per) {
                 $msj->subject('Solicitud de permisos');
                 $msj->to($per->email);
-               // $msj->action('Recuperar contraseña', url('empleado.permisos'));
-                
-
-                 return (new MailMessage)
-                 ->line('Estás recibiendo este correo porque hiciste una solicitud de recuperación de contraseña para tu cuenta.')
-                 ->action('Recuperar contraseña', url('empleado.permisos'))
-                 ->line('Si no realizaste esta solicitud, no se requiere realizar ninguna otra acción.')
-                 ->salutation('Saludos, Solera informatica Habitat Guatemala');
               }
-                  
-              //$msj->to('drdanielreyes5@gmail.com');
             });
-          }
+          
           DB::commit();
                         
         }catch (\Exception $e) 

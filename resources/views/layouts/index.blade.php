@@ -222,6 +222,27 @@
                                     <li><a href="{{ url('/listados/pprueba')}}">Periodo de prueba</a></li>
                                     <li><a href="{{ url('/listados/rechazados')}}">En espera</a></li>
                                     <li><a href="{{ url('/mintrabf')}}">Ministerio de trabajo</a></li>
+                                    <li class="has_sub">
+                                        <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Permisos</span> 
+                                        <span class="menu-arrow"></span>
+                                        </a>
+                                        <ul class="list-unstyled">
+                                            <li><a href="{{ url('/listados/psolicitado')}}">Solicitados</a></li>
+                                            <li><a href="{{ url('/listados/pconfirmado')}}">Confirmados</a></li>
+                                            <li><a href="{{ url('/listados/prechazado')}}">Rechazados</a></li> 
+                                        </ul>
+                                    </li>
+                                    <li class="has_sub">
+                                        <a href="javascript:void(0);" class="waves-effect waves-primary"> <i class="fa fa-address-card-o"></i><span>Vacaciones</span> 
+                                                 <span class="menu-arrow"></span>
+                                        </a>
+                                        <ul class="list-unstyled">
+                                            <li><a href="{{ url('/listados/vsolicitado')}}">Solicitados</a></li>
+                                            <li><a href="{{ url('/listados/vautorizado')}}">Autorizados</a></li>
+                                            <li><a href="{{ url('/listados/vconfirmado')}}">Confirmados</a></li>
+                                            <li><a href="{{ url('/listados/vrechazado')}}">Rechazados</a></li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </li>
                             @endrole
