@@ -7,8 +7,24 @@ $(document).ready(function(){
         });
         
         var my_url='upsolicitud';
-        var idpad=$('#idpad').val();
-        alert(idpad);
+        var tabla=$("#detallesPad .filaTable");
+        /*var idpad=$('#idpads').val();
+        alert(idpad);*/
+        var i=0; //inicio del reccorido 
+        tabla.each(function(){//se recorre la tabla 
+            var idpad=$('.idpad:eq('+i+')').val();//se obtiene cada valor 
+            var np=$('.nombrepa:eq('+i+')').val();
+            $.post(my_url,
+            {
+                idpad: idpad,
+                np: np
+            },
+            function(data){});
+            i++;
+            console.log(np,idpad);
+            //alert(np);
+        });
+
         var formData = {
             //Datos persona
                 identificacionup: $('#identificacionup').val(),
@@ -28,6 +44,10 @@ $(document).ready(function(){
                 vivienda: $('#vivienda').val(),
                 alquilermensual: $('#alquilermensual').val(),
                 otrosingresos: $('#otrosingresos').val(),
+            //Datos padecimientos
+                /*idpad: idpad,
+                nombrepa: np,*/
+
         }
         console.log(formData);
         $.ajax({
@@ -61,14 +81,7 @@ $(document).ready(function(){
                 $('#erroresModal').modal('show');
             }
         });
-        /*var i=0; //inicio del reccorido 
-        $("#detallesPad .filaTable").each(function(){//se recorre la tabla 
-            var id=$('.padRid:eq('+i+')').val();//se obtiene cada valor 
-            var np=$('.padRn:eq('+i+')').val();
-            i++;
-            console.log(np,id);
-            //alert(np);
-        });*/
+        
             
     });
 });

@@ -302,9 +302,9 @@ input[type=text] {
               </thead>
               <tbody>
                 @foreach($padecimientos as $pad)
-                <tr>
-                  <td><input type="text" id="idpad" name="" value="{{$pad->idppadecimientos}}"></td>
-                  <td><input type="text" id="nombrepa" class="padRn" name="" value="{{$pad->nombre}}"></td>
+                <tr class="filaTable">
+                  <td><input type="text" class="idpad" value="{{$pad->idppadecimientos}}"></td>
+                  <td><input type="text" class="nombrepa" value="{{$pad->nombre}}"></td>
                 </tr>
                  @endforeach
               </tbody>

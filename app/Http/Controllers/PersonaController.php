@@ -489,51 +489,22 @@ class PersonaController extends Controller
     {
         $idper=$request->get('identificacionup');
         $idempleado=$request->get('idempleado');
-        //dd($idper);
+        $idpad=$request->get('idpad');
+        $nombrepa=$request->get('np');
+        $contP=0;
+        //dd($idpad,$nombrepa,$idper,$idempleado);
         $persona = Persona::findOrFail($idper);
         $persona-> nombre1 = $request->get('nombre1');
         $persona-> nombre2 = $request->get('nombre2');
-        //$persona-> nombre3 = $request->get('nombre3');
         $persona-> apellido1 = $request->get('apellido1');
         $persona-> apellido2 = $request->get('apellido2');
-        //$persona-> apellido3 = $request->get('apellido3');
         $persona-> telefono = $request->get('telefono');
-        //$persona-> celular = $request->get('celular');
         $fechanacs=$request->get('fechanac');
         $fechanacc=Carbon::createFromFormat('d-m-Y',$fechanacs);
         $fecha=$fechanacc->format('Y-m-d');
         $persona-> fechanac = $fecha;
                         
         $persona-> barriocolonia = $request->get('barriocolonia');
-
-        /*if ($paisP === "73") 
-        {
-            $persona-> idmunicipio = $request->get('idmunicipio');
-        }
-        else
-        {
-            $persona-> idmunicipio =NULL;
-        }
-
-        $persona-> ive = $request->get('ive');
-        $persona-> parientepolitico = $request->get('parientepolitico');
-        $persona-> idpuesto= $request->get('idpuesto');
-        $persona-> idafiliado= $request->get('idafiliado');
-                        
-        if($img === null)
-        {
-            $persona->finiquitoive="";
-        }
-        else
-        {
-            $file_route=time().'_'.$img->getClientOriginalName();
-            Storage::disk('archivos')->put($file_route, file_get_contents($img->getRealPath() ) );
-            $persona-> finiquitoive=$file_route;    
-        }
-        $persona-> correo=$request->get('correo');
-        $persona-> genero=$request->get('genero');
-        $persona-> idnacionalidad=$request->get('idnacionalidad');
-        $persona-> idpais=$paisP;*/
         $persona->save();
 
         $empleado = Empleado::findOrFail($idempleado);
@@ -544,18 +515,25 @@ class PersonaController extends Controller
         $empleado-> alquilermensual= $request->get('alquilermensual');
         $empleado-> otrosingresos= $request->get('otrosingresos');
         $empleado-> nit= $request->get('nit');
-        //$empleado-> idcivil= $request->get('idcivil');
         $empleado-> save();
-        $persona=array($persona,$empleado);
-        return response()->json($persona);
-        /*$id = $request->get('uppadid');
-        dd($id);
-        $ac=Padecimientos::findOrFail($id);
-        $ac-> nombre=$request->get('uppadn');
-        $ac-> identificacion=$request->get('identificacionup');
-        $ac-> idempleado=$request->get('idempleado');
-        $ac->save();
-        return response()->json($ac);*/
+
+        while($contP < count($idpad))
+        {
+            $padecimiento= Padecimientos::findOrFail($idpad);
+            $padecimiento-> nombre = $nombrepa;
+            $padecimiento->save();
+            $contP=$contP + 1;
+        }
+        $personas=array($persona,$empleado);
+        return response()->json($personas);
     }
 
+    /*public function upsolicitud(Request $request)
+    {
+        $idpad=$request->get('idpad');
+        $nombrepa=$request->get('np');
+        $padecimiento= Padecimientos::findOrFail($idpad);
+            $padecimiento-> nombre = $nombrepa;
+            $padecimiento->save();
+    }*/
 }
