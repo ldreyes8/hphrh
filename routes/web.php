@@ -201,5 +201,12 @@ Route::get('pdf','SController@pdf');
 ///
 Auth::routes();
 Route::get('/{slug?}','HomeController@index');
+
 Route::get('/home', 'HomeController@index');
-Route::resource('seguridad/usuario','UController'); 
+//rutas del controlador de Usuario
+Route::get('seguridad/usuario','UController@index');
+Route::get('seguridad/usuario/create','UController@create');
+Route::post('seguridad/usuario/store','UController@store');
+Route::put('seguridad/editarusuario/{id}', 'UController@editarusuario');
+Route::delete('destroy/{id}','UController@destroy');
+

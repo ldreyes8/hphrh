@@ -56,7 +56,7 @@ class UController extends Controller
     		if($request)
     		{
     			//$query=trim($request->get('searchText'));
-                $usuarios = User::name($request->get('name'))->orderBy('id','DESC')->paginate();
+                $usuarios = User::name($request->get('name'))->orderBy('id','DESC')->paginate(15);
                 return view('seguridad.usuario.index',compact('usuarios'));
                 //$usuarios=User::all()->where('name','LIKE','%'.$query.'%')
                     //->orderBy('id','desc')
@@ -84,9 +84,28 @@ class UController extends Controller
     		$usuario->save();
     		return Redirect::to('seguridad/usuario');		
     	}
-    	public function edit($id)
+    	public function editarusuario($id)
     	{
-    		return view('seguridad.usuario.edit',["usuario"=>User::findOrFail($id)]);
+            $usuario=User::find($id);
+            $usuario->name=strtoupper( $request->input("nombres") ) ;
+            $usuario->apellidos=strtoupper( $request->input("apellidos") ) ;
+            $usuario->telefono=$request->input("telefono");
+    
+            if($request->has("rol")){
+                $rol=$request->input("rol");
+                $usuario->revokeAllRoles();
+                $usuario->assignRole($rol);
+            }
+     
+            if( $usuario->save()){
+                return view("mensajes.msj_usuario_actualizado")->with("msj","Usuario actualizado correctamente")
+                                                       ->with("idusuario",$idusuario) ;
+            }
+            else
+            {
+                return view("mensajes.mensaje_error")->with("msj","..Hubo un error al agregar ; intentarlo nuevamente..");
+            }
+    		//return view('seguridad.usuario.editarusuario',["usuario"=>User::findOrFail($id)]);
     	}
     	
     	public function update(UsuarioFormRequest $request, $id)

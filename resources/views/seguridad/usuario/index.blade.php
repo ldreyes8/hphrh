@@ -38,8 +38,9 @@
                         @endforeach
                         </span></td>
                         <td style="width: 5%">
-                            <button type="button" class="btn  btn-default btn-xs" onclick="verinfo_usuario({{  $usu->id }})" ><i class="fa fa-fw fa-edit"></i></button>
-                            <a href="{{URL::action('UController@edit',$usu->id)}}"><i class="fa fa-pencil"></i></a>
+                            <!--
+                            <button type="button" class="btn  btn-default btn-xs" onclick="verinfo_usuario({{  $usu->id }})" ><i class="fa fa-fw fa-edit"></i></button>-->
+                            <!--<a href="{{URL::action('UController@editarusuario',$usu->id)}}"><i class="fa fa-pencil"></i></a> -->
                             <a href="" data-target="#modal-delete-{{$usu->id}}" data-toggle="modal" class="on-default" remove-row"><i class="fa fa-trash-o danger"></i></a>
                         </td>                     
                     </tr>

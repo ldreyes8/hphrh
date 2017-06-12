@@ -303,7 +303,7 @@
                                 @role('reporte')
 
                                 <li class="has_sub">
-                                    <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="md md-person"></i> <span>Reportes</span>
+                                    <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="glyphicon glyphicon-folder-open"></i> <span>Reportes</span>
                                      <span class="menu-arrow"></span>
                                     </a>
                                     <ul class="list-unstyled">
