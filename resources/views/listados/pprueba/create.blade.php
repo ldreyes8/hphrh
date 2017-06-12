@@ -3,6 +3,8 @@
     @parent
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
+        <link rel="stylesheet" href="{{asset('assets/css/bootstrap-select.min.css')}}">
 @endsection
 
 @section ('contenido')
@@ -19,7 +21,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Empleado</label>
-                    <select name="idempleado" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
+                    <select name="idempleado" class="form-control " data-live-search="true" data-style="btn-info">
                             <option value="{{$empleado->idempleado}}">{{$empleado->nombre1.': '.$empleado->apellido1}}</option>
                     </select>
                 </div>                                                
@@ -28,7 +30,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Afiliado al que aplica</label>
-                    <select name="idafiliado" class="form-control selectpicker" data-live-search="true">
+                    <select name="idafiliado" class="form-control " data-live-search="true">
                             <option value="{{$afiliados->idafiliado}}">{{$afiliados->nombre}}</option>
                     </select>
                 </div>
@@ -37,7 +39,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Puesto</label>
-                    <select name="idpuesto" class="form-control selectpicker" data-live-search="true">
+                    <select name="idpuesto" class="form-control " data-live-search="true">
                             <option value="{{$puestos->idpuesto}}">{{$puestos->nombre}}</option>
                     </select>
                 </div>
@@ -48,7 +50,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Caso</label>
-                    <select name="idcaso" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
+                    <select name="idcaso" class="form-control " data-live-search="true" data-style="btn-info">
                         @foreach($caso as $co)
                             <option value="{{$co->idcaso}}">{{$co->nombre}}</option>
                         @endforeach
@@ -81,7 +83,7 @@
                     <label>Jefe inmediato</label>
                     <select name="idjefe" id="jefe" class="form-control selectpicker" data-live-search="true">
                         @foreach($jefesinmediato as $co)
-                            <option value="{{$co->identificacion}}">{{$co->nombre1.': '.$co->apellido1}}</option>
+                            <option value="{{$co->identificacion}}">{{$co->nombre1.' '.$co->nombre2.' '.$co->apellido1.' '.$co->apellido2}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -145,9 +147,14 @@
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/datapickerf.js')}}"></script>
+        <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
+        <script src="{{asset('assets/js/bootstrap-select.min.js')}}"></script>
     //
         <script type="text/javascript">
         $(document).ready(function() {
+
+            $(".select2").select2();
+
             $('#bt_add1').click(function() {
                     agregar7();
                 });

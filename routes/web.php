@@ -88,6 +88,12 @@ Route::group(['prefix'=>'empleado'],function(){
 	
 	Route::post('solicitante/upt/','SController@upt');// agregar una observacion 
 	Route::post('solicitante/upsolicitud','PersonaController@upsolicitud');//update de la solicitud para precalificacion
+	Route::post('solicitante/upsolicitudPE','PersonaController@upsolicitudPE');//update de la solicitud para precalificacion
+	Route::post('solicitante/upsolicitudPD','PersonaController@upsolicitudPD');//update de la solicitud para precalificacion
+	Route::post('solicitante/upsolicitudPEL','PersonaController@upsolicitudPEL');//update de la solicitud para precalificacion
+	Route::post('solicitante/upsolicitudPR','PersonaController@upsolicitudPR');//update de la solicitud para precalificacion
+	Route::post('solicitante/upsolicitudPF','PersonaController@upsolicitudPF');//update de la solicitud para precalificacion
+	Route::post('solicitante/upsolicitudPA','PersonaController@upsolicitudPA');//update de la solicitud para precalificacion
 
 	//Route::get('update/{id}','SController@update');
 

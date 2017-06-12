@@ -18,9 +18,9 @@
                      <th>Identificación</th>
                      <th>Nit</th>
                      <th>Nombre</th>
-                     <th>Estado civil</th>
-                     <th>Status</th>
+                     <th>Afiliado </th>
                      <th>Puesto aplicar</th>
+                     <th>Status</th>
                      <th>Opciones</th>
                  </thead>
                  @foreach ($empleados as $em)
@@ -29,9 +29,9 @@
                  <td>{{$em->identificacion}}</td>
                  <td>{{$em->nit}}</td>
                  <td>{{$em->nombre1.': '.$em->apellido1}}</td>
-                 <td>{{$em->estadocivil}}</td>
-                 <td>{{$em->status}}</td>
+                 <td>{{$em->afnombre}}</td>
                  <td>{{$em->puesto}}</td>
+                 <td>{{$em->status}}</td>
                  <td>
                  
                  <a href="{{URL::action('SController@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>

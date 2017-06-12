@@ -347,7 +347,7 @@ class PersonaController extends Controller
                                     }
                                     else
                                     {
-                                        $academicos-> idmunicipio = NULL[$cont5];
+                                        $academicos-> idmunicipio = NULL;
                                         $academicos-> idpais = $idpaisA[$cont5];
                                     }
                                     
@@ -484,56 +484,156 @@ class PersonaController extends Controller
         }*/
         return Redirect::to('https://www.habitatguate.org/');
     }
-
     public function upsolicitud(Request $request)
+    { 
+        $idpad=$request->get('idpad');
+        $nombrepa=$request->get('np');
+
+        $padecimiento= Padecimientos::findOrFail($idpad);
+        $padecimiento-> nombre = $nombrepa;
+        $padecimiento->save();
+
+        return response()->json($padecimiento);
+    }
+
+    public function upsolicitudPD(Request $request)
+    {
+        $idpdeudas=$request->get('idpdeudas');
+        $acreedor=$request->get('acreedor');
+        $amortizacionmensual=$request->get('pago');
+        $montodeuda=$request->get('montodeuda');
+        $modeuda=$request->get('motivodeuda');
+
+        $deuda = Deudas::findOrFail($idpdeudas);
+        $deuda-> acreedor=$acreedor;
+        $deuda-> amortizacionmensual=$amortizacionmensual;
+        $deuda-> montodeuda=$montodeuda;
+        $deuda-> motivodeuda=$modeuda;
+        $deuda->save();
+
+        return response()->json($deuda);
+    }
+
+    public function upsolicitudPEL(Request $request)
+    {
+        $idpexperiencia=$request->get('idpexperiencia');
+        $empresa=$request->get('empresa');
+        $puesto=$request->get('puesto');
+        $jefeinmediato=$request->get('jefeinmediato');
+        $motivoretiro=$request->get('motivoretiro');
+        $ultimosalario=$request->get('ultimosalario');
+        $fingresoex=$request->get('fingresoex');
+        $fsalidaex=$request->get('fsalidaex');
+
+        $experiencia = Experiencia::findOrFail($idpexperiencia);
+        $experiencia-> empresa=$empresa;
+        $experiencia-> puesto=$puesto;
+        $experiencia-> jefeinmediato=$jefeinmediato;
+        $experiencia-> motivoretiro=$motivoretiro;
+        $experiencia-> ultimosalario=$ultimosalario;
+        $experiencia-> fingresoex=$fingresoex;
+        $experiencia-> fsalidaex=$fsalidaex;
+        $experiencia->save();
+
+        return response()->json($experiencia);
+    }
+
+    public function upsolicitudPF(Request $request)
+    {
+        $idpfamilia=$request->get('idpfamilia');
+        $nombref=$request->get('nombref');
+        //$apellidof=$request->get('apellidof');
+        $edad=$request->get('edad');
+        $telefonof=$request->get('telefonof');
+        $parentezco=$request->get('parentezco');
+        $ocupacion=$request->get('ocupacion');
+
+        $familia = Familia::findOrFail($idpfamilia);
+        $familia-> nombref = $nombref;
+        //$familia-> apellidof = $apellidof;
+        $familia-> edad = $edad;
+        $familia-> telefonof = $telefonof;
+        $familia-> parentezco = $parentezco;
+        $familia-> ocupacion = $ocupacion;
+        $familia->save();
+
+        return response()->json($familia);
+    }
+
+    public function upsolicitudPA(Request $request)
+    {
+        $idpacademico=$request->get('idpacademico');
+        $titulo=$request->get('titulo');
+        $establecimiento=$request->get('establecimiento');
+        $duracion=$request->get('duracion');
+        $idnivel=$request->get('selectpicker');
+        $fsalida = $request->get('fsalida');
+        $fechai=$request->get('fingreso');
+        //$periodo=$request->get('periodo');
+        //$pidmunicipio=$request->get('pidmunicipio');
+        //$idpaisA=$request->get('idpaisPAAT');
+
+        /*$fechai[$cont5]=Carbon::createFromFormat('d/m/Y',$fechai[$cont5]);
+        $fechai[$cont5]=$fechai[$cont5]->format('Y-m-d');
+        $fsalida[$cont5]=Carbon::createFromFormat('d/m/Y',$fsalida[$cont5]);
+        $fsalida[$cont5]=$fsalida[$cont5]->format('Y-m-d');*/
+        $academicos = Academico::findOrFail($idpacademico);
+        $academicos-> titulo = $titulo;
+        $academicos-> establecimiento = $establecimiento;
+        $academicos-> duracion = $duracion;
+        $academicos-> idnivel = $idnivel;
+        $academicos-> fsalida=$fsalida;
+        $academicos-> fingreso =$fechai;
+        //$academicos-> periodo =$periodo;
+        /*if ($idpaisA[$cont5] ==="73") 
+        {
+            $academicos-> idmunicipio = $pidmunicipio[$cont5];
+            $academicos-> idpais = $idpaisA[$cont5];
+        }
+        else
+        {
+            $academicos-> idmunicipio = NULL;
+            $academicos-> idpais = $idpaisA[$cont5];
+        }*/
+        $academicos-> save();
+
+        return response()->json($academicos); 
+    }
+
+    public function upsolicitudPR(Request $request)
+    {
+        $idpreferencia=$request->get('idpreferencia');
+        $nombrer=$request->get('nombrer');
+        $telefonor=$request->get('telefonor');
+        $profesion=$request->get('profesion');
+        $tiporeferencia=$request->get('tiporeferencia');
+
+        $referencia = Referencia::findOrFail($idpreferencia);
+        $referencia-> nombrer=$nombrer;
+        $referencia-> telefonor=$telefonor;
+        $referencia-> profesion=$profesion;
+        $referencia-> tiporeferencia=$tiporeferencia;
+        $referencia->save();
+
+        return response()->json($referencia);
+    }
+
+    public function upsolicitudPE(Request $request)
     {
         $idper=$request->get('identificacionup');
         $idempleado=$request->get('idempleado');
-        //dd($idper);
+
         $persona = Persona::findOrFail($idper);
         $persona-> nombre1 = $request->get('nombre1');
         $persona-> nombre2 = $request->get('nombre2');
-        //$persona-> nombre3 = $request->get('nombre3');
         $persona-> apellido1 = $request->get('apellido1');
         $persona-> apellido2 = $request->get('apellido2');
-        //$persona-> apellido3 = $request->get('apellido3');
         $persona-> telefono = $request->get('telefono');
-        //$persona-> celular = $request->get('celular');
         $fechanacs=$request->get('fechanac');
         $fechanacc=Carbon::createFromFormat('d-m-Y',$fechanacs);
         $fecha=$fechanacc->format('Y-m-d');
-        $persona-> fechanac = $fecha;
-                        
+        $persona-> fechanac = $fecha;             
         $persona-> barriocolonia = $request->get('barriocolonia');
-
-        /*if ($paisP === "73") 
-        {
-            $persona-> idmunicipio = $request->get('idmunicipio');
-        }
-        else
-        {
-            $persona-> idmunicipio =NULL;
-        }
-
-        $persona-> ive = $request->get('ive');
-        $persona-> parientepolitico = $request->get('parientepolitico');
-        $persona-> idpuesto= $request->get('idpuesto');
-        $persona-> idafiliado= $request->get('idafiliado');
-                        
-        if($img === null)
-        {
-            $persona->finiquitoive="";
-        }
-        else
-        {
-            $file_route=time().'_'.$img->getClientOriginalName();
-            Storage::disk('archivos')->put($file_route, file_get_contents($img->getRealPath() ) );
-            $persona-> finiquitoive=$file_route;    
-        }
-        $persona-> correo=$request->get('correo');
-        $persona-> genero=$request->get('genero');
-        $persona-> idnacionalidad=$request->get('idnacionalidad');
-        $persona-> idpais=$paisP;*/
         $persona->save();
 
         $empleado = Empleado::findOrFail($idempleado);
@@ -544,18 +644,10 @@ class PersonaController extends Controller
         $empleado-> alquilermensual= $request->get('alquilermensual');
         $empleado-> otrosingresos= $request->get('otrosingresos');
         $empleado-> nit= $request->get('nit');
-        //$empleado-> idcivil= $request->get('idcivil');
+        $empleado-> idcivil= $request->get('selectpicker1');
         $empleado-> save();
-        $persona=array($persona,$empleado);
-        return response()->json($persona);
-        /*$id = $request->get('uppadid');
-        dd($id);
-        $ac=Padecimientos::findOrFail($id);
-        $ac-> nombre=$request->get('uppadn');
-        $ac-> identificacion=$request->get('identificacionup');
-        $ac-> idempleado=$request->get('idempleado');
-        $ac->save();
-        return response()->json($ac);*/
-    }
 
+        $personas=array($persona,$empleado);
+        return response()->json($personas);
+    }
 }
