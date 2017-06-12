@@ -30,12 +30,14 @@ class ListadoController extends Controller
     	{
         $query=trim($request->get('searchText'));
         $empleado=DB::table('empleado as e')
-        ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
         ->join('status as st','e.idstatus','=','st.idstatus')
         ->join('persona as p','e.identificacion','=','p.identificacion')
-        ->select('e.idempleado','e.identificacion','e.nit','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','ec.estado as estadocivil','p.nombre1 as nombre','p.apellido1 as apellido','st.statusemp as statusn')
+        ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+        ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
+        ->select('e.idempleado','e.identificacion','e.nit','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','p.nombre1 as nombre','p.apellido1 as apellido','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado')
         ->where('e.idstatus','=',2)
         ->where('p.nombre1','LIKE','%'.$query.'%')
+        ->orwhere('p.apellido1','LIKE','%'.$query.'%')
         ->orderBy('e.idempleado','asc')
          ->paginate(19); 
         }
@@ -44,15 +46,33 @@ class ListadoController extends Controller
     }
     public function show ($id)
     {
-        $persona=DB::table('persona as p')
+        $municipio=DB::table('persona as p')
         ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
-        ->join('departamento as dp','m.iddepartamento','=','dp.iddepartamento')
-        ->join('empleado as em','p.identificacion','=','em.identificacion')
-        ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
-        ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-        ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.fechanac','p.avenida','p.calle','p.nomenclatura','p.zona','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto')
-        ->where('em.identificacion','=',$id)
+        ->select('m.idmunicipio')
+        ->where('p.identificacion','=',$id)
         ->first();
+
+        if (empty($municipio->idmunicipio)) {
+          $persona=DB::table('persona as p')
+            ->join('empleado as em','p.identificacion','=','em.identificacion')
+            ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
+            ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
+            ->where('em.identificacion','=',$id)
+            ->first();
+        }
+        else
+        {    
+            $persona=DB::table('persona as p')
+            ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
+            ->join('departamento as dp','m.iddepartamento','=','dp.iddepartamento')
+            ->join('empleado as em','p.identificacion','=','em.identificacion')
+            ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
+            ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.fechanac','p.avenida','p.calle','p.nomenclatura','p.zona','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto')
+            ->where('em.identificacion','=',$id)
+            ->first();
+        }
 
         $empleado=DB::table('empleado as e')
         ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
