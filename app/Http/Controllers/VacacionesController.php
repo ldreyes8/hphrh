@@ -350,7 +350,7 @@ class VacacionesController extends Controller
       DB::beginTransaction();
       $ausencia->observaciones = $request->observaciones;
       $ausencia->autorizacion = $request->autorizacion;
-      $ausencia->id=Auth::user()->id;
+      //$ausencia->id=Auth::user()->id;
       $ausencia->save();
 
       if($autorizacion ==='Confirmado')

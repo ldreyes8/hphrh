@@ -171,12 +171,26 @@ Route::group(['prefix'=>'empleado'],function(){
 	
 	Route::get('/logout', 'Auth\LoginController@logout');
 
+
+	//Reportes
+
+	Route::get('reporteEmpleado','Reporte@index');
+
+	//Excel
+	Route::get('reporteEmpleadoExcel','Reporte@Empleadoexcel');
+
+
+
+
 	//FotoController@agregarimagen
 	//Route::put('/colaboradores/{id}',['uses' => 'Colaboradores@update', 'middleware' => 'auth']);
 
 });
 
-
+//Errores
+Route::get('error404',function(){
+	abort(404);
+});
 Route::get('/', function () {
     return view('auth/login');
 });

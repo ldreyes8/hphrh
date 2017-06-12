@@ -20,7 +20,6 @@
                     <th style="width: 8%">D&iacute;as solicitados</th>
                     <th style="width: 8%">Horas solicitados</th>
                     <th style="width: 8%">Solicitante</th>
-                    <th style="width: 8%">Autorizado</th>
                     
                 </thead>
                 @foreach ($vacaciones as $vac)
@@ -32,7 +31,6 @@
                         <td style="width: 8%">{{$vac->totaldias.' '.'D&iacute;as'}}</td>
                         <td style="width: 8%">{{$vac->totalhoras}}</td>
                         <td style="width: 8%">{{$vac->nombre}}</td>
-                        <td style="width: 8%">{{$vac->name}}</td>
                      </tr>
                 @endforeach
              </table>

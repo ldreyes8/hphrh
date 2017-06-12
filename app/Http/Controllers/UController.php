@@ -37,6 +37,10 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
+use Caffeinated\Shinobi\Models\Role;
+use Caffeinated\Shinobi\Models\Permission;
+
+
 
 
 
@@ -51,11 +55,14 @@ class UController extends Controller
     	{
     		if($request)
     		{
-    			$query=trim($request->get('searchText'));
-    			$usuarios=DB::table('users')->where('name','LIKE','%'.$query.'%')
-    				->orderBy('id','desc')
-    				->paginate(7);
-    			return view('seguridad.usuario.index',["usuarios"=>$usuarios,"searchText"=>$query]);
+    			//$query=trim($request->get('searchText'));
+                $usuarios = User::name($request->get('name'))->orderBy('id','DESC')->paginate();
+                return view('seguridad.usuario.index',compact('usuarios'));
+                //$usuarios=User::all()->where('name','LIKE','%'.$query.'%')
+                    //->orderBy('id','desc')
+                    //->paginate(15);
+                //$usuarios=User::paginate(15);
+                //return view('seguridad.usuario.index',["usuarios"=>$usuarios,"searchText"=>$query]);
     		}
     	}
     	
@@ -95,7 +102,7 @@ class UController extends Controller
     	
     	public function destroy($id)
     	{
-    		$usuario =DB::table('users')->where('idusuario','=',$id)->delete();
+    		$usuario =DB::table('users')->where('id','=',$id)->delete();
     		return Redirect::to('seguridad/usuario');
     	}
 

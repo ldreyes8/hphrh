@@ -6,11 +6,10 @@
         <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
         <meta name="author" content="Coderthemes">
         
-
-        <title>Habitat para la Humanidad</title>
+        <title>H&aacute;bitat para la Humanidad</title>
 
         @section('estilos')
-        <link rel="shortcut icon" href="{{asset('assets/images/Habitat.ico')}}">
+        <link rel="shortcut icon" href="{{asset('assets/images/habitat.ico')}}">
 
         <link href="{{asset('assets/plugins/switchery/switchery.min.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/plugins/jquery-circliful/css/jquery.circliful.css')}}" rel="stylesheet" type="text/css" />
@@ -266,9 +265,9 @@
              
 
                             <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Autorizaciones</span> 
+                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Autorizaciones</span> 
                                     <span class="menu-arrow"></span>
-                                    </a>
+                                </a>
                                 <ul class="list-unstyled">
                                     <li class="has_sub">
                                         <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Permisos</span> 
@@ -299,6 +298,21 @@
                             @endrole
 
                             <li class="menu-title">Mas</li>
+
+                            @role('jefeinmediato')
+                                @role('reporte')
+
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="md md-person"></i> <span>Reportes</span>
+                                     <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ url('/empleado/reporteEmpleado')}}">Empleado_general</a></li>
+                                    </ul>
+                                </li>
+                                @endrole
+                            @endrole
+
                         </ul>
                         <div class="clearfix"></div>
                     </div>

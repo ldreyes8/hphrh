@@ -2,10 +2,10 @@
 
 namespace App;
 use Caffeinated\Shinobi\Traits\ShinobiTrait;
-
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\MyResetPassword;
+
 class User extends Authenticatable
 {
 
@@ -56,5 +56,12 @@ class User extends Authenticatable
 
         }                     
     return  $resultado;
+    }
+    public function scopeName($query,$name)
+    {
+        if(trim($name) != "")
+        {
+            $query->where('name','LIKE','%'.$name.'%');
+        }
     }
 }

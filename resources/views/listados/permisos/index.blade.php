@@ -21,7 +21,6 @@
                     <th style="width: 8%">Horas solicitados</th>
                     <th style="width: 8%">Tipo permiso</th>
                     <th style="width: 8%">Solicitante</th>
-                    <th style="width: 8%">Autorizado</th>
                     <th style="width: 15%">Justificaci&oacute;n</th>
                 </thead>
                 @foreach ($permisos as $per)
@@ -35,7 +34,6 @@
                     <td style="width: 8%"> {{$per->totalhoras}}</td>
                     <td style="width: 8%">{{$per->ausencia}}</td>
                     <td style="width: 8%"> {{$per->nombre}}</td>
-                    <td style="width: 8%"> {{$per->name}}</td> 
                     <td style="width: 15%"> {{$per->justificacion}}</td>      
                 </tr>                
                 @endforeach

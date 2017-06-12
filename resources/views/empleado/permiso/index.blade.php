@@ -41,10 +41,14 @@
     <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
+            @if (!empty($usuarios->idmunicipio))
+    <input type="hidden" name="idmunicipio" value="{{$usuarios->idmunicipio}}" id="idmunicipio">
+@else
+    <td><input type="hidden" name="" id="municipio" value=""></td>
+@endif
             <input type="hidden" name="tdias" id="tdias">
             <input type="hidden" name="thoras" id="thoras">
             <input type="hidden" name="idempleado" id="idempleado" value="{{$usuarios->idempleado}}">
-            <input type="hidden" name="idmunicipio" id="idmunicipio" value="{{$usuarios->idmunicipio}}">
             <input type="hidden" name="name"  id="name" value="{{$usuarios->nombre}}"> 
 
             <div class="modal-header">

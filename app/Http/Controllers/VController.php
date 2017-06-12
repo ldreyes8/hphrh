@@ -72,13 +72,34 @@ class VController extends Controller
         ->orderBy('vd.idvacadetalle','DESC')
         ->first();
 
-      $usuarios = DB::table('users as U')
+      $municipio=DB::table('persona as p')
+        ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
+        ->join('users as U','p.identificacion','=','U.identificacion')
+        ->select('m.idmunicipio')
+        ->where('U.id','=',Auth::user()->id)
+        ->first();
+
+      if (empty($municipio->idmunicipio)) {
+        $usuarios = DB::table('users as U')
+        ->join('persona as per','U.identificacion','=','per.identificacion')
+        ->join('empleado as E','per.identificacion','=','E.identificacion')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'E.idempleado')
+        ->where('U.id','=',Auth::user()->id)
+        ->first();
+        }
+        else
+        {
+          $usuarios = DB::table('users as U')
           ->join('persona as per','U.identificacion','=','per.identificacion')
           ->join('empleado as E','per.identificacion','=','E.identificacion')
           ->join('municipio as M','per.idmunicipio','=','M.idmunicipio')
-          ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.idmunicipio','E.idempleado')
+          ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.idmunicipio','E.idempleado')
           ->where('U.id','=',Auth::user()->id)
-          ->first();
+          ->first();   
+
+        
+        }
+     
 
 
       return view('empleado.vacaciones.index',["ausencias"=>$ausencias,"searchText"=>$query,'usuarios'=>$usuarios,'ausencia'=>$ausencia,'vacaciones'=>$vacaciones]);

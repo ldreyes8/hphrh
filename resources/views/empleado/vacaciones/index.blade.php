@@ -14,17 +14,19 @@
     </div>
 </div>
 
+@if (!empty($usuarios->idmunicipio))
+    <input type="hidden" name="idmunicipio" value="{{$usuarios->idmunicipio}}" id="idmunicipio">
+@else
+    <td><input type="hidden" name="" id="municipio" value=""></td>
+@endif
 @if($ausencia != null)
     <input type="hidden" name="idempleado" value="{{$usuarios->idempleado}}" id="idempleado">
-    <input type="hidden" name="idmunicipio" value="{{$usuarios->idmunicipio}}" id="idmunicipio">
     <input type="hidden" name="name" value="{{$usuarios->nombre}}" id="name">
     <input type="hidden" name="solhoras" value="{{$ausencia->totalhoras}}" id="solhoras">
     <input type="hidden" name="soldias" value="{{$ausencia->totaldias}}" id="soldias">
     <input type="hidden" name="idvacadetalle" value="{{$ausencia->idvacadetalle}}" id="idvacadetalle">
 @else
-    
     <input type="hidden" name="idempleado" value="{{$usuarios->idempleado}}" id="idempleado">
-    <input type="hidden" name="idmunicipio" value="{{$usuarios->idmunicipio}}" id="idmunicipio">
     <input type="hidden" name="name" value="{{$usuarios->nombre}}" id="name">
     <input type="hidden" name="solhoras" value="0" id="solhoras">
     <input type="hidden" name="soldias" value="0" id="soldias">

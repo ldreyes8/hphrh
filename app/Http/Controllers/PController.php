@@ -49,8 +49,6 @@ class PController extends Controller
         ->select('a.fechainicio','a.fechafin','a.horainicio','a.horafin','a.juzgadoinstitucion','a.tipocaso','a.autorizacion','a.fechasolicitud')
         ->where('U.id','=',Auth::user()->id)
         ->where('ta.ausencia','!=','Vacaciones')
-
-       
         ->paginate(15);
     	}
 
@@ -59,13 +57,33 @@ class PController extends Controller
           ->where('ausencia','!=','Vacaciones')
           ->get();
 
-      $usuarios = DB::table('users as U')
+          $municipio=DB::table('persona as p')
+        ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
+        ->join('users as U','p.identificacion','=','U.identificacion')
+        ->select('m.idmunicipio')
+        ->where('U.id','=',Auth::user()->id)
+        ->first();
+
+      if (empty($municipio->idmunicipio)) {
+        $usuarios = DB::table('users as U')
+        ->join('persona as per','U.identificacion','=','per.identificacion')
+        ->join('empleado as E','per.identificacion','=','E.identificacion')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'E.idempleado')
+        ->where('U.id','=',Auth::user()->id)
+        ->first();
+        }
+        else
+        {
+          $usuarios = DB::table('users as U')
           ->join('persona as per','U.identificacion','=','per.identificacion')
           ->join('empleado as E','per.identificacion','=','E.identificacion')
           ->join('municipio as M','per.idmunicipio','=','M.idmunicipio')
-          ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ",per.apellido2) AS nombre'),'per.idmunicipio','E.idempleado')
+          ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.idmunicipio','E.idempleado')
           ->where('U.id','=',Auth::user()->id)
-          ->first();
+          ->first();         
+        }
+     
+
 
 
     	return view('empleado.permiso.index',["ausencias"=>$ausencias,"searchText"=>$query,"tausencia" => $tausencia,"usuarios"=>$usuarios]);
@@ -323,18 +341,16 @@ class PController extends Controller
             ->where('au.idausencia','=',$idausencia)
             ->first();       
             
-
             if($vac->horas < 8)
             {
               $days = 0;
             }
             if($idtipoausencia !== "4" && $idtipoausencia !== "9" && $idtipoausencia !== "7" && $idtipoausencia !== "11" && $idtipoausencia !== "6") 
             {
-                $vacacion = Vacaciones::findOrFail($idausencia);
-                $vacacion->totalhoras = $vac->horas;
-                $vacacion->totaldias = $days; 
-                $vacacion->update();
-              
+              $vacacion = Vacaciones::findOrFail($idausencia);
+              $vacacion->totalhoras = $vac->horas;
+              $vacacion->totaldias = $days; 
+              $vacacion->update();
             }
           }
 
