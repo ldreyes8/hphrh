@@ -9,7 +9,7 @@
 @section ('contenido')
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<h3>Confirmacion</h3>
+		<h3>Confirmación</h3>
         <h5>Campos obligatorios *</h5>
 	</div>
 </div>
@@ -87,7 +87,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group">
                     <button class="btn btn-info" id="btnguardar" type="submit">Guardar</button>
-                    <a href=""><button class="btn btn-danger" type="button">Cancelar</button></a>
+                    <a href="{{URL::action('Pprueba@index')}}"><button class="btn btn-danger" type="button">Cancelar</button></a>
                 </div>
             </div>
 

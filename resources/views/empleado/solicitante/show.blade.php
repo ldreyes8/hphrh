@@ -104,10 +104,7 @@ input[type=text] {
               </tbody>
             </table>
       </div>
-      <div class="form-group">
-          <label>Observación</label>
-          <textarea maxlength="300" class="form-control" id="observacionP" name=""></textarea>
-      </div>
+
       <div class="table-responsive">  
             <table id="detallesF" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Datos Familiares</h2></p>
@@ -118,6 +115,7 @@ input[type=text] {
                 <th>Teléfono</th>
                 <th>Ocupación</th>
                 <th>Edad</th>
+                <th>Emergencia</th>
               </thead>
               <tbody>
               @foreach($familiares as $fam)
@@ -128,15 +126,13 @@ input[type=text] {
                   <td><input type="text" class="telefonof" value="{{$fam->telefonof}}"></td>
                   <td><input type="text" class="ocupacion" value="{{$fam->ocupacion}}"></td>
                   <td><input type="text" class="edad" value="{{$fam->edad}}"></td>
+                  <td>{{$fam->emergencia}}</td>
                 </tr>
                 @endforeach
               </tbody>
             </table>
       </div>
-      <div class="form-group">
-          <label>Observación</label>
-          <textarea maxlength="300" class="form-control" id="observacionF" name=""></textarea>
-      </div>
+
             <!-- -->
       <div class="table-responsive">
             <table id="detallesA" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
@@ -189,10 +185,7 @@ input[type=text] {
                 </tbody>
             </table>
       </div>
-      <div class="form-group">
-          <label>Observación</label>
-          <textarea maxlength="300" class="form-control" id="observacionaA" name=""></textarea>
-      </div>
+
       <div class="table-responsive">      
             <table id="detallesR" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Referencia Personales Y Laborales</h2></p>
@@ -216,10 +209,7 @@ input[type=text] {
               </tbody>
             </table>
       </div>
-      <div class="form-group">
-          <label>Observación</label>
-          <textarea maxlength="300" class="form-control" id="observacionR" name=""></textarea>
-      </div>
+
       <div class="table-responsive">    
             <table id="detallesEL" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Experiencia Laboral</h2></p>
@@ -249,10 +239,7 @@ input[type=text] {
               </tbody>
             </table>
       </div>
-      <div class="form-group">
-          <label>Observacion</label>
-          <textarea maxlength="300" class="form-control" id="observacionE" name=""></textarea>
-      </div>
+
       <div class="table-responsive">
             <table id="detallesD" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Deudas</h2></p>
@@ -276,10 +263,7 @@ input[type=text] {
               </tbody>
             </table>
       </div>
-      <div class="form-group">
-          <label>Observación</label>
-          <textarea maxlength="300" class="form-control" id="observacionD" name=""></textarea>
-      </div>
+
       <div class="table-responsive">
             <table id="detallesPad" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Padecimeintos</h2></p>
@@ -297,10 +281,7 @@ input[type=text] {
               </tbody>
             </table>
       </div>
-      <div class="form-group">
-          <label>Observación</label>
-          <textarea maxlength="300" class="form-control" id="observacionPad" name=""></textarea>
-      </div>
+
       <div class="table-responsive">
         <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
           <p><h2 ALIGN=center>Experiencia en el extranjero</h2></p>
@@ -326,10 +307,7 @@ input[type=text] {
             </tbody>
         </table>
       </div>
-      <div class="form-group">
-          <label>Observación</label>
-          <textarea maxlength="300" class="form-control" id="observacionEE" name=""></textarea>
-      </div>
+
       <div class="table-responsive">
         <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
           <p><h2 ALIGN=center>Pariente Político</h2></p>
@@ -352,10 +330,7 @@ input[type=text] {
             </tbody>
         </table>
       </div>
-      <div class="form-group">
-          <label>Observación</label>
-          <textarea maxlength="300" class="form-control" id="observacionPP" name=""></textarea>
-      </div>
+
       <div class="table-responsive">
             <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Observaciones</h2></p>

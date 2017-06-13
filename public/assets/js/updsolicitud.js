@@ -26,24 +26,6 @@ $(document).ready(function(){
             {
                 idpad: idpad,
                 np: np,
-
-                /*identificacionup: $('#identificacionup').val(),
-                nombre1: $('#nombre1').val(),
-                nombre2: $('#nombre2').val(),
-                apellido1: $('#apellido1').val(), 
-                apellido2: $('#apellido2').val(),
-                barriocolonia: $('#barriocolonia').val(),
-                telefono: $('#telefono').val(),
-                fechanac: $('#fechanac').val(),
-            //Datos empleado
-                idempleado: $('#idempleado').val(),
-                nit: $('#nit').val(),
-                dependientes: $('#dependientes').val(),
-                iggs: $('#iggs').val(),
-                aportemensual: $('#aportemensual').val(),
-                vivienda: $('#vivienda').val(),
-                alquilermensual: $('#alquilermensual').val(),
-                otrosingresos: $('#otrosingresos').val(),*/
             },
             function(data){});
             i++;
@@ -175,10 +157,6 @@ $(document).ready(function(){
                 alquilermensual: $('#alquilermensual').val(),
                 otrosingresos: $('#otrosingresos').val(),
                 selectpicker1: $('.selectpicker1').val(),
-            //Datos padecimientos
-
-                /*idpad: idpad,
-                nombrepa: np,*/
 
         }
        console.log(formData);

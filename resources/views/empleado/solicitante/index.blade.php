@@ -12,7 +12,7 @@
 <div class="row">
    <div class=class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
          <div class="table-responsive">
-             <table class="table table-striped table-bordered table-condensed table-hover">
+             <table id="tblsolicitud" class="table table-striped table-bordered table-condensed table-hover">
                  <thead>
                      <th>Id</th>
                      <th>Identificación</th>
@@ -24,21 +24,23 @@
                      <th>Opciones</th>
                  </thead>
                  @foreach ($empleados as $em)
-                 <tr>
-                 <td>{{$em->idempleado}}</td>
-                 <td>{{$em->identificacion}}</td>
-                 <td>{{$em->nit}}</td>
-                 <td>{{$em->nombre1.': '.$em->apellido1}}</td>
-                 <td>{{$em->afnombre}}</td>
-                 <td>{{$em->puesto}}</td>
-                 <td>{{$em->status}}</td>
-                 <td>
-                 
-                 <a href="{{URL::action('SController@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
-                 <a href="{{URL::action('Pprueba@update',$em->idempleado)}}"><button class="btn btn-primary">Aceptar</button></a>
-                 <a href="{{URL::action('SController@rechazo',$em->idempleado)}}"><button class="btn btn-primary">Rechazar</button></a>
-                 <a href="{{URL::action('SController@Spdf',$em->identificacion)}}"><button class="btn btn-primary">Descargar</button></a>
-                 </td>
+                 <tr class="filaTable">
+                     <td>{{$em->idempleado}}
+                        <input type="hidden" class="idempleado" value="{{$em->idempleado}}">
+                     </td>
+                     <td>{{$em->identificacion}}</td>
+                     <td>{{$em->nit}}</td>
+                     <td>{{$em->nombre1.': '.$em->apellido1}}</td>
+                     <td>{{$em->afnombre}}</td>
+                     <td>{{$em->puesto}}</td>
+                     <td>{{$em->status}}</td>
+                     <td>
+                     
+                     <a href="{{URL::action('SController@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
+                     <a href="{{URL::action('Pprueba@update',$em->idempleado)}}"><button class="btn btn-primary">Aceptar</button></a>
+                     <a href="{{URL::action('SController@rechazo',$em->idempleado)}}"><button id="btnrechazo" class="btn btn-primary">Rechazar</button></a>
+                     <a href="{{URL::action('SController@Spdf',$em->identificacion)}}"><button class="btn btn-primary">Descargar</button></a>
+                     </td>
                  </tr>
                  @endforeach
              </table>
@@ -46,4 +48,9 @@
          {{$empleados->render()}}
    </div>
 </div>
+@endsection
+@section('fin')
+    @parent
+    <meta name="_token" content="{!! csrf_token() !!}" />
+    
 @endsection
