@@ -123,10 +123,11 @@ class SController extends Controller
             ->join('persona as p','e.identificacion','=','p.identificacion')
             ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
             ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+            ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
             ->join('status as s','e.idstatus','=','s.idstatus')
-            ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.statusemp as status','pu.nombre as puesto')
+            ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
             ->where('p.nombre1','LIKE','%'.$query.'%')
-            ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre')
+            ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
             ->orderBy('e.idempleado','desc')
             ->where('s.statusemp','=','Aspirante')
             ->paginate(12);
@@ -140,15 +141,15 @@ class SController extends Controller
         $municipio=DB::table('persona as p')
         ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
         ->select('m.idmunicipio')
-        ->where('p.identificacion','=',$id);
-
+        ->where('p.identificacion','=',$id)
+        ->first();
 
         if (empty($municipio->idmunicipio)) {
           $persona=DB::table('persona as p')
             ->join('empleado as em','p.identificacion','=','em.identificacion')
             ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
             ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.fechanac','p.barriocolonia','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
+            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
             ->where('em.identificacion','=',$id)
             ->first();
         }
@@ -160,11 +161,11 @@ class SController extends Controller
             ->join('empleado as em','p.identificacion','=','em.identificacion')
             ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
             ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.fechanac','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
+            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
             ->where('em.identificacion','=',$id)
             ->first();
         }
-        //dd($persona);
+        //dd($persona,$municipio);
         /*$downloads=DB::table('persona as p')
         ->select('p.finiquitoive')
         ->where('p.identificacion','=',$id)
@@ -172,26 +173,26 @@ class SController extends Controller
 
         $empleado=DB::table('empleado as e')
         ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
-        ->select('e.idempleado','e.identificacion','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','e.pretension','e.nit','e.fechasolicitud','ec.estado as estadocivil','e.observacion')
+        ->select('e.idempleado','e.identificacion','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','e.pretension','e.nit','e.fechasolicitud','ec.idcivil','ec.estado as estadocivil','e.observacion')
         ->where('e.identificacion','=',$id)
         ->first();
 
         $academicos=DB::table('personaacademico as pc')
         ->join('persona as p','pc.identificacion','=','p.identificacion')
         ->join('nivelacademico as na','pc.idnivel','=','na.idnivel')
-        ->select('pc.titulo','pc.establecimiento','pc.duracion','na.nombrena as nivel','pc.fingreso','pc.fsalida')
+        ->select('pc.idpacademico' ,'pc.titulo','pc.establecimiento','pc.duracion','na.idnivel','na.nombrena as nivel','pc.fingreso','pc.fsalida')
         ->where('pc.identificacion','=',$id)
         ->get();
 
         $experiencias=DB::table('personaexperiencia as pe')
         ->join('persona as p','pe.identificacion','=','p.identificacion')
-        ->select('pe.empresa','pe.puesto','pe.jefeinmediato','pe.motivoretiro','pe.ultimosalario','pe.fingresoex','pe.fsalidaex')
+        ->select('pe.idpexperiencia' ,'pe.empresa','pe.puesto','pe.jefeinmediato','pe.motivoretiro','pe.ultimosalario','pe.fingresoex','pe.fsalidaex')
         ->where('pe.identificacion','=',$id)
         ->get();
 
         $familiares=DB::table('personafamilia as pf')
         ->join('persona as p','pf.identificacion','=','p.identificacion')
-        ->select('pf.nombref','pf.apellidof','pf.telefonof','pf.parentezco','pf.ocupacion','pf.edad')
+        ->select('pf.idpfamilia','pf.nombref','pf.apellidof','pf.telefonof','pf.parentezco','pf.ocupacion','pf.edad')
         ->where('p.identificacion','=',$id)
         ->get();
 
@@ -205,13 +206,13 @@ class SController extends Controller
 
         $referencias=DB::table('personareferencia as pr')
         ->join('persona as p','pr.identificacion','=','p.identificacion')
-        ->select('pr.nombrer','pr.telefonor','pr.profesion','pr.tiporeferencia')
+        ->select('pr.idpreferencia' ,'pr.nombrer','pr.telefonor','pr.profesion','pr.tiporeferencia')
         ->where('p.identificacion','=',$id)
         ->get();
 
         $deudas=DB::table('personadeudas as pd')
         ->join('persona as p','pd.identificacion','=','p.identificacion')
-        ->select('pd.acreedor','pd.amortizacionmensual as pago','pd.montodeuda')
+        ->select('pd.idpdeudas','pd.acreedor','pd.amortizacionmensual as pago','pd.montodeuda','pd.motivodeuda')
         ->where('p.identificacion','=',$id)
         ->get();
 
@@ -234,7 +235,10 @@ class SController extends Controller
         ->where('p.identificacion','=',$id)
         ->get();
       
-        return view('empleado.solicitante.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente]);
+        $nivelacademico = DB::table('nivelacademico')->get();
+        $estadocivil=DB::table('estadocivil')->get();
+
+        return view('empleado.solicitante.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil]);
     }
     public function rechazo($id)
     {

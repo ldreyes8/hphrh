@@ -57,44 +57,17 @@
           </tfoot>
           <tbody>
             <tr>
-           
-
-            @if($persona->avenida != '' and $persona->calle =='')
-              <td>              
-                 {{'av'.' '.$persona->avenida.' '.$persona->nomenclatura.' '.'Zona'.' '.$persona->zona.' '.$persona->barriocolonia}}              
-              </td>
-            @endif
-
-            @if($persona->calle != '' and $persona->avenida == '')
-              <td>              
-                 {{'calle'.' '.$persona->calle.' '.$persona->nomenclatura.' '.'Zona'.' '.$persona->zona.' '.$persona->barriocolonia}}              
-              </td>
-            @endif
-
-            @if($persona->calle != '' and $persona->avenida != '')
-              <td>              
-                 {{'calle'.' '.$persona->calle.' '.'av'.' '.$persona->avenida.' '.$persona->nomenclatura.' '.'Zona'.' '.$persona->zona.' '.$persona->barriocolonia}}              
-              </td>
-            @endif
- 
-
-            @if($persona->calle == '' and $persona->avenida == '' and $persona->zona == '' and $persona->nomenclatura == '' and $persona->barriocolonia != '')
-              <td>              
-                 {{$persona->barriocolonia}}              
-              </td>
-            @endif
-
-            @if($persona->calle == '' and $persona->avenida == '' and $persona->zona == '' and $persona->nomenclatura == '' and $persona->barriocolonia == '')
-              <td>              
-                               
-              </td>
-            @endif
-
-
+              <td>{{$persona->barriocolonia}}</td>
               <td>{{$persona->telefono}}</td>
               <td>{{$persona->fechanac}}</td>
-              <td>{{$persona->departamento}}</td>
-              <td>{{$persona->municipio}}</td>
+              @if (!empty($persona->departamento))
+                <td>{{$persona->departamento}}</td>
+                <td>{{$persona->municipio}}</td>
+              @else
+                <td>Extranjero</td>
+                <td>Extranjero</td>
+              @endif
+
               <td>{{$empleado->estadocivil}}</td>
               <td>{{$persona->afiliado}}</td>
               <td>{{$persona->puesto}}</td>

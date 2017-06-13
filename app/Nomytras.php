@@ -8,7 +8,7 @@ class Nomytras extends Model
 {
     //
     protected $table='nomytras';
-    protected $primarykey='idnomytras';
+    protected $primarykey='idnomytas';
 
     public $timestamps=false;
     protected $fillable=

@@ -53,46 +53,51 @@ input[type=text] {
             <table id="detalles" class="table table-striped m-b-0 table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Datos Personales</h2></p>
               <thead style="background-color:#A9D0F5">
-                <th>Direccion </th>
-                <th>Telefono</th>
-                <th>Fecha Nacimiento</th>
+                <th>Dirección </th>
+                <th style="width: 4%">Teléfono</th>
+                <th style="width: 6%">Fecha Nacimiento</th>
                 <th>Departamento</th>
                 <th>Municipio</th>
-                <th>Estado Civil</th>
-                <th>Afiliado</th>
+                <th style="width: 6%">Estado Civil</th>
+                <th style="width: 7%">Afiliado</th>
                 <th>Puesto Aplicar</th>
-                <th>IGSS</th>
-
-                <th>Dependientes</th>
-                <th>Aporte Mensual</th>
-                <th>Vivienda</th>
-                <th>Alquiler Mensual</th>
-                <th>Otros Ingresos</th>
-                <th>Pretension</th>
-                <th>Fecha Solicitud</th>
+                <th style="width: 7%">IGSS</th>
+                <th style="width: 6%">Dependientes</th>
+                <th style="width: 5%">Aporte Mensual</th>
+                <th style="width: 6%">Vivienda</th>
+                <th style="width: 5%">Alquiler Mensual</th>
+                <th style="width: 5%">Otros Ingresos</th>
+                <th>Pretensión</th>
+                <th style="width: 5%">Fecha de solicitud</th>
               </thead>
               <tbody>
                 <tr>
-                  <td><input type="text" name="" id="barriocolonia" value="{{$persona->barriocolonia}} "></td>
-                  <td><input type="text" name="" id="telefono" value="{{$persona->telefono}}"></td>
-                  <td><input type="text" name="" id="fechanac" value="{{ \Carbon\Carbon::createFromFormat('Y-m-d', $persona->fechanac)->format('d-m-Y')}}"></td>
+                  <td><input type="text" id="barriocolonia" value="{{$persona->barriocolonia}} "></td>
+                  <td><input type="text" id="telefono" maxlength="8" value="{{$persona->telefono}}"></td>
+                  <td><input type="text" id="fechanac" value="{{ \Carbon\Carbon::createFromFormat('Y-m-d', $persona->fechanac)->format('d-m-Y')}}"></td>
                   @if (!empty($persona->departamento))
-                    <td><input type="text" name="" id="departamento" value="{{$persona->departamento}}"></td>
-                    <td><input type="text" name="" id="municipio" value="{{$persona->municipio}}"></td>
+                    <td>{{$persona->departamento}}</td>
+                    <td>{{$persona->municipio}}</td>
                   @else
-                    <td><input type="text" name="" id="departamento" value=""></td>
-                    <td><input type="text" name="" id="municipio" value=""></td>
+                    <td>Extranjero</td>
+                    <td>Extranjero</td>
                   @endif
-                  <td><input type="text" name="" value="{{$empleado->estadocivil}}"></td>
-                  <td><input type="text" name="" value="{{$persona->afiliado}}"></td>
-                  <td><input type="text" name="" value="{{$persona->puesto}}"></td>
-                  <td><input type="text" name="" id="iggs" value="{{$empleado->afiliacionigss}}"></td>
-
-                  <td><input type="text" name="" id="dependientes" value="{{$empleado->numerodependientes}}"></td>
-                  <td><input type="text" name="" id="aportemensual" value="{{$empleado->aportemensual}}"></td>
-                  <td><input type="text" name="" id="vivienda" value="{{$empleado->vivienda}}"></td>
-                  <td><input type="text" name="" id="alquilermensual" value="{{$empleado->alquilermensual}}"></td>
-                  <td><input type="text" name="" id="otrosingresos" value="{{$empleado->otrosingresos}}"></td>
+                  <td>
+                    <select class="form-control selectpicker1">
+                      <option value="{{$empleado->idcivil}}">{{$empleado->estadocivil}}</option>
+                      @foreach($estadocivil as $cat)
+                            <option value="{{$cat->idcivil}}">{{$cat->estado}}</option>
+                        @endforeach
+                    </select>
+                  </td>
+                  <td>{{$persona->afiliado}}</td>
+                  <td>{{$persona->puesto}}</td>
+                  <td><input type="text" maxlength="13" id="iggs" value="{{$empleado->afiliacionigss}}"></td>
+                  <td><input type="text" id="dependientes" value="{{$empleado->numerodependientes}}"></td>
+                  <td><input type="text" id="aportemensual" value="{{$empleado->aportemensual}}"></td>
+                  <td><input type="text" id="vivienda" value="{{$empleado->vivienda}}"></td>
+                  <td><input type="text" id="alquilermensual" value="{{$empleado->alquilermensual}}"></td>
+                  <td><input type="text" id="otrosingresos" value="{{$empleado->otrosingresos}}"></td>
                   <td>{{$empleado->pretension}}</td>
                   <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d',$empleado->fechasolicitud)->format('d-m-Y')}}</td>
                 </tr>
@@ -100,79 +105,76 @@ input[type=text] {
             </table>
       </div>
       <div class="form-group">
-          <label>Observacion</label>
+          <label>Observación</label>
           <textarea maxlength="300" class="form-control" id="observacionP" name=""></textarea>
       </div>
       <div class="table-responsive">  
-            <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
+            <table id="detallesF" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Datos Familiares</h2></p>
               <thead style="background-color:#A9D0F5">
+                <th style="width:0%"></th>
                 <th>Nombre</th>
                 <th>Parentezco</th>
-                <th>Telefono</th>
-                <th>Ocupacion</th>
+                <th>Teléfono</th>
+                <th>Ocupación</th>
                 <th>Edad</th>
               </thead>
-     
-              <tfoot>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tfoot>
               <tbody>
               @foreach($familiares as $fam)
-                <tr>
-                  <td><input type="text" name="" value="{{$fam->nombref}}"></td>
-                  <td><input type="text" name="" value="{{$fam->parentezco}}"></td>
-                  <td><input type="text" name="" value="{{$fam->telefonof}}"></td>
-                  <td><input type="text" name="" value="{{$fam->ocupacion}}"></td>
-                  <td><input type="text" name="" value="{{$fam->edad}}"></td>
+                <tr class="filaTableF">
+                  <td><input type="hidden" class="idpfamilia" value="{{$fam->idpfamilia}}"></td>
+                  <td><input type="text" class="nombref" value="{{$fam->nombref}}"></td>
+                  <td><input type="text" class="parentezco" value="{{$fam->parentezco}}"></td>
+                  <td><input type="text" class="telefonof" value="{{$fam->telefonof}}"></td>
+                  <td><input type="text" class="ocupacion" value="{{$fam->ocupacion}}"></td>
+                  <td><input type="text" class="edad" value="{{$fam->edad}}"></td>
                 </tr>
                 @endforeach
               </tbody>
             </table>
       </div>
       <div class="form-group">
-          <label>Observacion</label>
+          <label>Observación</label>
           <textarea maxlength="300" class="form-control" id="observacionF" name=""></textarea>
       </div>
             <!-- -->
       <div class="table-responsive">
-            <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
-            <p><h2 ALIGN=center>Datos Academicos</h2></p>
+            <table id="detallesA" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
+            <p><h2 ALIGN=center>Datos Académicos</h2></p>
               <thead style="background-color:#A9D0F5">
-                <th>Titulo</th>
-                <th>Institucion</th>
-                <th>Duracion</th>
+                <th style="width: 0%"></th>
+                <th>Título</th>
+                <th>Institución</th>
+                <th>Duración</th>
                 <th>Nivel</th>
                 <th>Fecha Ingreso</th>
                 <th>Fecha Salida</th>
               </thead>
-     
-              <tfoot>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tfoot>
               <tbody>
                 @foreach($academicos as $aca)
-                <tr>
-                  <td><input type="text" name="" value="{{$aca->titulo}}"></td>
-                  <td><input type="text" name="" value="{{$aca->establecimiento}}"></td>
-                  <td><input type="text" name="" value="{{$aca->duracion}}"></td>
-                  <td><input type="text" name="" value="{{$aca->nivel}}"></td>
-                  <td><input type="text" name="" value="{{$aca->fingreso}}"></td>
-                  <td><input type="text" name="" value="{{$aca->fsalida}}"></td>
+                <tr class="filaTableA">
+                  <td><input type="hidden" class="idpacademico" value="{{$aca->idpacademico}}"></td>
+                  <td><input type="text" class="titulo" value="{{$aca->titulo}}"></td>
+                  <td><input type="text" class="establecimiento" value="{{$aca->establecimiento}}"></td>
+                  <td><input type="text" class="duracion" value="{{$aca->duracion}}"></td>
+                  <td>
+                    <select  class="form-control selectpicker" >
+                        <option value="{{$aca->idnivel}}">{{$aca->nivel}}</option>
+                        @foreach($nivelacademico as $ac)
+                        <option value="{{$ac->idnivel}}">{{$ac->nombrena}}</option>
+                        @endforeach
+                    </select>
+                  </td>
+                  <td><input type="text" class="fingreso" value="{{$aca->fingreso}}"></td>
+                  <td><input type="text" class="fsalida" value="{{$aca->fsalida}}"></td>
                  </tr>
                  @endforeach
               </tbody>
               <thead style="background-color:#A9D0F5">
+                <th></th>
                 <th>Idiomas Que Maneja</th>
                 <th>Nivel</th>
+              </thead>
                 <tfoot>
                   <th></th>
                   <th></th>
@@ -180,54 +182,49 @@ input[type=text] {
                 <tbody>
                   @foreach($idiomas as $idi)
                   <tr>
-                   <td><input type="text" name="" value="{{$idi->idioma}}"></td>
-                   <td><input type="text" name="" value="{{$idi->nivel}}"></td>                
+                   <td><input type="text" class="" value="{{$idi->idioma}}"></td>
+                   <td><input type="text" class="" value="{{$idi->nivel}}"></td>                
                   </tr>
                   @endforeach              
                 </tbody>
-              </thead>
             </table>
       </div>
       <div class="form-group">
-          <label>Observacion</label>
+          <label>Observación</label>
           <textarea maxlength="300" class="form-control" id="observacionaA" name=""></textarea>
       </div>
       <div class="table-responsive">      
-            <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
+            <table id="detallesR" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Referencia Personales Y Laborales</h2></p>
               <thead style="background-color:#A9D0F5">
+                <th style="width:0%"></th>
                 <th>Nombre</th>
-                <th>Telefono</th>
-                <th>Profesion</th>
-                <th>tiporeferencia</th>
+                <th>Teléfono</th>
+                <th>Profesión</th>
+                <th>Tipo de referencia</th>
               </thead>
-     
-              <tfoot>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tfoot>
               <tbody>
               @foreach($referencias as $ref)
-                <tr>
-                  <td><input type="text" name="" value="{{$ref->nombrer}}"></td>
-                  <td><input type="text" name="" value="{{$ref->telefonor}}"></td>
-                  <td><input type="text" name="" value="{{$ref->profesion}}"></td>
-                  <td><input type="text" name="" value="{{$ref->tiporeferencia}}"></td>
+                <tr class="filaTableR">
+                  <td><input type="hidden" class="idpreferencia" value="{{$ref->idpreferencia}}"></td>
+                  <td><input type="text" class="nombrer" value="{{$ref->nombrer}}"></td>
+                  <td><input type="text" class="telefonor" " value="{{$ref->telefonor}}"></td>
+                  <td><input type="text" class="profesion" value="{{$ref->profesion}}"></td>
+                  <td><input type="text" class="tiporeferencia" value="{{$ref->tiporeferencia}}"></td>
                 </tr>
                 @endforeach
               </tbody>
             </table>
       </div>
       <div class="form-group">
-          <label>Observacion</label>
+          <label>Observación</label>
           <textarea maxlength="300" class="form-control" id="observacionR" name=""></textarea>
       </div>
       <div class="table-responsive">    
-            <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
+            <table id="detallesEL" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Experiencia Laboral</h2></p>
               <thead style="background-color:#A9D0F5">
+                <th style="width: 0%"></th>
                 <th>Empresa</th>
                 <th>Puesto</th>
                 <th>Jefe Inmediato</th>
@@ -236,26 +233,17 @@ input[type=text] {
                 <th>Fecha Ingreso</th>
                 <th>Fecha Salida</th>
               </thead>
-     
-              <tfoot>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tfoot>
               <tbody>
                 @foreach($experiencias as $exp)
-                <tr>
-                  <td><input type="text" name="" value="{{$exp->empresa}}"></td>
-                  <td><input type="text" name="" value="{{$exp->puesto}}"></td>
-                  <td><input type="text" name="" value="{{$exp->jefeinmediato}}"></td>
-                  <td><input type="text" name="" value="{{$exp->motivoretiro}}"></td>
-                  <td><input type="text" name="" value="{{$exp->ultimosalario}}"></td>
-                  <td><input type="text" name="" value="{{$exp->fingresoex}}"></td>
-                  <td><input type="text" name="" value="{{$exp->fsalidaex}}"></td>
+                <tr class="filaTableEL">
+                  <td><input type="hidden" class="idpexperiencia" value="{{$exp->idpexperiencia}}"></td>
+                  <td><input type="text" class="empresa" value="{{$exp->empresa}}"></td>
+                  <td><input type="text" class="puesto" value="{{$exp->puesto}}"></td>
+                  <td><input type="text" class="jefeinmediato" value="{{$exp->jefeinmediato}}"></td>
+                  <td><input type="text" class="motivoretiro" value="{{$exp->motivoretiro}}"></td>
+                  <td><input type="text" class="ultimosalario" value="{{$exp->ultimosalario}}"></td>
+                  <td><input type="text" class="fingresoex" value="{{$exp->fingresoex}}"></td>
+                  <td><input type="text" class="fsalidaex" value="{{$exp->fsalidaex}}"></td>
                  </tr>
                  @endforeach
               </tbody>
@@ -266,52 +254,51 @@ input[type=text] {
           <textarea maxlength="300" class="form-control" id="observacionE" name=""></textarea>
       </div>
       <div class="table-responsive">
-            <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
+            <table id="detallesD" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Deudas</h2></p>
               <thead style="background-color:#A9D0F5">
+                <th style="width: 0%"></th>
                 <th>Acreedor</th>
-                <th>amortizacion mensual</th>
-                <th>Monto Deuda</th>
+                <th>Amortización mensual</th>
+                <th>Monto crédito</th>
+                <th>Motivo de crédito</th>
               </thead>
-     
-              <tfoot>
-                <th></th>
-                <th></th>
-              </tfoot>
               <tbody>
                 @foreach($deudas as $deu)
-                <tr>
-                  <td><input type="text" name="" value="{{$deu->acreedor}}"></td>
-                  <td><input type="text" name="" value="{{$deu->pago}}"></td>
-                  <td><input type="text" name="" value="{{$deu->montodeuda}}"></td>
+                <tr class="filaTableD">
+                  <td><input type="hidden" class="idpdeudas" value="{{$deu->idpdeudas}}"></td>
+                  <td><input type="text" class="acreedor" value="{{$deu->acreedor}}"></td>
+                  <td><input type="text" class="pago" value="{{$deu->pago}}"></td>
+                  <td><input type="text" class="montodeuda" value="{{$deu->montodeuda}}"></td>
+                  <td><input type="text" class="motivodeuda" value="{{$deu->motivodeuda}}"></td>
                  </tr>
                  @endforeach
               </tbody>
             </table>
       </div>
       <div class="form-group">
-          <label>Observacion</label>
+          <label>Observación</label>
           <textarea maxlength="300" class="form-control" id="observacionD" name=""></textarea>
       </div>
       <div class="table-responsive">
             <table id="detallesPad" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Padecimeintos</h2></p>
               <thead style="background-color:#A9D0F5">
-                <th style="width: 1%">Id</th>
+                <th style="width: 0.01%"></th>
                 <th>Padecimientos</th>
               </thead>
               <tbody>
                 @foreach($padecimientos as $pad)
-                <tr>
-                  <td><input type="text" id="idpad" name="" value="{{$pad->idppadecimientos}}"></td>
-                  <td><input type="text" id="nombrepa" class="padRn" name="" value="{{$pad->nombre}}"></td>
+                <tr class="filaTable">
+                  <td><input type="hidden" class="idpad" value="{{$pad->idppadecimientos}}"></td>
+                  <td><input type="text" class="nombrepa" value="{{$pad->nombre}}"></td>
                 </tr>
                  @endforeach
               </tbody>
             </table>
       </div>
       <div class="form-group">
-          <label>Observacion</label>
+          <label>Observación</label>
           <textarea maxlength="300" class="form-control" id="observacionPad" name=""></textarea>
       </div>
       <div class="table-responsive">
@@ -340,12 +327,12 @@ input[type=text] {
         </table>
       </div>
       <div class="form-group">
-          <label>Observacion</label>
+          <label>Observación</label>
           <textarea maxlength="300" class="form-control" id="observacionEE" name=""></textarea>
       </div>
       <div class="table-responsive">
         <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
-          <p><h2 ALIGN=center>Pariente Politio</h2></p>
+          <p><h2 ALIGN=center>Pariente Político</h2></p>
             <thead style="background-color:#A9D0F5">
               <th>Nombre</th>
               <th>Puesto</th>
@@ -366,7 +353,7 @@ input[type=text] {
         </table>
       </div>
       <div class="form-group">
-          <label>Observacion</label>
+          <label>Observación</label>
           <textarea maxlength="300" class="form-control" id="observacionPP" name=""></textarea>
       </div>
       <div class="table-responsive">

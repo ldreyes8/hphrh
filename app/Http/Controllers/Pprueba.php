@@ -86,7 +86,7 @@ class Pprueba extends Controller
         $jefesinmediato=DB::table('persona as per')
         ->join('empleado as em','per.identificacion','=','em.identificacion')
         ->join('status as sts','em.idstatus','=','sts.idstatus')
-        ->select('per.identificacion','per.nombre1','per.apellido1')
+        ->select('per.identificacion','per.nombre1','per.nombre2','per.apellido1','per.apellido2')
         ->where('em.idstatus','=',2)
         ->get();
 

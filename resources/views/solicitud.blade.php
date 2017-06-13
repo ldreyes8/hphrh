@@ -9,8 +9,8 @@
         <link rel="shortcut icon" href="{{asset('assets/images/logo.ico')}}">
 
         <title>Hábitat - Solicitud de Empleo</title>
-
         <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
+        <link rel="stylesheet" href="{{asset('assets/css/bootstrap-select.min.css')}}">
         <link href="{{asset('assets/plugins/switchery/switchery.min.css')}}" rel="stylesheet" />
 
         <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">        
@@ -122,7 +122,7 @@
                                             <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Tipo Documento</label>
-                                                    <select name="iddocumento" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
+                                                    <select name="iddocumento" class="form-control " data-live-search="true" data-style="btn-info">
                                                         @foreach($tdocumento as $depa)
                                                         <option value="{{$depa->iddocumento}}">{{$depa->documento}}</option>
                                                         @endforeach
@@ -229,7 +229,7 @@
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label>Departamento </label>
-                                                                <select name="iddepartamento" id="iddepartamento" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
+                                                                <select name="iddepartamento" id="iddepartamento" class="form-control selectpicker" data-live-search="true">
                                                                     @foreach($departamento as $depa)
                                                                     <option value="{{$depa->iddepartamento}}">{{$depa->nombre}}</option>
                                                                     @endforeach
@@ -245,7 +245,7 @@
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label>Nacionalidad</label>
-                                                                <select name="idnacionalidad" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
+                                                                <select name="idnacionalidad" class="form-control " data-live-search="true" data-style="btn-info">
                                                                     @foreach($nacionalidad as $nac)
                                                                     <option value="{{$nac->idnacionalidad}}">{{$nac->nombre}}</option>
                                                                     @endforeach
@@ -255,7 +255,7 @@
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label>Etnia</label>
-                                                                <select name="idetnia" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
+                                                                <select name="idetnia" class="form-control " data-live-search="true" data-style="btn-info">
                                                                     @foreach($etnia as $et)
                                                                     <option value="{{$et->idetnia}}">{{$et->nombre}}</option>
                                                                     @endforeach
@@ -271,7 +271,7 @@
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label>Estado civil</label>
-                                                                <select name="idcivil" class="form-control selectpicker" data-live-search="true">
+                                                                <select name="idcivil" class="form-control " data-live-search="true">
                                                                     @foreach($estadocivil as $cat)
                                                                         <option value="{{$cat->idcivil}}">{{$cat->estado}}</option>
                                                                     @endforeach
@@ -336,6 +336,7 @@
                                                             <div class="form-group">
                                                                 <label>Puesto</label>
                                                                 <select name="idpuesto" class="form-control selectpicker" data-live-search="true">
+                                                                <option value="" hidden>Seleccione</option>
                                                                     @foreach($puestos as $cat)
                                                                         <option value="{{$cat->idpuesto}}">{{$cat->nombre}}</option>
                                                                     @endforeach
@@ -343,10 +344,12 @@
                                                             </div>
                                                         </div>
                                                         
-                                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                            <label>¿En qué afiliado le gustaría aplicar?</label>
                                                             <div class="form-group">
-                                                                <label>¿En qué afiliado le gustaría aplicar?</label>
-                                                                <select name="idafiliado" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
+                                                                
+                                                                <select name="idafiliado" class="form-control selectpicker" data-live-search="true" >
+                                                                <option value="" hidden>Seleccione</option>
                                                                     @foreach($afiliados as $cat)
                                                                         <option value="{{$cat->idafiliado}}">{{$cat->nombre}}</option>
                                                                     @endforeach
@@ -497,7 +500,7 @@
                                                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                                     <label for="nivel">Nivel</label>
                                                                     <div class="form-group">
-                                                                        <select name="idnivel" id="idnivel" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
+                                                                        <select name="idnivel" id="idnivel" class="form-control selectpicker" data-live-search="true" >
                                                                             @foreach($nivelacademico as $depa)
                                                                             <option value="{{$depa->idnivel}}">{{$depa->nombrena}}</option>
                                                                             @endforeach
@@ -532,7 +535,7 @@
                                                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                                     <label>Departamento *</label>
                                                                     <div class="form-group">
-                                                                        <select name="iddepartamento1" id="iddepartamento1" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
+                                                                        <select name="iddepartamento1" id="iddepartamento1" class="form-control selectpicker" data-live-search="true" >
                                                                             @foreach($departamento as $depa)
                                                                             <option value="{{$depa->iddepartamento}}">{{$depa->nombre}}</option>
                                                                             @endforeach
@@ -565,7 +568,7 @@
                                                             <div class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
                                                                     <label>Idioma</label>
-                                                                    <select name="ididioma" id="ididioma" class="form-control selectpicker" data-live-search="true" >
+                                                                    <select name="ididioma" id="ididioma" class="form-control select2" data-live-search="true" >
                                                                         @foreach($idiomas as $cat)
                                                                             <option value="{{$cat->ididioma}}">{{$cat->nombre}}</option>
                                                                         @endforeach
@@ -1079,11 +1082,12 @@
         <script src="{{asset('assets/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/js/jquery.core.js')}}"></script>
         <script src="{{asset('assets/js/jquery.app.js')}}"></script>
+        <script src="{{asset('assets/js/bootstrap-select.min.js')}}"></script>
 
 <script type="text/javascript">
     
       $(document).ready(function() {
-
+                
                 $('#bt_add1').click(function() {
                     agregar1();
                 });
