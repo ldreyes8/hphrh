@@ -206,6 +206,7 @@
                                 </ul>
                             </li>
                             
+                            <li class="menu-title">Gesti&oacute;n</li>
                             @role('recurso') 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
@@ -246,19 +247,6 @@
                             </li>
                             @endrole
 
-                            @role('informatica') 
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i
-                                        class="md md-assignment"></i><span>Panel de control</span> 
-                                         <span class="menu-arrow"></span>
-                                </a><!--<span
-                                        class="label label-success pull-right">6</span> -->
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ url('/seguridad/usuario')}}">Registro usuario</a></li>
-                              
-                                </ul>
-                            </li>
-                            @endrole
                             
 
                             @role('jefeinmediato') 
@@ -296,6 +284,24 @@
                                 </ul>
                             </li>
                             @endrole
+
+                            <li class="menu-title">Administraci&oacute;n</li>
+
+
+                            @role('informatica') 
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i
+                                        class="md md-assignment"></i><span>Panel de control</span> 
+                                         <span class="menu-arrow"></span>
+                                </a><!--<span
+                                        class="label label-success pull-right">6</span> -->
+                                <ul class="list-unstyled">
+                                    <li><a href="{{ url('/seguridad/usuario')}}">Registro usuario</a></li>
+                              
+                                </ul>
+                            </li>
+                            @endrole
+                            
 
                             <li class="menu-title">Mas</li>
 

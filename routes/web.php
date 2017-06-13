@@ -29,14 +29,14 @@ Route::group(['prefix'=>'listados'],function(){
 	Route::get('empleado/Acta/{id}','ListadoController@Acta');
 	Route::post('empleado/agregar','ListadoController@store');
 	Route::get('empleado/calculardias/{id}','ListadoController@calculardias');
-	Route::get('vconfirmado','ListadoController@indexconfirmado');
-	Route::get('vrechazado','ListadoController@indexrechazado');
-	Route::get('vautorizado','ListadoController@indexautorizado');
-	Route::get('vsolicitado','ListadoController@indexsolicitado');
+	Route::get('vconfirmado','ListadoController@indexconfirmado')->middleware('roleshinobi:recurso');
+	Route::get('vrechazado','ListadoController@indexrechazado')->middleware('roleshinobi:recurso');
+	Route::get('vautorizado','ListadoController@indexautorizado')->middleware('roleshinobi:recurso');
+	Route::get('vsolicitado','ListadoController@indexsolicitado')->middleware('roleshinobi:recurso');
 
-	Route::get('psolicitado','RHPermiso@indexsolicitado');
-	Route::get('prechazado','RHPermiso@indexrechazado');
-	Route::get('pconfirmado','RHPermiso@indexconfirmado');
+	Route::get('psolicitado','RHPermiso@indexsolicitado')->middleware('roleshinobi:recurso');
+	Route::get('prechazado','RHPermiso@indexrechazado')->middleware('roleshinobi:recurso');
+	Route::get('pconfirmado','RHPermiso@indexconfirmado')->middleware('roleshinobi:recurso');
 
 
 	//Route::get('index/{id}','ListadoController@show');
@@ -55,7 +55,7 @@ Route::group(['prefix'=>'empleado'],function(){
 
 	Route::post('cambiar_password', 'UController@cambiar_password');
         
-	//rutas del permiso del usuario
+	//rutas de permiso del usuario
 	Route::get('permiso','PController@index');  // PController = PermisoController
 	Route::get('permiso/create','PController@create');
 	Route::post('permiso/store','PController@store');
@@ -148,39 +148,36 @@ Route::group(['prefix'=>'empleado'],function(){
 
 	Route::resource('permisos','PermisosController');
 //
-	Route::get('verificar/{idpersona}','PermisosController@verificar');
-	Route::post('verificar/enviarpermiso','PermisosController@enviarpermiso');
-	Route::get('confirmado','PermisosController@indexconfirmado');
-	Route::get('rechazado','PermisosController@indexrechazado');
+	Route::get('verificar/{idpersona}','PermisosController@verificar')->middleware('roleshinobi:jefeinmediato');
+	Route::post('verificar/enviarpermiso','PermisosController@enviarpermiso')->middleware('roleshinobi:jefeinmediato');
+	Route::get('confirmado','PermisosController@indexconfirmado')->middleware('roleshinobi:jefeinmediato');
+	Route::get('rechazado','PermisosController@indexrechazado')->middleware('roleshinobi:jefeinmediato');
 
-	Route::get('detalleconfirmado/{idpersona}','PermisosController@detalleconfirmado');
-	Route::get('detallerechazado/{idpersona}','PermisosController@detallerechazado');
+	Route::get('detalleconfirmado/{idpersona}','PermisosController@detalleconfirmado')->middleware('roleshinobi:jefeinmediato');
+	Route::get('detallerechazado/{idpersona}','PermisosController@detallerechazado')->middleware('roleshinobi:jefeinmediato');
 
 	Route::resource('vsolicitado','VacacionesController');
-	Route::get('vverificar/{idpersona}','VacacionesController@verificar');
-	Route::get('dconfirmar/{idpersona}','VacacionesController@dconfirmar');
+	Route::get('vverificar/{idpersona}','VacacionesController@verificar')->middleware('roleshinobi:jefeinmediato');
+	Route::get('dconfirmar/{idpersona}','VacacionesController@dconfirmar')->middleware('roleshinobi:jefeinmediato');
 
 	//Rutas de vacaciones del jefeinmediato
 	
-	Route::post('vverificar/enviarvacaciones','VacacionesController@enviarvacaciones');
-	Route::get('vconfirmado','VacacionesController@indexconfirmado');
-	Route::get('vrechazado','VacacionesController@indexrechazado');
-	Route::get('vautorizado','VacacionesController@indexautorizado');
-	Route::get('vconfirmar/{idpersona}','VacacionesController@confirmar');
-	Route::post('vconfirmar/enviarconfirmacion','VacacionesController@confirmavacaciones');
+	Route::post('vverificar/enviarvacaciones','VacacionesController@enviarvacaciones')->middleware('roleshinobi:jefeinmediato');
+	Route::get('vconfirmado','VacacionesController@indexconfirmado')->middleware('roleshinobi:jefeinmediato');
+	Route::get('vrechazado','VacacionesController@indexrechazado')->middleware('roleshinobi:jefeinmediato');
+	Route::get('vautorizado','VacacionesController@indexautorizado')->middleware('roleshinobi:jefeinmediato');
+	Route::get('vconfirmar/{idpersona}','VacacionesController@confirmar')->middleware('roleshinobi:jefeinmediato');
+	Route::post('vconfirmar/enviarconfirmacion','VacacionesController@confirmavacaciones')->middleware('roleshinobi:jefeinmediato');
 	
 	Route::get('/logout', 'Auth\LoginController@logout');
 
 
 	//Reportes
 
-	Route::get('reporteEmpleado','Reporte@index');
+	Route::get('reporteEmpleado','Reporte@index')->middleware('roleshinobi:reporte');
 
 	//Excel
-	Route::get('reporteEmpleadoExcel','Reporte@Empleadoexcel');
-
-
-
+	Route::get('reporteEmpleadoExcel','Reporte@Empleadoexcel')->middleware('roleshinobi:reporte');
 
 	//FotoController@agregarimagen
 	//Route::put('/colaboradores/{id}',['uses' => 'Colaboradores@update', 'middleware' => 'auth']);
@@ -204,9 +201,16 @@ Route::get('/{slug?}','HomeController@index');
 
 Route::get('/home', 'HomeController@index');
 //rutas del controlador de Usuario
-Route::get('seguridad/usuario','UController@index');
-Route::get('seguridad/usuario/create','UController@create');
-Route::post('seguridad/usuario/store','UController@store');
-Route::put('seguridad/editarusuario/{id}', 'UController@editarusuario');
-Route::delete('destroy/{id}','UController@destroy');
+Route::get('seguridad/usuario','UController@index')->middleware('roleshinobi:informatica');
+Route::get('seguridad/usuario/create','UController@create')->middleware('roleshinobi:informatica');;
+Route::post('seguridad/usuario/store','UController@store')->middleware('roleshinobi:informatica');;
+Route::get('seguridad/usuario/editar_usuario/{id}', 'UController@editar_usuario')->middleware('roleshinobi:informatica');;
+Route::delete('destroy/{id}','UController@destroy')->middleware('roleshinobi:informatica');;
+Route::get('asignar_rol/{idusu}/{idrol}', 'UController@asignar_rol')->middleware('roleshinobi:informatica');;
+Route::get('quitar_rol/{idusu}/{idrol}','UController@quitar_rol')->middleware('roleshinobi:informatica');;
+
+//Route::get('form_nuevo_usuario', 'UsuariosController@form_nuevo_usuario');
+Route::get('seguridad/usuario/form_nuevo_rol', 'UController@form_nuevo_rol')->middleware('roleshinobi:informatica');
+Route::post('crear_rol', 'UController@crear_rol')->middleware('roleshinobi:informatica');
+Route::get('borrar_rol/{idrol}', 'UController@borrar_rol')->middleware('roleshinobi:informatica');
 

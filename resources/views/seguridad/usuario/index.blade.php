@@ -9,10 +9,13 @@
 </div>
 <div class="row">
     <div class="margin" id="botones_control">
+        @role('informatica')
+
         <a href="usuario/create" class="btn btn-xs btn-primary">Agregar Usuarios</a>
         <!--<a href="{{ url("/listado_usuarios") }}" class="btn btn-xs btn-primary" >Listado Usuarios</a> -->
         <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formulario(2);">Roles</a> 
         <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formulario(3);" >Permisos</a>
+        @endrole
     </div>
     <div><br></div>
 </div>
@@ -38,9 +41,7 @@
                         @endforeach
                         </span></td>
                         <td style="width: 5%">
-                            <!--
-                            <button type="button" class="btn  btn-default btn-xs" onclick="verinfo_usuario({{  $usu->id }})" ><i class="fa fa-fw fa-edit"></i></button>-->
-                            <!--<a href="{{URL::action('UController@editarusuario',$usu->id)}}"><i class="fa fa-pencil"></i></a> -->
+                            <button class="btn  btn-default btn-xs" onclick="verinfo_usuario({{$usu->id }})"><i class="fa fa-pencil"></i></button>
                             <a href="" data-target="#modal-delete-{{$usu->id}}" data-toggle="modal" class="on-default" remove-row"><i class="fa fa-trash-o danger"></i></a>
                         </td>                     
                     </tr>
@@ -51,4 +52,21 @@
          {{$usuarios->render()}}
    </div>           
 </div>
+
+<div style="display: none;" id="cargador_empresa" align="center">
+    <br>
+    <label style="color:#FFF; background-color:#ABB6BA; text-align:center">&nbsp;&nbsp;&nbsp;Espere... &nbsp;&nbsp;&nbsp;</label>
+    <img src="{{ url('/img/cargando.gif') }}" align="middle" alt="cargador"> &nbsp;<label style="color:#ABB6BA">Realizando tarea solicitada ...</label>
+    <br>
+    <hr style="color:#003" width="50%">
+    <br>
+</div>
+<input type="hidden"  id="url_raiz_proyecto" value="{{ url("/") }}" />
+
+<div id="capa_modal" class="div_modal" style="display: none;"></div>
+<div id="capa_formularios" class="div_contenido" style="display: none;"></div>
+@endsection
+@section('fin')
+    @parent
+    <script src="{{asset('assets/js/U.js')}}"></script>
 @endsection

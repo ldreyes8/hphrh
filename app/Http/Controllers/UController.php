@@ -40,92 +40,116 @@ use Illuminate\Support\Facades\Auth;
 use Caffeinated\Shinobi\Models\Role;
 use Caffeinated\Shinobi\Models\Permission;
 
-
-
-
-
 class UController extends Controller
 {
 	public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
     }
-    //Datos usuario
-        public function index(Request $request)
-    	{
-    		if($request)
-    		{
-    			//$query=trim($request->get('searchText'));
-                $usuarios = User::name($request->get('name'))->orderBy('id','DESC')->paginate(15);
-                return view('seguridad.usuario.index',compact('usuarios'));
-                //$usuarios=User::all()->where('name','LIKE','%'.$query.'%')
-                    //->orderBy('id','desc')
-                    //->paginate(15);
-                //$usuarios=User::paginate(15);
-                //return view('seguridad.usuario.index',["usuarios"=>$usuarios,"searchText"=>$query]);
-    		}
-    	}
-    	
-    	public function create()
-    	{
-    		//return view("seguridad.usuario.create",["personas"=>$personas,"articulos"=>$articulos]);
-    		//$empleados=DB::table('persona')->where('tipo_persona','=','empleado')->get();
-    		//return view("seguridad.usuario.create",["empleados"=>$empleados]);
-    		$usuario = user::all();
-    		return view("seguridad.usuario.create",["usuario"=>$usuario]);
-    	}
-    	public function store(UFormRequest $request)
-    	{
-    		$usuario=new User;
-    		$usuario->name=$request->get('name');
-    		$usuario->email=$request->get('email');
-    		$usuario->password=bcrypt($request->get('password'));
-    		$usuario->identificacion=$request->get('identificacion');
-    		$usuario->save();
-    		return Redirect::to('seguridad/usuario');		
-    	}
-    	public function editarusuario($id)
-    	{
-            $usuario=User::find($id);
-            $usuario->name=strtoupper( $request->input("nombres") ) ;
-            $usuario->apellidos=strtoupper( $request->input("apellidos") ) ;
-            $usuario->telefono=$request->input("telefono");
     
-            if($request->has("rol")){
-                $rol=$request->input("rol");
-                $usuario->revokeAllRoles();
-                $usuario->assignRole($rol);
-            }
-     
-            if( $usuario->save()){
-                return view("mensajes.msj_usuario_actualizado")->with("msj","Usuario actualizado correctamente")
-                                                       ->with("idusuario",$idusuario) ;
-            }
-            else
-            {
-                return view("mensajes.mensaje_error")->with("msj","..Hubo un error al agregar ; intentarlo nuevamente..");
-            }
-    		//return view('seguridad.usuario.editarusuario',["usuario"=>User::findOrFail($id)]);
-    	}
-    	
-    	public function update(UsuarioFormRequest $request, $id)
+    //Datos usuario
+    public function index(Request $request)
+    {
+    	if($request)
     	{
-    		$usuario=User::findOrFail($id);
-    		$usuario->name=$request->get('name');
-    		$usuario->email=$request->get('email');
-    		$usuario->password=bcrypt($request->get('password'));
-    		$usuario->id_persona=$request->get('id_persona');
-    		$usuario->update();
-    		return Redirect::to('seguridad/usuario');
+    		//$query=trim($request->get('searchText'));
+            $usuarios = User::name($request->get('name'))->orderBy('id','DESC')->paginate(15);
+            return view('seguridad.usuario.index',compact('usuarios'));
+            //$usuarios=User::all()->where('name','LIKE','%'.$query.'%')
+            //->orderBy('id','desc')
+            //->paginate(15);
+            //$usuarios=User::paginate(15);
+            //return view('seguridad.usuario.index',["usuarios"=>$usuarios,"searchText"=>$query]);
     	}
-    	
-    	public function destroy($id)
-    	{
-    		$usuario =DB::table('users')->where('id','=',$id)->delete();
-    		return Redirect::to('seguridad/usuario');
-    	}
+    }
 
-        public function cambiar_password(Request $request){
+    public function create()
+    {
+        //return view("seguridad.usuario.create",["personas"=>$personas,"articulos"=>$articulos]);
+    	//$empleados=DB::table('persona')->where('tipo_persona','=','empleado')->get();
+    	//return view("seguridad.usuario.create",["empleados"=>$empleados]);
+    	$usuario = user::all();
+    	return view("seguridad.usuario.create",["usuario"=>$usuario]);
+    }
+    public function store(UFormRequest $request)
+    {
+    	$usuario=new User;
+    	$usuario->name=$request->get('name');
+    	$usuario->email=$request->get('email');
+    	$usuario->password=bcrypt($request->get('password'));
+    	$usuario->identificacion=$request->get('identificacion');
+    	$usuario->save();
+    	return Redirect::to('seguridad/usuario');		
+    }
+
+    public function editar_usuario($id)
+    {
+        $usuario=User::find($id);
+        $roles=Role::all();
+        return view("seguridad.usuario.editarusuario")
+        ->with("usuario",$usuario)
+        ->with("roles",$roles);
+    }
+
+    public function asignar_rol($idusu,$idrol){
+        $usuario=User::find($idusu);
+        $usuario->assignRole($idrol);
+
+        $usuario=User::find($idusu);
+        $rolesasignados=$usuario->getRoles();
+        return json_encode ($rolesasignados);
+    }
+
+    public function quitar_rol($idusu,$idrol){
+        $usuario=User::find($idusu);
+        $usuario->revokeRole($idrol);
+        $rolesasignados=$usuario->getRoles();
+        return json_encode ($rolesasignados);
+    }
+
+    public function form_nuevo_rol(){
+        //carga el formulario para agregar un nuevo rol
+        $roles=Role::all();
+        return view("seguridad.usuario.form_nuevo_rol")->with("roles",$roles);
+    }
+
+    public function crear_rol(Request $request){
+        $rol=new Role;
+        $rol->name=$request->input("rol_nombre") ;
+        $rol->slug=$request->input("rol_slug") ;
+        $rol->description=$request->input("rol_descripcion") ;
+        if($rol->save())
+        {
+            return view("mensajes.msj_rol_creado")->with("msj","Rol agregado correctamente") ;
+        }
+        else
+        {
+            return view("mensajes.mensaje_error")->with("msj","...Hubo un error al agregar ;...") ;
+        }
+    }
+    public function borrar_rol($idrole){
+        $role = Role::find($idrole);
+        $role->delete();
+        return "ok";
+    }
+    public function update(UsuarioFormRequest $request, $id)
+    {
+        $usuario=User::findOrFail($id);
+    	$usuario->name=$request->get('name');
+    	$usuario->email=$request->get('email');
+    	$usuario->password=bcrypt($request->get('password'));
+    	$usuario->id_persona=$request->get('id_persona');
+    	$usuario->update();
+    	return Redirect::to('seguridad/usuario');
+    }
+    	
+    public function destroy($id)
+    {
+    	$usuario =DB::table('users')->where('id','=',$id)->delete();
+    	return Redirect::to('seguridad/usuario');
+    }
+
+    public function cambiar_password(Request $request){
             $this->validateRequestPassword($request);
             $id=$request->get('idusuario');
             $usuario=User::find($id);
@@ -140,7 +164,7 @@ class UController extends Controller
             {
                 return view("mensajes.msj_rechazado")->with("msj","Error al actualizar el password");
             }
-        }
+    }
 
     	public function galeria()
     	{
@@ -291,9 +315,7 @@ class UController extends Controller
             ->select('e.idempleado','p.identificacion')
             ->where('u.id','=',Auth::user()->id)
             ->get();
-         
-            return view("hr.academico",["departamento"=>$departamento,"nivelacademico"=>$nivelacademico,"empleado"=>$empleado,"academico"=>$academico]);
-            
+            return view("hr.academico",["departamento"=>$departamento,"nivelacademico"=>$nivelacademico,"empleado"=>$empleado,"academico"=>$academico]);   
         }
 
         public function listaracademico1(Request $request,$id)
