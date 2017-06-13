@@ -78,34 +78,67 @@
                     <td>{{$per->idcivil}}</td>
                     <td>{{$per->identificacion}}</td>
                     <td>{{$per->mtdo}}</td>
-                    <td>{{$per->mtps}}</td> 
-                    <td>{{$per->mtmun}}</td>
+
+                        <td>{{$per->mtps}}</td> 
+                        <td>{{$per->mtmun}}</td>
+
                     <td>{{$per->nit}}</td>
                     <td>{{$per->iggs}}</td> 
                     <td>{{$per->genero}}</td>
                     <td>{{\Carbon\Carbon::createFromFormat('Y-m-d', $per->fechanac)->format('d-m-Y')}}</td>
-                    @foreach($hijo as $pers)
-                        @if($pers->identificacion == $per->identificacion )
-                            <td>{{$pers->hijos}}</td>
-                            @else
-                            <td>0</td>      
-                        @endif
-                    @endforeach 
-                    <td>{{$per->trabajoext}}</td>  
-                    <td>{{$per->forma}}</td>  
-                    <td></td>      
-                    <td>{{$per->motivofin}}</td>
-
-                    @foreach($academico as $acad)
-                        @if($acad->identificacion == $per->identificacion)
-                            <td>{{$acad->idnivel}}</td>
-                            @else
-                            <td>-</td>
-                        @endif
-                    @endforeach
-                    <td></td>
+                    <td>
+                        @foreach($hijo as $pers)
+                            @if($pers->identificacion == $per->identificacion)
+                                {{$pers->hijos}}
+                            @endif
+                        @endforeach 
+                    </td>
+                    <td>
+                        @foreach($trabajoextranjero as $te)
+                            @if($te->identificacion == $per->identificacion)
+                                {{$te->trabajoext}}
+                            @endif
+                        @endforeach 
+                    </td>  
+                    <td>
+                        @foreach($trabajoextranjero as $te)
+                            @if($te->identificacion == $per->identificacion)
+                                {{$te->forma}}
+                            @endif
+                        @endforeach
+                    </td>      
+                    <td>
+                        @foreach($trabajoextranjero as $te)
+                            @if($te->identificacion == $per->identificacion)
+                                {{$te->npais}}
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>
+                        @foreach($trabajoextranjero as $te)
+                            @if($te->identificacion == $per->identificacion)
+                                {{$te->motivofin}}
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>
+                        @foreach($academico as $acad)
+                            @if($acad->identificacion == $per->identificacion)
+                                {{$acad->idnivel}}
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>
+                        @foreach($academico as $acad)
+                            @if($acad->identificacion == $per->identificacion)
+                                {{$acad->titulo}}
+                            @endif
+                        @endforeach
+                    </td>
                     <td>{{$per->idetnia}}</td>
                     <td></td>
+
+                    
                 </tr>               
             @endforeach
           </tbody>

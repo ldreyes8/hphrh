@@ -10,7 +10,7 @@
   </div>
   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
     <div class="form-group">
-      <label for="serie_comprobante">Identificacion</label>
+      <label for="serie_comprobante">Identificación</label>
       <p>{{$empleado->identificacion}}</p>
     </div>
   </div>
@@ -29,8 +29,8 @@
         <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
         <p><h2 ALIGN=center>Datos Personales</h2></p>
           <thead style="background-color:#A9D0F5">
-            <th>Direccion </th>
-            <th>Telefono</th>
+            <th>Dirección </th>
+            <th>Teléfono</th>
             <th>Fecha Nacimiento</th>
             <th>Departamento</th>
             <th>Municipio</th>
@@ -44,7 +44,7 @@
             <th>Vivienda</th>
             <th>Alquiler Mensual</th>
             <th>Otros Ingresos</th>
-            <th>Pretension</th>
+            <th>Pretensión</th>
             <th>Fecha Solicitud</th>
           </thead>
  
@@ -57,44 +57,16 @@
           </tfoot>
           <tbody>
             <tr>
-           
-
-            @if($persona->avenida != '' and $persona->calle =='')
-              <td>              
-                 {{'av'.' '.$persona->avenida.' '.$persona->nomenclatura.' '.'Zona'.' '.$persona->zona.' '.$persona->barriocolonia}}              
-              </td>
-            @endif
-
-            @if($persona->calle != '' and $persona->avenida == '')
-              <td>              
-                 {{'calle'.' '.$persona->calle.' '.$persona->nomenclatura.' '.'Zona'.' '.$persona->zona.' '.$persona->barriocolonia}}              
-              </td>
-            @endif
-
-            @if($persona->calle != '' and $persona->avenida != '')
-              <td>              
-                 {{'calle'.' '.$persona->calle.' '.'av'.' '.$persona->avenida.' '.$persona->nomenclatura.' '.'Zona'.' '.$persona->zona.' '.$persona->barriocolonia}}              
-              </td>
-            @endif
- 
-
-            @if($persona->calle == '' and $persona->avenida == '' and $persona->zona == '' and $persona->nomenclatura == '' and $persona->barriocolonia != '')
-              <td>              
-                 {{$persona->barriocolonia}}              
-              </td>
-            @endif
-
-            @if($persona->calle == '' and $persona->avenida == '' and $persona->zona == '' and $persona->nomenclatura == '' and $persona->barriocolonia == '')
-              <td>              
-                               
-              </td>
-            @endif
-
-
+              <td>{{$persona->barriocolonia}}</td>
               <td>{{$persona->telefono}}</td>
               <td>{{$persona->fechanac}}</td>
-              <td>{{$persona->departamento}}</td>
-              <td>{{$persona->municipio}}</td>
+              @if (!empty($persona->departamento))
+                <td>{{$persona->departamento}}</td>
+                <td>{{$persona->municipio}}</td>
+              @else
+                <td>Extranjero</td>
+                <td>Extranjero</td>
+              @endif
               <td>{{$empleado->estadocivil}}</td>
               <td>{{$persona->afiliado}}</td>
               <td>{{$persona->puesto}}</td>
@@ -118,17 +90,11 @@
           <thead style="background-color:#A9D0F5">
             <th>Nombre</th>
             <th>Parentezco</th>
-            <th>Telefono</th>
-            <th>Ocupacion</th>
+            <th>Teléfono</th>
+            <th>Ocupación</th>
             <th>Edad</th>
+            <th>Emergencia</th>
           </thead>
- 
-          <tfoot>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tfoot>
           <tbody>
           @foreach($familiares as $fam)
             <tr>
@@ -137,6 +103,7 @@
               <td>{{$fam->telefonof}}</td>
               <td>{{$fam->ocupacion}}</td>
               <td>{{$fam->edad}}</td>
+              <td>{{$fam->emergencia}}</td>
             </tr>
             @endforeach
           </tbody>
@@ -145,11 +112,11 @@
         <!-- -->
   <div class="table-responsive">
         <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
-        <p><h2 ALIGN=center>Datos Academicos</h2></p>
+        <p><h2 ALIGN=center>Datos Académicos</h2></p>
           <thead style="background-color:#A9D0F5">
-            <th>Titulo</th>
-            <th>Institucion</th>
-            <th>Duracion</th>
+            <th>Título</th>
+            <th>Institución</th>
+            <th>Duración</th>
             <th>Nivel</th>
             <th>Fecha Ingreso</th>
             <th>Fecha Salida</th>
@@ -198,9 +165,9 @@
         <p><h2 ALIGN=center>Referencia Personales Y Laborales</h2></p>
           <thead style="background-color:#A9D0F5">
             <th>Nombre</th>
-            <th>Telefono</th>
-            <th>Profesion</th>
-            <th>tiporeferencia</th>
+            <th>Télefono</th>
+            <th>Profesión</th>
+            <th>Tipo de referencia</th>
           </thead>
  
           <tfoot>
@@ -263,7 +230,7 @@
         <p><h2 ALIGN=center>Deudas</h2></p>
           <thead style="background-color:#A9D0F5">
             <th>Acreedor</th>
-            <th>amortizacion mensual</th>
+            <th>Amortización mensual</th>
             <th>Monto Deuda</th>
           </thead>
  

@@ -192,7 +192,7 @@ class SController extends Controller
 
         $familiares=DB::table('personafamilia as pf')
         ->join('persona as p','pf.identificacion','=','p.identificacion')
-        ->select('pf.idpfamilia','pf.nombref','pf.apellidof','pf.telefonof','pf.parentezco','pf.ocupacion','pf.edad')
+        ->select('pf.idpfamilia','pf.nombref','pf.apellidof','pf.telefonof','pf.parentezco','pf.ocupacion','pf.edad','pf.emergencia')
         ->where('p.identificacion','=',$id)
         ->get();
 
@@ -249,7 +249,6 @@ class SController extends Controller
     }
     public function upt (Request $request)
     {
-       
         $id = $request->get('idempleado');
 
         $od=Empleado::findOrFail($id);

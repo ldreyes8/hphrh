@@ -95,7 +95,7 @@ class ListadoController extends Controller
 
         $familiares=DB::table('personafamilia as pf')
         ->join('persona as p','pf.identificacion','=','p.identificacion')
-        ->select('pf.nombref','pf.apellidof','pf.telefonof','pf.parentezco','pf.ocupacion','pf.edad')
+        ->select('pf.nombref','pf.apellidof','pf.telefonof','pf.parentezco','pf.ocupacion','pf.edad','pf.emergencia')
         ->where('p.identificacion','=',$id)
         ->get();
 

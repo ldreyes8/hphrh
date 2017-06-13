@@ -41,15 +41,33 @@ class Interino extends Controller
     }
     public function show ($id)
     {
-        $persona=DB::table('persona as p')
+        $municipio=DB::table('persona as p')
         ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
-        ->join('departamento as dp','m.iddepartamento','=','dp.iddepartamento')
-        ->join('empleado as em','p.identificacion','=','em.identificacion')
-        ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
-        ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-        ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.fechanac','p.avenida','p.calle','p.nomenclatura','p.zona','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto')
-        ->where('em.identificacion','=',$id)
+        ->select('m.idmunicipio')
+        ->where('p.identificacion','=',$id)
         ->first();
+
+        if (empty($municipio->idmunicipio)) {
+          $persona=DB::table('persona as p')
+            ->join('empleado as em','p.identificacion','=','em.identificacion')
+            ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
+            ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
+            ->where('em.identificacion','=',$id)
+            ->first();
+        }
+        else
+        {
+            $persona=DB::table('persona as p')
+            ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
+            ->join('departamento as dp','m.iddepartamento','=','dp.iddepartamento')
+            ->join('empleado as em','p.identificacion','=','em.identificacion')
+            ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
+            ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.fechanac','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto')
+            ->where('em.identificacion','=',$id)
+            ->first();
+        }
 
         $empleado=DB::table('empleado as e')
         ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
@@ -72,7 +90,7 @@ class Interino extends Controller
 
         $familiares=DB::table('personafamilia as pf')
         ->join('persona as p','pf.identificacion','=','p.identificacion')
-        ->select('pf.nombref','pf.apellidof','pf.telefonof','pf.parentezco','pf.ocupacion','pf.edad')
+        ->select('pf.nombref','pf.apellidof','pf.telefonof','pf.parentezco','pf.ocupacion','pf.edad','pf.emergencia')
         ->where('p.identificacion','=',$id)
         ->get();
 
