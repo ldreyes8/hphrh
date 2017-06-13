@@ -13,7 +13,10 @@
                 <th>Afiliado</th>
                 <th>Puesto</th>
                 <th>Nombre del empleado</th>
+                <th>Identificaci&oacute;n</th>
                 <th>Salario</th>
+                <th>Nombramiento</th>
+
             </thead>
             <tbody>
             @foreach($nomytras as $ntr)
@@ -21,7 +24,9 @@
                     <td>{{$ntr->afiliado}}</td>
                     <td>{{$ntr->puesto}}</td>
                     <td>{{$ntr->nombre1.' '.$ntr->nombre2.' '.$ntr->nombre3.' '.$ntr->apellido1.' '.$ntr->apellido2}}</td>
+                    <td>{{$ntr->identificacion}}</td>
                     <td>{{$ntr->salario}}</td>
+                    <td>{{\Carbon\Carbon::createFromFormat('Y-m-d', $ntr->fecha)->format('d-m-Y')}}</td>
                 </tr>               
             @endforeach
           </tbody>

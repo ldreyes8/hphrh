@@ -390,6 +390,7 @@
             
             
             <!-- Right Sidebar -->
+            <!--
             <div class="side-bar right-bar">
                 <div class="nicescroll">
                     <ul class="nav nav-tabs tabs">
@@ -620,6 +621,7 @@
                     </div>
                 </div>
             </div>
+            -->
             <!-- /Right-bar -->
 
         </div>
