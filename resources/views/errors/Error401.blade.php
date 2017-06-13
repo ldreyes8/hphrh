@@ -26,7 +26,6 @@
     </head>
     <body>
 
-
         <div class="ex-page-content">
             <div class="container">
                 <div class="row">
@@ -65,7 +64,6 @@
             </div>
         </div>
 
-        
     	<script>
             var resizefunc = [];
         </script>
