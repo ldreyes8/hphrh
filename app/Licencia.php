@@ -8,7 +8,7 @@ class Licencia extends Model
 {
     //
     protected $table='personalicencia';
-    protected $primarykey='idplicencia';
+    protected $primaryKey='idplicencia';
 
     public $timestamps=false;
     protected $fillable=
