@@ -131,7 +131,13 @@
                         @endforeach
                     </td>
                     <td>{{$per->idetnia}}</td>
-                    <td></td>
+                    <td>
+                        @foreach($idioma as $idid)
+                            @if($idid->idempleado == $per->idempleado)
+                                {{$idid->ididioma}},
+                            @endif
+                        @endforeach
+                    </td>
                 </tr>               
             @endforeach
 	
