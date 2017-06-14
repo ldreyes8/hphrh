@@ -31,16 +31,25 @@ class HomeController extends Controller
     public function index()
     {
         $today = Carbon::now();
-        $year = $today->format('m');
+        $year = $today->format('Y');
+        $month = $today->format('m');
+        $day = $today->format('d');
+   
         $persona = DB::table('persona as per')
         ->join('users as U','per.identificacion','=','U.identificacion')
         ->select('per.nombre1', 'per.apellido1','U.fotoperfil')
-        ->whereMonth('per.fechanac', '=', $year)
+        ->whereMonth('per.fechanac','=',$month)
+        ->get();
+
+        $cumpledia = DB::table('persona as per')
+        ->join('users as U','per.identificacion','=','U.identificacion')
+        ->select('per.nombre1', 'per.apellido1','U.fotoperfil')
+        ->whereDay('per.fechanac','=',$day)
+        ->whereMonth('per.fechanac','=',$month)
         ->get();
 
         $usuarioactual=\Auth::user();
         $tablero = Eventos::all();
-         //return view("home",["usuario"=>$usuarioactual,"tablero"=>$tablero,"caso"=>$caso,"empleado"=>$empleado]);
-        return view('home',array('tablero'=>$tablero,'persona'=>$persona));
+        return view('home',array('tablero'=>$tablero,'persona'=>$persona,'cumpledia'=>$cumpledia));
     }
 }
