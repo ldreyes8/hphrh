@@ -112,6 +112,13 @@ class Controllermintrab extends Controller
         ->select('ps.nombre as npais','te.identificacion','te.trabajoext','te.forma','te.motivofin')
         ->get();
 
+        $idioma=DB::table('empleado as em')
+        ->join('persona as p','em.identificacion','=','p.identificacion')
+        ->join('empleadoidioma as ei','em.idempleado','=','ei.idempleado')
+        ->join('idioma as i','ei.ididioma','=','i.ididioma')
+        ->select('i.ididioma','em.idempleado')
+        ->get();
+
         $academico=DB::table('persona as p')
         ->join('personaacademico as pa','p.identificacion','=','pa.identificacion')
         ->join('nivelacademico as na','pa.idnivel','=','na.idnivel')
@@ -121,11 +128,11 @@ class Controllermintrab extends Controller
         ->orderBy('p.identificacion','asc')
         ->get();
 
-        Excel::create("Ministerio de trabajo", function ($excel) use ($persona,$hijo,$academico,$trabajoextranjero)  
+        Excel::create("Ministerio de trabajo", function ($excel) use ($persona,$hijo,$academico,$trabajoextranjero,$idioma)  
             {
-                $excel->sheet("Reporte", function ($sheet) use ($persona,$hijo,$academico,$trabajoextranjero)
+                $excel->sheet("Reporte", function ($sheet) use ($persona,$hijo,$academico,$trabajoextranjero,$idioma)
                 {
-                    $sheet->loadView('excel',['persona'=>$persona,'hijo'=>$hijo,'academico'=>$academico,'trabajoextranjero'=>$trabajoextranjero]);
+                    $sheet->loadView('excel',['persona'=>$persona,'hijo'=>$hijo,'academico'=>$academico,'trabajoextranjero'=>$trabajoextranjero,'idioma'=>$idioma]);
                 });
             })->download('xls');
         return back();
