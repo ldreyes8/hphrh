@@ -334,8 +334,8 @@
                                                         </div>
                                                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
-                                                                <label>Puesto</label>
-                                                                <select name="idpuesto" class="form-control selectpicker" data-live-search="true">
+                                                                <label>Puesto *</label>
+                                                                <select name="idpuesto" id="puesto" class="form-control selectpicker" data-live-search="true">
                                                                 <option value="" hidden>Seleccione</option>
                                                                     @foreach($puestos as $cat)
                                                                         <option value="{{$cat->idpuesto}}">{{$cat->nombre}}</option>
@@ -348,7 +348,7 @@
                                                             <label>¿En qué afiliado le gustaría aplicar?</label>
                                                             <div class="form-group">
                                                                 
-                                                                <select name="idafiliado" class="form-control selectpicker" data-live-search="true" >
+                                                                <select name="idafiliado" id="afiliado" class="form-control selectpicker" data-live-search="true" >
                                                                 <option value="" hidden>Seleccione</option>
                                                                     @foreach($afiliados as $cat)
                                                                         <option value="{{$cat->idafiliado}}">{{$cat->nombre}}</option>
@@ -1132,6 +1132,8 @@
                     idpaisPS=$("#idpaisPS").val();    
                     iddepartamento=$("#iddepartamento").val();
                     barriocolonia=$("#barriocolonia").val();       
+                    puesto=$("#puesto").val();
+                    afiliado=$("#afiliado").val();
                     if (identificacion!="" )
                         {  
                                            
@@ -1190,6 +1192,24 @@
                             alert('Su pretensión salarial es requerida *');
                             return false;
                         }
+                    if(puesto!="")
+                    {
+                        
+                    }
+                    else
+                    {
+                        alert('Debe seleccionar un puesto a aplicar');
+                        return false;
+                    }
+                    if(afiliado!="")
+                    {
+                        
+                    }
+                    else
+                    {
+                        alert('Debe seleccionar un afiliado a aplicar');
+                        return false;
+                    }
                     if(idpaisPS!="")
                         {
                             if (idpaisPS == "73" ) 
@@ -1235,6 +1255,8 @@
                     idpaisPS=$("#idpaisPS").val();
                     iddepartamento=$("#iddepartamento").val();
                     barriocolonia=$("#barriocolonia").val();
+                    puesto=$("#puesto").val();
+                    afiliado=$("#afiliado").val();
                     if (identificacion!="" )
                         {  
                                            
@@ -1284,6 +1306,25 @@
                             alert('En Datos Generales existen campos obligatorios *');
                             return false;
                         }
+
+                    if(puesto!="")
+                    {
+                        
+                    }
+                    else
+                    {
+                        alert('En Datos Generales existen campos obligatorios *');
+                        return false;
+                    }
+                    if(afiliado!="")
+                    {
+                        
+                    }
+                    else
+                    {
+                        alert('En Datos Generales existen campos obligatorios *');
+                        return false;
+                    }
                     if(idpaisPS!="")
                         {
                             if (idpaisPS == "73") 

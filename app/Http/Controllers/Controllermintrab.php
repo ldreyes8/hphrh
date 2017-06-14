@@ -63,6 +63,13 @@ class Controllermintrab extends Controller
         ->select('ps.nombre as npais','te.identificacion','te.trabajoext','te.forma','te.motivofin')
         ->get();
 
+        $idioma=DB::table('empleado as em')
+        ->join('persona as p','em.identificacion','=','p.identificacion')
+        ->join('empleadoidioma as ei','em.idempleado','=','ei.idempleado')
+        ->join('idioma as i','ei.ididioma','=','i.ididioma')
+        ->select('i.ididioma','em.idempleado')
+        ->get();
+
         $academico=DB::table('persona as p')
         ->join('personaacademico as pa','p.identificacion','=','pa.identificacion')
         ->join('nivelacademico as na','pa.idnivel','=','na.idnivel')
@@ -73,7 +80,7 @@ class Controllermintrab extends Controller
         ->get();
 
         
-        return view('mintrabf.Rmintrab',['persona'=>$persona,'hijo'=>$hijo,'academico'=>$academico,'trabajoextranjero'=>$trabajoextranjero]);
+        return view('mintrabf.Rmintrab',['persona'=>$persona,'hijo'=>$hijo,'academico'=>$academico,'trabajoextranjero'=>$trabajoextranjero,'idioma'=>$idioma]);
     }
 
     public function excel()
