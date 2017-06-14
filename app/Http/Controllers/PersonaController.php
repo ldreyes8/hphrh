@@ -263,7 +263,9 @@ class PersonaController extends Controller
                         $eidioma=$request->get('eidioma');
                      //Datos licemcia
                         $vigencia=$request->get('vigencia');
-                        $licenciaid=$request->get('licenciaid');
+                        $licenciaid=$request->get('licenciape');
+
+                        //dd($vigencia,$licenciaid);
                      //contadores
                         $cont = 0;
                         $conts = 0;
@@ -286,7 +288,7 @@ class PersonaController extends Controller
                                 $licencias = new Licencia;
                                 $licencias-> vigencia = $vigencia[$cont7];
                                 $licencias-> idlicencia = $licenciaid[$cont7];
-                                $licencias-> identificacion = $persona->identificacion;
+                                $licencias-> identificacion = $empleado->identificacion;
                                 $licencias->save();
                                 $cont7=$cont7 + 1;
                             }
@@ -347,7 +349,7 @@ class PersonaController extends Controller
                                     }
                                     else
                                     {
-                                        $academicos-> idmunicipio = NULL;
+                                        //$academicos-> idmunicipio = NULL;
                                         $academicos-> idpais = $idpaisA[$cont5];
                                     }
                                     

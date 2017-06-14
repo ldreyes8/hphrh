@@ -29,7 +29,7 @@ class Interino extends Controller
         ->join('persona as p','e.identificacion','=','p.identificacion')
         ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
         ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-        ->select('e.idempleado','e.identificacion','e.nit','p.nombre1 as nombre','p.apellido1 as apellido','af.nombre as fnombre','pu.nombre as pnombre','st.statusemp as statusn')
+        ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.apellido1','p.apellido2','af.nombre as fnombre','pu.nombre as pnombre','st.statusemp as statusn')
         ->where('e.idstatus','=',11)
         ->where('p.nombre1','LIKE','%'.$query.'%')
         ->orderBy('e.idempleado','desc')
