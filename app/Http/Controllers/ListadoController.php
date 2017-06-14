@@ -376,7 +376,7 @@ class ListadoController extends Controller
         ->where('au.autorizacion','=','Confirmado')
         ->where('tp.idtipoausencia','=','3')
         ->orderBy('au.fechasolicitud','desc')        
-        ->paginate(15); 
+        ->paginate(15);  
 
         return view('listados.vacaciones.indexconfirmado',["vacaciones"=>$vacaciones]);        
     }

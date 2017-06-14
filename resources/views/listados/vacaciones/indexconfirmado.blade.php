@@ -40,7 +40,8 @@
                         <td style="width: 8%">{{$vac->solhoras}}</td>
                         <td style="width: 8%">{{$vac->name}}</td>
                         <td style="width: 15%"> {{$vac->justificacion}}</td>
-                        <td style="width: 15%">{{$vac->observaciones}}</td>                       
+                         <td style="width: 15%">{{$vac->observaciones}}</td>                    
+
                      </tr>
                 @endforeach
              </table>

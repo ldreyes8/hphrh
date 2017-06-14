@@ -49,7 +49,7 @@ class RHPermiso extends Controller
 	        ->join('persona as per','emp.identificacion','=','per.identificacion')
 	        ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
 	        ->join('users as U','au.id','=','U.id')
-	         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia','au.totaldias','au.totalhoras','U.name','au.justificacion')
+	         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia','au.totaldias','au.totalhoras','U.name','au.justificacion','au.observaciones')
 	        ->where('au.autorizacion','=','Confirmado')
 	        ->where('tp.idtipoausencia','!=','3')
 	        ->orderBy('au.fechasolicitud','desc')
