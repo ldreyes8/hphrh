@@ -34,7 +34,7 @@ class ListadoController extends Controller
         ->join('persona as p','e.identificacion','=','p.identificacion')
         ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
         ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
-        ->select('e.idempleado','e.identificacion','e.nit','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','p.nombre1 as nombre','p.apellido1 as apellido','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado')
+        ->select('e.idempleado','e.identificacion','e.nit','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','p.nombre1','p.nombre2','p.apellido1','p.apellido2','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado')
         ->where('e.idstatus','=',2)
         ->where('p.nombre1','LIKE','%'.$query.'%')
         ->orwhere('p.apellido1','LIKE','%'.$query.'%')

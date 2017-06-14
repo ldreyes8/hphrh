@@ -138,7 +138,7 @@ input[type=text] {
             <table id="detallesA" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Datos Académicos</h2></p>
               <thead style="background-color:#A9D0F5">
-                <th style="width: 0%"></th>
+                <th style="width: 1%"></th>
                 <th>Título</th>
                 <th>Institución</th>
                 <th>Duración</th>
@@ -178,6 +178,7 @@ input[type=text] {
                 <tbody>
                   @foreach($idiomas as $idi)
                   <tr>
+                  <td></td>
                    <td><input type="text" class="" value="{{$idi->idioma}}"></td>
                    <td><input type="text" class="" value="{{$idi->nivel}}"></td>                
                   </tr>

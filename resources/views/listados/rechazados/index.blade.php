@@ -25,7 +25,7 @@
                  <td>{{$em->idempleado}}</td>
                  <td>{{$em->identificacion}}</td>
                  <td>{{$em->nit}}</td>
-                 <td>{{$em->nombre.': '.$em->apellido}}</td>
+                 <td>{{$em->nombre1.' '.$em->nombre2.' '.$em->apellido1.' '.$em->apellido2}}</td>
                  <td>{{$em->fnombre}}</td>
                  <td>{{$em->pnombre}}</td>
                  <td>{{$em->statusn}}</td>

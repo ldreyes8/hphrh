@@ -657,8 +657,8 @@
                                                     </div>
                                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                                         <div class="form-group">
-                                                            <label for="puesto">Puesto</label>
-                                                            <input type="text" id="puesto" name="puesto" maxlength="50" class="form-control" onkeypress="return validaL(event)">
+                                                            <label >Puesto</label>
+                                                            <input type="text" id="puesto5"  maxlength="50" class="form-control" onkeypress="return validaL(event)">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -820,7 +820,7 @@
                                                             <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
                                                                     <label>Tipo licencia</label>
-                                                                    <select name="licencia" id="licencia" class="form-control selectpicker" data-live-search="true" >
+                                                                    <select  id="licenciaid" class="form-control selectpicker" data-live-search="true" >
                                                                         @foreach($licencia as $cat)
                                                                             <option value="{{$cat->idlicencia}}">{{$cat->tipolicencia}}</option>
                                                                         @endforeach
@@ -829,8 +829,8 @@
                                                             </div>
                                                             <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
-                                                                    <label for="vigencia">Vigencia</label>
-                                                                    <input type="text" id="vigencia" name="vigencia" maxlength="4" onkeypress="return valida(event)" class="form-control">
+                                                                    <label >Vigencia</label>
+                                                                    <input type="text" id="vigencia"  maxlength="4" onkeypress="return valida(event)" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
@@ -930,7 +930,7 @@
                                                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                                     <div class="form-group">
                                                                         <label for="idpais">País</label>
-                                                                        <select name="idpaisTE" id="idpaist" class="form-control selectpicker" data-live-search="true">
+                                                                        <select id="idpaist" class="form-control selectpicker" data-live-search="true">
                                                                             <option value="" hidden>Seleccione</option>
                                                                             @foreach($pais as $p)
                                                                                 <option value="{{$p->idpais}}">{{$p->nombre}}</option>
@@ -1366,7 +1366,7 @@
                         {
                             alert('Gracias por enviar su solicitud');
 
-                        }                       
+                        }                    
                 });
 
                 $('#basicwizard').bootstrapWizard({'tabClass': 'nav nav-tabs navtab-custom nav-justified bg-muted'});
@@ -1554,7 +1554,7 @@
             function limpiar5()
             {
                 $("#empresa").val("");
-                $("#puesto").val("");
+                $("#puesto5").val("");
                 $("#jefeinmediato").val("");
                 $("#motivoretiro").val("");
                 $("#ultimosalario").val("");
@@ -1749,14 +1749,14 @@
             function agregar5()
             {
                 empresa=$("#empresa").val();
-                puesto=$("#puesto").val();
+                puesto=$("#puesto5").val();
                 jefeinmediato=$("#jefeinmediato").val();
                 motivoretiro=$("#motivoretiro").val();
                 ultimosalario=$("#ultimosalario").val();
                 fingresoex=$("#fingresoex").val();
                 fsalidaex=$("#fsalidaex").val();
 
-                if ((empresa!="") && (puesto!="") && (jefeinmediato!="") && (motivoretiro!="") && (ultimosalario!="") && (fingresoex!="") && (fsalidaex!=""))
+                if (empresa!="")
                 {
                     var filaEl='<tr class="selected" id="filaEl'+contEx+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarEl('+contEx+');">X</button></td> <td><input type="hidden" name="empresa[]" value="'+empresa+'">'+empresa+'</td> <td><input type="hidden" name="puesto[]" value="'+puesto+'">'+puesto+'</td> <td><input type="hidden" name="jefeinmediato[]" value="'+jefeinmediato+'">'+jefeinmediato+'</td> <td><input type="hidden" name="motivoretiro[]" value="'+motivoretiro+'">'+motivoretiro+'</td> <td><input type="hidden" name="ultimosalario[]" value="'+ultimosalario+'">'+ultimosalario+'</td> <td><input type="hidden" name="fingresoex[]" value="'+fingresoex+'">'+fingresoex+'</td> <td><input type="hidden" name="fsalidaex[]" value="'+fsalidaex+'">'+fsalidaex+'</td> </tr>';
                     contEx++;
@@ -1790,8 +1790,9 @@
                 idniveltx=$("#idnivel option:selected").text();
 
                 fingreso=$("#dato2").val();
-                fingresoDT=("00/00/0000");
                 fsalida=$("#dato3").val();
+
+                fingresoDT=("00/00/0000");
                 fsalidaDT=("00/00/0000");
 
                 idpaisPA=$("#idpaisPA").val();
@@ -1898,12 +1899,12 @@
             function agregar8()
             {
 
-                licencia=$("#licencia").val();
-                licenciatex=$("#licencia option:selected").text();
+                licencia=$("#licenciaid").val();
+                licenciatex=$("#licenciaid option:selected").text();
                 vigencia=$("#vigencia").val();
                 if(vigencia!="")
                 {
-                    var filaL='<tr class="selected" id="filaL'+contL+'"><td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarL('+contL+');">X</button> </td><td><input type="hidden" name="licenciaid[]" value="'+licencia+'">'+licenciatex+'</td> <td><input type="hidden" name="vigencia[]" value="'+vigencia+'">'+vigencia+'</td> </tr>';
+                    var filaL='<tr class="selected" id="filaL'+contL+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarL('+contL+');">X</button></td> <td><input type="hidden" name="licenciape[]" value="'+licencia+'">'+licenciatex+'</td> <td><input type="hidden" name="vigencia[]" value="'+vigencia+'">'+vigencia+'</td> </tr>';
                     contL++;
                     limpiar7();
                     $('#detalle8').append(filaL);
