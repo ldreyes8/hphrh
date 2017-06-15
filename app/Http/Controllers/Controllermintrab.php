@@ -35,7 +35,7 @@ class Controllermintrab extends Controller
             ->get();
         }
         else
-        { */
+        {*/ 
         	$persona=DB::table('persona as p')
             ->join('empleado as em','p.identificacion','=','em.identificacion')
             ->join('nacionalidad as nac','p.idnacionalidad','=','nac.idnacionalidad')
@@ -45,8 +45,11 @@ class Controllermintrab extends Controller
             ->join('departamento as dpt','mun.iddepartamento','=','dpt.iddepartamento')
             ->join('pais as ps','dpt.idpais','=','ps.idpais')
             ->join('etnia as ena','p.idetnia','=','ena.idetnia')
+            ->join('status as st','em.idstatus','=','st.idstatus')
             ->select('em.idempleado','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','nac.nombre as nnac','ec.idcivil','p.identificacion','do.codmintrab as mtdo','ps.codmintrab as mtps','mun.mintrab as mtmun','em.nit','em.afiliacionigss as iggs','p.genero','p.fechanac','ena.idetnia')
+            ->where('em.idstatus','=',2)
             ->orderBy('em.idempleado','asc')
+            
             ->get();
         //}
 
@@ -95,6 +98,7 @@ class Controllermintrab extends Controller
             ->join('pais as ps','dpt.idpais','=','ps.idpais')
             ->join('etnia as ena','p.idetnia','=','ena.idetnia')
             ->select('em.idempleado','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','nac.nombre as nnac','ec.idcivil','p.identificacion','do.codmintrab as mtdo','ps.codmintrab as mtps','mun.mintrab as mtmun','em.nit','em.afiliacionigss as iggs','p.genero','p.fechanac','ena.idetnia')
+            ->where('em.idstatus','=',2)
             ->orderBy('em.idempleado','asc')
             ->get();
         //}
@@ -112,6 +116,13 @@ class Controllermintrab extends Controller
         ->select('ps.nombre as npais','te.identificacion','te.trabajoext','te.forma','te.motivofin')
         ->get();
 
+        $idioma=DB::table('empleado as em')
+        ->join('persona as p','em.identificacion','=','p.identificacion')
+        ->join('empleadoidioma as ei','em.idempleado','=','ei.idempleado')
+        ->join('idioma as i','ei.ididioma','=','i.ididioma')
+        ->select('i.ididioma','em.idempleado')
+        ->get();
+
         $academico=DB::table('persona as p')
         ->join('personaacademico as pa','p.identificacion','=','pa.identificacion')
         ->join('nivelacademico as na','pa.idnivel','=','na.idnivel')
@@ -121,11 +132,11 @@ class Controllermintrab extends Controller
         ->orderBy('p.identificacion','asc')
         ->get();
 
-        Excel::create("Ministerio de trabajo", function ($excel) use ($persona,$hijo,$academico,$trabajoextranjero)  
+        Excel::create("Ministerio de trabajo", function ($excel) use ($persona,$hijo,$academico,$trabajoextranjero,$idioma)  
             {
-                $excel->sheet("Reporte", function ($sheet) use ($persona,$hijo,$academico,$trabajoextranjero)
+                $excel->sheet("Reporte", function ($sheet) use ($persona,$hijo,$academico,$trabajoextranjero,$idioma)
                 {
-                    $sheet->loadView('excel',['persona'=>$persona,'hijo'=>$hijo,'academico'=>$academico,'trabajoextranjero'=>$trabajoextranjero]);
+                    $sheet->loadView('excel',['persona'=>$persona,'hijo'=>$hijo,'academico'=>$academico,'trabajoextranjero'=>$trabajoextranjero,'idioma'=>$idioma]);
                 });
             })->download('xls');
         return back();
