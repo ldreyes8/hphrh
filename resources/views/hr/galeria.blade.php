@@ -13,13 +13,13 @@
                 @foreach($usuario as $user)
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         @if ($user->fotoperfil==="")
-                            <img  src="{{asset('imagenes/avatar.jpg')}}" class="img-circle" alt="profile-image" width="75px" height ="75px" id="fotografia_usuario">
+                            <img  src="{{asset('imagenes/avatar.jpg')}}" class="img-responsive img-circle" alt="user" width="75px" height ="75px" id="fotografia_usuario">
                             <div class="caption">
                                 <h3>{{$user->name}}</h3>
                                 <p>{{$user->email}}<br>{{$user->puesto}}<br>{{$user->afiliado}}<br>{{$user->celcorporativo}}<br></p>            
                             </div>
                         @else
-                            <img  src="{{asset('fotografias/'.$user->fotoperfil)}}" class="img-circle" alt="profile-image" width="75px" height ="75px" id="fotografia_usuario">
+                            <img  src="{{asset('fotografias/'.$user->fotoperfil)}}" class="img-responsive img-circle" alt="user" width="75px" height ="75px" id="fotografia_usuario">
                             <div class="caption">
                                 <h3>{{$user->name}}</h3>
                                 <p>{{$user->email}}<br>{{$user->puesto}}<br>{{$user->afiliado}}<br>{{$user->celcorporativo}}<br></p>            

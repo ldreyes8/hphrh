@@ -64,9 +64,13 @@ class HomeController extends Controller
         $tableroini = DB::table('tablero as evento')
         ->select('evento.imagen')
         ->where('evento.home','=',1)
+        ->orderBy('evento.fechapublica','desc')
         ->get();
 
-                $tablero = Eventos::all();
+         $tablero = DB::table('tablero as evento')
+        ->select('evento.imagen','evento.post','evento.titulo')
+        ->where('evento.home','=',0)
+        ->get();
 
 
         return view('home',array('tablero'=>$tablero,'tableroini'=>$tableroini,'persona'=>$persona,'cumpledia'=>$cumpledia));
