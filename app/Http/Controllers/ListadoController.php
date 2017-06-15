@@ -44,7 +44,7 @@ class ListadoController extends Controller
         ->orwhere('p.apellido1','LIKE','%'.$query.'%')
 
         ->groupBy('e.idempleado')   
-        ->orderBy('e.idempleado','asc')
+        ->orderBy('e.idempleado','desc')
         ->paginate(19); 
         }
         
