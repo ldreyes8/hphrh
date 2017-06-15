@@ -1,6 +1,7 @@
 <div class="tab-pane" id="academicos">
     <div class="panel-heading">
         <button class="btn btn-success" id="btnAgregar"><i class="icon-user icon-white" ></i> Agregar estudios</button>
+        <!--button class="btn btn-success" id="btnAgregarI"><i class="icon-user icon-white" ></i> Agregar un idioma</button-->
     </div>
   <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
     <div class="table-responsive" id="tabla">
@@ -22,8 +23,8 @@
                 <td>{{$academico[$i]->establecimiento}}</td>
                 <td>{{$academico[$i]->duracion.': '.$academico[$i]->periodo}}</td>
                 <td>{{$academico[$i]->nombrena}}</td>
-                <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$academico[$i]->fingreso)->format('d-m-Y')}}</td>
-                <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$academico[$i]->fsalida)->format('d-m-Y')}}</td>
+                <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$academico[$i]->fingreso)->format('d/m/Y')}}</td>
+                <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$academico[$i]->fsalida)->format('d/m/Y')}}</td>
                 <td>
                   <button class="fa fa-pencil btn-editar-academico" value="{{$academico[$i]->idpacademico}}"></button>
                   <button class="fa fa-trash-o btn-delete-academico" value="{{$academico[$i]->idpacademico}}"></button>
@@ -35,6 +36,7 @@
       </table>
     </div>
   </div>
+
 </div>
   <div class="col-lg-12">
     <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -93,13 +95,13 @@
                   <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
                     <div class="form-group ">
                       <label >Fecha de ingreso</label>
-                      <input type="text" id="fecha_ingreso" class="form-control" name="fecha_ingreso">
+                      <input type="text" id="fechaingreso" class="form-control" name="fecha_ingreso">
                     </div>
                   </div>
                   <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
                     <div class="form-group ">
                       <label for="fsalida">Fecha de salida</label>
-                      <input type="text" id="fecha_salida" name="fecha_salida" class="form-control">
+                      <input type="text" id="fechasalida" name="fecha_salida" class="form-control">
                     </div>
                   </div> 
                   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">

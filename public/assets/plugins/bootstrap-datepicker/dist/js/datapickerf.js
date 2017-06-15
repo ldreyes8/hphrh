@@ -6,3 +6,7 @@ $('#dato3').datepicker({format:"dd/mm/yyyy",language: "es",autoclose: true});
 
 $('#fecha_salida').datepicker({format:"dd-mm-yyyy",language: "es",autoclose: true});
 $('#fecha_ingreso').datepicker({format:"dd-mm-yyyy",language: "es",autoclose: true});
+
+
+$('#fechasalida').datepicker({format:"dd/mm/yyyy",language: "es",autoclose: true});
+$('#fechaingreso').datepicker({format:"dd/mm/yyyy",language: "es",autoclose: true});

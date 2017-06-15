@@ -14,6 +14,13 @@ $(document).ready(function(){
     	$('#formModal').modal('show');
 	});
 
+    $('#btnAgregarI').click(function(){
+        $('#inputTitleI').html("Agregar información académica");
+        $('#formAgregarI').trigger("reset");
+        $('#btnGuardarI').val('add');
+        $('#formModalI').modal('show');
+    });
+
     $("#iddepartamento1").change(event => {
         $.get(`towns/${event.target.value}`, function(res, sta){
             $("#pidmunicipio").empty();
@@ -32,8 +39,8 @@ $(document).ready(function(){
             $('#titulo').val(data.titulo);
             $('#establecimiento').val(data.establecimiento);
             $('#duracion').val(data.duracion);
-            $('#fecha_ingreso').val(data.fingreso);
-            $('#fecha_salida').val(data.fsalida);
+            $('#fechaingreso').val(data.fingreso);
+            $('#fechasalida').val(data.fsalida);
             $('#pidmunicipio option:selected').val(data.idmunicipio);
             $('#pidmunicipio option:selected').text(data.nombre);
             //$("#pidmunicipio").append(`<option value=${data.idmunicipio}> ${data.nombre} </option>`);
@@ -98,8 +105,8 @@ $(document).ready(function(){
             titulo: $("#titulo").val(),
             establecimiento: $("#establecimiento").val(),
             duracion: $("#duracion").val(),           
-            fecha_ingreso: $("#fecha_ingreso").val(),
-            fecha_salida : $("#fecha_salida").val(),
+            fecha_ingreso: $("#fechaingreso").val(),
+            fecha_salida : $("#fechasalida").val(),
             idmunicipio: $("#pidmunicipio").val(),
             idempleado: $("#idempleado").val(),
             identificacion: $("#identificacion").val(),
