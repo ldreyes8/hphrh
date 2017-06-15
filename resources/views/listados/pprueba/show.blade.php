@@ -258,7 +258,7 @@
   </div>
   <div class="table-responsive">
         <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
-        <p><h2 ALIGN=center>Padecimeintos</h2></p>
+        <p><h2 ALIGN=center>Padecimientos</h2></p>
           <thead style="background-color:#A9D0F5">
             <th>Padecimientos</th>
           </thead>

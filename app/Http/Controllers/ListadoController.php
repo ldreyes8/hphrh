@@ -34,14 +34,20 @@ class ListadoController extends Controller
         ->join('persona as p','e.identificacion','=','p.identificacion')
         ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
         ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
-        ->select('e.idempleado','e.identificacion','e.nit','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','p.nombre1','p.nombre2','p.apellido1','p.apellido2','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado')
-        ->where('e.idstatus','=',2)
+        ->join('nomytras as nt','e.idempleado','=','nt.idempleado')
+
+        ->select('e.idempleado','e.identificacion','e.nit','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','p.nombre1','p.nombre2','p.apellido1','p.apellido2','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado',DB::raw('max(nt.idnomytas) as idnomytas'))
+
+        ->where('nt.idcaso','=',6)
+        ->orwhere('e.idstatus','=',2)
         ->where('p.nombre1','LIKE','%'.$query.'%')
         ->orwhere('p.apellido1','LIKE','%'.$query.'%')
-        ->orderBy('e.idempleado','asc')
-         ->paginate(19); 
-        }
 
+        ->groupBy('e.idempleado')   
+        ->orderBy('e.idempleado','asc')
+        ->paginate(19); 
+        }
+        
         return view('listados.empleado.index',["empleado"=>$empleado,"searchText"=>$query]);
     }
     public function show ($id)
