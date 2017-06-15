@@ -300,6 +300,7 @@ class UController extends Controller
             
             $departamento=DB::table('departamento')->get();
             $nivelacademico = DB::table('nivelacademico')->get();
+            $idiomas = DB::table('idioma')->get();
             $academico = DB::table('empleado as e')
             ->join('persona as p','e.identificacion','=','p.identificacion')
             ->join('personaacademico as pa','e.identificacion','=','pa.identificacion')
@@ -315,7 +316,16 @@ class UController extends Controller
             ->select('e.idempleado','p.identificacion')
             ->where('u.id','=',Auth::user()->id)
             ->get();
-            return view("hr.academico",["departamento"=>$departamento,"nivelacademico"=>$nivelacademico,"empleado"=>$empleado,"academico"=>$academico]);   
+
+            /*$emidioma = DB::table('empleado as e')
+            ->join('persona as p','e.identificacion','=','p.identificacion')
+            ->join('users as u','p.identificacion','=','u.identificacion')
+            ->join('empleadoidioma as ei','e.idempleado','=','ei.idempleado')
+            ->select('e.idempleado','p.identificacion','ei.nivel')
+            ->where('u.id','=',Auth::user()->id)
+            ->get();*/
+
+            return view("hr.academico",["departamento"=>$departamento,"nivelacademico"=>$nivelacademico,"empleado"=>$empleado,"academico"=>$academico,"idiomas"=>$idiomas]);   
         }
 
         public function listaracademico1(Request $request,$id)
@@ -339,8 +349,8 @@ class UController extends Controller
             $fechasalida = $request->fecha_salida;
 
 
-            $fechaingreso = Carbon::createFromFormat('d-m-Y',$fechaingreso);
-            $fechasalida = Carbon::createFromFormat('d-m-Y',$fechasalida);
+            $fechaingreso = Carbon::createFromFormat('d/m/Y',$fechaingreso);
+            $fechasalida = Carbon::createFromFormat('d/m/Y',$fechasalida);
 
             $fechaingreso = $fechaingreso->toDateString();
             $fechasalida = $fechasalida->toDateString();
