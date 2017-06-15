@@ -18,6 +18,7 @@
                      <th>Nombre</th>
                      <th>Afiliado</th>
                      <th>Puesto</th>
+                     <th>Status</th>
                      <th>Opciones</th>
                  </thead>
                  @foreach ($empleado as $em)
@@ -28,14 +29,15 @@
                  <td>{{$em->nombre1.' '.$em->nombre2.' '.$em->apellido1.' '.$em->apellido2}}</td>
                  <td>{{$em->afiliado}}</td>
                  <td>{{$em->puesto}}</td>
+                 <td>{{$em->statusn}}</td>
                  <td>
                      <a href="{{URL::action('ListadoController@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
-                     <a href="{{URL::action('ListadoController@historial',$em->idempleado)}}"><button class="btn btn-primary">Historial</button></a>
-                     <a href="{{URL::action('ListadoController@Acta',$em->idempleado)}}"><button class="btn btn-primary">Acta</button></a>
+                     <!--a href="{{URL::action('ListadoController@historial',$em->idempleado)}}"><button class="btn btn-primary">Historial</button></a>
+                     <a href="{{URL::action('ListadoController@Acta',$em->idempleado)}}"><button class="btn btn-primary">Acta</button></a-->
                      <a href="{{URL::action('ListadoController@laboral',$em->idempleado)}}"><button class="btn btn-primary
                      ">Historia laboral</button></a>
                     <button class="btn btn-primary btn-vacaciones" id="btnsaldo" value="{{$em->idempleado}}">Vacaciones</button>
-                    <a href="{{URL::action('ListadoController@Acta',$em->idempleado)}}"><button class="btn btn-primary">Despedir</button></a>
+                    <a href=""><button class="btn btn-primary">Despedir</button></a>
                  </td>
                  </tr>
 

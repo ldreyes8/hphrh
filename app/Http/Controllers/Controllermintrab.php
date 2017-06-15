@@ -35,7 +35,7 @@ class Controllermintrab extends Controller
             ->get();
         }
         else
-        { */
+        {*/ 
         	$persona=DB::table('persona as p')
             ->join('empleado as em','p.identificacion','=','em.identificacion')
             ->join('nacionalidad as nac','p.idnacionalidad','=','nac.idnacionalidad')
@@ -45,8 +45,11 @@ class Controllermintrab extends Controller
             ->join('departamento as dpt','mun.iddepartamento','=','dpt.iddepartamento')
             ->join('pais as ps','dpt.idpais','=','ps.idpais')
             ->join('etnia as ena','p.idetnia','=','ena.idetnia')
+            ->join('status as st','em.idstatus','=','st.idstatus')
             ->select('em.idempleado','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','nac.nombre as nnac','ec.idcivil','p.identificacion','do.codmintrab as mtdo','ps.codmintrab as mtps','mun.mintrab as mtmun','em.nit','em.afiliacionigss as iggs','p.genero','p.fechanac','ena.idetnia')
+            ->where('em.idstatus','=',2)
             ->orderBy('em.idempleado','asc')
+            
             ->get();
         //}
 
@@ -95,6 +98,7 @@ class Controllermintrab extends Controller
             ->join('pais as ps','dpt.idpais','=','ps.idpais')
             ->join('etnia as ena','p.idetnia','=','ena.idetnia')
             ->select('em.idempleado','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','nac.nombre as nnac','ec.idcivil','p.identificacion','do.codmintrab as mtdo','ps.codmintrab as mtps','mun.mintrab as mtmun','em.nit','em.afiliacionigss as iggs','p.genero','p.fechanac','ena.idetnia')
+            ->where('em.idstatus','=',2)
             ->orderBy('em.idempleado','asc')
             ->get();
         //}
