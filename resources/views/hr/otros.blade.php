@@ -1,6 +1,6 @@
 <div class="tab-pane" id="otros">
     <div class="panel-heading">
-        <!--button class="btn btn-success" id="btnAgregarO"><i class="icon-user icon-white" ></i> Agregar otros</button-->
+        <!--button class="btn btn-success" id="btnAgregarI"><i class="icon-user icon-white" ></i> Agregar un idioma</button-->
     </div>
   <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
     <div class="table-responsive" id="tabla">
