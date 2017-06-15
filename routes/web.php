@@ -208,12 +208,12 @@ Route::get('/{slug?}','HomeController@index');
 Route::get('/home', 'HomeController@index');
 //rutas del controlador de Usuario
 Route::get('seguridad/usuario','UController@index')->middleware('roleshinobi:informatica');
-Route::get('seguridad/usuario/create','UController@create')->middleware('roleshinobi:informatica');;
-Route::post('seguridad/usuario/store','UController@store')->middleware('roleshinobi:informatica');;
-Route::get('seguridad/usuario/editar_usuario/{id}', 'UController@editar_usuario')->middleware('roleshinobi:informatica');;
-Route::delete('destroy/{id}','UController@destroy')->middleware('roleshinobi:informatica');;
-Route::get('asignar_rol/{idusu}/{idrol}', 'UController@asignar_rol')->middleware('roleshinobi:informatica');;
-Route::get('quitar_rol/{idusu}/{idrol}','UController@quitar_rol')->middleware('roleshinobi:informatica');;
+Route::get('seguridad/usuario/create','UController@create')->middleware('roleshinobi:informatica');
+Route::post('seguridad/usuario/store','UController@store')->middleware('roleshinobi:informatica');
+Route::get('seguridad/usuario/editar_usuario/{id}', 'UController@editar_usuario')->middleware('roleshinobi:informatica');
+Route::delete('destroy/{id}','UController@destroy')->middleware('roleshinobi:informatica');
+Route::get('asignar_rol/{idusu}/{idrol}', 'UController@asignar_rol')->middleware('roleshinobi:informatica');
+Route::get('quitar_rol/{idusu}/{idrol}','UController@quitar_rol')->middleware('roleshinobi:informatica');
 
 //Route::get('form_nuevo_usuario', 'UsuariosController@form_nuevo_usuario');
 Route::get('seguridad/usuario/form_nuevo_rol', 'UController@form_nuevo_rol')->middleware('roleshinobi:informatica');

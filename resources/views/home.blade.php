@@ -10,30 +10,32 @@
         height: 100%;
   background-size: cover;
   background-position: center;
-}
-.cover .cover-image.background-image-fixed,
-.cover .cover-image.cover-image-fixed {
-  background-attachment: fixed;
-}
-.cover {
-  padding: 30px 15px;
-  margin-bottom: 30px;
-  color: inherit;
-  background-color: #eeeeee;
-  margin-bottom: 0px !important;
-  padding: 0px 0px;
-  background-color: transparent;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-  overflow: hidden;
-  position: relative;
-  min-height: 100%;
-}
+    }
+    .cover .cover-image.background-image-fixed,
+    .cover .cover-image.cover-image-fixed {
+    background-attachment: fixed;
+    }
+    .cover {
+    padding: 30px 15px;
+      margin-bottom: 30px;
+      color: inherit;
+      background-color: #eeeeee;
+      margin-bottom: 0px !important;
+      padding: 0px 0px;
+      background-color: transparent;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-align-items: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      min-height: 100%;
+    }
 </style>
+    <link href="{{asset('assets/css/mockup1.css')}}" rel="stylesheet" type="text/css">
+
 @endsection
 @section ('contenido')
 <!--
@@ -54,15 +56,18 @@
             </div>
         </div>
         -->
-        <div class="col-sm-6">
+     
+
+            
+
+        <div class="col-sm-12">
                     <div class="card-box">
                         <div class="row"> 
                             <div class="col-md-12">
-                                <h4 class=" m-t-0 header-title"><b>Noticias</b></h4>
-                                @if (isset($tablero))
+                                @if (isset($tableroini))
                                     <div id="carousel-example-captions" data-ride="carousel" class="carousel slide">
                                         <ol class="carousel-indicators">
-                                            @for($i =0; $i < count($tablero); $i++)
+                                            @for($i =0; $i < count($tableroini); $i++)
                                                 @if($i == 0)
                                                     <li data-target="#carousel-example-captions" data-slide-to="0" class="active"></li>
                                                 @else
@@ -71,16 +76,15 @@
                                             @endfor 
                                         </ol>
                                         <div role="listbox" class="carousel-inner">
-                                            @for($i =0; $i< count($tablero); $i++)
+                                            @for($i =0; $i< count($tableroini); $i++)
                                                 @if($i == 0)
                                                     <div class="item active">
                                                 @else
                                                     <div class="item">
                                                 @endif
-                                                        <img src="{{asset('tablero/'.$tablero[$i]->imagen)}}" alt="First slide image">
+                                                        <img src="{{asset('tablero/'.$tableroini[$i]->imagen)}}" alt="First slide image">
                                                         <div class="carousel-caption">
-                                                            <h3 class="text-white font-600">{{$tablero[$i]->titulo}}</h3>
-                                                            <p>{{$tablero[$i]->post}}</p>
+
                                                         </div>
                                                     </div>
                                             @endfor
@@ -96,7 +100,7 @@
                 </div>
 
 <div class="container">
-<!--
+            <!--
                 <div class="col-sm-6">
                     <div class="card-box">
                         <div class="row"> 
@@ -182,13 +186,13 @@
                             <div class="portfolioContainer">
                                 <div class="col-sm-6  col-md-6 webdesign illustrator">
 
-              
+                    @if (isset($cumpledia))
+
                         <div class="col-md-12">
-                            @if (isset($cumpledia))
                             <h4 class=" m-t-0 header-title"><b>H&aacute;bitat guatemala felicita a los cumpleañeros de este d&iacute;a.</b></h4>
-                                <div class="panel-heading">
-                                    @foreach($cumpledia as $user)
-                                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="panel-heading">
+                                @foreach($cumpledia as $user)
+                                    <div class="col-md-4 col-sm-6 col-xs-12">
                                             @if ($user->fotoperfil==="")
                                                 <img  src="{{asset('imagenes/avatar.jpg')}}" class="img-circle" alt="profile-image" width="70px" height ="70px" id="fotografia_usuario">
                                                 <div class="caption">
@@ -201,11 +205,11 @@
                                                     <h4>{{$user->nombre1.' '. $user->apellido1}}</h4>
                                                 </div>              
                                             @endif
-                                        </div>    
-                                    @endforeach
-                                </div>
-                            @endif
+                                    </div>    
+                                 @endforeach
+                            </div>
                         </div>
+                    @endif
 
                         <div class="col-md-12">
                             <h4 class=" m-t-0 header-title"><b>H&aacute;bitat guatemala felicita a los cumpleañeros de este mes.</b></h4>
@@ -241,5 +245,6 @@
 
 
 @endsection
+
 
 

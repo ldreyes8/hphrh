@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Eventos;
 use App\Persona;
+use Illuminate\Http\File;
 use DB;
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 
 use Carbon\Carbon;  // para poder usar la fecha y hora
@@ -49,7 +53,109 @@ class HomeController extends Controller
         ->get();
 
         $usuarioactual=\Auth::user();
-        $tablero = Eventos::all();
-        return view('home',array('tablero'=>$tablero,'persona'=>$persona,'cumpledia'=>$cumpledia));
+
+        $cumpledia = DB::table('persona as per')
+        ->join('users as U','per.identificacion','=','U.identificacion')
+        ->select('per.nombre1', 'per.apellido1','U.fotoperfil')
+        ->whereDay('per.fechanac','=',$day)
+        ->whereMonth('per.fechanac','=',$month)
+        ->get();
+
+        $tableroini = DB::table('tablero as evento')
+        ->select('evento.imagen')
+        ->where('evento.home','=',1)
+        ->get();
+
+                $tablero = Eventos::all();
+
+
+        return view('home',array('tablero'=>$tablero,'tableroini'=>$tableroini,'persona'=>$persona,'cumpledia'=>$cumpledia));
+    }
+    /*
+    public function subirimagen(Request $request)
+    {
+        $id=$request->input('idusuario');
+        $user =User::findOrFail($id);
+        
+        $image = $request->file('image');
+        
+        $input  = array('image' => $image) ;
+        $reglas = array('image' => 'required|image|mimes:jpeg,jpg,png|max:2000');
+        $validacion = Validator::make($input,  $reglas);
+
+        if ($validacion->fails())
+        {   
+          return view("mensajes.msj_rechazado")->with("msj","El archivo no es una imagen valida");
+        }
+        else
+        {  
+            $file = $user->fotoperfil;
+            Storage::delete(public_path().$file);
+
+            $nombre_original=$image->getClientOriginalName();
+            $extension=$image->getClientOriginalExtension();
+            $nuevo_nombre="userimagen-".$id.".".$extension;
+            $r1=Storage::disk('tablero')->put($nuevo_nombre,  \File::get($fotoperfil) );
+            $rutadelaimagen=$nuevo_nombre;
+
+        
+            if ($r1){
+
+                $usuario=User::find($id);
+                $usuario->fotoperfil=$rutadelaimagen;
+                $r2=$usuario->save();
+                 return view("mensajes.msj_correcto")->with("msj","Imagen agregada correctamente");
+            }
+            else
+            {
+                return view("mensajes.msj_rechazado")->with("msj","no se cargo la imagen");
+            }
+
+        }   
+
+        //dd($user);
+        //dd($fotoperfil);
+        /*
+        if(Input::hasFile($fotoperfil))
+        {
+        $file=Input::file($fotoperfil);
+        $file->move(public_path().'/assets/imagenes/users/',$file->getClientOriginalName());
+        $user->fotoperfil=$file->getClientOriginalName();
+         return response()->json($fotoperfil);
+        }*/
+
+        //$user->fotoperfil = $request->fotoperfil;
+       
+       
+         //dd($user);
+        
+        //$articulo->save();
+        /*
+    }
+    */
+
+    public function addimage(Request $request)
+    {
+        $evento = new Eventos;
+        if(Input::hasFile('image'))
+        {
+            $file=Input::file('image');
+
+            $input  = array('image' => $image) ;
+            $reglas = array('image' => 'required|image|mimes:jpeg,jpg,png|max:2000');
+            $validacion = Validator::make($input,  $reglas);
+
+            if ($validacion->fails())
+            {   
+              return view("mensajes.msj_rechazado")->with("msj","El archivo no es una imagen valida");
+            }
+            else
+            {
+                $file->move(public_path().'/tablero/',$file->getClientOriginalName());
+                $evento->save();
+                return view("mensajes.msj_correcto")->with("msj","Imagen agregada correctamente");
+
+            }
+        }
     }
 }
