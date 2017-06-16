@@ -306,6 +306,9 @@
 										<p>Ha hecho una "solicitud de permiso" y requiere su autorización &nbsp;&nbsp;&nbsp;en el sistema.</p>
 										<p><strong>Haga click en el siguiente enlace para verificar: </strong></p>
 										<a class="button button-{{ $color or 'blue' }}" target="_blank" href="{!!$calculo[2]!!}">Ir a la solicitud</a>
+										<br>
+										<a href="{!!$calculo[2]!!}">Si no ve el bot&oacute;n dar click aqu&iacute;..</a>
+
                                     </td>
                                 </tr>
                             </table>

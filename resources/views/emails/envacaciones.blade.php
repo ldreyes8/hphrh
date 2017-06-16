@@ -305,7 +305,9 @@
 
 										<p><strong>El usuario: </strong>{!!$calculo[0]!!}</p>
 										<p>Ha realizado una "solicitud de vacaciones" y requiere su <br>autorización en el sistema.</p>
-										<a class="button button-{{ $color or 'blue' }}" target="_blank" href="{!!$calculo[1]!!}">Ir a la solicitud</a>									
+										<a class="button button-{{ $color or 'blue' }}" target="_blank" href="{!!$calculo[1]!!}">Ir a la solicitud</a>
+										<br><a href="{!!$calculo[1]!!}">Si no ve el bot&oacute;n dar click aqu&iacute;..</a>
+
 									</td>
                                 </tr>
                             </table>
