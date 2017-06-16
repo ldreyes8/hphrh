@@ -23,9 +23,9 @@
                     <div class="member-card">
                         <div class="thumb-xl member-thumb m-b-10 center-block">
                             @if (Auth::user()->fotoperfil==="")
-                                <img  src="{{asset('imagenes/avatar.jpg')}}" class="img-circle" alt="profile-image" width="118px" height ="118px" id="fotografiaus">
+                                <img  src="{{asset('imagenes/avatar.jpg')}}" class="img-circle" alt="profile-image" width="100px" height ="100px" id="fotografiaus">
                             @else
-                                <img  src="{{asset('fotografias/'.Auth::user()->fotoperfil)}}" class="img-circle" alt="profile-image" width="118px" height ="118px" id="fotografiaus">
+                                <img  src="{{asset('fotografias/'.Auth::user()->fotoperfil)}}" class="img-circle" alt="profile-image" width="100px" height ="100px" id="fotografiaus">
                             @endif
                     
                         </div>

@@ -39,6 +39,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Caffeinated\Shinobi\Models\Role;
 use Caffeinated\Shinobi\Models\Permission;
+use Intervention\Image\Facades\Image as Image;
 
 class UController extends Controller
 {
@@ -264,7 +265,12 @@ class UController extends Controller
                 $nombre_original=$fotoperfil->getClientOriginalName();
                 $extension=$fotoperfil->getClientOriginalExtension();
                 $nuevo_nombre="userimagen-".$id.".".$extension;
-                $r1=Storage::disk('fotografias')->put($nuevo_nombre,  \File::get($fotoperfil) );
+                 //$r1=Storage::disk('fotografias')->put($nuevo_nombre,  \File::get($fotoperfil) );
+
+
+                $r1 = Image::make($fotoperfil)
+                ->resize(350,350)
+                ->save(public_path().'/fotografias/'.$nuevo_nombre);
                 $rutadelaimagen=$nuevo_nombre;
 
             

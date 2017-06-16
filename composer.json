@@ -8,17 +8,17 @@
         "php": ">=5.6.4",
         "anhskohbo/no-captcha": "^2.3",
         "barryvdh/laravel-dompdf": "^0.8.0",
-        
+        "caffeinated/shinobi": "^3.0.6",
         "greggilbert/recaptcha": "dev-master",
+        "illuminate/config": "5.4.*",
+        "illuminate/database": "5.4.*",
+        "illuminate/filesystem": "5.4.*",
+        "illuminate/support": "5.4.*",
+        "intervention/image": "^2.3",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
-        "maatwebsite/excel": "~2.1.0",
-        "caffeinated/shinobi": "^3.0.6",
-        "illuminate/database": "5.4.*",
-        "illuminate/support": "5.4.*",
-        "illuminate/filesystem": "5.4.*",
-        "illuminate/config": "5.4.*"
+        "maatwebsite/excel": "~2.1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
