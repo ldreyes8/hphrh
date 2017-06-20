@@ -39,7 +39,8 @@ class ListadoController extends Controller
         ->select('e.idempleado','e.identificacion','e.nit','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','p.nombre1','p.nombre2','p.apellido1','p.apellido2','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado',DB::raw('max(nt.idnomytas) as idnomytas'))
 
         ->where('nt.idcaso','=',6)
-        ->orwhere('e.idstatus','=',2)
+        ->where('e.idstatus','=',2)
+
         ->where('p.nombre1','LIKE','%'.$query.'%')
         ->orwhere('p.apellido1','LIKE','%'.$query.'%')
 

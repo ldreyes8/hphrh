@@ -8,7 +8,7 @@ class Idioma extends Model
 {
     //
     protected $table='empleadoidioma';
-    protected $primarykey='idpidioma';
+    protected $primaryKey='idpidioma';
 
     public $timestamps=false;
 

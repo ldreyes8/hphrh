@@ -14,13 +14,6 @@ $(document).ready(function(){
     	$('#formModal').modal('show');
 	});
 
-    $('#btnAgregarI').click(function(){
-        $('#inputTitleI').html("Agregar información académica");
-        $('#formAgregarI').trigger("reset");
-        $('#btnGuardarI').val('add');
-        $('#formModalI').modal('show');
-    });
-
     $("#iddepartamento1").change(event => {
         $.get(`towns/${event.target.value}`, function(res, sta){
             $("#pidmunicipio").empty();
@@ -34,7 +27,7 @@ $(document).ready(function(){
         var idacad=$(this).val();
         var miurl="listaracademico1";
         $.get(miurl+'/'+ idacad,function(data){
-            console.log(data);
+            //console.log(data);
             $('#idacad').val(data.idpacademico);
             $('#titulo').val(data.titulo);
             $('#establecimiento').val(data.establecimiento);
@@ -43,10 +36,12 @@ $(document).ready(function(){
             $('#fechasalida').val(data.fsalida);
             $('#pidmunicipio option:selected').val(data.idmunicipio);
             $('#pidmunicipio option:selected').text(data.nombre);
-            //$("#pidmunicipio").append(`<option value=${data.idmunicipio}> ${data.nombre} </option>`);
             $('#idnivel').val(data.idnivel);
             $('#periodo').val(data.periodo);
 
+            $('#idpaisPA option:selected').val(data.idpais);
+            $('#idpaisPA option:selected').text(data.nompais);
+            
             $('#inputTitle').html("Modificar información academica");
             $('#formModal').modal('show');
             $('#btnGuardar').val('update');
@@ -79,20 +74,8 @@ $(document).ready(function(){
                 });
             }
 
-        /*$.ajax({
-            type: "DELETE",
-            url: 'deleteacad/' + idacad,
-            success: function (data) {
-                console.log(data);
-                $("#academico" + idacad).remove();
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-        });*/
-
-        $("#erroresContentC").html(errHTML); 
-        $('#erroresModalC').modal('show');
+        $("#erroresContent").html(errHTML); 
+        $('#erroresModal').modal('show');
     });
 
     $("#btnGuardar").click(function(e){
@@ -112,6 +95,7 @@ $(document).ready(function(){
             identificacion: $("#identificacion").val(),
             idnivel: $("#idnivel").val(),
             periodo: $("#periodo").val(),
+            idpais: $('#idpaisPA').val(),
         };
             nivel=$("#idnivel option:selected").text();
         var state=$("#btnGuardar").val();
@@ -130,7 +114,9 @@ $(document).ready(function(){
                     type="POST";
                     my_url = 'agregaracademico';
                 }
-        
+        var fingreso12=$("#fechaingreso").val();
+        var fsalida12=$("#fechasalida").val();
+
         $.ajax({
             type: type,
             url: my_url,
@@ -139,7 +125,7 @@ $(document).ready(function(){
 
             success: function (data) {
                 var item = '<tr class="even gradeA" id="academico'+data.idpacademico+'">';
-                    item +='<td>'+data.titulo+'</td>'+'<td>' +data.establecimiento+ '</td>'+'<td>'+data.duracion+' '+data.periodo+'</td>'+'<td>'+nivel+'</td>'+'<td>'+data.fingreso+'</td>'+'<td>'+data.fsalida+'</td>';
+                    item +='<td>'+data.titulo+'</td>'+'<td>' +data.establecimiento+ '</td>'+'<td>'+data.duracion+' '+data.periodo+'</td>'+'<td>'+nivel+'</td>'+'<td>'+fingreso12+'</td>'+'<td>'+fsalida12+'</td>';
                     item += '<td><button class="fa fa-pencil btn-editar-academico" value="'+data.idpacademico+'"></button>';
                     item += '<button class="fa fa-trash-o btn-delete-academico" value="'+data.idpacademico+'"></button></td></tr>';
                 if (state == "add")
@@ -164,7 +150,7 @@ $(document).ready(function(){
                         errHTML+="<li>"+data.responseJSON[er]+"</li>";
                     }
                 }else{
-                    errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                    errHTML+='<li>Error</li>';
                 }
                 $("#erroresContent").html(errHTML); 
                 $('#erroresModal').modal('show');
