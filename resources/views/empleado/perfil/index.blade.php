@@ -85,7 +85,7 @@
                     <li class=""> <a href="javascript:void(0);" onclick="cargarlistado(1,1);">
                     
                         <a href="#profile" data-toggle="tab" aria-expanded="false" >
-                            <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                            <span class="visible-xs"><i class="md md-perm-contact-cal"></i></span>
                             <span class="hidden-xs">Contactos</span>
                         </a>
                     </li>
@@ -100,7 +100,7 @@
                     <li class=""> <a href="javascript:void(0);" onclick="cargaracademico(1,1);">
                     
                         <a href="#academicos" data-toggle="tab" aria-expanded="false">
-                            <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                            <span class="visible-xs"><i class="md md-school"></i></span>
                             <span class="hidden-xs">Académico</span>
                         </a>
                     </li>
@@ -108,21 +108,21 @@
                     <li class=""> <a href="javascript:void(0);" onclick="cargarfamilia(1,1);">
 
                         <a href="#familiares" data-toggle="tab" aria-expanded="false">
-                            <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                            <span class="visible-xs"><i class="md md-people"></i></span>
                             <span class="hidden-xs">Familia</span>
                         </a>
                     </li>
                     <li class=""> <a href="javascript:void(0);" onclick="cargarreferencia(1,1);">
 
                         <a href="#referencias" data-toggle="tab" aria-expanded="false">
-                            <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                            <span class="visible-xs"><i class="ion ion-clipboard"></i></span>
                             <span class="hidden-xs">Referencia</span>
                         </a>
                     </li>
                     <li class=""> <a href="javascript:void(0);" onclick="cargarcredito(1,1);">
 
                         <a href="#creditos" data-toggle="tab" aria-expanded="false">
-                            <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                            <span class="visible-xs"><i class="ion ion-calculator"></i></span>
                             <span class="hidden-xs">Créditos</span>
                         </a>
                     </li>
@@ -136,7 +136,7 @@
                     <li class=""> <a href="javascript:void(0);" onclick="cargarexperiencia(1,1);">
 
                         <a href="#experiencias" data-toggle="tab" aria-expanded="false">
-                            <span class="visible-xs"><i class="fa fa-cog"></i></span>
+                            <span class="visible-xs"><i class="md md-play-install"></i></span>
                             <span class="hidden-xs">Experiencia</span>
                         </a>
                     </li>

@@ -13,6 +13,7 @@
                 <th>Identificaci&oacute;n</th>
                 <th>Salario</th>
                 <th>Nombramiento</th>
+                <th>idempleado</th>
         </tr>
 
         	@foreach($nomytras as $ntr)
@@ -23,6 +24,8 @@
                     <td>{{$ntr->identificacion}}</td>
                     <td>{{$ntr->salario}}</td>
                     <td>{{\Carbon\Carbon::createFromFormat('Y-m-d', $ntr->fecha)->format('d-m-Y')}}</td>
+                    <td>{{$ntr->idempleado}}</td>
+
                 </tr>               
             @endforeach
 	
