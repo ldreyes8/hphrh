@@ -1,7 +1,6 @@
 <div class="tab-pane" id="academicos">
     <div class="panel-heading">
         <button class="btn btn-success" id="btnAgregar"><i class="icon-user icon-white" ></i> Agregar estudios</button>
-        <!--button class="btn btn-success" id="btnAgregarI"><i class="icon-user icon-white" ></i> Agregar un idioma</button-->
     </div>
   <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
     <div class="table-responsive" id="tabla">
@@ -36,6 +35,9 @@
       </table>
     </div>
   </div>
+
+  
+
 
 </div>
   <div class="col-lg-12">
@@ -103,8 +105,21 @@
                       <label for="fsalida">Fecha de salida</label>
                       <input type="text" id="fechasalida" name="fecha_salida" class="form-control">
                     </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label>País de origen </label>
+                    <div class="form-group">
+                      <select id="idpaisPA" class="form-control selectpicker" data-live-search="true">
+                        <option value="" hidden>Seleccione</option>
+                        @if (isset($pais))
+                          @foreach($pais as $p)
+                              <option value="{{$p->idpais}}">{{$p->nombre}}</option>
+                          @endforeach
+                        @endif
+                      </select>
+                    </div>                                                
                   </div> 
-                  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                  <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
                     <div class="form-group">
                       <label>Departamento</label>
                       <select name="iddepartamento" id="iddepartamento1" class="form-control selectpicker" data-live-search="true" data-style="btn-info">

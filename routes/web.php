@@ -151,6 +151,20 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::post('agregarotros','UController@agregarotros');
 	Route::get('listarotros1/{id}','UController@listarotros1');
 
+	//Route idioma crud
+
+	Route::get('listaridioma/{id}','UController@listaridioma');
+	Route::post('agregaridioma','UController@agregaridioma');
+	Route::put('updateidioma/{id}','UController@updateidioma');
+	Route::delete('deleteidioma/{id}','UController@deleteidioma');
+
+	//Route licencia crud
+	
+	Route::get('listarlicencia/{id}','UController@listarlicencia');
+	Route::post('agregarlicencia','UController@agregarlicencia');
+	Route::put('updatelic/{id}','UController@updatelic');
+	Route::delete('deletelic/{id}','UController@deletelic');
+
 
 	Route::resource('permisos','PermisosController');
 //
