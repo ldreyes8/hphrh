@@ -336,16 +336,15 @@ class PController extends Controller
           if($concurrencia === 'No')
           {
             $vac =DB::table('ausencia as au')                
-            ->select(DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, au.horainicio, au.horafin)) as horas'))
-            ->orderBy('au.idausencia','des')
+            ->select(DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, au.horainicio, au.horafin)) as horas'),'au.idausencia')
             ->where('au.idausencia','=',$idausencia)
-            ->first();       
-            
+            ->first();
+
             if($vac->horas < 8)
             {
               $days = 0;
             }
-            if($idtipoausencia !== "4" && $idtipoausencia !== "9" && $idtipoausencia !== "7" && $idtipoausencia !== "11" && $idtipoausencia !== "6") 
+            if($idtipoausencia != "4" && $idtipoausencia != "9" && $idtipoausencia != "7" && $idtipoausencia != "11" && $idtipoausencia != "6") 
             {
               $vacacion = Vacaciones::findOrFail($idausencia);
               $vacacion->totalhoras = $vac->horas;
