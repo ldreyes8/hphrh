@@ -509,7 +509,7 @@ class VController extends Controller
     ->join('nomytras as nom','emp.idempleado','=','nom.idempleado')
     ->join('puesto as pue','nom.idpuesto','=','pue.idpuesto')
     ->join('afiliado as afi','nom.idafiliado','=','afi.idafiliado')
-    ->select('emp.idempleado','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','pue.nombre as puesto','afi.nombre as afiliado')
+    ->select('emp.idempleado','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','pue.nombre as puesto','afi.nombre as afiliado','emp.fechaingreso')
     ->where('U.id','=',Auth::user()->id)
     ->orderBy('nom.idnomytas','desc')
     ->first();
@@ -578,7 +578,7 @@ class VController extends Controller
     ->join('nomytras as nom','emp.idempleado','=','nom.idempleado')
     ->join('puesto as pue','nom.idpuesto','=','pue.idpuesto')
     ->join('afiliado as afi','nom.idafiliado','=','afi.idafiliado')
-    ->select('emp.idempleado','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','pue.nombre as puesto','afi.nombre as afiliado')
+    ->select('emp.idempleado','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','pue.nombre as puesto','afi.nombre as afiliado','emp.fechaingreso')
     ->where('U.id','=',Auth::user()->id)
     ->orderBy('nom.idnomytas','desc')
     ->first();

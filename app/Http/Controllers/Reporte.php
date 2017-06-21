@@ -54,7 +54,9 @@ class Reporte extends Controller
     	->select('a.nombre as afiliado','p.nombre as puesto','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','nt.salario','per.identificacion','emp.fechaingreso as fecha','emp.idempleado')
     	->groupBy('emp.idempleado')
     	->orderBy('a.nombre','asc')
-    	->get();          
+        ->orderBy('p.nombre','asc')
+        ->orderBy('per.apellido1')
+        ->get();          
 
         Excel::create("Reporte Empleado", function ($excel) use ($nomytras)  
             {

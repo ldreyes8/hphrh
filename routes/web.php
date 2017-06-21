@@ -81,7 +81,6 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::resource('solicitante','SController'); 	// SController = SolicitanteController
 	Route::get('Spdf/{id}', 'SController@Spdf');
 	Route::resource('perfil','PerController');		// PerController = PerfilController
-	//	Route::post('updatefoto', 'FotoController@agregarimagen'); 		
 	
 
 	Route::get('rechazo/{id}','SController@rechazo');
@@ -98,7 +97,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	//Route::get('update/{id}','SController@update');
 
 	//rutas del perfil
-	Route::post('/updatefoto','UController@subirimagen');
+	Route::post('/updatefoto','UController@subirimagen'); 
 	Route::get('galeria','UController@galeria');
 	Route::get('buscar_personal/{dato?}', 'UController@buscar_personal');
 	//Route::get('buscar_usuarios/{pais}/{dato?}', 'UController@buscar_usuarios');

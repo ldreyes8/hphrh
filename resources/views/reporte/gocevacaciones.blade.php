@@ -56,7 +56,7 @@
                     <h4>Nombre:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$usuario->nombre1.' '.$usuario->nombre2.' '.$usuario->nombre3.' '.$usuario->apellido1.' '.$usuario->apellido2}}</h4>
                     <h4>Puesto:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$usuario->puesto}}</h4>
                     <h4>Ubicaci&oacute;n:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$usuario->afiliado}}</h4>
-                    <h4>Fecha de ingreso a la fundaci&oacute;n</h4>
+                    <h4>Fecha de ingreso a la fundaci&oacute;n:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{\Carbon\Carbon::createFromFormat('Y-m-d',$usuario->fechaingreso)->format('d/m/Y')}}</h4>
                     <h4>Fecha de emision de la constancia:&nbsp;&nbsp;&nbsp;{{$year}}</h4>
                     <p>Se hace constar que el colaborador (a) gozó de su período vacacional como se detalla a continuaci&oacute;n</p>
             	</div>

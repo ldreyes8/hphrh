@@ -17,12 +17,12 @@
 <div class="row">
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <h3 class="text-center">Constancia de vacaciones</h3>
-        <h4>Nombre:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong> {{$usuario->nombre1.' '.$usuario->nombre2.' '.$usuario->nombre3.' '.$usuario->apellido1.' '.$usuario->apellido2}}</strong></h4>
+        <h4>Nombre:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong> {{$usuario->nombre1.' '.$usuario->nombre2.' '.$usuario->nombre3.' '.$usuario->apellido1.' '.$usuario->apellido2}}</strong></h4>
         <h4>Puesto:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{$usuario->puesto}}</strong></h4>
         <h4>Ubicaci&oacute;n:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{$usuario->afiliado}}</strong></h4>
-        <h4>Fecha de ingreso a la fundacion</h4>
+        <h4>Fecha de ingreso a la fundaci&oacute;n:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{\Carbon\Carbon::createFromFormat('Y-m-d',$usuario->fechaingreso)->format('d/m/Y')}}</strong></h4>
         <h4>Fecha de emision de la constancia:&nbsp;&nbsp;&nbsp;<strong>{{$year}}</strong></h4>
-        <p>Se hace constar que el colaborador (a) gozó de su período vacacional como se detalla a continuación</p>
+        <p>Se hace constar que el colaborador (a) goz&oacute; de su per&iacute;odo vacacional como se detalla a continuaci&oacute;n</p>
     </div>
 </div>
 <div><p><br></p></div>
