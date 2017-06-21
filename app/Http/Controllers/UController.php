@@ -17,7 +17,8 @@ use App\Experiencia;
 
 use App\Eventos;
 use App\User;  
-
+use App\Licencia;
+use App\Idioma;
 use App\Afiliado;  
 
 use DB;
@@ -306,7 +307,7 @@ class UController extends Controller
             
             $departamento=DB::table('departamento')->get();
             $nivelacademico = DB::table('nivelacademico')->get();
-            $idiomas = DB::table('idioma')->get();
+            $pais=DB::table('pais')->get();
             $academico = DB::table('empleado as e')
             ->join('persona as p','e.identificacion','=','p.identificacion')
             ->join('personaacademico as pa','e.identificacion','=','pa.identificacion')
@@ -323,32 +324,46 @@ class UController extends Controller
             ->where('u.id','=',Auth::user()->id)
             ->get();
 
-            /*$emidioma = DB::table('empleado as e')
-            ->join('persona as p','e.identificacion','=','p.identificacion')
-            ->join('users as u','p.identificacion','=','u.identificacion')
-            ->join('empleadoidioma as ei','e.idempleado','=','ei.idempleado')
-            ->select('e.idempleado','p.identificacion','ei.nivel')
-            ->where('u.id','=',Auth::user()->id)
-            ->get();*/
 
-            return view("hr.academico",["departamento"=>$departamento,"nivelacademico"=>$nivelacademico,"empleado"=>$empleado,"academico"=>$academico,"idiomas"=>$idiomas]);   
+            return view("hr.academico",["departamento"=>$departamento,"nivelacademico"=>$nivelacademico,"empleado"=>$empleado,"academico"=>$academico,'pais'=>$pais]);   
         }
 
         public function listaracademico1(Request $request,$id)
         {   
-            $academico = DB::table('personaacademico as pa')
-            ->join('nivelacademico as na','pa.idnivel','=','na.idnivel')
+            $municipio=DB::table('personaacademico as pa')
             ->join('municipio as m','pa.idmunicipio','=','m.idmunicipio')
-            ->select('pa.idpacademico','pa.titulo','pa.establecimiento','pa.duracion',(DB::raw('DATE_FORMAT(pa.fingreso,"%d/%m/%Y") as fingreso')),(DB::raw('DATE_FORMAT(pa.fsalida,"%d/%m/%Y") as fsalida')),'pa.idmunicipio','pa.idnivel','m.nombre','na.nombrena','pa.periodo')
+            ->select('m.idmunicipio')
             ->where('pa.idpacademico','=',$id)
             ->first();
-
+            if (empty($municipio->idmunicipio)) 
+            {
+                $academico = DB::table('personaacademico as pa')
+                ->join('nivelacademico as na','pa.idnivel','=','na.idnivel')
+                ->join('pais as ps','pa.idpais','=','ps.idpais')
+                ->select('pa.idpacademico','pa.titulo','pa.establecimiento','pa.duracion',(DB::raw('DATE_FORMAT(pa.fingreso,"%d/%m/%Y") as fingreso')),(DB::raw('DATE_FORMAT(pa.fsalida,"%d/%m/%Y") as fsalida')),'pa.idnivel','na.nombrena','pa.periodo','pa.idpais','ps.nombre as nompais')
+                ->where('pa.idpacademico','=',$id)
+                ->first();
+            }
+            else
+            {
+                $academico = DB::table('personaacademico as pa')
+                ->join('nivelacademico as na','pa.idnivel','=','na.idnivel')
+                ->join('municipio as m','pa.idmunicipio','=','m.idmunicipio')
+                ->join('pais as ps','pa.idpais','=','ps.idpais')
+                ->select('pa.idpacademico','pa.titulo','pa.establecimiento','pa.duracion',(DB::raw('DATE_FORMAT(pa.fingreso,"%d/%m/%Y") as fingreso')),(DB::raw('DATE_FORMAT(pa.fsalida,"%d/%m/%Y") as fsalida')),'pa.idmunicipio','pa.idnivel','m.nombre','na.nombrena','pa.periodo','pa.idpais','ps.nombre as nompais')
+                ->where('pa.idpacademico','=',$id)
+                ->first();
+            }
+            //dd($academico);
+        
             return response()->json($academico);
         }
 
         public function agregaracademico(Request $request)
         {
             $this->validateRequest($request);
+            $idpais = $request->get('idpais');
+
             $academico = new Academico;
 
             $fechaingreso = $request->fecha_ingreso; 
@@ -366,7 +381,22 @@ class UController extends Controller
             $academico->duracion = $request->get('duracion');
             $academico->fingreso = $fechaingreso;
             $academico->fsalida = $fechasalida;
-            $academico->idmunicipio = $request->get('idmunicipio');
+
+            /*$academico->idpais = $request->get('idpais');
+            $academico->idmunicipio = $request->get('idmunicipio');*/
+
+            if ($idpais ==="73") 
+            {
+                $academico->idpais = $idpais;
+                $academico->idmunicipio = $request->get('idmunicipio');
+            }
+            else
+            {
+                   //$academicos-> idmunicipio = NULL;
+                $academico->idpais = $idpais;
+            }
+
+
             $academico->idempleado = $request->get('idempleado');
             $academico->identificacion = $request->get('identificacion');
             $academico->idnivel = $request->get('idnivel');
@@ -382,7 +412,9 @@ class UController extends Controller
 
         public function updateAca(Request $request, $id)
         {
+            $idpais = $request->get('idpais');
             $academico = Academico::findOrFail($id);
+
 
             $fechaingreso = $request->fecha_ingreso; 
             $fechasalida = $request->fecha_salida;
@@ -399,7 +431,19 @@ class UController extends Controller
             $academico->duracion = $request->get('duracion');
             $academico->fingreso = $fechaingreso;
             $academico->fsalida = $fechasalida;
-            $academico->idmunicipio = $request->get('idmunicipio');
+
+            if ($idpais ==="73") 
+            {
+                $academico->idpais = $idpais;
+                $academico->idmunicipio = $request->get('idmunicipio');
+            }
+            else
+            {
+                   //$academicos-> idmunicipio = NULL;
+                $academico->idpais = $idpais;
+            }
+            //$academico->idmunicipio = $request->get('idmunicipio');
+
             $academico->idnivel = $request->get('idnivel');
             $academico->periodo = $request->get('periodo');
             $academico->save();
@@ -646,7 +690,7 @@ class UController extends Controller
             $this->validateRequestP($request);
             $familia = new padecimientos;
             $familia->nombre = $request->get('nombre');
-             $familia->idempleado = $request->get('idempleado');
+            $familia->idempleado = $request->get('idempleado');
             $familia->identificacion = $request->get('identificacion');
 
             $familia->save();
@@ -738,14 +782,34 @@ class UController extends Controller
     //Datos otros
        public function listarotros(Request $request)
         {
+            $idiomas = DB::table('idioma')->get();
+            $licencia = DB::table('licencia')->get();
             $empleado = DB::table('empleado as e')
             ->join('persona as p','e.identificacion','=','p.identificacion')
             ->join('users as u','p.identificacion','=','u.identificacion')
             ->select('e.idempleado','p.identificacion','e.peso','e.talla','e.altura','e.celcorporativo')
             ->where('u.id','=',Auth::user()->id)
             ->first();
-            //dd($empleado);
-             return view("hr.otros",["empleado"=>$empleado]);
+
+            $emidioma = DB::table('empleado as e')
+            ->join('persona as p','e.identificacion','=','p.identificacion')
+            ->join('users as u','p.identificacion','=','u.identificacion')
+            ->join('empleadoidioma as ei','e.idempleado','=','ei.idempleado')
+            ->join('idioma as i','ei.ididioma','=','i.ididioma')
+            ->select('e.idempleado','p.identificacion','ei.idpidioma','ei.nivel','i.nombre as idiomash')
+            ->where('u.id','=',Auth::user()->id)
+            ->get();
+
+            $emlicencia = DB::table('empleado as e')
+            ->join('persona as p','e.identificacion','=','p.identificacion')
+            ->join('users as u','p.identificacion','=','u.identificacion')
+            ->join('personalicencia as pl','e.identificacion','=','pl.identificacion')
+            ->join('licencia as l','pl.idlicencia','=','l.idlicencia')
+            ->select('e.idempleado','p.identificacion','pl.idplicencia','pl.vigencia','l.tipolicencia')
+            ->where('u.id','=',Auth::user()->id)
+            ->get();
+
+             return view("hr.otros",["empleado"=>$empleado,"idiomas"=>$idiomas,"emidioma"=>$emidioma,"emlicencia"=>$emlicencia,"licencia"=>$licencia]);
         }
 
         public function listarotros1(Request $request, $id)
@@ -770,18 +834,6 @@ class UController extends Controller
             $ao->save();
             return response()->json($ao);
         } 
-        /*public function updateotros(Request $request,$id)
-        {
-            $id = $request->get('idempleado');
-
-            $ao=Empleado::findOrFail($id);
-            $ao-> celcorporativo=$request->get('celcorporativo');
-            $ao-> talla=$request->get('talla');
-            $ao-> peso=$request->get('peso');
-            $ao-> altura=$request->get('altura');
-            $ao->save();
-            return response()->json($ao);
-        } */
     //Creación de notícias
         public function listartablero()
         {
@@ -802,6 +854,80 @@ class UController extends Controller
             $noticia = fechapublica = $request->get('fechap');
             $noticia = idempleado = $request->get('idempleado');
             $noticia->save();*/
+        }
+    //Crear licencia
+        public function listarlicencia(Request $request, $id)
+        {
+            $emlicencia = DB::table('personalicencia as pl')
+            ->join('licencia as l','pl.idlicencia','=','l.idlicencia')
+            ->select('pl.idplicencia','pl.vigencia','pl.idlicencia','l.tipolicencia')
+            ->where('pl.idplicencia','=',$id)
+            ->first();
+             return response()->json($emlicencia);
+        }
+        public function agregarlicencia(Request $request)
+        {
+            $this->validateRequestL($request);
+
+            $licencia = new Licencia;
+            $licencia-> vigencia = $request->get('vigencia');
+            $licencia-> idlicencia = $request->get('licenciaid');
+            $licencia-> identificacion = $request->get('identificacion');
+            $licencia->save();
+
+            return response()->json($licencia);
+        }
+        public function updatelic(Request $request, $id)
+        {
+            $licencia= Licencia::findOrFail($id);
+            $licencia-> vigencia = $request->get('vigencia');
+            $licencia-> idlicencia = $request->get('licenciaid');
+            $licencia->save();
+            return response()->json($licencia);
+        }
+        public function deletelic($id)
+        {
+            $cre =  Licencia::findOrFail($id); 
+                    Licencia::destroy($id);
+            return response()->json($cre);
+        } 
+    //Crear Idioma
+        public function listaridioma(Request $request, $id)
+        {
+
+            $idiomal = DB::table('empleadoidioma as ei')
+            ->join('idioma as i','ei.ididioma','=','i.ididioma')
+            ->select('ei.idpidioma','ei.nivel','ei.ididioma','i.nombre')
+            ->where('ei.idpidioma','=',$id)
+            ->first();
+             return response()->json($idiomal);
+        }
+        public function agregaridioma(Request $request)
+        {
+            $this->validateRequestI($request);
+
+            $idioma = new Idioma;
+            $idioma-> nivel = $request->get('nivel');
+            $idioma-> ididioma = $request->get('ididioma');
+            $idioma-> idempleado = $request->get('idempleadoI');
+            $idioma->save();
+
+            return response()->json($idioma);
+        } 
+
+        public function updateidioma(Request $request, $id)
+        {
+            $idioma= Idioma::findOrFail($id);
+            $idioma-> nivel = $request->get('nivel');
+            $idioma-> ididioma = $request->get('ididioma');
+            $idioma->save();
+            return response()->json($idioma);
+        }
+        public function deleteidioma ($id)
+        {
+            $cre =  Idioma::findOrFail($id); 
+                    Idioma::destroy($id);
+            return response()->json($cre);
         }
     //Validaciones
 
@@ -918,6 +1044,30 @@ class UController extends Controller
             'talla' => 'required',
             'altura' => 'required',
             'peso' => 'required',
+
+            ];
+            $messages=[
+            'required' => 'Debe ingresar :attribute.',
+            'max'  => 'La capacidad del campo :attribute es :max',
+            ];
+            $this->validate($request, $rules,$messages);        
+        }
+
+        public function validateRequestL($request){
+            $rules=[
+            'vigencia' => 'required',
+
+            ];
+            $messages=[
+            'required' => 'Debe ingresar :attribute.',
+            'max'  => 'La capacidad del campo :attribute es :max',
+            ];
+            $this->validate($request, $rules,$messages);        
+        }
+
+        public function validateRequestI($request){
+            $rules=[
+            'nivel' => 'required',
 
             ];
             $messages=[
