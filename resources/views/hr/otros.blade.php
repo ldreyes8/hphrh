@@ -2,6 +2,7 @@
   <div class="panel-heading">
         <button class="btn btn-success" id="btnAgregarL"><i class="icon-user icon-white" ></i> Agregar Licencia de conducir</button>
         <button class="btn btn-success" id="btnAgregarI"><i class="icon-user icon-white" ></i> Agregar un idioma</button>
+        <button class="btn btn-success" id="btnAgregarPAF"><i class="icon-user icon-white" ></i> Aplicar a un puesto</button>
   </div>
   <div class="Card-box">
   <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
@@ -226,7 +227,53 @@
       </div>
     </div>
 </div>
+<!--Modal de puesto a aplicar-->
+<div class="col-lg-12">
+    <div class="modal fade" id="formModalPAF" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="inputTitlePAF"></h4>
+          </div>
+          <div class="modal-body">
+              <form role="form" id="formAgregarPAF">
+                  @if (isset($empleado))
+                    <input type="hidden" id="identificacionl" value="{{$empleado->identificacion}}">                 
+                  @endif
+                    <div class="form-group">
+                        <label>Puesto </label>
+                        <select  id="licenciaid" class="form-control selectpicker" data-live-search="true">
+                          @if (isset($puestos))
+                            @foreach($puestos as $pts)
+                              <option value="{{$pts->idpuesto}}">{{$pts->nombre}}</option>
+                            @endforeach
+                          @endif
+                        </select>
+                    </div>
 
+                    <div class="form-group">
+                        <label>Afiliado</label>
+                        <select  id="licenciaid" class="form-control selectpicker" data-live-search="true">
+                          @if (isset($afiliados))
+                            @foreach($afiliados as $afs)
+                              <option value="{{$afs->idafiliado}}">{{$afs->nombre}}</option>
+                            @endforeach
+                          @endif
+                        </select>
+                    </div>                  
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="btnGuardarPAF">Guardar</button>
+            <input type="hidden" id="idlic" value="0"/>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<!--Modal de error-->
 <div class="modal fade" id="erroresModalO" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
