@@ -13,12 +13,12 @@ $(document).ready(function(){
         var tablaR=$("#detallesR .filaTableR");
         var tablaF=$("#detallesF .filaTableF");
         var tablaA=$("#detallesA .filaTableA");
-        var a=0;
-        var f=0;
-        var r=0;
-        var el=0;
-        var d=0;
-        var i=0; //inicio del reccorido 
+        var a=0;  //contador para el recorrido de la tabla academicos
+        var f=0;  //contador para el recorrido de la tabla familiar
+        var r=0;  //contadir para el recorrido de la tabla referencias 
+        var el=0; //contador para el recorrido de la tabla experiencia laboral 
+        var d=0;  //contador para el rocorrido de la tabla deudas
+        var i=0;  //contador para el recorrido de la tabla padecimientos  
         tablaP.each(function(){//se recorre la tabla 
             var idpad=$('.idpad:eq('+i+')').val();//se obtiene cada valor 
             var np=$('.nombrepa:eq('+i+')').val();
@@ -69,6 +69,7 @@ $(document).ready(function(){
                 ultimosalario: ultimosalario,
                 fingresoex: fingresoex,
                 fsalidaex: fsalidaex,
+                observacion: $('#observacionEL').val(),
             },
             function(data){});
             el++;
@@ -88,6 +89,7 @@ $(document).ready(function(){
                 telefonor: telefonor,
                 profesion: profesion,
                 tiporeferencia: tiporeferencia,
+                observacion: $('#observacionR').val(),
             },
             function(data){});
             r++;
@@ -109,6 +111,8 @@ $(document).ready(function(){
                 telefonof: telefonof,
                 ocupacion: ocupacion,
                 edad: edad,
+                observacion: $('#observacionF').val(),
+
             },
             function(data){});
             f++;
@@ -122,7 +126,6 @@ $(document).ready(function(){
             var selectpicker=$('.selectpicker:eq('+a+')').val();
             var fingreso=$('.fingreso:eq('+a+')').val();
             var fsalida=$('.fsalida:eq('+a+')').val();
-
             $.post(my_url='upsolicitudPA',
             {
                 idpacademico: idpacademico,
@@ -132,6 +135,7 @@ $(document).ready(function(){
                 fingreso: fingreso,
                 fsalida: fsalida,
                 selectpicker: selectpicker,
+                observacion: $('#observacionA').val(),
             },
             function(data){});
             a++;

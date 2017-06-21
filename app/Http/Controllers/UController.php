@@ -348,7 +348,6 @@ class UController extends Controller
                 ->where('pa.idpacademico','=',$id)
                 ->first();
             }
-            //dd($academico);
         
             return response()->json($academico);
         }
@@ -407,25 +406,19 @@ class UController extends Controller
         public function updateAca(Request $request, $id)
         {
             $idpais = $request->get('idpais');
+
             $academico = Academico::findOrFail($id);
-
-
             $fechaingreso = $request->fecha_ingreso; 
-            $fechasalida = $request->fecha_salida;
-
-            
+            $fechasalida = $request->fecha_salida;            
             $fechaingreso = Carbon::createFromFormat('d/m/Y',$fechaingreso);
             $fechasalida = Carbon::createFromFormat('d/m/Y',$fechasalida);
-            
             $fechaingreso = $fechaingreso->toDateString();
             $fechasalida = $fechasalida->toDateString();
-
             $academico->titulo = $request->get('titulo');
             $academico->establecimiento = $request->get('establecimiento');
             $academico->duracion = $request->get('duracion');
             $academico->fingreso = $fechaingreso;
             $academico->fsalida = $fechasalida;
-
             if ($idpais ==="73") 
             {
                 $academico->idpais = $idpais;
@@ -436,8 +429,6 @@ class UController extends Controller
                    //$academicos-> idmunicipio = NULL;
                 $academico->idpais = $idpais;
             }
-            //$academico->idmunicipio = $request->get('idmunicipio');
-
             $academico->idnivel = $request->get('idnivel');
             $academico->periodo = $request->get('periodo');
             $academico->save();

@@ -137,7 +137,6 @@ $(document).ready(function(){
                     $("#academico"+idacad).replaceWith(item);
                 }
 
-                //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +data.titulo+ "</td><td>" +data.establecimiento + "</td><td>" +data.duracion + ": " + data.periodo + "</td><td>" +nivel + "</td><td>" +fingreso + "</td><td>" +fsalida + "</td></tr>";
                 $('#formAgregar').trigger("reset");
                 $('#formModal').modal('hide');
                 

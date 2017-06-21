@@ -25,6 +25,7 @@ class Academico extends Model
         'idnivel',
         'periodo',
         'idpais',
+        'observacion',
     ];
 
 }

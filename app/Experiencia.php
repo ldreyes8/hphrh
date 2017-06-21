@@ -21,7 +21,8 @@ class Experiencia extends Model
     	'fingresoex',
     	'fsalidaex',
     	'idempleado',
-    	'identificacion'
+    	'identificacion',
+        'observacion',
     ];
 
     protected $guarder=[
