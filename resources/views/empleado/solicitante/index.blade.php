@@ -5,9 +5,9 @@
 		<h3>Listado de solicitantes </h3>
 		@include('empleado.solicitante.search')
 	</div>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <!--div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <a href="{{URL::action('SController@pdf')}}"><button class="btn btn-primary">Descargar</button></a>
-    </div>
+    </div-->
 </div>
 <div class="row">
    <div class=class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
