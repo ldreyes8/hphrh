@@ -773,6 +773,15 @@ class UController extends Controller
         {
             $idiomas = DB::table('idioma')->get();
             $licencia = DB::table('licencia')->get();
+            $puestos=DB::table('puesto as p')
+            ->where('p.statusp','=','2')
+            ->orderBy('p.nombre','asc')
+            ->get();
+            $afiliados=DB::table('afiliado as a')
+            ->where('a.statusa','=','2')
+            ->orderBy('a.nombre','asc')
+            ->get();
+        
             $empleado = DB::table('empleado as e')
             ->join('persona as p','e.identificacion','=','p.identificacion')
             ->join('users as u','p.identificacion','=','u.identificacion')
@@ -798,7 +807,7 @@ class UController extends Controller
             ->where('u.id','=',Auth::user()->id)
             ->get();
 
-             return view("hr.otros",["empleado"=>$empleado,"idiomas"=>$idiomas,"emidioma"=>$emidioma,"emlicencia"=>$emlicencia,"licencia"=>$licencia]);
+             return view("hr.otros",["empleado"=>$empleado,"idiomas"=>$idiomas,"emidioma"=>$emidioma,"emlicencia"=>$emlicencia,"licencia"=>$licencia,"puestos"=>$puestos,"afiliados"=>$afiliados]);
         }
 
         public function listarotros1(Request $request, $id)

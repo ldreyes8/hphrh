@@ -334,5 +334,11 @@ $(document).ready(function()
             $("#erroresContentO").html(errHTML); 
             $('#erroresModalO').modal('show');
         });
-
+    //Aplicar aún puesto
+        $('#btnAgregarPAF').click(function(){
+            $('#inputTitlePAF').html("Aplicar a uń puesto");
+            $('#formAgregarPAF').trigger("reset");
+            $('#btnGuardarPAF').val('add');
+            $('#formModalPAF').modal('show');
+        });
 });

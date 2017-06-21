@@ -3,6 +3,7 @@
     @parent
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet" />
+        <link rel="stylesheet" href="{{asset('assets/css/bootstrap-select.min.css')}}">
         
 
 @endsection
@@ -267,6 +268,7 @@
     <script src="{{asset('assets/js/padecimiento.js')}}"></script>
     <script src="{{asset('assets/js/experiencia.js')}}"></script>
     <script src="{{asset('assets/js/otros.js')}}"></script>
+    <script src="{{asset('assets/js/bootstrap-select.min.js')}}"></script>
    
         <script src="{{asset('assets/js/changepassword.js')}}"></script>
 
