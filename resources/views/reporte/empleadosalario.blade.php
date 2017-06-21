@@ -15,7 +15,7 @@
                 <th>Nombre del empleado</th>
                 <th>Identificaci&oacute;n</th>
                 <th>Salario</th>
-                <th>Nombramiento</th>
+                <th>Fecha ingreso</th>
 
             </thead>
             <tbody>
