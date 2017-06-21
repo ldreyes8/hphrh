@@ -65,9 +65,11 @@ class PersonaController extends Controller
         $estadocivil=DB::table('estadocivil')->get();
         $puestos=DB::table('puesto as p')
         ->where('p.statusp','=','2')
+        ->orderBy('p.nombre','asc')
         ->get();
         $afiliados=DB::table('afiliado as a')
         ->where('a.statusa','=','2')
+        ->orderBy('a.nombre','asc')
         ->get();
         $idiomas = DB::table('idioma')->get();
         $licencia = DB::table('licencia')->get();
