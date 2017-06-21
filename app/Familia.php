@@ -21,7 +21,8 @@ class Familia extends Model
     	'telefonof',
         'emergencia',
     	'idempleado',
-    	'identificacion'
+    	'identificacion',
+        'observacion',
     ];
 
     protected $guarder=[

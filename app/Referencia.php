@@ -18,7 +18,8 @@ class Referencia extends Model
     	'profesion',
     	'tiporeferencia',
     	'idempleado',
-    	'identificacion'
+    	'identificacion',
+        'observacion',
     ];
 
     protected $guarder=[
