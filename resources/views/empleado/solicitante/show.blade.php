@@ -257,8 +257,8 @@ input[type=text] {
       </div>
 
       <div class="form-group">
-          <label>Observación</label>
-          <textarea maxlength="100" class="form-control" id="observacionEL" >{{$observaciones->obpe}}</textarea>
+        <label>Observación</label>
+        <textarea maxlength="100" class="form-control" id="observacionEL" >{{$observaciones->obpe}}</textarea>
       </div>
 
       <div class="table-responsive">
