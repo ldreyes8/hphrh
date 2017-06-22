@@ -352,7 +352,6 @@ class UController extends Controller
                 ->where('pa.idpacademico','=',$id)
                 ->first();
             }
-            //dd($academico);
         
             return response()->json($academico);
         }
@@ -411,25 +410,19 @@ class UController extends Controller
         public function updateAca(Request $request, $id)
         {
             $idpais = $request->get('idpais');
+
             $academico = Academico::findOrFail($id);
-
-
             $fechaingreso = $request->fecha_ingreso; 
-            $fechasalida = $request->fecha_salida;
-
-            
+            $fechasalida = $request->fecha_salida;            
             $fechaingreso = Carbon::createFromFormat('d/m/Y',$fechaingreso);
             $fechasalida = Carbon::createFromFormat('d/m/Y',$fechasalida);
-            
             $fechaingreso = $fechaingreso->toDateString();
             $fechasalida = $fechasalida->toDateString();
-
             $academico->titulo = $request->get('titulo');
             $academico->establecimiento = $request->get('establecimiento');
             $academico->duracion = $request->get('duracion');
             $academico->fingreso = $fechaingreso;
             $academico->fsalida = $fechasalida;
-
             if ($idpais ==="73") 
             {
                 $academico->idpais = $idpais;
@@ -440,8 +433,6 @@ class UController extends Controller
                    //$academicos-> idmunicipio = NULL;
                 $academico->idpais = $idpais;
             }
-            //$academico->idmunicipio = $request->get('idmunicipio');
-
             $academico->idnivel = $request->get('idnivel');
             $academico->periodo = $request->get('periodo');
             $academico->save();
@@ -782,6 +773,15 @@ class UController extends Controller
         {
             $idiomas = DB::table('idioma')->get();
             $licencia = DB::table('licencia')->get();
+            $puestos=DB::table('puesto as p')
+            ->where('p.statusp','=','2')
+            ->orderBy('p.nombre','asc')
+            ->get();
+            $afiliados=DB::table('afiliado as a')
+            ->where('a.statusa','=','2')
+            ->orderBy('a.nombre','asc')
+            ->get();
+        
             $empleado = DB::table('empleado as e')
             ->join('persona as p','e.identificacion','=','p.identificacion')
             ->join('users as u','p.identificacion','=','u.identificacion')
@@ -807,7 +807,7 @@ class UController extends Controller
             ->where('u.id','=',Auth::user()->id)
             ->get();
 
-             return view("hr.otros",["empleado"=>$empleado,"idiomas"=>$idiomas,"emidioma"=>$emidioma,"emlicencia"=>$emlicencia,"licencia"=>$licencia]);
+             return view("hr.otros",["empleado"=>$empleado,"idiomas"=>$idiomas,"emidioma"=>$emidioma,"emlicencia"=>$emlicencia,"licencia"=>$licencia,"puestos"=>$puestos,"afiliados"=>$afiliados]);
         }
 
         public function listarotros1(Request $request, $id)
@@ -926,6 +926,26 @@ class UController extends Controller
             $cre =  Idioma::findOrFail($id); 
                     Idioma::destroy($id);
             return response()->json($cre);
+        }
+    //Puesto aplicar
+        public function SolicitanteI(Request $request)
+        {
+            $idper=$request->get('identificacion');
+            $idempleado=$request->get('idempleado');
+
+            $persona = Persona::findOrFail($idper);
+            $persona-> idpuesto= $request->get('puesto');
+            $persona-> idafiliado= $request->get('afiliado');
+            $persona->save();
+
+            $empleado = Empleado::findOrFail($idempleado);
+            $empleado-> idstatus='12';
+            $mytime = Carbon::now('America/Guatemala');
+            $empleado-> fechasolicitud=$mytime->toDateTimeString();
+            $empleado-> save();
+            //dd($persona,$empleado);
+            $personas=array($persona,$empleado);
+            return response()->json($personas);
         }
     //Validaciones
 

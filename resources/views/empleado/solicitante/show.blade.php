@@ -133,6 +133,11 @@ input[type=text] {
             </table>
       </div>
 
+      <div class="form-group">
+          <label>Observación</label>
+          <textarea maxlength="300" class="form-control" id="observacionF"></textarea>
+      </div>
+
             <!-- -->
       <div class="table-responsive">
             <table id="detallesA" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
@@ -187,6 +192,11 @@ input[type=text] {
             </table>
       </div>
 
+      <div class="form-group">
+          <label>Observación</label>
+          <textarea maxlength="100" class="form-control" id="observacionA" ></textarea>
+      </div>
+
       <div class="table-responsive">      
             <table id="detallesR" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Referencia Personales Y Laborales</h2></p>
@@ -209,6 +219,11 @@ input[type=text] {
                 @endforeach
               </tbody>
             </table>
+      </div>
+
+      <div class="form-group">
+          <label>Observación</label>
+          <textarea maxlength="100" class="form-control" id="observacionR" ></textarea>
       </div>
 
       <div class="table-responsive">    
@@ -239,6 +254,11 @@ input[type=text] {
                  @endforeach
               </tbody>
             </table>
+      </div>
+
+      <div class="form-group">
+          <label>Observación</label>
+          <textarea maxlength="100" class="form-control" id="observacionEL" ></textarea>
       </div>
 
       <div class="table-responsive">
@@ -338,24 +358,21 @@ input[type=text] {
               <thead style="background-color:#A9D0F5">
                 <th>Observación</th>
               </thead>
-     
-              <tfoot>
-                <th></th>
-              </tfoot>
               <tbody>
                 <tr>
                   <td>{{$empleado->observacion}}</td>
-                 </tr>
+                </tr>
+                
               </tbody>
             </table>
       </div>
     </div>
-      <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-                  <div class="form-group">
-                    <button class="btn btn-info" type="button" id="btncomentario" >Agregar una observación</button>
-                  </div>
-                  <button id="btnupsolicitud" type="button" class="btn btn-primary" >Guardar cambios</button>
+    <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <button class="btn btn-info" type="button" id="btncomentario" >Agregar una observación</button>
       </div>
+      <button id="btnupsolicitud" type="button" class="btn btn-primary" >Guardar cambios</button>
+    </div>
 </form>
      <div class="col-lg-12">
         <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -413,6 +430,8 @@ input[type=text] {
     <script src="{{asset('assets/js/updsolicitud.js')}}"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+
+
   $('#btncomentario').click(function(){
       $('#inputTitle').html("Agregar observacion del solicitante");
       $('#formAgregar').trigger("reset");

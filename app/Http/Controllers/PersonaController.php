@@ -65,9 +65,11 @@ class PersonaController extends Controller
         $estadocivil=DB::table('estadocivil')->get();
         $puestos=DB::table('puesto as p')
         ->where('p.statusp','=','2')
+        ->orderBy('p.nombre','asc')
         ->get();
         $afiliados=DB::table('afiliado as a')
         ->where('a.statusa','=','2')
+        ->orderBy('a.nombre','asc')
         ->get();
         $idiomas = DB::table('idioma')->get();
         $licencia = DB::table('licencia')->get();
@@ -526,6 +528,7 @@ class PersonaController extends Controller
         $ultimosalario=$request->get('ultimosalario');
         $fingresoex=$request->get('fingresoex');
         $fsalidaex=$request->get('fsalidaex');
+        $observacion = $request->get('observacion');
 
         $experiencia = Experiencia::findOrFail($idpexperiencia);
         $experiencia-> empresa=$empresa;
@@ -535,6 +538,7 @@ class PersonaController extends Controller
         $experiencia-> ultimosalario=$ultimosalario;
         $experiencia-> fingresoex=$fingresoex;
         $experiencia-> fsalidaex=$fsalidaex;
+        $experiencia-> observacion = $observacion;
         $experiencia->save();
 
         return response()->json($experiencia);
@@ -549,6 +553,7 @@ class PersonaController extends Controller
         $telefonof=$request->get('telefonof');
         $parentezco=$request->get('parentezco');
         $ocupacion=$request->get('ocupacion');
+        $observacion = $request->get('observacion');
 
         $familia = Familia::findOrFail($idpfamilia);
         $familia-> nombref = $nombref;
@@ -557,6 +562,7 @@ class PersonaController extends Controller
         $familia-> telefonof = $telefonof;
         $familia-> parentezco = $parentezco;
         $familia-> ocupacion = $ocupacion;
+        $familia-> observacion = $observacion;
         $familia->save();
 
         return response()->json($familia);
@@ -571,6 +577,7 @@ class PersonaController extends Controller
         $idnivel=$request->get('selectpicker');
         $fsalida = $request->get('fsalida');
         $fechai=$request->get('fingreso');
+        $observacion = $request->get('observacion');
         //$periodo=$request->get('periodo');
         //$pidmunicipio=$request->get('pidmunicipio');
         //$idpaisA=$request->get('idpaisPAAT');
@@ -586,6 +593,7 @@ class PersonaController extends Controller
         $academicos-> idnivel = $idnivel;
         $academicos-> fsalida=$fsalida;
         $academicos-> fingreso =$fechai;
+        $academicos-> observacion = $observacion;
         //$academicos-> periodo =$periodo;
         /*if ($idpaisA[$cont5] ==="73") 
         {
@@ -609,12 +617,14 @@ class PersonaController extends Controller
         $telefonor=$request->get('telefonor');
         $profesion=$request->get('profesion');
         $tiporeferencia=$request->get('tiporeferencia');
+        $observacion = $request->get('observacion');
 
         $referencia = Referencia::findOrFail($idpreferencia);
         $referencia-> nombrer=$nombrer;
         $referencia-> telefonor=$telefonor;
         $referencia-> profesion=$profesion;
         $referencia-> tiporeferencia=$tiporeferencia;
+        $referencia-> observacion = $observacion;
         $referencia->save();
 
         return response()->json($referencia);

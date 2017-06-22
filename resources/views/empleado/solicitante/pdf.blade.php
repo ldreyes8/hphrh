@@ -15,9 +15,9 @@
         		<div class="row">
         			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         				<div class="form-group">
-          					<div class="col-md-2 col-md-12 col-sm-12 col-xs-12">
+          					<!--div class="col-md-2 col-md-12 col-sm-12 col-xs-12">
             					<img src="https://unsplash.imgix.net/photo-1422513391413-ddd4f2ce3340?w=1024&amp;q=50&amp;fm=jpg&amp;s=282e5978de17d6cd2280888d16f06f04" width="75" height="50">
-          					</div>
+          					</div-->
           					<div class="col-md-10 col-md-12 col-sm-12 col-xs-12">
             					<h2 class="text-center">SOLICITUD DE EMPLEO</h2>
             					<h4 class="text-center">Afiliado: {{$persona->afiliado}}</h4>

@@ -130,6 +130,7 @@ class SController extends Controller
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
             ->orderBy('e.idempleado','desc')
             ->where('s.statusemp','=','Aspirante')
+            ->orwhere('s.statusemp','=','Solicitante Interno')
             ->paginate(12);
 
             return view('empleado.solicitante.index',["empleados"=>$empleados,"searchText"=>$query]);
@@ -180,7 +181,7 @@ class SController extends Controller
         $academicos=DB::table('personaacademico as pc')
         ->join('persona as p','pc.identificacion','=','p.identificacion')
         ->join('nivelacademico as na','pc.idnivel','=','na.idnivel')
-        ->select('pc.idpacademico' ,'pc.titulo','pc.establecimiento','pc.duracion','na.idnivel','na.nombrena as nivel','pc.fingreso','pc.fsalida')
+        ->select('pc.idpacademico' ,'pc.titulo','pc.establecimiento','pc.duracion','na.idnivel','na.nombrena as nivel','pc.fingreso','pc.fsalida','pc.observacion')
         ->where('pc.identificacion','=',$id)
         ->get();
 
@@ -195,6 +196,12 @@ class SController extends Controller
         ->select('pf.idpfamilia','pf.nombref','pf.apellidof','pf.telefonof','pf.parentezco','pf.ocupacion','pf.edad','pf.emergencia')
         ->where('p.identificacion','=',$id)
         ->get();
+
+        $familiares1=DB::table('personafamilia as pf')
+        ->join('persona as p','pf.identificacion','=','p.identificacion')
+        ->select('pf.observacion')
+        ->where('p.identificacion','=',$id)
+        ->first();
 
         $idiomas=DB::table('empleadoidioma as ei')
         ->join('idioma as i','ei.ididioma','=','i.ididioma')
@@ -234,11 +241,20 @@ class SController extends Controller
         ->select('pp.nombre','pp.puesto','pp.dependencia')
         ->where('p.identificacion','=',$id)
         ->get();
+
+        $observaciones=DB::table('persona as p')
+        ->join('personaacademico as pa','pa.identificacion','=','p.identificacion')
+        ->join('personafamilia as pf','pf.identificacion','=','p.identificacion')
+        ->join('personareferencia as pr','pr.identificacion','=','p.identificacion')
+        ->join('personaexperiencia as pe','pe.identificacion','=','p.identificacion')
+        ->select('pa.observacion as obpa','pf.observacion as obpf','pr.observacion as obpr','pe.observacion as obpe')
+        ->where('p.identificacion','=',$id)
+        ->first();
       
         $nivelacademico = DB::table('nivelacademico')->get();
         $estadocivil=DB::table('estadocivil')->get();
 
-        return view('empleado.solicitante.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil]);
+        return view('empleado.solicitante.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones]);
     }
     public function rechazo($id)
     {
