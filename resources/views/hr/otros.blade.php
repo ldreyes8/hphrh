@@ -2,7 +2,7 @@
   <div class="panel-heading">
         <button class="btn btn-success" id="btnAgregarL"><i class="icon-user icon-white" ></i> Agregar Licencia de conducir</button>
         <button class="btn btn-success" id="btnAgregarI"><i class="icon-user icon-white" ></i> Agregar un idioma</button>
-        <button class="btn btn-success" id="btnAgregarPAF"><i class="icon-user icon-white" ></i> Aplicar a un puesto</button>
+        <!--button class="btn btn-success" id="btnAgregarPAF"><i class="icon-user icon-white" ></i> Aplicar a un puesto</button-->
   </div>
   <div class="Card-box">
   <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
@@ -239,7 +239,8 @@
           <div class="modal-body">
               <form role="form" id="formAgregarPAF">
                   @if (isset($empleado))
-                    <input type="hidden" id="identificacionl" value="{{$empleado->identificacion}}">                 
+                    <input type="hidden" id="idempleadoPAF" value="{{$empleado->idempleado}}">
+                    <input type="hidden" id="identificacionPAF" value="{{$empleado->identificacion}}">                 
                   @endif
                     <div class="form-group">
                         <label>Puesto </label>
