@@ -125,7 +125,7 @@ class SController extends Controller
             ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
             ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
             ->join('status as s','e.idstatus','=','s.idstatus')
-            ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
+            ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
             ->where('p.nombre1','LIKE','%'.$query.'%')
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
             ->orderBy('e.idempleado','desc')
@@ -256,12 +256,19 @@ class SController extends Controller
 
         return view('empleado.solicitante.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones]);
     }
-    public function rechazo($id)
+    public function rechazo($idE,$idS)
     {
-        $st=Empleado::find($id);
-        $st->idstatus='10';
-        $st->update();
-        return Redirect::to('listados/rechazados');
+        if ($idS=="12") {
+            $st=Empleado::find($idE);
+            $st-> idstatus='2';
+            $st->update();
+        }
+        if ($idS=="1") {
+            $st=Empleado::find($idE);
+            $st-> idstatus='10';
+            $st->update();
+        }
+        return Redirect::to('empleado/solicitante');
     }
     public function upt (Request $request)
     {

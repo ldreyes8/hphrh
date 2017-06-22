@@ -362,6 +362,14 @@ $(document).ready(function()
                 dataType: 'json',
 
                 success: function (data) {
+                    swal({ 
+                        title:"Gracias, Envio correcto.",
+                        text: "Usted ahora es aspirante al puesto",
+                        type: "success"
+                    },
+                    function(){
+                        //window.location.href="/empleado/solicitante"
+                    });
                     $('#formAgregarPAF').trigger("reset");
                     $('#formModalPAF').modal('hide');
                     
@@ -374,7 +382,7 @@ $(document).ready(function()
                             errHTML+="<li>"+data.responseJSON[er]+"</li>";
                         }
                     }else{
-                        errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                        errHTML+='<li>Error</li>';
                     }
                     $("#erroresContentO").html(errHTML); 
                     $('#erroresModalO').modal('show');
