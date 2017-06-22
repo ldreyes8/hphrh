@@ -135,7 +135,7 @@ input[type=text] {
 
       <div class="form-group">
           <label>Observación</label>
-          <textarea maxlength="100" class="form-control" id="observacionF">{{$observaciones->obpf}}</textarea>
+          <textarea maxlength="300" class="form-control" id="observacionF"></textarea>
       </div>
 
             <!-- -->
@@ -194,7 +194,7 @@ input[type=text] {
 
       <div class="form-group">
           <label>Observación</label>
-          <textarea maxlength="100" class="form-control" id="observacionA" >{{$observaciones->obpa}}</textarea>
+          <textarea maxlength="100" class="form-control" id="observacionA" ></textarea>
       </div>
 
       <div class="table-responsive">      
@@ -223,7 +223,7 @@ input[type=text] {
 
       <div class="form-group">
           <label>Observación</label>
-          <textarea maxlength="100" class="form-control" id="observacionR" >{{$observaciones->obpr}}</textarea>
+          <textarea maxlength="100" class="form-control" id="observacionR" ></textarea>
       </div>
 
       <div class="table-responsive">    
@@ -258,7 +258,7 @@ input[type=text] {
 
       <div class="form-group">
           <label>Observación</label>
-          <textarea maxlength="100" class="form-control" id="observacionEL" >{{$observaciones->obpe}}</textarea>
+          <textarea maxlength="100" class="form-control" id="observacionEL" ></textarea>
       </div>
 
       <div class="table-responsive">
@@ -362,18 +362,7 @@ input[type=text] {
                 <tr>
                   <td>{{$empleado->observacion}}</td>
                 </tr>
-                <tr>
-                  <td>{{$observaciones->obpf}}</td>
-                </tr>
-                <tr>
-                  <td>{{$observaciones->obpa}}</td>
-                </tr>
-                <tr>
-                  <td>{{$observaciones->obpr}}</td>
-                </tr>
-                <tr>
-                  <td>{{$observaciones->obpe}}</td>
-                </tr>
+                
               </tbody>
             </table>
       </div>

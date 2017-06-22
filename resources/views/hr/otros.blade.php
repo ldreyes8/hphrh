@@ -2,7 +2,7 @@
   <div class="panel-heading">
         <button class="btn btn-success" id="btnAgregarL"><i class="icon-user icon-white" ></i> Agregar Licencia de conducir</button>
         <button class="btn btn-success" id="btnAgregarI"><i class="icon-user icon-white" ></i> Agregar un idioma</button>
-        <!--button class="btn btn-success" id="btnAgregarPAF"><i class="icon-user icon-white" ></i> Aplicar a un puesto</button-->
+        <button class="btn btn-success" id="btnAgregarPAF"><i class="icon-user icon-white" ></i> Aplicar a un puesto</button>
   </div>
   <div class="Card-box">
   <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
@@ -244,7 +244,7 @@
                   @endif
                     <div class="form-group">
                         <label>Puesto </label>
-                        <select  id="licenciaid" class="form-control selectpicker" data-live-search="true">
+                        <select  id="idpuesto" class="form-control selectpicker" data-live-search="true">
                           @if (isset($puestos))
                             @foreach($puestos as $pts)
                               <option value="{{$pts->idpuesto}}">{{$pts->nombre}}</option>
@@ -255,7 +255,7 @@
 
                     <div class="form-group">
                         <label>Afiliado</label>
-                        <select  id="licenciaid" class="form-control selectpicker" data-live-search="true">
+                        <select  id="idafiliado" class="form-control selectpicker" data-live-search="true">
                           @if (isset($afiliados))
                             @foreach($afiliados as $afs)
                               <option value="{{$afs->idafiliado}}">{{$afs->nombre}}</option>
