@@ -174,7 +174,6 @@
             <!-- ========== Left Sidebar Start ========== -->
             <div class="left side-menu">
                 <div class="sidebar-inner slimscrollleft">
-
                     <div id="sidebar-menu">
                         <ul>
                             <li class="menu-title">Principal</li>

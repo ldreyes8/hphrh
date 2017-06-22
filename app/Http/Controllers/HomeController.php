@@ -174,7 +174,7 @@ class HomeController extends Controller
         $empleado = DB::table('empleado as emp')
         ->join('persona as per','emp.identificacion','=','per.identificacion')
         ->join('estadocivil as ec','emp.idcivil','=','ec.idcivil')
-        ->select('per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','per.apellido3','per.fechanac','per.barriocolonia','per.genero','emp.afiliacionigss','emp.numerodependientes','emp.aportemensual','emp.vivienda','emp.alquilermensual','emp.otrosingresos','emp.pretension','emp.nit','per.identificacion')
+        ->select('per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','per.apellido3','per.fechanac','per.barriocolonia','per.genero','emp.afiliacionigss','emp.numerodependientes','emp.aportemensual','emp.vivienda','emp.alquilermensual','emp.otrosingresos','emp.pretension','emp.nit','per.identificacion','ec.estado as estadocivil')
         ->where('emp.idempleado','=',$usuario->idempleado)  
         ->get();
 
