@@ -463,9 +463,7 @@
                                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                                         <div class="card-box">
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                <div class="form-group ">
-                                                                    <label for="">Datos Academicos</label>
-                                                                </div>
+                                                                    <h4>DATOS ACADEMICOS</h4>
                                                             </div>
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
@@ -558,12 +556,11 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div> <label><br><br></label> </div>
                                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                                         <div class="card-box">  
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                <div class="form-group ">
-                                                                    <label for="">Idiomas que domina</label>
-                                                                </div>
+                                                                    <h4>IDIOMAS QUE DOMINA</h4>
                                                             </div>
                                                             <div class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
@@ -594,7 +591,7 @@
                                                             </div>                                                            
                                                         </div>
                                                     </div>
-
+                                                    <div> <label><br><br></label> </div>
                                                     <div class="col-lg-8 col-sm-12 col-md-12 col-xs-12">
                                                         <table id="detalle6" class="table table-striped table-bordered table-condensed table-hover">
                                                             <thead>
