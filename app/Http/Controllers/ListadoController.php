@@ -136,8 +136,6 @@ class ListadoController extends Controller
 
     public function historial ($id)
     {
-        
-
         $historia=DB::table('historia as h')
         ->join('empleado as e','h.idempleado','=','e.idempleado')
         ->join('persona as p','e.identificacion','=','p.identificacion')

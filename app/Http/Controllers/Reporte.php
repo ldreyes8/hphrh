@@ -56,7 +56,7 @@ class Reporte extends Controller
     	->orderBy('a.nombre','asc')
         ->orderBy('p.nombre','asc')
         ->orderBy('per.apellido1')
-        ->get();          
+        ->get();
 
         Excel::create("Reporte Empleado", function ($excel) use ($nomytras)  
             {

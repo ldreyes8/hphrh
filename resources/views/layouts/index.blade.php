@@ -190,6 +190,8 @@
                                 </a>
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/empleado/perfil')}}">Perfil</a></li>
+                                    <!--
+                                    <li><a href={{url('/empleado/empleado')}}>Datos Generales</a></li>-->
                                 </ul>
                             </li>
 

@@ -7,7 +7,7 @@ use App\Eventos;
 use App\Persona;
 use Illuminate\Http\File;
 use DB;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -158,8 +158,26 @@ class HomeController extends Controller
                 $file->move(public_path().'/tablero/',$file->getClientOriginalName());
                 $evento->save();
                 return view("mensajes.msj_correcto")->with("msj","Imagen agregada correctamente");
-
             }
         }
+    }
+
+    public function dgenerales(Request $request)
+    {
+        $usuario = DB::table('users as U')
+        ->join('persona as per','U.identificacion','=','per.identificacion')
+        ->join('empleado as emp','per.identificacion','=','emp.identificacion')
+        ->select('emp.idempleado')
+        ->where('U.id','=',Auth::user()->id)
+        ->first();
+
+        $empleado = DB::table('empleado as emp')
+        ->join('persona as per','emp.identificacion','=','per.identificacion')
+        ->join('estadocivil as ec','emp.idcivil','=','ec.idcivil')
+        ->select('per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','per.apellido3','per.fechanac','per.barriocolonia','per.genero','emp.afiliacionigss','emp.numerodependientes','emp.aportemensual','emp.vivienda','emp.alquilermensual','emp.otrosingresos','emp.pretension','emp.nit','per.identificacion')
+        ->where('emp.idempleado','=',$usuario->idempleado)  
+        ->get();
+
+        return view("empleado.empleado.index")->with("empleado",$empleado);
     }
 }

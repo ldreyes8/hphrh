@@ -100,6 +100,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::post('/updatefoto','UController@subirimagen'); 
 	Route::get('galeria','UController@galeria');
 	Route::get('buscar_personal/{dato?}', 'UController@buscar_personal');
+	Route::get('empleado','HomeController@dgenerales');
 	//Route::get('buscar_usuarios/{pais}/{dato?}', 'UController@buscar_usuarios');
 
 	//Route academico crud
@@ -207,6 +208,10 @@ Route::group(['prefix'=>'empleado'],function(){
 Route::get('error404',function(){
 	abort(404);
 });
+Route::get('error401',function(){
+	abort(401);
+});
+
 Route::get('/', function () {
     return view('auth/login');
 });

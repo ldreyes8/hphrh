@@ -250,7 +250,7 @@ class UController extends Controller
             
 
             $input  = array('image' => $fotoperfil) ;
-            $reglas = array('image' => 'required|image|mimes:jpeg,jpg,png|max:1024');
+            $reglas = array('image' => 'required|image|mimes:jpeg,jpg,png|max:2000');
             $validacion = Validator::make($input,  $reglas);
 
             if ($validacion->fails())
