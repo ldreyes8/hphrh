@@ -135,7 +135,7 @@ input[type=text] {
 
       <div class="form-group">
           <label>Observación</label>
-          <textarea maxlength="300" class="form-control" id="observacionF"></textarea>
+          <textarea maxlength="300" class="form-control" id="observacionF">{{$observaciones->obpf}}</textarea>
       </div>
 
             <!-- -->
@@ -194,7 +194,7 @@ input[type=text] {
 
       <div class="form-group">
           <label>Observación</label>
-          <textarea maxlength="100" class="form-control" id="observacionA" ></textarea>
+          <textarea maxlength="100" class="form-control" id="observacionA" >{{$observaciones->obpa}}</textarea>
       </div>
 
       <div class="table-responsive">      
@@ -223,7 +223,7 @@ input[type=text] {
 
       <div class="form-group">
           <label>Observación</label>
-          <textarea maxlength="100" class="form-control" id="observacionR" ></textarea>
+          <textarea maxlength="100" class="form-control" id="observacionR" >{{$observaciones->obpr}}</textarea>
       </div>
 
       <div class="table-responsive">    
@@ -258,7 +258,7 @@ input[type=text] {
 
       <div class="form-group">
           <label>Observación</label>
-          <textarea maxlength="100" class="form-control" id="observacionEL" ></textarea>
+          <textarea maxlength="100" class="form-control" id="observacionEL" >{{$observaciones->obpe}}</textarea>
       </div>
 
       <div class="table-responsive">

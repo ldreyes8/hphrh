@@ -32,9 +32,10 @@ class ListadoController extends Controller
         $empleado=DB::table('empleado as e')
         ->join('status as st','e.idstatus','=','st.idstatus')
         ->join('persona as p','e.identificacion','=','p.identificacion')
-        ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-        ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
+        
         ->join('nomytras as nt','e.idempleado','=','nt.idempleado')
+        ->join('puesto as pu','nt.idpuesto','=','pu.idpuesto')
+        ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
 
         ->select('e.idempleado','e.identificacion','e.nit','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','p.nombre1','p.nombre2','p.apellido1','p.apellido2','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado',DB::raw('max(nt.idnomytas) as idnomytas'))
 
