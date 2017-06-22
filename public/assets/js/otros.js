@@ -344,8 +344,8 @@ $(document).ready(function()
             var miurl="SolicitanteI";
 
             var formData = {
-                afiliado : $("#celcorporativo").val(),
-                puesto : $("#talla").val(),
+                afiliado : $("#idafiliado").val(),
+                puesto : $("#idpuesto").val(),
                 idempleado: $("#idempleadoPAF").val(),
                 identificacion : $("#identificacionPAF").val(),
             };

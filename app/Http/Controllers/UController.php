@@ -934,14 +934,16 @@ class UController extends Controller
             $idempleado=$request->get('idempleado');
 
             $persona = Persona::findOrFail($idper);
-            
+            $persona-> idpuesto= $request->get('puesto');
+            $persona-> idafiliado= $request->get('afiliado');
             $persona->save();
 
             $empleado = Empleado::findOrFail($idempleado);
-            $empleado-> idstatus='9';
-            $empleado-> numerodependientes= $request->get('dependientes');
+            $empleado-> idstatus='12';
+            $mytime = Carbon::now('America/Guatemala');
+            $empleado-> fechasolicitud=$mytime->toDateTimeString();
             $empleado-> save();
-
+            //dd($persona,$empleado);
             $personas=array($persona,$empleado);
             return response()->json($personas);
         }
