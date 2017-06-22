@@ -927,6 +927,24 @@ class UController extends Controller
                     Idioma::destroy($id);
             return response()->json($cre);
         }
+    //Puesto aplicar
+        public function SolicitanteI(Request $request)
+        {
+            $idper=$request->get('identificacion');
+            $idempleado=$request->get('idempleado');
+
+            $persona = Persona::findOrFail($idper);
+            
+            $persona->save();
+
+            $empleado = Empleado::findOrFail($idempleado);
+            $empleado-> idstatus='9';
+            $empleado-> numerodependientes= $request->get('dependientes');
+            $empleado-> save();
+
+            $personas=array($persona,$empleado);
+            return response()->json($personas);
+        }
     //Validaciones
 
         public function validateRequest($request){

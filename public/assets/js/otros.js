@@ -336,9 +336,49 @@ $(document).ready(function()
         });
     //Aplicar aún puesto
         $('#btnAgregarPAF').click(function(){
-            $('#inputTitlePAF').html("Aplicar a uń puesto");
+            $('#inputTitlePAF').html("Aplicar aún puesto");
             $('#formAgregarPAF').trigger("reset");
-            $('#btnGuardarPAF').val('add');
             $('#formModalPAF').modal('show');
+        });
+        $("#btnGuardarPAF").click(function(e){
+            var miurl="SolicitanteI";
+
+            var formData = {
+                afiliado : $("#celcorporativo").val(),
+                puesto : $("#talla").val(),
+                idempleado: $("#idempleadoPAF").val(),
+                identificacion : $("#identificacionPAF").val(),
+            };
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "PUT",
+                url: miurl,
+                data: formData,
+                dataType: 'json',
+
+                success: function (data) {
+                    $('#formAgregarPAF').trigger("reset");
+                    $('#formModalPAF').modal('hide');
+                    
+                },
+                error: function (data) {
+                    $('#loading').modal('hide');
+                    var errHTML="";
+                    if((typeof data.responseJSON != 'undefined')){
+                        for( var er in data.responseJSON){
+                            errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                        }
+                    }else{
+                        errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                    }
+                    $("#erroresContentO").html(errHTML); 
+                    $('#erroresModalO').modal('show');
+                }
+            });
         });
 });
