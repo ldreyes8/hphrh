@@ -132,7 +132,7 @@
                                             <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
                                                 <label for="identificacion">Identicación *</label>
                                                 <div class="form-group">
-                                                    <input type="text" name="identificacion" id="identificacion" maxlength="13" onkeypress="return valida(event)" class="form-control">
+                                                    <input type="text" name="identificacion" id="identificacion" maxlength="13" onkeypress="return valida(event)" placeholder="No colocar espacios ni guiones" class="form-control">
                                                     <!--<div class="text-danger" id="error_identi">{{$errors->formulario->first('identificacion')}}</div>-->
                                                         @if($errors->has('identificacion'))
                                                             <span style="color: red;">{{$errors->first('identificacion')}}</span>
@@ -1444,6 +1444,12 @@
                   tecla = (document.all) ? e.keyCode : e.which;
                   return (tecla != 13);
              }
+
+             function anularEspacios(e) {
+                  tecla = (document.all) ? e.keyCode : e.which;
+                  return (tecla == 8);
+             }
+
 
             function Finiquito(elemento) {
                 element = document.getElementById("Dfini");
