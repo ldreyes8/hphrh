@@ -63,7 +63,7 @@ class PersonaController extends Controller
 
     public function create(SessionManager $sessionManager)
     {
-        Session::flash('message','Use Navegador Chorme o Firefox para llenar este formulario');
+        Session::flash('message','Use Navegador Chrome o Firefox para llenar este formulario');
         //$sessionManager->flash('mensaje', 'Llene este formulario en Navegador Chorme');
 
         $departamento=DB::table('departamento')->get();
