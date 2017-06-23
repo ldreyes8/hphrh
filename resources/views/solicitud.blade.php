@@ -161,13 +161,13 @@
                                             <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                 <div class="form-group">
                                                     <label for="nombre2">Segundo nombre</label>
-                                                    <input type="text" name="nombre2" class="form-control" onkeypress="return validaL(event)" maxlength="15">
+                                                    <input type="text" id="nombre2" name="nombre2" class="form-control" onkeypress="return validaL(event)" maxlength="15">
                                                </div>
                                             </div>
                                             <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                 <div class="form-group">
                                                     <label for="nombre3">Tercer nombre</label>
-                                                    <input type="text" name="nombre3" class="form-control" onkeypress="return validaL(event)" maxlength="15">
+                                                    <input type="text" id="nombre3" name="nombre3" class="form-control" onkeypress="return validaL(event)" maxlength="15">
                                                 </div>
                                             </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
@@ -179,13 +179,13 @@
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label for="apellido2">Segundo apellido</label>
-                                                                <input type="text" name="apellido2" class="form-control" onkeypress="return validaL(event)" maxlength="15">
+                                                                <input type="text" id="apellido2" name="apellido2" class="form-control" onkeypress="return validaL(event)" maxlength="15">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label for="apellido3">Apellido de casada</label>
-                                                                <input type="text" name="apellido3" class="form-control" onkeypress="return validaL(event)" maxlength="15">
+                                                                <input type="text" id="apellido3" name="apellido3" class="form-control" onkeypress="return validaL(event)" maxlength="15">
                                                             </div>
                                                         </div>
                                         </div>
@@ -370,25 +370,25 @@
                                                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label for="nombref">Nombres de familiar *</label>
-                                                                <input type="text" id="nombref" name="nombref" maxlength="30" class="form-control" onkeypress="return validaL(event)">
+                                                                <input type="text" id="nombref" maxlength="30" class="form-control" onkeypress="return validaL(event)">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label for="apellidof">Apellidos de familiar *</label>
-                                                                <input type="text" id="apellidof" name="apellidof" maxlength="30" class="form-control" onkeypress="return validaL(event)">
+                                                                <input type="text" id="apellidof" maxlength="30" class="form-control" onkeypress="return validaL(event)">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-1 col-md-1 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label for="edad">Edad</label>
-                                                                <input type="text" maxlength="3" id="edad" name="edad" class="form-control" onkeypress="return valida(event)">
+                                                                <input type="text" maxlength="3" id="edad" class="form-control" onkeypress="return valida(event)">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label>Parentezco</label>
-                                                                <select name="parentezco" id="parentezco" class="form-control">
+                                                                <select id="parentezco" class="form-control">
                                                                     <option value="Padre">Padre</option>
                                                                     <option value="Madre">Madre</option>
                                                                     <option value="Hermano">Hermano</option>
@@ -401,7 +401,7 @@
                                                             <label for="telefonof">Teléfono de familiar</label>
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">502</i></span>
-                                                                <input type="text" id="telefonof" name="telefonof" class="form-control" maxlength="8" onkeypress="return valida(event)">
+                                                                <input type="text" id="telefonof" class="form-control" maxlength="8" onkeypress="return valida(event)">
                                                             </div>
                                                             
                                                         </div>
@@ -409,7 +409,7 @@
                                                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label for="ocupacion">Ocupación</label>
-                                                                <input type="text" id="ocupacion" name="ocupacion" maxlength="40" class="form-control" onkeypress="return validaL(event)">
+                                                                <input type="text" id="ocupacion" maxlength="40" class="form-control" onkeypress="return validaL(event)">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
@@ -460,24 +460,22 @@
                             <!--Datos Acaemicos -->
                                             <div class="tab-pane p-t-10 fade" id="academico">
                                                 <div class="row">
-                                                    <div class="col-lg-8 col-md-12 col-sm-12">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
                                                         <div class="card-box">
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                <div class="form-group ">
-                                                                    <label for="">Datos Academicos</label>
-                                                                </div>
+                                                                    <h4>DATOS ACADEMICOS</h4>
                                                             </div>
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
                                                                     <div class="form-group">
                                                                         <label for="titulo">Título *</label>
-                                                                        <input type="text" id="titulo" name="titulo" maxlength="100" class="form-control" onkeypress="return validaL(event)">
+                                                                        <input type="text" id="titulo" maxlength="100" class="form-control" onkeypress="return validaL(event)">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
                                                                     <div class="form-group">
                                                                         <label for="establecimiento">Establecimiento *</label>
-                                                                        <input type="text" name="establecimiento" maxlength="100" id="establecimiento" class="form-control" onkeypress="return validaL(event)">
+                                                                        <input type="text" maxlength="100" id="establecimiento" class="form-control" onkeypress="return validaL(event)">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -486,7 +484,7 @@
                                                                     <label for="duracion">Duración *</label>
                                                                     <div class="form-group">
                                                                         <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
-                                                                            <input type="text" name="duracion" id="duracion" maxlength="3" class="form-control" onkeypress="return valida(event)">
+                                                                            <input type="text" id="duracion" maxlength="3" class="form-control" onkeypress="return valida(event)">
                                                                         </div> 
                                                                         <div class="col-lg-7 col-md-4 col-sm-6 col-xs-12">
                                                                             <select id="priodo" class="form-control">
@@ -500,7 +498,7 @@
                                                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                                     <label for="nivel">Nivel</label>
                                                                     <div class="form-group">
-                                                                        <select name="idnivel" id="idnivel" class="form-control selectpicker" data-live-search="true" >
+                                                                        <select id="idnivel" class="form-control selectpicker" data-live-search="true" >
                                                                             @foreach($nivelacademico as $depa)
                                                                             <option value="{{$depa->idnivel}}">{{$depa->nombrena}}</option>
                                                                             @endforeach
@@ -516,7 +514,7 @@
                                                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                                     <div class="form-group ">
                                                                         <label for="fsalida">Fecha de salida</label>
-                                                                        <input type="text" id="dato3" name="fsalida" class="form-control">
+                                                                        <input type="text" id="dato3" class="form-control">
                                                                     </div>
                                                                 </div> 
                                                             </div>
@@ -524,7 +522,7 @@
                                                                 <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                                                                     <label>País de origen *</label>
                                                                     <div class="form-group">
-                                                                        <select id="idpaisPA" name="idpaisPA" class="form-control selectpicker" data-live-search="true">
+                                                                        <select id="idpaisPA" class="form-control selectpicker" data-live-search="true">
                                                                             <option value="" hidden>Seleccione</option>
                                                                             @foreach($pais as $p)
                                                                                 <option value="{{$p->idpais}}">{{$p->nombre}}</option>
@@ -535,7 +533,7 @@
                                                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                                     <label>Departamento *</label>
                                                                     <div class="form-group">
-                                                                        <select name="iddepartamento1" id="iddepartamento1" class="form-control selectpicker" data-live-search="true" >
+                                                                        <select id="iddepartamento1" class="form-control selectpicker" data-live-search="true" >
                                                                             @foreach($departamento as $depa)
                                                                             <option value="{{$depa->iddepartamento}}">{{$depa->nombre}}</option>
                                                                             @endforeach
@@ -558,17 +556,16 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4 col-md-12 col-sm-12">
+                                                    <div> <label><br><br></label> </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
                                                         <div class="card-box">  
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                <div class="form-group ">
-                                                                    <label for="">Idiomas que domina</label>
-                                                                </div>
+                                                                    <h4>IDIOMAS QUE DOMINA</h4>
                                                             </div>
                                                             <div class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
                                                                     <label>Idioma</label>
-                                                                    <select name="ididioma" id="ididioma" class="form-control select2" data-live-search="true" >
+                                                                    <select id="ididioma" class="form-control selectpicker" data-live-search="true" >
                                                                         @foreach($idiomas as $cat)
                                                                             <option value="{{$cat->ididioma}}">{{$cat->nombre}}</option>
                                                                         @endforeach
@@ -578,7 +575,7 @@
                                                             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
                                                                     <label>Nivel</label>
-                                                                    <select name="nivelI" id="niveli" class="form-control">
+                                                                    <select id="niveli" class="form-control">
                                                                         <option value="" selected="selected">Seleccione</option>
                                                                         <option value="Principiante">Principiante</option>
                                                                         <option value="Intermedio">Intermedio</option>
@@ -594,7 +591,7 @@
                                                             </div>                                                            
                                                         </div>
                                                     </div>
-
+                                                    <div> <label><br><br></label> </div>
                                                     <div class="col-lg-8 col-sm-12 col-md-12 col-xs-12">
                                                         <table id="detalle6" class="table table-striped table-bordered table-condensed table-hover">
                                                             <thead>
@@ -652,45 +649,45 @@
                                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                                         <div class="form-group">
                                                             <label for="empresa">Empresa</label>
-                                                            <input type="text" id="empresa" name="empresa" maxlength="100" class="form-control" onkeypress="return validaL(event)">
+                                                            <input type="text" id="empresa" maxlength="100" class="form-control" onkeypress="return validaL(event)">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                                         <div class="form-group">
                                                             <label >Puesto</label>
-                                                            <input type="text" id="puesto5"  maxlength="50" class="form-control" onkeypress="return validaL(event)">
+                                                            <input type="text" id="puesto5" maxlength="50" class="form-control" onkeypress="return validaL(event)">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                                         <div class="form-group">
                                                             <label for="jefeinmediato">Jefe inmediato</label>
-                                                            <input type="text" id="jefeinmediato" name="jefeinmediato" maxlength="50" class="form-control" onkeypress="return validaL(event)">
+                                                            <input type="text" id="jefeinmediato" maxlength="50" class="form-control" onkeypress="return validaL(event)">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                                         <div class="form-group">
                                                             <label for="motivoretiro">Motivo de retiro</label>
-                                                            <input type="text" id="motivoretiro" name="motivoretiro" maxlength="40" class="form-control" onkeypress="return validaL(event)">
+                                                            <input type="text" id="motivoretiro" maxlength="40" class="form-control" onkeypress="return validaL(event)">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                         <label for="ultimosalario">Ultimo salario</label>
                                                         <div class="input-group">
                                                             <span class="input-group-addon">Q</i></span>
-                                                            <input type="text" id="ultimosalario" name="ultimosalario" class="form-control" onkeypress="return valida(event)">
+                                                            <input type="text" id="ultimosalario" class="form-control" onkeypress="return valida(event)">
                                                             <span class="input-group-addon">.00</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                         <div class="form-group">
                                                             <label for="fingresoex">Año de ingreso</label>
-                                                            <input id="fingresoex" type="text" maxlength="4" class="form-control" name="fingresoex" onkeypress="return valida(event)">
+                                                            <input id="fingresoex" type="text" maxlength="4" class="form-control" onkeypress="return valida(event)">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                         <div class="form-group">
                                                             <label for="fsalidaex">Año de salida</label>
-                                                            <input id="fsalidaex" maxlength="4" type="text" class="form-control" name="fsalidaex" onkeypress="return valida(event)">
+                                                            <input id="fsalidaex" maxlength="4" type="text" class="form-control" onkeypress="return valida(event)">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
@@ -737,23 +734,23 @@
                                                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                             
                                                                 <label for="nombrer">Nombre completo *</label>
-                                                                <input type="text" id="nombrer" name="nombrer" maxlength="70" class="form-control" onkeypress="return validaL(event)">
+                                                                <input type="text" id="nombrer" maxlength="70" class="form-control" onkeypress="return validaL(event)">
                                                             
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <label for="telefonor">Teléfono *</label>
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">502</i></span>
-                                                                <input type="text" id="telefonor"  maxlength="8" name="telefonor" class="form-control" onkeypress="return valida(event)">
+                                                                <input type="text" id="telefonor"  maxlength="8" class="form-control" onkeypress="return valida(event)">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                             <label for="profesion">Profesion</label>
-                                                                <input type="text" id="profesion" name="profesion" maxlength="100" class="form-control" onkeypress="return validaL(event)">
+                                                                <input type="text" id="profesion" maxlength="100" class="form-control" onkeypress="return validaL(event)">
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                                 <label>Tipo de referencia *</label>
-                                                                <select name="tiporeferencia" id="tiporeferencia" class="form-control">
+                                                                <select id="tiporeferencia" class="form-control">
                                                                     <option value="Personal">Personal</option>
                                                                     <option value="Laboral">Laboral</option>
                                                                 </select>
@@ -801,7 +798,7 @@
                                                             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
                                                                     <label for="nombre">Padecimiento</label>
-                                                                    <input type="text" id="nombre" name="nombre" maxlength="40" class="form-control" onkeypress="return validaL(event)">
+                                                                    <input type="text" id="nombre" maxlength="40" class="form-control" onkeypress="return validaL(event)">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
@@ -845,25 +842,25 @@
                                                             </div>
                                                             <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                                     <label for="acreedor">Acreedor</label>
-                                                                    <input type="text" id="acreedor" name="acreedor" class="form-control" onkeypress="return validaL(event)">
+                                                                    <input type="text" id="acreedor" class="form-control" onkeypress="return validaL(event)">
                                                             </div>
                                                             <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
                                                                 <label for="amortizacionmensual">Amortización mensual</label>
                                                                 <div class="input-group">
                                                                     <span class="input-group-addon">Q</i></span>
-                                                                    <input type="text" min="0" id="amortizacionmensual" name="amortizacionmensual" class="form-control" onkeypress="return valida(event)">
+                                                                    <input type="text" min="0" id="amortizacionmensual" class="form-control" onkeypress="return valida(event)">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                                 <label for="montodeuda">Monto deuda</label>
                                                                 <div class="input-group">
                                                                     <span class="input-group-addon">Q</i></span>
-                                                                    <input type="text" min="0" id="montodeuda" name="montodeuda" class="form-control" onkeypress="return valida(event)">
+                                                                    <input type="text" min="0" id="montodeuda" class="form-control" onkeypress="return valida(event)">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
                                                                     <label for="motivodeuda">Motivo de Deuda</label>
-                                                                    <input type="text" id="mdeuda" name="motivodeuda" maxlength="100" class="form-control" onkeypress="return validaL(event)">
+                                                                    <input type="text" id="mdeuda" maxlength="100" class="form-control" onkeypress="return validaL(event)">
                                                             </div>
                                                             <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
                                                                 <label ></label>
@@ -924,7 +921,7 @@
                                                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                                     <div class="form-group">
                                                                         <label for="forma">En que forma</label>
-                                                                        <input type="text" id="format" name="forma" class="form-control" onkeypress="return validaL(event)">
+                                                                        <input type="text" id="format" class="form-control" onkeypress="return validaL(event)">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
@@ -941,7 +938,7 @@
                                                                 <div class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
                                                                     <div class="form-group">
                                                                         <label for="motivofin">Motívo de finalización de la relación laboral en el extranjero</label>
-                                                                        <input type="text" id="motivofint" name="motivofin" class="form-control" onkeypress="return validaL(event)">
+                                                                        <input type="text" id="motivofint" class="form-control" onkeypress="return validaL(event)">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
@@ -1603,6 +1600,13 @@
                 }             
             }
 
+            function Empleadoypersona()
+            {
+                identificacion=$("#identificacion").val();
+                nombre1=$("#nombre1").val();
+                nombre2=$("#nombre2").val();
+                nombre3=$("#nombre3").val();
+            }
             function agregar1()
             {
 
