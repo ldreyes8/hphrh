@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Session\SessionManager;
 use App\Http\Requests\PersonaRequest;
 use App\Academico;
 use App\Persona;
@@ -18,6 +19,7 @@ use App\Idioma;
 use App\Licencia;
 use App\PuestoPublico;
 use App\Textranjero;
+Use Session;
 use Storage;
 use DB;
 use Carbon\Carbon;  // para poder usar la fecha y hora
@@ -59,8 +61,11 @@ class PersonaController extends Controller
         }
     }
 
-    public function create()
+    public function create(SessionManager $sessionManager)
     {
+        Session::flash('message','Llene este formulario en Navegador Chorme');
+        //$sessionManager->flash('mensaje', 'Llene este formulario en Navegador Chorme');
+
         $departamento=DB::table('departamento')->get();
         $estadocivil=DB::table('estadocivil')->get();
         $puestos=DB::table('puesto as p')
