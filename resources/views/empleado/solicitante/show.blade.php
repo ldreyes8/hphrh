@@ -84,10 +84,14 @@ input[type=text] {
                   @endif
                   <td>
                     <select class="form-control selectpicker1">
-                      <option value="{{$empleado->idcivil}}">{{$empleado->estadocivil}}</option>
+                      
                       @foreach($estadocivil as $cat)
-                            <option value="{{$cat->idcivil}}">{{$cat->estado}}</option>
-                        @endforeach
+                        @if($cat->idcivil == $empleado->idcivil)
+                          <option value="{{$cat->idcivil}}" selected>{{$cat->estado}}</option>
+                        @else
+                          <option value="{{$cat->idcivil}}">{{$cat->estado}}</option>
+                        @endif
+                      @endforeach
                     </select>
                   </td>
                   <td>{{$persona->afiliado}}</td>

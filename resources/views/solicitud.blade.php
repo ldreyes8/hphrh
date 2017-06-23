@@ -984,6 +984,7 @@
                                                                     <tbody></tbody>
                                                                 </table>
                                                             </div>
+
                                                             <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                                                 <label></label>
                                                                 <table id="detalle8" class="table table-striped table-bordered table-condensed table-hover">
