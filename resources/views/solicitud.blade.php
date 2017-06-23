@@ -78,11 +78,14 @@
                 <h5 >Campos obligatorios *</h5>
                 <p class="text-muted m-b-25 font-13"></p>
 
-                <div class="text-success" id='result'>
-                    @if(Session::has('message'))
-                        {{Session::get('message')}}
-                    @endif
-                </div>
+                
+
+                @if(Session::has('message'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      {{Session::get('message')}}
+                    </div>
+                @endif
 
                 <div id='message-error' class="alert alert-danger danger" role='alert' style="display: none">
                       <strong id="error"></strong>
@@ -981,7 +984,6 @@
                                                                     <tbody></tbody>
                                                                 </table>
                                                             </div>
-
                                                             <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                                                 <label></label>
                                                                 <table id="detalle8" class="table table-striped table-bordered table-condensed table-hover">
@@ -999,7 +1001,6 @@
                                                                     </tbody>
                                                                 </table>
                                                             </div>
-
                                                             <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                                                 <label></label>
                                                                 <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
@@ -1080,7 +1081,6 @@
         <script src="{{asset('assets/js/jquery.core.js')}}"></script>
         <script src="{{asset('assets/js/jquery.app.js')}}"></script>
         <script src="{{asset('assets/js/bootstrap-select.min.js')}}"></script>
-
 <script type="text/javascript">
     
       $(document).ready(function() {
@@ -1403,7 +1403,6 @@
                         }
                     }
                 });
-               
             });
         //variables 
             var cont=0;
