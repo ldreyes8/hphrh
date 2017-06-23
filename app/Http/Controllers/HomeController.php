@@ -178,6 +178,34 @@ class HomeController extends Controller
         ->where('emp.idempleado','=',$usuario->idempleado)  
         ->get();
 
-        return view("empleado.empleado.index")->with("empleado",$empleado);
+        $departamento=DB::table('departamento')->get();
+        $estadocivil=DB::table('estadocivil')->get();
+
+        return view("empleado.empleado.index",["departamento"=>$departamento,"estadocivil"=>$estadocivil,"empleado"=>$empleado]);
+
+        //return view("empleado.empleado.index")->with("empleado",$empleado,"estadocivil",$estadocivil);
+    }
+
+    public function listardgenerales()
+    {
+         $usuario = DB::table('users as U')
+        ->join('persona as per','U.identificacion','=','per.identificacion')
+        ->join('empleado as emp','per.identificacion','=','emp.identificacion')
+        ->select('emp.idempleado')
+        ->where('U.id','=',Auth::user()->id)
+        ->first();
+
+        //(DB::raw('DATE_FORMAT(pa.fingreso,"%d/%m/%Y") as fingreso'))
+
+
+
+        $empleado = DB::table('empleado as emp')
+        ->join('persona as per','emp.identificacion','=','per.identificacion')
+        ->join('estadocivil as ec','emp.idcivil','=','ec.idcivil')
+        ->select('per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','per.apellido3',DB::raw('DATE_FORMAT(per.fechanac, "%d/%m/%Y") as fechanac'),'per.barriocolonia','per.genero','emp.afiliacionigss','emp.numerodependientes','emp.aportemensual','emp.vivienda','emp.alquilermensual','emp.otrosingresos','emp.pretension','emp.nit','per.identificacion','ec.estado as estadocivil')
+        ->where('emp.idempleado','=',$usuario->idempleado)  
+        ->first();
+
+        return response()->json($empleado);
     }
 }

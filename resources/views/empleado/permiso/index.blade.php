@@ -104,7 +104,7 @@
                     
 
                     <div class="col-lg-6 col-md-3 col-sm-3 col-xs-12">
-                        <div><label>Concurrencia</label></div>
+                        <div><label>Recurrente</label></div>
                         <select name="concurrencia" class="form-control" id="concurrencia">
                             <option value="No">No</option>
                             <option value="Si">Si</option>

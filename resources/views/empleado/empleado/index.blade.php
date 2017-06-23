@@ -73,6 +73,7 @@
 
 </div>
 <div class="col-lg-12">
+    <input type="hidden" name="" id="valgenero">
     <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -85,42 +86,42 @@
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <label>Nombre1</label>
-                                <input class="form-control" id="titulo" name="titulo">
+                                <input class="form-control" id="nombre1" name="nombre1">
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <label>Nombre2</label>
-                                <input class="form-control" id="titulo" name="titulo">
+                                <input class="form-control" id="nombre2" name="titulo">
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <label>Nombre3</label>
-                                <input class="form-control" id="titulo" name="titulo">
+                                <input class="form-control" id="nombre3" name="titulo">
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <label>Apellido1</label>
-                                <input class="form-control" id="titulo" name="titulo">
+                                <input class="form-control" id="apellido1" name="titulo">
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <label>Apellido2</label>
-                                <input class="form-control" id="titulo" name="titulo">
+                                <input class="form-control" id="apellido2" name="titulo">
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <label>Apellido3</label>
-                                <input class="form-control" id="titulo" name="titulo">
+                                <input class="form-control" id="apellido3" name="titulo">
                             </div>
                         </div>                                          
                         <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
@@ -134,6 +135,27 @@
                                 @endif  
                                 </select>
                             </div>                                                
+                        </div>
+
+                        <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="fechanac">Fecha de nacimiento *</label>
+                                <input id="fechanac" type="text" class="form-control" name="fechanac">
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label>Estado civil</label>
+                                <select name="idcivil" class="form-control " data-live-search="true">
+                                    @if (isset($estadocivil))
+                                        @foreach($estadocivil as $cat)
+                                            <option value="{{$cat->idcivil}}">{{$cat->estado}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
                         </div>   
 
                         <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
@@ -152,8 +174,8 @@
                         <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
                             <label>Genero</label>
                             <div class="form-group">
-                                <label ><input type="radio" name="genero" value="M">Masculino</label>
-                                <label ><input type="radio" name="genero" value="F">Femenino</label>
+                                <label ><input type="radio" name="genero" value="M" id="genero">Masculino</label>
+                                <label ><input type="radio" name="genero" value="F" id="genero">Femenino</label>
                             </div>
                         </div>
                     </form>
@@ -199,13 +221,41 @@
 
         <script>
             jQuery(document).ready(function () {
+                var valgenero ;
+                valgenero = $('#genero').val();
+                
+                console.log(valgenero);
+
                 $('#btnAgregar').click(function(){
-                $('#inputTitle').html("Agregar información personal");
-                $('#formAgregar').trigger("reset");
-                $('#btnGuardar').val('add');
-                $('#formModal').modal('show');
+                    //var idacad=$(this).val();
+                    var miurl="listardgenerales";
+                    $.get(miurl, function(data){
+                        console.log(data);
+                        $('#nombre1').val(data.nombre1);
+                        $('#nombre2').val(data.nombre2);
+                        $('#nombre3').val(data.nombre3);
+                        $('#apellido1').val(data.apellido1);
+                        $('#apellido2').val(data.apellido2);
+                        $('#apellido3').val(data.apellido3);
+                        $('#barriocolonia').val(data.barriocolonia);
+                        $('#fechanac').val(data.fechanac);
+
+                        //$('#pidmunicipio option:selected').val(data.idmunicipio);
+                        //$('#pidmunicipio option:selected').text(data.nombre);
+                        //$('#idnivel').val(data.idnivel);
+                        //$('#periodo').val(data.periodo);
+
+                        //$('#idpaisPA option:selected').val(data.idpais);
+                        //$('#idpaisPA option:selected').text(data.nompais);
+
+                        $('#inputTitle').html("Modificar información academica");
+                        $('#formModal').modal('show');
+                        $('#btnGuardar').val('update');
+                        $('loading').modal('hide');
+
+                    });
+                });
             });
-        });
         </script>
 @endsection
 

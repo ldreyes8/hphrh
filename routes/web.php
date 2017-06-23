@@ -101,6 +101,8 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('galeria','UController@galeria');
 	Route::get('buscar_personal/{dato?}', 'UController@buscar_personal');
 	Route::get('empleado','HomeController@dgenerales');
+	Route::get('listardgenerales','HomeController@listardgenerales');
+
 	//Route::get('buscar_usuarios/{pais}/{dato?}', 'UController@buscar_usuarios');
 
 	//Route academico crud
