@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <label>Empleado</label>
                     <select name="idempleado" class="form-control " data-live-search="true" data-style="btn-info">
-                            <option value="{{$empleado->idempleado}}">{{$empleado->nombre1.': '.$empleado->apellido1}}</option>
+                            <option value="{{$empleado->idempleado}}">{{$empleado->nombre1.' '.$empleado->nombre2.' '.$empleado->apellido1.' '.$empleado->apellido2}}</option>
                     </select>
                 </div>                                                
             </div>
@@ -30,8 +30,14 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Afiliado al que aplica</label>
-                    <select name="idafiliado" class="form-control " data-live-search="true">
-                            <option value="{{$afiliados->idafiliado}}">{{$afiliados->nombre}}</option>
+                    <select name="idafiliado" class="form-control selectpicker" data-live-search="true">
+                        @foreach($afiliados as $af)
+                            @if($af->idafiliado == $empleado->idafiliado)
+                                <option value="{{$af->idafiliado}}" selected>{{$af->nombre}}</option>
+                            @else
+                                <option value="{{$af->idafiliado}}">{{$af->nombre}}</option>
+                            @endif
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -39,8 +45,14 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Puesto</label>
-                    <select name="idpuesto" class="form-control " data-live-search="true">
-                            <option value="{{$puestos->idpuesto}}">{{$puestos->nombre}}</option>
+                    <select name="idpuesto" class="form-control selectpicker" data-live-search="true">
+                        @foreach($puestos as $pu)
+                            @if($pu->idpuesto == $empleado->idpuesto)
+                                <option value="{{$pu->idpuesto}}" selected>{{$pu->nombre}}</option>
+                            @else
+                                <option value="{{$pu->idpuesto}}">{{$pu->nombre}}</option>
+                            @endif
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -50,7 +62,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Caso</label>
-                    <select name="idcaso" class="form-control " data-live-search="true" data-style="btn-info">
+                    <select name="idcaso" class="form-control selectpicker" data-live-search="true" >
                         @foreach($caso as $co)
                             <option value="{{$co->idcaso}}">{{$co->nombre}}</option>
                         @endforeach
