@@ -2,7 +2,7 @@
     <div class="panel-heading">
         <button class="btn btn-success" id="btnAgregar"><i class="icon-user icon-white" ></i> Agregar estudios</button>
     </div>
-  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
     <div class="table-responsive" id="tabla">
       <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItems">
         <thead>

@@ -58,25 +58,35 @@ class Pprueba extends Controller
 
     public function update($id)
     {
-        $puestos=DB::table('puesto as p')
+        /*$puestos=DB::table('puesto as p')
         ->join('persona as per','p.idpuesto','=','per.idpuesto')
         ->join('empleado as em','per.identificacion','=','em.identificacion')
         ->select('p.idpuesto','p.nombre')
         ->where('em.idempleado','=',$id)
-        ->first();
+        ->first();*/
 
         $empleado=DB::table('empleado as e')
-        ->join('persona as ec','e.identificacion','=','ec.identificacion')
-        ->select('e.idempleado','ec.nombre1','ec.apellido1')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->join('afiliado as af','af.idafiliado','=','p.idafiliado')
+        ->join('puesto as pu','pu.idpuesto','=','p.idpuesto')
+        ->select('e.idempleado','p.nombre1','p.nombre2','p.apellido1','p.apellido2','p.idafiliado','af.nombre as naf','p.idpuesto','pu.nombre as npu')
         ->where('e.idempleado','=',$id)
         ->first();
 
-        $afiliados=DB::table('afiliado as a')
+        /*$afiliados=DB::table('afiliado as a')
         ->join('persona as per','a.idafiliado','=','per.idafiliado')
         ->join('empleado as em','per.identificacion','=','em.identificacion')
         ->select('a.idafiliado','a.nombre')
-        ->where('em.idempleado','=',$id)
-        ->first();
+        //->where('em.idempleado','=',$id)
+        ->get();*/
+
+        $afiliados=DB::table('afiliado as a')
+        ->orderBy('a.nombre','asc')
+        ->get();
+
+        $puestos=DB::table('puesto as p')
+        ->orderBy('p.nombre','asc')
+        ->get();
 
         /*$jefesinmediato=DB::table('jefesinmediato as ji')
         ->join('persona as per','ji.identificacion','=','per.identificacion')
