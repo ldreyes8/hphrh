@@ -15,7 +15,7 @@ $(document).ready(function(){
         $("#divHMF").show();
         $("#divENF").hide();                   
     }
-    if(x != "5" && x != "4" && x != "9")
+    if(x != "5" && x != "4" && x != "9" && x != "11")
     {
         $("#divJ").hide();
         $("#divCHM").show();
@@ -47,7 +47,15 @@ $(document).ready(function(){
             $("#divHMF").show();
             $("#divENF").hide();                   
         }
-    });   
+
+       
+        if(x === "11")
+        {
+            $("#divJ").hide();
+            $("#divCHM").hide();
+            $("#divHMF").hide();
+            $("#divENF").hide();
+        }    });   
     
     $("#btndatomar").click(function(e){
 

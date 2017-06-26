@@ -3,10 +3,6 @@
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 		<h3>Datos generales&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success" id="btnAgregar"><i class="icon-user icon-white" ></i> Agregar o editar datos</button></h3>
-
-
-
-
 	</div>
 </div>
 <div><br></div>
@@ -49,22 +45,33 @@
                     <th>Aporte Mensual</th>
                     <th>Vivienda</th>
                 </thead>
-                @foreach ($empleado as $em)
-                <tr>
-                    <td>{{$em->identificacion}}</td>
-                    <td>{{$em->nit}}</td>
-                    <td>{{$em->nombre1.' '.$em->nombre2.' '.$em->nombre3.' '.$em->apellido1.' '.$em->apellido2.' '.$em->apellido3}}</td>
-                    <td>{{$em->estadocivil}}</td>
-                    <td>{{$em->afiliacionigss}}</td>
-                    <td>{{$em->genero}}</td>
-                    <td>{{$em->barriocolonia}}</td>
-                    <td>{{$em->fechanac}}</td>
-                    <td>{{$em->numerodependientes}}</td>
-                    <td>{{$em->aportemensual}}</td>
-                    <td>{{$em->vivienda}}</td>
+                <tbody id="per" name="per">
+                    @if(isset($empleado))
+                        @for ($i=0;$i <= count($empleado);$i++)
+                            <tr class="even gradeA" id="empleado{{$empleado[$i]->identificacion}}">
+                                <td>{{$empleado[$i]->identificacion}}</td>
+                                <td>{{$empleado[$i]->nit}}</td>
+                                <td>{{$empleado[$i]->nombre1.' '.$empleado[$i]->nombre2.' '.$empleado[$i]->nombre3.' '.$empleado[$i]->apellido1.' '.$empleado[$i]->apellido2.' '.$empleado[$i]->apellido3}}</td>
+                                <td>{{$empleado[$i]->estadocivil}}</td>
+                                <td>{{$empleado[$i]->afiliacionigss}}</td>
+                                    @if ($empleado[$i]->genero == "M")
+                                        <td>Masculino</td>
+                                    @endif
+
+                                    @if ($empleado[$i]->genero == "F")
+                                        <td>Femenino</td>
+                                    @endif
+
+                                <td>{{$empleado[$i]->barriocolonia}}</td>
+                                <td>{{$empleado[$i]->fechanac}}</td>
+                                <td>{{$empleado[$i]->numerodependientes}}</td>
+                                <td>{{$empleado[$i]->aportemensual}}</td>
+                                <td>{{$empleado[$i]->vivienda}}</td>
                     
-                </tr>
-                @endforeach
+                            </tr>
+                        @endfor
+                    @endif
+                </tbody>
             </table>
         </div>
     </div>
@@ -83,6 +90,23 @@
                 </div>
                 <div class="modal-body">
                     <form role="form" id="formAgregar">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label for="identificacion">Identicación *</label>
+                            <div class="form-group">
+                                <input type="text" name="identificacion" id="identificacion" maxlength="13" onkeypress="return valida(event)" class="form-control">
+                                <!--<div class="text-danger" id="error_identi">{{$errors->formulario->first('identificacion')}}</div>-->
+                                @if($errors->has('identificacion'))
+                                    <span style="color: red;">{{$errors->first('identificacion')}}</span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="nit">Nit </label>
+                                <input type="text" name="nit" id="nit" class="form-control" maxlength="9">
+                            </div>
+                        </div>
+
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <label>Nombre1</label>
@@ -123,7 +147,9 @@
                                 <label>Apellido3</label>
                                 <input class="form-control" id="apellido3" name="titulo">
                             </div>
-                        </div>                                          
+                        </div>
+
+                        <!--                                          
                         <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
                             <div class="form-group">
                                 <label>Departamento</label>
@@ -139,6 +165,15 @@
 
                         <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
                             <div class="form-group">
+                                <label>Municipio</label>
+                                {!! Form::select('pidmunicipio',['placeholder'=>'Selecciona'],null,['id'=>'pidmunicipio','class'=>'form-control']) !!}
+                            </div>
+                        </div>
+
+                        -->
+
+                        <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                            <div class="form-group">
                                 <label for="fechanac">Fecha de nacimiento *</label>
                                 <input id="fechanac" type="text" class="form-control" name="fechanac">
                             </div>
@@ -148,34 +183,69 @@
                         <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
                             <div class="form-group">
                                 <label>Estado civil</label>
-                                <select name="idcivil" class="form-control " data-live-search="true">
+                                <select name="idcivil" class="form-control" id="idcivil" data-live-search="true">
                                     @if (isset($estadocivil))
-                                        @foreach($estadocivil as $cat)
+                                    @foreach($estadocivil as $cat)
+                                        @if($cat->idcivil == $em->idcivil)                 
+                                            <option value="{{$cat->idcivil}}" selected>{{$cat->estado}}</option>
+                                        @else
                                             <option value="{{$cat->idcivil}}">{{$cat->estado}}</option>
-                                        @endforeach
+                                        @endif                                        
+                                    @endforeach
                                     @endif
                                 </select>
                             </div>
                         </div>   
 
                         <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                            <label>Genero</label>
                             <div class="form-group">
-                                <label>Municipio</label>
-                                {!! Form::select('pidmunicipio',['placeholder'=>'Selecciona'],null,['id'=>'pidmunicipio','class'=>'form-control']) !!}
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group">
-                                <label for="barriocolonia">Dirección completa *</label>
-                                <input type="text-area" maxlength="100" name="barriocolonia" id="barriocolonia" class="form-control">
+                                <label ><input type="radio" name="genero" value="M" id="generoM">Masculino</label>
+                                <label ><input type="radio" name="genero" value="F" id="generoF">Femenino</label>
                             </div>
                         </div>
 
                         <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
-                            <label>Genero</label>
                             <div class="form-group">
-                                <label ><input type="radio" name="genero" value="M" id="genero">Masculino</label>
-                                <label ><input type="radio" name="genero" value="F" id="genero">Femenino</label>
+                                <label for="numerodependientes">Dependientes</label>
+                                <input type="number" name="numerodependientes" id="dependientes" min="0" class="form-control" onkeypress="return valida(event)">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="aportemensual">Aporte mensual</label>
+                                <input type="number" name="aportemensual" id="apmensual" min="0" class="form-control" onkeypress="return valida(event)">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label>Vivienda</label>
+                                <select name="vivienda" class="form-control">
+                                    <option value="casa propia">casa propia</option>
+                                    <option value="vive con familiares">vive con familiares</option>
+                                    <option value="Alquila">Alquila</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                            <label for="alquilermensual">Alquiler mensual</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">Q</i></span>
+                                <input type="text" min="0" name="alquilermensual" id="alquilermensual" class="form-control" onkeypress="return valida(event)">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                            <label for="otrosingresos">Otros ingresos</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">Q</i></span>
+                                <input type="text" min="0" name="otrosingresos" id="otrosingresos" class="form-control" onkeypress="return valida(event)">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="barriocolonia">Dirección completa *</label>
+                                <input type="text-area" maxlength="100" name="barriocolonia" id="barriocolonia" class="form-control">
                             </div>
                         </div>
                     </form>
@@ -183,7 +253,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-primary" id="btnGuardar">Guardar</button>
-                    <input type="hidden" name="idacad" id="idacad" value="0"/>
+                    <input type="hidden" name="iddg" id="iddg" value="0"/>
                 </div>
             </div>
         </div>
@@ -221,16 +291,15 @@
 
         <script>
             jQuery(document).ready(function () {
-                var valgenero ;
-                valgenero = $('#genero').val();
                 
-                console.log(valgenero);
 
                 $('#btnAgregar').click(function(){
                     //var idacad=$(this).val();
                     var miurl="listardgenerales";
                     $.get(miurl, function(data){
                         console.log(data);
+                        $('#identificacion').val(data.identificacion);
+                        $('#nit').val(data.nit);
                         $('#nombre1').val(data.nombre1);
                         $('#nombre2').val(data.nombre2);
                         $('#nombre3').val(data.nombre3);
@@ -239,6 +308,21 @@
                         $('#apellido3').val(data.apellido3);
                         $('#barriocolonia').val(data.barriocolonia);
                         $('#fechanac').val(data.fechanac);
+                        $('#genero').val(data.genero);
+                        $('#dependientes').val(data.numerodependientes);
+                        $('#apmensual').val(data.aportemensual);
+                        $('#alquilermensual').val(data.alquilermensual);
+                        $('#otrosingresos').val(data.otrosingresos);
+
+                        if(data.genero == "M")
+                        {
+                            $("input[name=genero][value='M']").prop("checked",true);
+                        }
+
+                        if(data.genero == "F")
+                        {
+                            $("input[name=genero][value='F']").prop("checked",true);
+                        }
 
                         //$('#pidmunicipio option:selected').val(data.idmunicipio);
                         //$('#pidmunicipio option:selected').text(data.nombre);
@@ -248,11 +332,100 @@
                         //$('#idpaisPA option:selected').val(data.idpais);
                         //$('#idpaisPA option:selected').text(data.nompais);
 
-                        $('#inputTitle').html("Modificar información academica");
+                        $('#inputTitle').html("Información general");
                         $('#formModal').modal('show');
                         $('#btnGuardar').val('update');
                         $('loading').modal('hide');
+                    });
+                });
 
+                $("#btnGuardar").click(function(e){
+
+                
+
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                        }
+                    });
+                    var formData = {
+                        identificacion: $("#identificacion").val(),
+                        nit: $("#nit").val(),
+                        nombre1: $("#nombre1").val(),           
+                        nombre2: $("#nombre2").val(),
+                        nombre3: $('#nombre3').val(),
+                        apellido1: $('#apellido1').val(),
+                        apellido2: $('#apellido2').val(),
+                        apellido3: $('#apellido3').val(),
+
+                        fechanac : $("#fechanac").val(),
+                        estadocivil: $("#estadocivil").val(),
+                        genero: $("#genero").val(),
+                        dependientes: $("#dependientes").val(),
+                        aportemensual: $("#aportemensual").val(),
+                        vivienda: $("#vivienda").val(),
+                        alquilermensual: $("#alquilermensual").val(),
+                        otrosingresos: $("#otrosingresos").val(),
+                        barriocolonia: $("#barriocolonia").val(),
+                    };
+                    
+                    nivel=$("#idnivel option:selected").text();
+                    var state=$("#btnGuardar").val();
+
+                    var type;
+                    var idacad=$('#iddg').val();
+                    var my_url;
+
+                    if (state == "update") 
+                    {
+                        type="PUT";
+                        my_url = 'updatedgenerales/'+idacad;
+                    }
+                    if (state == "add") 
+                    {
+                        type="POST";
+                        my_url = 'agregaracademico';
+                    }
+                    
+                    var fingreso12=$("#fechaingreso").val();
+                    var fsalida12=$("#fechasalida").val();
+
+                    $.ajax({
+                        type: type,
+                        url: my_url,
+                        data: formData,
+                        dataType: 'json',
+
+                        success: function (data) {
+                            var item = '<tr class="even gradeA" id="persona'+data.identificacion+'">';
+                                item +='<td>'+data.nombre1+data.nombre2+data.nombre3+'</td>'+'<td>' +data.establecimiento+ '</td>'+'<td>'+data.duracion+' '+data.periodo+'</td>'+'<td>'+nivel+'</td>'+'<td>'+fingreso12+'</td>'+'<td>'+fsalida12+'</td>';
+                            if (state == "add")
+                            {
+                                $('#productsA').append(item);
+                            }
+                            if (state == "update")
+                            {
+                                $("#persona"+idacad).replaceWith(item);
+                            }
+
+                            $('#formAgregar').trigger("reset");
+                            $('#formModal').modal('hide');
+                            
+                        },
+                        error: function (data) {
+                            $('#loading').modal('hide');
+                            var errHTML="";
+                            if((typeof data.responseJSON != 'undefined')){
+                                for( var er in data.responseJSON){
+                                    errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                                }
+                            }else{
+                                errHTML+='<li>Error</li>';
+                            }
+                            
+                            $("#erroresContent").html(errHTML); 
+                            $('#erroresModal').modal('show');
+                        }
                     });
                 });
             });

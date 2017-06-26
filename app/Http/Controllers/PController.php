@@ -351,6 +351,14 @@ class PController extends Controller
               $vacacion->totaldias = $days; 
               $vacacion->update();
             }
+
+            if($idtipoausencia === "11")
+            {
+              $vacacion = Vacaciones::findOrFail($idausencia);
+              $vacacion->totalhoras = $vac->horas;
+              $vacacion->totaldias = 1; 
+              $vacacion->update();              
+            }
           }
 
             Mail::send('emails.envio',['calculo' => $calculo],function($msj) use ($request){
