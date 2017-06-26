@@ -31,15 +31,23 @@ class Pprueba extends Controller
     	{
             $query=trim($request->get('searchText'));
             $empleado=DB::table('empleado as e')
-            ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
             ->join('status as st','e.idstatus','=','st.idstatus')
             ->join('persona as p','e.identificacion','=','p.identificacion')
-            ->join('nomytras as nt','e.idempleado','=','nt.idempleado')
+
+            /*->join('nomytras as nt','e.idempleado','=','nt.idempleado')
             ->join('puesto as po','nt.idpuesto','=','po.idpuesto')
-            ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
-            ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.apellido1','p.apellido2','st.statusemp as statusn','po.nombre as npo','af.nombre as naf','nt.salario as sal')
+            ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')*/
+
+            ->join('nomytras as nt','e.idempleado','=','nt.idempleado')
+        ->join('puesto as po','nt.idpuesto','=','po.idpuesto')
+        ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
+
+            ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.apellido1','p.apellido2','st.statusemp as statusn','po.nombre as npo','af.nombre as naf','nt.salario as sal',DB::raw('max(nt.idnomytas) as idnomytas'))
+            
             ->where('e.idstatus','=',9)
+
             ->where('p.nombre1','LIKE','%'.$query.'%')
+            ->groupBy('e.idempleado')  
             ->orderBy('e.idempleado','asc')
             //->orderBy('e.idempleado','desc')
             ->paginate(19);

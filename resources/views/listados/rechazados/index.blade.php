@@ -32,6 +32,16 @@
                  <td>
                  <a href="{{URL::action('Rechazados@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
                  <a href="{{URL::action('Pprueba@update',$em->idempleado)}}"><button class="btn btn-primary">Contratar</button></a>
+                 <a> 
+                    <button id="btnrechazo" 
+                    onclick='
+                        if (!confirm("ADVERTENCIA!! Eliminara todos los registros de esta Persona")){return false;}
+                        else 
+                        {
+                            location.href=("{{URL::action("Rechazados@eliminar",$em->identificacion)}}");
+                        }
+                        ' 
+                    class="btn btn-danger">Eliminar</button></a>
                  </td>
                  </tr>
                  @endforeach
@@ -40,5 +50,10 @@
          {{$empleado->render()}}
    </div>
 </div>
+@endsection
+@section('fin')
+    @parent
+
+    <meta name="_token" content="{!! csrf_token() !!}" />
 @endsection
 

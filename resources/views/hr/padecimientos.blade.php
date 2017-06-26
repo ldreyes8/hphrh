@@ -35,23 +35,21 @@
               <h4 class="modal-title" id="inputTitleP"></h4>
           </div>
           <div class="modal-body">
-             	<form role="form" id="formAgregarP">
-                @if (isset($empleado))
-                  <input type="hidden" id="idempleado" name="idempleado" value="{{$empleado->idempleado}}">
-                  <input type="hidden" id="identificacion" name="identificacion" value="{{$empleado->identificacion}}">
-                  
-                @endif
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                  <div class="form-group ">
-                    <h6>Ingrese los padecimientos que tenga o haya tenido en los últimos 6 meses.</h6>
-                  </div>
+            <form role="form" id="formAgregarP">
+              @if (isset($empleado))
+                <input type="hidden" id="idempleado" name="idempleado" value="{{$empleado->idempleado}}">
+                <input type="hidden" id="identificacion" name="identificacion" value="{{$empleado->identificacion}}">
+              @endif
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group ">
+                  <h6>Ingrese los padecimientos que tenga o haya tenido en los últimos 6 meses.</h6>
                 </div>
-                  <div class="form-group">
-                    <label for="nombr">Padecimiento</label>
-                    <input type="text" id="nombrep" name="nombrep" maxlength="40" class="form-control" onkeypress="return validaL(event)">
-                  
-                </div>           
-              </form>
+              </div>
+              <div class="form-group">
+                <label for="nombr">Padecimiento</label>
+                <input type="text" id="nombrep" name="nombrep" maxlength="40" class="form-control" onkeypress="return validaL(event)">
+              </div>           
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

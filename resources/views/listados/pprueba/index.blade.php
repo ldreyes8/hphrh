@@ -34,7 +34,19 @@
                  <td>
                  <a href="{{URL::action('Confirmacion@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
                  <a href="{{URL::action('Confirmacion@update',$em->idempleado)}}"><button class="btn btn-primary">Confirmar</button></a>
-                 <a href="{{URL::action('SController@rechazo',$em->idempleado)}}"><button class="btn btn-danger">Rechazar</button></a>
+
+                 <a> 
+                    <button id="btnrechazo" 
+                    onclick='
+                        if (!confirm("ADVERTENCIA!! Finalizara el periodo de esta Persona")){return false;}
+                        else 
+                        {
+                            location.href=("{{URL::action("SController@rechazoPP",$em->idempleado)}}");
+                        }
+                        ' 
+                    class="btn btn-danger">Rechazar</button></a>
+
+
                  </td>
                  </tr>
 
