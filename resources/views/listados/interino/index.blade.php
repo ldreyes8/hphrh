@@ -31,7 +31,7 @@
                  <td>{{$em->statusn}}</td>
                  <td>
                  <a href="{{URL::action('Interino@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
-                 <a href="{{URL::action('SController@rechazo',$em->idempleado)}}"><button class="btn btn-primary">Fin Iterinato</button></a>
+                 <a href="{{URL::action('SController@rechazoPP',$em->idempleado)}}"><button class="btn btn-primary">Fin Iterinato</button></a>
                  </td>
                  </tr>
                  @endforeach

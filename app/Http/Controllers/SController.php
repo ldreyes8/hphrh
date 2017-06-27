@@ -270,6 +270,17 @@ class SController extends Controller
         }
         return Redirect::to('empleado/solicitante');
     }
+
+    public function rechazoPP($idE)
+    {
+
+            $st=Empleado::find($idE);
+            $st-> idstatus='10';
+            $st->update();
+
+        return Redirect::to('listados/pprueba');
+    }
+
     public function upt (Request $request)
     {
         $id = $request->get('idempleado');

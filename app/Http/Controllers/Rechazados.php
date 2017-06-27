@@ -9,6 +9,8 @@ use Storage;
 use DB;
 use Carbon\Carbon; //para poder usar la fecha y hora
 use Response;
+
+use App\Persona;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
@@ -139,5 +141,14 @@ class Rechazados extends Controller
       
         return view('listados.rechazados.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos]);
         //return view('listados.empleado.show',["empleado"=>$empleado]);
+    }
+
+    public function eliminar($id)
+    {
+
+        $cre = Persona::findOrFail($id); 
+            Persona::destroy($id); 
+        return Redirect::to('listados/rechazados');
+        //return view('listados.rechazados.index');
     }
 }
