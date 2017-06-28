@@ -86,6 +86,7 @@ Route::group(['prefix'=>'empleado'],function(){
 
 	Route::get('rechazo/{id}/{ids?}','SController@rechazo');
 	Route::get('rechazoPP/{id}','SController@rechazoPP');
+	Route::get('rechazoPI/{id}','SController@rechazoPI');
 	
 	Route::post('solicitante/upt/','SController@upt');// agregar una observacion 
 	Route::post('solicitante/upsolicitud','PersonaController@upsolicitud');//update de la solicitud para precalificacion
