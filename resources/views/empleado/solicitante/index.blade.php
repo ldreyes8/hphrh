@@ -47,7 +47,7 @@
                         <a > 
                         <button id="btnrechazo" 
                         onclick='
-                        if (!confirm("ADVERTENCIA!! rechazara esta solicitud de empleo")){return false;}
+                        if (!confirm("ADVERTENCIA!! rechazará esta solicitud de empleo")){return false;}
                         else 
                         {
                             location.href=("{{url("empleado/rechazo",array("id"=>$em->idempleado,"ids"=>$em->idstatus))}}");

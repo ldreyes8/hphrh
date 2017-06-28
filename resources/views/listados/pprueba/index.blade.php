@@ -38,7 +38,7 @@
                  <a> 
                     <button id="btnrechazo" 
                     onclick='
-                        if (!confirm("ADVERTENCIA!! Finalizara el periodo de esta Persona")){return false;}
+                        if (!confirm("ADVERTENCIA!! Finalizara el periodo de prueba ha esta Persona")){return false;}
                         else 
                         {
                             location.href=("{{URL::action("SController@rechazoPP",$em->idempleado)}}");
