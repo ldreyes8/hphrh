@@ -335,7 +335,7 @@
                                                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                            <div class="form-group">
                                                                 <label for="correo">Email</label>
-                                                                <input type="email" name="correo" maxlength="40" class="form-control">
+                                                                <input type="email" id="correo" name="correo" maxlength="40" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
@@ -1139,6 +1139,7 @@
                     barriocolonia=$("#barriocolonia").val();       
                     puesto=$("#puesto").val();
                     afiliado=$("#afiliado").val();
+                    correo=$("#correo").val();
                     if (identificacion!="" )
                         {  
                                            
@@ -1196,7 +1197,7 @@
                         }
                     else
                         {
-                            swal('Su pretensión salarial es requerida *');
+                            swal('Su pretensión salarial es importante para nosostros *');
                             return false;
                         }
                     if(puesto!="")
@@ -1215,6 +1216,15 @@
                     else
                     {
                         swal('Debe seleccionar un afiliado a aplicar');
+                        return false;
+                    }
+                    if(correo!="")
+                    {
+                        
+                    }
+                    else
+                    {
+                        swal('Debe ingresar su correo electronico');
                         return false;
                     }
                     if(idpaisPS!="")
@@ -1376,7 +1386,7 @@
 
                             //alert('Gracias por enviar su solicitud');
 
-                        }                    
+                        }                  
                 });
 
                 $('#basicwizard').bootstrapWizard({'tabClass': 'nav nav-tabs navtab-custom nav-justified bg-muted'});

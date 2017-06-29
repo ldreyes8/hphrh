@@ -26,6 +26,7 @@ use Carbon\Carbon;  // para poder usar la fecha y hora
 use Response;
 use Illuminate\Support\Collection;
 use Validator;
+use Mail;
 
 class PersonaController extends Controller
 {
@@ -95,6 +96,7 @@ class PersonaController extends Controller
         $trabE=$request->get('trabajoext');
         $paisTe=$request->get('paisTe');
         $motivofint=$request->get('finmotivo');
+        $envcorreo=$request->get('correo');
         //dd($trabE);
         $paisP = $request->get('idpaisPS');
         //dd($paisP);
@@ -148,7 +150,7 @@ class PersonaController extends Controller
                             Storage::disk('archivos')->put($file_route, file_get_contents($img->getRealPath() ) );
                             $persona-> finiquitoive=$file_route;    
                         }
-                        $persona-> correo=$request->get('correo');
+                        $persona-> correo=$envcorreo;
                         $persona-> genero=$request->get('genero');
                         $persona-> idetnia=$request->get('idetnia');
                         $persona-> idnacionalidad=$request->get('idnacionalidad');
@@ -476,6 +478,26 @@ class PersonaController extends Controller
                      //dd($persona,$empleado,$familia,$academicos,$experiencia,$referencia,$deuda,$padecimiento,$ppublico,$idioma);
                      //dd($persona,$empleado,$familia,$padecimiento);
                      //commit
+                        //Mail::send('emails.envsolicitud', function($msj){
+
+                        
+                        $calculo = array($envcorreo);
+
+                        Mail::send('emails.envsolicitud',['calculo' => $calculo], function($msj) use ($request){
+
+                            $msj->subject('Solicitud de empleo');
+                            //dd($persona-> correo);
+                            $msj->to($request->get('correo'));
+
+                            
+                        
+                          });
+
+                         /*Mail::send('emails.welcome', $data, function ($message) {
+                            $message->from('us@example.com', 'Laravel');
+
+                            $message->to('foo@example.com')->cc('bar@example.com');
+                        });*/
                         DB::commit();
                         
                     }catch (\Exception $e) 
