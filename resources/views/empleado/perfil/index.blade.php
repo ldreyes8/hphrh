@@ -4,6 +4,9 @@
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet" />        
         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/plugins/RWD-Table-Patterns/dist/css/rwd-table.min.css')}}" rel="stylesheet" type="text/css" media="screen">
+
+
 @endsection
 @section ('contenido')
 
@@ -26,7 +29,6 @@
                             @else
                                 <img  src="{{asset('fotografias/'.Auth::user()->fotoperfil)}}" class="img-circle" alt="profile-image" width="100px" height ="100px" id="fotografiaus">
                             @endif
-                    
                         </div>
                         <div class="form-group">
                             <label>Imagen</label>
@@ -36,7 +38,6 @@
                             <button type="submit" class="btn btn-primary btn-sm w-sm waves-effect m-t-10 waves-light">Guardar</button>
                         </div>
                     </div>
-
                 </div> <!-- end card-box -->
             </form>
         </div>
@@ -46,7 +47,7 @@
             <div class="p-b-10">
             
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email </label>
+                    <label for="exampleInputEmail1">Correo </label>
                     <input type="email" class="form-control" id="email" disabled name="email" placeholder="Entrar email" value="{{Auth::user()->email}}" >
                 </div>
                 <div class="form-group">
@@ -211,6 +212,8 @@
 
     <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>
+
+    
     
     <script>cargarpersona(1);   </script>
     <script>cargaracademico(1); </script>

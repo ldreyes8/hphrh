@@ -192,8 +192,8 @@
                             <a href="{{ url('/empleado/contacto')}}"class="waves-effect waves-primary"><i
                                 class="md-perm-contact-cal"></i><span>Contactos </span></a>
                             </li>
-                                <!-- <li><a href={{url('/empleado/empleado')}}>Datos Generales</a></li> -->
                              
+                        <!-- // Solicitudes___ // -->
 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
@@ -207,8 +207,88 @@
 
                                 </ul>
                             </li>
+
+
+                        <!-- // Gestiones___ // -->
+
                             
+                            @role('jefeinmediato') 
                             <li class="menu-title">Gesti&oacute;n</li>
+             
+
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Autorizaciones</span> 
+                                    <span class="menu-arrow"></span>
+                                </a>
+                                <ul class="list-unstyled">
+                                    <li class="has_sub">
+                                        <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Permisos</span> 
+                                        <span class="menu-arrow"></span>
+                                        </a>
+                                        <ul class="list-unstyled">
+                                            <li><a href="{{ url('/empleado/permisos')}}">Solicitados</a></li>
+                                            <li><a href="{{ url('/empleado/confirmado')}}">Confirmados</a></li>
+                                            <li><a href="{{ url('/empleado/rechazado')}}">Rechazados</a></li>
+          
+                                        </ul>
+                                    </li>
+                                    <li class="has_sub">
+                                        <a href="javascript:void(0);" class="waves-effect waves-primary"> <i class="fa fa-address-card-o"></i><span>Vacaciones</span> 
+                                                 <span class="menu-arrow"></span>
+                                        </a>
+                                        <ul class="list-unstyled">
+                                            <li><a href="{{ url('/empleado/vsolicitado')}}">Solicitados</a></li>
+                                            <li><a href="{{ url('/empleado/vautorizado')}}">Autorizados</a></li>
+                                            <li><a href="{{ url('/empleado/vconfirmado')}}">Confirmados</a></li>
+                                            <li><a href="{{ url('/empleado/vrechazado')}}">Rechazados</a></li>
+                                        </ul>
+                                    </li>
+
+                                
+                                </ul>
+                            </li>
+
+
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Reclutamiento</span> 
+                                    <span class="menu-arrow"></span>
+                                </a>
+                            </li>
+
+                            @endrole
+
+                        <!-- // Recurso Humano___ // -->
+
+
+                            @role('recurso') 
+
+                                <li class="menu-title">Recursos Humanos</li>
+
+
+
+                                <li>
+                                    <a href="{{ url('/empleado/perfil')}}" class="waves-effect waves-primary"><i
+                                    class="md md-insert-emoticon"></i><span>Empleados </span></a>
+                                </li>
+
+                                <li>
+                                <a href="{{ url('/empleado/contacto')}}"class="waves-effect waves-primary"><i
+                                    class="md-perm-contact-cal"></i><span>Permisos y vacaciones </span></a>
+                                </li>
+                                
+                                <li>
+                                <a href="{{ url('/empleado/contacto')}}"class="waves-effect waves-primary"><i
+                                    class="md-perm-contact-cal"></i><span>Reclutamiento </span></a>
+                                </li>
+                                <li>
+
+                                <a href="{{ url('/empleado/contacto')}}"class="waves-effect waves-primary"><i
+                                    class="md-perm-contact-cal"></i><span>Reportes</span></a>
+                                </li>
+
+
+                            @endrole
+
                             @role('recurso') 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
@@ -249,48 +329,27 @@
                             </li>
                             @endrole
 
-                            
 
-                            @role('jefeinmediato') 
-             
+                            @role('jefeinmediato')
+                                @role('reporte')
 
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Autorizaciones</span> 
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul class="list-unstyled">
-                                    <li class="has_sub">
-                                        <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Permisos</span> 
-                                        <span class="menu-arrow"></span>
-                                        </a>
-                                        <ul class="list-unstyled">
-                                            <li><a href="{{ url('/empleado/permisos')}}">Solicitados</a></li>
-                                            <li><a href="{{ url('/empleado/confirmado')}}">Confirmados</a></li>
-                                            <li><a href="{{ url('/empleado/rechazado')}}">Rechazados</a></li>
-          
-                                        </ul>
-                                    </li>
-                                    <li class="has_sub">
-                                        <a href="javascript:void(0);" class="waves-effect waves-primary"> <i class="fa fa-address-card-o"></i><span>Vacaciones</span> 
-                                                 <span class="menu-arrow"></span>
-                                        </a>
-                                        <ul class="list-unstyled">
-                                            <li><a href="{{ url('/empleado/vsolicitado')}}">Solicitados</a></li>
-                                            <li><a href="{{ url('/empleado/vautorizado')}}">Autorizados</a></li>
-                                            <li><a href="{{ url('/empleado/vconfirmado')}}">Confirmados</a></li>
-                                            <li><a href="{{ url('/empleado/vrechazado')}}">Rechazados</a></li>
-                                        </ul>
-                                    </li>
+                                <li class="menu-title">Reporte Financieros</li>
 
-                                
-                                </ul>
-                            </li>
+
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="glyphicon glyphicon-folder-open"></i> <span>Reportes</span>
+                                     <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ url('/empleado/reporteEmpleado')}}">Empleado_general</a></li>
+                                    </ul>
+                                </li>
+                                @endrole
                             @endrole
 
-                            <li class="menu-title">Administraci&oacute;n</li>
-
-
                             @role('informatica') 
+                            <li class="menu-title">Panel de control</li>
+                            
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
                                         class="md md-assignment"></i><span>Panel de control</span> 
@@ -308,21 +367,7 @@
                             @endrole
                             
 
-                            <li class="menu-title">Mas</li>
-
-                            @role('jefeinmediato')
-                                @role('reporte')
-
-                                <li class="has_sub">
-                                    <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="glyphicon glyphicon-folder-open"></i> <span>Reportes</span>
-                                     <span class="menu-arrow"></span>
-                                    </a>
-                                    <ul class="list-unstyled">
-                                        <li><a href="{{ url('/empleado/reporteEmpleado')}}">Empleado_general</a></li>
-                                    </ul>
-                                </li>
-                                @endrole
-                            @endrole
+                            
 
                         </ul>
                         <div class="clearfix"></div>

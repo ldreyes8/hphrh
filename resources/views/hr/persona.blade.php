@@ -1,62 +1,68 @@
 <div class="tab-pane active" id="profile">
   <div class="panel-heading">      
     <button class="btn btn-success" id="btnAgregarPer"><i class="icon-user icon-white" ></i>Agregar o editar datos</button>
-  
+  </div>
 
+
+  <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-        <div class="table-responsive" id="tabla">
-            <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsPer">
-                <thead>
-                    <th>Identificación</th>
-                    <th>Nit</th>
-                    <th>Nombre</th>
-                    <th>Estado civil</th>
-                    <th>Afilaci&oacute;n iggs</th>
-                    <th>Genero</th>
-                    <th>Direcci&oacute;n</th>
-                    <th>Fecha Nacimiento</th>
-                    <th>Numero dependientes</th>
-                    <th>Aporte Mensual</th>
-                    <th>Vivienda</th>
-                    <th>Alquiler mensual</th>
-                    <th>Otros ingresos</th>
-                </thead>
-                <tbody>
-                    @if(isset($empleado))
-                            <tr class="even gradeA" id="empleadoRH">
-                                <td>{{$empleado->identificacion}}</td>
-                                <td>{{$empleado->nit}}</td>
-                                <td>{{$empleado->nombre1.' '.$empleado->nombre2.' '.$empleado->nombre3.' '.$empleado->apellido1.' '.$empleado->apellido2.' '.$empleado->apellido3}}</td>
-                                <td>{{$empleado->estadocivil}}</td>
-                                <td>{{$empleado->afiliacionigss}}</td>
-                                    @if ($empleado->genero == "M")
-                                        <td>Masculino</td>
-                                    @elseif ($empleado->genero == "F")
-                                        <td>Femenino</td>
-                                    @else
-                                        <td></td>
-                                    @endif
-
-                                <td>{{$empleado->barriocolonia}}</td>
-                                <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$empleado->fechanac)->format('d/m/Y')}}</td> 
-
-                                <td>{{$empleado->numerodependientes}}</td>
-                                <td>{{$empleado->aportemensual}}</td>
-                                <td>{{$empleado->vivienda}}</td>
-                                <td>{{$empleado->alquilermensual}}</td>
-                                <td>{{$empleado->otrosingresos}}</td>
-                    
-                            </tr>                        
+      <div class="card-box">
+        <div class="table-rep-plugin">
+          <div class="table-responsive" data-pattern="priority-columns">
+            <table id="tech-companies-1" class="table table-striped table-bordered table-condensed table-hover">
+              <!--<table class="table table-striped table-bordered table-condensed table-hover"> -->
+              <thead>
+                <tr>
+                  <th >Identificación</th>
+                  <th>Nit</th>
+                  <th>Nombre</th>
+                  <th>Estado civil</th>
+                  <th>Afilaci&oacute;n iggs</th>
+                  <th>Genero</th>
+                  <th>Direcci&oacute;n</th>
+                  <th>Fecha Nacimiento</th>
+                  <th>Numero dependientes</th>
+                  <th>Aporte Mensual</th>
+                  <th>Vivienda</th>
+                  <th>Alquiler mensual</th>
+                  <th>Otros ingresos</th>
+                </tr>
+              </thead>
+              <tbody>
+                @if(isset($empleado))
+                  <tr class="even gradeA" id="empleadoRH">
+                    <td >{{$empleado->identificacion}}</td>
+                    <td >{{$empleado->nit}}</td>
+                    <td >{{$empleado->nombre1.' '.$empleado->nombre2.' '.$empleado->nombre3.' '.$empleado->apellido1.' '.$empleado->apellido2.' '.$empleado->apellido3}}</td>
+                    <td >{{$empleado->estadocivil}}</td>
+                    <td >{{$empleado->afiliacionigss}}</td>
+                    @if ($empleado->genero == "M")
+                      <td >Masculino</td>
+                    @elseif ($empleado->genero == "F")
+                      <td >Femenino</td>
+                    @else
+                      <td ></td>
                     @endif
-                </tbody>
+
+                    <td >{{$empleado->barriocolonia}}</td>
+                    <td >{{\Carbon\Carbon::createFromFormat('Y-m-d',$empleado->fechanac)->format('d/m/Y')}}</td> 
+                    <td >{{$empleado->numerodependientes}}</td>
+                    <td >{{$empleado->aportemensual}}</td>
+                    <td >{{$empleado->vivienda}}</td>
+                    <td >{{$empleado->alquilermensual}}</td>
+                    <td >{{$empleado->otrosingresos}}</td>
+                  </tr>                        
+                @endif
+              </tbody>
             </table>
+          </div>
         </div>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="col-lg-12">
-    
     <input type="hidden" name="idper" id="idper">
     <div class="modal fade" id="formModalPer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -70,7 +76,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                             <label for="identificacion">Identicación *</label>
                             <div class="form-group">
-                                <input type="text" id="identificacio" maxlength="13" class="form-control" onkeypress="return valida(event)" value="011000">
+                                <input type="text" disabled id="identificacio" maxlength="13" class="form-control" onkeypress="return valida(event)" value="011000">
                                
                             </div>
                         </div>
@@ -244,4 +250,7 @@
 </div>
 
 <script src="{{asset('assets/js/persona.js')}}"></script>
-<script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/datapickerf.js')}}"></script>
+<script src="{{asset('assets/plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
+<script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
