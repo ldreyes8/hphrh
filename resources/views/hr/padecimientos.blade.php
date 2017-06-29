@@ -2,27 +2,31 @@
     <div class="panel-heading">
         <button class="btn btn-success" id="btnAgregarP"><i class="icon-user icon-white" ></i> Agregar padecimiento</button>
     </div>
-  <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
-    <div class="table-responsive" id="tabla">
-      <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsP">
-        <thead>
-          <th>padecimiento</th>
-          <th style="width: 10%">Opciones</th>
-        </thead>
-        <tbody id="productsP" name="productsP">
-          @if (isset($padecimiento))
-            @for ($i=0;$i<count($padecimiento);$i++)
-              <tr class="even gradeA" id="pad{{$padecimiento[$i]->idppadecimientos}}">
-                <td>{{$padecimiento[$i]->nombre}}</td>
-                <td>
-                  <button value="{{$padecimiento[$i]->idppadecimientos}}" class="fa fa-pencil btn-editar-padecimiento "></button>
-                  <button value="{{$padecimiento[$i]->idppadecimientos}}" class="fa fa-trash-o btn-delete-padecimiento"></button>
-                </td>
-              </tr>
-            @endfor
-          @endif
-        </tbody>
-      </table>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+      <div class="card-box">
+        <div class="table-responsive" id="tabla">
+          <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsP">
+            <thead>
+              <th>padecimiento</th>
+              <th style="width: 10%">Opciones</th>
+            </thead>
+            <tbody id="productsP" name="productsP">
+              @if (isset($padecimiento))
+                @for ($i=0;$i<count($padecimiento);$i++)
+                  <tr class="even gradeA" id="pad{{$padecimiento[$i]->idppadecimientos}}">
+                    <td>{{$padecimiento[$i]->nombre}}</td>
+                    <td>
+                      <button value="{{$padecimiento[$i]->idppadecimientos}}" class="fa fa-pencil btn-editar-padecimiento "></button>
+                      <button value="{{$padecimiento[$i]->idppadecimientos}}" class="fa fa-trash-o btn-delete-padecimiento"></button>
+                    </td>
+                  </tr>
+                @endfor
+              @endif
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
