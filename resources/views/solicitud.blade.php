@@ -20,6 +20,9 @@
         <link href="{{asset('assets/css/core.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/menu.css')}}" rel="stylesheet" type="text/css">
 
+    <!-- Sweet Alert css -->
+        <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet"/>
+
     <!-- Datapicker Files  -->
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet" />
@@ -1082,6 +1085,10 @@
         <script src="{{asset('assets/js/jquery.core.js')}}"></script>
         <script src="{{asset('assets/js/jquery.app.js')}}"></script>
         <script src="{{asset('assets/js/bootstrap-select.min.js')}}"></script>
+
+    <!-- Sweet Alert js -->
+        <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
+        <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
 <script type="text/javascript">
     
       $(document).ready(function() {
@@ -1138,7 +1145,9 @@
                         }
                     else
                         {
-                            alert('Su Identicación es requerida *');
+                            swal("Su Identicación es requerida *");
+                            
+                            //alert('Su Identicación es requerida *');
                             return false;
                         }
                     
@@ -1147,7 +1156,7 @@
                         }
                     else
                         {
-                            alert('Almenos el primer nombre debe ingresar *');
+                            swal('Almenos el primer nombre debe ser ingresado *');
                             return false;
                         }
                     if (apellido1!="")
@@ -1155,7 +1164,7 @@
                         }
                     else
                         {
-                            alert('Almenos el primer apellido debe ingresar *');
+                            swal('Almenos el primer apellido debe ser ingresado *');
                             return false;
                         }
                     if (celular!="")
@@ -1163,7 +1172,7 @@
                         }
                     else
                         {
-                            alert('Celular, campo requerido *');
+                            swal('Celular, campo requerido *');
                             return false;
                         }
                     if (barriocolonia!="")
@@ -1171,7 +1180,7 @@
                         }
                     else
                         {
-                            alert('Direción, campo obligatorio *');
+                            swal('Direción, campo obligatorio *');
                             return false;
                         }
                     if (dato1!="")
@@ -1179,7 +1188,7 @@
                         }
                     else
                         {
-                            alert('Su fecha de nacimiento es requerida *');
+                            swal('Su fecha de nacimiento es requerida *');
                             return false;
                         }
                     if (pretension!="")
@@ -1187,7 +1196,7 @@
                         }
                     else
                         {
-                            alert('Su pretensión salarial es requerida *');
+                            swal('Su pretensión salarial es requerida *');
                             return false;
                         }
                     if(puesto!="")
@@ -1196,7 +1205,7 @@
                     }
                     else
                     {
-                        alert('Debe seleccionar un puesto a aplicar');
+                        swal('Debe seleccionar un puesto a aplicar');
                         return false;
                     }
                     if(afiliado!="")
@@ -1205,7 +1214,7 @@
                     }
                     else
                     {
-                        alert('Debe seleccionar un afiliado a aplicar');
+                        swal('Debe seleccionar un afiliado a aplicar');
                         return false;
                     }
                     if(idpaisPS!="")
@@ -1217,7 +1226,7 @@
                                 }
                                 else
                                 {
-                                    alert('Departamento es un campo obligatorio *');
+                                    swal('Departamento es un campo obligatorio *');
                                     return false;
                                 }
                                 if (nit!="")
@@ -1225,7 +1234,7 @@
                                     }
                                 else
                                     {
-                                        alert('Nit es un campo obligatorio *');
+                                        swal('Nit es un campo obligatorio *');
                                         return false;
                                     }
                             }
@@ -1236,7 +1245,7 @@
                         }
                     else
                         {
-                            alert('El pais es un compo obligatorio');
+                            swal('El pais es un compo obligatorio');
                             return false;
                         }
                 });
@@ -1261,7 +1270,7 @@
                         }
                     else
                         {
-                            alert('En Datos Generales existen campos obligatorios *');
+                            swal('En Datos Generales existen campos obligatorios *');
                             return false;
                         }
                     if (nombre1!="" )
@@ -1269,7 +1278,7 @@
                         }
                     else
                         {
-                            alert('En Datos Generales existen campos obligatorios *');
+                            swal('En Datos Generales existen campos obligatorios *');
                             return false;
                         }
                     if (apellido1!="")
@@ -1277,7 +1286,7 @@
                         }
                     else
                         {
-                            alert('En Datos Generales existen campos obligatorios *');
+                            swal('En Datos Generales existen campos obligatorios *');
                             return false;
                         }
                     if (celular!="")
@@ -1285,7 +1294,7 @@
                         }
                     else
                         {
-                            alert('En Datos Generales existen campos obligatorios *');
+                            swal('En Datos Generales existen campos obligatorios *');
                             return false;
                         }
                     if (barriocolonia!="")
@@ -1293,7 +1302,7 @@
                         }
                     else
                         {
-                            alert('En Datos Generales existen campos obligatorios *');
+                            swal('En Datos Generales existen campos obligatorios *');
                             return false;
                         }
                     if (pretension!="")
@@ -1301,7 +1310,7 @@
                         }
                     else
                         {
-                            alert('En Datos Generales existen campos obligatorios *');
+                            swal('En Datos Generales existen campos obligatorios *');
                             return false;
                         }
 
@@ -1311,7 +1320,7 @@
                     }
                     else
                     {
-                        alert('En Datos Generales existen campos obligatorios *');
+                        swal('En Datos Generales existen campos obligatorios *');
                         return false;
                     }
                     if(afiliado!="")
@@ -1320,7 +1329,7 @@
                     }
                     else
                     {
-                        alert('En Datos Generales existen campos obligatorios *');
+                        swal('En Datos Generales existen campos obligatorios *');
                         return false;
                     }
                     if(idpaisPS!="")
@@ -1332,7 +1341,7 @@
                                 }
                                 else
                                 {
-                                    alert('Departamento es un campo obligatorio *');
+                                    swal('Departamento es un campo obligatorio *');
                                     return false;
                                 }
                                 if (nit!="")
@@ -1340,7 +1349,7 @@
                                     }
                                 else
                                     {
-                                        alert('Nit es un campo obligatorio *');
+                                        swal('Nit es un campo obligatorio *');
                                         return false;
                                     }
                             }
@@ -1351,18 +1360,21 @@
                         }
                     else
                         {
-                            alert('En Datos Generales existen campos obligatorios *');
+                            swal('En Datos Generales existen campos obligatorios *');
                             return false;
                         }
 
                     if (nom==false) 
                             {
-                                alert('Campo No soy un robot es obligatorio *');
+                                swal('Campo No soy un robot es obligatorio *');
                                 return false;
                             }
                     else
                         {
-                            alert('Gracias por enviar su solicitud');
+                            swal("Bien hecho!", "Su solicitud ha sido enviada correctamente!", "success");
+
+
+                            //alert('Gracias por enviar su solicitud');
 
                         }                    
                 });

@@ -46,6 +46,8 @@ Route::group(['prefix'=>'listados'],function(){
 	Route::get('pprueba/update/{id}','Pprueba@update');
 	Route::post('pprueba/agregar','Pprueba@store');
 	Route::get('update/{id}','Confirmacion@update');
+	Route::get('rechazados/eliminar/{id}','Rechazados@eliminar');//prueba de eliminar
+
 });
 
 // Rutas Creados por LDRL
@@ -67,7 +69,6 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('vacaciones/diashatomar','VController@diashatomar');
 	Route::get('vacaciones/calculardias','VController@calculardias');
 
-
 	Route::post('vacaciones/update','VController@update');
 	Route::get('goce','VController@goce');
 	Route::get('diastomado','VController@rangogoce');
@@ -83,6 +84,8 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('contacto','PerController@contacto');
 
 	Route::get('rechazo/{id}/{ids?}','SController@rechazo');
+	Route::get('rechazoPP/{id}','SController@rechazoPP');
+	Route::get('rechazoPI/{id}','SController@rechazoPI');
 	
 	Route::post('solicitante/upt/','SController@upt');// agregar una observacion 
 	Route::post('solicitante/upsolicitud','PersonaController@upsolicitud');//update de la solicitud para precalificacion

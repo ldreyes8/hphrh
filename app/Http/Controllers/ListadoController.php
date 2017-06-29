@@ -64,9 +64,14 @@ class ListadoController extends Controller
         if (empty($municipio->idmunicipio)) {
           $persona=DB::table('persona as p')
             ->join('empleado as em','p.identificacion','=','em.identificacion')
-            ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
-            ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
+            //->join('afiliado as af','p.idafiliado','=','af.idafiliado')
+            //->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+
+            ->join('nomytras as nt','em.idempleado','=','nt.idempleado')
+            ->join('puesto as pu','nt.idpuesto','=','pu.idpuesto')
+            ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
+
+            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','af.nombre as afiliado','pu.nombre as puesto','p.finiquitoive', DB::raw('max(nt.idnomytas) as idnomytas'))
             ->where('em.identificacion','=',$id)
             ->first();
         }
@@ -76,9 +81,14 @@ class ListadoController extends Controller
             ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
             ->join('departamento as dp','m.iddepartamento','=','dp.iddepartamento')
             ->join('empleado as em','p.identificacion','=','em.identificacion')
-            ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
-            ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.fechanac','p.avenida','p.calle','p.nomenclatura','p.zona','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto')
+            //->join('afiliado as af','p.idafiliado','=','af.idafiliado')
+            //->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+
+            ->join('nomytras as nt','em.idempleado','=','nt.idempleado')
+            ->join('puesto as pu','nt.idpuesto','=','pu.idpuesto')
+            ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
+
+            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.fechanac','p.avenida','p.calle','p.nomenclatura','p.zona','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','af.nombre as afiliado','pu.nombre as puesto',DB::raw('max(nt.idnomytas) as idnomytas'))
             ->where('em.identificacion','=',$id)
             ->first();
         }
