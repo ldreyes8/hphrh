@@ -65,6 +65,8 @@ class UController extends Controller
     	}
     }
 
+   
+
     public function create()
     {
         //return view("seguridad.usuario.create",["personas"=>$personas,"articulos"=>$articulos]);
@@ -321,7 +323,6 @@ class UController extends Controller
             ->select('e.idempleado','p.identificacion')
             ->where('u.id','=',Auth::user()->id)
             ->get();
-
 
             return view("hr.academico",["departamento"=>$departamento,"nivelacademico"=>$nivelacademico,"empleado"=>$empleado,"academico"=>$academico,'pais'=>$pais]);   
         }

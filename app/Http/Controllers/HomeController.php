@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Eventos;
 use App\Persona;
+use App\Empleado;
 use Illuminate\Http\File;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -174,20 +175,20 @@ class HomeController extends Controller
         $empleado = DB::table('empleado as emp')
         ->join('persona as per','emp.identificacion','=','per.identificacion')
         ->join('estadocivil as ec','emp.idcivil','=','ec.idcivil')
-        ->select('per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','per.apellido3','per.fechanac','per.barriocolonia','per.genero','emp.afiliacionigss','emp.numerodependientes','emp.aportemensual','emp.vivienda','emp.alquilermensual','emp.otrosingresos','emp.pretension','emp.nit','per.identificacion','ec.estado as estadocivil','ec.idcivil')
+        ->select('per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','per.apellido3','per.fechanac','per.barriocolonia','per.genero','emp.afiliacionigss','emp.numerodependientes','emp.aportemensual','emp.vivienda','emp.alquilermensual','emp.otrosingresos','emp.pretension','emp.nit','per.identificacion','ec.estado as estadocivil','ec.idcivil','emp.idempleado')
         ->where('emp.idempleado','=',$usuario->idempleado)  
-        ->get();
+        ->first();
 
         $departamento=DB::table('departamento')->get();
         $estadocivil=DB::table('estadocivil')->get();
 
-        //return view("empleado.empleado.index",["departamento"=>$departamento,"estadocivil"=>$estadocivil,"empleado"=>$empleado]);
-        return view("empleado.empleado.index")->with("departamento",$departamento,"empleado",$empleado,"estadocivil",$estadocivil);
+        return view("hr.persona",["departamento"=>$departamento,"estadocivil"=>$estadocivil,"empleado"=>$empleado]);
+        //return view("empleado.empleado.index")->with("departamento",$departamento,"empleado",$empleado,"estadocivil",$estadocivil);
     }
 
     public function listardgenerales()
     {
-         $usuario = DB::table('users as U')
+        $usuario = DB::table('users as U')
         ->join('persona as per','U.identificacion','=','per.identificacion')
         ->join('empleado as emp','per.identificacion','=','emp.identificacion')
         ->select('emp.idempleado')
@@ -208,17 +209,44 @@ class HomeController extends Controller
 
     public function updatedgenerales(Request $request, $id)
     {
-        $identificacion = $request->get('identificacion');
+        $this->validateRequest($request);
+
+        $identificacion = $request->get('idper');
+
         $fechanac = $request->fechanac; 
 
+        $empleado = Empleado::findOrFail($id);
+        //afiliacionigss, numerodependientes,aportemensual,viivienda,alquilermensual,otrosingresos,nit,
+        //idcivil.
+
+        $empleado->afiliacionigss = $request->afiliacionigss;
+        $empleado->numerodependientes = $request->dependientes;
+        $empleado->aportemensual = $request->aportemensual;
+        $empleado->vivienda =$request->vivienda;
+        $empleado->alquilermensual = $request->alquilermensual;
+        $empleado->otrosingresos = $request->otrosingresos;
+        $empleado->nit = $request->nit;
+        $empleado->save();
 
         $persona = Persona::findOrFail($identificacion);
+
+        $persona->identificacion = $request->identificacion;
         $persona->nombre1 = $request->nombre1; 
         $persona->nombre2 = $request->nombre2;
         $persona->nombre3 = $request->nombre3;
 
+        $persona->apellido1 = $request->apellido1; 
+        $persona->apellido1 = $request->apellido1;
+        $persona->apellido1 = $request->apellido1;
+
+        $persona->barriocolonia = $request->barriocolonia;
+
         $fechanac = Carbon::createFromFormat('d/m/Y',$fechanac);
+        $fechanac = $fechanac->toDateString();
+
         $persona->fechanac = $fechanac;
+        $persona->save();
+
 
         //$fechaingreso = Carbon::createFromFormat('d/m/Y',$fechaingreso);
         //$fechasalida = Carbon::createFromFormat('d/m/Y',$fechasalida);
@@ -230,7 +258,7 @@ class HomeController extends Controller
         //$academico->fingreso = $fechaingreso;
         //$academico->fsalida = $fechasalida;
 
-/*
+        /*
         identificacion: $("#identificacion").val(),
         nit: $("#nit").val(),
         nombre1: $("#nombre1").val(),           
@@ -250,8 +278,21 @@ class HomeController extends Controller
                         otrosingresos: $("#otrosingresos").val(),
                         barriocolonia: $("#barriocolonia").val(),
         */
-        $persona->save();
         return response()->json($persona);
     }
+
+    public function validateRequest($request){
+            $rules=[
+            'identificacion' => 'required|max:13',
+            'nombre1' => 'required|max:40',
+            'apellido1'=> 'required|max:40',
+          
+            ];
+            $messages=[
+            'required' => 'Debe ingresar :attribute.',
+            'max'  => 'La capacidad del campo :attribute es :max',
+            ];
+            $this->validate($request, $rules,$messages);        
+        }
 
 }

@@ -20,7 +20,6 @@ Route::get('excel','Controllermintrab@excel');
 Route::get('eventos','UController@listartablero');
 
 
-
 Route::group(['prefix'=>'listados'],function(){
 	Route::get('empleado','ListadoController@index');
 	Route::get('laboral/{id}','ListadoController@laboral');
@@ -80,8 +79,8 @@ Route::group(['prefix'=>'empleado'],function(){
 	//Rutas de la solicitud de empleo
 	Route::resource('solicitante','SController'); 	// SController = SolicitanteController
 	Route::get('Spdf/{id}', 'SController@Spdf');
-	Route::resource('perfil','PerController');		// PerController = PerfilController
-	
+	Route::get('perfil','PerController@index');		// PerController = PerfilController
+	Route::get('contacto','PerController@contacto');
 
 	Route::get('rechazo/{id}/{ids?}','SController@rechazo');
 	

@@ -183,16 +183,17 @@
                                 class="md md-dashboard"></i><span> Tablero </span></a>
                             </li>
 
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="md md-person"></i> <span>Empleado</span>
-                                 <span class="menu-arrow"></span>
-                                </a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ url('/empleado/perfil')}}">Perfil</a></li>
-                                    
-                                   <!-- <li><a href={{url('/empleado/empleado')}}>Datos Generales</a></li>-->
-                                </ul>
+                            <li>
+                                <a href="{{ url('/empleado/perfil')}}" class="waves-effect waves-primary"><i
+                                class="md md-insert-emoticon"></i><span>Mi perfil </span></a>
                             </li>
+                            
+                            <li>
+                            <a href="{{ url('/empleado/contacto')}}"class="waves-effect waves-primary"><i
+                                class="md-perm-contact-cal"></i><span>Contactos </span></a>
+                            </li>
+                                <!-- <li><a href={{url('/empleado/empleado')}}>Datos Generales</a></li> -->
+                             
 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
