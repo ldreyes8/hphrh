@@ -1,68 +1,71 @@
-@extends ('layouts.index')
-@section ('contenido')
-<div class="row">
-	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-        <h3>Listado de permiso</h3><button type="button" class="btn btn-success" id="btnnuevo" >Nuevo</button>
-	</div>
-</div>
+<div class="tab-pane" id="permiso">
+    <div class="panel-heading">
+        <button class="btn btn-success" id="btnnuevoP"><i class="icon-user icon-white" ></i>Nueva solicitud de permiso</button>
+    </div>
+    <div><br></div>
+    <div class="row">
+       <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsPermiso"> 
+                    <thead>
+                        <th>Solicitud</th>
+                        <th>Iniicio</th>
+                        <th>Fin</th>
+                        <th>Hora inicio</th>
+                        <th>Hora final</th>
+                        <th>Autorizacion</th>
+                    </thead>
+                    @if (isset($ausencias))
+                        @foreach ($ausencias as $aus)
+                        <tr>
+                            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechasolicitud)->format('d-m-Y')}}</td>
 
-<div class="row">
-   <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsPermiso"> 
-                <thead>
-                    <th>Solicitud</th>
-                    <th>Iniicio</th>
-                    <th>Fin</th>
-                    <th>Hora inicio</th>
-                    <th>Hora final</th>
-                    <th>Autorizacion</th>
-                </thead>
-                @foreach ($ausencias as $aus)
-                <tr>
-                    <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechasolicitud)->format('d-m-Y')}}</td>
-
-                    <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechainicio)->format('d-m-Y')}}</td>
-                    <td>{{\Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechafin)->format('d-m-Y')}}</td>
-                    <td>{{$aus->horainicio}}</td>
-                    <td>{{$aus->horafin}}</td> 
-                    <td>{{$aus->autorizacion}}</td>
-                 </tr>
-                
-                @endforeach
-             </table>
-         </div>
-         {{$ausencias->render()}}
-   </div>
-</div>
-   
+                            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechainicio)->format('d-m-Y')}}</td>
+                            <td>{{\Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechafin)->format('d-m-Y')}}</td>
+                            <td>{{$aus->horainicio}}</td>
+                            <td>{{$aus->horafin}}</td> 
+                            <td>{{$aus->autorizacion}}</td>
+                         </tr>
+                        
+                        @endforeach
+                    @endif
+                </table>
+            </div>
+       </div>
+    </div>
+</div>   
      
 <div class="col-lg-12">
     <div class="modal fade" id="formModalP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             @if (!empty($usuarios->idmunicipio))
-    <input type="hidden" name="idmunicipio" value="{{$usuarios->idmunicipio}}" id="idmunicipio">
-@else
-    <td><input type="hidden" name="" id="municipio" value=""></td>
-@endif
-            <input type="hidden" name="tdias" id="tdias">
-            <input type="hidden" name="thoras" id="thoras">
-            <input type="hidden" name="idempleado" id="idempleado" value="{{$usuarios->idempleado}}">
-            <input type="hidden" name="name"  id="name" value="{{$usuarios->nombre}}"> 
+                <input type="hidden" name="idmunicipio" value="{{$usuarios->idmunicipio}}" id="idmunicipio">
+            @else
+                <td><input type="hidden" name="" id="municipio" value=""></td>
+            @endif
+
+            @if (isset($usuarios))
+                <input type="hidden" name="tdias" id="tdias">
+                <input type="hidden" name="thoras" id="thoras">
+                <input type="hidden" name="idempleado" id="idempleado" value="{{$usuarios->idempleado}}">
+                <input type="hidden" name="name"  id="name" value="{{$usuarios->nombre}}"> 
+            @endif()
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="inputTitle"></h4>
+                <h4 class="modal-title" id="inputTitleP"></h4>
             </div>
               
             <form role="form" id="formAgregarP">
                 <div class="modal-header">
                     <label>Motivo ausencia</label>
                     <select name="idtipoausencia" id="idtipoausencia" class="form-control selectpicker" data-live-search="true">
+                    @if (isset($tausencia))
                         @foreach($tausencia as $tau)
                             <option value="{{$tau->idtipoausencia}}">{{$tau->ausencia}}</option>
                         @endforeach
+                    @endif
                     </select>
                 </div>
 
@@ -86,14 +89,14 @@
                     <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                         <label class="control-label">Fecha inicio</label>
                         <div class="input-group">
-                            <input type="text" id="fecha_inicio" class="form-control" name="fechainicio">
+                            <input type="text" id="fecha_inicio1" class="form-control" name="fechainicio">
                             <span class="input-group-addon bg-primary b-0 text-white"><i class="ion-calendar"></i></span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                         <label class="control-label">Fecha final</label>
                         <div class="input-group">
-                            <input type="text" id="fecha_final" class="form-control" name="fechafin">
+                            <input type="text" id="fecha_final1" class="form-control" name="fechafin">
                             <span class="input-group-addon bg-primary b-0 text-white"><i class="ion-calendar"></i></span>
                         </div>
                     </div>
@@ -186,27 +189,26 @@
                         <br>
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                             <br>
-                            <button type="button" class="btn btn-success" id="btndatomar">Calcular Días</button>
+                            <button type="button" class="btn btn-success" id="btndatomarP">Calcular Días</button>
                         </div>
                                         
                         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                             <label for="numerodependientes">Dias</label>
-                            <input id="datomar" type="number" name="numerodependientes" min="0" class="form-control" onkeypress="return valida(event)">
+                            <input id="datomarP" type="number" name="numerodependientes" min="0" class="form-control" onkeypress="return valida(event)">
                         </div>
 
                         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                             <label for="horainicio">Hora</label>
-                            <select name="hhoras" id="hhoras" class="form-control">
+                            <select name="hhoras" id="hhorasP" class="form-control">
                                 <option value="00">0</option>
                                 <option value="04">4</option>
                             </select>
                         </div>
                     </div>
                     <div class="modal-header">
-                        <input type="checkbox" id="casilla" value="1" onclick="desactivar()"/>Activar campo Dias y Hora
+                        <input type="checkbox" id="casillaP" value="1" onclick="desactivar1()"/>Activar campo Dias y Hora
                     </div> 
                 </div>
-
 
                 <div class="modal-header">
                     <div><p><br></p></div>
@@ -215,9 +217,8 @@
                         <textarea class="form-control" placeholder=".........." id="observaciones" rows="3" maxlength="100"></textarea>
                     </div>
                 </div>
-               
-
             </form>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-primary" id="btnguardarP">Guardar</button>
@@ -226,19 +227,19 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+<div class="modal fade" id="erroresModalP" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title" id="inputError"></h4>
+        <h4 class="modal-title" id="inputErrorP"></h4>
 
       </div>
 
       <div class="modal-body">
-        <ul style="list-style-type:circle" id="erroresContent"></ul>
+        <ul style="list-style-type:circle" id="erroresContentP"></ul>
       </div>
 
       <div class="modal-footer">
@@ -247,33 +248,26 @@
     </div>
   </div>
 </div>
-@endsection
-@section('fin')
-    @parent
-        <meta name="_token" content="{!! csrf_token() !!}" />
-        <script src="{{asset('assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
-        <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
-        <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
-        <script src="{{asset('assets/js/permisoU.js')}}"></script>
-        <script type="text/javascript">
 
+<script src="{{asset('assets/js/permisoU.js')}}"></script>
+<script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
+<script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
 
-        function desactivar() {
-            if($("#casilla:checked").val()==1) {
-                $("#casilla").attr('disabled', 'disabled');
-                $('#datomar').removeAttr("disabled");
-                $('#hhoras').removeAttr("disabled");
-            }
+<script type="text/javascript">
+    function desactivar1() {
+        if($("#casillaP:checked").val()==1) {
+            $("#casillaP").attr('disabled', 'disabled');
+            $('#datomarP').removeAttr("disabled");
+            $('#hhorasP').removeAttr("disabled");
         }
+    }
 
-        function mostrar() {
-            if($("#inlineRadio2:checked").val()=="Goce_temporal") {
-                $("#oculto").show();
-                $("#inlineRadio16").attr('disabled', 'disabled');
-                $("#inlineRadio1").attr('disabled', 'disabled');
-            }
-        }            
-        </script>
-
-@endsection
+    function mostrar() {
+        if($("#inlineRadio2:checked").val()=="Goce_temporal") {
+            $("#oculto").show();
+            $("#inlineRadio16").attr('disabled', 'disabled');
+            $("#inlineRadio1").attr('disabled', 'disabled');
+        }
+    }            
+</script>
