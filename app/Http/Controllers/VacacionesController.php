@@ -119,7 +119,7 @@ class VacacionesController extends Controller
     
     ->paginate(15);  
 
-    return view('director.vacaciones.indexautorizado',["permisos"=>$permisos]);        
+    return view('director.autorizaciones.constancias',["permisos"=>$permisos]);        
   }
 
   public function verificar($id)

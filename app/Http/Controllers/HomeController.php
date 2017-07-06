@@ -139,6 +139,9 @@ class HomeController extends Controller
     }
     */
 
+    
+       
+
     public function addimage(Request $request)
     {
         $evento = new Eventos;
@@ -226,6 +229,7 @@ class HomeController extends Controller
         $empleado->alquilermensual = $request->alquilermensual;
         $empleado->otrosingresos = $request->otrosingresos;
         $empleado->nit = $request->nit;
+        $empleado->idcivil = $request->estadocivil;
         $empleado->save();
 
         $persona = Persona::findOrFail($identificacion);

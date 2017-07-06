@@ -28,8 +28,8 @@ class PerController extends Controller
         return view('empleado.perfil.contacto');
     }
 
-    public function store()
+    public function solicitud(Request $request)
     {
-        
+        return view('empleado.solicitud.index');
     }
 }

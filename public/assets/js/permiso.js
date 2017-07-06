@@ -1,8 +1,32 @@
-function cargaracademico(listado){
-    $("#academicos").html($("#cargador_empresa").html());
-    if(listado==1){var url = "verificar";}
+function cargarsolicitados(listado){
+    $("#profile").html($("#cargador_empresa").html());
+    if(listado==1){var url = "solicitadoVP";}
     $.get(url,function(resul){
-    $("#academicos").html(resul);
+    $("#profile").html(resul);
+    });
+}
+
+function cargarautorizados(listado){
+    $("#autorizados").html($("#cargador_empresa").html());
+    if(listado==1){var url = "confirmado";}
+    $.get(url,function(resul){
+    $("#autorizados").html(resul);
+    });
+}
+
+function cargarechazados(listado){
+    $("#rechazados").html($("#cargador_empresa").html());
+    if(listado==1){var url = "rechazado";}
+    $.get(url,function(resul){
+    $("#rechazados").html(resul);
+    });
+}
+
+function cargarconstancias(listado){
+    $("#constancias").html($("#cargador_empresa").html());
+    if(listado==1){var url = "vautorizado";}
+    $.get(url,function(resul){
+    $("#constancias").html(resul);
     });
 }
 
@@ -62,7 +86,7 @@ $(document).ready(function(){
                     type: "success"
                 },
                 function(){
-                    window.location.href="/empleado/permisos"
+                    window.location.href="/empleado/autorizaciones"
                 });
      
                     
@@ -142,7 +166,7 @@ $(document).ready(function(){
                     type: "success"
                 },
                 function(){
-                    window.location.href="/empleado/vsolicitado";
+                    window.location.href="/empleado/autorizaciones";
                 });
                    
                     //window.location.replace("vsolicitado");
@@ -235,7 +259,7 @@ $(document).ready(function(){
                     type: "success"
                 },
                 function(){
-                    window.location.href="/empleado/vautorizado";
+                    window.location.href="/empleado/autorizaciones";
                 }); 
                     //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +data.titulo+ "</td><td>" +data.establecimiento + "</td><td>" +data.duracion + ": " + data.periodo + "</td><td>" +nivel + "</td><td>" +fingreso + "</td><td>" +fsalida + "</td></tr>";    
                     //$('#formModal').modal('hide');
