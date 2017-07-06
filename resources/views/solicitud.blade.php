@@ -52,7 +52,7 @@
                         <div class="">
                             
                             <ul class="nav navbar-nav hidden-xs">
-                                <li><a href="#" class="waves-effect"><h2 style="color:#ffffff;"> Solicitud de empleo </h2></a></li>
+                                
                             </ul>
                         </div>
                         <!--/.nav-collapse -->
@@ -1302,6 +1302,7 @@
                     barriocolonia=$("#barriocolonia").val();
                     puesto=$("#puesto").val();
                     afiliado=$("#afiliado").val();
+                    correo=$("#correo").val();
                     if (identificacion!="" )
                         {  
                                            
@@ -1362,6 +1363,15 @@
                         return false;
                     }
                     if(afiliado!="")
+                    {
+                        
+                    }
+                    else
+                    {
+                        swal('En Datos Generales existen campos obligatorios *');
+                        return false;
+                    }
+                    if(correo!="")
                     {
                         
                     }
