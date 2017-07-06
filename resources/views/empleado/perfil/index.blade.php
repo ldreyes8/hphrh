@@ -80,7 +80,7 @@
                         </a>
                     </li>
                     -->
-                    <li class=""> <a href="javascript:void(0);" onclick="cargarpersona(1,1);">
+                    <li class="active"> <a href="javascript:void(0);" onclick="cargarpersona(1,1);">
                     
                         <a href="#profile" data-toggle="tab" aria-expanded="false" >
                             <span class="visible-xs"><i class="md md-perm-contact-cal"></i></span>

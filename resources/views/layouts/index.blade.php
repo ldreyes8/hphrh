@@ -189,11 +189,19 @@
                             </li>
                             
                             <li>
-                            <a href="{{ url('/empleado/contacto')}}"class="waves-effect waves-primary"><i
+                            <a href="{{ url('/empleado/contacto')}}" class="waves-effect waves-primary"><i
                                 class="md-perm-contact-cal"></i><span>Contactos </span></a>
                             </li>
                              
                         <!-- // Solicitudes___ // -->
+
+                            <li>
+                                <a href="{{url('/empleado/solicitud')}}" class="waves-effect waves-primary">
+                                <i class="md md-assignment"></i><span> Solicitud </span>
+                                </a> 
+                            </li>
+
+                            <!--
 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
@@ -207,6 +215,7 @@
 
                                 </ul>
                             </li>
+                            -->
 
 
                         <!-- // Gestiones___ // -->
@@ -214,7 +223,14 @@
                             
                             @role('jefeinmediato') 
                             <li class="menu-title">Gesti&oacute;n</li>
-             
+
+                             <li>
+                                <a href="{{url('/empleado/autorizaciones')}}" class="waves-effect waves-primary">
+                                <i class="md md-assignment"></i><span>Autorizaciones</span>
+                                </a> 
+                            </li>
+                            
+                            <!--
 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Autorizaciones</span> 
@@ -247,11 +263,10 @@
                                 
                                 </ul>
                             </li>
+                            -->
 
-
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Reclutamiento</span> 
-                                    <span class="menu-arrow"></span>
+                            <li class="has_sub"> 
+                                <a href="{{ url('/empleado/reclutamiento')}}" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Reclutamiento</span>
                                 </a>
                             </li>
 
@@ -311,7 +326,7 @@
 
                             @role('informatica') 
                             <li class="menu-title">Panel de control</li>
-                            
+
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
                                         class="md md-assignment"></i><span>Panel de control</span> 
@@ -320,17 +335,13 @@
                                         class="label label-success pull-right">6</span> -->
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/seguridad/usuario')}}">Registro usuario</a></li>
+
                                 </ul>
 
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ url('/seguridad/image')}}">Registro usuario</a></li>
-                                </ul>
+                                
                             </li>
                             @endrole
-                            
-
-                            
-
+                        
                         </ul>
                         <div class="clearfix"></div>
                     </div>
@@ -351,8 +362,7 @@
                                 <h5 class="m-t-0 m-b-0"> </h5>
                                 <p class="text-muted m-b-0">
                                     <small><i class="fa fa-circle text-success"></i> <span>Online</span></small>
-                                </p>
-                              
+                                </p>                              
                             </span>
                         </a>
                         <ul class="dropdown-menu">
@@ -360,17 +370,13 @@
                             <li><a href="{{ url('/logout') }}"><i class="md md-settings-power"></i> Cerrar sesion</a></li>
                         </ul>
                     @endif
-
                     </div>
                 </div>
             </div>
             <!-- Left Sidebar End --> 
 
-
-
             <!-- ============================================================== -->
             <!-- Start right Content here -->
-          
 
             <div class="content-page">
                 <!-- Start content -->
@@ -384,7 +390,6 @@
                     2017 © Solera.
                 </footer><!-- /.box-body -->
             </div><!-- /.box -->
-    
             
             <div style="display: none;" id="cargador_empresa" align="center">
                 <br>
@@ -641,10 +646,6 @@
         <!-- END wrapper -->
         @section('fin') 
         
-     
-    
-       
-
         <!-- Plugins  -->
         <script src="{{asset('assets/js/jquery.min.js')}}"></script>
         <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
@@ -676,8 +677,6 @@
         <script src="{{asset('assets/js/jquery.core.js')}}"></script>
         <script src="{{asset('assets/js/jquery.app.js')}}"></script>
         <script src="{{asset('assets/js/modernizr.min.js')}}"></script>
-
-        
 
         @show
 

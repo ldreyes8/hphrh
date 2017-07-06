@@ -86,7 +86,7 @@ class PController extends Controller
 
 
 
-    	return view('empleado.permiso.index',["ausencias"=>$ausencias,"searchText"=>$query,"tausencia" => $tausencia,"usuarios"=>$usuarios]);
+    	return view('empleado.empleado.permisos',["ausencias"=>$ausencias,"searchText"=>$query,"tausencia" => $tausencia,"usuarios"=>$usuarios]);
     }
 
     public function create()
@@ -168,7 +168,6 @@ class PController extends Controller
     $fechainicio = $request->fecha_inicio; 
     $fechafinal = $request->fecha_final;
     $concurrencia = $request->concurrencia;
-    dd($concurrencia);
 
     $hini = $request->hini;
     $hfin = $request->hfin;
