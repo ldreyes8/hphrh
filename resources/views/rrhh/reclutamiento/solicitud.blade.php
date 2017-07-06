@@ -2,7 +2,13 @@
     @if (isset($empleados))
         <div class="row">
         	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        		@include('empleado.solicitante.search')
+        		{!! Form::open(['url'=>'empleado/busquedas','method'=>'GET','role'=>'search','class'=>'navbar-form navbar-left pull-right','onkeypress'=>'return anular(event)']) !!}
+                    <div class="form-group">
+                            <input type="text" class="form-control" id="searchText" name="searchText" placeholder="Buscar..." value="{{$searchText}}">
+                            <button type="button" class="btn btn-default" onclick="buscarsolicitud();">Buscar</button>
+                    </div>
+                {{Form::close()}}
+                
         	</div>
         </div>
         <div class="row">
@@ -80,7 +86,7 @@
                          @endforeach
                      </table>
                  </div>
-                 {{$empleados->render()}}
+                 
            </div>
         </div>
     @endif

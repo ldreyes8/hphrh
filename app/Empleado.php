@@ -33,6 +33,4 @@ class Empleado extends Model
     protected $guarded =[
         
     ];
-
-
 }

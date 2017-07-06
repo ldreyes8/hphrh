@@ -72,6 +72,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	//Listapo reclutamiento
 	Route::get('listadoR','SController@listadoR');
 	Route::get('solicitudes','SController@index');
+	Route::get('busquedas/{dato?}','SController@busquedas');
 	Route::get('update/{id}','Pprueba@update');
 
 	//Reporte

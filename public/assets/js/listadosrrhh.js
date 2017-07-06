@@ -50,3 +50,26 @@ function buscarusuario(){
     $("#lisadoEmp").html(resul);  
   })
 }
+
+function buscarsolicitud(){
+  //var rol=$("#select").val();
+  var dato=$("#searchText").val();
+  /*if(dato == "")
+  {
+    var url="busqueda/"+rol+"";
+  }
+  else
+  {*/
+    var url="busquedas/"+dato+"";
+  //}
+
+  $("#listadoSol").html($("#cargador_empresa").html());
+  $.get(url,function(resul){
+    $("#listadoSol").html(resul);  
+  })
+}
+
+function anular(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+    return (tecla != 13);
+}
