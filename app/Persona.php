@@ -44,4 +44,10 @@ class Persona extends Model
     protected $guarder =[
 
     ];
+
+    public function scopeName($query, $serachtext)
+    {
+        $query->where('nombre1',$serachtext);
+    }
+}
 }

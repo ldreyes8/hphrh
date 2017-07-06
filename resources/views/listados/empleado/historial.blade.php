@@ -19,10 +19,10 @@
                  </thead>
                  @foreach ($historia as $em)
                      <tr>
-                         <td>{{$em->nombre1.': '.$em->apellido1}}</td>
+                         <td>{{$em->nombre1.' '.$em->apellido1}}</td>
 
                         @foreach ($asignajefe as $esm)
-                            <td>{{$esm->nombre1.': '.$esm->apellido1}}</td>
+                            <td>{{$esm->nombre1.' '.$esm->apellido1}}</td>
                         @endforeach
                          <td>{{$em->fecha}}</td>
                          <td>{{$em->hsa}}</td>

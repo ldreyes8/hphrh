@@ -19,7 +19,7 @@
                  </thead>
                  @foreach ($historia as $em)
                      <tr>
-                         <td>{{$em->nombre1.': '.$em->apellido1}}</td>
+                         <td>{{$em->nombre1.' '.$em->nombre2.' '.$em->apellido1.' '.$em->apellido2}}</td>
                          <td>{{$em->naf}}</td>
                          <td>{{$em->npu}}</td>
                          <td>{{$em->nc}}</td>
