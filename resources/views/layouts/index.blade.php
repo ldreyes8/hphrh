@@ -373,11 +373,10 @@
                                         class="label label-success pull-right">6</span> -->
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/seguridad/usuario')}}">Registro usuario</a></li>
+
                                 </ul>
 
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ url('/seguridad/image')}}">Registro usuario</a></li>
-                                </ul>
+                                
                             </li>
                             @endrole
                         
