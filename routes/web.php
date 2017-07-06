@@ -205,19 +205,11 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::put('SolicitanteI','UController@SolicitanteI');
 
 
-<<<<<<< HEAD
-	//Route::get('autorizaciones','PermisosController@index');
-	Route::get('autorizaciones','PermisosController@indexdirector'); /// solicitud de vacaciones y permisos de los empleados que tiene un jefe x.
-	Route::get('solicitadoVP','PermisosController@index');
-	Route::get('vautorizado','VacacionesController@indexautorizado')->middleware('roleshinobi:jefeinmediato');/////
-	Route::get('rechazado/{pag?}','PermisosController@indexrechazado')->middleware('roleshinobi:jefeinmediato');
-	Route::get('confirmado/{page?}','PermisosController@indexconfirmado')->middleware('roleshinobi:jefeinmediato');
+	
 
 
 	Route::resource('solicitadospermis','PermisosController');
 	
-=======
->>>>>>> 185d76c129f11400fe398e250f7236e0d1657b4f
 	Route::get('verificar/{idpersona}','PermisosController@verificar')->middleware('roleshinobi:jefeinmediato');
 	Route::post('verificar/enviarpermiso','PermisosController@enviarpermiso')->middleware('roleshinobi:jefeinmediato');
 
@@ -239,7 +231,11 @@ Route::group(['prefix'=>'empleado'],function(){
 
 // Rutas del reclutamiento del jefeinmediato
 	Route::get('reclutamiento','ReclutamientoJI@index');
-
+	Route::get('autorizaciones','PermisosController@indexdirector'); /// solicitud de vacaciones y permisos de los empleados que tiene un jefe x.
+	Route::get('solicitadoVP','PermisosController@index');
+	Route::get('vautorizado','VacacionesController@indexautorizado')->middleware('roleshinobi:jefeinmediato');/////
+	Route::get('rechazado/{pag?}','PermisosController@indexrechazado')->middleware('roleshinobi:jefeinmediato');
+	Route::get('confirmado/{page?}','PermisosController@indexconfirmado')->middleware('roleshinobi:jefeinmediato');
 
 //Reportes
 	Route::get('reporteEmpleado','Reporte@index')->middleware('roleshinobi:reporte');
