@@ -9,16 +9,15 @@
         <link rel="shortcut icon" href="{{asset('assets/images/logo.ico')}}">
 
         <title>Hábitat - Solicitud de Empleo</title>
-        <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
         <link rel="stylesheet" href="{{asset('assets/css/bootstrap-select.min.css')}}">
         <link href="{{asset('assets/plugins/switchery/switchery.min.css')}}" rel="stylesheet" />
 
         <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">        
         <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets/css/components.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/css/components1.css')}}" rel="stylesheet" type="text/css">
         <!--<link href="{{asset('assets/css/bootstrap.min.css.map')}}" rel="stylesheet" type="text/css"> -->  
-        <link href="{{asset('assets/css/core.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets/css/menu.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/css/core1.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/css/menu1.css')}}" rel="stylesheet" type="text/css">
 
     <!-- Sweet Alert css -->
         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet"/>
@@ -26,6 +25,7 @@
     <!-- Datapicker Files  -->
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet" />
+
     </head>
 
 
@@ -42,9 +42,7 @@
                 <div class="topbar-left">
                     <div class="text-center">
                         <a href="#" class="logo"></a>
-                        <span>
-                            <img src="{{asset('assets/images/Habitat/logoh.png')}}" alt="">
-                        </span>
+                        
                     </div>
                 </div>
 
@@ -54,19 +52,50 @@
                         <div class="">
                             
                             <ul class="nav navbar-nav hidden-xs">
-                                <li><a href="#" class="waves-effect">Hábitat para la Humanidad Guatemala </a></li>
+                                <li><a href="#" class="waves-effect"><h2 style="color:#ffffff;"> Solicitud de empleo </h2></a></li>
                             </ul>
                         </div>
                         <!--/.nav-collapse -->
                     </div>
                 </div>
             </div>
+
+
+
+            <!-- ========== Left Sidebar Start ========== -->
+            
+            <!-- Left Sidebar End --> 
+
+
+
+
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->                      
             <div class="content-page">
+            
                 <!-- Start content -->
                 <div class="content">
+                    <!-- START carousel-->
+                        <div id="carousel-example-captions-1" data-ride="carousel" class="carousel slide">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-captions-1" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel-example-captions-1" data-slide-to="1"></li>
+                                <li data-target="#carousel-example-captions-1" data-slide-to="2"></li>
+                            </ol>
+                            <div role="listbox" class="carousel-inner">
+                                <div class="item active">
+                                    <img src="assets/images/small/banner1.jpg" alt="First slide image">
+                                </div>
+                                <div class="item">
+                                    <img src="assets/images/small/banner2.jpg" alt="Second slide image">
+                                </div>
+                                <div class="item">
+                                    <img src="assets/images/small/banner3.jpg" alt="Third slide image">
+                                </div>
+                            </div>
+                        </div>
+                    <!-- END carousel-->
 
                 <div id='message-error' class="alert alert-danger danger" role='alert' style="display: none">
                       <strong id="error"></strong>
@@ -76,8 +105,8 @@
 {!!Form::open(array('url'=>'solicitud/ds','method'=>'POST','autocomplete'=>'off','files'=>'true','id'=>'form','onkeypress'=>'return anular(event)','enctype'=>'multipart/form_data'))!!}
 {{Form::token()}}
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card-box p-b-0">
-                <h4 class="text-dark  header-title m-t-0">Solicitud de empleo</h4>
+            <div class="card-box p-b-0 ">
+                <h4 class="text-dark  header-title m-t-0"></h4>
                 <h5 >Campos obligatorios *</h5>
                 <p class="text-muted m-b-25 font-13"></p>
 
@@ -94,13 +123,13 @@
                       <strong id="error"></strong>
                 </div>
                 <div id="progressbarwizard" class="pull-in">
-                    <ul>
-                        <li><a href="#generales" data-toggle="tab">Datos generales</a></li>
-                        <li><a href="#familia" data-toggle="tab">Datos famíliares</a></li>
-                        <li><a href="#academico" data-toggle="tab">Información academicos</a></li>
-                        <li><a href="#laboral" data-toggle="tab">Experiencia laboral</a></li>
-                        <li><a href="#referencia" data-toggle="tab">Referencias</a></li>
-                        <li><a href="#deudas" data-toggle="tab">Otros</a></li>
+                    <ul >
+                        <li ><a href="#generales" data-toggle="tab">Generales</a></li>
+                        <li ><a href="#familia" data-toggle="tab">Famíliares</a></li>
+                        <li ><a href="#academico" data-toggle="tab">Académicos</a></li>
+                        <li ><a href="#laboral" data-toggle="tab">Laboral</a></li>
+                        <li ><a href="#referencia" data-toggle="tab">Referencias</a></li>
+                        <li ><a href="#deudas" data-toggle="tab">Otros</a></li>
                     </ul>
 
                     <div class="tab-content bx-s-0 m-b-0">
@@ -1054,6 +1083,7 @@
                 <footer class="footer text-right">
                     2017 © Hábitat para la humanidad.
                 </footer>
+
                <!-- End FOOTER -->
             </div>
         </div>
@@ -1077,7 +1107,6 @@
     <!-- Form wizard -->
         <script src="{{asset('assets/plugins/bootstrap-wizard/jquery.bootstrap.wizard.js')}}"></script>
         <script src="{{asset('assets/plugins/jquery-validation/dist/jquery.validate.min.js')}}"></script>
-        <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/datapickerf.js')}}"></script>
@@ -1085,7 +1114,6 @@
         <script src="{{asset('assets/js/jquery.core.js')}}"></script>
         <script src="{{asset('assets/js/jquery.app.js')}}"></script>
         <script src="{{asset('assets/js/bootstrap-select.min.js')}}"></script>
-
     <!-- Sweet Alert js -->
         <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
         <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>

@@ -112,7 +112,7 @@ class Pprueba extends Controller
         ->select('c.idcaso','c.nombre')
         ->get();
 
-        return view("listados.pprueba.create",["puestos"=>$puestos,"afiliados"=>$afiliados,"caso"=>$caso,"empleado"=>$empleado,"jefesinmediato"=>$jefesinmediato]);
+        return view("rrhh.reclutamiento.create",["puestos"=>$puestos,"afiliados"=>$afiliados,"caso"=>$caso,"empleado"=>$empleado,"jefesinmediato"=>$jefesinmediato]);
     }
 
     public function store(Nomrequest $request)
@@ -287,6 +287,6 @@ class Pprueba extends Controller
 
         } catch (Exception $e) 
         {}
-        return Redirect::to('empleado/solicitante');    }
+        return Redirect::to('empleado/listadoR');    }
 
 }

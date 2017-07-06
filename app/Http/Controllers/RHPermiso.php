@@ -19,6 +19,12 @@ use App\Persona;
 
 class RHPermiso extends Controller
 {
+
+	public function listadoPV(Request $request)
+    {
+        return view('rrhh.permisosvacaciones.index');
+    }
+
      public function indexsolicitado (Request $request)
     {
     	if ($request)
@@ -32,13 +38,13 @@ class RHPermiso extends Controller
 	        ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
 	        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia','au.totaldias','au.totalhoras','au.justificacion')
 	        ->where('au.autorizacion','=','solicitado')
-	        ->where('tp.idtipoausencia','!=','3')
+	        //->where('tp.idtipoausencia','!=','3')
 	        ->orderBy('au.fechasolicitud','desc') 
 	        ->paginate(15);       
     	}
 
     	//return view('director.permisos.index',["permisos"=>$permisos,"searchText"=>$query]);
-    	return view('listados.permisos.index',["permisos"=>$permisos]);
+    	return view('rrhh.permisosvacaciones.indexsolicitados',["permisos"=>$permisos]);
     }
 
     public function indexconfirmado (Request $request)
@@ -51,11 +57,12 @@ class RHPermiso extends Controller
 	        ->join('users as U','au.id','=','U.id')
 	         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia','au.totaldias','au.totalhoras','U.name','au.justificacion','au.observaciones')
 	        ->where('au.autorizacion','=','Confirmado')
-	        ->where('tp.idtipoausencia','!=','3')
+	        //->where('tp.idtipoausencia','!=','3')
 	        ->orderBy('au.fechasolicitud','desc')
-	        ->paginate(15);
+	        //->paginate(15)
+            ->get();
 
-        return view('listados.permisos.indexconfirmado',["permisos"=>$permisos])  ;        
+        return view('rrhh.permisosvacaciones.indexconfirmado',["permisos"=>$permisos]);        
     }
 
      public function indexrechazado (Request $request)
@@ -68,10 +75,28 @@ class RHPermiso extends Controller
 	        ->join('users as U','au.id','=','U.id')
 	        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia','au.totaldias','au.totalhoras','U.name','au.justificacion','au.observaciones')
 	        ->where('au.autorizacion','=','Rechazado')
-	        ->where('tp.idtipoausencia','!=','3')
+	        //->where('tp.idtipoausencia','!=','3')
 	        ->orderBy('au.fechasolicitud','desc')
 	        ->paginate(15);
 
-        return view('listados.permisos.indexrechazado',["permisos"=>$permisos])  ;        
+        return view('rrhh.permisosvacaciones.indexrechazado',["permisos"=>$permisos])  ;        
+    }
+
+    public function indexautorizado (Request $request)
+    {
+        $vacaciones = DB::table('ausencia as au')
+            ->join('empleado as emp','au.idempleado','=','emp.idempleado')
+            ->join('persona as per','emp.identificacion','=','per.identificacion')
+            ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
+            ->join('users as U','au.id','=','U.id')
+            ->join('vacadetalle as v','au.idausencia','=','v.idausencia')
+            ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia','U.name','au.totaldias','au.totalhoras','v.soldias','v.solhoras','au.justificacion','au.observaciones')
+            ->where('au.autorizacion','=','Autorizado')
+            ->where('tp.idtipoausencia','=','3')
+            ->orderBy('au.fechasolicitud','desc')        
+            //->paginate(15);
+            ->get();
+
+        return view('rrhh.permisosvacaciones.indexautorizado',["vacaciones"=>$vacaciones]);        
     }
 }
