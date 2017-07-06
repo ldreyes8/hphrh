@@ -83,7 +83,7 @@ class Controllermintrab extends Controller
         ->get();
 
         
-        return view('mintrabf.Rmintrab',['persona'=>$persona,'hijo'=>$hijo,'academico'=>$academico,'trabajoextranjero'=>$trabajoextranjero,'idioma'=>$idioma]);
+        return view('rrhh.reporte.Rmintrab',['persona'=>$persona,'hijo'=>$hijo,'academico'=>$academico,'trabajoextranjero'=>$trabajoextranjero,'idioma'=>$idioma]);
     }
 
     public function excel()

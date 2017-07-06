@@ -2,7 +2,7 @@ $(document).ready(function(){
     $(document).on('click','.btn-vacaciones',function(){
         var errHTML="";
         idempleado=$(this).val();
-        $.get('empleado/calculardias/'+idempleado,function(data){
+        $.get('empleados/calculardias/'+idempleado,function(data){
            
             var horas = '';
             var dias = '';

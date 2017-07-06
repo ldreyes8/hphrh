@@ -84,6 +84,8 @@ class PersonaController extends Controller
         $tdocumento = DB::table('documento')->get();
         $nivelacademico = DB::table('nivelacademico')->get();
         $pais=DB::table('pais')->get();
+        //return view("solicitud1",["departamento"=>$departamento,"estadocivil"=>$estadocivil,"idiomas"=>$idiomas,"puestos"=>$puestos,"afiliados"=>$afiliados,"licencia"=>$licencia,"etnia"=>$etnia,"nacionalidad"=>$nacionalidad,"tdocumento"=>$tdocumento,"nivelacademico"=>$nivelacademico,'pais'=>$pais]);
+
         return view("solicitud",["departamento"=>$departamento,"estadocivil"=>$estadocivil,"idiomas"=>$idiomas,"puestos"=>$puestos,"afiliados"=>$afiliados,"licencia"=>$licencia,"etnia"=>$etnia,"nacionalidad"=>$nacionalidad,"tdocumento"=>$tdocumento,"nivelacademico"=>$nivelacademico,'pais'=>$pais]);
     }
     public function store(PersonaRequest $request)

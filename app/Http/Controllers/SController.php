@@ -19,6 +19,13 @@ class SController extends Controller
     {
         $this->middleware('auth');
     }
+
+    public function listadoR(Request $request)
+    {
+        return view('rrhh.reclutamiento.index');
+    }
+
+
     public function pdf()
     {
         $empleados = Persona::all();
@@ -135,7 +142,7 @@ class SController extends Controller
             
             ->paginate(12);
 
-            return view('empleado.solicitante.index',["empleados"=>$empleados,"searchText"=>$query]);
+            return view('rrhh.reclutamiento.solicitud',["empleados"=>$empleados,"searchText"=>$query]);
         }
     }
     public function show($id)
@@ -255,7 +262,7 @@ class SController extends Controller
         $nivelacademico = DB::table('nivelacademico')->get();
         $estadocivil=DB::table('estadocivil')->get();
 
-        return view('empleado.solicitante.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones]);
+        return view('rrhh.reclutamiento.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones]);
     }
     public function rechazo($idE,$idS)
     {
@@ -269,7 +276,8 @@ class SController extends Controller
             $st-> idstatus='10';
             $st->update();
         }
-        return Redirect::to('empleado/solicitante');
+        //return view('rrhh.reclutamiento.index');
+        return Redirect::to('empleado/listadoR');
     }
     public function rechazoPP($idE)
     {
