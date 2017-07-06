@@ -41,7 +41,6 @@
                         @endforeach
                      </table>
                  </div>
-                 {{$permisos->render()}}
            </div>
         </div>
 

@@ -37,12 +37,14 @@
                         @endforeach
                      </table>
                  </div>
-                 {{$permisos->render()}}
            </div>
         </div>
     @endif
 </div>
 
+<script src="{{asset('assets/js/permiso.js')}}"></script>
+<script type="text/javascript">
 
-
-    <script src="{{asset('assets/js/permiso.js')}}"></script>
+ 
+    
+</script>

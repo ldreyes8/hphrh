@@ -48,7 +48,7 @@ class PermisosController extends Controller
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','solicitado')
    
-        ->paginate(15);
+        ->get();
       }
       return view('director.autorizaciones.solicitados',["permisos"=>$permisos,"searchText"=>$query]);
       //return view('director.permisos.index',["permisos"=>$permisos,"searchText"=>$query]);
@@ -73,7 +73,7 @@ class PermisosController extends Controller
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','Confirmado')
    
-        ->paginate(15);   
+        ->get();   
 
         return view('director.autorizaciones.autorizados',["permisos"=>$permisos])  ;        
     }
@@ -97,7 +97,7 @@ class PermisosController extends Controller
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','Rechazado')
   
-        ->paginate(15); 
+        ->get(); 
 
         return view('director.autorizaciones.rechazados',["permisos"=>$permisos])  ;        
     }

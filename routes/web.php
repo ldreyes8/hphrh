@@ -189,8 +189,8 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('autorizaciones','PermisosController@indexdirector'); /// solicitud de vacaciones y permisos de los empleados que tiene un jefe x.
 	Route::get('solicitadoVP','PermisosController@index');
 	Route::get('vautorizado','VacacionesController@indexautorizado')->middleware('roleshinobi:jefeinmediato');/////
-	Route::get('rechazado','PermisosController@indexrechazado')->middleware('roleshinobi:jefeinmediato');
-	Route::get('confirmado','PermisosController@indexconfirmado')->middleware('roleshinobi:jefeinmediato');
+	Route::get('rechazado/{pag?}','PermisosController@indexrechazado')->middleware('roleshinobi:jefeinmediato');
+	Route::get('confirmado/{page?}','PermisosController@indexconfirmado')->middleware('roleshinobi:jefeinmediato');
 
 
 	Route::resource('solicitadospermis','PermisosController');

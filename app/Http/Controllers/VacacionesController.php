@@ -117,7 +117,7 @@ class VacacionesController extends Controller
     ->where('au.autorizacion','=','Autorizado')
     ->where('tp.idtipoausencia','=','3')        
     
-    ->paginate(15);  
+    ->get();
 
     return view('director.autorizaciones.constancias',["permisos"=>$permisos]);        
   }

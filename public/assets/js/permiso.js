@@ -30,8 +30,28 @@ function cargarconstancias(listado){
     });
 }
 
+//  var sort_type = $('body').find('.tab-pane.active').data('sort_type');
+
+
+function cargar()
+{
+    var sort_type = $('body').find('.tab-pane.active').data('sort_type');
+        var url = $(this).attr('href');
+        console.log(sort_type);
+}
+
 
 $(document).ready(function(){
+
+       $(document).on("click",".pagination li a",function(e){
+        e.preventDefault();
+        var url = $(this).attr("href");
+        $("#autorizados").html($("#cargador_empresa").html());
+        $.get(url,function(resul){
+            $("#autorizados").html(resul);  
+        })
+    })
+
     $('#btnguardar').click(function(e){
         e.preventDefault();
         //Guardamos la referencia al formulario

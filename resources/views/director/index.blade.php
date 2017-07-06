@@ -5,6 +5,7 @@
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet">
          <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/plugins/RWD-Table-Patterns/dist/css/rwd-table.min.css')}}" rel="stylesheet" type="text/css" media="screen">
+        
 
 
 @endsection
@@ -46,7 +47,7 @@
                 </li>
             </ul>
         
-            <div class="tab-content">
+            <div class="tab-content" id="idcontent">
                 @include('director.autorizaciones.solicitados')
                 @include('director.autorizaciones.autorizados')
                 @include('director.autorizaciones.rechazados')

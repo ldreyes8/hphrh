@@ -195,6 +195,7 @@ class UController extends Controller
             ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
             ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado','emp.idempleado',DB::raw('max(nt.idnomytas) as idnomytas'))
             ->where('U.id','!=',Auth::user()->id)
+            ->where('U.estado','=',1)
             ->groupBy('emp.idempleado')            
             ->paginate(30); 
            
@@ -217,6 +218,8 @@ class UController extends Controller
             ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
             ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado','emp.idempleado')
             ->where('U.id','!=',Auth::user()->id)
+                        ->where('U.estado','=',1)
+
             ->groupBy('emp.idempleado') 
             ->paginate(30);                 
             }
@@ -230,6 +233,8 @@ class UController extends Controller
             ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
             ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado','emp.idempleado')
             ->where("U.name","like","%".$dato."%")
+                                    ->where('U.estado','=',1)
+
             ->orwhere("U.email","like","%".$dato."%")
             ->orwhere("p.nombre","like","%".$dato."%")
             ->orwhere("a.nombre","like","%".$dato."%")
