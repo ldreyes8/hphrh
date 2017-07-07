@@ -50,43 +50,26 @@ class UController extends Controller
     }
     
     //Datos usuario
-
-    public function contenedor(Request $request)
-    {
-        return view('seguridad.usuario.contenedor');
-    }
     public function index(Request $request)
     {
     	if($request)
     	{
     		//$query=trim($request->get('searchText'));
             $usuarios = User::name($request->get('name'))->orderBy('id','DESC')->paginate(15);
-            $roles=Role::all();
-            return view('seguridad.usuario.index',compact('usuarios','roles'));
+            return view('seguridad.usuario.index',compact('usuarios'));
             //$usuarios=User::all()->where('name','LIKE','%'.$query.'%')
             //->orderBy('id','desc')
             //->paginate(15);
             //$usuarios=User::paginate(15);
-            //return view('seguridad.usuario.index',["usuarios"=>$usuarios,"roles"=>$roles]);
+            //return view('seguridad.usuario.index',["usuarios"=>$usuarios,"searchText"=>$query]);
     	}
     }
 
-    public function buscar_usuarios($rol,$dato="")
-    {
-        $usuarios= User::Busqueda($rol,$dato)->paginate(15);  
-        $roles=Role::all();
-        $rolsel=$roles->find($rol);
-        return view('seguridad.usuario.index')
-        ->with("usuarios", $usuarios )
-        ->with("rolsel", $rolsel )
-        ->with("roles", $roles );       
-    } 
-
-    public function add()
+    public function create()
     {
         //return view("seguridad.usuario.create",["personas"=>$personas,"articulos"=>$articulos]);
     	//$empleados=DB::table('persona')->where('tipo_persona','=','empleado')->get();
-    	//return view("seguridad.usuario.create",["empleados"=>$empleados])
+    	//return view("seguridad.usuario.create",["empleados"=>$empleados]);
     	$usuario = user::all();
     	return view("seguridad.usuario.create",["usuario"=>$usuario]);
     }
@@ -116,7 +99,7 @@ class UController extends Controller
 
         $usuario=User::find($idusu);
         $rolesasignados=$usuario->getRoles();
-        return json_encode ($rolesasignados); 
+        return json_encode ($rolesasignados);
     }
 
     public function quitar_rol($idusu,$idrol){
@@ -195,7 +178,6 @@ class UController extends Controller
             ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
             ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado','emp.idempleado',DB::raw('max(nt.idnomytas) as idnomytas'))
             ->where('U.id','!=',Auth::user()->id)
-            ->where('U.estado','=',1)
             ->groupBy('emp.idempleado')            
             ->paginate(30); 
            
@@ -218,8 +200,6 @@ class UController extends Controller
             ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
             ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado','emp.idempleado')
             ->where('U.id','!=',Auth::user()->id)
-                        ->where('U.estado','=',1)
-
             ->groupBy('emp.idempleado') 
             ->paginate(30);                 
             }
@@ -233,8 +213,6 @@ class UController extends Controller
             ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
             ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado','emp.idempleado')
             ->where("U.name","like","%".$dato."%")
-                                    ->where('U.estado','=',1)
-
             ->orwhere("U.email","like","%".$dato."%")
             ->orwhere("p.nombre","like","%".$dato."%")
             ->orwhere("a.nombre","like","%".$dato."%")
@@ -246,7 +224,7 @@ class UController extends Controller
             }
             return view("hr.galeria")->with("usuario",$users);
         }
-/*
+
         public function buscar_usuarios($afiliado,$dato="")
         {
 
@@ -260,7 +238,7 @@ class UController extends Controller
             ->with("afiliados",$afiliados)
             ->with("usuarios", $usuarios )
             ->with("usuario_actual", $usuarioactual);       
-        } */
+        } 
 
 
     	public function subirimagen(Request $request)
@@ -272,7 +250,7 @@ class UController extends Controller
             
 
             $input  = array('image' => $fotoperfil) ;
-            $reglas = array('image' => 'required|image|mimes:jpeg,jpg,png|max:2000');
+            $reglas = array('image' => 'required|image|mimes:jpeg,jpg,png|max:1024');
             $validacion = Validator::make($input,  $reglas);
 
             if ($validacion->fails())
@@ -343,6 +321,7 @@ class UController extends Controller
             ->select('e.idempleado','p.identificacion')
             ->where('u.id','=',Auth::user()->id)
             ->get();
+
 
             return view("hr.academico",["departamento"=>$departamento,"nivelacademico"=>$nivelacademico,"empleado"=>$empleado,"academico"=>$academico,'pais'=>$pais]);   
         }

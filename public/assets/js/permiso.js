@@ -1,57 +1,13 @@
-function cargarsolicitados(listado){
-    $("#profile").html($("#cargador_empresa").html());
-    if(listado==1){var url = "solicitadoVP";}
+function cargaracademico(listado){
+    $("#academicos").html($("#cargador_empresa").html());
+    if(listado==1){var url = "verificar";}
     $.get(url,function(resul){
-    $("#profile").html(resul);
+    $("#academicos").html(resul);
     });
-}
-
-function cargarautorizados(listado){
-    $("#autorizados").html($("#cargador_empresa").html());
-    if(listado==1){var url = "confirmado";}
-    $.get(url,function(resul){
-    $("#autorizados").html(resul);
-    });
-}
-
-function cargarechazados(listado){
-    $("#rechazados").html($("#cargador_empresa").html());
-    if(listado==1){var url = "rechazado";}
-    $.get(url,function(resul){
-    $("#rechazados").html(resul);
-    });
-}
-
-function cargarconstancias(listado){
-    $("#constancias").html($("#cargador_empresa").html());
-    if(listado==1){var url = "vautorizado";}
-    $.get(url,function(resul){
-    $("#constancias").html(resul);
-    });
-}
-
-//  var sort_type = $('body').find('.tab-pane.active').data('sort_type');
-
-
-function cargar()
-{
-    var sort_type = $('body').find('.tab-pane.active').data('sort_type');
-        var url = $(this).attr('href');
-        console.log(sort_type);
 }
 
 
 $(document).ready(function(){
-
-       $(document).on("click",".pagination li a",function(e){
-        e.preventDefault();
-        var url = $(this).attr("href");
-        $("#autorizados").html($("#cargador_empresa").html());
-        $.get(url,function(resul){
-            $("#autorizados").html(resul);  
-        })
-    })
-
     $('#btnguardar').click(function(e){
         e.preventDefault();
         //Guardamos la referencia al formulario
@@ -106,7 +62,7 @@ $(document).ready(function(){
                     type: "success"
                 },
                 function(){
-                    window.location.href="/empleado/autorizaciones"
+                    window.location.href="/empleado/permisos"
                 });
      
                     
@@ -186,7 +142,7 @@ $(document).ready(function(){
                     type: "success"
                 },
                 function(){
-                    window.location.href="/empleado/autorizaciones";
+                    window.location.href="/empleado/vsolicitado";
                 });
                    
                     //window.location.replace("vsolicitado");
@@ -279,7 +235,7 @@ $(document).ready(function(){
                     type: "success"
                 },
                 function(){
-                    window.location.href="/empleado/autorizaciones";
+                    window.location.href="/empleado/vautorizado";
                 }); 
                     //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +data.titulo+ "</td><td>" +data.establecimiento + "</td><td>" +data.duracion + ": " + data.periodo + "</td><td>" +nivel + "</td><td>" +fingreso + "</td><td>" +fsalida + "</td></tr>";    
                     //$('#formModal').modal('hide');

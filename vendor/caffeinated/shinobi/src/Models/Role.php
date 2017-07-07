@@ -193,9 +193,4 @@ class Role extends Model
 
         return $this->permissions()->detach();
     }
-
-    public function scopeRol($query,$rol)
-    {
-        return $query->where('roles.id', '=', $rol);
-    }
 }

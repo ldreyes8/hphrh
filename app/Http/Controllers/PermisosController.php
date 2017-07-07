@@ -19,12 +19,6 @@ class PermisosController extends Controller
       $this->middleware('auth');
     }
 
-    public function indexdirector(Request $request)
-    {
-      return view('director.index');
-    }
-
-
     public function index (Request $request)
     {
     	if ($request)
@@ -47,11 +41,13 @@ class PermisosController extends Controller
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','solicitado')
+        ->where('tp.idtipoausencia','!=','3')        
    
-        ->get();
-      }
-      return view('director.autorizaciones.solicitados',["permisos"=>$permisos,"searchText"=>$query]);
-      //return view('director.permisos.index',["permisos"=>$permisos,"searchText"=>$query]);
+        ->paginate(15);       
+    	}
+     
+
+    	return view('director.permisos.index',["permisos"=>$permisos,"searchText"=>$query]);
     }
 
     public function indexconfirmado (Request $request)
@@ -72,10 +68,11 @@ class PermisosController extends Controller
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','Confirmado')
+        ->where('tp.idtipoausencia','!=','3')        
    
-        ->get();   
+        ->paginate(15);   
 
-        return view('director.autorizaciones.autorizados',["permisos"=>$permisos])  ;        
+        return view('director.permisos.indexconfirmado',["permisos"=>$permisos])  ;        
     }
 
      public function indexrechazado (Request $request)
@@ -96,10 +93,11 @@ class PermisosController extends Controller
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','Rechazado')
-  
-        ->get(); 
+        ->where('tp.idtipoausencia','!=','3')        
+   
+        ->paginate(15); 
 
-        return view('director.autorizaciones.rechazados',["permisos"=>$permisos])  ;        
+        return view('director.permisos.indexrechazado',["permisos"=>$permisos])  ;        
     }
 
     public function verificar($id)
