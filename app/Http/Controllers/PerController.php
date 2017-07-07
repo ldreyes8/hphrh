@@ -17,19 +17,18 @@ class PerController extends Controller
     }
      public function index (Request $request)
     {
-    	    
+    	
+     
         //dd($usuario);
+ 
+
         //return view("hr.referencias",["referencia"=>$referencia,"empleado"=>$empleado]); 
+
     	return view('empleado.perfil.index');
     }
 
-    public function contacto(Request $request)
+    public function store()
     {
-        return view('empleado.perfil.contacto');
-    }
-
-    public function solicitud(Request $request)
-    {
-        return view('empleado.solicitud.index');
+        
     }
 }

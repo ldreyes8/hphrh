@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Eventos;
 use App\Persona;
-use App\Empleado;
 use Illuminate\Http\File;
 use DB;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -139,9 +138,6 @@ class HomeController extends Controller
     }
     */
 
-    
-       
-
     public function addimage(Request $request)
     {
         $evento = new Eventos;
@@ -162,141 +158,8 @@ class HomeController extends Controller
                 $file->move(public_path().'/tablero/',$file->getClientOriginalName());
                 $evento->save();
                 return view("mensajes.msj_correcto")->with("msj","Imagen agregada correctamente");
+
             }
         }
     }
-
-    public function dgenerales(Request $request)
-    {
-        $usuario = DB::table('users as U')
-        ->join('persona as per','U.identificacion','=','per.identificacion')
-        ->join('empleado as emp','per.identificacion','=','emp.identificacion')
-        ->select('emp.idempleado')
-        ->where('U.id','=',Auth::user()->id)
-        ->first();
-
-        $empleado = DB::table('empleado as emp')
-        ->join('persona as per','emp.identificacion','=','per.identificacion')
-        ->join('estadocivil as ec','emp.idcivil','=','ec.idcivil')
-        ->select('per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','per.apellido3','per.fechanac','per.barriocolonia','per.genero','emp.afiliacionigss','emp.numerodependientes','emp.aportemensual','emp.vivienda','emp.alquilermensual','emp.otrosingresos','emp.pretension','emp.nit','per.identificacion','ec.estado as estadocivil','ec.idcivil','emp.idempleado')
-        ->where('emp.idempleado','=',$usuario->idempleado)  
-        ->first();
-
-        $departamento=DB::table('departamento')->get();
-        $estadocivil=DB::table('estadocivil')->get();
-
-        return view("hr.persona",["departamento"=>$departamento,"estadocivil"=>$estadocivil,"empleado"=>$empleado]);
-        //return view("empleado.empleado.index")->with("departamento",$departamento,"empleado",$empleado,"estadocivil",$estadocivil);
-    }
-
-    public function listardgenerales()
-    {
-        $usuario = DB::table('users as U')
-        ->join('persona as per','U.identificacion','=','per.identificacion')
-        ->join('empleado as emp','per.identificacion','=','emp.identificacion')
-        ->select('emp.idempleado')
-        ->where('U.id','=',Auth::user()->id)
-        ->first();
-
-        //(DB::raw('DATE_FORMAT(pa.fingreso,"%d/%m/%Y") as fingreso'))
-
-        $empleado = DB::table('empleado as emp')
-        ->join('persona as per','emp.identificacion','=','per.identificacion')
-        ->join('estadocivil as ec','emp.idcivil','=','ec.idcivil')
-        ->select('per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','per.apellido3',DB::raw('DATE_FORMAT(per.fechanac, "%d/%m/%Y") as fechanac'),'per.barriocolonia','per.genero','emp.afiliacionigss','emp.numerodependientes','emp.aportemensual','emp.vivienda','emp.alquilermensual','emp.otrosingresos','emp.pretension','emp.nit','per.identificacion','ec.idcivil','ec.estado as estadocivil')
-        ->where('emp.idempleado','=',$usuario->idempleado)  
-        ->first();
-
-        return response()->json($empleado);
-    }
-
-    public function updatedgenerales(Request $request, $id)
-    {
-        $this->validateRequest($request);
-
-        $identificacion = $request->get('idper');
-
-        $fechanac = $request->fechanac; 
-
-        $empleado = Empleado::findOrFail($id);
-        //afiliacionigss, numerodependientes,aportemensual,viivienda,alquilermensual,otrosingresos,nit,
-        //idcivil.
-
-        $empleado->afiliacionigss = $request->afiliacionigss;
-        $empleado->numerodependientes = $request->dependientes;
-        $empleado->aportemensual = $request->aportemensual;
-        $empleado->vivienda =$request->vivienda;
-        $empleado->alquilermensual = $request->alquilermensual;
-        $empleado->otrosingresos = $request->otrosingresos;
-        $empleado->nit = $request->nit;
-        $empleado->idcivil = $request->estadocivil;
-        $empleado->save();
-
-        $persona = Persona::findOrFail($identificacion);
-
-        $persona->identificacion = $request->identificacion;
-        $persona->nombre1 = $request->nombre1; 
-        $persona->nombre2 = $request->nombre2;
-        $persona->nombre3 = $request->nombre3;
-
-        $persona->apellido1 = $request->apellido1; 
-        $persona->apellido1 = $request->apellido1;
-        $persona->apellido1 = $request->apellido1;
-
-        $persona->barriocolonia = $request->barriocolonia;
-
-        $fechanac = Carbon::createFromFormat('d/m/Y',$fechanac);
-        $fechanac = $fechanac->toDateString();
-
-        $persona->fechanac = $fechanac;
-        $persona->save();
-
-
-        //$fechaingreso = Carbon::createFromFormat('d/m/Y',$fechaingreso);
-        //$fechasalida = Carbon::createFromFormat('d/m/Y',$fechasalida);
-        //$fechaingreso = $fechaingreso->toDateString();
-        //$fechasalida = $fechasalida->toDateString();
-        //$academico->titulo = $request->get('titulo');
-        //$academico->establecimiento = $request->get('establecimiento');
-        //$academico->duracion = $request->get('duracion');
-        //$academico->fingreso = $fechaingreso;
-        //$academico->fsalida = $fechasalida;
-
-        /*
-        identificacion: $("#identificacion").val(),
-        nit: $("#nit").val(),
-        nombre1: $("#nombre1").val(),           
-        nombre2: $("#nombre2").val(),
-         nombre3: $('#nombre3').val(),
-                        apellido1: $('#apellido1').val(),
-                        apellido2: $('#apellido2').val(),
-                        apellido3: $('#apellido3').val(),
-
-                        fechanac : $("#fechanac").val(),
-                        estadocivil: $("#estadocivil").val(),
-                        genero: $("#genero").val(),
-                        dependientes: $("#dependientes").val(),
-                        aportemensual: $("#aportemensual").val(),
-                        vivienda: $("#vivienda").val(),
-                        alquilermensual: $("#alquilermensual").val(),
-                        otrosingresos: $("#otrosingresos").val(),
-                        barriocolonia: $("#barriocolonia").val(),
-        */
-        return response()->json($persona);
-    }
-
-    public function validateRequest($request){
-            $rules=[
-            'identificacion' => 'required|max:13',
-            'nombre1' => 'required|max:40',
-            'apellido1'=> 'required|max:40',
-          
-            ];
-            $messages=[
-            'required' => 'Debe ingresar :attribute.',
-            'max'  => 'La capacidad del campo :attribute es :max',
-            ];
-            $this->validate($request, $rules,$messages);        
-        }
-
 }

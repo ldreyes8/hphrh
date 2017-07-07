@@ -5,7 +5,7 @@
 
             <div class="text-center">
               
-                <a href="#"><img src="{{asset('assets/images/Habitat/logonegro.png')}}" alt="" class="md md-equalizer" /> 
+                <a href="#"><img src="{{asset('assets/images/Habitat/habitat.png')}}" alt="" class="md md-equalizer" />
                 </a>
             </div>
 
@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <div class="col-xs-12">
                         
-                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus placeholder="Correo">
+                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus placeholder="Mail">
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -30,7 +30,7 @@
 
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <input id="password" type="password" class="form-control" name="password" required placeholder="contraseña">
+                        <input id="password" type="password" class="form-control" name="password" required placeholder="Password">
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -56,7 +56,7 @@
                 <div class="form-group text-right m-t-20">
                     <div class="col-xs-12">
                        <button type="submit" class="btn btn-primary">
-                                    Ingresar
+                                    Login
                                 </button>
                     </div>
                 </div>

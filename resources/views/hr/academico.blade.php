@@ -2,43 +2,40 @@
     <div class="panel-heading">
         <button class="btn btn-success" id="btnAgregar"><i class="icon-user icon-white" ></i> Agregar estudios</button>
     </div>
-  <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-      <div class="card-box">
-        <div class="table-responsive" id="tabla">
-          <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItems">
-            <thead>
-              <th>Título</th>
-              <th>Institución</th>
-              <th>Duración</th>
-              <th>Nivel</th>
-              <th>Fecha Ingreso</th>
-              <th>Fecha Salida</th>
-              <th>Opciones</th>
-            </thead>
-            <tbody id="productsA" name="productsA">
-              @if (isset($academico))
-                @for ($i=0;$i<count($academico);$i++)
-                  <tr class="even gradeA" id="academico{{$academico[$i]->idpacademico}}">
-                    <td>{{$academico[$i]->titulo}}</td>
-                    <td>{{$academico[$i]->establecimiento}}</td>
-                    <td>{{$academico[$i]->duracion.': '.$academico[$i]->periodo}}</td>
-                    <td>{{$academico[$i]->nombrena}}</td>
-                    <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$academico[$i]->fingreso)->format('d/m/Y')}}</td>
-                    <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$academico[$i]->fsalida)->format('d/m/Y')}}</td>
-                    <td>
-                      <button class="fa fa-pencil btn-editar-academico" value="{{$academico[$i]->idpacademico}}"></button>
-                      <button class="fa fa-trash-o btn-delete-academico" value="{{$academico[$i]->idpacademico}}"></button>
-                    </td>
-                  </tr>
-                @endfor
-              @endif
-            </tbody>
-          </table>
-        </div>
-      </div>
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+    <div class="table-responsive" id="tabla">
+      <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItems">
+        <thead>
+          <th>Título</th>
+          <th>Institución</th>
+          <th>Duración</th>
+          <th>Nivel</th>
+          <th>Fecha Ingreso</th>
+          <th>Fecha Salida</th>
+          <th>Opciones</th>
+        </thead>
+        <tbody id="productsA" name="productsA">
+          @if (isset($academico))
+            @for ($i=0;$i<count($academico);$i++)
+              <tr class="even gradeA" id="academico{{$academico[$i]->idpacademico}}">
+                <td>{{$academico[$i]->titulo}}</td>
+                <td>{{$academico[$i]->establecimiento}}</td>
+                <td>{{$academico[$i]->duracion.': '.$academico[$i]->periodo}}</td>
+                <td>{{$academico[$i]->nombrena}}</td>
+                <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$academico[$i]->fingreso)->format('d/m/Y')}}</td>
+                <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$academico[$i]->fsalida)->format('d/m/Y')}}</td>
+                <td>
+                  <button class="fa fa-pencil btn-editar-academico" value="{{$academico[$i]->idpacademico}}"></button>
+                  <button class="fa fa-trash-o btn-delete-academico" value="{{$academico[$i]->idpacademico}}"></button>
+                </td>
+              </tr>
+            @endfor
+          @endif
+        </tbody>
+      </table>
     </div>
   </div>
+
 </div>
   <div class="col-lg-12">
     <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

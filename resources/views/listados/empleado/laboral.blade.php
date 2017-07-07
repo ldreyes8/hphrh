@@ -2,7 +2,7 @@
 @section ('contenido')
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<h3>Historial de empleado en Fundación Hábitat </h3>
+		<h3>Historia de empleado en Fundación Hábitat </h3>
 	</div>
 </div>
 <div class="row">

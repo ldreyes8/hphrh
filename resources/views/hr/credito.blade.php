@@ -2,37 +2,33 @@
     <div class="panel-heading">
         <button class="btn btn-success" id="btnAgregarC"><i class="icon-user icon-white" ></i> Agregar crédito</button>
     </div>
-  <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-      <div class="card-box">
-        <div class="table-responsive" id="tabla">
-          <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsC">
-            <thead>
-              <th>Acreedor</th>
-              <th>Amortización mensual</th>
-              <th>Monto crédito</th>
-              <th>Motivo del crédito</th>
-              <th>Opciones</th>
-            </thead>
-            <tbody id="productsC" name="productsC">
-              @if (isset($deuda))
-                @for ($i=0;$i<count($deuda);$i++)
-                  <tr class="even gradeA" id="deudas{{$deuda[$i]->idpdeudas}}">
-                    <td>{{$deuda[$i]->acreedor}}</td>
-                    <td>{{$deuda[$i]->amortizacionmensual}}</td>
-                    <td>{{$deuda[$i]->montodeuda}}</td>
-                    <td>{{$deuda[$i]->motivodeuda}}</td>
-                    <td>
-                      <button class="fa fa-pencil btn-editar-credito" value="{{$deuda[$i]->idpdeudas}}"></button>
-                      <button class="fa fa-trash-o btn-delete-credito" value="{{$deuda[$i]->idpdeudas}}"></button>
-                    </td>
-                  </tr>
-                @endfor
-              @endif
-            </tbody>
-          </table>
-        </div>
-      </div>
+  <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
+    <div class="table-responsive" id="tabla">
+      <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsC">
+        <thead>
+          <th>Acreedor</th>
+          <th>Amortización mensual</th>
+          <th>Monto crédito</th>
+          <th>Motivo del crédito</th>
+          <th>Opciones</th>
+        </thead>
+        <tbody id="productsC" name="productsC">
+          @if (isset($deuda))
+            @for ($i=0;$i<count($deuda);$i++)
+              <tr class="even gradeA" id="deudas{{$deuda[$i]->idpdeudas}}">
+                <td>{{$deuda[$i]->acreedor}}</td>
+                <td>{{$deuda[$i]->amortizacionmensual}}</td>
+                <td>{{$deuda[$i]->montodeuda}}</td>
+                <td>{{$deuda[$i]->motivodeuda}}</td>
+                <td>
+                  <button class="fa fa-pencil btn-editar-credito" value="{{$deuda[$i]->idpdeudas}}"></button>
+                  <button class="fa fa-trash-o btn-delete-credito" value="{{$deuda[$i]->idpdeudas}}"></button>
+                </td>
+              </tr>
+            @endfor
+          @endif
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
