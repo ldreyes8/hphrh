@@ -47,8 +47,11 @@ class PermisosController extends Controller
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','solicitado')
-   
+        ->orderBy('au.fechasolicitud','desc')
+
         ->get();
+   
+        //->paginate(1);
       }
       return view('director.autorizaciones.solicitados',["permisos"=>$permisos,"searchText"=>$query]);
       //return view('director.permisos.index',["permisos"=>$permisos,"searchText"=>$query]);
@@ -72,9 +75,11 @@ class PermisosController extends Controller
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','Confirmado')
-   
-        ->get();   
+        ->orderBy('au.fechasolicitud','desc')
 
+   
+        //->paginate(1);   
+        ->get();
         return view('director.autorizaciones.autorizados',["permisos"=>$permisos])  ;        
     }
 
@@ -96,8 +101,11 @@ class PermisosController extends Controller
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','Rechazado')
+        ->orderBy('au.fechasolicitud','desc')
+
   
-        ->get(); 
+        //->paginate(1);
+        ->get();   
 
         return view('director.autorizaciones.rechazados',["permisos"=>$permisos])  ;        
     }

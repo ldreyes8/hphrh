@@ -139,9 +139,7 @@
                         <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
                             <label for="fechanac">Fecha de nacimiento *</label>
                             <div class="input-group">
-                                <input id="fechanac" type="date" class="form-control" name="fechanac">
-                                <span class="input-group-addon bg-primary b-0 text-white"><i class="ion-calendar"></i></span>
-
+                                <input id="fechanac" type="text" class="form-control" name="fechanac">
 
                             </div>
                         </div>

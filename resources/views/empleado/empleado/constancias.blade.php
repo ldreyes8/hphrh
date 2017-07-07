@@ -61,7 +61,7 @@
 	            <div class="row">
 	               <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 	                    <div class="table-responsive">
-	                        <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItems">
+	                        <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsCon">
 	                            <thead>
 	                                <th>FECHA DE SOLICITUD</th>
 	                                <th>DÍAS TOMADOS</th>
@@ -115,11 +115,6 @@
 	    </div>
 	</div>
 </div>
-
-    <script src="{{asset('assets/js/constancia.js')}}"></script>
-
-
-
 
 <script>
     $("#btndescargar").hide();

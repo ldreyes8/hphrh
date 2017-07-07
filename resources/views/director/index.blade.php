@@ -5,7 +5,7 @@
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet">
          <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/plugins/RWD-Table-Patterns/dist/css/rwd-table.min.css')}}" rel="stylesheet" type="text/css" media="screen">
-        
+
 
 
 @endsection
@@ -13,7 +13,7 @@
 
 <div class="row"> 
     <div class="col-md-12 col-lg-12 col-sm-12">
-        <div class="">
+        <div class="tab-panels">
             <ul class="nav nav-tabs navtab-custom">
 
                 <li class="active"><a href="javascript:void(0);" onclick="cargarsolicitados(1,1);">
@@ -71,9 +71,31 @@
     <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
     <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
 
+
     <script>cargarsolicitados(1);</script>
     <script>cargarautorizados(1);</script>
     <script>cargarechazados(1);</script>
     <script>cargarconstancias(1);</script>
+    <script type="text/javascript">
+
+    $(document).on("click",".tab-panels .nav.nav-tabs.navtab-custom li a ",function(e){
+        e.preventDefault();
+        var contenedor = $(this).attr("href");
+        console.log(contenedor);
+
+        $(document).on("click",".pagination li a",function(e){
+            e.preventDefault();
+            var url = $(this).attr("href");
+            console.log(url);
+
+            $(contenedor).html($("#cargador_empresa").html());
+            
+                $.get(url,function(resul){
+                $(contenedor).html(resul);  
+            })
+        })
+    })
+
+    </script>
 
 @endsection

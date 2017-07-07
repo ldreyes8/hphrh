@@ -66,7 +66,7 @@ $(document).ready(function(){
                         td = td - 0.5;
                         resul = td + " ½ "+"Días"
                     }
-                    document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +dia+ "</td><td>" +data[i].fechainicio + " al "+ data[i].fechafin +"</td><td>"+resul+"</td><td>"+data[i].periodo+"</td></tr>";
+                    document.getElementById("dataTableItemsCon").innerHTML += "<tr class='fila'><td>" +dia+ "</td><td>" +data[i].fechainicio + " al "+ data[i].fechafin +"</td><td>"+resul+"</td><td>"+data[i].periodo+"</td></tr>";
                 }
 
                  if (sum - Math.floor(sum) == 0) {

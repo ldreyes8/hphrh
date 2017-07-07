@@ -5,7 +5,7 @@
 
             <div class="text-center">
               
-                <a href="#"><img src="{{asset('assets/images/Habitat/logonegro.png')}}" alt="" class="md md-equalizer" /> 
+                <a href="#"><img src="{{asset('assets/images/Habitat/logointro2.png')}}" alt="" class="md md-equalizer" /> 
                 </a>
             </div>
 
@@ -46,7 +46,7 @@
                         <div class="checkbox checkbox-primary">
                             <input id="checkbox-signup" type="checkbox">
                             <label for="checkbox-signup">
-                                Remember me
+                                Recordar contraseña
                             </label>
                         </div>
 
@@ -63,7 +63,7 @@
 
                 <div class="form-group m-t-30">
                     <div class="col-sm-7">
-                                                       <a class="btn btn-link" href="{{ url('/password/reset') }}">Olvidaste tu contraseña
+                                                       <a class="btn btn-link" href="{{ url('/password/reset') }}">¿Olvidaste tu contraseña?
                     </div>
                     
                 </div>

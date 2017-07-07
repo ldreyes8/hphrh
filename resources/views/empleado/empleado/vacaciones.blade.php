@@ -1,7 +1,9 @@
 <div class="tab-pane active" id="profile">
   <div class="panel-heading">
-        <button class="btn btn-success" id="btnnuevo"><i class="icon-user icon-white" ></i>Nueva solicitud de vacaciones</button>
+        <button class="btn btn-success btn-nuevoV" id="btnnuevoV"><i class="icon-user icon-white" ></i>Nueva solicitud de vacaciones</button>
   </div>
+
+
   <div><br></div>
     
     @if (!empty($usuarios->idmunicipio))
@@ -60,7 +62,7 @@
                             @endif
                             <td>{{$aus->autorizacion}}</td>
                             @if ( $aus->autorizacion == 'Autorizado')
-                                <td> <button type="button" class="btn btn-primary" id="btnconfirmar">Confirmar goce</button></td>
+                                <td> <button type="button" class="btn btn-primary btn-GoceV" id="btnconfirmar">Confirmar goce</button></td>
                             @else
                                 <td></td>
                             @endif
@@ -117,7 +119,7 @@
                         <br>
                             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                 <br>
-                                <button type="button" class="btn btn-success" id="btndatomar">Calcular Días</button>
+                                <button type="button" class="btn btn-success btn-datomarV" id="btndatomarV">Calcular Días</button>
                             </div>
 
                             
@@ -141,7 +143,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="btnguardarV">Guardar</button>
+                    <button type="button" class="btn btn-primary btn-guardarV" id="btnguardarV">Guardar</button>
                 </div>
             </div>
         </div>
@@ -229,7 +231,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="btnConfirmarV">Guardar</button>
+                    <button type="button" class="btn btn-primary btn-ConfirmarV" id="btnConfirmarV">Guardar</button>
                 </div>
             </div>
         </div>
@@ -237,7 +239,7 @@
 </div>
 
 @section('fin')
-    @parent
+    @parent 
 
     <script src="{{asset('assets/js/vacaciones.js')}}"></script>
     <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
@@ -261,5 +263,55 @@
                 $("#inlineRadio1").attr('disabled', 'disabled');
             }
         }
+
+
+    
+
+
+
+
+    $(document).on('click','.btn-nuevoV',function(e){
+        var errHTML="";
+        e.preventDefault();
+        $.get('vacaciones/calculardias',function(data){
+           
+            var horas = '';
+            var dias = '';
+            var tdh;
+
+            $.each(data,function(){
+                horas = data[0];
+                dias = data[1];
+                autorizacion = data[2];
+            })
+
+            if(autorizacion == 'Autorizado' || autorizacion == 'solicitado')
+            {
+                //alert('No puede realizar una solicitud porque tiene una en proceso');
+            swal({
+                title: "Solicitud denegada",
+                text: "No puede realizar una solicitud porque tiene una en proceso",
+                type: "error",
+                confirmButtonClass: 'btn-danger waves-effect waves-light',
+               
+            });
+             
+            }
+            else{
+                $('#inputTitle').html("Solicitud de vacaciones");
+                $('#formAgregar').trigger("reset");
+                $('#formModal').modal('show');
+                $('#datomar').attr('disabled', 'disabled');
+                $('#hhoras').attr('disabled', 'disabled');
+                $('#dacumulado').attr('disabled', 'disabled');
+                $('#btnguardarV').attr('disabled', 'disabled'); 
+
+                tdh = (dias + ' ' + 'dias' + ' ' + 'con' +' '+ horas +' '+ 'horas');
+                document.getElementById('dacumulado').value = tdh;
+                document.getElementById('tdias').value = dias;
+                document.getElementById('thoras').value = horas;
+            }
+        });
+    });
     </script>
 @endsection
