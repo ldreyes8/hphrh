@@ -24,7 +24,8 @@ class Reporte extends Controller
     	->join('puesto as p','nt.idpuesto','=','p.idpuesto')
     	->join('empleado as emp','nt.idempleado','=','emp.idempleado')
     	->join('persona as per','emp.identificacion','=','per.identificacion')
-    	->select('a.nombre as afiliado','p.nombre as puesto','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','nt.salario','per.identificacion','emp.fechaingreso as fecha')
+        ->join('caso as ca','nt.idcaso','=','ca.idcaso')
+    	->select('a.nombre as afiliado','p.nombre as puesto','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','nt.salario','per.identificacion','emp.fechaingreso as fecha','ca.nombre as caso')
     	->groupBy('emp.idempleado')
     	->orderBy('a.nombre','asc')
         ->orderBy('p.nombre','asc')
@@ -51,12 +52,13 @@ class Reporte extends Controller
     	->join('puesto as p','nt.idpuesto','=','p.idpuesto')
     	->join('empleado as emp','nt.idempleado','=','emp.idempleado')
     	->join('persona as per','emp.identificacion','=','per.identificacion')
-    	->select('a.nombre as afiliado','p.nombre as puesto','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','nt.salario','per.identificacion','emp.fechaingreso as fecha','emp.idempleado')
+        ->join('caso as ca','nt.idcaso','=','ca.idcaso')
+    	->select('a.nombre as afiliado','p.nombre as puesto','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','nt.salario','per.identificacion','emp.fechaingreso as fecha','emp.idempleado','ca.nombre as caso')
     	->groupBy('emp.idempleado')
     	->orderBy('a.nombre','asc')
         ->orderBy('p.nombre','asc')
         ->orderBy('per.apellido1')
-        ->get();          
+        ->get();
 
         Excel::create("Reporte Empleado", function ($excel) use ($nomytras)  
             {

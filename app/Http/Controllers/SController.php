@@ -1,9 +1,6 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\EmpleadoFormRequest;
@@ -12,7 +9,6 @@ use App\Persona;
 use DB;
 use PDF;
 use DateTime;
-
 use Carbon\Carbon;  // para poder usar la fecha y hora
 use Response;
 use Illuminate\Support\Collection;
@@ -22,6 +18,17 @@ class SController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function listadoR(Request $request)
+    {
+        return view('rrhh.reclutamiento.index');
+    }
+
+    public function prentrevista (Requests $request)
+    {
+        $identificacion = $request->get('identificacion');
+        dd($identificacion);
     }
     public function pdf()
     {
@@ -113,8 +120,7 @@ class SController extends Controller
         $pdf= PDF::loadView('empleado.solicitante.pdf',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"factual"=>$factual,"fnac"=>$fnac]);
         return $pdf->download('solicitante.pdf');        
     }
-
-     public function index(Request $request)
+    public function index(Request $request)
     {
         if($request)
         {
@@ -126,18 +132,55 @@ class SController extends Controller
             ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
             ->join('status as s','e.idstatus','=','s.idstatus')
             ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
-            ->where('p.nombre1','LIKE','%'.$query.'%')
-            ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
-            ->orderBy('e.idempleado','desc')
+            //->where('p.nombre1','LIKE','%'.$query.'%')
+            //->andwhere('p.apellido1','LIKE','%'.$query.'%')
+
             ->where('s.statusemp','=','Aspirante')
             ->orwhere('s.statusemp','=','Solicitante Interno')
-            ->paginate(12);
 
-            return view('empleado.solicitante.index',["empleados"=>$empleados,"searchText"=>$query]);
-        }
+            ->where('p.nombre1','LIKE','%'.$query.'%')
+            //->orwhere('p.apellido1','LIKE','%'.$query.'%')
+
+            ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
+            ->orderBy('e.idempleado','desc')
+            
+            ->paginate(19);
+            }
+            return view('rrhh.reclutamiento.solicitud',["empleados"=>$empleados,"searchText"=>$query]);
+        
     }
 
-     public function show($id)
+    public function busquedas($dato="")
+    {
+      
+            $query=$dato;
+            $empleados=DB::table('empleado as e')
+            ->join('persona as p','e.identificacion','=','p.identificacion')
+            ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
+            ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+            ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
+            ->join('status as s','e.idstatus','=','s.idstatus')
+            ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
+            //->where('p.nombre1','LIKE','%'.$query.'%')
+            //->andwhere('p.apellido1','LIKE','%'.$query.'%')
+
+            ->where('s.statusemp','=','Aspirante')
+            ->orwhere('s.statusemp','=','Solicitante Interno')
+
+            ->where('p.nombre1','LIKE','%'.$query.'%')
+            //->orwhere('p.apellido1','LIKE','%'.$query.'%')
+
+            ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
+            ->orderBy('e.idempleado','desc')
+            
+            ->paginate(19);
+
+            return view('rrhh.reclutamiento.solicitud',["empleados"=>$empleados,"searchText"=>$query]);
+        
+    }
+
+
+    public function show($id)
     {
         $municipio=DB::table('persona as p')
         ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
@@ -254,7 +297,7 @@ class SController extends Controller
         $nivelacademico = DB::table('nivelacademico')->get();
         $estadocivil=DB::table('estadocivil')->get();
 
-        return view('empleado.solicitante.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones]);
+        return view('rrhh.reclutamiento.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones]);
     }
     public function rechazo($idE,$idS)
     {
@@ -268,29 +311,25 @@ class SController extends Controller
             $st-> idstatus='10';
             $st->update();
         }
-        return Redirect::to('empleado/solicitante');
+        //return view('rrhh.reclutamiento.index');
+        return Redirect::to('empleado/listadoR');
     }
-
     public function rechazoPP($idE)
     {
 
-            $st=Empleado::find($idE);
-            $st-> idstatus='10';
-            $st->update();
-
+        $st=Empleado::find($idE);
+        $st-> idstatus='10';
+        $st->update();
         return Redirect::to('listados/pprueba');
     }
-
     public function rechazoPI($idE)
     {
 
-            $st=Empleado::find($idE);
-            $st-> idstatus='10';
-            $st->update();
-
+        $st=Empleado::find($idE);
+        $st-> idstatus='10';
+        $st->update();
         return Redirect::to('listados/interino');
     }
-
     public function upt (Request $request)
     {
         $id = $request->get('idempleado');

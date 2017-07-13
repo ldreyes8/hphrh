@@ -1,36 +1,40 @@
 <div class="tab-pane" id="referencias">
-    <div class="panel-heading">
-        <button class="btn btn-success" id="btnAgregarR"><i class="icon-user icon-white" ></i> Agregar referencias</button>
-    </div>
-  <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
-    <div class="table-responsive" id="tabla">
-      <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsR">
-        <thead>
-          <th>Nombre</th>
-          <th>Teléfono</th>
-          <th>Profesión</th>
-          <th>Tipo de referencia</th>
-          <th>Opciones</th>
+  <div class="panel-heading">
+    <button class="btn btn-success" id="btnAgregarR"><i class="icon-user icon-white" ></i> Agregar referencias</button>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+      <div class="card-box">
+        <div class="table-responsive" id="tabla">
+          <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsR">
+            <thead>
+              <th>Nombre</th>
+              <th>Teléfono</th>
+              <th>Profesión</th>
+              <th>Tipo de referencia</th>
+              <th>Opciones</th>
 
-        </thead>
-        <tbody id="products-list" name="products-list">
-          @if (isset($referencia))
-            @for ($i=0;$i<count($referencia);$i++)
-              <tr class="even gradeA" id="referencia{{$referencia[$i]->idpreferencia}}">
-                
-                <td>{{$referencia[$i]->nombrer}}</td>
-                <td>{{$referencia[$i]->telefonor}}</td>
-                <td>{{$referencia[$i]->profesion}}</td>
-                <td>{{$referencia[$i]->tiporeferencia}}</td>
-                <td>
-                  <button class="fa fa-pencil btn-editar-referencia" value="{{$referencia[$i]->idpreferencia}}"></button>
-                  <button class="fa fa-trash-o btn-delete-referencia" value="{{$referencia[$i]->idpreferencia}}"></button>
-                </td>
-              </tr>
-            @endfor
-          @endif
-        </tbody>
-      </table>
+            </thead>
+            <tbody id="products-list" name="products-list">
+              @if (isset($referencia))
+                @for ($i=0;$i<count($referencia);$i++)
+                  <tr class="even gradeA" id="referencia{{$referencia[$i]->idpreferencia}}">
+                    
+                    <td>{{$referencia[$i]->nombrer}}</td>
+                    <td>{{$referencia[$i]->telefonor}}</td>
+                    <td>{{$referencia[$i]->profesion}}</td>
+                    <td>{{$referencia[$i]->tiporeferencia}}</td>
+                    <td>
+                      <button class="fa fa-pencil btn-editar-referencia" value="{{$referencia[$i]->idpreferencia}}"></button>
+                      <button class="fa fa-trash-o btn-delete-referencia" value="{{$referencia[$i]->idpreferencia}}"></button>
+                    </td>
+                  </tr>
+                @endfor
+              @endif
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>

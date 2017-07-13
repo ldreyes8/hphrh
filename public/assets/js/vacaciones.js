@@ -1,4 +1,4 @@
-$(document).ready(function(){
+jQuery(document).ready(function () {          
    	$('#btnnuevo').click(function(e){
         var errHTML="";
         e.preventDefault();

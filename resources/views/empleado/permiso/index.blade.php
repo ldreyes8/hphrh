@@ -38,7 +38,7 @@
    
      
 <div class="col-lg-12">
-    <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="formModalP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             @if (!empty($usuarios->idmunicipio))
@@ -56,7 +56,7 @@
                 <h4 class="modal-title" id="inputTitle"></h4>
             </div>
               
-            <form role="form" id="formAgregar">
+            <form role="form" id="formAgregarP">
                 <div class="modal-header">
                     <label>Motivo ausencia</label>
                     <select name="idtipoausencia" id="idtipoausencia" class="form-control selectpicker" data-live-search="true">
@@ -104,7 +104,7 @@
                     
 
                     <div class="col-lg-6 col-md-3 col-sm-3 col-xs-12">
-                        <div><label>Concurrencia</label></div>
+                        <div><label>Recurrente</label></div>
                         <select name="concurrencia" class="form-control" id="concurrencia">
                             <option value="No">No</option>
                             <option value="Si">Si</option>
@@ -186,7 +186,7 @@
                         <br>
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                             <br>
-                            <button type="button" class="btn btn-success" id="btndatomar">Dias a tomar</button>
+                            <button type="button" class="btn btn-success" id="btndatomar">Calcular Días</button>
                         </div>
                                         
                         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
