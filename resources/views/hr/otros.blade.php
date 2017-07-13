@@ -6,98 +6,121 @@
     <li><a href="#tabvacantes" data-toggle="tab">Puestos Vacantes</a></li>
   </ul>
   <div class="tab-content bx-s-0 m-b-0" >
+
     <div class="tab-pane p-t-10 fade in active" id="generales">
-      <div class="table-responsive" id="tabla">
-        <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsO">
-          <thead>
-            <th style="width: 20%">Cel. institucional</th>
-            <th>Talla</th>
-            <th>Altura</th>
-            <th>Peso</th>
-            <th style="width: 10%">Otros</th>
-          </thead>
-          <tbody>
-            @if (isset($empleado))
-                <tr class="even gradeA" id="idem{{$empleado->idempleado}}">
-                  <td>{{$empleado->celcorporativo}}</td>
-                  <td>{{$empleado->talla}}</td>
-                  <td>{{$empleado->altura}}&nbsp;Metros</td>
-                  <td>{{$empleado->peso}}&nbsp;Libras</td>
-                  <td>
-                    <button class="fa fa-pencil btn-editar-cel" value="{{$empleado->idempleado}}"></button>
-                  </td>
-                </tr>
-            @endif
-          </tbody>
-        </table>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+          <div class="card-box">
+            <div class="table-responsive" id="tabla">
+              <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsO">
+                <thead>
+                  <th style="width: 20%">Cel. institucional</th>
+                  <th>Talla</th>
+                  <th>Altura</th>
+                  <th>Peso</th>
+                  <th style="width: 10%">Otros</th>
+                </thead>
+                <tbody>
+                  @if (isset($empleado))
+                      <tr class="even gradeA" id="idem{{$empleado->idempleado}}">
+                        <td>{{$empleado->celcorporativo}}</td>
+                        <td>{{$empleado->talla}}</td>
+                        <td>{{$empleado->altura}}&nbsp;Metros</td>
+                        <td>{{$empleado->peso}}&nbsp;Libras</td>
+                        <td>
+                          <button class="fa fa-pencil btn-editar-cel" value="{{$empleado->idempleado}}"></button>
+                        </td>
+                      </tr>
+                  @endif
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="tab-pane p-t-10 fade" id="tabidioma">
-      <div class="panel-heading">
-        <button class="btn btn-success" id="btnAgregarI"><i class="icon-user icon-white" ></i> Agregar un idioma</button>
-      </div>
-      <div class="table-responsive" id="tabla">
-        <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsI">
-          <thead>
-            <th>Idioma</th>
-            <th>Nivel</th>
-            <th style="width: 10%">Opciones</th>
-          </thead>
-          <tbody id="productsI" name="productsI">
-            @if (isset($emidioma))
-              @for ($i=0;$i<count($emidioma);$i++)
-                <tr class="even gradeA" id="idpi{{$emidioma[$i]->idpidioma}}">
-                  <td>{{$emidioma[$i]->idiomash}}</td>
-                  <td>{{$emidioma[$i]->nivel}}</td>
-                  <td>
-                    <button class="fa fa-pencil btn-editar-idioma" value="{{$emidioma[$i]->idpidioma}}"></button>
-                    <button class="fa fa-trash-o btn-delete-idioma" value="{{$emidioma[$i]->idpidioma}}"></button>
-                  </td>
-                </tr>
-              @endfor
-            @endif
-          </tbody>
-        </table>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+          <div class="card-box">
+            <div class="panel-heading">
+              <button class="btn btn-success" id="btnAgregarI"><i class="icon-user icon-white" ></i> Agregar un idioma</button>
+            </div>
+            <div class="table-responsive" id="tabla">
+              <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsI">
+                <thead>
+                  <th>Idioma</th>
+                  <th>Nivel</th>
+                  <th style="width: 10%">Opciones</th>
+                </thead>
+                <tbody id="productsI" name="productsI">
+                  @if (isset($emidioma))
+                    @for ($i=0;$i<count($emidioma);$i++)
+                      <tr class="even gradeA" id="idpi{{$emidioma[$i]->idpidioma}}">
+                        <td>{{$emidioma[$i]->idiomash}}</td>
+                        <td>{{$emidioma[$i]->nivel}}</td>
+                        <td>
+                          <button class="fa fa-pencil btn-editar-idioma" value="{{$emidioma[$i]->idpidioma}}"></button>
+                          <button class="fa fa-trash-o btn-delete-idioma" value="{{$emidioma[$i]->idpidioma}}"></button>
+                        </td>
+                      </tr>
+                    @endfor
+                  @endif
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="tab-pane p-t-10 fade" id="tablicencia">
-      <div class="panel-heading">
-        <button class="btn btn-success" id="btnAgregarL"><i class="icon-user icon-white" ></i> Agregar Licencia de conducir</button>
-      </div>
-      <div class="row" >
-        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12" >
-          <div class="table-responsive" id="tabla">
-            <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsL">
-              <thead>
-                <th>Típo licencia</th>
-                <th>Vigencia</th>
-                <th>Opciones</th>
-              </thead>
-              <tbody id="productsL" >
-                @if (isset($emlicencia))
-                  @for ($i=0;$i<count($emlicencia);$i++)
-                    <tr class="even gradeA" id="idlic{{$emlicencia[$i]->idplicencia}}">
-                      <td>{{$emlicencia[$i]->tipolicencia}}</td>
-                      <td>{{$emlicencia[$i]->vigencia}}</td>
-                      <td>
-                        <button class="fa fa-pencil btn-editar-licencia" value="{{$emlicencia[$i]->idplicencia}}"></button>
-                        <button class="fa fa-trash-o btn-delete-licencia" value="{{$emlicencia[$i]->idplicencia}}"></button>
-                      </td>
-                    </tr>
-                  @endfor
-                @endif
-              </tbody>
-            </table>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+          <div class="card-box">
+            <div class="panel-heading">
+              <button class="btn btn-success" id="btnAgregarL"><i class="icon-user icon-white" ></i> Agregar Licencia de conducir</button>
+            </div>
+            <div class="row" >
+              <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12" >
+                <div class="table-responsive" id="tabla">
+                  <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsL">
+                    <thead>
+                      <th>Típo licencia</th>
+                      <th>Vigencia</th>
+                      <th>Opciones</th>
+                    </thead>
+                    <tbody id="productsL" >
+                      @if (isset($emlicencia))
+                        @for ($i=0;$i<count($emlicencia);$i++)
+                          <tr class="even gradeA" id="idlic{{$emlicencia[$i]->idplicencia}}">
+                            <td>{{$emlicencia[$i]->tipolicencia}}</td>
+                            <td>{{$emlicencia[$i]->vigencia}}</td>
+                            <td>
+                              <button class="fa fa-pencil btn-editar-licencia" value="{{$emlicencia[$i]->idplicencia}}"></button>
+                              <button class="fa fa-trash-o btn-delete-licencia" value="{{$emlicencia[$i]->idplicencia}}"></button>
+                            </td>
+                          </tr>
+                        @endfor
+                      @endif
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="tab-pane p-t-10 fade" id="tabvacantes">
-      <div class="row" >
-        <button class="btn btn-success" id="btnAgregarPAF"><i class="icon-user icon-white" ></i> Aplicar a un puesto</button>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+          <div class="card-box">
+            <button class="btn btn-success" id="btnAgregarPAF"><i class="icon-user icon-white" ></i> Aplicar a un puesto</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

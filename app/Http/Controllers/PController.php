@@ -86,7 +86,7 @@ class PController extends Controller
 
 
 
-    	return view('empleado.permiso.index',["ausencias"=>$ausencias,"searchText"=>$query,"tausencia" => $tausencia,"usuarios"=>$usuarios]);
+    	return view('empleado.empleado.permisos',["ausencias"=>$ausencias,"searchText"=>$query,"tausencia" => $tausencia,"usuarios"=>$usuarios]);
     }
 
     public function create()
@@ -350,6 +350,14 @@ class PController extends Controller
               $vacacion->totalhoras = $vac->horas;
               $vacacion->totaldias = $days; 
               $vacacion->update();
+            }
+
+            if($idtipoausencia === "11")
+            {
+              $vacacion = Vacaciones::findOrFail($idausencia);
+              $vacacion->totalhoras = $vac->horas;
+              $vacacion->totaldias = 1; 
+              $vacacion->update();              
             }
           }
 

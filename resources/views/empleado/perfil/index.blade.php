@@ -4,6 +4,9 @@
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet" />        
         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/plugins/RWD-Table-Patterns/dist/css/rwd-table.min.css')}}" rel="stylesheet" type="text/css" media="screen">
+
+
 @endsection
 @section ('contenido')
 
@@ -26,7 +29,6 @@
                             @else
                                 <img  src="{{asset('fotografias/'.Auth::user()->fotoperfil)}}" class="img-circle" alt="profile-image" width="100px" height ="100px" id="fotografiaus">
                             @endif
-                    
                         </div>
                         <div class="form-group">
                             <label>Imagen</label>
@@ -36,33 +38,30 @@
                             <button type="submit" class="btn btn-primary btn-sm w-sm waves-effect m-t-10 waves-light">Guardar</button>
                         </div>
                     </div>
-
                 </div> <!-- end card-box -->
             </form>
         </div>
 
         <div class="card-box">
-            <h4 class="m-t-0 m-b-20 header-title">Cambiar password</h4>
-           
-
+            <h4 class="m-t-0 m-b-20 header-title">Cambiar contraseña</h4>
             <div class="p-b-10">
+            
                 <div class="form-group">
-                      <label for="exampleInputEmail1">Email </label>
-                      <input type="email" class="form-control" id="email" name="email" placeholder="Entrar email" value="{{Auth::user()->email}}" >
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-                      <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-                    </div>
+                    <label for="exampleInputEmail1">Correo </label>
+                    <input type="email" class="form-control" id="email" disabled name="email" placeholder="Entrar email" value="{{Auth::user()->email}}" >
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">contraseña</label>
+                    <input type="password" class="form-control" id="password"  name="password" placeholder="Contraseña" required>
+                </div>
 
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-2">
                         <button type="button" class="btn btn-primary" id="btnchangepassword">
-                            Cambiar datos
+                            Cambiar contraseña
                         </button>
                     </div>
                 </div>
-                  </form>
             </div>
         </div>
 
@@ -81,11 +80,11 @@
                         </a>
                     </li>
                     -->
-                    <li class=""> <a href="javascript:void(0);" onclick="cargarlistado(1,1);">
+                    <li class="active"> <a href="javascript:void(0);" onclick="cargarpersona(1,1);">
                     
                         <a href="#profile" data-toggle="tab" aria-expanded="false" >
                             <span class="visible-xs"><i class="md md-perm-contact-cal"></i></span>
-                            <span class="hidden-xs">Contactos</span>
+                            <span class="hidden-xs">Datos Generales</span>
                         </a>
                     </li>
                     <!--
@@ -155,69 +154,9 @@
                     </li-->
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane" id="home">
-                        <p class="m-b-5">Hi I'm Johnathn Deo,has been the industry's standard dummy text ever
-                            since the 1500s, when an unknown printer took a galley of type.
-                            Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-                            In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
-                            Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras
-                            dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend
-                            tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend
-                            ac, enim.</p>
-
-                        <div class="m-t-30">
-                            <h4>Experience</h4>
-
-                            <div class=" p-t-10">
-                                <h5 class="text-primary m-b-5">Lead designer / Developer</h5>
-                                <p class="">websitename.com</p>
-                                 <p><b>2010-2015</b></p>
-
-                                <p class="text-muted font-13 m-b-0">Lorem Ipsum is simply dummy text
-                                of the printing and typesetting industry. Lorem Ipsum has
-                                been the industry's standard dummy text ever since the
-                                1500s, when an unknown printer took a galley of type and
-                                scrambled it to make a type specimen book.
-                                </p>
-                            </div>
-
-                            <hr>
-
-                            <div class="">
-                                <h5 class="text-primary m-b-5">Senior Graphic Designer</h5>
-                                <p class="">coderthemes.com</p>
-                                <p><b>2007-2009</b></p>
-
-                                <p class="text-muted font-13">Lorem Ipsum is simply dummy text
-                                    of the printing and typesetting industry. Lorem Ipsum has
-                                    been the industry's standard dummy text ever since the
-                                    1500s, when an unknown printer took a galley of type and
-                                    scrambled it to make a type specimen book.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    @include('hr.galeria')
-                    <!--
-                    <div class="tab-pane" id="settings">
-                        <form role="form">
-                            <div class="form-group">
-                                <label for="name">Nombre usuario</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="Password">Contraseña</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="RePassword">Re-Password</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="AboutMe">About Me</label>
-                                <textarea style="height: 125px" id="AboutMe" class="form-control">Loren gypsum dolor sit mate, consecrate disciplining lit, tied diam nonunion nib modernism tincidunt it Loretta dolor manga Amalia erst volute. Ur wise denim ad minim venial, quid nostrum exercise ration perambulator suspicious cortisol nil it applique ex ea commodore consequent.</textarea>
-                            </div>
-                            <button class="btn btn-primary waves-effect waves-light w-md" type="submit">Save</button>
-                        </form>
-                    </div>
-                    -->
+                
+                    @include('hr.persona')
+                
                     @include('hr.academico')
                     @include('hr.familia')
                     @include('hr.referencias')
@@ -258,7 +197,7 @@
 @section('fin')
     @parent
     <meta name="_token" content="{!! csrf_token() !!}" />
-    <script src="{{asset('assets/js/foto.js')}}"></script>
+    <script src="{{asset('assets/js/persona.js')}}"></script>
     <script src="{{asset('assets/js/academico.js')}}"></script>
     <script src="{{asset('assets/js/familia.js')}}"></script>
     <script src="{{asset('assets/js/referencia.js')}}"></script>
@@ -267,14 +206,16 @@
     <script src="{{asset('assets/js/experiencia.js')}}"></script>
     <script src="{{asset('assets/js/otros.js')}}"></script>
    
-        <script src="{{asset('assets/js/changepassword.js')}}"></script>
+    <script src="{{asset('assets/js/changepassword.js')}}"></script>
     <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
     <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
 
     <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>
+
     
-    <script>cargarlistado(1);   </script>
+    
+    <script>cargarpersona(1);   </script>
     <script>cargaracademico(1); </script>
     <script>cargarfamilia(1);   </script>
     <script>cargarreferencia(1);   </script>

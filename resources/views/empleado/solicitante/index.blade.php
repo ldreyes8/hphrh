@@ -7,6 +7,7 @@
 @section ('contenido')
 
 <div class="tab-pane" id="otros">
+    <h3>Reclutamiento - Reporte</h3>
     <ul class="nav nav-tabs navtab-custom">
         <li class="active tab"><a href="#solicitud" data-toggle="tab">Solicitudes</a></li>
         <li><a href="#preentrevista" data-toggle="tab">Pre-Entrevista</a></li>
@@ -21,7 +22,6 @@
     <div class="tab-pane p-t-10 fade in active" id="solicitud">
         <div class="row">
         	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        		<h3>Listado de solicitantes </h3>
         		@include('empleado.solicitante.search')
         	</div>
             <!--div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

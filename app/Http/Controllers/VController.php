@@ -45,8 +45,7 @@ class VController extends Controller
         ->groupBy('a.fechainicio','a.fechafin','a.autorizacion','a.fechasolicitud','a.totaldias','a.totalhoras')
         ->orderBy('a.fechasolicitud','desc')
         ->paginate(15);
-              //DB::raw('DATE_FORMAT(account.terminationdate,"%Y-%m-%d") as accountterminationdate')
-        // DB::raw('ABS(ledger.OpeningBalance) as openingBalance')
+   
 
       }
 
@@ -95,14 +94,10 @@ class VController extends Controller
           ->join('municipio as M','per.idmunicipio','=','M.idmunicipio')
           ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.idmunicipio','E.idempleado')
           ->where('U.id','=',Auth::user()->id)
-          ->first();   
-
-        
+          ->first();           
         }
-     
 
-
-      return view('empleado.vacaciones.index',["ausencias"=>$ausencias,"searchText"=>$query,'usuarios'=>$usuarios,'ausencia'=>$ausencia,'vacaciones'=>$vacaciones]);
+      return view('empleado.empleado.vacaciones',["ausencias"=>$ausencias,"searchText"=>$query,'usuarios'=>$usuarios,'ausencia'=>$ausencia,'vacaciones'=>$vacaciones]);
   }
     
   public function create()
@@ -520,7 +515,10 @@ class VController extends Controller
 
 
     //return view('empleado.vacaciones.index',["ausencias"=>$ausencias,"searchText"=>$query,'usuarios'=>$usuarios,'ausencia'=>$ausencia,'vacaciones'=>$vacaciones]); 
-    return view ('reporte.gocevacaciones',["usuario"=>$usuario,"year"=>$year]);
+    return view ('empleado.empleado.constancias',["usuario"=>$usuario,"year"=>$year]); 
+
+
+
     /*
       $pdf= PDF::loadView('reporte.gocevacaciones');
         return $pdf->download('reporte.pdf'); */

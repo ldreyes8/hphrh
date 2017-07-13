@@ -122,7 +122,7 @@
                         <br>
                             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                 <br>
-                                <button type="button" class="btn btn-success" id="btndatomar">Dias a tomar</button>
+                                <button type="button" class="btn btn-success" id="btndatomar">Calcular Días</button>
                             </div>
 
                             
