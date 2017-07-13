@@ -55,9 +55,7 @@ class Rechazados extends Controller
          ->paginate(19);*/
         }
 
-        //return view('listados.rechazados.index',["empleado"=>$empleado,"searchText"=>$query]);
-        return view("rrhh.empleados.rechazados",["empleado"=>$empleado,"searchText"=>$query]);
-        //return view("hr.padecimientos",["padecimiento"=>$padecimiento,"empleado"=>$empleado]);
+        return view('listados.rechazados.index',["empleado"=>$empleado,"searchText"=>$query]);
     }
     public function show ($id)
     {

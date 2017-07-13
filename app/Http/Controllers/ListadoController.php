@@ -23,28 +23,12 @@ class ListadoController extends Controller
     {
         $this->middleware('auth');
     }
-    public function listado(Request $request)
-    {
-        return view('rrhh.empleados.index');
-    }
+    
     public function index (Request $request)
     {
-    	if($request)
-        {
-        $caso=DB::table('caso as c')
-        ->select('c.idcaso','c.nombre')
-        ->where('c.idcaso','=',6)
-        ->orwhere('c.idcaso','=',4)
-        ->orwhere('c.idcaso','=',7)
-        ->orderBy('c.nombre','asc')
-        ->get();
-
-
-        $queryN=trim($request->get('searchText'));
-        //$queryN=User::Persona($searchText)->paginate(15);
-    
-        $query=trim($request->get('select'));
-        //$query=trim($request->get('idcaso'),$request->get());
+    	if ($request)
+    	{
+        $query=trim($request->get('searchText'));
         $empleado=DB::table('empleado as e')
         ->join('status as st','e.idstatus','=','st.idstatus')
         ->join('persona as p','e.identificacion','=','p.identificacion')
@@ -52,61 +36,23 @@ class ListadoController extends Controller
         ->join('nomytras as nt','e.idempleado','=','nt.idempleado')
         ->join('puesto as pu','nt.idpuesto','=','pu.idpuesto')
         ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
-        ->join('caso as c','c.idcaso','=','nt.idcaso')
 
-        ->select('e.idempleado','e.identificacion','e.nit','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','p.nombre1','p.nombre2','p.apellido1','p.apellido2','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado','c.idcaso',DB::raw('max(nt.idnomytas) as idnomytas'))
+        ->select('e.idempleado','e.identificacion','e.nit','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','p.nombre1','p.nombre2','p.apellido1','p.apellido2','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado',DB::raw('max(nt.idnomytas) as idnomytas'))
 
-        //->where('nt.idcaso','=',6)
+        ->where('nt.idcaso','=',6)
         //->where('e.idstatus','=',2)
 
-        //->where('p.identificacion','LIKE','%'.$query.'%')
-        ->where('c.idcaso','LIKE','%'.$query.'%')
-        ->where('p.nombre1','LIKE','%'.$queryN.'%')
-        //->orwhere('p.apellido1','LIKE','%'.$queryN.'%')
+        ->where('p.identificacion','LIKE','%'.$query.'%')
+        ->orwhere('p.nombre1','LIKE','%'.$query.'%')
+        ->orwhere('p.apellido1','LIKE','%'.$query.'%')
 
         ->groupBy('e.idempleado')   
         ->orderBy('e.idempleado','desc')
         ->paginate(19); 
         }
-        //dd($queryN);
-        return view("rrhh.empleados.generalemp",["empleado"=>$empleado,"searchText"=>$queryN,"caso"=>$caso,"select"=>$query]);
-    }
-    public function busqueda($rol,$dato="")
-    {
-        $queryN=$dato;
-        $query=$rol;
-        $caso=DB::table('caso as c')
-        ->select('c.idcaso','c.nombre')
-        ->where('c.idcaso','=',6)
-        ->orwhere('c.idcaso','=',4)
-        ->orwhere('c.idcaso','=',7)
-        ->orderBy('c.nombre','asc')
-        ->get();
-        $empleado=DB::table('empleado as e')
-        ->join('status as st','e.idstatus','=','st.idstatus')
-        ->join('persona as p','e.identificacion','=','p.identificacion')
         
-        ->join('nomytras as nt','e.idempleado','=','nt.idempleado')
-        ->join('puesto as pu','nt.idpuesto','=','pu.idpuesto')
-        ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
-        ->join('caso as c','c.idcaso','=','nt.idcaso')
-
-        ->select('e.idempleado','e.identificacion','e.nit','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','p.nombre1','p.nombre2','p.apellido1','p.apellido2','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado','c.idcaso',DB::raw('max(nt.idnomytas) as idnomytas'))
-
-
-        ->where('c.idcaso','LIKE','%'.$query.'%')
-        ->where('p.nombre1','LIKE','%'.$queryN.'%')
-        //->orwhere('p.apellido1','LIKE','%'.$queryN.'%')
-
-        ->groupBy('e.idempleado')   
-        ->orderBy('e.idempleado','desc')
-        ->paginate(19); 
-
-        return view("rrhh.empleados.generalemp",["empleado"=>$empleado,"searchText"=>$queryN,"caso"=>$caso,"select"=>$query]);
-
-
+        return view('listados.empleado.index',["empleado"=>$empleado,"searchText"=>$query]);
     }
-    
     public function show ($id)
     {
         $municipio=DB::table('persona as p')
@@ -197,11 +143,13 @@ class ListadoController extends Controller
         ->select('pad.nombre')
         ->where('p.identificacion','=',$id)
         ->get();
-        return view('rrhh.empleados.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos]);
+        return view('listados.empleado.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos]);
     } 
 
     public function historial ($id)
     {
+        
+
         $historia=DB::table('historia as h')
         ->join('empleado as e','h.idempleado','=','e.idempleado')
         ->join('persona as p','e.identificacion','=','p.identificacion')
@@ -299,11 +247,11 @@ class ListadoController extends Controller
         ->join('puesto as pu','nt.idpuesto','=','pu.idpuesto')
         ->join('caso as c','nt.idcaso','=','c.idcaso')
         ->join('persona as p','e.identificacion','=','p.identificacion')
-        ->select('p.nombre1','p.nombre2','p.apellido1','p.apellido2','a.nombre as naf','pu.nombre as npu','c.nombre as nc','nt.fecha','nt.salario')
+        ->select('p.nombre1','p.apellido1','a.nombre as naf','pu.nombre as npu','c.nombre as nc','nt.fecha','nt.salario')
         ->where('e.idempleado','=',$id)
         ->get();
 
-        return view('rrhh.empleados.hlaboral',["historia"=>$historia]);
+        return view('listados.empleado.laboral',["historia"=>$historia]);
     }
 
     public function calculardias(request $request, $id)
@@ -482,7 +430,8 @@ class ListadoController extends Controller
             ->orderBy('au.fechasolicitud','desc')        
             ->paginate(15);
 
-        return view('rrhh.permisosvacaciones.indexautorizado',["vacaciones"=>$vacaciones]);        
+
+        return view('listados.vacaciones.indexautorizado',["vacaciones"=>$vacaciones]);        
     }
 
 }

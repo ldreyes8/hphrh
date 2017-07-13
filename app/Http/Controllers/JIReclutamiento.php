@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ReclutamientoJI extends Controller
+class JIReclutamiento extends Controller
 {
-    public function index (Request $request)
+     public function index (Request $request)
     {
     	    
         //dd($usuario);

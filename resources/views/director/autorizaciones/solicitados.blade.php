@@ -1,4 +1,4 @@
-<div class="tab-pane active" id="profile">
+<div class="card-box" id="profile">
     <div class="row">
     	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <h3>Vacaciones y/o Permisos que requieren su autorizaci&oacute;n</h3>
@@ -35,14 +35,14 @@
                             @if($per->ausencia == "Vacaciones")
                              <td><a href="{{URL::action('VacacionesController@verificar',$per->idausencia)}}"><button class="btn btn-primary">Ver</button></a></td>
                             @else
-                            <td><a href="{{URL::action('PermisosController@verificar',$per->idausencia)}}"><button class="btn btn-primary">Ver</button></a></td>
+                            <td><a href="{{URL::action('JIPermiso@verificar',$per->idausencia)}}"><button class="btn btn-primary">Ver</button></a></td>
                             @endif
                             
                          </tr>
                         
                         @endforeach
-                     </table>
-                 </div>
+                    </table>
+                </div>
            </div>
         </div>
     @endif

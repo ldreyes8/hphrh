@@ -15,22 +15,13 @@ $(document).ready(function(){
         $("#divHMF").show();
         $("#divENF").hide();                   
     }
-    if(x != "5" && x != "4" && x != "9" && x != "11")
+    if(x != "5" && x != "4" && x != "9")
     {
         $("#divJ").hide();
         $("#divCHM").show();
         $("#divHMF").show();
         $("#divENF").hide();                   
     }
-
-    if(x === "11")
-        {
-            $("#divJ").hide();
-            $("#divCHM").hide();
-            $("#divHMF").hide();
-            $("#divENF").hide();
-        }
-
     $("#idtipoausencia").change(event => {
         var x = $("#idtipoausencia").val();
        
@@ -56,18 +47,9 @@ $(document).ready(function(){
             $("#divHMF").show();
             $("#divENF").hide();                   
         }
-
-       
-        if(x === "11")
-        {
-            $("#divJ").hide();
-            $("#divCHM").hide();
-            $("#divHMF").hide();
-            $("#divENF").hide();
-        }
     });   
     
-    $("#btndatomarP").click(function(e){
+    $("#btndatomar").click(function(e){
 
             tdias = parseInt($("#tdias").val());
             thoras =parseInt($("#thoras").val());
@@ -79,8 +61,8 @@ $(document).ready(function(){
 
             var miurl="diashatomar";
             var formData = {                      
-                fecha_inicio: $("#fecha_inicio1").val(),
-                fecha_final : $("#fecha_final1").val(),    
+                fecha_inicio: $("#fecha_inicio").val(),
+                fecha_final : $("#fecha_final").val(),    
             };
             $.ajaxSetup({
                 headers: {
@@ -100,7 +82,7 @@ $(document).ready(function(){
                          dias = data[0];
                     })
                     tdh = dias;
-                    document.getElementById('datomarP').value = tdh;
+                    document.getElementById('datomar').value = tdh;
                     tdh = tdh *8;
 
                     if(tdh > tt)
@@ -122,18 +104,18 @@ $(document).ready(function(){
                     }else{
                         errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
                     }
-                    $("#erroresContentP").html(errHTML); 
-                    $('#erroresModalP').modal('show');
+                    $("#erroresContent").html(errHTML); 
+                    $('#erroresModal').modal('show');
                 }
             });
     });
 
-    $('#btnnuevoP').click(function(e){      
-        $('#inputTitleP').html("Solicitud de permiso");
-        $('#formAgregarP').trigger("reset");
-        $('#formModalP').modal('show');
-        $('#datomarP').attr('disabled', 'disabled');
-        $('#hhorasP').attr('disabled', 'disabled');
+    $('#btnnuevo').click(function(e){      
+        $('#inputTitle').html("Solicitud de permiso");
+        $('#formAgregar').trigger("reset");
+        $('#formModal').modal('show');
+        $('#datomar').attr('disabled', 'disabled');
+        $('#hhoras').attr('disabled', 'disabled');
         $('#dacumulado').attr('disabled', 'disabled');
         $('#btnguardarV').attr('disabled', 'disabled');           
     });
@@ -159,10 +141,10 @@ $(document).ready(function(){
 
             hoy = dd+'-'+mm+'-'+yyyy;
 
-            finicio = $("#fecha_inicio1").val();
-            ffin = $("#fecha_final1").val();
-            td = $("#datomarP").val();
-            th = $("#hhorasP").val();
+            finicio = $("#fecha_inicio").val();
+            ffin = $("#fecha_final").val();
+            td = $("#datomar").val();
+            th = $("#hhoras").val();
             th = th -0;
 
              hini= $("#hinicio").val();
@@ -176,10 +158,10 @@ $(document).ready(function(){
             var miurl="permiso/store";
             var formData = {
                            
-                fecha_inicio: $("#fecha_inicio1").val(),
-                fecha_final : $("#fecha_final1").val(),
-                dias: $('#datomarP').val(),
-                horas: $('#hhorasP').val(),
+                fecha_inicio: $("#fecha_inicio").val(),
+                fecha_final : $("#fecha_final").val(),
+                dias: $('#datomar').val(),
+                horas: $('#hhoras').val(),
                 idmunicipio: $('#idmunicipio').val(),
                 idempleado: $('#idempleado').val(),
                 name: $('#name').val(),
@@ -215,9 +197,9 @@ $(document).ready(function(){
                     //console.log(data);
                     document.getElementById("dataTableItemsPermiso").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + hinic+ "</td><td>" +hfina +"</td><td>" +"solicitado"+ "</td><td>"+"</td></tr>";
         
-                    $('#formModalP').modal('hide');
-                    $("#erroresContentP").html("La solicitud ha sido enviada correctamente"); 
-                    $('#erroresModalP').modal('show');
+                    $('#formModal').modal('hide');
+                    $("#erroresContent").html("La solicitud ha sido enviada correctamente"); 
+                    $('#erroresModal').modal('show');
                     
                 },
                 error: function (data) {
@@ -230,9 +212,9 @@ $(document).ready(function(){
                     }else{
                         errHTML+='<li>Error.</li>';
                     }
-                    $("#erroresContentP").html(errHTML); 
-                    $('#erroresModalP').modal('show');
-                    $("#inputErrorP").html("Errores");
+                    $("#erroresContent").html(errHTML); 
+                    $('#erroresModal').modal('show');
+                    $("#inputError").html("Errores");
                 },
                 complete: function(){ $f.data('locked', false);  // (3)
                 }
@@ -242,9 +224,6 @@ $(document).ready(function(){
         }
     });
 });
-
-
-
 
 /*
 $(function(){

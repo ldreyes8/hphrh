@@ -1,4 +1,4 @@
-<div class="tab-pane" id="permiso">
+<div class="card-box">
     <div class="panel-heading">
         <button class="btn btn-success" id="btnnuevoP"><i class="icon-user icon-white" ></i>Nueva solicitud de permiso</button>
     </div>
@@ -89,14 +89,14 @@
                     <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                         <label class="control-label">Fecha inicio</label>
                         <div class="input-group">
-                            <input type="text" id="fecha_inicio1" class="form-control" name="fechainicio">
+                            <input type="text" id="fecha_inicio" class="form-control" name="fechainicio">
                             <span class="input-group-addon bg-primary b-0 text-white"><i class="ion-calendar"></i></span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                         <label class="control-label">Fecha final</label>
                         <div class="input-group">
-                            <input type="text" id="fecha_final1" class="form-control" name="fechafin">
+                            <input type="text" id="fecha_final" class="form-control" name="fechafin">
                             <span class="input-group-addon bg-primary b-0 text-white"><i class="ion-calendar"></i></span>
                         </div>
                     </div>
@@ -193,7 +193,7 @@
                         </div>
                                         
                         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                            <label for="numerodependientes">Dias</label>
+                            <label for="numerodependientes">D&iacute;as</label>
                             <input id="datomarP" type="number" name="numerodependientes" min="0" class="form-control" onkeypress="return valida(event)">
                         </div>
 
@@ -249,25 +249,39 @@
   </div>
 </div>
 
+
+	<script type="text/javascript">
+
+		$('#btnnuevoP').click(function(e){      
+	        $('#inputTitleP').html("Solicitud de permiso");
+	        $('#formAgregarP').trigger("reset");
+	        $('#formModalP').modal('show');
+	        $('#datomarP').attr('disabled', 'disabled');
+	        $('#hhorasP').attr('disabled', 'disabled');
+	        $('#dacumulado').attr('disabled', 'disabled');
+	        $('#btnguardarV').attr('disabled', 'disabled');           
+	    });
+
+	    function desactivar1() {
+	        if($("#casillaP:checked").val()==1) {
+	            $("#casillaP").attr('disabled', 'disabled');
+	            $('#datomarP').removeAttr("disabled");
+	            $('#hhorasP').removeAttr("disabled");
+	        }
+	    }
+
+	    function mostrar() {
+	        if($("#inlineRadio2:checked").val()=="Goce_temporal") {
+	            $("#oculto").show();
+	            $("#inlineRadio16").attr('disabled', 'disabled');
+	            $("#inlineRadio1").attr('disabled', 'disabled');
+	        }
+	    }            
+	</script>
+
 <script src="{{asset('assets/js/permisoU.js')}}"></script>
 <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
 <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
-
-<script type="text/javascript">
-    function desactivar1() {
-        if($("#casillaP:checked").val()==1) {
-            $("#casillaP").attr('disabled', 'disabled');
-            $('#datomarP').removeAttr("disabled");
-            $('#hhorasP').removeAttr("disabled");
-        }
-    }
-
-    function mostrar() {
-        if($("#inlineRadio2:checked").val()=="Goce_temporal") {
-            $("#oculto").show();
-            $("#inlineRadio16").attr('disabled', 'disabled');
-            $("#inlineRadio1").attr('disabled', 'disabled');
-        }
-    }            
-</script>
+<script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
+<script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>

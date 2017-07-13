@@ -303,7 +303,19 @@
                                 <tr>
                                     <td class="content-cell">
 
-										<p>Su datos han sido enviado correctamente.</p>
+										<p>
+										Estimado usuario:<br>
+
+										Gracias por estar interesado en la plaza vacante, su datos han sido registrados en nuestro sistema.
+										<br>
+										<br>
+										Por favor no responda este e-mail que ha sido generado automáticamente, pronto estaremos en comunicación con usted para continuar con el proceso de selección.
+										<br>
+										<br>
+										Lo invitamos a seguir enterado de las actividades de la fundación Hábitat para la Humanidad en www.habitatguate.org y en nuestras redes sociales www.facebook.com/habitatguate
+										</p>
+										
+										
 
 									</td>
                                 </tr>

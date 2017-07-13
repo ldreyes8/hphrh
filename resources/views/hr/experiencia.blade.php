@@ -1,44 +1,40 @@
 <div class="tab-pane" id="experiencias">
-  <div class="panel-heading">
-    <button class="btn btn-success" id="btnAgregarE"><i class="icon-user icon-white" ></i> Agregar Experiencia</button>
-  </div>
-  <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-      <div class="card-box">
-        <div class="table-responsive" id="tabla">
-          <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsE">
-            <thead>
-              <th>Empresa</th>
-              <th>Puesto</th>
-              <th>Jefe inmediato</th>
-              <th>Motivo retiro</th>
-              <th>Ultimo salario</th>
-              <th>Año de ingreso</th>
-              <th>Año de salida</th>
-              <th>Opciones</th>
-            </thead>
-            <tbody id="products" name="products">
-              @if (isset($experiencia))
-                @for ($i=0;$i<count($experiencia);$i++)
-                  <tr class="even gradeA" id="experiencia{{$experiencia[$i]->idpexperiencia}}">
-                    <td>{{$experiencia[$i]->empresa}}</td>
-                    <td>{{$experiencia[$i]->puesto}}</td>
-                    <td>{{$experiencia[$i]->jefeinmediato}}</td>
-                    <td>{{$experiencia[$i]->motivoretiro}}</td>
-                    <td>{{$experiencia[$i]->ultimosalario}}</td>
-                    <td>{{$experiencia[$i]->fingresoex}}</td>
-                    <td>{{$experiencia[$i]->fsalidaex}}</td>
-                    <td>
-                      <button class="fa fa-pencil btn-editar-experiencia" value="{{$experiencia[$i]->idpexperiencia}}"></button>
-                      <button class="fa fa-trash-o btn-delete-experiencia" value="{{$experiencia[$i]->idpexperiencia}}"></button>
-                    </td>
-                  </tr>
-                @endfor
-              @endif
-            </tbody>
-          </table>
-        </div>
-      </div>
+    <div class="panel-heading">
+        <button class="btn btn-success" id="btnAgregarE"><i class="icon-user icon-white" ></i> Agregar Experiencia</button>
+    </div>
+  <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
+    <div class="table-responsive" id="tabla">
+      <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsE">
+        <thead>
+          <th>Empresa</th>
+          <th>Puesto</th>
+          <th>Jefe inmediato</th>
+          <th>Motivo retiro</th>
+          <th>Ultimo salario</th>
+          <th>Año de ingreso</th>
+          <th>Año de salida</th>
+          <th>Opciones</th>
+        </thead>
+        <tbody id="products" name="products">
+          @if (isset($experiencia))
+            @for ($i=0;$i<count($experiencia);$i++)
+              <tr class="even gradeA" id="experiencia{{$experiencia[$i]->idpexperiencia}}">
+                <td>{{$experiencia[$i]->empresa}}</td>
+                <td>{{$experiencia[$i]->puesto}}</td>
+                <td>{{$experiencia[$i]->jefeinmediato}}</td>
+                <td>{{$experiencia[$i]->motivoretiro}}</td>
+                <td>{{$experiencia[$i]->ultimosalario}}</td>
+                <td>{{$experiencia[$i]->fingresoex}}</td>
+                <td>{{$experiencia[$i]->fsalidaex}}</td>
+                <td>
+                  <button class="fa fa-pencil btn-editar-experiencia" value="{{$experiencia[$i]->idpexperiencia}}"></button>
+                  <button class="fa fa-trash-o btn-delete-experiencia" value="{{$experiencia[$i]->idpexperiencia}}"></button>
+                </td>
+              </tr>
+            @endfor
+          @endif
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

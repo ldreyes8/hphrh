@@ -1,8 +1,55 @@
+<<<<<<< HEAD
 
 
 
 jQuery(document).ready(function () {          
   
+=======
+$(document).ready(function(){
+   	$('#btnnuevo').click(function(e){
+        var errHTML="";
+        e.preventDefault();
+        $.get('vacaciones/calculardias',function(data){
+           
+            var horas = '';
+            var dias = '';
+            var tdh;
+
+            $.each(data,function(){
+                horas = data[0];
+                dias = data[1];
+                autorizacion = data[2];
+            })
+
+            if(autorizacion == 'Autorizado' || autorizacion == 'solicitado')
+            {
+                //alert('No puede realizar una solicitud porque tiene una en proceso');
+            swal({
+                title: "Solicitud denegada",
+                text: "No puede realizar una solicitud porque tiene una en proceso",
+                type: "error",
+                confirmButtonClass: 'btn-danger waves-effect waves-light',
+               
+            });
+             
+            }
+            else{
+                $('#inputTitle').html("Solicitud de vacaciones");
+                $('#formAgregar').trigger("reset");
+                $('#formModal').modal('show');
+                $('#datomar').attr('disabled', 'disabled');
+                $('#hhoras').attr('disabled', 'disabled');
+                $('#dacumulado').attr('disabled', 'disabled');
+                $('#btnguardarV').attr('disabled', 'disabled'); 
+
+                tdh = (dias + ' ' + 'dias' + ' ' + 'con' +' '+ horas +' '+ 'horas');
+                document.getElementById('dacumulado').value = tdh;
+                document.getElementById('tdias').value = dias;
+                document.getElementById('thoras').value = horas;
+            }
+        });
+    });
+>>>>>>> 27a38f07fe14d3980692f3ee9bb87afa0ca33fc8
 
     $(document).on('click','.btn-GoceV',function(e){
         $('#Title').html("Confirmar goce de vacaciones");

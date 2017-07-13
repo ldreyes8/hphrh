@@ -1,4 +1,4 @@
-<div class="tab-pane" id="autorizados">
+<div class="card-box" id="autorizados">
     <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <h3>Vacaciones y/o Permisos que  usted ha autorizado</h3>
@@ -30,7 +30,7 @@
                             <td>{{$per->fechainicio}}</td>
                             <td>{{$per->fechafin}}</td>
                             <td>{{$per->ausencia}}</td>
-                            <td><a href="{{URL::action('PermisosController@detalleconfirmado',$per->idausencia)}}"><button class="btn btn-primary">Ver</button></a></td>
+                            <td><a href="{{URL::action('JIPermiso@detalleconfirmado',$per->idausencia)}}"><button class="btn btn-primary">Ver</button></a></td>
                             
                          </tr>
                         

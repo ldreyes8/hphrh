@@ -1,11 +1,12 @@
-function cargarsolicitados(listado){
-    $("#profile").html($("#cargador_empresa").html());
-    if(listado==1){var url = "solicitadoVP";}
+function cargaracademico(listado){
+    $("#academicos").html($("#cargador_empresa").html());
+    if(listado==1){var url = "verificar";}
     $.get(url,function(resul){
-    $("#profile").html(resul);
+    $("#academicos").html(resul);
     });
 }
 
+<<<<<<< HEAD
 function cargarautorizados(listado){
     $("#autorizados").html($("#cargador_empresa").html());
     if(listado==1){var url = "confirmado";}
@@ -39,6 +40,10 @@ $(document).ready(function(){
   
 
 
+=======
+
+$(document).ready(function(){
+>>>>>>> 27a38f07fe14d3980692f3ee9bb87afa0ca33fc8
     $('#btnguardar').click(function(e){
         e.preventDefault();
         //Guardamos la referencia al formulario
@@ -93,7 +98,7 @@ $(document).ready(function(){
                     type: "success"
                 },
                 function(){
-                    window.location.href="/empleado/autorizaciones"
+                    window.location.href="/empleado/permisos"
                 });
      
                     
@@ -173,7 +178,7 @@ $(document).ready(function(){
                     type: "success"
                 },
                 function(){
-                    window.location.href="/empleado/autorizaciones";
+                    window.location.href="/empleado/vsolicitado";
                 });
                    
                     //window.location.replace("vsolicitado");
@@ -266,7 +271,7 @@ $(document).ready(function(){
                     type: "success"
                 },
                 function(){
-                    window.location.href="/empleado/autorizaciones";
+                    window.location.href="/empleado/vautorizado";
                 }); 
                     //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +data.titulo+ "</td><td>" +data.establecimiento + "</td><td>" +data.duracion + ": " + data.periodo + "</td><td>" +nivel + "</td><td>" +fingreso + "</td><td>" +fsalida + "</td></tr>";    
                     //$('#formModal').modal('hide');
