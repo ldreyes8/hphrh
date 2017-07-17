@@ -557,7 +557,10 @@ class PersonaController extends Controller
         $ultimosalario=$request->get('ultimosalario');
         $fingresoex=$request->get('fingresoex');
         $fsalidaex=$request->get('fsalidaex');
-        $observacion = $request->get('observacion');
+
+        $recomiendaexp = $request->get('recomiendaexp');
+        $confirmadorexp = $request->get('confirmadorexp');
+        $observacion = $request->get('observacionel');
 
         $experiencia = Experiencia::findOrFail($idpexperiencia);
         $experiencia-> empresa=$empresa;
@@ -567,6 +570,8 @@ class PersonaController extends Controller
         $experiencia-> ultimosalario=$ultimosalario;
         $experiencia-> fingresoex=$fingresoex;
         $experiencia-> fsalidaex=$fsalidaex;
+        $experiencia-> recomiendaexp=$recomiendaexp;
+        $experiencia-> confirmadorexp=$confirmadorexp;
         $experiencia-> observacion = $observacion;
         $experiencia->save();
 
@@ -646,13 +651,18 @@ class PersonaController extends Controller
         $telefonor=$request->get('telefonor');
         $profesion=$request->get('profesion');
         $tiporeferencia=$request->get('tiporeferencia');
-        $observacion = $request->get('observacion');
+
+        $recomiendaper = $request->get('recomiendaper');
+        $confirmadorref = $request->get('confirmadorref');
+        $observacion = $request->get('observacionr');
 
         $referencia = Referencia::findOrFail($idpreferencia);
         $referencia-> nombrer=$nombrer;
         $referencia-> telefonor=$telefonor;
         $referencia-> profesion=$profesion;
         $referencia-> tiporeferencia=$tiporeferencia;
+        $referencia-> recomiendaper=$recomiendaper;
+        $referencia-> confirmadorref=$confirmadorref;
         $referencia-> observacion = $observacion;
         $referencia->save();
 

@@ -44,6 +44,7 @@ input[type=text] {
       <div class="form-group">
       <label>Nit</label>
         <input type="text" id="nit" value="{{$empleado->nit}}">
+        <input type="text" id="idstatus" value="{{$empleado->idstatus}}">
       </div>
     </div>
   </div>
@@ -137,12 +138,7 @@ input[type=text] {
             </table>
       </div>
 
-      <div class="form-group">
-          <label>Observación</label>
-          <textarea maxlength="300" class="form-control" id="observacionF">{{$observaciones->obpf}}</textarea>
-      </div>
-
-            <!-- -->
+      <!-- -->
       <div class="table-responsive">
             <table id="detallesA" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Datos Académicos</h2></p>
@@ -196,11 +192,6 @@ input[type=text] {
             </table>
       </div>
 
-      <div class="form-group">
-          <label>Observación</label>
-          <textarea maxlength="100" class="form-control" id="observacionA" >{{$observaciones->obpa}}</textarea>
-      </div>
-
       <div class="table-responsive">      
             <table id="detallesR" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Referencia Personales Y Laborales</h2></p>
@@ -210,15 +201,25 @@ input[type=text] {
                 <th>Teléfono</th>
                 <th>Profesión</th>
                 <th>Tipo de referencia</th>
+                <th>¿Lo recomiendan?</th>
+                <th>Confirmado por</th>
+                <th>Observació</th>
               </thead>
               <tbody>
               @foreach($referencias as $ref)
                 <tr class="filaTableR">
                   <td><input type="hidden" class="idpreferencia" value="{{$ref->idpreferencia}}"></td>
                   <td><input type="text" class="nombrer" value="{{$ref->nombrer}}"></td>
-                  <td><input type="text" class="telefonor" " value="{{$ref->telefonor}}"></td>
+                  <td><input type="text" class="telefonor" value="{{$ref->telefonor}}"></td>
                   <td><input type="text" class="profesion" value="{{$ref->profesion}}"></td>
                   <td><input type="text" class="tiporeferencia" value="{{$ref->tiporeferencia}}"></td>
+
+                  <td>
+                    <input type="checkbox" class="recomiendaper" value="Si">Si
+                    <input type="checkbox" class="recomiendaper" value="No">No
+                  </td>
+                  <td><input type="text" class="confirmadorref" maxlength="50" value=""></td>
+                  <td><input type="text" class="observacionr" maxlength="300" value=""></td>                  
                 </tr>
                 @endforeach
               </tbody>
@@ -227,7 +228,7 @@ input[type=text] {
 
       <div class="form-group">
           <label>Observación</label>
-          <textarea maxlength="100" class="form-control" id="observacionR" >{{$observaciones->obpr}}</textarea>
+          <textarea maxlength="100" class="form-control" id="observacionR" ></textarea>
       </div>
 
       <div class="table-responsive">    
@@ -242,6 +243,9 @@ input[type=text] {
                 <th>Ultimo Salario</th>
                 <th>Fecha Ingreso</th>
                 <th>Fecha Salida</th>
+                <th>¿Lo recomiendan?</th>
+                <th>Confirmado por</th>
+                <th>Observació</th>
               </thead>
               <tbody>
                 @foreach($experiencias as $exp)
@@ -254,6 +258,12 @@ input[type=text] {
                   <td><input type="text" class="ultimosalario" value="{{$exp->ultimosalario}}"></td>
                   <td><input type="text" class="fingresoex" value="{{$exp->fingresoex}}"></td>
                   <td><input type="text" class="fsalidaex" value="{{$exp->fsalidaex}}"></td>
+                  <td>
+                    <input type="checkbox" class="recomiendaexp" value="Si">Si
+                    <input type="checkbox" class="recomiendaexp" value="No">No
+                  </td>
+                  <td><input type="text" class="confirmadorexp" value=""></td>
+                  <td><input type="text" class="observacionel" value=""></td>
                  </tr>
                  @endforeach
               </tbody>
@@ -262,7 +272,7 @@ input[type=text] {
 
       <div class="form-group">
         <label>Observación</label>
-        <textarea maxlength="100" class="form-control" id="observacionEL" >{{$observaciones->obpe}}</textarea>
+        <textarea maxlength="100" class="form-control" id="observacionEL" ></textarea>
       </div>
 
       <div class="table-responsive">
@@ -400,7 +410,7 @@ input[type=text] {
                             },
                             function()
                             {
-                              location.href=("{{URL::action("RHPreentrevista@upPrecalificado",$empleado->idempleado)}}");
+                              location.href=("{{URL::action("RHPreentrevista@upPreentrevista",$empleado->idempleado)}}");
                             }
                           ); 
                         }
@@ -415,6 +425,49 @@ input[type=text] {
                     ' 
 
       >Pre-calificar</button></a>
+
+      <a> 
+        <button id="btnrechazo" 
+                onclick='
+                  swal({
+                      title: "¿Está seguro de Rechazar la solicitud?",
+                      text: "Usted rechazara la solicitud de empleo",
+                      type: "warning",
+                      showCancelButton: true,
+                      confirmButtonColor: "#DD6B55",
+                      confirmButtonText: "¡Si!",
+                      cancelButtonText: "No",
+                      closeOnConfirm: false,
+                      closeOnCancel: false },
+
+                      function(isConfirm){
+                      if (isConfirm) 
+                      {
+                        swal(
+                            {
+                              title: "¡Hecho!",
+                              text: "Solicitud rechazada con éxito!!!",
+                              type: "success"
+                            },
+                            function()
+                            {
+                              window.location.href="{{url("empleado/rechazo",array("id"=>$empleado->idempleado,"ids"=>$empleado->idstatus))}}";
+                            }
+                        ); 
+                      }
+
+                      else {
+                      swal("¡Cancelado!",
+                      "No se ha realizado algún cambio...",
+                      "error");
+                      }
+                      });
+                  ' 
+          class="btn btn-primary btnrechazo">Rechazar</button>
+      </a>
+
+
+
     </div>
 </form>
      <div class="col-lg-12">
@@ -470,7 +523,7 @@ input[type=text] {
     <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
     <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
     <meta name="_token" content="{!! csrf_token() !!}" />
-    <script src="{{asset('assets/js/updsolicitud.js')}}"></script>
+    <script src="{{asset('assets/js/RHjs/updsolicitud.js')}}"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 

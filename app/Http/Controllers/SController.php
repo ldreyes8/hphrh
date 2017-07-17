@@ -24,12 +24,6 @@ class SController extends Controller
     {
         return view('rrhh.reclutamiento.index');
     }
-
-    public function prentrevista (Requests $request)
-    {
-        $identificacion = $request->get('identificacion');
-        dd($identificacion);
-    }
     public function pdf()
     {
         $empleados = Persona::all();
@@ -193,7 +187,7 @@ class SController extends Controller
             ->join('empleado as em','p.identificacion','=','em.identificacion')
             ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
             ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
+            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive','em.idstatus')
             ->where('em.identificacion','=',$id)
             ->first();
         }
@@ -205,7 +199,7 @@ class SController extends Controller
             ->join('empleado as em','p.identificacion','=','em.identificacion')
             ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
             ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
+            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive','em.idstatus')
             ->where('em.identificacion','=',$id)
             ->first();
         }
@@ -217,7 +211,7 @@ class SController extends Controller
 
         $empleado=DB::table('empleado as e')
         ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
-        ->select('e.idempleado','e.identificacion','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','e.pretension','e.nit','e.fechasolicitud','ec.idcivil','ec.estado as estadocivil','e.observacion')
+        ->select('e.idempleado','e.identificacion','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','e.pretension','e.nit','e.fechasolicitud','ec.idcivil','ec.estado as estadocivil','e.observacion','e.idstatus')
         ->where('e.identificacion','=',$id)
         ->first();
 

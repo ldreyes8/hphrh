@@ -1,44 +1,63 @@
 @extends ('layouts.index')
 @section('estilos')
     @parent
-    
         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" />
 @endsection
 @section ('contenido')
 
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="col-sm-6 col-lg-4">
-        <div class="card-box m-t-0 m-b-30">
-            <a href="{{url('/empleado/solicitudes')}}"><button>Solicitud</button></a>
-        </div>
-    </div>
-    <div class="col-sm-6 col-lg-4">
-        <div class="card-box m-t-0 m-b-30">
-            <a href=""><button>Pre-Entrevista</button></a>
-        </div>
-    </div>
-    <div class="col-sm-6 col-lg-4">
-        <div class="card-box m-t-0 m-b-30">
-            <a href=""><button>Pre-Calificados</button></a>
-        </div>
-    </div>
-    <div class="col-sm-6 col-lg-4">
-        <div class="card-box m-t-0 m-b-30">
-            <button>Resultados</button>
-        </div>
-    </div>
-    <div class="col-sm-6 col-lg-4">
-        <div class="card-box m-t-0 m-b-30">
-            <button>Entrevista</button>
-        </div>
-    </div>
-    <div class="col-sm-6 col-lg-4">
-        <div class="card-box m-t-0 m-b-30">
-            <button>Nombramiento 1</button>
-        </div>
-    </div>
-        
-</div> <!-- end -->
+<div class="row">
+    
+
+    <div class="col-sm-4 col-xs-12">
+                                <div class="card m-b-2 card-inverse" style="background-color: #333; border-color: #333;">
+                                    <div class="card-box" style="background-color: #333; border-color: #333;">
+                                        <h3 class="mt-0" style="color:#FFFFFF" >Solicitudes de empleo</h3>
+                                        <a href="{{url('/empleado/solicitudes')}}" class="btn btn-primary">Ir</a>
+                                    </div>
+                                </div>
+                            </div>
+    <div class="col-sm-4 col-xs-12">
+                                <div class="card m-b-2 card-inverse" style="background-color: #0275d8; border-color: #0275d8;">
+                                    <div class="card-box" style="background-color: #0275d8; border-color: #0275d8;">
+                                        <h3 class="mt-0" style="color:#FFFFFF" >Pre Entrevista</h3>
+                                        <a href="{{url('/empleado/pre_entrevistado')}}" class="btn btn-primary">Ir</a>
+                                    </div>
+                                </div>
+                            </div>
+    <div class="col-sm-4 col-xs-12">
+                                <div class="card m-b-2 card-inverse" style="background-color: #5cb85c; border-color: #5cb85c;">
+                                    <div class="card-box" style="background-color: #5cb85c; border-color: #5cb85c;">
+                                        <h3 class="mt-0" style="color:#FFFFFF" >Pre Calificados</h3>
+                                        <a href="#" class="btn btn-primary">Ir</a>
+                                    </div>
+                                </div>
+                            </div>
+    <div class="col-sm-4 col-xs-12">
+                                <div class="card m-b-2 card-inverse" style="background-color: #5bc0de; border-color: #5bc0de;">
+                                    <div class="card-box" style="background-color: #5bc0de; border-color: #5bc0de;">
+                                        <h3 class="mt-0" style="color:#FFFFFF" >Evaluaciones resultados</h3>
+                                        <a href="#" class="btn btn-inverse">Ir</a>
+                                    </div>
+                                </div>
+                            </div>
+    <div class="col-sm-4 col-xs-12">
+                                <div class="card m-b-2 card-inverse" style="background-color: #f0ad4e; border-color: #f0ad4e;">
+                                    <div class="card-box" style="background-color: #f0ad4e; border-color: #f0ad4e;">
+                                        <h3 class="mt-0" style="color:#FFFFFF" >Proceso de entrevista</h3>
+                                        <a href="#" class="btn btn-primary">Ir</a>
+                                    </div>
+                                </div>
+                            </div>
+    <div class="col-sm-4 col-xs-12">
+                                <div class="card m-b-2 card-inverse" style="background-color: #d9534f; border-color: #d9534f;">
+                                    <div class="card-box" style="background-color: #d9534f; border-color: #d9534f;">
+                                        <h3 class="mt-0" style="color:#FFFFFF" >Nombramiento</h3>
+                                        <a href="#" class="btn btn-primary">Ir</a>
+                                    </div>
+                                </div>
+                            </div>
+    
+</div>
 
 @endsection
 @section('fin')

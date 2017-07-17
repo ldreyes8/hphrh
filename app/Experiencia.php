@@ -22,6 +22,8 @@ class Experiencia extends Model
     	'fsalidaex',
     	'idempleado',
     	'identificacion',
+        'recomiendaexp',
+        'confirmadorexp',
         'observacion',
     ];
 
