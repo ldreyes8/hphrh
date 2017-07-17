@@ -58,6 +58,9 @@ $(document).ready(function(){
             var ultimosalario=$('.ultimosalario:eq('+el+')').val();
             var fingresoex=$('.fingresoex:eq('+el+')').val();
             var fsalidaex=$('.fsalidaex:eq('+el+')').val();
+            var recomiendaexp=$('.recomiendaexp:eq('+el+')').val();
+            var confirmadorexp=$('.confirmadorexp:eq('+el+')').val();
+            var observacionel=$('.observacionel:eq('+el+')').val();
 
             $.post(my_url='upsolicitudPEL',
             {
@@ -69,7 +72,9 @@ $(document).ready(function(){
                 ultimosalario: ultimosalario,
                 fingresoex: fingresoex,
                 fsalidaex: fsalidaex,
-                observacion: $('#observacionEL').val(),
+                recomiendaexp: recomiendaexp,
+                confirmadorexp: confirmadorexp,
+                observacionel: observacionel,
             },
             function(data){});
             el++;
@@ -82,6 +87,10 @@ $(document).ready(function(){
             var profesion=$('.profesion:eq('+r+')').val();
             var tiporeferencia=$('.tiporeferencia:eq('+r+')').val();
 
+            var recomiendaper=$('.recomiendaper:eq('+r+')').val();
+            var confirmadorref=$('.confirmadorref:eq('+r+')').val();
+            var observacionr=$('.observacionr:eq('+r+')').val();
+
             $.post(my_url='upsolicitudPR',
             {
                 idpreferencia: idpreferencia,
@@ -89,7 +98,10 @@ $(document).ready(function(){
                 telefonor: telefonor,
                 profesion: profesion,
                 tiporeferencia: tiporeferencia,
-                observacion: $('#observacionR').val(),
+
+                recomiendaper: recomiendaper,
+                confirmadorref: confirmadorref,
+                observacionr: observacionr,
             },
             function(data){});
             r++;

@@ -75,9 +75,14 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('busquedas/{dato?}','RHReclutamiento@busquedas');
 	Route::get('update/{id}','Pprueba@update');
 
-	//Precalificado
-	Route::get('upPrecalificado/{id}','RHPreentrevista@upPrecalificado');
-	Route::post('upPrecalificado/prentrevista','RHPreentrevista@prentrevista');
+	//Preentrevistados
+	Route::get('pre_entrevistado','RHPreentrevista@listadopreE');
+	Route::get('upPreentrevista/{id}','RHPreentrevista@upPreentrevista');
+	Route::get('preentre/{id}','RHPreentrevista@preentre');
+	Route::post('preentre/prentrevista','RHPreentrevista@prentrevista');
+	Route::get('preentre/towns/{id}', 'RHPreentrevista@getTowns');
+	Route::post('preentre/adicionalacad','RHPreentrevista@adicionalacad');
+	Route::post('preentre/agregarexperiencia','RHPreentrevista@agregarexperiencia');
 
 	//Reporte
 	Route::get('Rmintrab','Controllermintrab@index');

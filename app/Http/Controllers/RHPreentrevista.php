@@ -9,6 +9,8 @@ use App\Http\Requests\EmpleadoFormRequest;
 use App\Empleado;
 use App\Persona;
 use App\Entrevista;
+use App\Academico;
+use App\Experiencia;
 use DB;
 use PDF;
 use DateTime;
@@ -18,15 +20,28 @@ use Illuminate\Support\Collection;
 
 class RHPreentrevista extends Controller
 {
-    public function upPrecalificado ($id)
+    public function upPreentrevista ($id)
     {
-   		
-
         $od=Empleado::findOrFail($id);
-        $od-> idstatus='14';
+        $od-> idstatus='13';
         $od->update();
-
-        $persona=DB::table('persona as p')
+        return Redirect::to('empleado/solicitudes');
+    }
+    public static function  getTowns(Request $request, $id)
+    {
+            if ($request->ajax())
+            {
+                $towns = DB::table('departamento as depa')
+                ->join('municipio as muni','depa.iddepartamento','=','muni.iddepartamento')
+                ->select ('muni.idmunicipio','muni.nombre')
+                ->where('muni.iddepartamento','=',$id)
+                ->get();
+                return response()->json($towns);
+            }
+    }
+    public function preentre ($id)
+    {
+    	$persona=DB::table('persona as p')
         ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
         ->join('departamento as dp','m.iddepartamento','=','dp.iddepartamento')
         ->join('empleado as em','p.identificacion','=','em.identificacion')
@@ -83,12 +98,52 @@ class RHPreentrevista extends Controller
         $year = $fedad->format('Y');
         $fnac = Carbon::createFromDate($year,$month,$day)->age;
 
-		return view('rrhh.reclutamiento.precalificar',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias]);
-    }
+        $departamento=DB::table('departamento')->get();
+        $nivelacademico = DB::table('nivelacademico')->get();
+        $pais=DB::table('pais')->get();
+        $academicoIns = DB::table('empleado as e')
+            ->join('persona as p','e.identificacion','=','p.identificacion')
+            ->join('personaacademico as pa','e.identificacion','=','pa.identificacion')
+            ->join('nivelacademico as na','pa.idnivel','=','na.idnivel')
+            ->select('e.idempleado','p.identificacion','pa.idpacademico','pa.titulo','pa.establecimiento','pa.duracion','pa.fingreso','pa.fsalida','pa.idmunicipio','pa.identificacion','pa.idnivel','pa.periodo','na.nombrena')
+            ->where('e.idempleado','=',$id)
+            ->get();
 
-    public function listadopreE ()
+        $experiencia = DB::table('empleado as e')
+            ->join('persona as p','e.identificacion','=','p.identificacion')
+            ->join('personaexperiencia as pe','e.identificacion','=','pe.identificacion')
+            ->select('e.idempleado','p.identificacion','pe.idpexperiencia','pe.empresa','pe.puesto','pe.jefeinmediato','pe.motivoretiro','pe.ultimosalario','pe.fingresoex','pe.fsalidaex')
+            ->where('e.idempleado','=',$id)
+            ->get();
+
+
+		return view('rrhh.reclutamiento.preentrevistar',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia]);
+    }
+    public function listadopreE (Request $request)
     {
-    	
+    	if($request)
+        {
+            $query=trim($request->get('searchText'));
+            $empleados=DB::table('empleado as e')
+            ->join('persona as p','e.identificacion','=','p.identificacion')
+            ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
+            ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+            ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
+            ->join('status as s','e.idstatus','=','s.idstatus')
+            ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
+            //->where('p.nombre1','LIKE','%'.$query.'%')
+            //->andwhere('p.apellido1','LIKE','%'.$query.'%')
+            ->where('e.idstatus','=',13)
+
+            ->where('p.nombre1','LIKE','%'.$query.'%')
+            //->orwhere('p.apellido1','LIKE','%'.$query.'%')
+
+            ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
+            ->orderBy('e.idempleado','desc')
+            
+            ->paginate(19);
+            }
+            return view('rrhh.preentrevista.listadoPE',["empleados"=>$empleados,"searchText"=>$query]);	
     }
     public function prentrevista (Request $request)
     {
@@ -110,6 +165,118 @@ class RHPreentrevista extends Controller
         $entre-> atencionpublico = $request->get("atencionpublico");
         $entre-> ordenado = $request->get("ordenado");
         $entre-> entrevistadores = $request->get("entrevistadores");
+        $entre-> puntual=$request->get("#puntual");
+        $entre-> presentacion=$request->get("#presentacion");
+        $entre-> disponibilidad=$request->get("#disponibilidad");
+        $entre-> dispfinsemana=$request->get("#dispfinsemana");
+        $entre-> dispoviajar=$request->get("#dispoviajar");
+        $entre-> bajopresion=$request->get("#bajopresion");
+        $entre-> pretensionminima=$request->get("#pretensionminima");
         $entre-> save();
+
+        return response()->json($entre);
+    }
+    public function adicionalacad(Request $request)
+    {
+            $this->validateRequest($request);
+            $idpais = $request->get('idpais');
+
+            $academico = new Academico;
+
+            $fechaingreso = $request->fecha_ingreso; 
+            $fechasalida = $request->fecha_salida;
+
+
+            $fechaingreso = Carbon::createFromFormat('d/m/Y',$fechaingreso);
+            $fechasalida = Carbon::createFromFormat('d/m/Y',$fechasalida);
+
+            $fechaingreso = $fechaingreso->toDateString();
+            $fechasalida = $fechasalida->toDateString();
+
+            $academico->titulo = $request->get('titulo');
+            $academico->establecimiento = $request->get('establecimiento');
+            $academico->duracion = $request->get('duracion');
+            $academico->fingreso = $fechaingreso;
+            $academico->fsalida = $fechasalida;
+
+            /*$academico->idpais = $request->get('idpais');
+            $academico->idmunicipio = $request->get('idmunicipio');*/
+
+            if ($idpais ==="73") 
+            {
+                $academico->idpais = $idpais;
+                $academico->idmunicipio = $request->get('idmunicipio');
+            }
+            else
+            {
+                   //$academicos-> idmunicipio = NULL;
+                $academico->idpais = $idpais;
+            }
+
+
+            $academico->idempleado = $request->get('idempleado');
+            $academico->identificacion = $request->get('identificacion');
+            $academico->idnivel = $request->get('idnivel');
+            $academico->periodo = $request->get('periodo');
+
+            //$data = $request->toArray();
+            //$academico = Academico::create($data);
+            $academico->save();
+                    
+            return response()->json($academico);
+    }
+    public function validateRequest($request)
+    {
+            $rules=[
+            'titulo' => 'required|max:100',
+            'establecimiento' => 'required|max:100',
+            'duracion'=> 'required|max:2',
+            'fecha_salida'=>'required',
+            'fecha_ingreso'=>'required',
+
+
+            ];
+            $messages=[
+            'required' => 'Debe ingresar :attribute.',
+            'max'  => 'La capacidad del campo :attribute es :max',
+            ];
+            $this->validate($request, $rules,$messages);        
+    }
+    public function agregarexperiencia(Request $request)
+    {
+            $this->validateRequestE($request);
+            $familia = new Experiencia;
+            $familia->empresa = $request->get('empresa');
+            $familia->puesto = $request->get('puesto');
+            $familia->jefeinmediato = $request->get('jefeinmediato');
+            $familia->motivoretiro = $request->get('motivoretiro');
+            $familia->ultimosalario = $request->get('ultimosalario');
+            $familia->fingresoex = $request->get('año_ingreso');
+            $familia->fsalidaex = $request->get('año_salida');
+            $familia->idempleado = $request->get('idempleado');
+            $familia->identificacion = $request->get('identificacion');
+
+            $familia->save();
+
+            return response()->json($familia);
+    }
+    public function validateRequestE($request)
+    {
+            $rules=[
+            'empresa' => 'required|max:100',
+            'puesto' => 'required|max:50',
+            'jefeinmediato' => 'required|max:50',
+            'motivoretiro' => 'required|max:40',
+            'ultimosalario' => 'required|max:10',
+            'año_ingreso' => 'required|max:4',
+            'año_salida' => 'required|max:4',
+
+
+            ];
+            $messages=[
+            'required' => 'Debe ingresar :attribute.',
+            'max'  => 'La capacidad del campo :attribute es :max',
+            ];
+            $this->validate($request, $rules,$messages);        
     }
 }

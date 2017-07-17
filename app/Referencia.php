@@ -20,6 +20,8 @@ class Referencia extends Model
     	'idempleado',
     	'identificacion',
         'observacion',
+        'recomiendaper',
+        'confirmadorref',
     ];
 
     protected $guarder=[

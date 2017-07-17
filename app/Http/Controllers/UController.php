@@ -51,263 +51,263 @@ class UController extends Controller
     
     //Datos usuario
 
-    public function contenedor(Request $request)
-    {
-        return view('seguridad.usuario.contenedor');
-    }
-    public function index(Request $request)
-    {
-    	if($request)
-    	{
-    		//$query=trim($request->get('searchText'));
-            $usuarios = User::name($request->get('name'))->orderBy('id','DESC')->paginate(15);
+        public function contenedor(Request $request)
+        {
+            return view('seguridad.usuario.contenedor');
+        }
+        public function index(Request $request)
+        {
+        	if($request)
+        	{
+        		//$query=trim($request->get('searchText'));
+                $usuarios = User::name($request->get('name'))->orderBy('id','DESC')->paginate(15);
+                $roles=Role::all();
+                return view('seguridad.usuario.index',compact('usuarios','roles'));
+                //$usuarios=User::all()->where('name','LIKE','%'.$query.'%')
+                //->orderBy('id','desc')
+                //->paginate(15);
+                //$usuarios=User::paginate(15);
+                //return view('seguridad.usuario.index',["usuarios"=>$usuarios,"roles"=>$roles]);
+        	}
+        }
+
+        public function buscar_usuarios($rol,$dato="")
+        {
+            $usuarios= User::Busqueda($rol,$dato)->paginate(15);  
             $roles=Role::all();
-            return view('seguridad.usuario.index',compact('usuarios','roles'));
-            //$usuarios=User::all()->where('name','LIKE','%'.$query.'%')
-            //->orderBy('id','desc')
-            //->paginate(15);
-            //$usuarios=User::paginate(15);
-            //return view('seguridad.usuario.index',["usuarios"=>$usuarios,"roles"=>$roles]);
-    	}
-    }
-
-    public function buscar_usuarios($rol,$dato="")
-    {
-        $usuarios= User::Busqueda($rol,$dato)->paginate(15);  
-        $roles=Role::all();
-        $rolsel=$roles->find($rol);
-        return view('seguridad.usuario.index')
-        ->with("usuarios", $usuarios )
-        ->with("rolsel", $rolsel )
-        ->with("roles", $roles );       
-    } 
-
-    public function add()
-    {
-        //return view("seguridad.usuario.create",["personas"=>$personas,"articulos"=>$articulos]);
-    	//$empleados=DB::table('persona')->where('tipo_persona','=','empleado')->get();
-    	//return view("seguridad.usuario.create",["empleados"=>$empleados])
-    	$usuario = user::all();
-    	return view("seguridad.usuario.create",["usuario"=>$usuario]);
-    }
-    public function store(UFormRequest $request)
-    {
-    	$usuario=new User;
-    	$usuario->name=$request->get('name');
-    	$usuario->email=$request->get('email');
-    	$usuario->password=bcrypt($request->get('password'));
-    	$usuario->identificacion=$request->get('identificacion');
-    	$usuario->save();
-    	return Redirect::to('seguridad/usuario');		
-    }
-
-    public function editar_usuario($id)
-    {
-        $usuario=User::find($id);
-        $roles=Role::all();
-        return view("seguridad.usuario.editarusuario")
-        ->with("usuario",$usuario)
-        ->with("roles",$roles);
-    }
-
-    public function asignar_rol($idusu,$idrol){
-        $usuario=User::find($idusu);
-        $usuario->assignRole($idrol);
-
-        $usuario=User::find($idusu);
-        $rolesasignados=$usuario->getRoles();
-        return json_encode ($rolesasignados); 
-    }
-
-    public function quitar_rol($idusu,$idrol){
-        $usuario=User::find($idusu);
-        $usuario->revokeRole($idrol);
-        $rolesasignados=$usuario->getRoles();
-        return json_encode ($rolesasignados);
-    }
-
-    public function form_nuevo_rol(){
-        //carga el formulario para agregar un nuevo rol
-        $roles=Role::all();
-        return view("seguridad.usuario.form_nuevo_rol")->with("roles",$roles);
-    }
-
-    public function crear_rol(Request $request){
-        $rol=new Role;
-        $rol->name=$request->input("rol_nombre") ;
-        $rol->slug=$request->input("rol_slug") ;
-        $rol->description=$request->input("rol_descripcion") ;
-        if($rol->save())
-        {
-            return view("mensajes.msj_rol_creado")->with("msj","Rol agregado correctamente") ;
-        }
-        else
-        {
-            return view("mensajes.mensaje_error")->with("msj","...Hubo un error al agregar ;...") ;
-        }
-    }
-    public function borrar_rol($idrole){
-        $role = Role::find($idrole);
-        $role->delete();
-        return "ok";
-    }
-    public function update(UsuarioFormRequest $request, $id)
-    {
-        $usuario=User::findOrFail($id);
-    	$usuario->name=$request->get('name');
-    	$usuario->email=$request->get('email');
-    	$usuario->password=bcrypt($request->get('password'));
-    	$usuario->id_persona=$request->get('id_persona');
-    	$usuario->update();
-    	return Redirect::to('seguridad/usuario');
-    }
-    	
-    public function destroy($id)
-    {
-    	$usuario =DB::table('users')->where('id','=',$id)->delete();
-    	return Redirect::to('seguridad/usuario');
-    }
-
-    public function cambiar_password(Request $request){
-            $this->validateRequestPassword($request);
-            $id=$request->get('idusuario');
-            $usuario=User::find($id);
-            $password=$request->input("password");
-            $usuario->password=bcrypt($password);
-            $r=$usuario->save();
-
-            if($r){
-                return response()->json($usuario);
-            }
-            else
-            {
-                return view("mensajes.msj_rechazado")->with("msj","Error al actualizar el password");
-            }
-    }
-
-    	public function galeria()
-    	{
-            $users=DB::table('users as U')
-            ->join('persona as per','U.identificacion','=','per.identificacion')
-            ->join('empleado as emp','per.identificacion','=','emp.identificacion')
-            ->join('nomytras as nt','emp.idempleado','=','nt.idempleado')
-            ->join('puesto as p','nt.idpuesto','=','p.idpuesto')
-            ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
-            ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado','emp.idempleado',DB::raw('max(nt.idnomytas) as idnomytas'))
-            ->where('U.id','!=',Auth::user()->id)
-            ->where('U.estado','=',1)
-            ->groupBy('emp.idempleado')            
-            ->paginate(30); 
-           
-        
-    		/*
-    		$data =  array("users"=>$users);
-    		return json_encode($data);*/
-            return view("hr.galeria")->with("usuario",$users);    		
-    	}
-
-        public function buscar_personal($dato){
-          
-            if($dato=="general")
-            {
-                $users=DB::table('users as U')
-            ->join('persona as per','U.identificacion','=','per.identificacion')
-            ->join('empleado as emp','per.identificacion','=','emp.identificacion')
-            ->join('nomytras as nt','emp.idempleado','=','nt.idempleado')
-            ->join('puesto as p','nt.idpuesto','=','p.idpuesto')
-            ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
-            ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado','emp.idempleado')
-            ->where('U.id','!=',Auth::user()->id)
-                        ->where('U.estado','=',1)
-
-            ->groupBy('emp.idempleado') 
-            ->paginate(30);                 
-            }
-            else{
-
-            $users=DB::table('users as U')
-            ->join('persona as per','U.identificacion','=','per.identificacion')
-            ->join('empleado as emp','per.identificacion','=','emp.identificacion')
-            ->join('nomytras as nt','emp.idempleado','=','nt.idempleado')
-            ->join('puesto as p','nt.idpuesto','=','p.idpuesto')
-            ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
-            ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado','emp.idempleado')
-            ->where("U.name","like","%".$dato."%")
-                                    ->where('U.estado','=',1)
-
-            ->orwhere("U.email","like","%".$dato."%")
-            ->orwhere("p.nombre","like","%".$dato."%")
-            ->orwhere("a.nombre","like","%".$dato."%")
-            ->groupBy('emp.idempleado') 
-
-
-            ->paginate(30);
-            
-            }
-            return view("hr.galeria")->with("usuario",$users);
-        }
-/*
-        public function buscar_usuarios($afiliado,$dato="")
-        {
-
-            $usuarioactual=\Auth::user();
-            $afiliados = Afiliado::all();
-            $usuarios= User::Busqueda($afiliado,$dato)->paginate(25);  
-            $afiliadosel = $afiliados->find($afiliado);
-
-            return view('hr.galeria')
-            ->with("afiliadosel",$afiliadosel)
-            ->with("afiliados",$afiliados)
+            $rolsel=$roles->find($rol);
+            return view('seguridad.usuario.index')
             ->with("usuarios", $usuarios )
-            ->with("usuario_actual", $usuarioactual);       
-        } */
+            ->with("rolsel", $rolsel )
+            ->with("roles", $roles );       
+        } 
 
-
-    	public function subirimagen(Request $request)
+        public function add()
         {
-            $id=$request->input('idusuario');
-            $user =User::findOrFail($id);
-          	
-        	$fotoperfil = $request->file('fotoperfil');
-            
+            //return view("seguridad.usuario.create",["personas"=>$personas,"articulos"=>$articulos]);
+        	//$empleados=DB::table('persona')->where('tipo_persona','=','empleado')->get();
+        	//return view("seguridad.usuario.create",["empleados"=>$empleados])
+        	$usuario = user::all();
+        	return view("seguridad.usuario.create",["usuario"=>$usuario]);
+        }
+        public function store(UFormRequest $request)
+        {
+        	$usuario=new User;
+        	$usuario->name=$request->get('name');
+        	$usuario->email=$request->get('email');
+        	$usuario->password=bcrypt($request->get('password'));
+        	$usuario->identificacion=$request->get('identificacion');
+        	$usuario->save();
+        	return Redirect::to('seguridad/usuario');		
+        }
 
-            $input  = array('image' => $fotoperfil) ;
-            $reglas = array('image' => 'required|image|mimes:jpeg,jpg,png|max:2000');
-            $validacion = Validator::make($input,  $reglas);
+        public function editar_usuario($id)
+        {
+            $usuario=User::find($id);
+            $roles=Role::all();
+            return view("seguridad.usuario.editarusuario")
+            ->with("usuario",$usuario)
+            ->with("roles",$roles);
+        }
 
-            if ($validacion->fails())
+        public function asignar_rol($idusu,$idrol){
+            $usuario=User::find($idusu);
+            $usuario->assignRole($idrol);
+
+            $usuario=User::find($idusu);
+            $rolesasignados=$usuario->getRoles();
+            return json_encode ($rolesasignados); 
+        }
+
+        public function quitar_rol($idusu,$idrol){
+            $usuario=User::find($idusu);
+            $usuario->revokeRole($idrol);
+            $rolesasignados=$usuario->getRoles();
+            return json_encode ($rolesasignados);
+        }
+
+        public function form_nuevo_rol(){
+            //carga el formulario para agregar un nuevo rol
+            $roles=Role::all();
+            return view("seguridad.usuario.form_nuevo_rol")->with("roles",$roles);
+        }
+
+        public function crear_rol(Request $request){
+            $rol=new Role;
+            $rol->name=$request->input("rol_nombre") ;
+            $rol->slug=$request->input("rol_slug") ;
+            $rol->description=$request->input("rol_descripcion") ;
+            if($rol->save())
             {
-               
-              return view("mensajes.msj_rechazado")->with("msj","El archivo no es una imagen valida");
+                return view("mensajes.msj_rol_creado")->with("msj","Rol agregado correctamente") ;
             }
             else
-            {  
-                $file = $user->fotoperfil;
-                Storage::delete(public_path().$file);
+            {
+                return view("mensajes.mensaje_error")->with("msj","...Hubo un error al agregar ;...") ;
+            }
+        }
+        public function borrar_rol($idrole){
+            $role = Role::find($idrole);
+            $role->delete();
+            return "ok";
+        }
+        public function update(UsuarioFormRequest $request, $id)
+        {
+            $usuario=User::findOrFail($id);
+        	$usuario->name=$request->get('name');
+        	$usuario->email=$request->get('email');
+        	$usuario->password=bcrypt($request->get('password'));
+        	$usuario->id_persona=$request->get('id_persona');
+        	$usuario->update();
+        	return Redirect::to('seguridad/usuario');
+        }
+        	
+        public function destroy($id)
+        {
+        	$usuario =DB::table('users')->where('id','=',$id)->delete();
+        	return Redirect::to('seguridad/usuario');
+        }
 
-                $nombre_original=$fotoperfil->getClientOriginalName();
-                $extension=$fotoperfil->getClientOriginalExtension();
-                $nuevo_nombre="userimagen-".$id.".".$extension;
-                 //$r1=Storage::disk('fotografias')->put($nuevo_nombre,  \File::get($fotoperfil) );
+        public function cambiar_password(Request $request){
+                $this->validateRequestPassword($request);
+                $id=$request->get('idusuario');
+                $usuario=User::find($id);
+                $password=$request->input("password");
+                $usuario->password=bcrypt($password);
+                $r=$usuario->save();
 
-                $r1 = Image::make($fotoperfil)
-                ->resize(350,350)
-                ->save(public_path('fotografias/'.$nuevo_nombre));
-                $rutadelaimagen=$nuevo_nombre;
-            
-                if ($r1){
-
-                    $usuario=User::find($id);
-                    $usuario->fotoperfil=$rutadelaimagen;
-                    $r2=$usuario->save();
-                     return view("mensajes.msj_correcto")->with("msj","Imagen agregada correctamente");
+                if($r){
+                    return response()->json($usuario);
                 }
                 else
                 {
-                    return view("mensajes.msj_rechazado")->with("msj","no se cargo la imagen");
+                    return view("mensajes.msj_rechazado")->with("msj","Error al actualizar el password");
                 }
-            }   
         }
+
+        	public function galeria()
+        	{
+                $users=DB::table('users as U')
+                ->join('persona as per','U.identificacion','=','per.identificacion')
+                ->join('empleado as emp','per.identificacion','=','emp.identificacion')
+                ->join('nomytras as nt','emp.idempleado','=','nt.idempleado')
+                ->join('puesto as p','nt.idpuesto','=','p.idpuesto')
+                ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
+                ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado','emp.idempleado',DB::raw('max(nt.idnomytas) as idnomytas'))
+                ->where('U.id','!=',Auth::user()->id)
+                ->where('U.estado','=',1)
+                ->groupBy('emp.idempleado')            
+                ->paginate(30); 
+               
+            
+        		/*
+        		$data =  array("users"=>$users);
+        		return json_encode($data);*/
+                return view("hr.galeria")->with("usuario",$users);    		
+        	}
+
+            public function buscar_personal($dato){
+              
+                if($dato=="general")
+                {
+                    $users=DB::table('users as U')
+                ->join('persona as per','U.identificacion','=','per.identificacion')
+                ->join('empleado as emp','per.identificacion','=','emp.identificacion')
+                ->join('nomytras as nt','emp.idempleado','=','nt.idempleado')
+                ->join('puesto as p','nt.idpuesto','=','p.idpuesto')
+                ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
+                ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado','emp.idempleado')
+                ->where('U.id','!=',Auth::user()->id)
+                            ->where('U.estado','=',1)
+
+                ->groupBy('emp.idempleado') 
+                ->paginate(30);                 
+                }
+                else{
+
+                $users=DB::table('users as U')
+                ->join('persona as per','U.identificacion','=','per.identificacion')
+                ->join('empleado as emp','per.identificacion','=','emp.identificacion')
+                ->join('nomytras as nt','emp.idempleado','=','nt.idempleado')
+                ->join('puesto as p','nt.idpuesto','=','p.idpuesto')
+                ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
+                ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado','emp.idempleado')
+                ->where("U.name","like","%".$dato."%")
+                                        ->where('U.estado','=',1)
+
+                ->orwhere("U.email","like","%".$dato."%")
+                ->orwhere("p.nombre","like","%".$dato."%")
+                ->orwhere("a.nombre","like","%".$dato."%")
+                ->groupBy('emp.idempleado') 
+
+
+                ->paginate(30);
+                
+                }
+                return view("hr.galeria")->with("usuario",$users);
+            }
+            /*
+            public function buscar_usuarios($afiliado,$dato="")
+            {
+
+                $usuarioactual=\Auth::user();
+                $afiliados = Afiliado::all();
+                $usuarios= User::Busqueda($afiliado,$dato)->paginate(25);  
+                $afiliadosel = $afiliados->find($afiliado);
+
+                return view('hr.galeria')
+                ->with("afiliadosel",$afiliadosel)
+                ->with("afiliados",$afiliados)
+                ->with("usuarios", $usuarios )
+                ->with("usuario_actual", $usuarioactual);       
+            } */
+
+
+        	public function subirimagen(Request $request)
+            {
+                $id=$request->input('idusuario');
+                $user =User::findOrFail($id);
+              	
+            	$fotoperfil = $request->file('fotoperfil');
+                
+
+                $input  = array('image' => $fotoperfil) ;
+                $reglas = array('image' => 'required|image|mimes:jpeg,jpg,png|max:2000');
+                $validacion = Validator::make($input,  $reglas);
+
+                if ($validacion->fails())
+                {
+                   
+                  return view("mensajes.msj_rechazado")->with("msj","El archivo no es una imagen valida");
+                }
+                else
+                {  
+                    $file = $user->fotoperfil;
+                    Storage::delete(public_path().$file);
+
+                    $nombre_original=$fotoperfil->getClientOriginalName();
+                    $extension=$fotoperfil->getClientOriginalExtension();
+                    $nuevo_nombre="userimagen-".$id.".".$extension;
+                     //$r1=Storage::disk('fotografias')->put($nuevo_nombre,  \File::get($fotoperfil) );
+
+                    $r1 = Image::make($fotoperfil)
+                    ->resize(350,350)
+                    ->save(public_path('fotografias/'.$nuevo_nombre));
+                    $rutadelaimagen=$nuevo_nombre;
+                
+                    if ($r1){
+
+                        $usuario=User::find($id);
+                        $usuario->fotoperfil=$rutadelaimagen;
+                        $r2=$usuario->save();
+                         return view("mensajes.msj_correcto")->with("msj","Imagen agregada correctamente");
+                    }
+                    else
+                    {
+                        return view("mensajes.msj_rechazado")->with("msj","no se cargo la imagen");
+                    }
+                }   
+            }
     //Datos Academicos
         public static function  getTowns(Request $request, $id)
         {
