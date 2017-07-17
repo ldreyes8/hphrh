@@ -3,13 +3,8 @@
 @section('content')
 <div class="wrapper-page">
 
-            <div class="text-center">
-              
-<<<<<<< HEAD
+            <div class="text-center">  
                 <a href="#"><img src="{{asset('assets/images/Habitat/logointro2.png')}}" alt="" class="md md-equalizer" /> 
-=======
-                <a href="#"><img src="{{asset('assets/images/Habitat/habitat.png')}}" alt="" class="md md-equalizer" />
->>>>>>> 27a38f07fe14d3980692f3ee9bb87afa0ca33fc8
                 </a>
             </div>
 
@@ -18,16 +13,12 @@
 
                 <div class="form-group">
                     <div class="col-xs-12">
-                        
                         <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus placeholder="Mail">
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            
-
+                            @if ($errors->has('email'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @endif
                         <i class="md md-markunread form-control-feedback l-h-34"></i>
                     </div>
                 </div>
@@ -35,12 +26,11 @@
                 <div class="form-group">
                     <div class="col-xs-12">
                         <input id="password" type="password" class="form-control" name="password" required placeholder="Password">
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                            @if ($errors->has('password'))
+                                <span class="help-block">
+                                <strong>{{ $errors->first('password') }}</strong>
+                                </span>
+                            @endif
                         <i class="md md-vpn-key form-control-feedback l-h-34"></i>
                     </div>
                 </div>
@@ -67,7 +57,7 @@
 
                 <div class="form-group m-t-30">
                     <div class="col-sm-7">
-                                                       <a class="btn btn-link" href="{{ url('/password/reset') }}">¿Olvidaste tu contraseña?
+                        <a class="btn btn-link" href="{{ url('/password/reset') }}">¿Olvidaste tu contraseña?
                     </div>
                     
                 </div>

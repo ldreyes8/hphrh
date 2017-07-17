@@ -40,6 +40,8 @@
 
 @section('fin')
     @parent
+
     <script src="{{asset('assets/js/PanelControl/Usuario.js')}}"></script>
+
     <script>cargarusuario(1);</script>
 @endsection

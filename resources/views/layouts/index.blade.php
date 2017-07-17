@@ -174,7 +174,6 @@
             <!-- ========== Left Sidebar Start ========== -->
             <div class="left side-menu">
                 <div class="sidebar-inner slimscrollleft">
-
                     <div id="sidebar-menu">
                         <ul>
                             <li class="menu-title">Principal</li>
@@ -184,14 +183,25 @@
                                 class="md md-dashboard"></i><span> Tablero </span></a>
                             </li>
 
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="md md-person"></i> <span>Empleado</span>
-                                 <span class="menu-arrow"></span>
-                                </a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ url('/empleado/perfil')}}">Perfil</a></li>
-                                </ul>
+                            <li>
+                                <a href="{{ url('/empleado/perfil')}}" class="waves-effect waves-primary"><i
+                                class="md md-insert-emoticon"></i><span>Mi perfil </span></a>
                             </li>
+                            
+                            <li>
+                            <a href="{{ url('/empleado/contacto')}}" class="waves-effect waves-primary"><i
+                                class="md-perm-contact-cal"></i><span>Contactos </span></a>
+                            </li>
+                             
+                        <!-- // Solicitudes___ // -->
+
+                            <li>
+                                <a href="{{url('/empleado/solicitud')}}" class="waves-effect waves-primary">
+                                <i class="md md-assignment"></i><span> Solicitud </span>
+                                </a> 
+                            </li>
+
+                            <!--
 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i
@@ -205,52 +215,22 @@
 
                                 </ul>
                             </li>
-                            
-                            <li class="menu-title">Gesti&oacute;n</li>
-                            @role('recurso') 
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i
-                                        class="fa fa-vcard"></i><span>Recursos Humanos</span> 
-                                         <span class="menu-arrow"></span>
-                                </a><!--<span
-                                        class="label label-success pull-right">6</span> -->
-                            
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ url('/empleado/solicitante')}}">Solicitud</a></li>
-                                    <li><a href="{{ url('/listados/empleado')}}">Listado de empleados</a></li>
-                                    <li><a href="{{ url('/listados/interino')}}">Interinato</a></li>
-                                    <li><a href="{{ url('/listados/pprueba')}}">Periodo de prueba</a></li>
-                                    <li><a href="{{ url('/listados/rechazados')}}">En espera</a></li>
-                                    <li><a href="{{ url('/mintrabf')}}">Ministerio de trabajo</a></li>
-                                    <li class="has_sub">
-                                        <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Permisos</span> 
-                                        <span class="menu-arrow"></span>
-                                        </a>
-                                        <ul class="list-unstyled">
-                                            <li><a href="{{ url('/listados/psolicitado')}}">Solicitados</a></li>
-                                            <li><a href="{{ url('/listados/pconfirmado')}}">Confirmados</a></li>
-                                            <li><a href="{{ url('/listados/prechazado')}}">Rechazados</a></li> 
-                                        </ul>
-                                    </li>
-                                    <li class="has_sub">
-                                        <a href="javascript:void(0);" class="waves-effect waves-primary"> <i class="fa fa-address-card-o"></i><span>Vacaciones</span> 
-                                                 <span class="menu-arrow"></span>
-                                        </a>
-                                        <ul class="list-unstyled">
-                                            <li><a href="{{ url('/listados/vsolicitado')}}">Solicitados</a></li>
-                                            <li><a href="{{ url('/listados/vautorizado')}}">Autorizados</a></li>
-                                            <li><a href="{{ url('/listados/vconfirmado')}}">Confirmados</a></li>
-                                            <li><a href="{{ url('/listados/vrechazado')}}">Rechazados</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            @endrole
+                            -->
+
+
+                        <!-- // Gestiones___ // -->
 
                             
-
                             @role('jefeinmediato') 
-             
+                            <li class="menu-title">Gesti&oacute;n</li>
+
+                             <li>
+                                <a href="{{url('/empleado/autorizaciones')}}" class="waves-effect waves-primary">
+                                <i class="md md-assignment"></i><span>Autorizaciones</span>
+                                </a> 
+                            </li>
+                            
+                            <!--
 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Autorizaciones</span> 
@@ -283,33 +263,55 @@
                                 
                                 </ul>
                             </li>
-                            @endrole
+                            -->
 
-                            <li class="menu-title">Administraci&oacute;n</li>
-
-
-                            @role('informatica') 
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i
-                                        class="md md-assignment"></i><span>Panel de control</span> 
-                                         <span class="menu-arrow"></span>
-                                </a><!--<span
-                                        class="label label-success pull-right">6</span> -->
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ url('/seguridad/usuario')}}">Registro usuario</a></li>
-                                </ul>
-
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ url('/seguridad/image')}}">Registro usuario</a></li>
-                                </ul>
+                            <li class="has_sub"> 
+                                <a href="{{ url('/empleado/reclutamiento')}}" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Reclutamiento</span>
+                                </a>
                             </li>
+
                             @endrole
+
+                        <!-- // Recurso Humano___ // -->
+
+
+                            @role('recurso') 
+
+                                <li class="menu-title">Recursos Humanos</li>
+
+
+
+                                <li>
+                                    <a href="{{ url('/empleado/listado')}}" class="waves-effect waves-primary"><i
+                                    class="md md-insert-emoticon"></i><span>Empleados </span></a>
+                                </li>
+
+                                <li>
+                                <a href="{{ url('/empleado/listadoPV')}}"class="waves-effect waves-primary"><i
+                                    class="md-perm-contact-cal"></i><span>Permisos y vacaciones </span></a>
+                                </li>
+                                
+                                <li>
+                                <a href="{{ url('/empleado/listadoR')}}"class="waves-effect waves-primary"><i
+                                    class="md-perm-contact-cal"></i><span>Reclutamiento </span></a>
+                                </li>
+                                <li>
+
+                                <a href="{{ url('/empleado/Rmintrab')}}"class="waves-effect waves-primary"><i
+                                    class="md-perm-contact-cal"></i><span>Reportes</span></a>
+                                </li>
+
+
+                            @endrole
+
                             
 
-                            <li class="menu-title">Mas</li>
 
                             @role('jefeinmediato')
                                 @role('reporte')
+
+                                <li class="menu-title">Reporte Financieros</li>
+
 
                                 <li class="has_sub">
                                     <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="glyphicon glyphicon-folder-open"></i> <span>Reportes</span>
@@ -322,6 +324,24 @@
                                 @endrole
                             @endrole
 
+                            @role('informatica') 
+                            <li class="menu-title">Panel de control</li>
+
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i
+                                        class="md md-assignment"></i><span>Panel de control</span> 
+                                         <span class="menu-arrow"></span>
+                                </a><!--<span
+                                        class="label label-success pull-right">6</span> -->
+                                <ul class="list-unstyled">
+                                    <li><a href="{{ url('/seguridad/usuario')}}">Registro usuario</a></li>
+
+                                </ul>
+
+                                
+                            </li>
+                            @endrole
+                        
                         </ul>
                         <div class="clearfix"></div>
                     </div>
@@ -342,8 +362,7 @@
                                 <h5 class="m-t-0 m-b-0"> </h5>
                                 <p class="text-muted m-b-0">
                                     <small><i class="fa fa-circle text-success"></i> <span>Online</span></small>
-                                </p>
-                              
+                                </p>                              
                             </span>
                         </a>
                         <ul class="dropdown-menu">
@@ -351,17 +370,13 @@
                             <li><a href="{{ url('/logout') }}"><i class="md md-settings-power"></i> Cerrar sesion</a></li>
                         </ul>
                     @endif
-
                     </div>
                 </div>
             </div>
             <!-- Left Sidebar End --> 
 
-
-
             <!-- ============================================================== -->
             <!-- Start right Content here -->
-          
 
             <div class="content-page">
                 <!-- Start content -->
@@ -375,7 +390,6 @@
                     2017 © Solera.
                 </footer><!-- /.box-body -->
             </div><!-- /.box -->
-    
             
             <div style="display: none;" id="cargador_empresa" align="center">
                 <br>
@@ -632,10 +646,6 @@
         <!-- END wrapper -->
         @section('fin') 
         
-     
-    
-       
-
         <!-- Plugins  -->
         <script src="{{asset('assets/js/jquery.min.js')}}"></script>
         <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
@@ -667,8 +677,6 @@
         <script src="{{asset('assets/js/jquery.core.js')}}"></script>
         <script src="{{asset('assets/js/jquery.app.js')}}"></script>
         <script src="{{asset('assets/js/modernizr.min.js')}}"></script>
-
-        
 
         @show
 

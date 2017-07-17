@@ -2,37 +2,41 @@
   <div class="panel-heading">
         <button class="btn btn-success" id="btnAgregarF"><i class="icon-user icon-white" ></i> Agregar Familiar</button>
   </div>
-  <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12" >
-    <div class="table-responsive" id="tabla">
-      <table class="table table-striped table-bordered table-condensed table-hover" id="dataTablefamilia">
-        <thead>
-          <th>Parentezco</th>
-          <th>Nombre</th>
-          <th>Ocupación</th>
-          <th>Edad</th>
-          <th>Teléfono</th>
-          <th>Emergencia</th>
-          <th>Opciones</th>
-        </thead>
-        <tbody id="productsF" name="productsF">
-          @if (isset($familia))
-            @for ($i=0;$i<count($familia);$i++)
-              <tr class="even gradeA" id="fam{{$familia[$i]->idpfamilia}}">
-                <td>{{$familia[$i]->parentezco}}</td>
-                <td>{{$familia[$i]->nombref.' '.$familia[$i]->apellidof}}</td>
-                <td>{{$familia[$i]->ocupacion}}</td>
-                <td>{{$familia[$i]->edad}}</td>
-                <td>{{$familia[$i]->telefonof}}</td>
-                <td>{{$familia[$i]->emergencia}}</td>
-                <td>
-                  <button class="fa fa-pencil btn-editar-familia" value="{{$familia[$i]->idpfamilia}}"></button>
-                  <button class="fa fa-trash-o btn-delete-familia" value="{{$familia[$i]->idpfamilia}}"></button>
-                </td>
-              </tr>
-            @endfor
-          @endif
-        </tbody>
-      </table>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+      <div class="card-box">
+        <div class="table-responsive" id="tabla">
+          <table class="table table-striped table-bordered table-condensed table-hover" id="dataTablefamilia">
+            <thead>
+              <th>Parentezco</th>
+              <th>Nombre</th>
+              <th>Ocupación</th>
+              <th>Edad</th>
+              <th>Teléfono</th>
+              <th>Emergencia</th>
+              <th>Opciones</th>
+            </thead>
+            <tbody id="productsF" name="productsF">
+              @if (isset($familia))
+                @for ($i=0;$i<count($familia);$i++)
+                  <tr class="even gradeA" id="fam{{$familia[$i]->idpfamilia}}">
+                    <td>{{$familia[$i]->parentezco}}</td>
+                    <td>{{$familia[$i]->nombref.' '.$familia[$i]->apellidof}}</td>
+                    <td>{{$familia[$i]->ocupacion}}</td>
+                    <td>{{$familia[$i]->edad}}</td>
+                    <td>{{$familia[$i]->telefonof}}</td>
+                    <td>{{$familia[$i]->emergencia}}</td>
+                    <td>
+                      <button class="fa fa-pencil btn-editar-familia" value="{{$familia[$i]->idpfamilia}}"></button>
+                      <button class="fa fa-trash-o btn-delete-familia" value="{{$familia[$i]->idpfamilia}}"></button>
+                    </td>
+                  </tr>
+                @endfor
+              @endif
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>

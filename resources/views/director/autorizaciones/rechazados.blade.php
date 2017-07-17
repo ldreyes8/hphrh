@@ -1,9 +1,9 @@
 <div class="card-box" id="rechazados">
 
     <div class="row">
-    	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <h3>Vacaciones y/o Permisos que usted ha rechazado</h3>
-    	</div>
+        </div>
     </div>
     <div><p><br></p></div>
     <input type="hidden" name="_token" id="_token"  value="<?= csrf_token(); ?>">

@@ -101,6 +101,7 @@ $(document).on("submit",".formentrada",function(e){
 
 function cargar_formulario(arg){
    var urlraiz=$("#url_raiz_proyecto").val();
+   console.log(urlraiz);
    $("#capa_modal").show();
    $("#capa_formularios").show();
    var screenTop = $(document).scrollTop();
@@ -109,6 +110,8 @@ function cargar_formulario(arg){
    //if(arg==1){ var miurl=urlraiz+"/form_nuevo_usuario"; }
    if(arg==2){ var miurl=urlraiz+"/seguridad/usuario/form_nuevo_rol"; }
    if(arg==3){ var miurl=urlraiz+"/form_nuevo_permiso"; }
+
+   console.log(miurl);
 
     $.ajax({
     url: miurl
@@ -136,4 +139,40 @@ function borrar_rol(idrol){
   {
     alert("No se borro correctamente, intentalo nuevamente o revisa tu conexion");
   });
+}
+
+function buscarusuario(){
+  var rol=$("#select_filtro_rol").val();
+  var dato=$("#dato_buscado").val();
+  if(dato == "")
+  {
+    var url="buscar_usuarios/"+rol+"";
+  }
+  else
+  {
+    var url="buscar_usuarios/"+rol+"/"+dato+"";
+  }
+
+  $("#contentsecundario").html($("#cargador_empresa").html());
+  $.get(url,function(resul){
+    $("#contentsecundario").html(resul);  
+  })
+}
+
+$(document).on("click",".pagination li a",function(e){
+  e.preventDefault();
+  var url = $(this).attr("href");
+  $("#contentsecundario").html($("#cargador_empresa").html());
+
+  $.get(url,function(resul){
+    $("#contentsecundario").html(resul);  
+  })
+})
+
+function cargarusuario(listado){
+  $("#contentsecundario").html($("#cargador_empresa").html());
+    if(listado==1){var url = "usuarios";}
+    $.get(url,function(resul){
+    $("#contentsecundario").html(resul);
+    });
 }

@@ -19,10 +19,16 @@ class PermisosController extends Controller
       $this->middleware('auth');
     }
 
+    public function indexdirector(Request $request)
+    {
+      return view('director.index');
+    }
+
+
     public function index (Request $request)
     {
-    	if ($request)
-    	{
+      if ($request)
+      {
         $query=trim($request->get('searchText'));
       
         $usuario = DB::table('users as U')
@@ -41,7 +47,6 @@ class PermisosController extends Controller
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','solicitado')
-<<<<<<< HEAD
         ->orderBy('au.fechasolicitud','desc')
 
         ->get();
@@ -50,15 +55,6 @@ class PermisosController extends Controller
       }
       return view('director.autorizaciones.solicitados',["permisos"=>$permisos,"searchText"=>$query]);
       //return view('director.permisos.index',["permisos"=>$permisos,"searchText"=>$query]);
-=======
-        ->where('tp.idtipoausencia','!=','3')        
-   
-        ->paginate(15);       
-    	}
-     
-
-    	return view('director.permisos.index',["permisos"=>$permisos,"searchText"=>$query]);
->>>>>>> 27a38f07fe14d3980692f3ee9bb87afa0ca33fc8
     }
 
     public function indexconfirmado (Request $request)
@@ -79,20 +75,12 @@ class PermisosController extends Controller
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','Confirmado')
-<<<<<<< HEAD
         ->orderBy('au.fechasolicitud','desc')
 
    
         //->paginate(1);   
         ->get();
         return view('director.autorizaciones.autorizados',["permisos"=>$permisos])  ;        
-=======
-        ->where('tp.idtipoausencia','!=','3')        
-   
-        ->paginate(15);   
-
-        return view('director.permisos.indexconfirmado',["permisos"=>$permisos])  ;        
->>>>>>> 27a38f07fe14d3980692f3ee9bb87afa0ca33fc8
     }
 
      public function indexrechazado (Request $request)
@@ -113,19 +101,13 @@ class PermisosController extends Controller
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','au.fechasolicitud','tp.ausencia','au.fechainicio','au.fechafin','au.idausencia')
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','Rechazado')
-<<<<<<< HEAD
         ->orderBy('au.fechasolicitud','desc')
 
   
         //->paginate(1);
         ->get();   
-=======
-        ->where('tp.idtipoausencia','!=','3')        
-   
-        ->paginate(15); 
->>>>>>> 27a38f07fe14d3980692f3ee9bb87afa0ca33fc8
 
-        return view('director.permisos.indexrechazado',["permisos"=>$permisos])  ;        
+        return view('director.autorizaciones.rechazados',["permisos"=>$permisos])  ;        
     }
 
     public function verificar($id)

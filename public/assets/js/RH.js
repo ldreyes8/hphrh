@@ -1,32 +1,172 @@
 $(document).ready(function(){
-    $(document).on('click','.btn-vacaciones',function(){
-        var errHTML="";
-        idempleado=$(this).val();
-        $.get('empleado/calculardias/'+idempleado,function(data){
-           
-            var horas = '';
-            var dias = '';
-            var tdh;
 
-            $.each(data,function(){
-                horas = data[0];
-                dias = data[1];
-                autorizacion = data[2];
-            })
+    //Calculo de vacaciones de un empleado
+        $(document).on('click','.btn-vacaciones',function(){
+            var errHTML="";
+            idempleado=$(this).val();
+            $.get('empleados/calculardias/'+idempleado,function(data){
+               
+                var horas = '';
+                var dias = '';
+                var tdh;
 
-            $('#inputTitle').html("Saldo de vacaciones");
-            $('#formAgregar').trigger("reset");
-            $('#formModal').modal('show');
-            $('#datomar').attr('disabled', 'disabled');
-            $('#hhoras').attr('disabled', 'disabled');
-            $('#dacumulado').attr('disabled', 'disabled');
-            $('#btnguardarV').attr('disabled', 'disabled'); 
+                $.each(data,function(){
+                    horas = data[0];
+                    dias = data[1];
+                    autorizacion = data[2];
+                })
 
-            tdh = (dias + ' ' + 'dias' + ' ' + 'con' +' '+ horas +' '+ 'horas');
-            document.getElementById('dacumulado').value = tdh;
-            document.getElementById('tdias').value = dias;
-            document.getElementById('thoras').value = horas;
-            
+                $('#inputTitle').html("Saldo de vacaciones");
+                $('#formAgregar').trigger("reset");
+                $('#formModal').modal('show');
+                $('#datomar').attr('disabled', 'disabled');
+                $('#hhoras').attr('disabled', 'disabled');
+                $('#dacumulado').attr('disabled', 'disabled');
+                $('#btnguardarV').attr('disabled', 'disabled'); 
+
+                tdh = (dias + ' ' + 'dias' + ' ' + 'con' +' '+ horas +' '+ 'horas');
+                document.getElementById('dacumulado').value = tdh;
+                document.getElementById('tdias').value = dias;
+                document.getElementById('thoras').value = horas;
+                
+            });
         });
-    });
+
+    //Despido de un empleado
+
+        $(document).on('click','.btn-despedir',function(){
+            var errHTML="";
+            idempleado=$(this).val();
+            
+            $.get('personabaja/'+idempleado,function(data){
+               
+                var nombre1 = '';
+                var nombre2 = '';
+                var nombre3 = '';
+                var apellido1 = '';
+                var apellido2 = '';
+                var apellido3 = '';
+
+                var NC = "";
+
+                $('#inputTitleDespedir').html("Formulario de despidos");
+                $('#formDespedir').trigger("reset");
+                $('#formModalDespedir').modal('show');
+
+                if(data.nombre2 == null && data.nombre3 == null && data.apellido2 == null && data.apellido3 == null)
+                {
+                    NC = (data.nombre1 + ' '+ data.apellido1);                
+                }
+
+                if(data.nombre3 == null && data.apellido2 == null && data.apellido3 == null)
+                {
+                    NC = (data.nombre1 + ' ' + data.nombre2 + ' '+ data.apellido1);                
+                }
+
+                if(data.nombre3 == null && data.apellido3 == null)
+                {
+                    NC = (data.nombre1 + ' ' + data.nombre2 + ' '+ data.apellido1 + ' ' + data.apellido2);
+                }
+
+                if(data.apellido3 == null && data.nombre3 != null)
+                {
+                    NC = (data.nombre1 + ' ' + data.nombre2 + ' ' + data.nombre3 + ' ' + data.apellido1 + ' ' + data.apellido2);                
+                }
+
+                if(data.nombre1 != null && data.nombre2 != null && data.nombre3 != null && data.apellido1 != null && data.apellido2 != null && data.apellido3 != null)
+                {
+                    NC = (data.nombre1 + ' ' + data.nombre2 + ' ' + data.nombre3 + ' ' + data.apellido1 + ' ' + data.apellido2 + ' ' + data.apellido3);
+                }
+
+                            document.getElementById('idE').value = idempleado;
+
+                document.getElementById('nombreC').value = NC;
+                document.getElementById('idemple').value = data.idempleado;
+                document.getElementById('identifica').value = data.identificacion;
+
+            });
+        });
+
+        $(document).on('click','.btn-adddespedir',function(e){
+
+            var idEP=$("#idE").val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+            var formData = {
+                idempleado: $("#idemple").val(),
+                identificacion: $("#identifica").val(),
+                fecha_despido: $("#fecha_inicio").val(),           
+                motivo: $("#idstatus option:selected").text(),
+                observaciones : $("#observaciones").val(),
+                idstatus: $("#idstatus").val(),
+            };
+
+            var state=$("#btnGuardarBaja").val();
+
+            var type;
+            var my_url;
+
+            type="POST";
+            my_url = 'addbaja';
+
+            $.ajax({
+                type: type,
+                url: my_url,
+                data: formData,
+                dataType: 'json',
+
+                success: function (data) {
+                    
+                    $("#empleado" + idEP).remove();
+                    $('#formDespedir').trigger("reset");
+                    $('#formModalDespedir').modal('hide');
+                    
+                },
+                error: function (data) {
+                    $('#loading').modal('hide');
+                    var errHTML="";
+                    if((typeof data.responseJSON != 'undefined')){
+                        for( var er in data.responseJSON){
+                            errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                        }
+                    }else{
+                        errHTML+='<li>Error</li>';
+                    }
+                    $("#erroresContent").html(errHTML); 
+                    $('#erroresModal').modal('show');
+                }
+            });
+        });
 });
+
+//Busqueda de empleado y paginacion
+
+    function buscarempleado(){
+        var rol=$("#select").val();
+        var dato=$("#searchText").val();
+        console.log(dato);
+        if(dato == "")
+        {
+            var url="busqueda/"+rol+"";
+        }
+        else
+        {
+            var url="busqueda/"+rol+"/"+dato+"";
+        }
+        $("#lisadoEmp").html($("#cargador_empresa").html());
+            $.get(url,function(resul){
+            $("#lisadoEmp").html(resul);  
+        })
+    }
+    
+    $(document).on("click",".pagination li a",function(e){
+        e.preventDefault();
+        var url = $(this).attr("href");
+        $("#lisadoEmp").html($("#cargador_empresa").html());
+        $.get(url,function(resul){
+            $("#lisadoEmp").html(resul);  
+        })
+    })

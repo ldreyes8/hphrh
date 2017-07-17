@@ -1,10 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
+
+use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
-use Storage;
+
+
+use Validator;
 use DB;
 use Carbon\Carbon; //para poder usar la fecha y hora
 use Response;
@@ -15,6 +20,16 @@ use App\Historia;
 use App\Http\Requests\HistoriaRequest;
 use App\Empleado;
 use App\Persona;
+use App\Caso;
+use App\Bajas;
+use App\User;
+
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
+
+
+
 
 class ListadoController extends Controller
 {
@@ -23,12 +38,53 @@ class ListadoController extends Controller
     {
         $this->middleware('auth');
     }
-    
+    public function listado(Request $request)
+    {
+        return view('rrhh.empleados.index');
+    }
     public function index (Request $request)
     {
-    	if ($request)
-    	{
-        $query=trim($request->get('searchText'));
+    	
+        $casos=DB::table('caso as c')
+        ->select('c.idcaso','c.nombre')
+        ->where('c.idcaso','=',6)
+        ->orwhere('c.idcaso','=',4)
+        ->orwhere('c.idcaso','=',7)
+        ->orderBy('c.nombre','asc')
+        ->get();
+
+        $queryN=trim($request->get('searchText'));  
+        $query=trim($request->get('select'));
+
+        $empleado=Empleado::join('nomytras as nt','empleado.idempleado','=','nt.idempleado')
+        ->join('status as st','empleado.idstatus','=','st.idstatus')
+        ->join('puesto as pu','nt.idpuesto','=','pu.idpuesto')
+        ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
+        ->join('caso as c','c.idcaso','=','nt.idcaso')
+        ->select('empleado.idempleado','empleado.identificacion','empleado.nit','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado','c.idcaso',DB::raw('max(nt.idnomytas) as idnomytas'))
+        ->where('empleado.idstatus','!=', 5)
+        ->groupBy('empleado.idempleado')      
+        ->orderBy('empleado.idempleado','desc')
+        ->paginate(20);
+
+        $status = DB::table('status as st')
+        ->select('st.idstatus','st.statusemp')
+        ->where('st.idstatus','=',5)
+        ->get();
+
+        return view("rrhh.empleados.generalemp",["empleado"=>$empleado,"searchText"=>$queryN,"casos"=>$casos,"select"=>$query,"status"=>$status]);
+    }
+  /*  public function busqueda($rol,$dato="")
+    {
+        $queryN=$dato;
+        $query=$rol;
+        $caso=DB::table('caso as c')
+        ->select('c.idcaso','c.nombre')
+        ->where('c.idcaso','=',6)
+        ->orwhere('c.idcaso','=',4)
+        ->orwhere('c.idcaso','=',7)
+        ->orderBy('c.nombre','asc')
+        ->get();
         $empleado=DB::table('empleado as e')
         ->join('status as st','e.idstatus','=','st.idstatus')
         ->join('persona as p','e.identificacion','=','p.identificacion')
@@ -36,23 +92,56 @@ class ListadoController extends Controller
         ->join('nomytras as nt','e.idempleado','=','nt.idempleado')
         ->join('puesto as pu','nt.idpuesto','=','pu.idpuesto')
         ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
+        ->join('caso as c','c.idcaso','=','nt.idcaso')
 
-        ->select('e.idempleado','e.identificacion','e.nit','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','p.nombre1','p.nombre2','p.apellido1','p.apellido2','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado',DB::raw('max(nt.idnomytas) as idnomytas'))
+        ->select('e.idempleado','e.identificacion','e.nit','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','p.nombre1','p.nombre2','p.apellido1','p.apellido2','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado','c.idcaso',DB::raw('max(nt.idnomytas) as idnomytas'))
 
-        ->where('nt.idcaso','=',6)
-        //->where('e.idstatus','=',2)
 
-        ->where('p.identificacion','LIKE','%'.$query.'%')
-        ->orwhere('p.nombre1','LIKE','%'.$query.'%')
-        ->orwhere('p.apellido1','LIKE','%'.$query.'%')
+        ->where('c.idcaso','LIKE','%'.$query.'%')
+        ->where('p.nombre1','LIKE','%'.$queryN.'%')
+        //->orwhere('p.apellido1','LIKE','%'.$queryN.'%')
 
         ->groupBy('e.idempleado')   
         ->orderBy('e.idempleado','desc')
         ->paginate(19); 
-        }
-        
-        return view('listados.empleado.index',["empleado"=>$empleado,"searchText"=>$query]);
+
+        return view("rrhh.empleados.generalemp",["empleado"=>$empleado,"searchText"=>$queryN,"caso"=>$caso,"select"=>$query]);
     }
+*/
+    public function busqueda($caso,$dato="")
+    {
+        $casos=Caso::where('idcaso','=',6)
+        ->orwhere('idcaso','=',4)
+        ->orwhere('idcaso','=',7)
+        ->orderBy('nombre','asc')
+        ->get();
+
+        $empleado= Empleado::Busqueda($caso,$dato)->join('nomytras as nt','empleado.idempleado','=','nt.idempleado')
+        ->join('status as st','empleado.idstatus','=','st.idstatus')
+        ->join('puesto as pu','nt.idpuesto','=','pu.idpuesto')
+        ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
+        ->join('caso as c','c.idcaso','=','nt.idcaso')
+        ->select('empleado.idempleado','empleado.identificacion','empleado.nit','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado','c.idcaso',DB::raw('max(nt.idnomytas) as idnomytas'))
+        ->where('empleado.idstatus','!=', 5)
+        ->groupBy('empleado.idempleado')      
+        ->orderBy('empleado.idempleado','desc')
+        ->paginate(20);
+
+        $casosel=$casos->find($caso);
+
+        $status = DB::table('status as st')
+        ->select('st.idstatus','st.statusemp')
+        ->where('st.idstatus','=',5)
+        ->get();
+
+
+        return view('rrhh.empleados.generalemp')
+        ->with("empleado", $empleado )
+        ->with("casos", $casos)
+        ->with("casosel", $casosel)
+        ->with("status", $status);
+    }
+
     public function show ($id)
     {
         $municipio=DB::table('persona as p')
@@ -143,13 +232,11 @@ class ListadoController extends Controller
         ->select('pad.nombre')
         ->where('p.identificacion','=',$id)
         ->get();
-        return view('listados.empleado.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos]);
+        return view('rrhh.empleados.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos]);
     } 
 
     public function historial ($id)
     {
-        
-
         $historia=DB::table('historia as h')
         ->join('empleado as e','h.idempleado','=','e.idempleado')
         ->join('persona as p','e.identificacion','=','p.identificacion')
@@ -247,11 +334,11 @@ class ListadoController extends Controller
         ->join('puesto as pu','nt.idpuesto','=','pu.idpuesto')
         ->join('caso as c','nt.idcaso','=','c.idcaso')
         ->join('persona as p','e.identificacion','=','p.identificacion')
-        ->select('p.nombre1','p.apellido1','a.nombre as naf','pu.nombre as npu','c.nombre as nc','nt.fecha','nt.salario')
+        ->select('p.nombre1','p.nombre2','p.apellido1','p.apellido2','a.nombre as naf','pu.nombre as npu','c.nombre as nc','nt.fecha','nt.salario')
         ->where('e.idempleado','=',$id)
         ->get();
 
-        return view('listados.empleado.laboral',["historia"=>$historia]);
+        return view('rrhh.empleados.hlaboral',["historia"=>$historia]);
     }
 
     public function calculardias(request $request, $id)
@@ -430,8 +517,114 @@ class ListadoController extends Controller
             ->orderBy('au.fechasolicitud','desc')        
             ->paginate(15);
 
-
-        return view('listados.vacaciones.indexautorizado',["vacaciones"=>$vacaciones]);        
+        return view('rrhh.permisosvacaciones.indexautorizado',["vacaciones"=>$vacaciones]);        
     }
 
+
+    // Funciones de despido
+        public function bajas(request $request,$id)
+        {
+            $empleado = DB::table('empleado as em')
+            ->join('persona as per','per.identificacion','=','em.identificacion')
+            ->where('em.idempleado','=', $id)
+            ->select('per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','per.apellido3','em.idempleado','em.identificacion')
+            ->first();
+            return response()->json($empleado);
+        }
+
+        public function addbaja(request $request)
+        {
+            $this->validateRequest($request);
+
+            try 
+            {
+                DB::beginTransaction();
+
+                $idempleado = $request->idempleado;
+                $identificacion = $request->identificacion;
+                $fechabaja = $request->fecha_despido;
+                $motivo = $request->motivo;
+                $comentarios = $request->observaciones;
+                $idstatus = $request->idstatus;
+
+                $fechabaja = Carbon::createFromFormat('d/m/Y',$fechabaja);
+                $fechabaja = $fechabaja->toDateString();
+                $bajas = new Bajas;
+                
+                $bajas->fechabaja = $fechabaja;
+                $bajas->motivo = $motivo;
+                $bajas->comentarios = $comentarios;
+                $mytime = Carbon::now('America/Guatemala');
+                $bajas->fechasistema=$mytime->toDateString();
+                $bajas->idempleado=$idempleado;
+                
+                $bajas->save();
+
+                $empleado = empleado::find($idempleado);
+                $empleado->idstatus = $idstatus;
+                $empleado->save();
+
+                $idusario = DB::table('users as U')
+                ->join('persona as p','U.identificacion','=','p.identificacion')
+                ->select('U.id')
+                ->where('U.identificacion','=',$identificacion)
+                ->first();
+
+                $usuario = user::find($idusario->id);
+                //$usuario->password=bcrypt('brcsolera12072017');
+                $usuario->password=bcrypt('DespidoATM');
+                $usuario->estado = 0;
+                $usuario->save();
+
+                DB::commit();
+                
+            } catch (Exception $e) {
+                DB::rollback();
+                return response()->json(array('error' => 'No se ha podido realizar la solicitud de despido'),404);      
+            }
+
+            return response()->json($bajas);
+        }
+
+        public function validateRequest($request){
+            $rules=[
+              'fecha_despido'=>'required',
+              'observaciones'=>'required|max:300',
+
+
+            ];
+            $messages=[
+            'required' => 'Debe ingresar :attribute.',
+            'max'  => 'La capacidad del campo :attribute es :max',
+            ];
+            $this->validate($request, $rules,$messages);        
+        }
+
+
+        public function debaja(request $request)
+        {
+        if ($request)
+        {
+            $query=trim($request->get('searchText'));
+            $empleado=DB::table('empleado as e')
+            ->join('status as st','e.idstatus','=','st.idstatus')
+            ->join('persona as p','e.identificacion','=','p.identificacion')
+            ->join('nomytras as nt','e.idempleado','=','nt.idempleado')
+            ->join('puesto as pu','nt.idpuesto','=','pu.idpuesto')
+            ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
+            ->select('e.idempleado','e.identificacion','e.nit','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','p.nombre1','p.nombre2','p.apellido1','p.apellido2','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado',DB::raw('max(nt.idnomytas) as idnomytas'))
+            ->where('e.idstatus','=',5)
+            ->orwhere('e.idstatus','=',4)
+            ->groupBy('e.idempleado')      
+            ->orderBy('e.idempleado','desc')
+            ->paginate(20);
+        }
+        return view('rrhh.empleados.debaja',["empleado"=>$empleado,"searchText"=>$query]);    
+        }
+
 }
+/*
+->where('empleado.idstatus','!=', 5)
+        ->groupBy('empleado.idempleado')      
+        ->orderBy('empleado.idempleado','desc')
+        ->paginate(20);*/

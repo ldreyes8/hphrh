@@ -43,7 +43,7 @@ class VacacionesController extends Controller
       ->where('au.autorizacion','=','solicitado')
       ->where('tp.idtipoausencia','=','3')           
       ->paginate(15);                 
-    	}
+      }
 
     return view('director.vacaciones.index',["vacaciones"=>$vacaciones,"searchText"=>$query]);
   }
@@ -116,15 +116,12 @@ class VacacionesController extends Controller
     ->where('aj.identificacion','=',$usuario->identificacion)
     ->where('au.autorizacion','=','Autorizado')
     ->where('tp.idtipoausencia','=','3')        
-<<<<<<< HEAD
 
-    ->get();
-=======
     
     ->paginate(15);  
->>>>>>> 27a38f07fe14d3980692f3ee9bb87afa0ca33fc8
 
-    return view('director.vacaciones.indexautorizado',["permisos"=>$permisos]);        
+
+    return view('director.autorizaciones.constancias',["permisos"=>$permisos]);        
   }
 
   public function verificar($id)
@@ -194,7 +191,7 @@ class VacacionesController extends Controller
       $dias = $tdia[0];
 
       if (empty($tdia[1])) {
-      	
+        
         $thoras =0;
         $thoras = $horasactual + $thoras + $horasol;
         $dias = $diasactual + $dias + $diasol; 
@@ -212,12 +209,12 @@ class VacacionesController extends Controller
         $dias = $diasactual + $dias;
       }
 
-		  if($thoras >= 8)
-		  {
-		    $thoras = $thoras -8;
-		    $dias = $dias +1;
-		  }      
-		}
+      if($thoras >= 8)
+      {
+        $thoras = $thoras -8;
+        $dias = $dias +1;
+      }      
+    }
     $calculo = array($thoras,$dias);
     return view('director.vacaciones.detalle',["empleado"=>$empleado,"calculo"=>$calculo,"user"=>$user]);            
   }

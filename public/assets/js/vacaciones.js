@@ -1,12 +1,5 @@
-<<<<<<< HEAD
-
-
-
-jQuery(document).ready(function () {          
-  
-=======
 $(document).ready(function(){
-   	$('#btnnuevo').click(function(e){
+    $('#btnnuevo').click(function(e){
         var errHTML="";
         e.preventDefault();
         $.get('vacaciones/calculardias',function(data){
@@ -49,7 +42,7 @@ $(document).ready(function(){
             }
         });
     });
->>>>>>> 27a38f07fe14d3980692f3ee9bb87afa0ca33fc8
+
 
     $(document).on('click','.btn-GoceV',function(e){
         $('#Title').html("Confirmar goce de vacaciones");
@@ -148,7 +141,7 @@ $(document).ready(function(){
                             errHTML+="<li>"+data.responseJSON[er]+"</li>";
                         }
                     }else{
-                        errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                        errHTML+='<li>Error.</li>';
                     }
                     $("#erroresContent").html(errHTML); 
                     $('#erroresModal').modal('show');
@@ -233,7 +226,7 @@ $(document).ready(function(){
                             errHTML+="<li>"+data.responseJSON[er]+"</li>";
                         }
                     }else{
-                        errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                        errHTML+='<li>Error</li>';
                     }
                     $("#erroresContent").html(errHTML); 
                     $('#erroresModal').modal('show');
@@ -289,6 +282,10 @@ $(document).ready(function(){
                     
                 }
                 else{
+
+                    $('#fecha_inicio').attr('disabled', 'disabled');
+            $('#fecha_final').attr('disabled', 'disabled');
+           
                      $('#btnguardarV').removeAttr("disabled");}
 
             },
@@ -300,7 +297,7 @@ $(document).ready(function(){
                         errHTML+="<li>"+data.responseJSON[er]+"</li>";
                     }
                 }else{
-                    errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                    errHTML+='<li>Error.</li>';
                 }
                 $("#erroresContent").html(errHTML); 
                 $('#erroresModal').modal('show');

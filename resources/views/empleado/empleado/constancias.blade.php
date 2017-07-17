@@ -1,4 +1,4 @@
-<div class="tab-pane" id="consta">
+
 
 	<div class="row"> 
 	    {!!Form::open(array('url'=>'empleado/Gpdf','method'=>'POST','autocomplete'=>'off','files'=>'true'))!!}
@@ -93,7 +93,7 @@
 	        </div>
 	    </div>
 	</div>
-</div>
+
 
 <div class="modal fade" id="erroresModalC" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
 	<div class="modal-dialog">
@@ -116,12 +116,12 @@
 	</div>
 </div>
 
-<script>
-    $("#btndescargar").hide();
-</script>
+	<script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
+	<script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
+	<script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
+	<script src="{{asset('assets/js/gocevacaciones.js')}}"></script>
+	        
 
-<script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
-<script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
-<script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
-<script src="{{asset('assets/js/gocevacaciones.js')}}"></script>
-        
+	<script>
+	    $("#btndescargar").hide();
+	</script>

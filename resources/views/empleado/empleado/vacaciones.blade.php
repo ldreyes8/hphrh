@@ -1,10 +1,10 @@
-<div class="tab-pane active" id="profile">
-  <div class="panel-heading">
+<div class="card-box">
+    <div class="panel-heading">
         <button class="btn btn-success btn-nuevoV" id="btnnuevoV"><i class="icon-user icon-white" ></i>Nueva solicitud de vacaciones</button>
-  </div>
+    </div>
 
 
-  <div><br></div>
+    <div><br></div>
     
     @if (!empty($usuarios->idmunicipio))
         <input type="hidden" name="idmunicipio" value="{{$usuarios->idmunicipio}}" id="idmunicipio">
@@ -12,7 +12,7 @@
         <td><input type="hidden" name="" id="municipio" value=""></td>
     @endif
 
-    @if (isset($ausencia))
+
 
         @if($ausencia != null)
             <input type="hidden" name="idempleado" value="{{$usuarios->idempleado}}" id="idempleado">
@@ -28,7 +28,6 @@
             <input type="hidden" name="idvacadetalle" value="{{$vacaciones->idvacadetalle}}" id="idvacadetalle">
 
         @endif()
-    @endif()
     <div class="row">
         <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <div class="table-responsive">
@@ -238,13 +237,7 @@
     </div>
 </div>
 
-@section('fin')
-    @parent 
-
-    <script src="{{asset('assets/js/vacaciones.js')}}"></script>
-    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
-    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
-    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
+    
     
 
     <script>
@@ -263,12 +256,6 @@
                 $("#inlineRadio1").attr('disabled', 'disabled');
             }
         }
-
-
-    
-
-
-
 
     $(document).on('click','.btn-nuevoV',function(e){
         var errHTML="";
@@ -314,4 +301,11 @@
         });
     });
     </script>
-@endsection
+
+    <script src="{{asset('assets/js/vacaciones.js')}}"></script>
+    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
+    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
+    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
+              <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
+
+        <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>

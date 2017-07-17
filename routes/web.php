@@ -19,8 +19,6 @@ Route::resource('mintrabf','Controllermintrab');
 Route::get('excel','Controllermintrab@excel');
 Route::get('eventos','UController@listartablero');
 
-
-
 Route::group(['prefix'=>'listados'],function(){
 	Route::get('empleado','ListadoController@index');
 	Route::get('laboral/{id}','ListadoController@laboral');
@@ -28,12 +26,10 @@ Route::group(['prefix'=>'listados'],function(){
 	Route::get('historial/{id}','ListadoController@historial');
 	Route::get('empleado/Acta/{id}','ListadoController@Acta');
 	Route::post('empleado/agregar','ListadoController@store');
-	Route::get('empleado/calculardias/{id}','ListadoController@calculardias');
-	Route::get('empleado1/personabaja/{id}','RHbajas@bajas');
-	Route::post('addbaja','RHbajas@addbaja');
-	Route::get('debaja','RHbajas@debaja');
 
-	Route::get('empleado1','RHbajas@index');
+	Route::get('empleado/calculardias/{id}','ListadoController@calculardias');
+	
+
 	Route::get('vconfirmado','ListadoController@indexconfirmado')->middleware('roleshinobi:recurso');
 	Route::get('vrechazado','ListadoController@indexrechazado')->middleware('roleshinobi:recurso');
 	Route::get('vautorizado','ListadoController@indexautorizado')->middleware('roleshinobi:recurso');
@@ -49,7 +45,7 @@ Route::group(['prefix'=>'listados'],function(){
 	Route::resource('confirmacion','Confirmacion');
 	Route::resource('rechazados','Rechazados');
 	Route::resource('interino','Interino');
-	Route::get('pprueba/update/{id}','Pprueba@update');
+	//Route::get('pprueba/update/{id}','Pprueba@update');
 	Route::post('pprueba/agregar','Pprueba@store');
 	Route::get('update/{id}','Confirmacion@update');
 	Route::get('rechazados/eliminar/{id}','Rechazados@eliminar');//prueba de eliminar
@@ -57,12 +53,56 @@ Route::group(['prefix'=>'listados'],function(){
 });
 
 // Rutas Creados por LDRL
-
 Route::group(['prefix'=>'empleado'],function(){
 
+	//Listado general
+	Route::get('listado/{page?}','ListadoController@listado'); 
+	Route::get('busqueda/{rol}/{dato?}','ListadoController@busqueda'); 
+
+	Route::get('empleados','ListadoController@index');
+	Route::get('empleados/calculardias/{id}','ListadoController@calculardias'); 
+	Route::get('rechazados','Rechazados@index');
+	Route::get('hlaboral/{id}','ListadoController@laboral');
+	Route::get('show/{id}','ListadoController@show');
+
+	//Rutas de despido de un empleado
+	Route::get('personabaja/{id}','ListadoController@bajas');
+	Route::post('addbaja','ListadoController@addbaja');
+	Route::get('debaja','ListadoController@debaja');
+
+	//Rutas de nombramiento y/o asecensos.
+	Route::get('indexnombramiento','RHNombramientoEmpleado@index');
+
+
+	//Listado permisosvacaciones
+	Route::get('listadoPV','RHPermiso@listadoPV');
+	Route::get('psolicitado/{page?}','RHPermiso@indexsolicitado');
+	Route::get('pconfirmado','RHPermiso@indexconfirmado');
+	Route::get('prechazado','RHPermiso@indexrechazado');
+	Route::get('vautorizadopv','RHPermiso@indexautorizado');
+
+	//Listapo reclutamiento
+	Route::get('listadoR','RHReclutamiento@listadoR');
+	Route::get('solicitudes','RHReclutamiento@index');
+	Route::get('busquedas/{dato?}','RHReclutamiento@busquedas');
+	Route::get('update/{id}','Pprueba@update');
+
+	//Precalificado
+	Route::get('upPrecalificado/{id}','RHPreentrevista@upPrecalificado');
+	Route::post('upPrecalificado/prentrevista','RHPreentrevista@prentrevista');
+
+	//Reporte
+	Route::get('Rmintrab','Controllermintrab@index');
+
+	
 	Route::post('cambiar_password', 'UController@cambiar_password');
+
         
 	Route::get('solicitud','PerController@solicitud');
+
+
+    
+    //rutas de solicitud de vacaciones y permisos
 
 
 	//rutas de permiso del usuario
@@ -91,6 +131,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('contacto','PerController@contacto');
 
 
+
 	Route::get('rechazo/{id}/{ids?}','SController@rechazo');
 	Route::get('rechazoPP/{id}','SController@rechazoPP');
 	Route::get('rechazoPI/{id}','SController@rechazoPI');
@@ -115,7 +156,6 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('listardgenerales','HomeController@listardgenerales');
 	Route::put('updatedgenerales/{id}','HomeController@updatedgenerales');
 	
-	//Route::get('buscar_usuarios/{pais}/{dato?}', 'UController@buscar_usuarios');
 
 	//Route academico crud
 	Route::get('listaracademico','UController@listaracademico');
@@ -180,23 +220,31 @@ Route::group(['prefix'=>'empleado'],function(){
 	//Route puesto a aplicar
 	Route::put('SolicitanteI','UController@SolicitanteI');
 
-//
 	
+
+
+	Route::resource('solicitadospermis','PermisosController');
+	
+	Route::get('verificar/{idpersona}','PermisosController@verificar')->middleware('roleshinobi:jefeinmediato');
+	Route::post('verificar/enviarpermiso','PermisosController@enviarpermiso')->middleware('roleshinobi:jefeinmediato');
+
+	Route::get('detalleconfirmado/{idpersona}','PermisosController@detalleconfirmado')->middleware('roleshinobi:jefeinmediato');
+	Route::get('detallerechazado/{idpersona}','PermisosController@detallerechazado')->middleware('roleshinobi:jefeinmediato');
+
 
 	Route::resource('vsolicitado','VacacionesController');
 	Route::get('vverificar/{idpersona}','VacacionesController@verificar')->middleware('roleshinobi:jefeinmediato');
 	Route::get('dconfirmar/{idpersona}','VacacionesController@dconfirmar')->middleware('roleshinobi:jefeinmediato');
 
-	//Rutas de vacaciones del jefeinmediato
 	
 	Route::post('vverificar/enviarvacaciones','VacacionesController@enviarvacaciones')->middleware('roleshinobi:jefeinmediato');
 	Route::get('vconfirmado','VacacionesController@indexconfirmado')->middleware('roleshinobi:jefeinmediato');
 	Route::get('vrechazado','VacacionesController@indexrechazado')->middleware('roleshinobi:jefeinmediato');
-	Route::get('vautorizado','VacacionesController@indexautorizado')->middleware('roleshinobi:jefeinmediato');
 	Route::get('vconfirmar/{idpersona}','VacacionesController@confirmar')->middleware('roleshinobi:jefeinmediato');
 	Route::post('vconfirmar/enviarconfirmacion','VacacionesController@confirmavacaciones')->middleware('roleshinobi:jefeinmediato');
 	
 	Route::get('/logout', 'Auth\LoginController@logout');
+
 
 	// Rutas del reclutamiento del jefeinmediato
 	Route::get('reclutamiento','JIReclutamiento@index');
@@ -217,11 +265,11 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('detalleconfirmado/{idpersona}','JIPermiso@detalleconfirmado')->middleware('roleshinobi:jefeinmediato');
 	Route::get('detallerechazado/{idpersona}','JIPermiso@detallerechazado')->middleware('roleshinobi:jefeinmediato');
 
-	//Reportes
 
+//Reportes
 	Route::get('reporteEmpleado','Reporte@index')->middleware('roleshinobi:reporte');
 
-	//Excel
+//Excel
 	Route::get('reporteEmpleadoExcel','Reporte@Empleadoexcel')->middleware('roleshinobi:reporte');
 
 	//FotoController@agregarimagen
@@ -233,6 +281,10 @@ Route::group(['prefix'=>'empleado'],function(){
 Route::get('error404',function(){
 	abort(404);
 });
+Route::get('error401',function(){
+	abort(401);
+});
+
 Route::get('/', function () {
     return view('auth/login');
 });
@@ -245,6 +297,7 @@ Route::get('/{slug?}','HomeController@index');
 
 Route::get('/home', 'HomeController@index');
 //rutas del controlador de Usuario
+
 
 Route::get('seguridad/usuario', 'PCUsuarioController@contenedor')->middleware('roleshinobi:informatica');
 
@@ -262,4 +315,5 @@ Route::get('seguridad/buscar_usuarios/{rol}/{dato?}', 'PCUsuarioController@busca
 
 Route::post('crear_rol', 'PCUsuarioController@crear_rol')->middleware('roleshinobi:informatica');
 Route::get('borrar_rol/{idrol}', 'PCUsuarioController@borrar_rol')->middleware('roleshinobi:informatica');
+
 

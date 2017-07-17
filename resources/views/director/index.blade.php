@@ -1,101 +1,36 @@
 @extends ('layouts.index')
 @section('estilos')
     @parent
-         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet">
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet">
-         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/plugins/RWD-Table-Patterns/dist/css/rwd-table.min.css')}}" rel="stylesheet" type="text/css" media="screen">
-
-
-
+        <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
+        
 @endsection
 @section ('contenido')
-
-<div class="row"> 
-    <div class="col-md-12 col-lg-12 col-sm-12">
-        <div class="tab-panels">
-            <ul class="nav nav-tabs navtab-custom">
-
-                <li class="active"><a href="javascript:void(0);" onclick="cargarsolicitados(1,1);">
-                    <a href="#profile" data-toggle="tab" aria-expanded="true" >
-                        <span class="visible-xs"><i class="md md-perm-contact-cal"></i></span>
-                        <span class="hidden-xs">Solicitados</span>
-                    </a>
-                </li>
-
-                <li class=""><a href="javascript:void(0);" onclick="cargarautorizados(1,1);">
-                    <a href="#autorizados" data-toggle="tab" aria-expanded="false">
-                        <span class="visible-xs"><i class="md md-school"></i></span>
-                        <span class="hidden-xs">Autorizados</span>
-                    </a>
-                </li>
-
-                <li class="">
-                    <a href="javascript:void(0);" onclick="cargarechazados(1,1);">
-                    <a href="#rechazados" data-toggle="tab" aria-expanded="false">
-                        <span class="visible-xs"><i class="md md-people"></i></span>
-                        <span class="hidden-xs">Rechazados</span>
-                    </a>
-                </li>
-
-                <li class="">
-                    <a href="javascript:void(0);" onclick="cargarconstancia(1,1);">
-                    <a href="#constancias" data-toggle="tab" aria-expanded="false">
-                        <span class="visible-xs"><i class="md md-people"></i></span>
-                        <span class="hidden-xs">Verificados</span>
-                    </a>
-                </li>
-            </ul>
-        
-            <div class="tab-content" id="idcontent">
-                @include('director.autorizaciones.solicitados')
-                @include('director.autorizaciones.autorizados')
-                @include('director.autorizaciones.rechazados')
-                @include('director.autorizaciones.constancias')
-            </div>
-        </div>
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <h3>Solicitudes</h3>
+        </div>   
     </div>
-</div>
-@endsection
+    <div class="div_contenido">
+        <div class="margin" id="botones_control"> 
+            <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formulario(4);">Solicitados</a> 
+            <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formulario(5);" >Autorizados</a>
+            <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formulario(6);" >Rechazados</a>
+            <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formulario(7);" >Verificados</a>
+        </div>
+        <div><br></div>
+    </div>
 
+    <input type="hidden"  id="url_raiz_proyecto" value="{{ url("/") }}" />
+    <div id="capa_modal" class="div_modal" style="display: none;"></div>
+    <div id="capa_formularios" class="div_contenido" style="display: none;"></div>
+@endsection
 @section('fin')
     @parent
-
     <meta name="_token" content="{!! csrf_token() !!}" />
-    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
-    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
-    <script src="{{asset('assets/js/fecha.js')}}"></script>
-    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
-    <script src="{{asset('assets/js/listadoautorizacionesVP.js')}}"></script>
+    <script src="{{asset('assets/js/perfil/solicitud.js')}}"></script>
+    <script>cargar_formulario(4);</script>
 
-    <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
-    <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
-
-
-    <script>cargarsolicitados(1);</script>
-    <script>cargarautorizados(1);</script>
-    <script>cargarechazados(1);</script>
-    <script>cargarconstancias(1);</script>
-    <script type="text/javascript">
-
-    $(document).on("click",".tab-panels .nav.nav-tabs.navtab-custom li a ",function(e){
-        e.preventDefault();
-        var contenedor = $(this).attr("href");
-        console.log(contenedor);
-
-        $(document).on("click",".pagination li a",function(e){
-            e.preventDefault();
-            var url = $(this).attr("href");
-            console.log(url);
-
-            $(contenedor).html($("#cargador_empresa").html());
-            
-                $.get(url,function(resul){
-                $(contenedor).html(resul);  
-            })
-        })
-    })
-
-    </script>
 
 @endsection

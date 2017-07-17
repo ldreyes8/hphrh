@@ -44,4 +44,15 @@ class Persona extends Model
     protected $guarder =[
 
     ];
+  
+
+    public function scopePersona($query,$dato="")
+    {
+
+        return $query->where('nombre1','like','%'.$dato.'%')
+            ->orwhere('nombre2','like','%'.$dato.'%')
+            ->orwhere('apellido1','like','%'.$dato.'%')
+            ->orwhere('apellido2','like','%'.$dato.'%')
+            ->orwhere(\DB::raw("CONCAT(nombre1,' ',apellido1)"),'like','%'.$dato.'%');
+    }
 }

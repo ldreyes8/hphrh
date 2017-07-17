@@ -5,6 +5,7 @@ use Caffeinated\Shinobi\Traits\ShinobiTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\MyResetPassword;
+use App\Role;
 
 class User extends Authenticatable
 {
@@ -22,6 +23,7 @@ class User extends Authenticatable
         'name', 'email', 'password','identificacion','fotoperfil','idusuario',
     ];
 
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -36,23 +38,38 @@ class User extends Authenticatable
         $this->notify(new MyResetPassword($token));
     }
 
+     
+public function roles(){
+        return $this->belongsToMany('\Caffeinated\Shinobi\Models\Role')->withTimestamps();
+    }
 
     public function scopeBusqueda($query,$afiliado,$dato="")
     {
         if($afiliado==0){ 
-            $resultado= $query->where('nombres','like','%'.$dato.'%')
-            ->orWhere('apellidos','like', '%'.$dato.'%')
-            ->orWhere('email','like', '%'.$dato.'%');
+            $resultado= $query->where('name','like','%'.$dato.'%')
+            ;
         }
         else{
                
-            //select * from users where pais = $pais  and (nombres like %$dato% or apellidos like %$dato%  or email like  %$dato% )
-            $resultado= $query->where("idafiliado","=",$afiliado)
-            ->Where(function($q) use ($afiliado,$dato)  {
-            $q->where('nombres','like','%'.$dato.'%')
-            ->orWhere('apellidos','like', '%'.$dato.'%')
-            ->orWhere('email','like', '%'.$dato.'%');       
-            });
+            
+
+            $resultado = $query->where('name','like','%'.$dato.'%')
+            ->whereHas("roles",function($query) use ($afiliado,$dato)
+                {
+                $query->rol($afiliado);
+                //$query->where('name','like','%'.$dato.'%');
+
+                });
+
+
+
+            
+/*
+            $resultado= $query->where("roles.id","=",$afiliado)
+            ->whrere(function($query) use ($afiliado,$dato)
+            {
+                $query->where('name','like','%'.$dato.'%');
+            });*/
 
         }                     
     return  $resultado;

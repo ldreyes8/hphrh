@@ -1,6 +1,7 @@
 @extends ('layouts.index')
 @section('estilos')
     @parent
+
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet">
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet">
         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
@@ -30,5 +31,6 @@
     <meta name="_token" content="{!! csrf_token() !!}" />
     <script src="{{asset('assets/js/perfil/solicitud.js')}}"></script>
     <script>cargar_formulario(1);</script>
+
 
 @endsection
