@@ -339,9 +339,7 @@ class PersonaController extends Controller
                         {
                             $academicos = new Academico;
                             $academicos-> titulo = "El usuario no ingreso datos";
-                            $academicos-> idempleado = $empleado->idempleado;
-                            $academicos-> identificacion = $empleado->identificacion;
-                            $academicos-> save();
+                            
                         }
                         else 
                         {

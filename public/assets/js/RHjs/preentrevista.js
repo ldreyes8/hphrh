@@ -8,6 +8,7 @@ $(document).ready(function(){
 		//alert('prueba');
 		var formData = {
         identificacion:$("#identificacion").val(),
+        identrevista:$("#identrevista").val(),
    			idempleado:$("#idempleado").val(),
         aportefamilia:$("#aportefamilia").val(),
    			fechaentre:$("#fechaentre").val(),
@@ -29,6 +30,8 @@ $(document).ready(function(){
    			bajopresion:$("#bajopresion").val(),
    			pretensionminima:$("#pretensionminima").val(),
         dedicanpadres:$("#dedicanpadres").val(),
+        lugar:$("#lugar").val(),
+        comunicar:$("#comunicar").val(),
         };
         console.log(formData);
        	$.ajax({

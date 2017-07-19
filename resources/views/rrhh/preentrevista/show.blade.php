@@ -45,6 +45,7 @@ input[type=text] {
       <label>Nit</label>
         <input type="text" id="nit" value="{{$empleado->nit}}">
         <input type="hidden" id="nit" value="{{$empleado->idstatus}}">
+        <input type="text" id="" value="{{$entrev->identrevista}}">
       </div>
     </div>
   </div>
