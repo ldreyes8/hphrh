@@ -17,6 +17,8 @@ use App\Puesto;
 use App\Afiliado;
 use App\Nomytras;
 use App\Vacadetalle;
+use App\Asignajefe;
+use App\Persona;
 use App\Http\Requests\Nomrequest;
 
 
@@ -28,16 +30,37 @@ class RHNombramientoEmpleado extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-    	$puestos=Puesto::all();
 
-        $empleado=DB::table('empleado as e')
-        ->join('persona as p','e.identificacion','=','p.identificacion')
-        ->select('e.idempleado','p.nombre1','p.nombre2','p.apellido1','p.apellido2')
+    	$casos=DB::table('caso as c')
+        ->select('c.idcaso','c.nombre')
+        ->where('c.idcaso','=',6)
+        
+        ->orderBy('c.nombre','asc')
         ->get();
 
-        $afiliados=Afiliado::all();
+        $queryN=trim($request->get('searchText'));  
+        $query=trim($request->get('select'));
+
+        $empleado=Empleado::join('nomytras as nt','empleado.idempleado','=','nt.idempleado')
+        ->join('status as st','empleado.idstatus','=','st.idstatus')
+        ->join('puesto as pu','nt.idpuesto','=','pu.idpuesto')
+        ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
+        ->join('caso as c','c.idcaso','=','nt.idcaso')
+        ->select('empleado.idempleado','empleado.identificacion','empleado.nit','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado','c.idcaso',DB::raw('max(nt.idnomytas) as idnomytas'))
+        ->where('empleado.idstatus','=', 2)
+        ->groupBy('empleado.idempleado')      
+        ->orderBy('empleado.idempleado','desc')
+        ->paginate(15);
+
+        $status = DB::table('status as st')
+        ->select('st.idstatus','st.statusemp')
+        ->where('st.idstatus','=',5)
+        ->get();
+        
+        /*
+    	       $puestos=Puesto::all();
 
         $caso=DB::table('caso as c')
         ->select('c.idcaso','c.nombre')
@@ -52,42 +75,83 @@ class RHNombramientoEmpleado extends Controller
         ->get();
 
 
+        return view("rrhh.empleados.nombramiento",["puestos"=>$puestos,"afiliados"=>$afiliados,"caso"=>$caso,"empleado"=>$empleado,"jefesinmediato"=>$jefesinmediato]);
+
+
 /*
         $caso=DB::table('caso as c')
         ->select('c.idcaso','c.nombre')
         ->get();*/
-        return view("rrhh.empleados.nombramiento",["puestos"=>$puestos,"afiliados"=>$afiliados,"caso"=>$caso,"empleado"=>$empleado,"jefesinmediato"=>$jefesinmediato]);
+        return view("rrhh.empleados.indexnombramiento",["empleado"=>$empleado,"searchText"=>$queryN,"casos"=>$casos,"select"=>$query,"status"=>$status]);
     }
     
-    public function update($id)
+    public function addnombramiento($id)
     {
-        $puestos=DB::table('puesto as p')
-        ->join('persona as per','p.idpuesto','=','per.idpuesto')
-        ->join('empleado as em','per.identificacion','=','em.identificacion')
-        ->select('p.idpuesto','p.nombre')
-        ->where('em.idempleado','=',$id)
-        ->first();
+        $puestos=Puesto::all();
+
 
         $empleado=DB::table('empleado as e')
-        ->join('persona as ec','e.identificacion','=','ec.identificacion')
-        ->select('e.idempleado','ec.nombre1','ec.apellido1')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->select('e.idempleado','p.nombre1','p.apellido1','p.nombre2','p.apellido2','p.idpuesto','p.idafiliado')
         ->where('e.idempleado','=',$id)
         ->first();
 
-        $afiliados=DB::table('afiliado as a')
-        ->join('persona as per','a.idafiliado','=','per.idafiliado')
-        ->join('empleado as em','per.identificacion','=','em.identificacion')
-        ->select('a.idafiliado','a.nombre')
-        ->where('em.idempleado','=',$id)
-        ->first();
+        $afiliados=Afiliado::all();
 
         $caso=DB::table('caso as c')
         ->select('c.idcaso','c.nombre')
         ->where('c.idcaso','=',6)
         ->get();
 
-        return view("listados.confirmacion.create",["puestos"=>$puestos,"afiliados"=>$afiliados,"caso"=>$caso,"empleado"=>$empleado]);
+
+        $jefesinmediato=DB::table('persona as per')
+        ->join('empleado as em','per.identificacion','=','em.identificacion')
+        ->join('status as sts','em.idstatus','=','sts.idstatus')
+        ->select('per.identificacion','per.nombre1','per.nombre2','per.apellido1','per.apellido2')
+        ->where('em.idstatus','=',2)
+        ->get();
+
+        $jefeasignado = DB::table('persona as per')
+        ->join('empleado as em','per.identificacion','=','em.identificacion')
+        ->join('asignajefe as aj','per.identificacion','=','aj.identificacion')
+        ->select('per.identificacion','per.nombre1','per.nombre2','per.apellido1','per.apellido2')
+        ->where('aj.idempleado','=',$id)
+        ->get();
+
+        return view("rrhh.empleados.nombramiento",["puestos"=>$puestos,"afiliados"=>$afiliados,"caso"=>$caso,"empleado"=>$empleado,"jefesinmediato"=>$jefesinmediato,"jefeasignado"=>$jefeasignado]);
         //return Redirect::to('listados/pprueba/create');
+    }
+
+
+    public function asignar_jefeinmediato($idempleado,$identificacion,$notifica){
+
+        $asignajefe = new asignajefe;
+        $asignajefe->identificacion = $identificacion;
+        $asignajefe->idempleado = $idempleado;
+        if($notifica == "No")
+        {
+            $notifica =0;
+        }
+        if($notifica == "Si")
+        {
+            $notifica = 1;
+        }
+        $asignajefe->notifica = $notifica;
+
+        $asignajefe->save();
+
+        $usuario=Empleado::find($idempleado);
+        $jefeasignado=$usuario->getpersonas();
+
+       return json_encode ($jefeasignado); 
+    }
+
+    public function quitar_jefeinmediato($idempleado,$identificacion){
+
+        $empleado=Empleado::find($idempleado);
+        $empleado->revokePersona($identificacion);
+        $jefeasignado=$empleado->getpersonas();
+        return json_encode ($jefeasignado);
     }
 
     public function store(Nomrequest $request)

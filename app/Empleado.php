@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Empleado extends Model
 {
@@ -33,6 +34,31 @@ class Empleado extends Model
     protected $guarded =[
         
     ];
+
+    //Relacion mucho a mucos entre persona y empleado para llamar asignajefe.
+    public function personas()
+    {
+        return $this->belongsToMany('App\Persona','asignajefe','idempleado','identificacion');
+    }
+
+    /**
+     * Get all user roles.
+     *
+     * @return array|null
+     */
+    public function getpersonas()
+    {
+        if (!is_null($this->personas)) {
+            return $this->personas
+                        ->pluck('nombre1')->all();
+        }
+    }
+
+
+    public function revokePersona($identificacion = '')
+    {
+        return $this->personas()->detach($identificacion);
+    }
 
 
     public function persona(){

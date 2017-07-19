@@ -23,4 +23,25 @@ function cargar_formularioRH(arg){
     }) ;
   }
 
+function  vernombramiento_emp(arg){
+
+  var urlraiz=$("#url_raiz_proyecto").val();
+    var miurl =urlraiz+"/empleado/addnombramiento/"+arg+""; 
+    $("#capa_modal").show();
+    $("#capa_nombramiento").show();
+    var screenTop = $(document).scrollTop();
+    $("#capa_nombramiento").css('top', screenTop);
+  $("#capa_nombramiento").html($("#cargador_empresa").html());
+
+  $.ajax({
+    url: miurl
+  }).done( function(resul) 
+  {
+    $("#capa_nombramiento").html(resul);
+  }).fail( function() 
+  {
+    $("#capa_nombramiento").html('<span>...Ha ocurrido un error, revise su conexión y vuelva a intentarlo...</span>');
+  }) ;
+}
+
 

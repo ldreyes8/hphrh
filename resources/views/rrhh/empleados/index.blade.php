@@ -4,7 +4,10 @@
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet">
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet">
         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
-        
+        <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
+        <link rel="stylesheet" href="{{asset('assets/css/bootstrap-select.min.css')}}" />
+
+
 @endsection
 @section ('contenido')
     <div class="row">
@@ -14,7 +17,7 @@
             <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formularioRH(1);"> Listado General</a> 
             <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formularioRH(2);" >Renuncias o Despidos</a>
             <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formularioRH(3);" >Aspirantes rechazados</a>
-            <!--<a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formularioRH(4);" >Nombramientos y/o asecensos</a>-->
+            <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formularioRH(4);" >Nombramientos y/o asecensos</a>
         </div>
         <div><br></div>
     </div>
@@ -27,6 +30,8 @@
     @parent
     <meta name="_token" content="{!! csrf_token() !!}" />
     <script src="{{asset('assets/js/RHjs/listados.js')}}"></script>
+    <script src="{{asset('assets/js/bootstrap-select.min.js')}}"></script>
+
 
     <script>cargar_formularioRH(1);</script>
     

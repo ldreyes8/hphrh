@@ -65,7 +65,7 @@
             <br/><div class='rechazado'><label style='color:#FA206A'>...No se ha encontrado ningun usuario...</label>  </div> 
         @endif
     @endif
-   </div>
+</div>
 
     <input type="hidden"  id="url_raiz_proyecto" value="{{ url("/") }}" />
 

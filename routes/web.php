@@ -72,6 +72,11 @@ Route::group(['prefix'=>'empleado'],function(){
 
 	//Rutas de nombramiento y/o asecensos.
 	Route::get('indexnombramiento','RHNombramientoEmpleado@index');
+	Route::get('addnombramiento/{id}','RHNombramientoEmpleado@addnombramiento');
+
+	//Asignar o quitar jefes inmediatos
+	Route::get('asignar_jefeinmediato/{idempleado}/{identificacion}/{notifica}', 'RHNombramientoEmpleado@asignar_jefeinmediato');
+	Route::get('quitar_jefeinmediato/{idempleado}/{identificacion}', 'RHNombramientoEmpleado@quitar_jefeinmediato');
 
 
 	//Listado permisosvacaciones
