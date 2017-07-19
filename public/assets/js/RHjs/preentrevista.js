@@ -29,6 +29,8 @@ $(document).ready(function(){
    			bajopresion:$("#bajopresion").val(),
    			pretensionminima:$("#pretensionminima").val(),
         dedicanpadres:$("#dedicanpadres").val(),
+        lugar:$("#lugar").val(),
+        comunicar:$("#comunicar").val(),
         };
         console.log(formData);
        	$.ajax({

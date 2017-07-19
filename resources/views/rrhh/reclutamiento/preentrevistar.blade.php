@@ -37,10 +37,10 @@
                                 <th style="width: 20%">Nombre Completo:</th><td>&nbsp;&nbsp;<input type="textt" name="" value="{{$persona->nombre1.' '.$persona->nombre2.' '.$persona->nombre3.' '.$persona->apellido1.' '.$persona->apellido2}}"></td>
                             </tr>
                             <tr>
-                                <th>Fecha de la Entrevista: </th><td>&nbsp;&nbsp;<input type="textt" id="fechaentre" name="lugar" maxlength="50" value="{{$date}}" disabled="disabled"></td>
+                                <th>Fecha de la Entrevista: </th><td>&nbsp;&nbsp;<input type="textt" id="fechaentre"  maxlength="50" value="{{$date}}" disabled="disabled"></td>
                             </tr>
                             <tr>
-                                <th>Dirección:</th><td>&nbsp;&nbsp;<input type="textt" id="lugar" name="lugar" maxlength="50"></td>
+                                <th>Dirección:</th><td>&nbsp;&nbsp;<input type="textt" id="lugar" name="lugar" maxlength="50" value="{{$entre->lugar}}"></td>
                             </tr>
                             <tr>
                                 <th>Edad:</th><td>&nbsp;&nbsp;{{$fnac}}&nbsp;años</td>

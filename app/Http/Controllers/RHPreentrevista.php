@@ -95,14 +95,6 @@ class RHPreentrevista extends Controller
         ->groupBy('p.identificacion','pf.parentezco')
         ->get();
 
-
-
-
-
-
-
-        
-
         $esposa=DB::table('persona as p')
         ->join('empleado as em','p.identificacion','=','em.identificacion')
         ->join('personafamilia as pf','p.identificacion','=','pf.identificacion')
@@ -121,11 +113,12 @@ class RHPreentrevista extends Controller
         ->groupBy('p.identificacion','pf.parentezco')
         ->get();
 
-        /*$entrevista=DB::table('persona as p')
-        ->join('entrevista as ent','p.identificacion','ent.perentrevista')
-        ->select()
-        ->where('')
-        ->get();*/
+        $entre=DB::table('persona as p')
+        ->join('empleado as e','e.identificacion','=','p.identificacion')
+        ->join('entrevista as en','en.perentrevista','=','p.identificacion')
+        ->select('en.lugar','en.mcorto','en.mmediano','en.mlargo')
+        //->where('e.idempleado','=',$id)
+        ->first();
 
 
         $date = Carbon::now('America/Guatemala');
@@ -156,7 +149,7 @@ class RHPreentrevista extends Controller
             ->get();
 
 
-        return view('rrhh.reclutamiento.preentrevistar',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa]);
+        return view('rrhh.reclutamiento.preentrevistar',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre]);
     }
     public function listadopreE (Request $request)
     {
@@ -205,14 +198,16 @@ class RHPreentrevista extends Controller
         $entre-> atencionpublico = $request->get("atencionpublico");
         $entre-> ordenado = $request->get("ordenado");
         $entre-> entrevistadores = $request->get("entrevistadores");
-        $entre-> puntual=$request->get("#puntual");
-        $entre-> presentacion=$request->get("#presentacion");
-        $entre-> disponibilidad=$request->get("#disponibilidad");
-        $entre-> dispfinsemana=$request->get("#dispfinsemana");
-        $entre-> dispoviajar=$request->get("#dispoviajar");
-        $entre-> bajopresion=$request->get("#bajopresion");
-        $entre-> pretensionminima=$request->get("#pretensionminima");
-        $entre-> dedicanpadres=$request->get("#dedicanpadres");
+        $entre-> puntual=$request->get("puntual");
+        $entre-> presentacion=$request->get("presentacion");
+        $entre-> disponibilidad=$request->get("disponibilidad");
+        $entre-> dispfinsemana=$request->get("dispfinsemana");
+        $entre-> dispoviajar=$request->get("dispoviajar");
+        $entre-> bajopresion=$request->get("bajopresion");
+        $entre-> pretensionminima=$request->get("pretensionminima");
+        $entre-> dedicanpadres=$request->get("dedicanpadres");
+        $entre-> lugar=$request->get("lugar");
+        $entre-> comunicar=$request->get("comunicar");
         $entre-> save();
 
         return response()->json($entre);
@@ -425,6 +420,13 @@ class RHPreentrevista extends Controller
         ->where('p.identificacion','=',$id)
         ->get();
 
+        $entrev=DB::table('persona as p')
+        ->join('empleado as e','e.identificacion','=','p.identificacion')
+        ->join('entrevista as en','en.perentrevista','=','p.identificacion')
+        ->select('en.identrevista')
+        ->where('p.identificacion','=',$id)
+        ->get();
+
         $observaciones=DB::table('persona as p')
         ->join('personaacademico as pa','pa.identificacion','=','p.identificacion')
         ->join('personafamilia as pf','pf.identificacion','=','p.identificacion')
@@ -438,6 +440,6 @@ class RHPreentrevista extends Controller
         $estadocivil=DB::table('estadocivil')->get();
 
 
-        return view('rrhh.preentrevista.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones]);
+        return view('rrhh.preentrevista.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones,'entrev'=>$entrev]);
     }
 }
