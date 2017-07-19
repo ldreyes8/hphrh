@@ -116,11 +116,11 @@ class RHPreentrevista extends Controller
         $entre=DB::table('persona as p')
         ->join('empleado as e','e.identificacion','=','p.identificacion')
         ->join('entrevista as en','en.perentrevista','=','p.identificacion')
-        ->select('en.lugar','en.mcorto','en.mmediano','en.mlargo')
-        //->where('e.idempleado','=',$id)
+        ->select('en.identrevista','en.lugar','en.mcorto','en.mmediano','en.mlargo')
+        ->where('e.idempleado','=',$id)
         ->first();
 
-
+        //dd($entre);
         $date = Carbon::now('America/Guatemala');
         $date = $date->format('d-m-Y');
 
@@ -179,7 +179,9 @@ class RHPreentrevista extends Controller
     }
     public function prentrevista (Request $request)
     {
-        $entre = new Entrevista;
+        $iden=$request->get("identrevista");
+        //dd($iden);
+        $entre = Entrevista::findOrFail($iden);
     	$entre-> perentrevista = $request->get('identificacion');
 
         $fechanacs=$request->get('fechaentre');
@@ -425,7 +427,7 @@ class RHPreentrevista extends Controller
         ->join('entrevista as en','en.perentrevista','=','p.identificacion')
         ->select('en.identrevista')
         ->where('p.identificacion','=',$id)
-        ->get();
+        ->first();
 
         $observaciones=DB::table('persona as p')
         ->join('personaacademico as pa','pa.identificacion','=','p.identificacion')

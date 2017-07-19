@@ -28,6 +28,7 @@
         <input type="hidden" id="idempleado" value="{{$persona->idempleado}}">
         <input type="hidden" id="identificacion" value="{{$persona->identificacion}}">
         <input type="hidden" id="idcivl" value="{{$persona->idcivil}}">
+        <input type="hidden" id="identrevista" value="{{$entre->identrevista}}">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card-box">
                 <div class="table-responsive">

@@ -8,6 +8,7 @@ $(document).ready(function(){
 		//alert('prueba');
 		var formData = {
         identificacion:$("#identificacion").val(),
+        identrevista:$("#identrevista").val(),
    			idempleado:$("#idempleado").val(),
         aportefamilia:$("#aportefamilia").val(),
    			fechaentre:$("#fechaentre").val(),
