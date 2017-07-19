@@ -7,8 +7,9 @@ $(document).ready(function(){
         });
 		//alert('prueba');
 		var formData = {
-            identificacion:$("#identificacion").val(),
+        identificacion:$("#identificacion").val(),
    			idempleado:$("#idempleado").val(),
+        aportefamilia:$("#aportefamilia").val(),
    			fechaentre:$("#fechaentre").val(),
    			vivecompania:$("#vivecompania").val(),
    			mcorto:$("#mcorto").val(),
@@ -27,7 +28,9 @@ $(document).ready(function(){
    			dispoviajar:$("#dispoviajar").val(),
    			bajopresion:$("#bajopresion").val(),
    			pretensionminima:$("#pretensionminima").val(),
+        dedicanpadres:$("#dedicanpadres").val(),
         };
+        console.log(formData);
        	$.ajax({
             type: "POST",
             url: "prentrevista",
@@ -35,9 +38,7 @@ $(document).ready(function(){
             dataType: 'json',
 
             success: function (data) {
-            	//alert('prueba')
-				//swal("Good job!", "You clicked the button!", "success")  
-				console.log('alert');   
+            	  
 				swal({ 
                     title:"Envio correcto",
                     text: "Información actualizada correctamente",

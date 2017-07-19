@@ -213,10 +213,9 @@ input[type=text] {
                   <td><input type="text" class="telefonor" value="{{$ref->telefonor}}"></td>
                   <td><input type="text" class="profesion" value="{{$ref->profesion}}"></td>
                   <td><input type="text" class="tiporeferencia" value="{{$ref->tiporeferencia}}"></td>
-
                   <td><input type="text" class="recomiendaPL" name="recomiendaPL" maxlength="2" placeholder="Si ó No" value="{{$ref->recomiendaper}}"></td>
-                  <td><input type="text" class="confirmadorref" maxlength="50" value="{{$ref->confirmadorref}}"></td>
-                  <td><input type="text" class="observacionr" maxlength="300" value="{{$ref->observacion}}"></td>                  
+                  <td><input type="text" class="confirmadorref" maxlength="50" value=""></td>
+                  <td><input type="text" class="observacionr" maxlength="300" value=""></td>                  
                 </tr>
                 @endforeach
               </tbody>
@@ -256,8 +255,8 @@ input[type=text] {
                   <td><input type="text" class="fingresoex" value="{{$exp->fingresoex}}"></td>
                   <td><input type="text" class="fsalidaex" value="{{$exp->fsalidaex}}"></td>
                   <td><input type="text" name="recomiendaP" class="recomiendaexp" maxlength="2" placeholder="Si ó No" value="{{$exp->recomiendaexp}}"></td>
-                  <td><input type="text" class="confirmadorexp" value="{{$exp->confirmadorexp}}"></td>
-                  <td><input type="text" class="observacionel" value="{{$exp->observacion}}"></td>
+                  <td><input type="text" class="confirmadorexp" value=""></td>
+                  <td><input type="text" class="observacionel" value=""></td>
                  </tr>
                  @endforeach
               </tbody>
@@ -380,47 +379,7 @@ input[type=text] {
         <button class="btn btn-info" type="button" id="btncomentario" >Agregar una observación</button>
       </div>
       <button id="btnupsolicitud" type="button" class="btn btn-primary" >Guardar cambios</button>
-      <a><button type="button" class="btn btn-primary" 
-                  onclick='
-                    swal({
-                      title: "¿Pre-Calificar?",
-                      text: "Esta seguro de precalicar a este usuario",
-                      type: "warning",
-                      showCancelButton: true,
-                      confirmButtonColor: "#DD6B55",
-                      confirmButtonText: "¡Si!",
-                      cancelButtonText: "No",
-                      closeOnConfirm: false,
-                      closeOnCancel: false 
-                      },
-                      function(isConfirm){
-                        if (isConfirm) 
-                        {
-                          swal(
-                            {
-                              title: "¡Hecho!",
-                              text: "Ahora ha cambiado de Aspirante a Pre-Calificado!!!",
-                              type: "success"
-                            },
-                            function()
-                            {
-                              //location.href=("{{URL::action("RHPreentrevista@upPreentrevista",$empleado->idempleado)}}");
-                              window.location.href="{{url("empleado/upPreentrevista",array("id"=>$empleado->idempleado,"ids"=>$persona->identificacion))}}";
-                            }
-                          ); 
-                        }
-
-                        else 
-                        {
-                          swal("¡Cancelado!",
-                          "No se ha realizado cambios...",
-                          "error");
-                        }
-                      });
-                    ' 
-
-      >Pre-calificar</button></a>
-
+      <a href="{{URL::action('RHPreentrevista@preentre',$empleado->idempleado)}}"><button type="button" class="btn btn-primary" >Pre-entrevistar</button></a>
       <a> 
           <button type="button" id="btnrechazo" 
             onclick='

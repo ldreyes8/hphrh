@@ -309,7 +309,11 @@ class PersonaController extends Controller
                         if ($nombref === null)
                         {
                             $familia = new Familia;
-                            $familia->nombref="ninguno";
+                            $familia->nombref="El usuario no ingreso datos";
+                            $familia-> idempleado = $empleado->idempleado;
+                            $familia-> identificacion = $empleado->identificacion;
+                            $familia->save();
+
                         }
                         else
                         {
@@ -334,7 +338,10 @@ class PersonaController extends Controller
                         if ($titulo === null)
                         {
                             $academicos = new Academico;
-                            $academicos-> titulo = "";
+                            $academicos-> titulo = "El usuario no ingreso datos";
+                            $academicos-> idempleado = $empleado->idempleado;
+                            $academicos-> identificacion = $empleado->identificacion;
+                            $academicos-> save();
                         }
                         else 
                         {
@@ -394,7 +401,11 @@ class PersonaController extends Controller
                         if ($empresa === null) 
                         {
                             $experiencia = new Experiencia;
-                            $experiencia-> empresa="";
+                            $experiencia-> empresa="El usuario no presenta experiencia laboral";
+                            $experiencia-> idempleado=$empleado->idempleado;
+                            $experiencia-> identificacion=$empleado->identificacion; 
+                            $experiencia->save();
+
                         }
                         else 
                         {
@@ -419,7 +430,10 @@ class PersonaController extends Controller
                        if ($nombrer === null) 
                         {
                             $referencia = new Referencia;
-                            $referencia-> nombrer="";
+                            $referencia-> nombrer="El usuario no ingreso datos";
+                            $referencia-> idempleado=$empleado->idempleado;
+                            $referencia-> identificacion=$empleado->identificacion; 
+                            $referencia->save();
                         }
                         else 
                         {

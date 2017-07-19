@@ -30,48 +30,54 @@
         <input type="hidden" id="idcivl" value="{{$persona->idcivil}}">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card-box">
-                <table width="100%" border="1" cellpadding="0" cellspacing="1" bordercolor="#000000">
-                    <thead>
-                        <tr>
-                            <th style="width: 20%">Nombre Completo:</th><td>&nbsp;&nbsp;<input type="textt" name="" value="{{$persona->nombre1.' '.$persona->nombre2.' '.$persona->nombre3.' '.$persona->apellido1.' '.$persona->apellido2}}"></td>
-                        </tr>
-                        <tr>
-                            <th>Fecha de la Entrevista: </th><td>&nbsp;&nbsp;<input type="textt" id="fechaentre" name="lugar" maxlength="50" value="{{$date}}" disabled="disabled"></td>
-                        </tr>
-                        <tr>
-                            <th>Dirección:</th><td>&nbsp;&nbsp;<input type="textt" id="lugar" name="lugar" maxlength="50"></td>
-                        </tr>
-                        <tr>
-                            <th>Edad:</th><td>&nbsp;&nbsp;{{$fnac}}</td>
-                        </tr>
-                        <tr>
-                            <th>Estado civil:</th><td>&nbsp;&nbsp;{{$persona->ecivil}}</td>
-                        </tr>
-                        <tr>
-                            <th>Teléfono:</th><td>&nbsp;&nbsp;<input type="textt" name="" maxlength="8" value="{{$persona->telefono}}"></td>
-                        </tr>
-                        <tr>
-                            <th>Celular:</th><td>&nbsp;&nbsp;<input type="textt" name="" maxlength="8" value="{{$persona->celular}}"></td>
-                        </tr>
-                        <tr>
-                            <th>Profesión:</th><td>&nbsp;&nbsp;{{$academico->titulo}}</td>
-                        </tr>
-                        <tr>
-                            <th>Tiene Licencia de Conducir:</th>
-                            <td>&nbsp;&nbsp;
-                                @foreach($licencias as $lic)
-                                    <input type="textt" name="" maxlength="1" value="{{$lic->tipolicencia}},">
-                                @endforeach
-                            </td>
-                        </tr>              
-                        <tr>
-                            <th>Puesto al que aplica:</th><td>&nbsp;&nbsp;{{$persona->puesto}}</td>                   
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-condensed table-hover" >
+                        <thead>
+                            <tr>
+                                <th style="width: 20%">Nombre Completo:</th><td>&nbsp;&nbsp;<input type="textt" name="" value="{{$persona->nombre1.' '.$persona->nombre2.' '.$persona->nombre3.' '.$persona->apellido1.' '.$persona->apellido2}}"></td>
+                            </tr>
+                            <tr>
+                                <th>Fecha de la Entrevista: </th><td>&nbsp;&nbsp;<input type="textt" id="fechaentre" name="lugar" maxlength="50" value="{{$date}}" disabled="disabled"></td>
+                            </tr>
+                            <tr>
+                                <th>Dirección:</th><td>&nbsp;&nbsp;<input type="textt" id="lugar" name="lugar" maxlength="50"></td>
+                            </tr>
+                            <tr>
+                                <th>Edad:</th><td>&nbsp;&nbsp;{{$fnac}}&nbsp;años</td>
+                            </tr>
+                            <tr>
+                                <th>Estado civil:</th><td>&nbsp;&nbsp;{{$persona->ecivil}}</td>
+                            </tr>
+                            <tr>
+                                <th>Teléfono:</th><td>&nbsp;&nbsp;<input type="textt" name="" maxlength="8" value="{{$persona->telefono}}"></td>
+                            </tr>
+                            <tr>
+                                <th>Celular:</th><td>&nbsp;&nbsp;<input type="textt" name="" maxlength="8" value="{{$persona->celular}}"></td>
+                            </tr>
+                            <tr>
+                                @if (!empty($academico->titulo))
+                                    <th>Profesión:</th><td>&nbsp;&nbsp;{{$academico->titulo}}</td>
+                                @else
+                                    <th>Profesión:</th><td>&nbsp;&nbsp;No ingreso Datos</td>
+                                @endif
+                            </tr>
+                            <tr>
+                                <th>Tiene Licencia de Conducir:</th>
+                                <td>&nbsp;&nbsp;
+                                    @foreach($licencias as $lic)
+                                        <input type="textt" name="" maxlength="1" value="{{$lic->tipolicencia}},">
+                                    @endforeach
+                                </td>
+                            </tr>              
+                            <tr>
+                                <th>Puesto al que aplica:</th><td>&nbsp;&nbsp;{{$persona->puesto}}</td>                   
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -93,26 +99,36 @@
                                             <th>Tipo de residencia</th><td>&nbsp;&nbsp;{{$persona->vivienda}}</td>
                                         </tr>
                                         <tr>
-                                            <th>¿A que se dedica sus padres?</th><td>Soltero tbody</td>
+                                            <th>¿A que se dedica sus padres?</th><td>&nbsp;&nbsp;<input type="textt" id="dedicanpadres" maxlength="100"></td>
                                         </tr>
                                         <tr>
-                                            <th>Cantidad de hermanos</th><td>Soltero tbody</td>
+                                            <th>Cantidad de hermanos</th>
+                                            @foreach($hermanos as $pers)
+                                                @if($pers->identificacion == $persona->identificacion)
+                                                    <td>{{$pers->hermano}}</td>
+                                                @endif
+                                            @endforeach
                                         </tr>
                                         <tr>
-                                            <th>¿Quienes aportan para el sustento económico de la familia?</th><td>Soltero tbody</td>
+                                            <th>¿Quienes aportan para el sustento económico de la familia?</th><td>&nbsp;&nbsp;<input type="textt" id="aportefamilia" maxlength="100"></td>
                                         </tr>
                                     @else
                                         <tr>
                                             <th>Casado</th>
                                         </tr>
                                         <tr>
-                                            <th style="width: 20%">Tipo de residencia</th><td>Casado tbody</td>
+                                            <th style="width: 20%">Tipo de residencia</th><td>{{$persona->vivienda}}</td>
                                         </tr>
                                         <tr>
-                                            <th>¿A qué se dedica su esposa?</th><td>Casado tbody</td>
+                                            <th>¿A qué se dedica su esposa?</th><td>{{$esposa->ocupacion}}</td>
                                         </tr>
                                         <tr>
-                                            <th>¿Cuántos hijos tiene?</th><td>Casado tbody</td>
+                                        <th>¿Cuántos hijos tiene?</th>
+                                            @foreach($hijo as $pers)
+                                                @if($pers->identificacion == $persona->identificacion)
+                                                    <td>{{$pers->hijos}}</td>
+                                                @endif
+                                            @endforeach
                                         </tr>
                                     @endif
                                 </thead>
@@ -131,34 +147,34 @@
                 <h5>Agregar información adicional a la que se encuentra en CV. <button type="button" id="btnAgregar" class="btn btn-success">Add.</button></h5>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-                      <div class="card-box">
-                        <div class="table-responsive" id="tabla">
-                          <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItems">
-                            <thead>
-                              <th>Título</th>
-                              <th>Institución</th>
-                              <th>Duración</th>
-                              <th>Nivel</th>
-                              <th>Fecha Ingreso</th>
-                              <th>Fecha Salida</th>
-                            </thead>
-                            <tbody id="productsA" name="productsA">
-                              @if (isset($academicoIns))
-                                @for ($i=0;$i<count($academicoIns);$i++)
-                                  <tr class="even gradeA" id="academicos{{$academicoIns[$i]->idpacademico}}">
-                                    <td>{{$academicoIns[$i]->titulo}}</td>
-                                    <td>{{$academicoIns[$i]->establecimiento}}</td>
-                                    <td>{{$academicoIns[$i]->duracion.': '.$academicoIns[$i]->periodo}}</td>
-                                    <td>{{$academicoIns[$i]->nombrena}}</td>
-                                    <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$academicoIns[$i]->fingreso)->format('d/m/Y')}}</td>
-                                    <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$academicoIns[$i]->fsalida)->format('d/m/Y')}}</td>
-                                  </tr>
-                                @endfor
-                              @endif
-                            </tbody>
-                          </table>
+                        <div class="card-box">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-condensed table-hover" >
+                                    <thead>
+                                      <th>Título</th>
+                                      <th>Institución</th>
+                                      <th>Duración</th>
+                                      <th>Nivel</th>
+                                      <th>Fecha Ingreso</th>
+                                      <th>Fecha Salida</th>
+                                    </thead>
+                                    <tbody id="productsA" name="productsA">
+                                      @if (isset($academicoIns))
+                                        @for ($i=0;$i<count($academicoIns);$i++)
+                                          <tr class="even gradeA" id="academicos{{$academicoIns[$i]->idpacademico}}">
+                                            <td>{{$academicoIns[$i]->titulo}}</td>
+                                            <td>{{$academicoIns[$i]->establecimiento}}</td>
+                                            <td>{{$academicoIns[$i]->duracion.': '.$academicoIns[$i]->periodo}}</td>
+                                            <td>{{$academicoIns[$i]->nombrena}}</td>
+                                            <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$academicoIns[$i]->fingreso)->format('d/m/Y')}}</td>
+                                            <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$academicoIns[$i]->fsalida)->format('d/m/Y')}}</td>
+                                          </tr>
+                                        @endfor
+                                      @endif
+                                    </tbody>
+                              </table>
+                            </div>
                         </div>
-                      </div>
                     </div>
                 </div>
             </div>
@@ -212,19 +228,25 @@
         <div class="col-md-12">
             <div class="card-box">
                 <h5>IV. Metas (académicas, personales, laborales, entre otras)</h5>
-                <table width="100%" border="1" cellpadding="0" cellspacing="1" bordercolor="#000000" >
-                    <thead>
-                        <tr>
-                            <th style="width: 20%">Meta a corto plazo:</th><td>&nbsp;&nbsp;<input type="textt" id="mcorto" maxlength="100"></td>
-                        </tr>
-                        <tr>
-                            <th>Meta a mediano plazo:</th><td>&nbsp;&nbsp;<input type="textt" id="mmediano" maxlength="100"></td>
-                        </tr>
-                        <tr>
-                            <th>Meta a largo plazo:</th><td>&nbsp;&nbsp;<input type="textt" id="mlargo" maxlength="100"></td>
-                        </tr>
-                    </thead>
-                </table>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-condensed table-hover" >
+                                <thead>
+                                    <tr>
+                                        <th style="width: 20%">Meta a corto plazo:</th><td>&nbsp;&nbsp;<input type="textt" id="mcorto" maxlength="100"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Meta a mediano plazo:</th><td>&nbsp;&nbsp;<input type="textt" id="mmediano" maxlength="100"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Meta a largo plazo:</th><td>&nbsp;&nbsp;<input type="textt" id="mlargo" maxlength="100"></td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -232,25 +254,31 @@
         <div class="col-md-12">
             <div class="card-box">
                 <h5>V. Preguntas importantes</h5>
-                <table width="100%" border="1" cellpadding="0" cellspacing="1" bordercolor="#000000" >
-                    <thead>
-                        <tr>
-                            <th style="width: 20%">¿Cómo se describe así mismo?</th><td>&nbsp;&nbsp;<input type="textt" id="descpersonal" maxlength="300"></td>
-                        </tr>
-                        <tr>
-                            <th>¿Le gusta trabajar en equipo?</th><td>&nbsp;&nbsp;<input type="textt" id="trabajoequipo" maxlength="150"></td>
-                        </tr>
-                        <tr>
-                            <th>¿Mantiene un equilibrio bajo la presión del trabajo?</th><td>&nbsp;&nbsp;<input type="textt" id="bajopresion" maxlength="150"></td>
-                        </tr>
-                        <tr>
-                            <th>¿Le gusta la atención al público?</th><td>&nbsp;&nbsp;<input type="textt" id="atencionpublico" maxlength="100"></td>
-                        </tr>
-                        <tr>
-                            <th>Es ordenado.</th><td>&nbsp;&nbsp;<input type="textt" id="ordenado" maxlength="2"></td>
-                        </tr>
-                    </thead>
-                </table>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-condensed table-hover" >
+                                <thead>
+                                    <tr>
+                                        <th style="width: 20%">¿Cómo se describe así mismo?</th><td>&nbsp;&nbsp;<input type="textt" id="descpersonal" maxlength="300"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>¿Le gusta trabajar en equipo?</th><td>&nbsp;&nbsp;<input type="textt" id="trabajoequipo" maxlength="150"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>¿Mantiene un equilibrio bajo la presión del trabajo?</th><td>&nbsp;&nbsp;<input type="textt" id="bajopresion" maxlength="150"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>¿Le gusta la atención al público?</th><td>&nbsp;&nbsp;<input type="textt" id="atencionpublico" maxlength="100"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Es ordenado.</th><td>&nbsp;&nbsp;<input type="textt" id="ordenado" maxlength="2"></td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -258,44 +286,50 @@
         <div class="col-md-12">
             <div class="card-box">
                 <h5>VI. Comentarios, observaciones y recomendaciones</h5>
-                <table width="100%" border="1" cellpadding="0" cellspacing="1" bordercolor="#000000" >
-                    <thead>
-                        <tr>
-                            <th style="width: 25%">Se presentó en el horario citado:</th><td>&nbsp;&nbsp;<input type="textt" id="puntual" maxlength="100"></td>                            
-                        </tr>
-                        <tr>
-                            <th>Comó es su presentación personal:</th><td>&nbsp;&nbsp;<input type="textt" id="presentacion" maxlength="300"></td>
-                        </tr>
-                        <tr>
-                            <th>Tiene disponibilidad inmediata: </th><td>&nbsp;&nbsp;
-                            <input type="checkbox" id="disponibilidad" value="M">Si
-                            <input type="checkbox" id="disponibilidad" value="F">No</td>
-                        </tr>
-                        <tr>
-                            <th>Tiene disponibilidad de horario incluso en fines de semana cuando así se requiera:</th><td>&nbsp;&nbsp;
-                            <input type="checkbox" id="dispfinsemana" value="M">Si
-                            <input type="checkbox" id="dispfinsemana" value="F">No</td>
-                        </tr>
-                        <tr>
-                            <th>Se sabe comunicar:</th><td>&nbsp;&nbsp;<input type="textt" id="comunicar" maxlength="100"></td>
-                        </tr>
-                        <tr>
-                            <th>Tiene disponibilidad para viajar:</th><td>&nbsp;&nbsp;
-                            <input type="checkbox" id="dispoviajar" value="M">Si
-                            <input type="checkbox" id="dispoviajar" value="F">No
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>¿Está dispuesto(a) a trabajar bajo presión?</th><td>&nbsp;&nbsp;<input type="textt" id="bajopresion" maxlength="150"></td>
-                        </tr>
-                        <tr>
-                            <th>¿Cuál es su pretensión salarial mínima?</th><td>&nbsp;&nbsp;<input type="textt" id="pretensionminima" maxlength="10"></td>
-                        </tr>
-                        <tr>
-                            <th>Recomendaciones o observaciones que se consideren</th><td></td>
-                        </tr>
-                    </thead>
-                </table>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-condensed table-hover" >
+                                <thead>
+                                    <tr>
+                                        <th style="width: 25%">Se presentó en el horario citado:</th><td>&nbsp;&nbsp;<input type="textt" id="puntual" maxlength="100"></td>                            
+                                    </tr>
+                                    <tr>
+                                        <th>Comó es su presentación personal:</th><td>&nbsp;&nbsp;<input type="textt" id="presentacion" maxlength="300"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tiene disponibilidad inmediata: </th><td>&nbsp;&nbsp;
+                                        <input type="checkbox" id="disponibilidad" value="Si">Si
+                                        <input type="checkbox" id="disponibilidad" value="No">No</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tiene disponibilidad de horario incluso en fines de semana cuando así se requiera:</th><td>&nbsp;&nbsp;
+                                        <input type="checkbox" id="dispfinsemana" value="Si">Si
+                                        <input type="checkbox" id="dispfinsemana" value="No">No</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Se sabe comunicar:</th><td>&nbsp;&nbsp;<input type="textt" id="comunicar" maxlength="100"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tiene disponibilidad para viajar:</th><td>&nbsp;&nbsp;
+                                        <input type="checkbox" id="dispoviajar" value="Si">Si
+                                        <input type="checkbox" id="dispoviajar" value="No">No
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>¿Está dispuesto(a) a trabajar bajo presión?</th><td>&nbsp;&nbsp;<input type="textt" id="bajopresion" maxlength="150"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>¿Cuál es su pretensión salarial mínima?</th><td>&nbsp;&nbsp;<input type="textt" id="pretensionminima" maxlength="10"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Recomendaciones o observaciones que se consideren</th><td></td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -303,13 +337,19 @@
         <div class="col-md-12">
             <div class="card-box">
                 <h5>Nombres de las personas que entrevistaron</h5>
-                <table width="100%" border="1" cellpadding="0" cellspacing="1" bordercolor="#000000" >
-                    <tbody>
-                        <tr>
-                            <th style="width: 5%">&nbsp;&nbsp;&nbsp;&nbsp;-</th><td>&nbsp;&nbsp;<input type="textt" id="entrevistadores" maxlength="200"></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-condensed table-hover" >
+                                <tbody>
+                                    <tr>
+                                        <th style="width: 5%">&nbsp;&nbsp;&nbsp;&nbsp;-</th><td>&nbsp;&nbsp;<input type="textt" id="entrevistadores" maxlength="200"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
