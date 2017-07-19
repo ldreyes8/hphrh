@@ -344,7 +344,34 @@ class PController extends Controller
             {
               $days = 0;
             }
-            if($idtipoausencia != "4" && $idtipoausencia != "9" && $idtipoausencia != "7" && $idtipoausencia != "11" && $idtipoausencia != "6") 
+           
+
+            if($idtipoausencia === "1") 
+            {
+              $vacacion = Vacaciones::findOrFail($idausencia);
+              $vacacion->totalhoras = $vac->horas;
+              $vacacion->totaldias = $days; 
+              $vacacion->update();
+            }
+
+
+            if($idtipoausencia === "2") 
+            {
+              $vacacion = Vacaciones::findOrFail($idausencia);
+              $vacacion->totalhoras = $vac->horas;
+              $vacacion->totaldias = $days; 
+              $vacacion->update();
+            }
+
+            if($idtipoausencia === "5") 
+            {
+              $vacacion = Vacaciones::findOrFail($idausencia);
+              $vacacion->totalhoras = $vac->horas;
+              $vacacion->totaldias = $days; 
+              $vacacion->update();
+            }
+
+            if($idtipoausencia === "8") 
             {
               $vacacion = Vacaciones::findOrFail($idausencia);
               $vacacion->totalhoras = $vac->horas;

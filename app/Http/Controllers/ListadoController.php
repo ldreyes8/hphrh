@@ -72,6 +72,7 @@ class ListadoController extends Controller
         ->where('st.idstatus','=',5)
         ->get();
 
+
         return view("rrhh.empleados.generalemp",["empleado"=>$empleado,"searchText"=>$queryN,"casos"=>$casos,"select"=>$query,"status"=>$status]);
     }
   /*  public function busqueda($rol,$dato="")
@@ -529,7 +530,7 @@ class ListadoController extends Controller
             ->where('em.idempleado','=', $id)
             ->select('per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','per.apellido3','em.idempleado','em.identificacion')
             ->first();
-            return response()->json($empleado);
+            return response()->json($empleado); 
         }
 
         public function addbaja(request $request)

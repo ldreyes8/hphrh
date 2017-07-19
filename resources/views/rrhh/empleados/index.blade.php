@@ -5,8 +5,7 @@
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet">
         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
-        <link rel="stylesheet" href="{{asset('assets/css/bootstrap-select.min.css')}}" />
-
+        <!-- <link rel="stylesheet" href="{{asset('assets/css/bootstrap-select.min.css')}}" />-->
 
 @endsection
 @section ('contenido')
@@ -30,6 +29,13 @@
     @parent
     <meta name="_token" content="{!! csrf_token() !!}" />
     <script src="{{asset('assets/js/RHjs/listados.js')}}"></script>
+    <script src="{{asset('assets/js/RH.js')}}"></script>
+
+    <script src="{{asset('assets/js/RHjs/busqueda.js')}}"></script>
+    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
+    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
+    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
+
     <script src="{{asset('assets/js/bootstrap-select.min.js')}}"></script>
 
 

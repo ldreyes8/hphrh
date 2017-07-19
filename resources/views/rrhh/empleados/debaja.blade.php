@@ -29,9 +29,7 @@
                          <!--a href="{{URL::action('ListadoController@historial',$em->idempleado)}}"><button class="btn btn-primary">Historial</button></a>
                          <a href="{{URL::action('ListadoController@Acta',$em->idempleado)}}"><button class="btn btn-primary">Acta</button></a-->
                          <a href="{{URL::action('ListadoController@laboral',$em->idempleado)}}"><button class="btn btn-primary
-                         ">Historia laboral</button></a>
-                        <button class="btn btn-primary btn-vacaciones" id="btnsaldo" value="{{$em->idempleado}}">Vacaciones</button>
-                 
+                         ">Historia laboral</button></a>                 
                      </td>
                      </tr>
 
@@ -64,12 +62,13 @@
   </div>
 </div>
 
-
+    <!--
         <meta name="_token" content="{!! csrf_token() !!}" />
         <script src="{{asset('assets/js/RH.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
+        -->
         <!--
         <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
         <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
