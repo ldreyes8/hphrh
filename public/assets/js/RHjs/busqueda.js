@@ -3,7 +3,6 @@
     function buscarempleado(){
         var rol=$("#select").val();
         var dato=$("#searchText").val();
-        console.log(dato);
         if(dato == "")
         {
             var url="busqueda/"+rol+"";

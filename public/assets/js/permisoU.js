@@ -79,8 +79,8 @@ $(document).ready(function(){
 
             var miurl="diashatomar";
             var formData = {                      
-                fecha_inicio: $("#fecha_inicio1").val(),
-                fecha_final : $("#fecha_final1").val(),    
+                fecha_inicio: $("#fecha_inicio").val(),
+                fecha_final : $("#fecha_final").val(),    
             };
             $.ajaxSetup({
                 headers: {
@@ -159,8 +159,8 @@ $(document).ready(function(){
 
             hoy = dd+'-'+mm+'-'+yyyy;
 
-            finicio = $("#fecha_inicio1").val();
-            ffin = $("#fecha_final1").val();
+            finicio = $("#fecha_inicio").val();
+            ffin = $("#fecha_final").val();
             td = $("#datomarP").val();
             th = $("#hhorasP").val();
             th = th -0;
@@ -176,8 +176,8 @@ $(document).ready(function(){
             var miurl="permiso/store";
             var formData = {
                            
-                fecha_inicio: $("#fecha_inicio1").val(),
-                fecha_final : $("#fecha_final1").val(),
+                fecha_inicio: $("#fecha_inicio").val(),
+                fecha_final : $("#fecha_final").val(),
                 dias: $('#datomarP').val(),
                 horas: $('#hhorasP').val(),
                 idmunicipio: $('#idmunicipio').val(),

@@ -91,7 +91,7 @@
                         <div class="input-group">
                             <input type="text" id="fecha_inicio" class="form-control" name="fechainicio">
                             <span class="input-group-addon bg-primary b-0 text-white"><i class="ion-calendar"></i></span>
-                        </div>
+                        </div> 
                     </div>
                     <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                         <label class="control-label">Fecha final</label>
