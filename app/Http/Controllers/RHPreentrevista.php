@@ -20,11 +20,18 @@ use Illuminate\Support\Collection;
 
 class RHPreentrevista extends Controller
 {
-    public function upPreentrevista ($id)
+    public function upPreentrevista ($id,$ids)
     {
-        $od=Empleado::findOrFail($id);
-        $od-> idstatus='13';
+        //dd($ids);
+        $od=Empleado::find($id);
+        $od-> idstatus = '13';
         $od->update();
+
+        $ent = new Entrevista;
+        $ent-> lugar="";
+        $ent-> perentrevista = $ids;
+        $ent->save();
+
         return Redirect::to('empleado/solicitudes');
     }
     public static function  getTowns(Request $request, $id)
@@ -80,19 +87,51 @@ class RHPreentrevista extends Controller
         ->get();
 
         $hermanos=DB::table('persona as p')
-        ->join('empleado as em','p.identificacion','=','em.identificacion')
         ->join('personafamilia as pf','p.identificacion','=','pf.identificacion')
-        ->select(DB::raw('count(pf.parentezco) as hijos'),'p.identificacion','pf.parentezco')
+        ->join('empleado as emp','emp.idempleado','pf.idempleado')
+        ->select(DB::raw('count(pf.parentezco) as hermano'),'p.identificacion','pf.parentezco')
         ->where('pf.parentezco','=','Hermano')
-        ->where('em.idempleado','=',$id)
+        //->where('emp.idempleado','=',$id)
         ->groupBy('p.identificacion','pf.parentezco')
         ->get();
 
 
-        $date = Carbon::now('America/Guatemala');
- 		$date = $date->format('d-m-Y');
 
- 		$fedad = new DateTime($persona->fechanac);
+
+
+
+
+        
+
+        $esposa=DB::table('persona as p')
+        ->join('empleado as em','p.identificacion','=','em.identificacion')
+        ->join('personafamilia as pf','p.identificacion','=','pf.identificacion')
+        ->select('pf.ocupacion','pf.parentezco')
+        ->where('pf.parentezco','=','Conyuge')
+        ->where('em.idempleado','=',$id)
+        ->first();
+
+
+        $hijo=DB::table('persona as p')
+        ->join('personafamilia as pf','p.identificacion','=','pf.identificacion')
+        ->join('empleado as emp','emp.idempleado','pf.idempleado')
+        ->select(DB::raw('count(pf.parentezco) as hijos'),'p.identificacion','pf.parentezco')
+        ->where('pf.parentezco','=','Hijo')
+        //->where('emp.idempleado','=',$id)
+        ->groupBy('p.identificacion','pf.parentezco')
+        ->get();
+
+        /*$entrevista=DB::table('persona as p')
+        ->join('entrevista as ent','p.identificacion','ent.perentrevista')
+        ->select()
+        ->where('')
+        ->get();*/
+
+
+        $date = Carbon::now('America/Guatemala');
+        $date = $date->format('d-m-Y');
+
+        $fedad = new DateTime($persona->fechanac);
         $month = $fedad->format('m');
         $day = $fedad->format('d');
         $year = $fedad->format('Y');
@@ -117,7 +156,7 @@ class RHPreentrevista extends Controller
             ->get();
 
 
-		return view('rrhh.reclutamiento.preentrevistar',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia]);
+        return view('rrhh.reclutamiento.preentrevistar',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa]);
     }
     public function listadopreE (Request $request)
     {
@@ -156,6 +195,7 @@ class RHPreentrevista extends Controller
 
         $entre-> fechaentre = $fecha;
         $entre-> vivecompania = $request->get("vivecompania");
+        $entre-> aportefamilia = $request->get("aportefamilia");
         $entre-> mcorto = $request->get("mcorto");
         $entre-> mmediano = $request->get("mmediano");
         $entre-> mlargo = $request->get("mlargo");
@@ -172,6 +212,7 @@ class RHPreentrevista extends Controller
         $entre-> dispoviajar=$request->get("#dispoviajar");
         $entre-> bajopresion=$request->get("#bajopresion");
         $entre-> pretensionminima=$request->get("#pretensionminima");
+        $entre-> dedicanpadres=$request->get("#dedicanpadres");
         $entre-> save();
 
         return response()->json($entre);
@@ -278,5 +319,125 @@ class RHPreentrevista extends Controller
             'max'  => 'La capacidad del campo :attribute es :max',
             ];
             $this->validate($request, $rules,$messages);        
+    }
+    public function show($id)
+    {
+        $municipio=DB::table('persona as p')
+        ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
+        ->select('m.idmunicipio')
+        ->where('p.identificacion','=',$id)
+        ->first();
+
+        if (empty($municipio->idmunicipio)) {
+          $persona=DB::table('persona as p')
+            ->join('empleado as em','p.identificacion','=','em.identificacion')
+            ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
+            ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+            ->select('p.identificacion','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
+            ->where('em.identificacion','=',$id)
+            ->first();
+        }
+        else
+        {    
+            $persona=DB::table('persona as p')
+            ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
+            ->join('departamento as dp','m.iddepartamento','=','dp.iddepartamento')
+            ->join('empleado as em','p.identificacion','=','em.identificacion')
+            ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
+            ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+            ->select('p.identificacion','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
+            ->where('em.identificacion','=',$id)
+            ->first();
+        }
+        //dd($persona,$municipio);
+        /*$downloads=DB::table('persona as p')
+        ->select('p.finiquitoive')
+        ->where('p.identificacion','=',$id)
+        ->first();*/
+
+        $empleado=DB::table('empleado as e')
+        ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
+        ->select('e.idempleado','e.identificacion','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','e.pretension','e.nit','e.fechasolicitud','ec.idcivil','ec.estado as estadocivil','e.observacion','e.idstatus')
+        ->where('e.identificacion','=',$id)
+        ->first();
+
+        $academicos=DB::table('personaacademico as pc')
+        ->join('persona as p','pc.identificacion','=','p.identificacion')
+        ->join('nivelacademico as na','pc.idnivel','=','na.idnivel')
+        ->select('pc.idpacademico' ,'pc.titulo','pc.establecimiento','pc.duracion','na.idnivel','na.nombrena as nivel','pc.fingreso','pc.fsalida','pc.observacion')
+        ->where('pc.identificacion','=',$id)
+        ->get();
+
+        $experiencias=DB::table('personaexperiencia as pe')
+        ->join('persona as p','pe.identificacion','=','p.identificacion')
+        ->select('pe.idpexperiencia' ,'pe.empresa','pe.puesto','pe.jefeinmediato','pe.motivoretiro','pe.ultimosalario','pe.fingresoex','pe.fsalidaex','pe.observacion','pe.recomiendaexp','pe.confirmadorexp')
+        ->where('pe.identificacion','=',$id)
+        ->get();
+
+        $familiares=DB::table('personafamilia as pf')
+        ->join('persona as p','pf.identificacion','=','p.identificacion')
+        ->select('pf.idpfamilia','pf.nombref','pf.apellidof','pf.telefonof','pf.parentezco','pf.ocupacion','pf.edad','pf.emergencia')
+        ->where('p.identificacion','=',$id)
+        ->get();
+
+        $familiares1=DB::table('personafamilia as pf')
+        ->join('persona as p','pf.identificacion','=','p.identificacion')
+        ->select('pf.observacion')
+        ->where('p.identificacion','=',$id)
+        ->first();
+
+        $idiomas=DB::table('empleadoidioma as ei')
+        ->join('idioma as i','ei.ididioma','=','i.ididioma')
+        ->join('empleado as e','ei.idempleado','=','e.idempleado')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->select('i.nombre as idioma','ei.nivel')
+        ->where('p.identificacion','=',$id)
+        ->get();
+
+        $referencias=DB::table('personareferencia as pr')
+        ->join('persona as p','pr.identificacion','=','p.identificacion')
+        ->select('pr.idpreferencia' ,'pr.nombrer','pr.telefonor','pr.profesion','pr.tiporeferencia','pr.observacion','pr.recomiendaper','pr.confirmadorref')
+        ->where('p.identificacion','=',$id)
+        ->get();
+
+        $deudas=DB::table('personadeudas as pd')
+        ->join('persona as p','pd.identificacion','=','p.identificacion')
+        ->select('pd.idpdeudas','pd.acreedor','pd.amortizacionmensual as pago','pd.montodeuda','pd.motivodeuda')
+        ->where('p.identificacion','=',$id)
+        ->get();
+
+        $padecimientos =DB::table('personapadecimientos as pad')
+        ->join('persona as p','pad.identificacion','=','p.identificacion')
+        ->select('pad.idppadecimientos','pad.nombre')
+        ->where('p.identificacion','=',$id)
+        ->get();
+
+        $pais=DB::table('trabajoextranjero as te')
+        ->join('pais as ps','te.idpais','=','ps.idpais')
+        ->join('persona as p','te.identificacion','=','p.identificacion')
+        ->select('te.trabajoext','te.forma','te.motivofin','ps.nombre')
+        ->where('p.identificacion','=',$id)
+        ->get();
+
+        $pariente=DB::table('puestopublico as pp')
+        ->join('persona as p','pp.identificacion','=','p.identificacion')
+        ->select('pp.nombre','pp.puesto','pp.dependencia')
+        ->where('p.identificacion','=',$id)
+        ->get();
+
+        $observaciones=DB::table('persona as p')
+        ->join('personaacademico as pa','pa.identificacion','=','p.identificacion')
+        ->join('personafamilia as pf','pf.identificacion','=','p.identificacion')
+        ->join('personareferencia as pr','pr.identificacion','=','p.identificacion')
+        ->join('personaexperiencia as pe','pe.identificacion','=','p.identificacion')
+        ->select('pa.observacion as obpa','pf.observacion as obpf','pr.observacion as obpr','pe.observacion as obpe')
+        ->where('p.identificacion','=',$id)
+        ->first();
+      
+        $nivelacademico = DB::table('nivelacademico')->get();
+        $estadocivil=DB::table('estadocivil')->get();
+
+
+        return view('rrhh.preentrevista.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones]);
     }
 }

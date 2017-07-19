@@ -86,11 +86,10 @@ $(document).ready(function(){
             var telefonor=$('.telefonor:eq('+r+')').val();
             var profesion=$('.profesion:eq('+r+')').val();
             var tiporeferencia=$('.tiporeferencia:eq('+r+')').val();
-
-            var recomiendaper=$('.recomiendaper:eq('+r+')').val();
+            
+            var recomiendaper=$('.recomiendaPL:eq('+r+')').val();
             var confirmadorref=$('.confirmadorref:eq('+r+')').val();
             var observacionr=$('.observacionr:eq('+r+')').val();
-
             $.post(my_url='upsolicitudPR',
             {
                 idpreferencia: idpreferencia,
@@ -100,11 +99,12 @@ $(document).ready(function(){
                 tiporeferencia: tiporeferencia,
 
                 recomiendaper: recomiendaper,
+                
                 confirmadorref: confirmadorref,
                 observacionr: observacionr,
-            },
-            function(data){});
+            });
             r++;
+        
         });
 
         tablaF.each(function(){

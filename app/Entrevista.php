@@ -35,6 +35,7 @@ class Entrevista extends Model
         'perentrevista',
         'vivecompania',
         'puntual',
+        'dedicanpadres',
     ];
 
 }

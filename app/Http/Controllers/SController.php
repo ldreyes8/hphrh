@@ -169,11 +169,8 @@ class SController extends Controller
             
             ->paginate(19);
 
-            return view('rrhh.reclutamiento.solicitud',["empleados"=>$empleados,"searchText"=>$query]);
-        
+            return view('rrhh.reclutamiento.solicitud',["empleados"=>$empleados,"searchText"=>$query]);   
     }
-
-
     public function show($id)
     {
         $municipio=DB::table('persona as p')
@@ -187,7 +184,7 @@ class SController extends Controller
             ->join('empleado as em','p.identificacion','=','em.identificacion')
             ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
             ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive','em.idstatus')
+            ->select('p.identificacion','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
             ->where('em.identificacion','=',$id)
             ->first();
         }
@@ -199,7 +196,7 @@ class SController extends Controller
             ->join('empleado as em','p.identificacion','=','em.identificacion')
             ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
             ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-            ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive','em.idstatus')
+            ->select('p.identificacion','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive')
             ->where('em.identificacion','=',$id)
             ->first();
         }
@@ -224,7 +221,7 @@ class SController extends Controller
 
         $experiencias=DB::table('personaexperiencia as pe')
         ->join('persona as p','pe.identificacion','=','p.identificacion')
-        ->select('pe.idpexperiencia' ,'pe.empresa','pe.puesto','pe.jefeinmediato','pe.motivoretiro','pe.ultimosalario','pe.fingresoex','pe.fsalidaex')
+        ->select('pe.idpexperiencia' ,'pe.empresa','pe.puesto','pe.jefeinmediato','pe.motivoretiro','pe.ultimosalario','pe.fingresoex','pe.fsalidaex','pe.observacion','pe.recomiendaexp','pe.confirmadorexp')
         ->where('pe.identificacion','=',$id)
         ->get();
 
@@ -250,7 +247,7 @@ class SController extends Controller
 
         $referencias=DB::table('personareferencia as pr')
         ->join('persona as p','pr.identificacion','=','p.identificacion')
-        ->select('pr.idpreferencia' ,'pr.nombrer','pr.telefonor','pr.profesion','pr.tiporeferencia')
+        ->select('pr.idpreferencia' ,'pr.nombrer','pr.telefonor','pr.profesion','pr.tiporeferencia','pr.observacion','pr.recomiendaper','pr.confirmadorref')
         ->where('p.identificacion','=',$id)
         ->get();
 
@@ -305,8 +302,7 @@ class SController extends Controller
             $st-> idstatus='10';
             $st->update();
         }
-        //return view('rrhh.reclutamiento.index');
-        return Redirect::to('empleado/listadoR');
+        return Redirect::to('empleado/solicitudes');
     }
     public function rechazoPP($idE)
     {
