@@ -92,7 +92,7 @@
                          @endforeach
                      </table>
                  </div>
-                 
+                {{$empleados->render()}}
            </div>
         </div>
 @endsection
