@@ -162,50 +162,50 @@ class PController extends Controller
   public function store(request $request)
   {
 
-    $this->validateRequest($request);
-    $vacaciones = new Vacaciones;
+    $this->validateRequest($request);   // Se valida los campos ingresados fecha inicio y fecha final
+    $vacaciones = new Vacaciones;       // Se genera un nuevo registro
       
     $fechainicio = $request->fecha_inicio; 
     $fechafinal = $request->fecha_final;
-    $concurrencia = $request->concurrencia;
+    $concurrencia = $request->concurrencia;   // Se obtiene el valor de concurrencia: Si o No.
 
-    $hini = $request->hini;
+    $hini = $request->hini;                   // Se obtiene el valor de horas y minutos
     $hfin = $request->hfin;
     $mini = $request->mini;
     $mfin = $request->mfin;
 
-    $name = $request->name;
+    $name = $request->name;                   // se obtiene el nombre del usuario
 
-    $horainicio = $hini.':'.$mini;
+    $horainicio = $hini.':'.$mini;            // Se concatena hora con minutos
     $horafinal = $hfin.':'.$mfin;
 
-    $today = Carbon::now();
+    $today = Carbon::now();                   // Obtiene la fecha actual.
     	
-    $today = $today->format('Y-m-d'); 
-    $fechainicio = Carbon::createFromFormat('d/m/Y',$fechainicio);
+    $today = $today->format('Y-m-d');         // Se convierte la fecha en formato que lo pueda recibir mariadb
+    $fechainicio = Carbon::createFromFormat('d/m/Y',$fechainicio); // se convierte la fecha en un formato ingles
     $fechafinal = Carbon::createFromFormat('d/m/Y',$fechafinal);
 
-    $fini = $fechainicio;
+    $fini = $fechainicio;                   // se crean nuevas variables con las fecha.
     $ffin = $fechafinal;
 
 
-    $fechainicio = $fechainicio->toDateString();
+    $fechainicio = $fechainicio->toDateString(); // la fecha se convierte en un formato string
     $fechafinal = $fechafinal->toDateString();
 
-    if($fechafinal >= $fechainicio)
+    if($fechafinal >= $fechainicio)             // se verifica la fecha
     {
-      if($hfin < $hini)
+      if($hfin < $hini)                         // Se verifica la hora para que hora inicio no sea menor a hora final
       {
         return response()->json(array('error' => 'Hora inicial debe ser menor a la hora final'),404);
       }
 
-      $hinicio = $hini*60;
-      $hinicio = $hinicio + $mini;
+      $hinicio = $hini*60;                      // Se convierte la hora a minutos
+      $hinicio = $hinicio + $mini;              // Se suma minutos horas con minutos
 
       $hfinal = $hfin * 60;
       $hfinal = $hfinal + $mfin;
 
-      if($hinicio > $hfinal)
+      if($hinicio > $hfinal)                    // Se verifica que la hora minutos inicio sea mayor a hora minutos finales
       {
         return response()->json(array('error' => 'Verificar la hora y minutos solicitados'),404);                  
       }
@@ -218,13 +218,13 @@ class PController extends Controller
           $idempleado = $request->idempleado;
           $idtipoausencia = $request->idtipoausencia;        
 
-          if($idtipoausencia === '4')
+          if($idtipoausencia === '4')         // Se verifica que permiso sea por Enfermedad
           {
-            $factual = Carbon::now();
-            $year = $factual->format('Y');
+            $factual = Carbon::now();         // se obtiene la fecha actual
+            $year = $factual->format('Y');    // se obtiene el año actual.
                 
-            $inicioaño = $year.'-01-01';  
-            $finaño = $year.'-12-31';
+            $inicioaño = $year.'-01-01';      // se concatena el año actual con un texto determinado para obtener el incio del año actual
+            $finaño = $year.'-12-31';         // se concatena el año actual con un texto determinado para obtener el fin del año actual
             $ausencias=DB::table('ausencia as a')
             ->join('empleado as emp','a.idempleado','=','emp.idempleado')
             ->join('tipoausencia as ta','a.idtipoausencia','=','ta.idtipoausencia')
@@ -235,7 +235,7 @@ class PController extends Controller
             ->where('a.fechasolicitud', '>=', $inicioaño)
             ->where('a.fechasolicitud', '<=', $finaño)
             ->where('a.autorizacion','=','Confirmado')
-            ->get();
+            ->get();    // Se obtiene el total de dias que ha solicitado por enfermedad
 
             $tho =0;
             $total =0;
@@ -340,12 +340,13 @@ class PController extends Controller
             ->where('au.idausencia','=',$idausencia)
             ->first();
 
+
+
             if($vac->horas < 8)
             {
               $days = 0;
             }
            
-
             if($idtipoausencia === "1") 
             {
               $vacacion = Vacaciones::findOrFail($idausencia);
@@ -377,6 +378,8 @@ class PController extends Controller
               $vacacion->totalhoras = $vac->horas;
               $vacacion->totaldias = $days; 
               $vacacion->update();
+
+              dd($vacacion,$vac);
             }
 
             if($idtipoausencia === "11")
@@ -387,6 +390,8 @@ class PController extends Controller
               $vacacion->update();              
             }
           }
+
+          
 
             Mail::send('emails.envio',['calculo' => $calculo],function($msj) use ($request){
               $idpersona = DB::table('empleado as e')
