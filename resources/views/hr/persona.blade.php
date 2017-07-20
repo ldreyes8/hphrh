@@ -62,8 +62,9 @@
   </div>
 </div>
 
-<div class="col-lg-12">
-    <input type="hidden" name="idper" id="idper">
+
+
+<div class="col-lg-12">    <input type="hidden" name="idper" id="idper">
     <div class="modal fade" id="formModalPer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -161,13 +162,15 @@
                                     @endif
                                 </select>
                             </div>
-                        </div>   
+                        </div>  
 
                         <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
                             <label>Genero</label>
                             <div class="form-group">
-                                <label ><input type="radio" name="genero" value="M" id="genero">Masculino</label>
-                                <label ><input type="radio" name="genero" value="F" id="genero">Femenino</label>
+
+                                    <label ><input type="radio" name="generoP" value="M"  >Masculino</label>
+                                    <label ><input type="radio" name="generoP" value="F" >Femenino</label>
+                                 
                             </div>
                         </div>
 
@@ -177,6 +180,7 @@
                                 <input type="number" name="numerodependientes" id="dependientes" min="0" class="form-control" onkeypress="return valida(event)">
                             </div>
                         </div>
+
                         <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
                             <div class="form-group">
                                 <label for="aportemensual">Aporte mensual</label>
@@ -249,8 +253,9 @@
   </div>
 </div>
 
-<script src="{{asset('assets/js/persona.js')}}"></script>
+<script src="{{asset('assets/js/perfil/persona.js')}}"></script>
 <script src="{{asset('assets/plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
 <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
+

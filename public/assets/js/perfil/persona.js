@@ -6,7 +6,7 @@ function cargarpersona(listado){
     });
 }
 
-function valida(e){
+            function valida(e){
                 tecla = e.keyCode || e.which;
                 tecla_final = String.fromCharCode(tecla);
                 //Tecla de retroceso para borrar, siempre la permite
@@ -49,7 +49,7 @@ function valida(e){
                 }
             }
 
-           jQuery(document).ready(function () {          
+               
                 $('#btnAgregarPer').click(function(){
                     //var idacad=$(this).val();
                     var miurl="listardgenerales";
@@ -66,22 +66,23 @@ function valida(e){
                         $('#apellido3').val(data.apellido3);
                         $('#barriocolonia').val(data.barriocolonia);
                         $('#fechanac').val(data.fechanac);
-                        $('#genero').val(data.genero);
                         $('#dependientes').val(data.numerodependientes);
                         $('#apmensual').val(data.aportemensual);
                         $('#alquilermensual').val(data.alquilermensual);
                         $('#otrosingresos').val(data.otrosingresos);
                         $('#afiliacionigss').val(data.afiliacionigss);
+                        $('#gP1').val(data.genero);
 
-                        if(data.genero == "M")
-                        {
-                            $("input[name=genero][value='M']").prop("checked",true);
-                        }
 
-                        if(data.genero == "F")
-                        {
-                            $("input[name=genero][value='F']").prop("checked",true);
-                        }
+                           if(data.genero == "M")
+                    {
+                        $("input[name=generoP][value='M']").prop("checked",true);
+                    }
+
+                    if(data.genero == "F")
+                    {
+                        $("input[name=generoP][value='F']").prop("checked",true);
+                    }
 
                         $('#inputTitlePer').html("Información general");
                         $('#formModalPer').modal('show');
@@ -96,6 +97,17 @@ function valida(e){
                             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                         }
                     });
+
+                    var resultado="ninguno";
+
+                    var resultado= $(":input[name=generoP]:checked").val();
+
+
+
+
+                   
+                    console.log(resultado);
+
                     var formData = {
                         idper: $("#idper").val(),
                         identificacion: $("#identificacio").val(),
@@ -109,7 +121,7 @@ function valida(e){
 
                         fechanac : $("#fechanac").val(),
                         estadocivil: $("#idcivil").val(),
-                        genero: $("#genero").val(),
+                        genero: resultado,
                         dependientes: $("#dependientes").val(),
                         aportemensual: $("#apmensual").val(),
                         vivienda: $("#vivienda").val(),
@@ -133,15 +145,18 @@ function valida(e){
                     var numerodependientes = $('#dependientes').val();
                     var aportemensual = $('#apmensual').val();
                     var otrosingresos = $('#otrosingresos').val();
-                    var genero = $('#genero').val();
+                    var alquilermensual = $("#alquilermensual").val();
+
                     var fechanac = $('#fechanac').val();
                     var vivienda=$("#vivienda").val();
+                    var genero = "";
 
-                    if(genero == "M")
+
+                    if(resultado == "M")
                     {
                         genero = "Masculino";
                     }
-                    if(genero == "F")
+                    if(resultado == "F")
                     {
                         genero = "Femenino";
                     }
@@ -176,7 +191,10 @@ function valida(e){
                                 item += '<td>' +estadocivil+ '</td>'+'<td>'+afiliacionigss+'</td>'+'<td>'+genero+'</td>'+'<td>'+data.barriocolonia+'</td>'+'<td>'+fechanac+'</td>';
                                 item += '<td>'+numerodependientes+'</td>';
                                 item += '<td>'+aportemensual+'</td>';
-                                item += '<td>'+vivienda+'</td><tr>';
+                                item += '<td>'+vivienda+'</td>';
+                                item += '<td>'+alquilermensual+'</td>';
+                                item += '<td>'+otrosingresos+'</td><tr>';
+
 
                             if (state == "update")
                             {
@@ -208,4 +226,5 @@ function valida(e){
                         }
                     });
                 });
-            });
+            
+

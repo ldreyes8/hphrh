@@ -243,6 +243,9 @@ class HomeController extends Controller
         $persona->apellido1 = $request->apellido1;
         $persona->apellido1 = $request->apellido1;
 
+
+        $persona->genero = $request->genero;
+
         $persona->barriocolonia = $request->barriocolonia;
 
         $fechanac = Carbon::createFromFormat('d/m/Y',$fechanac);

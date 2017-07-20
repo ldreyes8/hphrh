@@ -45,7 +45,6 @@ class VController extends Controller
         ->groupBy('a.fechainicio','a.fechafin','a.autorizacion','a.fechasolicitud','a.totaldias','a.totalhoras')
         ->orderBy('a.fechasolicitud','desc')
         ->paginate(15);
-   
 
       }
 

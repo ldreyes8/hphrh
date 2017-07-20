@@ -46,9 +46,10 @@ class PController extends Controller
         ->join('persona as per','emp.identificacion','=','per.identificacion')
         ->join('users as U','per.identificacion','=','U.identificacion')
         ->join('tipoausencia as ta','a.idtipoausencia','=','ta.idtipoausencia')
-        ->select('a.fechainicio','a.fechafin','a.horainicio','a.horafin','a.juzgadoinstitucion','a.tipocaso','a.autorizacion','a.fechasolicitud')
+        ->select('a.fechainicio','a.fechafin','a.horainicio','a.horafin','a.juzgadoinstitucion','a.tipocaso','a.autorizacion','a.fechasolicitud','ta.ausencia as tipoausencia')
         ->where('U.id','=',Auth::user()->id)
         ->where('ta.ausencia','!=','Vacaciones')
+        ->orderBy('a.fechasolicitud','desc')
         ->paginate(15);
     	}
 

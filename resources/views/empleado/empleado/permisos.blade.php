@@ -13,6 +13,7 @@
                         <th>Fin</th>
                         <th>Hora inicio</th>
                         <th>Hora final</th>
+                        <th>Tippo permiso</th>
                         <th>Autorizacion</th>
                     </thead>
                     @if (isset($ausencias))
@@ -23,7 +24,8 @@
                             <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechainicio)->format('d-m-Y')}}</td>
                             <td>{{\Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechafin)->format('d-m-Y')}}</td>
                             <td>{{$aus->horainicio}}</td>
-                            <td>{{$aus->horafin}}</td> 
+                            <td>{{$aus->horafin}}</td>
+                            <td>{{$aus->tipoausencia}}</td> 
                             <td>{{$aus->autorizacion}}</td>
                          </tr>
                         
