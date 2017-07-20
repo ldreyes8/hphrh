@@ -378,8 +378,6 @@ class PController extends Controller
               $vacacion->totalhoras = $vac->horas;
               $vacacion->totaldias = $days; 
               $vacacion->update();
-
-              dd($vacacion,$vac);
             }
 
             if($idtipoausencia === "11")
