@@ -1,6 +1,5 @@
 <div class="card-box" id="lisadoEmp">
-    @if (isset($empleado))
-
+    @if (isset($empleado))      
         @include('rrhh.empleados.search')
         <div class="row">
 
@@ -144,7 +143,4 @@
 <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
 <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
-
-
-
-
+  

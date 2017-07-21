@@ -77,14 +77,41 @@ class RHNombramientoEmpleado extends Controller
 
         return view("rrhh.empleados.nombramiento",["puestos"=>$puestos,"afiliados"=>$afiliados,"caso"=>$caso,"empleado"=>$empleado,"jefesinmediato"=>$jefesinmediato]);
 
-
-/*
-        $caso=DB::table('caso as c')
-        ->select('c.idcaso','c.nombre')
-        ->get();*/
+        /*
+            $caso=DB::table('caso as c')
+            ->select('c.idcaso','c.nombre')
+            ->get();
+        */
         return view("rrhh.empleados.indexnombramiento",["empleado"=>$empleado,"searchText"=>$queryN,"casos"=>$casos,"select"=>$query,"status"=>$status]);
     }
     
+
+    public function busqueda($caso,$dato="")
+    {
+
+        $empleado= Empleado::Busqueda($caso,$dato)->join('nomytras as nt','empleado.idempleado','=','nt.idempleado')
+        ->join('status as st','empleado.idstatus','=','st.idstatus')
+        ->join('puesto as pu','nt.idpuesto','=','pu.idpuesto')
+        ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
+        ->join('caso as c','c.idcaso','=','nt.idcaso')
+        ->select('empleado.idempleado','empleado.identificacion','empleado.nit','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado','c.idcaso',DB::raw('max(nt.idnomytas) as idnomytas'))
+        ->where('empleado.idstatus','!=', 5)
+        ->groupBy('empleado.idempleado')      
+        ->orderBy('empleado.idempleado','desc')
+        ->paginate(20);
+
+        $status = DB::table('status as st')
+        ->select('st.idstatus','st.statusemp')
+        ->where('st.idstatus','=',5)
+        ->get();
+
+
+        return view('rrhh.empleados.indexnombramiento')
+        ->with("empleado", $empleado )
+        ->with("status", $status);
+    }
+
+
     public function addnombramiento($id)
     {
         $puestos=Puesto::all();

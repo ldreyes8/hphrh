@@ -155,8 +155,9 @@ function buscarusuario(){
 
   $("#contentsecundario").html($("#cargador_empresa").html());
   $.get(url,function(resul){
-    $("#contentsecundario").html(resul);  
-  })
+    $("#contentsecundario").html(resul);
+      $("#select_filtro_rol").addClass("clasecss");
+        })
 }
 
 $(document).on("click",".pagination li a",function(e){

@@ -1,35 +1,75 @@
     <div class="row">
-        <h3>Listado de empleados activos, interinos y periodo de prueba </h3>
-        
-        <button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button><strong>&nbsp;&nbsp;Detalles</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-        <button class="btn btn-primary" title="Historial laboral"><i class="fa fa-stack-overflow"></i></button><strong>&nbsp;&nbsp;Historial Laborar</strong>&nbsp;&nbsp;&nbsp;&nbsp;
-        <button class="btn btn-primary" title="Vacaciones"><i class="fa fa-camera-retro fa-lg"></i></button><strong>&nbsp;&nbsp;Vacaciones</strong>&nbsp;&nbsp;
-        <button class="btn btn-danger" id="FWEF" value="" title="Despedir" ><i class="fa fa-remove"></i></button><strong>&nbsp;&nbsp;Despedir</strong>
-       
-        <div class="navbar-form navbar-left pull-right">
-            <div class="form-group">
 
-                <select  id="select"  class="form-control selectpicker" data-live-search="true" onchange="buscarempleado();" >
-                    <?php  if(isset($casosel)){ 
-                        $listadocaso=$casosel->nombre; 
-                        $optsel= '<option value="'.$casosel->idcaso.'">'.$casosel->nombre.' </option>';
-                        }else{  
-                            $listadocaso="General";
-                            $optsel="";
-                        } ?>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>Listado de empleados activos, interinos y periodo de prueba </h3>
+            <div class="navbar-form navbar-left pull-left">
 
-                        <?=  $optsel;  ?>
-                            <option value="0">General </option>
-                            @if(isset($casos))
-                            <?php foreach($casos as $cas){   ?>
-                            <option value="<?= $cas->idcaso; ?>" > <?= $cas->nombre; ?></option>
-                         <?php }  ?>
-                    @endif
-                </select>
+            
+           
+              <div class="form-group">
 
-                <input type="text" class="form-control" id="searchText" name="searchText" placeholder="Buscar..."> 
+                    <select  id="select"  class="form-control select2" data-style="btn-info" data-live-search="true" onchange="buscarempleado();" >
+                        <?php  if(isset($casosel)){ 
+                            $listadocaso=$casosel->nombre; 
+                            $optsel= '<option value="'.$casosel->idcaso.'">'.$casosel->nombre.' </option>';
+                            }else{  
+                                $listadocaso="General";
+                                $optsel="";
+                            } ?>
+
+                            <?=  $optsel;  ?>
+                                <option value="0">General </option>
+                                @if(isset($casos))
+                                <?php foreach($casos as $cas){   ?>
+                                <option value="<?= $cas->idcaso; ?>" > <?= $cas->nombre; ?></option>
+                             <?php }  ?>
+                        @endif
+                    </select>
+
+                    <input type="text" class="form-control" id="searchText" name="searchText" placeholder="Buscar..."> 
+                </div>
+                <button type="button" class="btn btn-default" onclick="buscarempleado();">Buscar</button>
             </div>
-            <button type="button" class="btn btn-default" onclick="buscarempleado();">Buscar</button>
+
+            <div class="navbar-form navbar-left pull-right">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                    <div class="col-lg-3 col-md-12 col-sm-1 col-xs-12">
+
+                        <p>Detalles</p>
+                        <button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-12 col-sm-4 col-xs-12">
+
+                        <p>Historial</P>
+                        <button class="btn btn-primary" title="Historial laboral"><i class="fa fa-stack-overflow"></i></button>
+                    </div>
+
+                    <div class="col-lg-3 col-md-12 col-sm-1 col-xs-12">
+                        <p>Vacaciones</p>
+                        <button class="btn btn-primary" title="Vacaciones"><i class="fa fa-camera-retro fa-lg"></i></button>
+                    </div>
+
+                    <div class="col-lg-3 col-md-12 col-sm-1 col-xs-12">
+                        <p>Despedir</p>
+                        <button class="btn btn-danger" id="FWEF" value="" title="Despedir" ><i class="fa fa-remove"></i></button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+        <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
 
+<script type="text/javascript"> $(document).ready(function() {
+
+            $(".select2").select2();
+
+            $('#searchText').keypress(function(e){   
+               if(e.which == 13){      
+                 buscarempleado();      
+               }   
+              });    
+            
+        });</script>

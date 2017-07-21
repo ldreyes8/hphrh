@@ -18,7 +18,7 @@
             <div class="form-group">
                 <label class="col-sm-2" for="tipo">Jefe inmediato a asignar*</label>
                 <div class="col-sm-6" >         
-                    <select name="jefe1" id="jefe1" class="form-control selectpicker" data-live-search="true">
+                    <select name="jefe1" id="jefe1" class="form-control select2" data-live-search="true">
                         @foreach($jefesinmediato as $co)
                             <option value="{{$co->identificacion}}">{{$co->nombre1.' '.$co->nombre2.' '.$co->apellido1.' '.$co->apellido2}}</option>
                         @endforeach
@@ -41,7 +41,7 @@
              <div class="form-group">
                 <label class="col-sm-2" for="tipo">Jefe inmediato a quitar*</label>
                 <div class="col-sm-7" >         
-                    <select id="jefe2" name="jefe2" class="form-control">
+                    <select id="jefe2" name="jefe2" class="form-control select2" data-live-search="true">
                     @foreach($jefeasignado as $jfa)
                         <option value="{{ $jfa->identificacion }}">{{ $jfa->nombre1.' '.$jfa->nombre2.' '.$jfa->apellido1.' '.$jfa->apellido2 }}</option>
                     @endforeach
@@ -71,7 +71,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Empleado</label>
-                    <select name="idempleado" class="form-control " data-live-search="true" data-style="btn-info">
+                    <select name="idempleado" class="form-control select2" data-live-search="true">
                             <option value="{{$empleado->idempleado}}">{{$empleado->nombre1.' '.$empleado->nombre2.' '.$empleado->apellido1.' '.$empleado->apellido2}}</option>
                     </select>
                 </div>                                                
@@ -80,7 +80,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Afiliado al que aplica</label>
-                    <select name="idafiliado" class="form-control selectpicker" data-live-search="true">
+                    <select name="idafiliado" class="form-control select2" data-live-search="true"">
                         @foreach($afiliados as $af)
                             @if($af->idafiliado == $empleado->idafiliado)
                                 <option value="{{$af->idafiliado}}" selected>{{$af->nombre}}</option>
@@ -95,7 +95,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Puesto</label>
-                    <select name="idpuesto" class="form-control selectpicker" data-live-search="true">
+                    <select name="idpuesto" class="form-control select2" data-live-search="true"">
                         @foreach($puestos as $pu)
                             @if($pu->idpuesto == $empleado->idpuesto)
                                 <option value="{{$pu->idpuesto}}" selected>{{$pu->nombre}}</option>
@@ -112,7 +112,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Caso</label>
-                    <select name="idcaso" class="form-control selectpicker" data-live-search="true" >
+                    <select name="idcaso" class="form-control select2" data-live-search="true" >
                         @foreach($caso as $co)
                             <option value="{{$co->idcaso}}">{{$co->nombre}}</option>
                         @endforeach
@@ -143,7 +143,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Jefe inmediato</label>
-                    <select name="idjefe" id="jefe" class="form-control selectpicker" data-live-search="true">
+                    <select name="idjefe" id="jefe" class="form-control select2" data-live-search="true"">
                         @foreach($jefesinmediato as $co)
                             <option value="{{$co->identificacion}}">{{$co->nombre1.' '.$co->nombre2.' '.$co->apellido1.' '.$co->apellido2}}</option>
                         @endforeach
@@ -207,15 +207,14 @@
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/datapickerf.js')}}"></script>
         <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
+
     
         <script type="text/javascript">
             $(document).ready(function() {
 
                 $(".select2").select2();
 
-                $('#bt_add1').click(function() {
-                        agregar7();
-                    });
+               
             });
             
             $("#btnguardar").hide();
@@ -336,3 +335,6 @@
                 });
             }
         </script>
+
+
+
