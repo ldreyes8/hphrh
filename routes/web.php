@@ -104,9 +104,53 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('preentre/towns/{id}', 'RHPreentrevista@getTowns');
 	Route::post('preentre/adicionalacad','RHPreentrevista@adicionalacad');
 	Route::post('preentre/agregarexperiencia','RHPreentrevista@agregarexperiencia');
-	Route::get('show/{id}','RHPreentrevista@show');
+	Route::get('pre_entrevistado/show/{id}','RHPreentrevista@show');
+	Route::get('PDFpre/{id}','RHPreentrevista@PDFpre');
+
+	Route::post('pre_entrevistado/show/upt/','SController@upt');// agregar una observacion 
+	Route::post('pre_entrevistado/show/upsolicitud','PersonaController@upsolicitud');//update de la solicitud para precalificacion
+	Route::post('pre_entrevistado/show/upsolicitudPE','PersonaController@upsolicitudPE');//update de la solicitud para precalificacion
+	Route::post('pre_entrevistado/show/upsolicitudPD','PersonaController@upsolicitudPD');//update de la solicitud para precalificacion
+	Route::post('pre_entrevistado/show/upsolicitudPEL','PersonaController@upsolicitudPEL');//update de la solicitud para precalificacion
+	Route::post('pre_entrevistado/show/upsolicitudPR','PersonaController@upsolicitudPR');//update de la solicitud para precalificacion
+	Route::post('pre_entrevistado/show/upsolicitudPF','PersonaController@upsolicitudPF');//update de la solicitud para precalificacion
+	Route::post('pre_entrevistado/show/upsolicitudPA','PersonaController@upsolicitudPA');//update de la solicitud para precalificacion
 
 
+
+	//Precalificar
+	Route::get('precalificar/{id}','RHPrecalificado@precalificar');
+	Route::get('pre_calificados','RHPrecalificado@listadopreC');
+	Route::get('pre_calificados/show/{id}','RHPrecalificado@show');
+	Route::get('precali/{id}','RHPrecalificado@precali');
+	Route::post('precali/prentrevista','RHPreentrevista@prentrevista');
+	Route::get('precali/towns/{id}', 'RHPreentrevista@getTowns');
+	Route::post('precali/adicionalacad','RHPreentrevista@adicionalacad');
+	Route::post('precali/agregarexperiencia','RHPreentrevista@agregarexperiencia');
+	Route::get('PDFpreC/{id}','RHPrecalificado@PDFpreC');
+
+	Route::post('pre_calificados/show/upt/','SController@upt');// agregar una observacion 
+	Route::post('pre_calificados/show/upsolicitud','PersonaController@upsolicitud');//update de la solicitud para precalificacion
+	Route::post('pre_calificados/show/upsolicitudPE','PersonaController@upsolicitudPE');//update de la solicitud para precalificacion
+	Route::post('pre_calificados/show/upsolicitudPD','PersonaController@upsolicitudPD');//update de la solicitud para precalificacion
+	Route::post('pre_calificados/show/upsolicitudPEL','PersonaController@upsolicitudPEL');//update de la solicitud para precalificacion
+	Route::post('pre_calificados/show/upsolicitudPR','PersonaController@upsolicitudPR');//update de la solicitud para precalificacion
+	Route::post('pre_calificados/show/upsolicitudPF','PersonaController@upsolicitudPF');//update de la solicitud para precalificacion
+	Route::post('pre_calificados/show/upsolicitudPA','PersonaController@upsolicitudPA');//update de la solicitud para precalificacion
+
+	//Evaluaciones
+	Route::get('envioaevaluar/{id}/{ids?}','RHEvaluciones@envioaevaluar');
+	Route::get('resultados','RHEvaluciones@listadoev');
+	Route::get('resultados/show/{id}','RHEvaluciones@show');
+
+	Route::post('resultados/show/upt/','SController@upt');// agregar una observacion 
+	Route::post('resultados/show/upsolicitud','PersonaController@upsolicitud');//update de la solicitud para precalificacion
+	Route::post('resultados/show/upsolicitudPE','PersonaController@upsolicitudPE');//update de la solicitud para precalificacion
+	Route::post('resultados/show/upsolicitudPD','PersonaController@upsolicitudPD');//update de la solicitud para precalificacion
+	Route::post('resultados/show/upsolicitudPEL','PersonaController@upsolicitudPEL');//update de la solicitud para precalificacion
+	Route::post('resultados/show/upsolicitudPR','PersonaController@upsolicitudPR');//update de la solicitud para precalificacion
+	Route::post('resultados/show/upsolicitudPF','PersonaController@upsolicitudPF');//update de la solicitud para precalificacion
+	Route::post('resultados/show/upsolicitudPA','PersonaController@upsolicitudPA');//update de la solicitud para precalificacion
 	//Reporte
 	Route::get('Rmintrab','Controllermintrab@index');
 
