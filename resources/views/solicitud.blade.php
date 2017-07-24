@@ -1424,7 +1424,7 @@
 
                             //alert('Gracias por enviar su solicitud');
 
-                        }                  
+                        }                
                 });
 
                 $('#basicwizard').bootstrapWizard({'tabClass': 'nav nav-tabs navtab-custom nav-justified bg-muted'});

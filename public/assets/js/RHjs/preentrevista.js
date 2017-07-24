@@ -6,6 +6,29 @@ $(document).ready(function(){
             }
         });
 		//alert('prueba');
+     var dispo=document.getElementsByName("disponibilidad");
+     var dispofin=document.getElementsByName("dispfinsemana");
+     var dispovia=document.getElementsByName("dispoviajar");
+     var dispoenvio="ni";
+     var dispoenfin="ni";
+     var dispoenvia="ni";
+     for (var i=0;i<dispo.length;i++)
+     {
+      if(dispo[i].checked)
+        dispoenvio=dispo[i].value;
+     }
+
+     for (var i=0;i<dispofin.length;i++)
+     {
+      if(dispofin[i].checked)
+        dispoenfin=dispofin[i].value;
+     }
+
+     for (var i=0;i<dispovia.length;i++)
+     {
+      if(dispovia[i].checked)
+        dispoenvia=dispovia[i].value;
+     }
 		var formData = {
         identificacion:$("#identificacion").val(),
         identrevista:$("#identrevista").val(),
@@ -24,9 +47,9 @@ $(document).ready(function(){
    			entrevistadores:$("#entrevistadores").val(),
    			puntual:$("#puntual").val(),
    			presentacion:$("#presentacion").val(),
-   			disponibilidad:$("#disponibilidad").val(),
-   			dispfinsemana:$("#dispfinsemana").val(),
-   			dispoviajar:$("#dispoviajar").val(),
+   			disponibilidad:dispoenvio,
+   			dispfinsemana:dispoenfin,
+   			dispoviajar:dispoenvia,
    			bajopresion:$("#bajopresion").val(),
    			pretensionminima:$("#pretensionminima").val(),
         dedicanpadres:$("#dedicanpadres").val(),
