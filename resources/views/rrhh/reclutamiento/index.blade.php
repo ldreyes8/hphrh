@@ -7,7 +7,7 @@
 
 <div class="row">
     
-
+@role('jfreclutamiento')
     <div class="col-sm-4 col-xs-12">
                                 <div class="card m-b-2 card-inverse" style="background-color: #333; border-color: #333;">
                                     <div class="card-box" style="background-color: #333; border-color: #333;">
@@ -32,7 +32,22 @@
                                     </div>
                                 </div>
                             </div>
+@endrole
+
+
+@role('evaluador')
     <div class="col-sm-4 col-xs-12">
+                                <div class="card m-b-2 card-inverse" style="background-color: #5bc0de; border-color: #5bc0de;">
+                                    <div class="card-box" style="background-color: #5bc0de; border-color: #5bc0de;">
+                                        <h3 class="mt-0" style="color:#FFFFFF" >Evaluaciones resultados</h3>
+                                        <a href="{{url('/empleado/resultados')}}" class="btn btn-inverse">Ir</a>
+                                    </div>
+                                </div>
+                            </div>
+@endrole
+
+@role('rhreclutamiento')
+<div class="col-sm-4 col-xs-12">
                                 <div class="card m-b-2 card-inverse" style="background-color: #5bc0de; border-color: #5bc0de;">
                                     <div class="card-box" style="background-color: #5bc0de; border-color: #5bc0de;">
                                         <h3 class="mt-0" style="color:#FFFFFF" >Evaluaciones resultados</h3>
@@ -56,7 +71,8 @@
                                     </div>
                                 </div>
                             </div>
-    
+
+@endrole    
 </div>
 
 @endsection

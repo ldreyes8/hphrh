@@ -1054,11 +1054,11 @@
                                                                     <tbody></tbody>
                                                                 </table>
                                                             </div>
-                                                            <!--div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="form-group">
                                                                     {!! Recaptcha::render() !!}
                                                                 </div>
-                                                            </div-->
+                                                            </div>
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                 <label><h3>Hago constar que toda la información consignada, es verídica y autorizo a Fundación Hábitat para la Humanidad, confirmar los datos indicados.&nbsp;&nbsp;</h3></label>
                                                                 <input type="checkbox" class="checkbox-danger" style="transform: scale(1.4);" id="confirma" onchange="javascript:showContent()">
@@ -1296,7 +1296,7 @@
                     celular=$("#celular").val();
                     nit=$("#nit").val();
                     pretension=$("#pretension").val();
-                    //nom=$("#g-recaptcha-response").val();
+                    nom=$("#g-recaptcha-response").val();
                     idpaisPS=$("#idpaisPS").val();
                     iddepartamento=$("#iddepartamento").val();
                     barriocolonia=$("#barriocolonia").val();
@@ -1412,7 +1412,7 @@
                             return false;
                         }
 
-                    /*if (nom==false) 
+                    if (nom==false) 
                             {
                                 swal('Campo No soy un robot es obligatorio *');
                                 return false;
@@ -1424,7 +1424,7 @@
 
                             //alert('Gracias por enviar su solicitud');
 
-                        }  */                
+                        }                
                 });
 
                 $('#basicwizard').bootstrapWizard({'tabClass': 'nav nav-tabs navtab-custom nav-justified bg-muted'});
