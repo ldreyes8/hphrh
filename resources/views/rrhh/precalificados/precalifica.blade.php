@@ -21,7 +21,7 @@
 @endsection
 @section ('contenido')
 <div class="col-md-10 col-md-12 col-sm-12 col-xs-12">
-    <h3 class="text-center">Informe Pre Entrevista</h3>  
+    <h3 class="text-center">Informe Pre Calificación</h3>  
     <h3 class="text-center">Información General</h3>    
 </div>              
 <form role="form" method="POST">
@@ -30,6 +30,7 @@
         <input type="hidden" id="identificacion" value="{{$persona->identificacion}}">
         <input type="hidden" id="idcivl" value="{{$persona->idcivil}}">
         <input type="hidden" id="identrevista" value="{{$entre->identrevista}}">
+        <input type="hidden" value="{{$persona->correo}}">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card-box">
                 <div class="table-responsive">
@@ -376,12 +377,12 @@
     </div>
     <div class="row">
         <button type="button" id="btnprecalguardar" class="btn btn-primary">Guardar</button>
-        <a href="{{URL::action('RHPreentrevista@PDFpre',$persona->idempleado)}}"><button type="button" id="btndescargar" class="btn btn-primary">Descargar</button></a>
+        <a href="{{URL::action('RHPrecalificado@PDFpreC',$persona->idempleado)}}"><button type="button" id="btndescargar" class="btn btn-primary">Descargar</button></a>
         <a><button type="button" class="btn btn-primary" 
                   onclick='
                     swal({
-                      title: "¿Pre-Calificar?",
-                      text: "Esta seguro de precalicar a este usuario",
+                      title: "¿Realizar evaluaciones?",
+                      text: "Esta seguro de que el usuario relizara evaluaciones",
                       type: "warning",
                       showCancelButton: true,
                       confirmButtonColor: "#DD6B55",
@@ -396,12 +397,12 @@
                           swal(
                             {
                               title: "¡Hecho!",
-                              text: "Ahora ha cambiado de Aspirante a Pre-Calificado!!!",
+                              text: "El usuario ha sido notificado a realizar sus evaluaciones!!!",
                               type: "success"
                             },
                             function()
                             {
-                              location.href=("{{URL::action("RHPrecalificado@precalificar",$persona->idempleado)}}");
+                              location.href="{{url("empleado/envioaevaluar",array("id"=>$persona->idempleado,"ids"=>$persona->correo))}}";
                             }
                           ); 
                         }
@@ -415,12 +416,9 @@
                       });
                     ' 
 
-      >Pre-calificar</button></a>
+      >Enviar a pruebas</button></a>
     </div>
 </form>
-
-
-
 
 <div class="col-lg-12">
     <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
