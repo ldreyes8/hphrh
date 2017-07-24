@@ -307,7 +307,7 @@ Route::group(['prefix'=>'empleado'],function(){
 
 
 	// Rutas del reclutamiento del jefeinmediato
-	Route::get('reclutamiento','JIReclutamiento@index');
+	Route::get('reclutamiento','RHReclutamiento@listadoR');
 	Route::get('autorizaciones','JIPermiso@indexdirector'); /// solicitud de vacaciones y permisos de los empleados que tiene un jefe x.
 	Route::get('solicitadoVP','JIPermiso@index');
 	Route::get('vautorizado','VacacionesController@indexautorizado')->middleware('roleshinobi:jefeinmediato');/////
