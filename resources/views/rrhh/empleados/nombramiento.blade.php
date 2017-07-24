@@ -62,144 +62,145 @@
         <h3 class="box-title"><strong>Agregar nuevo nombramiento y/o asecenso</strong></h3>
     </div>   
 
-    
-
     <hr style="border-color:black;" />
-
     <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label>Empleado</label>
-                    <select name="idempleado" class="form-control select2" data-live-search="true">
-                            <option value="{{$empleado->idempleado}}">{{$empleado->nombre1.' '.$empleado->nombre2.' '.$empleado->apellido1.' '.$empleado->apellido2}}</option>
-                    </select>
-                </div>                                                
-            </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label>Afiliado al que aplica</label>
-                    <select name="idafiliado" class="form-control select2" data-live-search="true"">
-                        @foreach($afiliados as $af)
-                            @if($af->idafiliado == $empleado->idafiliado)
-                                <option value="{{$af->idafiliado}}" selected>{{$af->nombre}}</option>
-                            @else
-                                <option value="{{$af->idafiliado}}">{{$af->nombre}}</option>
-                            @endif
-                        @endforeach
-                    </select>
+            <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Empleado</label>
+                        <select name="idempleado" class="form-control select2" data-live-search="true">
+                                <option value="{{$empleado->idempleado}}">{{$empleado->nombre1.' '.$empleado->nombre2.' '.$empleado->apellido1.' '.$empleado->apellido2}}</option>
+                        </select>
+                    </div>                                                
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Afiliado al que aplica</label>
+                        <select name="idafiliado" class="form-control select2" data-live-search="true"">
+                            @foreach($afiliados as $af)
+                                @if($af->idafiliado == $empleado->idafiliado)
+                                    <option value="{{$af->idafiliado}}" selected>{{$af->nombre}}</option>
+                                @else
+                                    <option value="{{$af->idafiliado}}">{{$af->nombre}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Puesto</label>
+                        <select name="idpuesto" class="form-control select2" data-live-search="true"">
+                            @foreach($puestos as $pu)
+                                @if($pu->idpuesto == $empleado->idpuesto)
+                                    <option value="{{$pu->idpuesto}}" selected>{{$pu->nombre}}</option>
+                                @else
+                                    <option value="{{$pu->idpuesto}}">{{$pu->nombre}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label>Puesto</label>
-                    <select name="idpuesto" class="form-control select2" data-live-search="true"">
-                        @foreach($puestos as $pu)
-                            @if($pu->idpuesto == $empleado->idpuesto)
-                                <option value="{{$pu->idpuesto}}" selected>{{$pu->nombre}}</option>
-                            @else
-                                <option value="{{$pu->idpuesto}}">{{$pu->nombre}}</option>
-                            @endif
-                        @endforeach
-                    </select>
+            <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Caso</label>
+                        <select name="idcaso" class="form-control select2" data-live-search="true" >
+                            @foreach($caso as $co)
+                                <option value="{{$co->idcaso}}">{{$co->nombre}}</option>
+                            @endforeach
+                        </select>
+                    </div>                                                
                 </div>
-            </div>
-        </div>
 
-        <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label>Caso</label>
-                    <select name="idcaso" class="form-control select2" data-live-search="true" >
-                        @foreach($caso as $co)
-                            <option value="{{$co->idcaso}}">{{$co->nombre}}</option>
-                        @endforeach
-                    </select>
-                </div>                                                
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <label for="salario">Salario *</label>
-                <div class="input-group">
-                    <span class="input-group-addon">Q</i></span>
-                    <input type="text" onkeypress="return valida(event)" min="0" name="salario" id="salario" class="form-control">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label for="salario">Salario *</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">Q</i></span>
+                        <input type="text" onkeypress="return valida(event)" min="0" name="salario" id="salario" class="form-control">
+                    </div>
+                    @if($errors->has('salario'))
+                        <span style="color: red;">{{$errors->first('salario')}}</span>
+                    @endif
                 </div>
-                @if($errors->has('salario'))
-                    <span style="color: red;">{{$errors->first('salario')}}</span>
-                @endif
-            </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label for="fecha">Fecha *</label>
-                    <input id="dato1" type="text" class="form-control" name="fecha">
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label>Jefe inmediato</label>
-                    <select name="idjefe" id="jefe" class="form-control select2" data-live-search="true"">
-                        @foreach($jefesinmediato as $co)
-                            <option value="{{$co->identificacion}}">{{$co->nombre1.' '.$co->nombre2.' '.$co->apellido1.' '.$co->apellido2}}</option>
-                        @endforeach
-                    </select>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="fecha">Fecha *</label>
+                        <input id="dato1" type="text" class="form-control" name="fecha">
+                    </div>
                 </div>
             </div>
 
-            <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
-                <label> Notificar <br> </label>
-                <div>
-                    <input type="checkbox" id="confirma" value="1"> Si
+            <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Jefe inmediato</label>
+                        <select name="idjefe" id="jefe" class="form-control select2" data-live-search="true"">
+                            @foreach($jefesinmediato as $co)
+                                <option value="{{$co->identificacion}}">{{$co->nombre1.' '.$co->nombre2.' '.$co->apellido1.' '.$co->apellido2}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
+                    <label> Notificar <br> </label>
+                    <div>
+                        <input type="checkbox" id="confirma" value="1"> Si
+                    </div>
+                </div>
+
+                <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
+                    <label ></label>
+                    <div class="form-group">
+                        <button type="button" id="bt_add1"  onclick="AsignajefeAsecenso();" style="background-color: #E6E6E6" class="btn">Asignar</button>
+                    </div>                 
+                </div>
+                <div class="col-lg-3 col-sm-12 col-md-12 col-xs-12">
+                    <table id="detalle7" class="table table-striped table-bordered table-condensed table-hover ">
+                        <thead>
+                            <th>opciones</th>
+                            <th>Jefe</th>
+                            <th>Notifica</th>
+                        </thead>
+                        <tfoot>
+                            <tr>
+
+                                <td></td>
+                                <td></td>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
-                <label ></label>
-                <div class="form-group">
-                    <button type="button" id="bt_add1" style="background-color: #E6E6E6" class="btn">Asignar</button>
-                </div>                 
-            </div>
-            <div class="col-lg-3 col-sm-12 col-md-12 col-xs-12">
-                <table id="detalle7" class="table table-striped table-bordered table-condensed table-hover ">
-                    <thead>
-                        <th>opciones</th>
-                        <th>Jefe</th>
-                        <th>Notifica</th>
-                    </thead>
-                    <tfoot>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tfoot>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-
-        <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <label for="descripcion">Observaciones</label>
-                <div class="form-group">
-                    <textarea class="form-control" maxlength="100" name="descripcion" placeholder=".........." rows="3"></textarea>
+            <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label for="descripcion">Observaciones</label>
+                    <div class="form-group">
+                        <textarea class="form-control" maxlength="100" name="descripcion" placeholder=".........." rows="3"></textarea>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group">
-                    <button class="btn btn-primary" id="btnguardar">Guardar</button>
-                    <a href=""><button class="btn btn-danger" id="btncancelar" type="button">Cancelar</button></a>
+            <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group">
+
+                        <button class="btn btn-primary btn-guardarAsecenso" id="btnguardar">Guardar</button>
+                        <a href=""><button class="btn btn-danger " id="btncancelar" type="button">Cancelar</button></a>
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
 </div>
 
@@ -208,14 +209,12 @@
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/datapickerf.js')}}"></script>
         <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
 
-    
         <script type="text/javascript">
             $(document).ready(function() {
-
                 $(".select2").select2();
-
-               
             });
+
+            var cont=0;
             
             $("#btnguardar").hide();
             $("#btncancelar").hide();
@@ -239,9 +238,8 @@
             {
                 $("#confirma").attr('checked',false);
             }
-            function agregar7()
+            function AsignajefeAsecenso()
             {
-
                 confirma=$("#confirma").val();
                 jefeTex=$("#jefe option:selected").text();
                 idjefe=$("#jefe").val();
@@ -255,15 +253,15 @@
                         contJI++;
                         $('#detalle7').append(fila);
                         limpiar();
-                        $("#btnguardar").show();
                     }
                     else
                     {
                         var fila='<tr class="selected" id="fila'+contJI+'"><td><button type="button" style="background-color:#E6E6E6"  class="btn " onclick="eliminar('+contJI+');">X</button></td><td><input type="hidden" name="idjefes[]" value="'+idjefe+'">'+jefeTex+'</td> <td><input type="hidden" name="confirma[]" value="2">'+no+'</td> </tr>';
                         contJI++;
                         $('#detalle7').append(fila);
-                        $("#btnguardar").show();
                     }
+                    cont++;
+                    evaluar();
                 }
                 else
                 {
@@ -271,10 +269,22 @@
                 }
 
             }
-            
+
+            function evaluar(){
+                if (cont>0){
+                    $("#btnguardar").show();
+                }
+                else{
+                    $("#btnguardar").hide(); 
+                }
+            }
+
             function eliminar(index)
             {
                 $("#fila" + index).remove();
+                cont = cont -1;
+                console.log(cont);
+                evaluar();
             }
 
             function asignar_jefeinmediato(idempleado){
@@ -334,6 +344,144 @@
                     $("#zona_etiquetas_nombramiento").html('<span style="color:red;">...Error: Aun no ha agregado roles  o revise su conexion...</span>');
                 });
             }
+
+            $(document).on('click','.btn-guardarAsecenso',function(e){
+                var itemsData=[];
+                var miurl = "addasecenso";
+
+
+                $('#detalle7 tr').each(function(){
+                    var jefe = $(this).find('td').eq(1).html();
+                    var notificar = $(this).find('td').eq(2).html();
+                    valor = new Array(jefe,notificar);
+                    itemsData.push(valor);
+                });
+
+                var formData = {
+                    idpuesto: $('#idpuesto').val(),
+                    idempleado: $('#idempleado').val(),
+                    fecha: $('#fecha').val(),
+                    salario: $('#salario').val(),
+                    descripcion: $('#descripcion').val(),
+                    idafiliado: $('#idafiliado').val(),
+                    idcaso: $('#idcaso').val(),
+                    items: itemsData,
+                };
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: miurl,
+                    data: formData,
+                    dataType: 'json',
+                    //beforeSend: function(){ $f.data('locked', true);  // (2)
+                    //},
+
+                    success: function (data) {
+                        swal({ 
+                            title:"Envio correcto",
+                            text: "Se ha notificado al empleado",
+                            type: "success"
+                        },
+                        function(){
+                            window.location.href="/empleado/autorizaciones"
+                        });                                
+                    },
+                    error: function (data) {
+                        $('#loading').modal('hide');
+                        var errHTML="";
+                        if((typeof data.responseJSON != 'undefined')){
+                            for( var er in data.responseJSON){
+                                errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                            }
+                        }else{
+                            errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                        }
+                        $("#erroresContent").html(errHTML); 
+                        $('#erroresModal').modal('show');
+                    },
+                    //complete: function(){ $f.data('locked', false);  // (3)
+                     //}
+                });             
+            });
+
+
+            /*
+                $(document).on('click','.btn-guardarAsecenso',function(e){
+                    e.preventDefault();
+                    //Guardamos la referencia al formulario
+                    var $f = $(this);
+                    //Comprobamos si el semaforo esta en verde (1)
+                    if($f.data('locked') == undefined && !$f.data('locked'))
+                    {
+                        var miurl = "guardarasecenso";
+                        nivel = $("#emisor").val();
+
+                        var resultado="ninguno";
+
+                        var formData = {
+                            observaciones :$("#observaciones").val(),
+                            autorizacion: resultado,
+                            receptor: $("#receptor").val(),
+                            idausencia: $("#idausencia").val(),
+                            name: $("#name").val(),
+                            emisor: $("#emisor").val(), 
+                        };
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                            }
+                        });
+
+                        $.ajax({
+                            type: "POST",
+                            url: miurl,
+                            data: formData,
+                            dataType: 'json',
+
+
+                            beforeSend: function(){ $f.data('locked', true);  // (2)
+                            },
+
+                            success: function (data) {
+                          
+                            swal({ 
+                                title:"Envio correcto",
+                                text: "Se ha notificado al empleado",
+                                type: "success"
+                            },
+                            function(){
+                                window.location.href="/empleado/autorizaciones"
+                            });
+                 
+                                
+                            },
+                            error: function (data) {
+                                $('#loading').modal('hide');
+                                var errHTML="";
+                                if((typeof data.responseJSON != 'undefined')){
+                                    for( var er in data.responseJSON){
+                                        errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                                    }
+                                }else{
+                                    errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                                }
+                                $("#erroresContent").html(errHTML); 
+                                $('#erroresModal').modal('show');
+                            },
+                            complete: function(){ $f.data('locked', false);  // (3)
+                            }
+                        });
+                    }else{
+                        alert("se esta enviando su solicitud");
+                    }        
+                });
+            */
+            
         </script>
 
 

@@ -1,7 +1,10 @@
 @extends ('layouts.index')
 
-        <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
+@section('estilos')
+    @parent
 
+        <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
+    @endsection
 
 @section ('contenido')
 	 <div class="col-md-12 col-lg-12">
@@ -46,7 +49,7 @@
     @parent
 
     <script src="{{asset('assets/js/PanelControl/Usuario.js')}}"></script>
-        <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
 
 
 

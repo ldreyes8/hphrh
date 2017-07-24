@@ -13,12 +13,12 @@
                             $listadocaso=$casosel->nombre; 
                             $optsel= '<option value="'.$casosel->idcaso.'">'.$casosel->nombre.' </option>';
                             }else{  
-                                $listadocaso="General";
+                                $listadocaso="Todos";
                                 $optsel="";
                             } ?>
 
                             <?=  $optsel;  ?>
-                                <option value="0">General </option>
+                                <option value="0">Todos... </option>
                                 @if(isset($casos))
                                 <?php foreach($casos as $cas){   ?>
                                 <option value="<?= $cas->idcaso; ?>" > <?= $cas->nombre; ?></option>

@@ -73,7 +73,10 @@ Route::group(['prefix'=>'empleado'],function(){
 	//Rutas de nombramiento y/o asecensos.
 	Route::get('indexnombramiento','RHNombramientoEmpleado@index');
 	Route::get('addnombramiento/{id}','RHNombramientoEmpleado@addnombramiento');
-	Route::get('busquedaActivo/{rol}/{dato?}','RHNombramientoEmpleado@busqueda'); 
+	Route::get('busquedaActivo/{rol}/{dato?}','RHNombramientoEmpleado@busqueda');
+	Route::post('addasecenso','RHNombramientoEmpleado@addasecenso');
+
+
 
 
 

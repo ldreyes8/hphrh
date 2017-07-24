@@ -7,12 +7,15 @@
         <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
 
 @endsection
-        @section ('contenido')
+@section ('contenido')
     
                         <div class="div_contenido">
-                            <div class="margin" id="botones_control"> 
-                                <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formularioRH(1);"> Listado General</a> 
-                                <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formularioRH(2);" >Renuncias o Despidos</a>
+                            <div class="margin" id="botones_control">
+                                        <a href="javascript:void(0);" onclick="cargar_formularioRH(1);">  Listado General</a>
+                                
+                                
+                                <a href="javascript:void(0);" onclick="cargar_formularioRH(2);" >Renuncias o Despidos</a>
+                                
                                 <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formularioRH(3);" >Aspirantes rechazados</a>
                                 <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formularioRH(4);" >Nombramientos y/o asecensos</a>
                             </div>
@@ -22,7 +25,7 @@
                         <input type="hidden"  id="url_raiz_proyecto" value="{{ url("/") }}" />
                         <div id="capa_modal"></div>
                         <div id="capa_formularios"></div>
-        @endsection
+@endsection
 @section('fin')
     @parent
     <meta name="_token" content="{!! csrf_token() !!}" />
