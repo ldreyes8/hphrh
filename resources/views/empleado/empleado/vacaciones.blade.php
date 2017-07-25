@@ -136,7 +136,8 @@
                             </div>
 
                         </div>
-
+                        <br>
+                        <h4><strong>Modificar el calculo de días</strong></h4>
                         <input type="checkbox" id="casilla" value="1" onclick="desactivar()"/>Activar campo Dias y Hora                        
                     </form>
 

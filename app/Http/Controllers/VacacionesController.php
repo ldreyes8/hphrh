@@ -161,6 +161,7 @@ class VacacionesController extends Controller
     $today = Carbon::now();
     
     $year = $today->format('Y');
+    $year1 = $today->format('Y');
 
     if((($year%4 == 0) && ($year%100)) || $year%400 == 0)
     {$year = 366;}
@@ -216,7 +217,28 @@ class VacacionesController extends Controller
       }      
     }
     $calculo = array($thoras,$dias);
-    return view('director.vacaciones.detalle',["empleado"=>$empleado,"calculo"=>$calculo,"user"=>$user]);            
+    $year = array($year1);
+
+
+    $inicioaño = $year1.'-01-01';      // se concatena el año actual con un texto determinado para obtener el incio del año actual
+    $finaño = $year1.'-12-31';         // se concatena el año actual con un texto determinado para obtener el fin del año actual
+
+    $historialvacaciones =DB::table('ausencia as a')
+        ->join('empleado as emp','a.idempleado','=','emp.idempleado')
+        ->join('persona as per','emp.identificacion','=','per.identificacion') 
+        ->join('tipoausencia as ta','a.idtipoausencia','=','ta.idtipoausencia')
+        ->join('vacadetalle as vd','a.idausencia','=','vd.idausencia')
+        ->select('a.fechainicio','a.fechafin','a.autorizacion','a.fechasolicitud','a.totaldias','a.totalhoras',DB::raw('sum(a.totaldias - vd.soldias) as diastomados'),DB::raw('sum(a.totalhoras - vd.solhoras) as htomado'))
+        ->where('ta.ausencia','=','Vacaciones')
+        ->where('emp.idempleado','=',$empleado->idempleado)
+        ->where('a.autorizacion','=','Confirmado')
+        ->where('a.fechasolicitud', '>=', $inicioaño)
+        ->where('a.fechasolicitud', '<=', $finaño)
+        ->groupBy('a.fechainicio','a.fechafin','a.autorizacion','a.fechasolicitud','a.totaldias','a.totalhoras')
+        ->orderBy('a.fechasolicitud','desc')
+        ->get();
+
+    return view('director.vacaciones.detalle',["empleado"=>$empleado,"calculo"=>$calculo,"user"=>$user,"historialvacaciones"=>$historialvacaciones,"year"=>$year]);            
   }
 
   public function confirmar($id)
@@ -388,7 +410,10 @@ class VacacionesController extends Controller
        return response()->json(array('error' => 'No se ha podido enviar la respuesta de goce vacaciones'),404);         
     }
     return response()->json($ausencia);
-  }      
+  }
+
+
+
     
   public function validateRequest($request){
     $rules=[

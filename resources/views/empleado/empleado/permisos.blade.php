@@ -62,7 +62,7 @@
             <form role="form" id="formAgregarP">
                 <div class="modal-header">
                     <label>Motivo ausencia</label>
-                    <select name="idtipoausencia" id="idtipoausencia" class="form-control selectpicker" data-live-search="true">
+                    <select name="idtipoausencia" id="idtipoausencia" class="form-control" data-live-search="true">
                     @if (isset($tausencia))
                         @foreach($tausencia as $tau)
                             <option value="{{$tau->idtipoausencia}}">{{$tau->ausencia}}</option>
