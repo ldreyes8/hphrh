@@ -242,6 +242,7 @@ $(document).ready(function(){
     });
 
     $(document).on('click','.btn-datomarV',function(e){
+        $("#ModificaActiva").show();
         tdias = parseInt($("#tdias").val());
         thoras =parseInt($("#thoras").val());
         var tt = 0;
@@ -260,7 +261,7 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
-
+        
         $.ajax({
             type: "get",
             url: miurl,

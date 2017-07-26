@@ -10,42 +10,48 @@
         <div class="">
             <div class="">
                 <ul class="nav nav-tabs navtab-custom">
-                    <li class="active"> <a href="javascript:void(0);" onclick="cargarpvsolicitudes(1,1);">
-                    
-                        <a href="#pvsolicitados" data-toggle="tab" aria-expanded="false" >
+
+                   
+
+                    <li class="active" data-toggle="tab" aria-expanded="false">
+                        <a data-toggle="tab" aria-expanded="false" onclick="cargar_formularioRH(1);">
                             <span class="visible-xs"><i class="md md-perm-contact-cal"></i></span>
                             <span class="hidden-xs">Solicitados</span>
                         </a>
                     </li>
-                    <li class=""> <a href="javascript:void(0);" onclick="cargarpvaceptados(1,1);">
-                    
-                        <a href="#pvaceptados" data-toggle="tab" aria-expanded="false">
+
+                    <li class="">
+                        <a data-toggle="tab" aria-expanded="false" onclick="cargar_formularioRH(2);">
                             <span class="visible-xs"><i class="md md-school"></i></span>
                             <span class="hidden-xs">Aceptados</span>
                         </a>
                     </li>
                    
-                    <li class=""> <a href="javascript:void(0);" onclick="cargarpvrechazados(1,1);">
-
-                        <a href="#pvrechazados" data-toggle="tab" aria-expanded="false">
+                    <li class="">
+                        <a data-toggle="tab" aria-expanded="false" onclick="cargar_formularioRH(3);">
                             <span class="visible-xs"><i class="md md-people"></i></span>
                             <span class="hidden-xs">Rechazados</span>
                         </a>
                     </li>
-                    <li class=""> <a href="javascript:void(0);" onclick="cargarpvconfirmados(1,1);">
-
-                        <a href="#pvconfirmados" data-toggle="tab" aria-expanded="false">
+                    <li class="">
+                        <a data-toggle="tab" aria-expanded="false" onclick="cargar_formularioRH(4);">
                             <span class="visible-xs"><i class="ion ion-clipboard"></i></span>
                             <span class="hidden-xs">En Vacaciones</span>
                         </a>
                     </li>
                 </ul>
-                <div class="tab-content">
+
+                <input type="hidden"  id="url_raiz_proyecto" value="{{ url("/") }}" />
+                <div id="capa_modal" class="div_modal" style="display: none;"></div>
+                <div id="capa_formularios" class="div_contenido" style="display: none;"></div>
+                
+                <!--<div class="tab-content">
                     @include('rrhh.permisosvacaciones.indexsolicitados')
                     @include('rrhh.permisosvacaciones.indexconfirmado')
                     @include('rrhh.permisosvacaciones.indexrechazado')
                     @include('rrhh.permisosvacaciones.indexautorizado')
              </div>
+             -->
         </div>
 </div> <!-- end -->
 
@@ -58,10 +64,8 @@
         <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
     <!-- Script -->    
         <script src="{{asset('assets/js/RH.js')}}"></script>
-        <script src="{{asset('assets/js/listadorrhh1.js')}}"></script>
+        <script src="{{asset('assets/js/RHjs/ListadoVP.js')}}"></script>
+
     <!-- Listados -->
-        <script>cargarpvsolicitudes(1);</script>
-        <script>cargarpvaceptados(1);</script>
-        <script>cargarpvrechazados(1);</script>
-        <script>cargarpvconfirmados(1);</script>
+        <script>cargar_formularioRH(1);</script>
 @endsection

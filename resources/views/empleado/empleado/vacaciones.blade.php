@@ -116,18 +116,27 @@
 
                         <div class="modal-header">
                         <br>
-                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                                 <br>
                                 <button type="button" class="btn btn-success btn-datomarV" id="btndatomarV">Calcular Días</button>
                             </div>
 
-                            
-                             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                            <br>
+                            <p>Usted esta solicitando vacaciones por</p>
+                            </div>
+
+                             <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
                                 <label for="numerodependientes">Dias</label>
                                 <input id="datomar" type="number" name="numerodependientes" min="0" class="form-control" onkeypress="return valida(event)">
                             </div>
 
-                            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-lg-1 col-md-12 col-sm-12 col-xs-12">
+                            <br><br>
+                            <p>Y</p>
+                            </div>
+
+                            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
                                 <label for="horainicio">Hora</label>
                                 <select name="hhoras" id="hhoras" class="form-control">
                                     <option value="00">0</option>
@@ -136,9 +145,11 @@
                             </div>
 
                         </div>
-                        <br>
-                        <h4><strong>Modificar el calculo de días</strong></h4>
-                        <input type="checkbox" id="casilla" value="1" onclick="desactivar()"/>Activar campo Dias y Hora                        
+                        <div id="ModificaActiva">
+                        <h4><strong>Si no es correcto haga click aqui para modificar</strong></h4>
+                        <input type="checkbox" id="casilla" value="1" onclick="desactivar()"/>Activar campo Dias y Hora
+                        </div>
+                        
                     </form>
 
                 <div class="modal-footer">
@@ -239,9 +250,8 @@
 </div>
 
     
-    
-
     <script>
+
         function desactivar() {
             if($("#casilla:checked").val()==1) {
                 $("#casilla").attr('disabled', 'disabled');
@@ -259,6 +269,8 @@
         }
 
     $(document).on('click','.btn-nuevoV',function(e){
+        $("#ModificaActiva").hide();
+
         var errHTML="";
         e.preventDefault();
         $.get('vacaciones/calculardias',function(data){

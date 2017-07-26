@@ -112,334 +112,333 @@ class PController extends Controller
 		  return view('empleado.permiso.create',array('tausencia' => $tausencia,'usuarios'=>$usuarios));
   	}
 
-  public function diashatomar(request $request)
-  {
-    $this->validateRequest($request);
+    public function diashatomar(request $request)
+    {
+      $this->validateRequest($request);
 
-    $today = Carbon::now();
-    $days = 1;
+      $today = Carbon::now();
+      $days = 1;
 
-    $fechainicio = $request->fecha_inicio;
-    $fechafinal = $request->fecha_final;
-
-
-    $today = $today->format('Y-m-d'); 
-    $fechainicio = Carbon::createFromFormat('d/m/Y',$fechainicio);
-    $fechafinal = Carbon::createFromFormat('d/m/Y',$fechafinal);
-
-    $fini = $fechainicio;
-    $ffin = $fechafinal;
-
-    $fechainicio = $fechainicio->toDateString();
-    $fechafinal = $fechafinal->toDateString();
+      $fechainicio = $request->fecha_inicio;
+      $fechafinal = $request->fecha_final;
 
 
-    if($fechafinal >= $fechainicio){
-  
+      $today = $today->format('Y-m-d'); 
+      $fechainicio = Carbon::createFromFormat('d/m/Y',$fechainicio);
+      $fechafinal = Carbon::createFromFormat('d/m/Y',$fechafinal);
 
-      if ($fechainicio < $today) {
-                return response()->json(array('error' => 'No se puede realizar esta accion'),404);
-      }
-      else{
-        while ($ffin >= $fini) {
-          if($fini != $ffin){
-            if($fini->isWeekend() === false){ 
-              $days++;
+      $fini = $fechainicio;
+      $ffin = $fechafinal;
+
+      $fechainicio = $fechainicio->toDateString();
+      $fechafinal = $fechafinal->toDateString();
+
+
+      if($fechafinal >= $fechainicio){
+    
+
+        if ($fechainicio < $today) {
+                  return response()->json(array('error' => 'No se puede realizar esta accion'),404);
+        }
+        else{
+          while ($ffin >= $fini) {
+            if($fini != $ffin){
+              if($fini->isWeekend() === false){ 
+                $days++;
+              }
+              $fini->addDay();
             }
-            $fini->addDay();
-          }
-          else{
-            break;
+            else{
+              break;
+            }
           }
         }
+        return response()->json(array($days));
       }
-      return response()->json(array($days));
+      else{
+        return response()->json(array('error'=>'la fecha inicio no puede ser mayor que la fecha final'),404);
+      }
     }
-    else{
-      return response()->json(array('error'=>'la fecha inicio no puede ser mayor que la fecha final'),404);
-    }
-  }
 
-  public function store(request $request)
-  {
-
-    $this->validateRequest($request);   // Se valida los campos ingresados fecha inicio y fecha final
-    $vacaciones = new Vacaciones;       // Se genera un nuevo registro
-      
-    $fechainicio = $request->fecha_inicio; 
-    $fechafinal = $request->fecha_final;
-    $concurrencia = $request->concurrencia;   // Se obtiene el valor de concurrencia: Si o No.
-
-    $hini = $request->hini;                   // Se obtiene el valor de horas y minutos
-    $hfin = $request->hfin;
-    $mini = $request->mini;
-    $mfin = $request->mfin;
-
-    $name = $request->name;                   // se obtiene el nombre del usuario
-
-    $horainicio = $hini.':'.$mini;            // Se concatena hora con minutos
-    $horafinal = $hfin.':'.$mfin;
-
-    $today = Carbon::now();                   // Obtiene la fecha actual.
-    	
-    $today = $today->format('Y-m-d');         // Se convierte la fecha en formato que lo pueda recibir mariadb
-    $fechainicio = Carbon::createFromFormat('d/m/Y',$fechainicio); // se convierte la fecha en un formato ingles
-    $fechafinal = Carbon::createFromFormat('d/m/Y',$fechafinal);
-
-    $fini = $fechainicio;                   // se crean nuevas variables con las fecha.
-    $ffin = $fechafinal;
-
-
-    $fechainicio = $fechainicio->toDateString(); // la fecha se convierte en un formato string
-    $fechafinal = $fechafinal->toDateString();
-
-    if($fechafinal >= $fechainicio)             // se verifica la fecha
+    public function store(request $request)
     {
-      if($hfin < $hini)                         // Se verifica la hora para que hora inicio no sea menor a hora final
-      {
-        return response()->json(array('error' => 'Hora inicial debe ser menor a la hora final'),404);
-      }
 
-      $hinicio = $hini*60;                      // Se convierte la hora a minutos
-      $hinicio = $hinicio + $mini;              // Se suma minutos horas con minutos
+      $this->validateRequest($request);   // Se valida los campos ingresados fecha inicio y fecha final
+      $vacaciones = new Vacaciones;       // Se genera un nuevo registro
+        
+      $fechainicio = $request->fecha_inicio; 
+      $fechafinal = $request->fecha_final;
+      $concurrencia = $request->concurrencia;   // Se obtiene el valor de concurrencia: Si o No.
 
-      $hfinal = $hfin * 60;
-      $hfinal = $hfinal + $mfin;
+      $hini = $request->hini;                   // Se obtiene el valor de horas y minutos
+      $hfin = $request->hfin;
+      $mini = $request->mini;
+      $mfin = $request->mfin;
 
-      if($hinicio > $hfinal)                    // Se verifica que la hora minutos inicio sea mayor a hora minutos finales
+      $name = $request->name;                   // se obtiene el nombre del usuario
+
+      $horainicio = $hini.':'.$mini;            // Se concatena hora con minutos
+      $horafinal = $hfin.':'.$mfin;
+
+      $today = Carbon::now();                   // Obtiene la fecha actual.
+      	
+      $today = $today->format('Y-m-d');         // Se convierte la fecha en formato que lo pueda recibir mariadb
+      $fechainicio = Carbon::createFromFormat('d/m/Y',$fechainicio); // se convierte la fecha en un formato ingles
+      $fechafinal = Carbon::createFromFormat('d/m/Y',$fechafinal);
+
+      $fini = $fechainicio;                   // se crean nuevas variables con las fecha.
+      $ffin = $fechafinal;
+
+
+      $fechainicio = $fechainicio->toDateString(); // la fecha se convierte en un formato string
+      $fechafinal = $fechafinal->toDateString();
+
+      if($fechafinal >= $fechainicio)             // se verifica la fecha
       {
-        return response()->json(array('error' => 'Verificar la hora y minutos solicitados'),404);                  
-      }
-      else
-      {
-        try 
+        if($hfin < $hini)                         // Se verifica la hora para que hora inicio no sea menor a hora final
         {
-          DB::beginTransaction();
+          return response()->json(array('error' => 'Hora inicial debe ser menor a la hora final'),404);
+        }
 
-          $idempleado = $request->idempleado;
-          $idtipoausencia = $request->idtipoausencia;        
+        $hinicio = $hini*60;                      // Se convierte la hora a minutos
+        $hinicio = $hinicio + $mini;              // Se suma minutos horas con minutos
 
-          if($idtipoausencia === '4')         // Se verifica que permiso sea por Enfermedad
+        $hfinal = $hfin * 60;
+        $hfinal = $hfinal + $mfin;
+
+        if($hinicio > $hfinal)                    // Se verifica que la hora minutos inicio sea mayor a hora minutos finales
+        {
+          return response()->json(array('error' => 'Verificar la hora y minutos solicitados'),404);                  
+        }
+        else
+        {
+          try 
           {
-            $factual = Carbon::now();         // se obtiene la fecha actual
-            $year = $factual->format('Y');    // se obtiene el año actual.
-                
-            $inicioaño = $year.'-01-01';      // se concatena el año actual con un texto determinado para obtener el incio del año actual
-            $finaño = $year.'-12-31';         // se concatena el año actual con un texto determinado para obtener el fin del año actual
-            $ausencias=DB::table('ausencia as a')
-            ->join('empleado as emp','a.idempleado','=','emp.idempleado')
-            ->join('tipoausencia as ta','a.idtipoausencia','=','ta.idtipoausencia')
-            ->select('a.autorizacion','a.fechasolicitud',DB::raw('SUM(a.totaldias) as total'),DB::raw('SUM(a.totalhoras) as thora'))
-            ->groupBy('a.autorizacion','a.fechasolicitud')
-            ->where('a.idempleado','=',$idempleado)
-            ->where('ta.ausencia','=','Enfermedad')
-            ->where('a.fechasolicitud', '>=', $inicioaño)
-            ->where('a.fechasolicitud', '<=', $finaño)
-            ->where('a.autorizacion','=','Confirmado')
-            ->get();    // Se obtiene el total de dias que ha solicitado por enfermedad
+            DB::beginTransaction();
 
-            $tho =0;
-            $total =0;
-            
-              foreach ($ausencias as $aus) { 
-                $total = $aus->total;
-                $tho = $aus->thora;
-              }
-            
+            $idempleado = $request->idempleado;
+            $idtipoausencia = $request->idtipoausencia;        
 
-            $tho = $tho/10000;
-
-            $total = $total *8; 
-            $tdia = $tho + $total; 
-
-            if($tdia >= '24')
+            if($idtipoausencia === '4')         // Se verifica que permiso sea por Enfermedad
             {
-              return response()->json(array('error'=>'No puede solicitar permiso "por enfermedad" usted ha agotado los días autorizados en el año'),404);
-            }
-            else
-            {
-              $day = 1;
-              while ($ffin >= $fini) {
-                if($fini != $ffin){
-                  if($fini->isWeekend() === false){ 
-                    $day++;
-                  }
-                  $fini->addDay();
-                }
-                else{
-                   break;
-                }
-              }
-              $day = $day * 8;
-              $tday = $day + $tdia;
+              $factual = Carbon::now();         // se obtiene la fecha actual
+              $year = $factual->format('Y');    // se obtiene el año actual.
+                  
+              $inicioaño = $year.'-01-01';      // se concatena el año actual con un texto determinado para obtener el incio del año actual
+              $finaño = $year.'-12-31';         // se concatena el año actual con un texto determinado para obtener el fin del año actual
+              $ausencias=DB::table('ausencia as a')
+              ->join('empleado as emp','a.idempleado','=','emp.idempleado')
+              ->join('tipoausencia as ta','a.idtipoausencia','=','ta.idtipoausencia')
+              ->select('a.autorizacion','a.fechasolicitud',DB::raw('SUM(a.totaldias) as total'),DB::raw('SUM(a.totalhoras) as thora'))
+              ->groupBy('a.autorizacion','a.fechasolicitud')
+              ->where('a.idempleado','=',$idempleado)
+              ->where('ta.ausencia','=','Enfermedad')
+              ->where('a.fechasolicitud', '>=', $inicioaño)
+              ->where('a.fechasolicitud', '<=', $finaño)
+              ->where('a.autorizacion','=','Confirmado')
+              ->get();    // Se obtiene el total de dias que ha solicitado por enfermedad
 
-              if($tday > '24')
+              $tho =0;
+              $total =0;
+              
+                foreach ($ausencias as $aus) { 
+                  $total = $aus->total;
+                  $tho = $aus->thora;
+                }
+              
+              $tho = $tho/10000;
+
+              $total = $total *8; 
+              $tdia = $tho + $total; 
+
+              if($tdia >= '24')
               {
-                $resto = 24- $tdia;
-                $resto = $resto / 8;
-
-                if ($resto - floor($resto) == 0) {
-                  $resto = $resto. " Días";
-                }
-                else{
-                  $resto = $resto - 0.5;
-                  $resto = $resto." Días"." ½ ";
-                }
-                return response()->json(array('error'=>'No puede solicitar permiso "por enfermedad" usted tiene de saldo '. $resto),404);                      
+                return response()->json(array('error'=>'No puede solicitar permiso "por enfermedad" usted ha agotado los días autorizados en el año'),404);
               }
               else
               {
-                $vacaciones->fechainicio = $fechainicio;
-                $vacaciones->fechafin = $fechafinal;
-                $vacaciones->horainicio=$horainicio;
-                $vacaciones->horafin=$horafinal;
-                $vacaciones->juzgadoinstitucion= $request->get('juzgadoinstitucion');
-                $vacaciones->tipocaso= $request->get('tipocaso');
-                $vacaciones->idempleado = $request->get('idempleado');
-                $vacaciones->idmunicipio = $request->get('idmunicipio');
-                $vacaciones->idtipoausencia= $request->get('idtipoausencia');
-                $vacaciones->concurrencia = $request->get('concurrencia');
-                $vacaciones->autorizacion='solicitado';
-                $vacaciones->totaldias = $request->dias;
-                $vacaciones->totalhoras = $request->horas.':00:00';
-                $vacaciones->justificacion = $request->justificacion;                 //dd($request->all());
-                $mytime = Carbon::now('America/Guatemala');
-                $vacaciones->fechasolicitud=$mytime->toDateString();
-                $vacaciones->save();
+                $day = 1;
+                while ($ffin >= $fini) {
+                  if($fini != $ffin){
+                    if($fini->isWeekend() === false){ 
+                      $day++;
+                    }
+                    $fini->addDay();
+                  }
+                  else{
+                     break;
+                  }
+                }
+                $day = $day * 8;
+                $tday = $day + $tdia;
+
+                if($tday > '24')
+                {
+                  $resto = 24- $tdia;
+                  $resto = $resto / 8;
+
+                  if ($resto - floor($resto) == 0) {
+                    $resto = $resto. " Días";
+                  }
+                  else{
+                    $resto = $resto - 0.5;
+                    $resto = $resto." Días"." ½ ";
+                  }
+                  return response()->json(array('error'=>'No puede solicitar permiso "por enfermedad" usted tiene de saldo '. $resto),404);                      
+                }
+                else
+                {
+                  $vacaciones->fechainicio = $fechainicio;
+                  $vacaciones->fechafin = $fechafinal;
+                  $vacaciones->horainicio=$horainicio;
+                  $vacaciones->horafin=$horafinal;
+                  $vacaciones->juzgadoinstitucion= $request->get('juzgadoinstitucion');
+                  $vacaciones->tipocaso= $request->get('tipocaso');
+                  $vacaciones->idempleado = $request->get('idempleado');
+                  $vacaciones->idmunicipio = $request->get('idmunicipio');
+                  $vacaciones->idtipoausencia= $request->get('idtipoausencia');
+                  $vacaciones->concurrencia = $request->get('concurrencia');
+                  $vacaciones->autorizacion='solicitado';
+                  $vacaciones->totaldias = $request->dias;
+                  $vacaciones->totalhoras = $request->horas.':00:00';
+                  $vacaciones->justificacion = $request->justificacion;                 //dd($request->all());
+                  $mytime = Carbon::now('America/Guatemala');
+                  $vacaciones->fechasolicitud=$mytime->toDateString();
+                  $vacaciones->save();
+                }
               }
             }
-          }
 
-          else
-          {
-            $vacaciones->fechainicio = $fechainicio;
-            $vacaciones->fechafin = $fechafinal;
-            $vacaciones->horainicio=$horainicio;
-            $vacaciones->horafin=$horafinal;
-            $vacaciones->juzgadoinstitucion= $request->get('juzgadoinstitucion');
-            $vacaciones->tipocaso= $request->get('tipocaso');
-            $vacaciones->idempleado = $request->idempleado;
-            $vacaciones->idmunicipio = $request->idmunicipio;
-            $vacaciones->idtipoausencia= $request->idtipoausencia;
-            $vacaciones->concurrencia = $request->get('concurrencia');
-            $vacaciones->autorizacion='solicitado';
-            $vacaciones->totaldias = $request->dias;
-            $vacaciones->totalhoras = $request->horas.':00:00';
-            $vacaciones->justificacion = $request->justificacion; //dd($request->all());
-            $mytime = Carbon::now('America/Guatemala');
-            $vacaciones->fechasolicitud=$mytime->toDateString();
-            $vacaciones->save();
-          }
-          $idausencia = $vacaciones->idausencia;
-          $url = url('empleado/verificar/'.$idausencia);
-          $calculo = array($name,$idausencia,$url);
-
-          if($concurrencia === 'No')
-          {
-            $vac =DB::table('ausencia as au')                
-            ->select(DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, au.horainicio, au.horafin)) as horas'),'au.idausencia')
-            ->where('au.idausencia','=',$idausencia)
-            ->first();
-
-
-
-            if($vac->horas < 8)
+            else
             {
-              $days = 0;
+              $vacaciones->fechainicio = $fechainicio;
+              $vacaciones->fechafin = $fechafinal;
+              $vacaciones->horainicio=$horainicio;
+              $vacaciones->horafin=$horafinal;
+              $vacaciones->juzgadoinstitucion= $request->get('juzgadoinstitucion');
+              $vacaciones->tipocaso= $request->get('tipocaso');
+              $vacaciones->idempleado = $request->idempleado;
+              $vacaciones->idmunicipio = $request->idmunicipio;
+              $vacaciones->idtipoausencia= $request->idtipoausencia;
+              $vacaciones->concurrencia = $request->get('concurrencia');
+              $vacaciones->autorizacion='solicitado';
+              $vacaciones->totaldias = $request->dias;
+              $vacaciones->totalhoras = $request->horas.':00:00';
+              $vacaciones->justificacion = $request->justificacion; //dd($request->all());
+              $mytime = Carbon::now('America/Guatemala');
+              $vacaciones->fechasolicitud=$mytime->toDateString();
+              $vacaciones->save();
             }
-           
-            if($idtipoausencia === "1") 
+            $idausencia = $vacaciones->idausencia;
+            $url = url('empleado/verificar/'.$idausencia);
+            $calculo = array($name,$idausencia,$url);
+
+            if($concurrencia === 'No')
             {
-              $vacacion = Vacaciones::findOrFail($idausencia);
-              $vacacion->totalhoras = $vac->horas;
-              $vacacion->totaldias = $days; 
-              $vacacion->update();
-            }
+
+              $totalhoras = $hfinal - $hinicio;
 
 
-            if($idtipoausencia === "2") 
-            {
-              $vacacion = Vacaciones::findOrFail($idausencia);
-              $vacacion->totalhoras = $vac->horas;
-              $vacacion->totaldias = $days; 
-              $vacacion->update();
-            }
-
-            if($idtipoausencia === "5") 
-            {
-              $vacacion = Vacaciones::findOrFail($idausencia);
-              $vacacion->totalhoras = $vac->horas;
-              $vacacion->totaldias = $days; 
-              $vacacion->update();
-            }
-
-            if($idtipoausencia === "8") 
-            {
-              $vacacion = Vacaciones::findOrFail($idausencia);
-              $vacacion->totalhoras = $vac->horas;
-              $vacacion->totaldias = $days; 
-              $vacacion->update();
-            }
-
-            if($idtipoausencia === "11")
-            {
-              $vacacion = Vacaciones::findOrFail($idausencia);
-              $vacacion->totalhoras = $vac->horas;
-              $vacacion->totaldias = 1; 
-              $vacacion->update();              
-            }
-          }
-
-          
-
-            Mail::send('emails.envio',['calculo' => $calculo],function($msj) use ($request){
-              $idpersona = DB::table('empleado as e')
-              ->join('persona as p','e.identificacion','=','p.identificacion')
-              ->join('users as U','p.identificacion','=','U.identificacion')
-              ->select('e.idempleado')
-              ->where('U.id','=',Auth::user()->id)
+              $vac =DB::table('ausencia as au')                
+              ->select(DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, au.horainicio, au.horafin)) as horas'),'au.idausencia')
+              ->where('au.idausencia','=',$idausencia)
               ->first();
 
-              $emisor =DB::table('asignajefe as aj')
-              ->join('persona as p','aj.identificacion','=','p.identificacion')
-              ->join('users as U','U.identificacion','=','p.identificacion')
-              ->join('empleado as e','e.idempleado','=','aj.idempleado')
-              ->select('U.email')
-              ->where('aj.notifica','=','1')
-              ->where('aj.idempleado','=',$idpersona->idempleado)
-              ->get();        
-              
-              foreach ($emisor as $per) {
-                $msj->subject('Solicitud de permisos');
-                $msj->to($per->email);
+
+              if($totalhoras < 59)
+              {
+                $totalhoras = '00:'.$totalhoras.':00';
               }
-            });
-          
-          DB::commit();
-                        
-        }catch (\Exception $e) 
-        {
-          DB::rollback();
-          return response()->json(array('error' => 'No se ha podido enviar la solicitud'),404);         
+
+
+              if($totalhoras > 59)
+              {
+                $totalhoras = $totalhoras/60;
+
+
+                if ($totalhoras - floor($totalhoras) == 0) {
+                    $totalhoras = $totalhoras.':00:00';
+                  }
+                  else{
+                    $resto = explode(".",$totalhoras);
+                    $restominutos = $resto[1];
+                    $restohoras = $resto[0];
+                    $restominutos = $restominutos * 0.6;
+
+                    if($restominutos === 3.0)
+                    {
+                      $restominutos = 30;
+                    }
+
+                    $totalhoras = $restohoras.':'.$restominutos.':00';
+                  }
+              }
+
+
+              if($idtipoausencia != "4" && $idtipoausencia != "9" && $idtipoausencia != "7" && $idtipoausencia != "11" && $idtipoausencia != "6") 
+              {
+                $vacacion = Vacaciones::findOrFail($idausencia);
+                $vacacion->totalhoras = $totalhoras;
+                $vacacion->totaldias = 0; 
+                $vacacion->update();
+              }
+             
+              if($idtipoausencia === "11")
+              {
+                $vacacion = Vacaciones::findOrFail($idausencia);
+                $vacacion->totalhoras = $vac->horas;
+                $vacacion->totaldias = 1; 
+                $vacacion->update();              
+              }
+            }
+            
+              Mail::send('emails.envio',['calculo' => $calculo],function($msj) use ($request){
+                $idpersona = DB::table('empleado as e')
+                ->join('persona as p','e.identificacion','=','p.identificacion')
+                ->join('users as U','p.identificacion','=','U.identificacion')
+                ->select('e.idempleado')
+                ->where('U.id','=',Auth::user()->id)
+                ->first();
+
+                $emisor =DB::table('asignajefe as aj')
+                ->join('persona as p','aj.identificacion','=','p.identificacion')
+                ->join('users as U','U.identificacion','=','p.identificacion')
+                ->join('empleado as e','e.idempleado','=','aj.idempleado')
+                ->select('U.email')
+                ->where('aj.notifica','=','1')
+                ->where('aj.idempleado','=',$idpersona->idempleado)
+                ->get();        
+                
+                foreach ($emisor as $per) {
+                  $msj->subject('Solicitud de permisos');
+                  $msj->to($per->email);
+                }
+              });
+            DB::commit();
+                    
+          }catch (\Exception $e) 
+          {
+            DB::rollback();
+            return response()->json(array('error' => 'No se ha podido enviar la solicitud'),404);         
+          }
         }
       }
+      else{
+        return response()->json(array('error'=>'la fecha inicio no puede ser mayor que la fecha final'),404);
+      }
+      return response()->json($vacaciones);      	     
     }
-    else{
-      return response()->json(array('error'=>'la fecha inicio no puede ser mayor que la fecha final'),404);
-    }
-    return response()->json($vacaciones);      	     
-  }
 
-  public function validateRequest($request){
-    $rules=[
-      'fecha_inicio'=>'required',
-      'fecha_final'=>'required',
+    public function validateRequest($request){
+      $rules=[
+        'fecha_inicio'=>'required',
+        'fecha_final'=>'required',
+        ];
+          
+      $messages=[
+        'required' => 'Debe ingresar :attribute.',
+        'max'  => 'La capacidad del campo :attribute es :max',
       ];
-        
-    $messages=[
-      'required' => 'Debe ingresar :attribute.',
-      'max'  => 'La capacidad del campo :attribute es :max',
-    ];
-    $this->validate($request, $rules,$messages);        
-  }
+      $this->validate($request, $rules,$messages);        
+    }
 }

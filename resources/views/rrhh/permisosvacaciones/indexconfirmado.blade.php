@@ -1,4 +1,4 @@
-<div class="tab-pane" id="pvaceptados">
+<div class="card-box" id="pvsolicitados">
     @if (isset($permisos))
         <div class="row">
         	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
@@ -38,7 +38,7 @@
                         @endforeach
                      </table>
                  </div>
-                 
+                {{$permisos->render()}}
            </div>
         </div>
     @endif

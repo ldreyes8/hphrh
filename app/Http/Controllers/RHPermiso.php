@@ -59,8 +59,8 @@ class RHPermiso extends Controller
 	        ->where('au.autorizacion','=','Confirmado')
 	        //->where('tp.idtipoausencia','!=','3')
 	        ->orderBy('au.fechasolicitud','desc')
-	        //->paginate(15)
-            ->get();
+	        ->paginate(15);
+            //->get();
 
         return view('rrhh.permisosvacaciones.indexconfirmado',["permisos"=>$permisos]);        
     }
@@ -94,8 +94,7 @@ class RHPermiso extends Controller
             ->where('au.autorizacion','=','Autorizado')
             ->where('tp.idtipoausencia','=','3')
             ->orderBy('au.fechasolicitud','desc')        
-            //->paginate(15);
-            ->get();
+            ->paginate(15);
 
         return view('rrhh.permisosvacaciones.indexautorizado',["vacaciones"=>$vacaciones]);        
     }
