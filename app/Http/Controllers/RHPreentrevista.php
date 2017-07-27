@@ -81,7 +81,7 @@ class RHPreentrevista extends Controller
 
         $ntitulo=DB::table('persona as p')
         ->join('personaacademico as pa','p.identificacion','=','pa.identificacion')
-        ->join('empleado as em','em.idempleado','=','pa.idempleado')
+        ->join('empleado as em','em.identificacion','=','p.identificacion')
         ->join('nivelacademico as na','pa.idnivel','=','na.idnivel')
         ->select(DB::raw('max(na.idnivel) as idnivel'),'p.identificacion')
         ->where('em.idempleado','=',$id)
@@ -91,11 +91,13 @@ class RHPreentrevista extends Controller
 
         $academico=DB::table('persona as p')
         ->join('personaacademico as pa','p.identificacion','=','pa.identificacion')
-        ->join('empleado as em','em.idempleado','=','pa.idempleado')
+        ->join('empleado as em','em.identificacion','=','p.identificacion')
         ->join('nivelacademico as na','pa.idnivel','=','na.idnivel')
         ->select('na.idnivel','p.identificacion','pa.titulo')
         ->where('na.idnivel','=',$ntitulo->idnivel)
+        ->where('em.idempleado','=',$id)
         ->where('na.mintrabna','=',1)
+        //->groupBy('p.identificacion','na.idnivel')
         ->first();
 
         $licencias=DB::table('empleado as em')
