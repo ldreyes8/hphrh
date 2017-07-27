@@ -242,7 +242,6 @@ $(document).ready(function(){
     });
 
     $(document).on('click','.btn-datomarV',function(e){
-        $("#ModificaActiva").show();
         tdias = parseInt($("#tdias").val());
         thoras =parseInt($("#thoras").val());
         var tt = 0;
@@ -285,10 +284,10 @@ $(document).ready(function(){
                 else{
 
                     $('#fecha_inicio').attr('disabled', 'disabled');
-            $('#fecha_final').attr('disabled', 'disabled');
-           
-                     $('#btnguardarV').removeAttr("disabled");}
-
+                    $('#fecha_final').attr('disabled', 'disabled');
+                    $('#btnguardarV').removeAttr("disabled");
+                    $("#ModificaActiva").show();
+                }
             },
             error: function (data) {
                 $('#loading').modal('hide');

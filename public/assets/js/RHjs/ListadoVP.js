@@ -28,11 +28,65 @@ function cargar_formularioRH(arg){
 }
 
 $(document).on("click",".pagination li a",function(e){
-      e.preventDefault();
-      var url = $(this).attr("href");
-      $("#pvsolicitados").html($("#cargador_empresa").html());
+    e.preventDefault();
+    var url = $(this).attr("href");
+    $("#pvsolicitados").html($("#cargador_empresa").html());
 
-      $.get(url,function(resul){
+    $.get(url,function(resul){
         $("#pvsolicitados").html(resul);  
-      })
     })
+  })
+
+function buscarindexsolicitado()
+{
+    var tipoausencia=$("#select").val();
+    var dato=$("#searchText").val();
+    if(dato == "")
+    {
+        var url="busquedaindexsolicitado/"+tipoausencia+"";
+    }
+    else
+    {
+        var url="busquedaindexsolicitado/"+tipoausencia+"/"+dato+"";
+    }
+    $("#pvsolicitados").html($("#cargador_empresa").html());
+        $.get(url,function(resul){
+        $("#pvsolicitados").html(resul);  
+    })
+}
+
+function buscarindexaceptado()
+{
+    var tipoausencia=$("#select").val();
+    var dato=$("#searchText").val();
+    if(dato == "")
+    {
+        var url="busquedaindexaceptado/"+tipoausencia+"";
+    }
+    else
+    {
+        var url="busquedaindexaceptado/"+tipoausencia+"/"+dato+"";
+    }
+    $("#pvsolicitados").html($("#cargador_empresa").html());
+        $.get(url,function(resul){
+        $("#pvsolicitados").html(resul);  
+    })
+}
+
+function buscarindexrechazado()
+{
+    var tipoausencia=$("#select").val();
+    var dato=$("#searchText").val();
+    if(dato == "")
+    {
+        var url="busquedaindexrechazado/"+tipoausencia+"";
+    }
+    else
+    {
+        var url="busquedaindexrechazado/"+tipoausencia+"/"+dato+"";
+    }
+    $("#pvsolicitados").html($("#cargador_empresa").html());
+        $.get(url,function(resul){
+        $("#pvsolicitados").html(resul);  
+    })
+}

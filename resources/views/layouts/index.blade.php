@@ -22,7 +22,6 @@
         <link href="{{asset('assets/css/menu.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/responsive.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/icomoon/style.css')}}" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="{{asset('assets/css/bootstrap-select.min.css')}}" />
 
         
 
@@ -679,7 +678,6 @@
         <script src="{{asset('assets/js/jquery.app.js')}}"></script>
         <script src="{{asset('assets/js/modernizr.min.js')}}"></script>
 
-                <script src="{{asset('assets/js/bootstrap-select.min.js')}}"></script>
 
 
         @show

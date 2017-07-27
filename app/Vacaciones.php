@@ -13,10 +13,36 @@ class Vacaciones extends Model
 
     public $timestamps = false;
 
-
-
     protected $dates = [
     	'fini',
     	'ffin'
     ];
+
+
+	public function empleado(){
+        return $this->hasOne('App\Empleado', 'idempleado','idempleado');     
+    }
+
+    public function Tipoausencia(){
+        return $this->hasOne('App\Tausencia', 'idtipoausencia','idtipoausencia');     
+    }
+
+    public function scopeBusqueda($query,$tipoausencia,$dato="")
+    {
+        if($tipoausencia==0){ 
+            $resultado = $query->whereHas("empleado",function($query) use ($dato)
+            {
+                $query->persona($dato);
+            });
+        }
+
+        else{
+        	$resultado = $query->where('ausencia.idtipoausencia', '=', $tipoausencia)->whereHas("empleado",function($query) use ($dato)
+            {
+                $query->persona($dato);
+            });
+        }                
+        return  $resultado;
+    }
+   
 }

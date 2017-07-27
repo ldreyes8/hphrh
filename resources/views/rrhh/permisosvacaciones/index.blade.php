@@ -3,6 +3,8 @@
     @parent
     
         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
+
 @endsection
 @section ('contenido')
 
@@ -66,6 +68,12 @@
         <script src="{{asset('assets/js/RH.js')}}"></script>
         <script src="{{asset('assets/js/RHjs/ListadoVP.js')}}"></script>
 
+          <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
+
+
+
+
     <!-- Listados -->
         <script>cargar_formularioRH(1);</script>
+
 @endsection

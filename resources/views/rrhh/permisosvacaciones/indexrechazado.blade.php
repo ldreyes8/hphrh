@@ -6,6 +6,8 @@
         	</div>
         </div>
 
+        @include('rrhh.permisosvacaciones.searchrechazado')
+
         <div class="row">
             <div class=class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="table-responsive">
@@ -23,7 +25,6 @@
                             <th style="width: 15%">Observaciones</th>
                         </thead>
                         @foreach ($permisos as $per)
-
                         <tr>
                             <td style="width: 8%"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $per->fechasolicitud)->format('d-m-Y')}}</td>
                             <td style="width: 8%"> {{$per->identificacion}}</td>
@@ -38,9 +39,9 @@
                         </tr>                
                         @endforeach
                      </table>
-                 </div>
-                 {{$permisos->render()}}
-           </div>
+                </div>
+                {{$permisos->render()}}
+            </div>
         </div>
     @endif
 </div>
