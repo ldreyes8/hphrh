@@ -380,6 +380,7 @@ input[type=text] {
         <button class="btn btn-info" type="button" id="btncomentario" >Agregar una observación</button>
       </div>
       <button id="btnupsolicitud" type="button" class="btn btn-primary" >Guardar cambios</button>
+      <a href="{{URL::action('RHEntrevista@entrevistarh',$empleado->idempleado)}}"><button type="button" class="btn btn-primary" >Entrevistar</button></a>
       <a> 
           <button type="button" id="btnrechazo" 
             onclick='
