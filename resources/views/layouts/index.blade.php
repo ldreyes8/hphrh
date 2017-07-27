@@ -176,28 +176,28 @@
                 <div class="sidebar-inner slimscrollleft">
                     <div id="sidebar-menu">
                         <ul>
-                            <li class="menu-title">Principal</li>
+                            <li class="menu-title"><strong>Principal</strong></li>
 
                             <li>
-                                <a href="{{ url('/home')}}" class="waves-effect waves-primary"><i
+                                <a href="{{ url('/home')}}" class="waves-effect waves-primary">&nbsp;&nbsp;&nbsp;<i
                                 class="md md-dashboard"></i><span> Tablero </span></a>
                             </li>
 
                             <li>
-                                <a href="{{ url('/empleado/perfil')}}" class="waves-effect waves-primary"><i
+                                <a href="{{ url('/empleado/perfil')}}" class="waves-effect waves-primary">&nbsp;&nbsp;&nbsp;<i
                                 class="md md-insert-emoticon"></i><span>Mi perfil </span></a>
                             </li>
                             
                             <li>
-                            <a href="{{ url('/empleado/contacto')}}" class="waves-effect waves-primary"><i
+                            <a href="{{ url('/empleado/contacto')}}" class="waves-effect waves-primary">&nbsp;&nbsp;&nbsp;<i
                                 class="md-perm-contact-cal"></i><span>Contactos </span></a>
                             </li>
                              
                         <!-- // Solicitudes___ // -->
 
                             <li>
-                                <a href="{{url('/empleado/solicitud')}}" class="waves-effect waves-primary">
-                                <i class="md md-assignment"></i><span> Solicitud </span>
+                                <a href="{{url('/empleado/solicitud')}}" class="waves-effect waves-primary">&nbsp;&nbsp;
+                                <i class="md md-assignment"></i><span>Solicitud</span>
                                 </a> 
                             </li>
 
@@ -225,7 +225,7 @@
                             <li class="menu-title">Gesti&oacute;n</li>
 
                              <li>
-                                <a href="{{url('/empleado/autorizaciones')}}" class="waves-effect waves-primary">
+                                <a href="{{url('/empleado/autorizaciones')}}" class="waves-effect waves-primary">&nbsp;&nbsp;&nbsp;
                                 <i class="md md-assignment"></i><span>Autorizaciones</span>
                                 </a> 
                             </li>
@@ -266,7 +266,7 @@
                             -->
 
                             <li class="has_sub"> 
-                                <a href="{{ url('/empleado/reclutamiento')}}" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Reclutamiento</span>
+                                <a href="{{ url('/empleado/reclutamiento')}}" class="waves-effect waves-primary">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-drivers-license-o"></i><span>Reclutamiento</span>
                                 </a>
                             </li>
 
@@ -277,27 +277,27 @@
 
                             @role('recurso') 
 
-                                <li class="menu-title">Recursos Humanos</li>
+                                <li class="menu-title"><strong>Recursos Humanos</strong></li>
 
 
 
                                 <li>
-                                    <a href="{{ url('/empleado/listado')}}" class="waves-effect waves-primary"><i
-                                    class="md md-insert-emoticon"></i><span>Empleados </span></a>
+                                    <a href="{{ url('/empleado/listado')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i
+                                    class="md md-insert-emoticon"></i><span>Empleados</span></a>
                                 </li>
 
                                 <li>
-                                <a href="{{ url('/empleado/listadoPV')}}"class="waves-effect waves-primary"><i
-                                    class="md-perm-contact-cal"></i><span>Permisos y vacaciones </span></a>
+                                <a href="{{ url('/empleado/listadoPV')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i
+                                    class="md-perm-contact-cal"></i><span>Permiso y vacaciones</span></a>
                                 </li>
                                 
                                 <li>
-                                <a href="{{ url('/empleado/listadoR')}}"class="waves-effect waves-primary"><i
-                                    class="md-perm-contact-cal"></i><span>Reclutamiento </span></a>
+                                <a href="{{ url('/empleado/listadoR')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i
+                                    class="md-perm-contact-cal"></i><span>Reclutamiento</span></a>
                                 </li>
                                 <li>
 
-                                <a href="{{ url('/empleado/Rmintrab')}}"class="waves-effect waves-primary"><i
+                                <a href="{{ url('/empleado/Rmintrab')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i
                                     class="md-perm-contact-cal"></i><span>Reportes</span></a>
                                 </li>
 
@@ -314,7 +314,7 @@
 
 
                                 <li class="has_sub">
-                                    <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="glyphicon glyphicon-folder-open"></i> <span>Reportes</span>
+                                    <a href="javascript:void(0);" class="waves-effect waves-primary">&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-folder-open"></i> <span>Reportes</span>
                                      <span class="menu-arrow"></span>
                                     </a>
                                     <ul class="list-unstyled">
@@ -328,17 +328,14 @@
                             <li class="menu-title">Panel de control</li>
 
                             <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i
+                                <a href="javascript:void(0);" class="waves-effect waves-primary">&nbsp;&nbsp;&nbsp;<i
                                         class="md md-assignment"></i><span>Panel de control</span> 
                                          <span class="menu-arrow"></span>
                                 </a><!--<span
                                         class="label label-success pull-right">6</span> -->
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/seguridad/usuario')}}">Registro usuario</a></li>
-
-                                </ul>
-
-                                
+                                </ul>                                
                             </li>
                             @endrole
                         

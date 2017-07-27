@@ -19,6 +19,8 @@ use App\Nomytras;
 use App\Vacadetalle;
 use App\Asignajefe;
 use App\Persona;
+use App\Constants;
+
 use App\Http\Requests\Nomrequest;
 
 
@@ -144,6 +146,11 @@ class RHNombramientoEmpleado extends Controller
         ->select('per.identificacion','per.nombre1','per.nombre2','per.apellido1','per.apellido2')
         ->where('aj.idempleado','=',$id)
         ->get();
+
+        //$jefe1 = new Asignajefe();
+
+        //$jefes = $jefe1->selectQuery(Constants::ASIGNAJEFE_PROYECTO_QUERY,array());
+        //dd($jefes,$jefesinmediato);
 
         return view("rrhh.empleados.nombramiento",["puestos"=>$puestos,"afiliados"=>$afiliados,"caso"=>$caso,"empleado"=>$empleado,"jefesinmediato"=>$jefesinmediato,"jefeasignado"=>$jefeasignado]);
         //return Redirect::to('listados/pprueba/create');
