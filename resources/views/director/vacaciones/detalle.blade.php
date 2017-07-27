@@ -23,81 +23,121 @@
           	</div>
         </div>
     </div>
-<div><br></div>
+    <div><br></div>
 
-<div class="row">
-    <input type="hidden" name="idausencia" id="idausencia"  value="{{$empleado->idausencia}}">
-    <input type="hidden" class="form-control" name="name" id="name" value="{{$user->nombre1.' '.$user->nombre2.' '.$user->apellido1.' '.$user->apellido2}}">
-    <input type="hidden" name="idempleado" id="idempleado" value="{{$empleado->idempleado}}">
-    <input type="hidden" name="hatomar" id="hatomar" value="{{$empleado->totalhoras}}">
-    <input type="hidden" name="datomar" id="datomar" value="{{$empleado->totaldias}}">
-    <input type="hidden" name="hdisponible" id="hdisponible" value="{{$calculo[0]}}">
-    <input type="hidden" name="ddisponible" id="ddisponible" value="{{$calculo[1]}}">
+    <div class="row">
+        <input type="hidden" name="idausencia" id="idausencia"  value="{{$empleado->idausencia}}">
+        <input type="hidden" class="form-control" name="name" id="name" value="{{$user->nombre1.' '.$user->nombre2.' '.$user->apellido1.' '.$user->apellido2}}">
+        <input type="hidden" name="idempleado" id="idempleado" value="{{$empleado->idempleado}}">
+        <input type="hidden" name="hatomar" id="hatomar" value="{{$empleado->totalhoras}}">
+        <input type="hidden" name="datomar" id="datomar" value="{{$empleado->totaldias}}">
+        <input type="hidden" name="hdisponible" id="hdisponible" value="{{$calculo[0]}}">
+        <input type="hidden" name="ddisponible" id="ddisponible" value="{{$calculo[1]}}">
+    	<div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+          <div class="table-responsive">
+              <table class="table table-striped table-bordered table-condensed table-hover">
+          	 		<tbody>
+          			
+            			<tr>
+            				<th>Fecha solicitud</th><td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $empleado->fechasolicitud)->format('d-m-Y')}}</td>
+            				<th>Tipo permiso</th><td>{{$empleado->ausencia}}</td>
+            		
+            			</tr>
+            			<tr>
+            				<th>Fecha inicio</th><td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $empleado->fechainicio)->format('d-m-Y')}}</td>
+            				<th>Fecha final</th><td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $empleado->fechafin)->format('d-m-Y')}}</td>
+            				<th>Días a tomar</th><td>{{$empleado->totaldias}}</td>
+            			</tr>
 
-	<div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered table-condensed table-hover">
-	 		<tbody>
-			
-			<tr>
-				<th>Fecha solicitud</th><td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $empleado->fechasolicitud)->format('d-m-Y')}}</td>
-				<th>Tipo permiso</th><td>{{$empleado->ausencia}}</td>
-		
-			</tr>
-			<tr>
-				<th>Fecha inicio</th><td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $empleado->fechainicio)->format('d-m-Y')}}</td>
-				<th>Fecha final</th><td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $empleado->fechafin)->format('d-m-Y')}}</td>
-				<th>Días a tomar</th><td>{{$empleado->totaldias}}</td>
-			</tr>
+            			<tr>
+            				<th>Hora inicio</th><td>{{$empleado->horainicio}}</td>
+            				<th>Hora final</th><td>{{$empleado->horafin}}</td>
+            				<th>Horas a tomar</th><td>{{$empleado->totalhoras}}</td>
+            			</tr>
 
-			<tr>
-				<th>Hora inicio</th><td>{{$empleado->horainicio}}</td>
-				<th>Hora final</th><td>{{$empleado->horafin}}</td>
-				<th>Horas a tomar</th><td>{{$empleado->totalhoras}}</td>
-			</tr>
+                  <tr>
+                    <th>Días disponibles</th><td>{{$calculo[1]}}</td>
+                    <th>Horas disponibles</th><td>{{$calculo[0]}}</td>
+                  </tr>
+          			</tbody>
+    		      </table>
+    	   </div>
+      </div>
+    </div>
 
-      <tr>
-        <th>Días disponibles</th><td>{{$calculo[1]}}</td>
-        <th>Horas disponibles</th><td>{{$calculo[0]}}</td>
-      </tr>
-			</tbody>
-		</table>
-	</div>
-</div>
-<div class="row" id="conte">
-	<div class="panel panel-primary">
-   		<div class="panel-body">
-   			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            	<div class="form-group">
-            		<label class="radio-inline"><input type="radio" name="autorizacion" value="Autorizado" id="rconfirmar" checked="true">Autorizar</label>
-					<label class="radio-inline"><input type="radio" name="autorizacion" value="Rechazado" >Rechazar</label>
-            	</div>
-            	<div class="row">
-                    <div class="col-sm-10">
-                        <div class="card-box m-t-20">
-                        	<div class="p-20">
-                                <form role="form">
-		                            <div class="form-group">
-		                                <input type="email" class="form-control" name="receptor" id="receptor" value="{{$empleado->email}}">
-		                            </div>
+    <div class="row" id="conte">
+        <div class="panel panel-primary">
+       	    <div class="panel-body">
+       			    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                		    <label class="radio-inline"><input type="radio" name="autorizacion" value="Autorizado" id="rconfirmar" checked="true">Autorizar</label>
+                        <label class="radio-inline"><input type="radio" name="autorizacion" value="Rechazado" >Rechazar</label>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="card-box m-t-20">
+                            	<div class="p-20">
+                                  <form role="form">
+    		                          <div class="form-group">
+    		                              <input type="email" class="form-control" name="receptor" id="receptor" value="{{$empleado->email}}">
+    		                          </div>
 
-		                            <div class="form-group">
-                                    <textarea class="form-control" placeholder=".........." id="observaciones" rows="3" maxlength="100"></textarea>
-		                            </div>
-                                    
-		                        </form>
-                   			</div>
-                  		</div>
+                                  <div class="form-group">
+                                      <textarea class="form-control" placeholder=".........." id="observaciones" rows="3" maxlength="100"></textarea>
+    		                          </div>  
+    		                          </form>
+                       			  </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-purple waves-effect waves-light" id="btnguardarv"  <span>Enviar</span> <i class="fa fa-send m-l-10"></i> </button>
+                        <button class="btn btn-danger" type="reset">Cancelar</button>
                     </div>
                 </div>
-            	
-            	<div class="form-group">
-            		<button class="btn btn-purple waves-effect waves-light" id="btnguardarv"  <span>Enviar</span> <i class="fa fa-send m-l-10"></i> </button>
-        			<button class="btn btn-danger" type="reset">Cancelar</button>
-    			</div>
-        	</div>
-   		</div>
-   	</div>
+
+                @if (isset($historialvacaciones))
+
+                <div class=class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+                <h4 align="center" >Historial de vacaciones del año {{$year[0]}}</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItems">
+                            <thead>
+                                <th>Solicitud</th>
+                                <th>Iniicio</th>
+                                <th>Fin</th>
+                                <th>Días tomados</th>
+                                <th>Horas tomadas</th>
+                                <th>Autorizacion</th>
+                                
+                            </thead>
+                                @foreach ($historialvacaciones as $aus)
+                                <tr>
+                                    <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechasolicitud)->format('d-m-Y')}}</td>
+                                    <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechainicio)->format('d-m-Y')}}</td>
+                                    <td>{{\Carbon\Carbon::createFromFormat('Y-m-d', $aus->fechafin)->format('d-m-Y')}}</td> 
+                                    
+                                    @if(($aus->htomado/10000) == -4)
+
+                                        <td>{{$aus->diastomados - 1}}</td>
+                                        <td>{{abs($aus->htomado)/10000}}</td>
+                                    @else
+                                        <td>{{$aus->diastomados}}</td>
+                                        <td>{{$aus->htomado / 10000}}</td>
+                                    @endif
+                                    <td>{{$aus->autorizacion}}</td>
+                                   
+                                </tr>                
+                                @endforeach
+                        </table>
+                    </div>
+                </div>
+
+                @endif()
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
@@ -120,7 +160,6 @@
     </div>
   </div>
 </div>
-
 	
 @endsection
 
@@ -131,17 +170,15 @@
         <meta name="_token" content="{!! csrf_token() !!}" />
         <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
         <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
+  		<script>
+              jQuery(document).ready(function () {
 
-
-		<script>
-            jQuery(document).ready(function () {
-
-                $('.summernote').summernote({
-                    height: 350,                 // set editor height
-                    minHeight: null,             // set minimum height of editor
-                    maxHeight: null,             // set maximum height of editor
-                    focus: false                 // set focus to editable area after initializing summernote
-                });
-            });
-        </script>
+                  $('.summernote').summernote({
+                      height: 350,                 // set editor height
+                      minHeight: null,             // set minimum height of editor
+                      maxHeight: null,             // set maximum height of editor
+                      focus: false                 // set focus to editable area after initializing summernote
+                  });
+              });
+          </script>
 @endsection

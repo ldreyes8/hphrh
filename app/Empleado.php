@@ -89,4 +89,12 @@ class Empleado extends Model
         }                
     return  $resultado;
     }
+
+    public function scopePersona($query,$dato=""){
+
+        return $query->whereHas("persona",function($query) use ($dato)
+        {
+            $query->persona($dato);
+        });
+    } 
 }

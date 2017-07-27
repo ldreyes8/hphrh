@@ -1,10 +1,12 @@
-<div class="tab-pane" id="pvrechazados">
+<div class="card-box" id="pvsolicitados">
     @if (isset($permisos))
         <div class="row">
         	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <h3>Vacaciones y/o permisos rechazados</h3>
         	</div>
         </div>
+
+        @include('rrhh.permisosvacaciones.searchrechazado')
 
         <div class="row">
             <div class=class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -23,7 +25,6 @@
                             <th style="width: 15%">Observaciones</th>
                         </thead>
                         @foreach ($permisos as $per)
-
                         <tr>
                             <td style="width: 8%"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $per->fechasolicitud)->format('d-m-Y')}}</td>
                             <td style="width: 8%"> {{$per->identificacion}}</td>
@@ -38,9 +39,9 @@
                         </tr>                
                         @endforeach
                      </table>
-                 </div>
-                 {{$permisos->render()}}
-           </div>
+                </div>
+                {{$permisos->render()}}
+            </div>
         </div>
     @endif
 </div>

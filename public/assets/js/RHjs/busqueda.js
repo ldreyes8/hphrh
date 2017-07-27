@@ -33,7 +33,7 @@
             $("#lisadoEmp").html(resul);  
         })
     }
-    
+
     $(document).on("click",".pagination li a",function(e){
         e.preventDefault();
         var url = $(this).attr("href");

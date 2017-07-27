@@ -19,6 +19,8 @@ use App\Nomytras;
 use App\Vacadetalle;
 use App\Asignajefe;
 use App\Persona;
+use App\Constants;
+
 use App\Http\Requests\Nomrequest;
 
 
@@ -145,6 +147,11 @@ class RHNombramientoEmpleado extends Controller
         ->where('aj.idempleado','=',$id)
         ->get();
 
+        //$jefe1 = new Asignajefe();
+
+        //$jefes = $jefe1->selectQuery(Constants::ASIGNAJEFE_PROYECTO_QUERY,array());
+        //dd($jefes,$jefesinmediato);
+
         return view("rrhh.empleados.nombramiento",["puestos"=>$puestos,"afiliados"=>$afiliados,"caso"=>$caso,"empleado"=>$empleado,"jefesinmediato"=>$jefesinmediato,"jefeasignado"=>$jefeasignado]);
         //return Redirect::to('listados/pprueba/create');
     }
@@ -182,46 +189,73 @@ class RHNombramientoEmpleado extends Controller
 
     public function addasecenso(Nomrequest $request)
     {
-        $idjefe = $request->items;
-        dd($idjefe);
-        dd("Mensaje");
+
+
+        $miArray1 = $_POST["items"];
+
+        
+       
         try 
         {
+            $miArray = $request->items;
+            
             $idem = $request->get('idempleado');
             $idco = $request->get('idcaso');
             //$idji = $request->get('idjefe');
             $today = Carbon::now();
             $year = $today->format('Y');
 
-            dd($idem,$idco);
+            $fecha=$request->get('fecha');
+            $fecha=Carbon::createFromFormat('d/m/Y',$fecha);
+            $fecha=$fecha->format('Y-m-d');
 
-            if ($idco=="6") 
-            {
-                //dd($idem,$idco);
-                $fecha=$request->get('fecha');
-                $fecha=Carbon::createFromFormat('d/m/Y',$fecha);
-                $fecha=$fecha->format('Y-m-d');
+            
+            $nomtras=new Nomytras;
+            $nomtras-> idpuesto=$request->get('idpuesto');
+            $nomtras-> idempleado=$idem;
+            $nomtras-> fecha=$fecha;
+            $nomtras-> salario=$request->get('salario');
+            $nomtras-> descripcion=$request->get('descripcion');
+            $nomtras-> idafiliado=$request->get('idafiliado');
+            $nomtras-> idcaso=$idco;
+            $nomtras->save();
 
-                $nomtras=new Nomytras;
-                $nomtras-> idpuesto=$request->get('idpuesto');
-                $nomtras-> idempleado=$idem;
-                $nomtras-> fecha=$fecha;
-                $nomtras-> salario=$request->get('salario');
-                $nomtras-> descripcion=$request->get('descripcion');
-                $nomtras-> idafiliado=$request->get('idafiliado');
-                $nomtras-> idcaso=$idco;
-                $nomtras->save();
+            $asignajefe = new Asignajefe;
+
+
+            foreach ($miArray as $key => $value) {
+                $notifica = $value['1'];
+
+                if($notifica == "No")
+                {
+                    $notifica =0;
+                }
+                if($notifica == "Si")
+                {
+                    $notifica = 1;
+                }
+
+                $asignajefe->idempleado = $idem;
+                $asignajefe->identificacion = $value['0'];
+                $asignajefe->notifica = $notifica;
+                $asignajefe->save();
+                
+ //               dd($key, $value['0'],$value['1'] );
+            }
 
                 //$st=Empleado::find($idem);
                 //$st-> fechaingreso=$fecha;
                 //$st-> idjefeinmediato=$idji;
                 //$st-> idstatus='2';
                 //$st-> update();
-            }
+            
 
         } catch (Exception $e) 
-        {}
-         return view("rrhh.empleados.nombramiento");
+        {
+            DB::rollback();
+            return response()->json(array('error' => 'No se ha podido enviar la peticion de agregar nuevo nombramiento y/o asecenso'),404);         
+        }
+        return json_encode ($asignajefe); 
         //return Redirect::to('listados/pprueba');
     }
 

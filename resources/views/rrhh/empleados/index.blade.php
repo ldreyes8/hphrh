@@ -11,11 +11,8 @@
     
                         <div class="div_contenido">
                             <div class="margin" id="botones_control">
-                                        <a href="javascript:void(0);" onclick="cargar_formularioRH(1);">  Listado General</a>
-                                
-                                
-                                <a href="javascript:void(0);" onclick="cargar_formularioRH(2);" >Renuncias o Despidos</a>
-                                
+                                <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formularioRH(1);">  Listado General</a>
+                                <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formularioRH(2);" >Renuncias o Despidos</a>
                                 <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formularioRH(3);" >Aspirantes rechazados</a>
                                 <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formularioRH(4);" >Nombramientos y/o asecensos</a>
                             </div>
@@ -33,10 +30,11 @@
     <script src="{{asset('assets/js/RH.js')}}"></script>
 
     <script src="{{asset('assets/js/RHjs/busqueda.js')}}"></script>
+    <script src="{{asset('assets/js/RHjs/nombramiento.js')}}"></script>
     <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
     <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
-        <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
 
 
 

@@ -1,10 +1,12 @@
-<div class="tab-pane" id="pvaceptados">
+<div class="card-box" id="pvsolicitados">
     @if (isset($permisos))
         <div class="row">
         	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <h3>Vacaciones y/o perimisos autorizados</h3>
         	</div>
         </div>
+
+        @include('rrhh.permisosvacaciones.searchaceptado')
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -38,7 +40,7 @@
                         @endforeach
                      </table>
                  </div>
-                 
+                {{$permisos->render()}}
            </div>
         </div>
     @endif

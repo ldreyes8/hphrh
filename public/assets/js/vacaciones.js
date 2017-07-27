@@ -260,7 +260,7 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
-
+        
         $.ajax({
             type: "get",
             url: miurl,
@@ -284,10 +284,10 @@ $(document).ready(function(){
                 else{
 
                     $('#fecha_inicio').attr('disabled', 'disabled');
-            $('#fecha_final').attr('disabled', 'disabled');
-           
-                     $('#btnguardarV').removeAttr("disabled");}
-
+                    $('#fecha_final').attr('disabled', 'disabled');
+                    $('#btnguardarV').removeAttr("disabled");
+                    $("#ModificaActiva").show();
+                }
             },
             error: function (data) {
                 $('#loading').modal('hide');

@@ -9,11 +9,11 @@
                 <table class="table table-striped table-bordered table-condensed table-hover" id="dataTableItemsPermiso"> 
                     <thead>
                         <th>Solicitud</th>
-                        <th>Iniicio</th>
+                        <th>Inicio</th>
                         <th>Fin</th>
                         <th>Hora inicio</th>
                         <th>Hora final</th>
-                        <th>Tippo permiso</th>
+                        <th>Tipo permiso</th>
                         <th>Autorizacion</th>
                     </thead>
                     @if (isset($ausencias))
@@ -28,7 +28,6 @@
                             <td>{{$aus->tipoausencia}}</td> 
                             <td>{{$aus->autorizacion}}</td>
                          </tr>
-                        
                         @endforeach
                     @endif
                 </table>
@@ -62,7 +61,7 @@
             <form role="form" id="formAgregarP">
                 <div class="modal-header">
                     <label>Motivo ausencia</label>
-                    <select name="idtipoausencia" id="idtipoausencia" class="form-control selectpicker" data-live-search="true">
+                    <select name="idtipoausencia" id="idtipoausencia" class="form-control select2" data-live-search="true">
                     @if (isset($tausencia))
                         @foreach($tausencia as $tau)
                             <option value="{{$tau->idtipoausencia}}">{{$tau->ausencia}}</option>
@@ -254,6 +253,10 @@
 
 	<script type="text/javascript">
 
+        $(document).ready(function() {
+            $(".select2").select2();
+        });
+
 		$('#btnnuevoP').click(function(e){      
 	        $('#inputTitleP').html("Solicitud de permiso");
 	        $('#formAgregarP').trigger("reset");
@@ -281,9 +284,11 @@
 	    }            
 	</script>
 
-<script src="{{asset('assets/js/permisoU.js')}}"></script>
-<script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
-<script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
-<script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
+    <script src="{{asset('assets/js/permisoU.js')}}"></script>
+    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
+    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
+    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
+    <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
 
+   
 

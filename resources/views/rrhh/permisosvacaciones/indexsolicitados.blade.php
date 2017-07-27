@@ -1,10 +1,12 @@
-<div class="tab-pane active" id="pvsolicitados">
+<div class="tab-pane active card-box" id="pvsolicitados">
 @if (isset($permisos))
     <div class="row">
     	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <h3>Vacaciones y/o permisos solicitados</h3>
     	</div>
     </div>
+
+    @include('rrhh.permisosvacaciones.searchsolicitado')
 
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -25,19 +27,19 @@
                     <tr>
                         <td style="width: 8%"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $per->fechasolicitud)->format('d-m-Y')}}</td>
                         <td style="width: 8%"> {{$per->identificacion}}</td>
-                        <td style="width: 8%"> {{$per->fechainicio}}</td>
-                        <td style="width: 8%"> {{$per->fechafin}}</td>
+                        <td style="width: 8%"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $per->fechainicio)->format('d-m-Y')}}</td>
+                        <td style="width: 8%"> {{ \Carbon\Carbon::createFromFormat('Y-m-d', $per->fechafin)->format('d-m-Y')}}</td>
                         <td style="width: 8%"> {{$per->totaldias.' '.'D&iacute;as'}}</td>
                         <td style="width: 8%"> {{$per->totalhoras}}</td>
-                        <td style="width: 8%">{{$per->ausencia}}</td>
+                        <td style="width: 8%"> {{$per->ausencia}}</td>
                         <td style="width: 8%"> {{$per->nombre}}</td>
                         <td style="width: 15%"> {{$per->justificacion}}</td>      
                     </tr>                
                     @endforeach
-                 </table>
-             </div>
-             {{$permisos->render()}}
-       </div>
+                </table>
+            </div>
+            {{$permisos->render()}}
+        </div>
     </div>
 @endif
 </div>

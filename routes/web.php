@@ -91,6 +91,11 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('pconfirmado','RHPermiso@indexconfirmado');
 	Route::get('prechazado','RHPermiso@indexrechazado');
 	Route::get('vautorizadopv','RHPermiso@indexautorizado');
+	Route::get('busquedaindexsolicitado/{tipoausencia}/{dato?}','RHPermiso@busquedasolicitados');
+	Route::get('busquedaindexaceptado/{tipoausencia}/{dato?}','RHPermiso@busquedaconfirmados');
+	Route::get('busquedaindexrechazado/{tipoausencia}/{dato?}','RHPermiso@busquedarechazados');
+
+
 
 	//Listapo reclutamiento
 	Route::get('listadoR','RHReclutamiento@listadoR');

@@ -144,6 +144,9 @@ $(document).ready(function(){
 
         if($f.data('locked') == undefined && !$f.data('locked'))
         {
+            var tipo_permiso = $("#idtipoausencia option:selected").text();
+
+
             var hoy = new Date();
             var dd = hoy.getDate();
             var mm = hoy.getMonth()+1; //hoy es 0!
@@ -213,7 +216,7 @@ $(document).ready(function(){
 
                 success: function (data) {
                     //console.log(data);
-                    document.getElementById("dataTableItemsPermiso").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + hinic+ "</td><td>" +hfina +"</td><td>" +"solicitado"+ "</td><td>"+"</td></tr>";
+                    document.getElementById("dataTableItemsPermiso").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + hinic+ "</td><td>" +hfina +"</td><td>" + tipo_permiso+"</td><td>"+"solicitado"+ "</td><td>"+"</td></tr>";
         
                     $('#formModalP').modal('hide');
                     $("#erroresContentP").html("La solicitud ha sido enviada correctamente"); 

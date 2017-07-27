@@ -5,6 +5,8 @@
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet">
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet">
         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
+
         
 @endsection
 @section ('contenido')
@@ -30,7 +32,13 @@
     @parent
     <meta name="_token" content="{!! csrf_token() !!}" />
     <script src="{{asset('assets/js/perfil/solicitud.js')}}"></script>
+        <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
+
     <script>cargar_formulario(1);</script>
 
-
+<script type="text/javascript">
+        $(document).ready(function() {
+            $(".select2").select2();        
+        });
+    </script>
 @endsection
