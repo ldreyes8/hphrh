@@ -14,12 +14,13 @@
     <br>
 
     <div class="box-body">
+
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-sm-2" for="tipo">Jefe inmediato a asignar</label>
                 <div class="col-sm-6" >         
                     <select name="jefe1" id="jefe1" class="form-control select2" data-live-search="true">
-                        @foreach($jefesinmediato as $co)
+                        @foreach($jefes as $co)
                             <option value="{{$co->identificacion}}">{{$co->nombre1.' '.$co->nombre2.' '.$co->apellido1.' '.$co->apellido2}}</option>
                         @endforeach
                     </select>
@@ -142,13 +143,12 @@
                     <div class="form-group">
                         <label>Jefe inmediato</label>
                         <select name="idjefe" id="jefe" class="form-control select2" data-live-search="true"">
-                            @foreach($jefesinmediato as $co)
+                            @foreach($jefes as $co)
                                 <option value="{{$co->identificacion}}">{{$co->nombre1.' '.$co->nombre2.' '.$co->apellido1.' '.$co->apellido2}}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
-
                 <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
                     <label> Notificar <br> </label>
                     <div>
@@ -162,7 +162,7 @@
                         <button type="button" id="bt_add1"  onclick="AsignajefeAsecenso();" style="background-color: #E6E6E6" class="btn">Asignar</button>
                     </div>                 
                 </div>
-                <div class="col-lg-5col-sm-12 col-md-12 col-xs-12">
+                <div class="col-lg-5 col-sm-12 col-md-12 col-xs-12">
                     <div class="table-responsive">             
                         <table id="detalle7" class="table table-striped table-bordered table-condensed table-hover">
                             <thead>

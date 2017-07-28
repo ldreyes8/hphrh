@@ -79,10 +79,6 @@ class RHNombramientoEmpleado extends Controller
 
         return view("rrhh.empleados.nombramiento",["puestos"=>$puestos,"afiliados"=>$afiliados,"caso"=>$caso,"empleado"=>$empleado,"jefesinmediato"=>$jefesinmediato]);
 
-        /*
-            $caso=DB::table('caso as c')
-            ->select('c.idcaso','c.nombre')
-            ->get();
         */
         return view("rrhh.empleados.indexnombramiento",["empleado"=>$empleado,"searchText"=>$queryN,"casos"=>$casos,"select"=>$query,"status"=>$status]);
     }
@@ -147,12 +143,11 @@ class RHNombramientoEmpleado extends Controller
         ->where('aj.idempleado','=',$id)
         ->get();
 
-        //$jefe1 = new Asignajefe();
+        $jefe1 = new Asignajefe();
 
-        //$jefes = $jefe1->selectQuery(Constants::ASIGNAJEFE_PROYECTO_QUERY,array());
-        //dd($jefes,$jefesinmediato);
+        $jefes = $jefe1->selectQuery(Constants::ASIGNAJEFE_PROYECTO_QUERY,array($id));
 
-        return view("rrhh.empleados.nombramiento",["puestos"=>$puestos,"afiliados"=>$afiliados,"caso"=>$caso,"empleado"=>$empleado,"jefesinmediato"=>$jefesinmediato,"jefeasignado"=>$jefeasignado]);
+        return view("rrhh.empleados.nombramiento",["puestos"=>$puestos,"afiliados"=>$afiliados,"caso"=>$caso,"empleado"=>$empleado,"jefesinmediato"=>$jefesinmediato,"jefeasignado"=>$jefeasignado,"jefes"=>$jefes]);
         //return Redirect::to('listados/pprueba/create');
     }
 

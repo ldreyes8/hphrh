@@ -8,16 +8,56 @@
 
 @endsection
 @section ('contenido')
-    
-                        <div class="div_contenido">
-                            <div class="margin" id="botones_control">
-                                <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formularioRH(1);">  Listado General</a>
-                                <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formularioRH(2);" >Renuncias o Despidos</a>
-                                <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formularioRH(3);" >Aspirantes rechazados</a>
-                                <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formularioRH(4);" >Nombramientos y/o asecensos</a>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="">
+                                <div class="">
+                                    <ul class="nav nav-tabs navtab-custom">
+
+                                       
+
+                                        <li class="active" data-toggle="tab" aria-expanded="false">
+                                            <a data-toggle="tab" aria-expanded="false" onclick="cargar_formularioRH(1);">
+                                                <span class="visible-xs"><i class="md md-perm-contact-cal"></i></span>
+                                                <span class="hidden-xs">Listado General</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="">
+                                            <a data-toggle="tab" aria-expanded="false" onclick="cargar_formularioRH(2);">
+                                                <span class="visible-xs"><i class="md md-school"></i></span>
+                                                <span class="hidden-xs">Renuncias o Despidos</span>
+                                            </a>
+                                        </li>
+                                       
+                                        <li class="">
+                                            <a data-toggle="tab" aria-expanded="false" onclick="cargar_formularioRH(3);">
+                                                <span class="visible-xs"><i class="md md-people"></i></span>
+                                                <span class="hidden-xs">Aspirantes rechazados</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" aria-expanded="false" onclick="cargar_formularioRH(4);">
+                                                <span class="visible-xs"><i class="ion ion-clipboard"></i></span>
+                                                <span class="hidden-xs">Nombramientos y/o asecensos</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <input type="hidden"  id="url_raiz_proyecto" value="{{ url("/") }}" />
+                                    <div id="capa_modal" class="div_modal" style="display: none;"></div>
+                                    <div id="capa_formularios" class="div_contenido" style="display: none;"></div>
+                                    
+                                    <!--<div class="tab-content">
+                                        @include('rrhh.permisosvacaciones.indexsolicitados')
+                                        @include('rrhh.permisosvacaciones.indexconfirmado')
+                                        @include('rrhh.permisosvacaciones.indexrechazado')
+                                        @include('rrhh.permisosvacaciones.indexautorizado')
+                                 </div>
+                                 -->
                             </div>
-                            <div><br></div>
-                        </div>
+                        </div> <!-- end -->
+    
+                       
 
                         <input type="hidden"  id="url_raiz_proyecto" value="{{ url("/") }}" />
                         <div id="capa_modal"></div>
