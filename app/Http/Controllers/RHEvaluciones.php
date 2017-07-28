@@ -18,6 +18,7 @@ use Carbon\Carbon;  // para poder usar la fecha y hora
 use Response;
 use Illuminate\Support\Collection;
 use Mail;
+use App\Constants;
 
 class RHEvaluciones extends Controller
 {
@@ -38,61 +39,10 @@ class RHEvaluciones extends Controller
 
     public function listadoev ()
     {
-        $id=Auth::user()->id;
-
-        $list=DB::table('resultado as r')
-        ->join('users as urs','urs.id','=','r.evaluador')
-        ->select('r.evaluador','urs.id')
-        ->where('urs.id','!=',Auth::user()->id)
-        ->first();
-
-        //if(isset($list->id))
-        //{
-          //$query=trim($request->get('searchText'));
-          /*$empleados=DB::table('empleado as e')
-          ->join('persona as p','e.identificacion','=','p.identificacion')
-          ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
-          ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-          ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
-          ->join('status as s','e.idstatus','=','s.idstatus')
-          //->join('resultado as r','e.idempleado','=','r.idempleado')
-          //->join('users as urs','urs.id','=','r.evaluador')
-          
-          //->join('resultado as r')
-          ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
-          //->where('p.nombre1','LIKE','%'.$query.'%')
-          //->andwhere('p.apellido1','LIKE','%'.$query.'%')
-          ->where('e.idstatus','=',14 )
-          //->where('urs.id','<>',Auth::user()->id)
-          //->where('p.nombre1','LIKE','%'.$query.'%')
-          //->orwhere('p.apellido1','LIKE','%'.$query.'%')
-          //->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
-          ->orderBy('e.idempleado','desc')
-          //->get();  
-          ->paginate(20);
-        //}*/
-        $empleados=DB::table('empleado as e')
-          ->join('persona as p','e.identificacion','=','p.identificacion')
-          ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
-          ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-          ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
-          ->join('status as s','e.idstatus','=','s.idstatus')
-          ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
-          ->whereNotExists( function($er)
-          {
-            $er=DB::table('resultado as r')
-            ->join('users as urs','urs.id','=','r.evaluador')
-            //->join('empleado as e','e.idempleado','=','r.idempleado')
-            ->select('r.idresultado','urs.id')  
-            ->where ('urs.id','<>',Auth::user()->id)
-            ->where ('e.idempleado','=','r.idempleado');})
-          ->orwhere('e.idstatus','=',14 )
-          ->orderBy('e.idempleado','desc')
-          ->paginate(20);
-          //->get();
-
+        $resultado=new Resultado;
+        $empleados = $resultado->selectQuery(Constants::listadoresultadosji,array(Auth::user()->id));
         $area=DB::table('area')->get();
-        //return view('rrhh.evaluaciones.resultados',["area"=>$area,"empleados"=>$empleados,"searchText"=>$query]);
+        //dd($empleados);
         return view('rrhh.evaluaciones.resultados',["area"=>$area,"empleados"=>$empleados]);
     }
 
