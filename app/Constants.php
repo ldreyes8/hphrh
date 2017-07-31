@@ -14,7 +14,7 @@ class Constants
 
 
 	const ASIGNAJEFE_PROYECTO_QUERY ="SELECT p.nombre1, p.nombre2 from persona as p inner join empleado as em on p.identificacion = em.identificacion inner join status as sts on em.idstatus = sts.idstatus  where not exists (select aj.identificacion from asignajefe as aj where aj.identificacion = p.identificacion )";
-	
+
 	//consutlas abner
 	const listadoresultadosji ="SELECT e.nit,p.identificacion,e.idempleado, e.idstatus, p.nombre1,p.nombre2, p.apellido1,p.apellido2 ,pu.nombre as puesto, af.nombre as afnombre ,s.statusemp as status from empleado as e 
 	inner join persona as p on p.identificacion = e.identificacion
@@ -23,7 +23,7 @@ class Constants
 	inner join status as s on e.idstatus = s.idstatus and e.idstatus=14
 	where not exists(select * from resultado as r
 	inner join users as urs on urs.id= r.evaluador
-	where urs.id <> :idusuario and e.idempleado = r.idempleado)";
+	where urs.id = :idusuario and e.idempleado = r.idempleado)";
 
 
 
