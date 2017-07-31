@@ -55,6 +55,18 @@ class UController extends Controller
         {
             return view('seguridad.usuario.contenedor');
         }
+
+        public function contraseña()
+        {
+            $empleado=DB::table('empleado as e')
+            ->join('persona as p','p.identificacion','=','e.identificacion')
+            ->join('users as urs','urs.identificacion','=','p.identificacion')
+            ->select('e.observacio')
+            ->where('urs.id','=',Auth::user()->id)
+            ->first();
+            return view ('empleado.perfil.index',["empleado"=>$empleado]);
+            //return Redirect::to('empleado/perfil',["empleado"=>$empleado]);
+        }
         public function index(Request $request)
         {
         	if($request)
