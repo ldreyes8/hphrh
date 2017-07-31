@@ -65,6 +65,15 @@
             </div>
         </div>
 
+        <div class="card-box">
+            <h4 class="m-t-0 m-b-20 header-title">Contraseña Office</h4>
+            <div class="p-b-10">
+                <div class="form-group">
+                    <input type="email" class="form-control" disabled value="{{$empleado2->observacion}}" >
+                </div>
+            </div>
+        </div>
+
     </div> <!-- end col -->
 
 

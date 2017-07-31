@@ -136,8 +136,8 @@ class SController extends Controller
             //->orwhere('p.apellido1','LIKE','%'.$query.'%')
 
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
-            ->orderBy('e.idempleado','desc')
-            
+            //->orderBy('e.idempleado','desc')
+            ->orderBy('pu.nombre','asc')
             ->paginate(19);
             }
             return view('rrhh.reclutamiento.solicitud',["empleados"=>$empleados,"searchText"=>$query]);
@@ -306,7 +306,6 @@ class SController extends Controller
     }
     public function rechazoPP($idE)
     {
-
         $st=Empleado::find($idE);
         $st-> idstatus='10';
         $st->update();
@@ -314,7 +313,6 @@ class SController extends Controller
     }
     public function rechazoPI($idE)
     {
-
         $st=Empleado::find($idE);
         $st-> idstatus='10';
         $st->update();
@@ -323,7 +321,6 @@ class SController extends Controller
     public function upt (Request $request)
     {
         $id = $request->get('idempleado');
-
         $od=Empleado::findOrFail($id);
         $od-> observacion=$request->get('observacion');
         $od->save();
