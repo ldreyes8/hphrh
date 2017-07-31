@@ -32,7 +32,7 @@ class PersonaRequest extends FormRequest
             //'nit'=>'required',
             'pretension'=>'required',
             //'barriocolonia'=>'required',
-            //'g-recaptcha-response' => 'required|recaptcha',
+            'g-recaptcha-response' => 'required|recaptcha',
             'correo'=>'required',
             //
         ];
@@ -45,7 +45,7 @@ class PersonaRequest extends FormRequest
         'celular.required'=>'Campo celular es requerido',
         //'nit.required'=>'Campo nit es requerido',
         'pretension.required'=>'Campo pretension es requerido',
-        //'g-recaptcha-response.required'=>'Validación oligatoria',
+        'g-recaptcha-response.required'=>'Validación oligatoria',
         'correo.required'=>'Correo campo obligatorio',
          ];
     }
