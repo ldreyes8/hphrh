@@ -495,7 +495,7 @@ class PersonaController extends Controller
                         //Mail::send('emails.envsolicitud', function($msj){
 
                         
-                        $calculo = array($envcorreo);
+                        /*$calculo = array($envcorreo);
 
                         Mail::send('emails.envsolicitud',['calculo' => $calculo], function($msj) use ($request){
 
@@ -505,7 +505,7 @@ class PersonaController extends Controller
 
                             
                         
-                          });
+                          });*/
 
                          /*Mail::send('emails.welcome', $data, function ($message) {
                             $message->from('us@example.com', 'Laravel');
