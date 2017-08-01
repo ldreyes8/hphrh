@@ -391,7 +391,7 @@ class PController extends Controller
                 $vacacion->update();              
               }
             }
-            
+            /*
               Mail::send('emails.envio',['calculo' => $calculo],function($msj) use ($request){
                 $idpersona = DB::table('empleado as e')
                 ->join('persona as p','e.identificacion','=','p.identificacion')
@@ -414,6 +414,7 @@ class PController extends Controller
                   $msj->to($per->email);
                 }
               });
+            */
             DB::commit();
                     
           }catch (\Exception $e) 

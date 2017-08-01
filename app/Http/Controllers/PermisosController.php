@@ -146,14 +146,14 @@ class PermisosController extends Controller
         $ausencia->id=Auth::user()->id;
         $ausencia->save();
 
-        
+        /*
         Mail::send('emails.envempermiso',$request->all(), function($msj) use ($request){
           $receptor = $request->receptor;
           $msj->subject('Respuesta de solicitud de permiso');
           $msj->to($receptor);
                   //$msj->to('drdanielreyes5@gmail.com');
         });
-
+        */
         DB::commit();
       }catch (\Exception $e) 
       {

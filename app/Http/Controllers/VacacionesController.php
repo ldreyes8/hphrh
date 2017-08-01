@@ -339,12 +339,12 @@ class VacacionesController extends Controller
       $ausencia->autorizacion = $request->autorizacion;
       $ausencia->id=Auth::user()->id;
       $ausencia->save();
-
+      /*
       Mail::send('emails.envempermiso',$request->all(), function($msj) use ($request){
         $receptor = $request->receptor;
         $msj->subject('Respuesta de solicitud de vacaciones');
         $msj->to($receptor);
-      });
+      });*/
       DB::commit();
     }catch (\Exception $e) 
     {
@@ -398,11 +398,11 @@ class VacacionesController extends Controller
         $vacadetalle->save();
       } 
 
-      Mail::send('emails.envempermiso',$request->all(), function($msj) use ($request){
+      /*Mail::send('emails.envempermiso',$request->all(), function($msj) use ($request){
         $receptor = $request->receptor;
         $msj->subject('Confirmacion de goce vacaciones');
         $msj->setTo(array($receptor));
-      });
+      });*/
       DB::commit();
     }catch (\Exception $e) 
     {

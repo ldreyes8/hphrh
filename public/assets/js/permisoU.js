@@ -7,13 +7,19 @@ $(document).ready(function(){
         $("#divENF").show();
         $("#divJ").hide();
 
+        $("#btnguardarP").hide();
+
+
     }
     if(x == "5")
     {
         $("#divJ").show();
         $("#divCHM").show();
         $("#divHMF").show();
-        $("#divENF").hide();                   
+        $("#divENF").hide();
+
+        $("#btnguardarP").show();
+                   
     }
     if(x != "5" && x != "4" && x != "9" && x != "11")
     {
@@ -40,6 +46,7 @@ $(document).ready(function(){
             $("#divHMF").hide();
             $("#divENF").show();
             $("#divJ").hide();
+            $("#btnguardarP").hide();
         }
 
         if(x == "5")
@@ -47,14 +54,17 @@ $(document).ready(function(){
             $("#divJ").show();
             $("#divCHM").show();
             $("#divHMF").show();
-            $("#divENF").hide();                   
+            $("#divENF").hide();
+            $("#btnguardarP").show();
+                   
         }
         if(x != "5" && x != "4" && x != "9" && x != "7" && x != "11" && x != "6")
         {
             $("#divJ").hide();
             $("#divCHM").show();
             $("#divHMF").show();
-            $("#divENF").hide();                   
+            $("#divENF").hide();
+            $("#btnguardarP").show();
         }
 
        
@@ -64,6 +74,8 @@ $(document).ready(function(){
             $("#divCHM").hide();
             $("#divHMF").hide();
             $("#divENF").hide();
+            $("#btnguardarP").show();
+
         }
     });   
     
@@ -109,7 +121,9 @@ $(document).ready(function(){
                         
                     }
                     else{
-                         $('#btnguardarV').removeAttr("disabled");}
+                         $('#btnguardarV').removeAttr("disabled");
+                                 $("#btnguardarP").show();
+                             }
 
                 },
                 error: function (data) {

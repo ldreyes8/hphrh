@@ -293,14 +293,13 @@ class VController extends Controller
 
   public function store(request $request)
   {
-    $this->validateRequest($request);
+    $this->validateRequest0($request);
     $vacaciones = new Vacaciones;
     $vacadetalle= new Vacadetalle;
     try 
     {
       DB::beginTransaction();
   
-
       $fechainicio = $request->fecha_inicio; 
       $fechafinal = $request->fecha_final;
 
@@ -333,7 +332,6 @@ class VController extends Controller
       //$fecha=Carbon::createFromFormat('d/m/Y',$today);
 
 
-      $this->validateRequest($request);      
 
       $codigo=$vacaciones->idausencia;
   
@@ -385,7 +383,7 @@ class VController extends Controller
       $url = url('empleado/vverificar/'.$codigo);
       $calculo = array($name,$url);
       
-
+      /*
       Mail::send('emails.envacaciones',['calculo' => $calculo], function($msj) use ($request){
 
         $empleado = DB::table('empleado as e')
@@ -406,9 +404,9 @@ class VController extends Controller
         foreach ($idpersona as $per) {
           $msj->subject('Solicitud de vacaciones');
           $msj->to($per->email);
-        }
+        }*
     
-      });
+      });*/
     DB::commit();
     }catch (\Exception $e) 
     {
@@ -461,7 +459,7 @@ class VController extends Controller
 
 
       $vacaciones->save();
-
+      /*
       Mail::send('emails.envautorizacion',['calculo' => $calculo], function($msj) use ($request){
 
         $empleado = DB::table('empleado as e')
@@ -480,11 +478,12 @@ class VController extends Controller
         ->where('aj.idempleado','=',$empleado->idempleado)
         ->get();
 
+
         foreach ($idpersona as $per) {
           $msj->subject('Solicitud de goce vacaciones');   
           $msj->to($per->email);
         }
-      });
+      });*/
       DB::commit();
     }catch (\Exception $e) 
     {
@@ -680,6 +679,19 @@ class VController extends Controller
         $rules=[
           'fecha_inicio'=>'required',
           'fecha_final'=>'required',
+        ];
+        $messages=[
+        'required' => 'Debe ingresar :attribute.',
+        'max'  => 'La capacidad del campo :attribute es :max',
+        ];
+        $this->validate($request, $rules,$messages);        
+  }
+
+  public function validateRequest0($request){
+        $rules=[
+          'fecha_inicio'=>'required',
+          'fecha_final'=>'required',
+          'dias'=>'required',
 
         ];
         $messages=[
