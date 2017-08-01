@@ -76,10 +76,6 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('busquedaActivo/{rol}/{dato?}','RHNombramientoEmpleado@busqueda');
 	Route::post('addasecenso','RHNombramientoEmpleado@addasecenso');
 
-
-
-
-
 	//Asignar o quitar jefes inmediatos
 	Route::get('asignar_jefeinmediato/{idempleado}/{identificacion}/{notifica}', 'RHNombramientoEmpleado@asignar_jefeinmediato');
 	Route::get('quitar_jefeinmediato/{idempleado}/{identificacion}', 'RHNombramientoEmpleado@quitar_jefeinmediato');
@@ -94,8 +90,6 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('busquedaindexsolicitado/{tipoausencia}/{dato?}','RHPermiso@busquedasolicitados');
 	Route::get('busquedaindexaceptado/{tipoausencia}/{dato?}','RHPermiso@busquedaconfirmados');
 	Route::get('busquedaindexrechazado/{tipoausencia}/{dato?}','RHPermiso@busquedarechazados');
-
-
 
 	//Listapo reclutamiento
 	Route::get('listadoR','RHReclutamiento@listadoR');
@@ -221,9 +215,8 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('perfil','PerController@index');		// PerController = PerfilController
 	Route::get('contacto','PerController@contacto');
 
-
-
 	Route::get('rechazo/{id}/{ids?}','SController@rechazo');
+	//Route::get();
 	Route::get('rechazoPP/{id}','SController@rechazoPP');
 	Route::get('rechazoPI/{id}','SController@rechazoPI');
 	

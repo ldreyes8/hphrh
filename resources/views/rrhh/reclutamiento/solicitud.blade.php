@@ -13,7 +13,6 @@
                             <button type="button" class="btn btn-default" onclick="buscarsolicitud();">Buscar</button>
                     </div>
                 {{Form::close()}}
-                
         	</div>
         </div>
         <div class="row">

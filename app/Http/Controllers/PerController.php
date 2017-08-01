@@ -20,7 +20,13 @@ class PerController extends Controller
     	    
         //dd($usuario);
         //return view("hr.referencias",["referencia"=>$referencia,"empleado"=>$empleado]); 
-    	return view('empleado.perfil.index');
+        $empleado2=DB::table('empleado as e')
+            ->join('persona as p','p.identificacion','=','e.identificacion')
+            ->join('users as urs','urs.identificacion','=','p.identificacion')
+            ->select('e.observacion')
+            ->where('urs.id','=',Auth::user()->id)
+            ->first();
+    	return view('empleado.perfil.index',["empleado2"=>$empleado2]);
     }
 
     public function contacto(Request $request)

@@ -218,8 +218,17 @@
                         dataType: 'json',
 
                         success: function (data) {
+
+                            swal({ 
+                                title:"Envio correcto",
+                                text: "Se ha agregado una nota a este empleado",
+                                type: "success"
+                            },
+                            function(){
+                                window.location.href="/empleado/resultados"
+                            });
                 
-                            $('#formModal').modal('hide');
+                            //$('#formModal').modal('hide');
                             
                         },
                         error: function (data) {

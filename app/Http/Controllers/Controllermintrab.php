@@ -49,9 +49,7 @@ class Controllermintrab extends Controller
             ->select('em.idempleado','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','nac.nombre as nnac','ec.idcivil','p.identificacion','do.codmintrab as mtdo','ps.codmintrab as mtps','mun.mintrab as mtmun','em.nit','em.afiliacionigss as iggs','p.genero','p.fechanac','ena.idetnia')
             ->where('em.idstatus','=',2)
             ->orderBy('em.idempleado','asc')
-            
             ->get();
-        //}
 
         $hijo=DB::table('persona as p')
         ->join('personafamilia as pf','p.identificacion','=','pf.identificacion')
@@ -73,6 +71,24 @@ class Controllermintrab extends Controller
         ->select('i.ididioma','em.idempleado')
         ->get();
 
+        /*$ntitulo=DB::table('persona as p')
+        ->join('personaacademico as pa','p.identificacion','=','pa.identificacion')
+        ->join('empleado as em','em.identificacion','=','p.identificacion')
+        ->join('nivelacademico as na','pa.idnivel','=','na.idnivel')
+        ->select(DB::raw('max(na.idnivel) as idnivel'),'p.identificacion')
+        ->where('na.mintrabna','=',1)
+        ->get();*/
+
+        /*$academico=DB::table('persona as p')
+        ->join('personaacademico as pa','p.identificacion','=','pa.identificacion')
+        ->join('empleado as em','em.identificacion','=','p.identificacion')
+        ->join('nivelacademico as na','pa.idnivel','=','na.idnivel')
+        ->select('na.idnivel','p.identificacion','pa.titulo')
+        ->where('na.idnivel','=',$ntitulo->idnivel)
+        ->where('na.mintrabna','=',1)
+        ->groupBy('p.identificacion','na.idnivel')
+        ->first();*/
+
         $academico=DB::table('persona as p')
         ->join('personaacademico as pa','p.identificacion','=','pa.identificacion')
         ->join('nivelacademico as na','pa.idnivel','=','na.idnivel')
@@ -82,7 +98,7 @@ class Controllermintrab extends Controller
         ->orderBy('p.identificacion','asc')
         ->get();
 
-        
+        //return view('rrhh.reporte.Rmintrab',['persona'=>$persona,'hijo'=>$hijo,'trabajoextranjero'=>$trabajoextranjero,'idioma'=>$idioma,'ntitulo'=>$ntitulo]);
         return view('rrhh.reporte.Rmintrab',['persona'=>$persona,'hijo'=>$hijo,'academico'=>$academico,'trabajoextranjero'=>$trabajoextranjero,'idioma'=>$idioma]);
     }
 
@@ -101,7 +117,6 @@ class Controllermintrab extends Controller
             ->where('em.idstatus','=',2)
             ->orderBy('em.idempleado','asc')
             ->get();
-        //}
 
         $hijo=DB::table('persona as p')
         ->join('personafamilia as pf','p.identificacion','=','pf.identificacion')
@@ -122,6 +137,24 @@ class Controllermintrab extends Controller
         ->join('idioma as i','ei.ididioma','=','i.ididioma')
         ->select('i.ididioma','em.idempleado')
         ->get();
+
+        /*$ntitulo=DB::table('persona as p')
+        ->join('personaacademico as pa','p.identificacion','=','pa.identificacion')
+        ->join('empleado as em','em.identificacion','=','p.identificacion')
+        ->join('nivelacademico as na','pa.idnivel','=','na.idnivel')
+        ->select(DB::raw('max(na.idnivel) as idnivel'),'p.identificacion')
+        ->where('na.mintrabna','=',1)
+        ->get();
+
+        $academico=DB::table('persona as p')
+        ->join('personaacademico as pa','p.identificacion','=','pa.identificacion')
+        ->join('empleado as em','em.identificacion','=','p.identificacion')
+        ->join('nivelacademico as na','pa.idnivel','=','na.idnivel')
+        ->select('na.idnivel','p.identificacion','pa.titulo')
+        ->where('na.idnivel','=',$ntitulo->idnivel)
+        ->where('na.mintrabna','=',1)
+        ->groupBy('p.identificacion','na.idnivel')
+        ->get();*/
 
         $academico=DB::table('persona as p')
         ->join('personaacademico as pa','p.identificacion','=','pa.identificacion')
