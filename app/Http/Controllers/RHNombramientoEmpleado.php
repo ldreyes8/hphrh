@@ -103,7 +103,6 @@ class RHNombramientoEmpleado extends Controller
         ->where('st.idstatus','=',5)
         ->get();
 
-
         return view('rrhh.empleados.indexnombramiento')
         ->with("empleado", $empleado )
         ->with("status", $status);

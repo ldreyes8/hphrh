@@ -34,12 +34,11 @@
                             </div>
 @endrole
 
-
 @role('evaluador')
     <div class="col-sm-4 col-xs-12">
                                 <div class="card m-b-2 card-inverse" style="background-color: #5bc0de; border-color: #5bc0de;">
                                     <div class="card-box" style="background-color: #5bc0de; border-color: #5bc0de;">
-                                        <h3 class="mt-0" style="color:#FFFFFF" >Evaluaciones resultados</h3>
+                                        <h3 class="mt-0" style="color:#FFFFFF" >Asignar notas</h3>
                                         <a href="{{url('/empleado/resultados')}}" class="btn btn-inverse">Ir</a>
                                     </div>
                                 </div>
@@ -50,8 +49,8 @@
 <div class="col-sm-4 col-xs-12">
                                 <div class="card m-b-2 card-inverse" style="background-color: #5bc0de; border-color: #5bc0de;">
                                     <div class="card-box" style="background-color: #5bc0de; border-color: #5bc0de;">
-                                        <h3 class="mt-0" style="color:#FFFFFF" >Evaluaciones resultados</h3>
-                                        <a href="{{url('/empleado/resultados')}}" class="btn btn-inverse">Ir</a>
+                                        <h3 class="mt-0" style="color:#FFFFFF" >Resultado de evaluaciones</h3>
+                                        <a href="{{url('/empleado/resultadosev')}}" class="btn btn-inverse">Ir</a>
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +58,7 @@
                                 <div class="card m-b-2 card-inverse" style="background-color: #f0ad4e; border-color: #f0ad4e;">
                                     <div class="card-box" style="background-color: #f0ad4e; border-color: #f0ad4e;">
                                         <h3 class="mt-0" style="color:#FFFFFF" >Proceso de entrevista</h3>
-                                        <a href="#" class="btn btn-primary">Ir</a>
+                                        <a href="{{url('/empleado/listadoen')}}" class="btn btn-primary">Ir</a>
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +66,7 @@
                                 <div class="card m-b-2 card-inverse" style="background-color: #d9534f; border-color: #d9534f;">
                                     <div class="card-box" style="background-color: #d9534f; border-color: #d9534f;">
                                         <h3 class="mt-0" style="color:#FFFFFF" >Nombramiento</h3>
-                                        <a href="#" class="btn btn-primary">Ir</a>
+                                        <a href="{{url('/empleado/listadon1')}}" class="btn btn-primary">Ir</a>
                                     </div>
                                 </div>
                             </div>

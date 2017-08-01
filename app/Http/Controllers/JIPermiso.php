@@ -9,6 +9,7 @@ use Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use App\Vacaciones;
+use App\Tausencia;
 
 use Mail;
 
@@ -49,11 +50,13 @@ class JIPermiso extends Controller
         ->where('au.autorizacion','=','solicitado')
         ->orderBy('au.fechasolicitud','desc')
 
-        ->get();
+        ->paginate(15);
+
+        $tipoausencias = Tausencia::all();
    
         //->paginate(1);
       }
-      return view('director.autorizaciones.solicitados',["permisos"=>$permisos,"searchText"=>$query]);
+      return view('director.autorizaciones.solicitados',["permisos"=>$permisos,"searchText"=>$query,"tipoausencias"=>$tipoausencias]);
       //return view('director.permisos.index',["permisos"=>$permisos,"searchText"=>$query]);
     }
 
@@ -76,11 +79,11 @@ class JIPermiso extends Controller
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('au.autorizacion','=','Confirmado')
         ->orderBy('au.fechasolicitud','desc')
+        ->paginate(15);
 
-   
-        //->paginate(1);   
-        ->get();
-        return view('director.autorizaciones.autorizados',["permisos"=>$permisos])  ;        
+        $tipoausencias = Tausencia::all();
+
+        return view('director.autorizaciones.autorizados',["permisos"=>$permisos,"tipoausencias"=>$tipoausencias]);        
     }
 
      public function indexrechazado (Request $request)
@@ -103,11 +106,12 @@ class JIPermiso extends Controller
         ->where('au.autorizacion','=','Rechazado')
         ->orderBy('au.fechasolicitud','desc')
 
-  
-        //->paginate(1);
-        ->get();   
+        ->paginate(15);
 
-        return view('director.autorizaciones.rechazados',["permisos"=>$permisos])  ;        
+        $tipoausencias = Tausencia::all();
+
+
+        return view('director.autorizaciones.rechazados',["permisos"=>$permisos,"tipoausencias"=>$tipoausencias]);        
     }
 
     public function verificar($id)
@@ -163,6 +167,97 @@ class JIPermiso extends Controller
 
       return response()->json($ausencia);
     }
+
+
+    public function busquedasolicitados($tipoausencia, $dato="")
+    {
+      $usuario = DB::table('users as U')
+        ->join('persona as per','U.identificacion','=','per.identificacion')
+        ->join('asignajefe as jf','per.identificacion','=','jf.identificacion')
+        ->select('jf.identificacion')
+        ->where('U.id','=',Auth::user()->id)
+        ->first();
+
+        $permisos= Vacaciones::Busqueda($tipoausencia,$dato)->join('empleado as emp','ausencia.idempleado','=','emp.idempleado')
+        ->join('persona as per','emp.identificacion','=','per.identificacion')
+        ->join('tipoausencia as tp','ausencia.idtipoausencia','=','tp.idtipoausencia')
+        ->join('asignajefe as aj','emp.idempleado','=','aj.idempleado')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','ausencia.fechasolicitud','tp.ausencia','ausencia.fechainicio','ausencia.fechafin','ausencia.idausencia','ausencia.totaldias','ausencia.totalhoras','ausencia.justificacion')
+        ->where('aj.identificacion','=',$usuario->identificacion)
+        ->where('ausencia.autorizacion','=','solicitado')
+        ->orderBy('ausencia.fechasolicitud','desc') 
+        ->paginate(15);
+
+        $tipoausencias = Tausencia::all();
+        $tiposel=$tipoausencias->find($tipoausencia);
+
+        return view('director.autorizaciones.solicitados')
+        ->with("permisos", $permisos )
+        ->with("tipoausencias", $tipoausencias)
+        ->with("tiposel", $tiposel);
+
+    }
+
+    public function busquedaconfirmados($tipoausencia, $dato="")
+    {
+      $usuario = DB::table('users as U')
+        ->join('persona as per','U.identificacion','=','per.identificacion')
+        ->join('asignajefe as jf','per.identificacion','=','jf.identificacion')
+        ->select('jf.identificacion')
+        ->where('U.id','=',Auth::user()->id)
+        ->first();
+
+        $permisos= Vacaciones::Busqueda($tipoausencia,$dato)->join('empleado as emp','ausencia.idempleado','=','emp.idempleado')
+        ->join('persona as per','emp.identificacion','=','per.identificacion')
+        ->join('tipoausencia as tp','ausencia.idtipoausencia','=','tp.idtipoausencia')
+        ->join('asignajefe as aj','emp.idempleado','=','aj.idempleado')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','ausencia.fechasolicitud','tp.ausencia','ausencia.fechainicio','ausencia.fechafin','ausencia.idausencia','ausencia.totaldias','ausencia.totalhoras','ausencia.justificacion')
+        ->where('aj.identificacion','=',$usuario->identificacion)
+        ->where('ausencia.autorizacion','=','Confirmado')
+        ->orderBy('ausencia.fechasolicitud','desc') 
+        ->paginate(15);
+
+        $tipoausencias = Tausencia::all();
+        $tiposel=$tipoausencias->find($tipoausencia);
+
+        return view('director.autorizaciones.autorizados')
+        ->with("permisos", $permisos )
+        ->with("tipoausencias", $tipoausencias)
+        ->with("tiposel", $tiposel);
+
+    }
+
+    public function busquedarechazados($tipoausencia, $dato="")
+    {
+      $usuario = DB::table('users as U')
+        ->join('persona as per','U.identificacion','=','per.identificacion')
+        ->join('asignajefe as jf','per.identificacion','=','jf.identificacion')
+        ->select('jf.identificacion')
+        ->where('U.id','=',Auth::user()->id)
+        ->first();
+
+        $permisos= Vacaciones::Busqueda($tipoausencia,$dato)->join('empleado as emp','ausencia.idempleado','=','emp.idempleado')
+        ->join('persona as per','emp.identificacion','=','per.identificacion')
+        ->join('tipoausencia as tp','ausencia.idtipoausencia','=','tp.idtipoausencia')
+        ->join('asignajefe as aj','emp.idempleado','=','aj.idempleado')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1," ") AS nombre'),'per.identificacion','ausencia.fechasolicitud','tp.ausencia','ausencia.fechainicio','ausencia.fechafin','ausencia.idausencia','ausencia.totaldias','ausencia.totalhoras','ausencia.justificacion')
+        ->where('aj.identificacion','=',$usuario->identificacion)
+        ->where('ausencia.autorizacion','=','Rechazado')
+        ->orderBy('ausencia.fechasolicitud','desc') 
+        ->paginate(15);
+
+        $tipoausencias = Tausencia::all();
+        $tiposel=$tipoausencias->find($tipoausencia);
+
+        return view('director.autorizaciones.rechazados')
+        ->with("permisos", $permisos )
+        ->with("tipoausencias", $tipoausencias)
+        ->with("tiposel", $tiposel);
+
+    }
+
+
+
 
     public function validateRequest($request){
         $rules=[

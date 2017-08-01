@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\EmpleadoFormRequest;
+use Illuminate\Support\Facades\Auth;
 use App\Empleado;
 use App\Persona;
 use App\Entrevista;
+use App\Resultado;
 use DB;
 use PDF;
 use DateTime;
@@ -16,6 +18,7 @@ use Carbon\Carbon;  // para poder usar la fecha y hora
 use Response;
 use Illuminate\Support\Collection;
 use Mail;
+use App\Constants;
 
 class RHEvaluciones extends Controller
 {
@@ -34,33 +37,85 @@ class RHEvaluciones extends Controller
         return Redirect::to('empleado/pre_entrevistado');
   }
 
-  public function listadoev (Request $request)
-  {
-    if($request)
+    public function listadoev ()
     {
-      $query=trim($request->get('searchText'));
-      $empleados=DB::table('empleado as e')
-      ->join('persona as p','e.identificacion','=','p.identificacion')
-      ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
-      ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-      ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
-      ->join('status as s','e.idstatus','=','s.idstatus')
-      ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
-      //->where('p.nombre1','LIKE','%'.$query.'%')
-      //->andwhere('p.apellido1','LIKE','%'.$query.'%')
-      ->where('e.idstatus','=',14)
-      ->where('p.nombre1','LIKE','%'.$query.'%')
-      //->orwhere('p.apellido1','LIKE','%'.$query.'%')
-      ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
-      ->orderBy('e.idempleado','desc')  
-      ->paginate(19);
+        $resultado=new Resultado;
+        $empleados = $resultado->selectQuery(Constants::listadoresultadosji,array(Auth::user()->id));
+        $area=DB::table('area')->get();
+        //dd($empleados);
+        return view('rrhh.evaluaciones.resultados',["area"=>$area,"empleados"=>$empleados]);
     }
-    return view('rrhh.evaluaciones.resultados',["empleados"=>$empleados,"searchText"=>$query]);
-  }
 
-  public function show ($id)
-  {
-    $municipio=DB::table('persona as p')
+    public function listadores (Request $request)
+    {
+        if($request)
+        {
+            $query=trim($request->get('searchText'));
+            $empleados=DB::table('empleado as e')
+            ->join('persona as p','e.identificacion','=','p.identificacion')
+            ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
+            ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+            ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
+            ->join('status as s','e.idstatus','=','s.idstatus')
+            ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
+            //->where('p.nombre1','LIKE','%'.$query.'%')
+            //->andwhere('p.apellido1','LIKE','%'.$query.'%')
+            ->where('e.idstatus','=',14)
+
+            ->where('p.nombre1','LIKE','%'.$query.'%')
+            //->orwhere('p.apellido1','LIKE','%'.$query.'%')
+
+            ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
+            ->orderBy('e.idempleado','desc')
+            
+            ->paginate(19);
+        }
+        return view('rrhh.evaluaciones.listadoresultados',["empleados"=>$empleados,"searchText"=>$query]); 
+    }
+
+    public function listadotablares ($id)
+    {
+        //dd($id);
+        $persona=DB::table('persona as p')
+        ->join('empleado as em','p.identificacion','=','em.identificacion')
+        ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
+        ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+        ->select('p.identificacion','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','a.nombre as afiliado','pu.nombre as puesto','em.idempleado','em.nit')
+        ->where('em.idempleado','=',$id)
+        ->first();
+
+        $resultados=DB::table('empleado as e')
+        ->join('resultado as r','r.idempleado','=','e.idempleado')
+        ->join('area as ar','r.area','=','ar.idarea')
+        ->join('users as urs','urs.id','=','r.evaluador')
+        ->join('persona as p','urs.identificacion','=','p.identificacion')
+        ->select('r.observacion','r.nota','ar.areanombre','p.nombre1','p.nombre2','p.apellido1','p.apellido2')
+        ->where('e.idempleado','=',$id)
+        ->get();
+        
+        $promedio=DB::table('resultado as r')
+        ->select(DB::raw('AVG(r.nota) as promed'),'r.idempleado')
+        ->where('r.idempleado','=',$id)
+        ->groupBy('r.idempleado')
+        ->first();
+
+        return view('rrhh.evaluaciones.resultadose',["persona"=>$persona,"resultados"=>$resultados,"promedio"=>$promedio]); 
+    }
+    public function nombrelist($id)
+    {
+        $empleado=DB::table('empleado as e')
+        ->join('persona as p','p.identificacion','=','e.identificacion')
+        ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3')
+        ->where('e.idempleado','=',$id)
+        ->first();
+
+        return response()->json($empleado);
+    }   
+
+
+    public function show ($id)
+    {
+        $municipio=DB::table('persona as p')
         ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
         ->select('m.idmunicipio')
         ->where('p.identificacion','=',$id)
@@ -183,8 +238,26 @@ class RHEvaluciones extends Controller
         $estadocivil=DB::table('estadocivil')->get();
 
 
-        return view('rrhh.evaluaciones.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones,'entrev'=>$entrev]);
+        return view('rrhh.evaluaciones.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones,'entrev'=>$entrev]);     
+    }
 
-        
-  }
+    public function agregarnota (Request $request)
+    {
+        $idempleado =$request->get("idempleado");
+        $nota =$request->get("nota");
+        $idarea =$request->get("idarea");
+        $observacion =$request->get("observacion");
+        $id=Auth::user()->id;
+
+        $result = new Resultado;
+        $result-> idempleado=$idempleado;
+        $result-> observacion=$observacion;
+        $result-> nota=$nota;
+        $result-> evaluador=$id;
+        $result-> area=$idarea;        
+        $result->save();
+
+        //return view('rrhh.evaluaciones.resultados');
+        return response()->json($result);
+    }
 }

@@ -1,4 +1,7 @@
-<div class="card-box" id="autorizados">
+<div class="card-box" id="VPJF">
+    
+    @if (isset($permisos))
+
     <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <h3>Vacaciones y/o Permisos que  usted ha autorizado</h3>
@@ -7,7 +10,8 @@
     <div><p><br></p></div>
     <input type="hidden" name="_token" id="_token"  value="<?= csrf_token(); ?>">
     
-    @if (isset($permisos))
+            @include('director.autorizaciones.searchaceptado')
+
         <div class="row">
            <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <div class="table-responsive">
@@ -36,8 +40,9 @@
                         
                         @endforeach
                      </table>
-                 </div>
-           </div>
+                </div>
+                {{$permisos->render()}}
+            </div>
         </div>
     @endif
 </div>

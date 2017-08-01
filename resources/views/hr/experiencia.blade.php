@@ -55,7 +55,6 @@
                 @if (isset($empleado))
                   <input type="hidden" id="idempleado" name="idempleado" value="{{$empleado->idempleado}}">
                   <input type="hidden" id="identificacion" name="identificacion" value="{{$empleado->identificacion}}">
-                  
                 @endif
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="form-group">
