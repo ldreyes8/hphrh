@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'inforecursos@habitatguate.org'),
         'name' => env('MAIL_FROM_NAME', 'Notificacion RRHH Habitat'),
     ],
 

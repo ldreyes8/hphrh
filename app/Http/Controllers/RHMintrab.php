@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use DateTime;
 use DB;
+use App\Empleado;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Persona;
 use Carbon\Carbon;  // para poder usar la fecha y hora
@@ -16,55 +17,75 @@ use Illuminate\Support\Collection;
 
 class RHMintrab extends Controller
 {
+  public function __construct()
+    {
+        //$this->middleware('auth');
+    }
+
+
     /*
     select sum(vd.acudias), sum(a.totaldias), sum(a.totalhoras), sum(vd.soldias), sum(vd.solhoras), vd.idempleado
-from vacadetalle as vd
-inner join ausencia as a on vd.idausencia = a.idausencia
-where vd.estado = 1 and a.idtipoausencia = 3
-group By vd.idempleado
-order by vd.idempleado;*/
+    from vacadetalle as vd
+    inner join ausencia as a on vd.idausencia = a.idausencia
+    where vd.estado = 1 and a.idtipoausencia = 3
+    group By vd.idempleado
+    order by vd.idempleado;*/
 
-	$today = Carbon::now();
-    $year = $today->format('Y');
+    public function ttvacaciones()
+    {
+      $today = Carbon::now();
+      $year = $today->format('Y');
 
-    $iniaño = '01-01-'.$year;  
-    $finaño = '31-12-'.$year;
+      $inicioaño = $year.'-01-01';      // se concatena el año actual con un texto determinado para obtener el incio del año actual
+      $finaño = $year.'-12-31';         // se concatena el año actual con un texto determinado para obtener el fin del año actual
+
+      //$idempleado = $request->idempleado;
+
+      $historialvacaciones =DB::table('ausencia as a')
+          ->join('empleado as emp','a.idempleado','=','emp.idempleado')
+          ->join('persona as per','emp.identificacion','=','per.identificacion') 
+          ->join('tipoausencia as ta','a.idtipoausencia','=','ta.idtipoausencia')
+          ->join('vacadetalle as vd','a.idausencia','=','vd.idausencia')
+          ->select('vd.idempleado')
+          ->where('ta.ausencia','=','Vacaciones')
+          ->where('a.autorizacion','=','Confirmado')
+          ->where('a.fechasolicitud', '>=', $inicioaño)
+          ->where('a.fechasolicitud', '<=', $finaño)
+          ->groupBy('a.idempleado')
+          ->orderBy('a.idempleado','desc')
+          ->get();
 
 
-    $idempleado = $request->idempleado;
+          $historialvacaciones = array("175","176","841");
 
-    $fechainicio = $request->fecha_inicio;
-    $fechafinal = $request->fecha_final;
+      $totalempleados = DB::table('empleado as emp')
+            ->join('nomytras as nt','emp.idempleado','=','nt.idempleado')
+            ->join('status as st','emp.idstatus','=','st.idstatus')
+            ->join('puesto as pu','nt.idpuesto','=','pu.idpuesto')
+            ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
+            ->join('caso as c','c.idcaso','=','nt.idcaso')
+            ->select('emp.idempleado')
+            ->where('emp.idstatus','=', 2)
+            ->groupBy('emp.idempleado')      
+            ->orderBy('emp.idempleado','desc')
+            ->get();
+
+      $totalemp = array();
 
 
-    $fechainicio = Carbon::createFromFormat('d/m/Y',$fechainicio);
-    $fechafinal = Carbon::createFromFormat('d/m/Y',$fechafinal);
+      foreach ($totalempleados as $valor) {
+        if(in_array($valor, $historialvacaciones))
+        {
+          $totalemp[] = array("mensaje");
+        }
+        else
+        {
+          $totalemp[] = "*.*";
+        }
+      }
 
-    $fini = $fechainicio;
-    $ffin = $fechafinal;
 
-    $fechainicio = $fechainicio->toDateString();
-    $fechafinal = $fechafinal->toDateString();
-
-
-    if($fechafinal >= $fechainicio){
-      $usuario = DB::table('ausencia as a')//select date_format(date, '%a %D %b %Y') 
-      //DB::raw('DATE_FORMAT(account.terminationdate,"%Y-%m-%d") as accountterminationdate')
-      ->join('vacadetalle as vd','a.idausencia','=','vd.idausencia')
-      ->select(DB::raw('DATE_FORMAT(a.fechasolicitud,"%d/%m/%Y") as fechasolicitud'),(DB::raw('DATE_FORMAT(a.fechainicio,"%d/%m/%Y") as fechainicio')),(DB::raw('DATE_FORMAT(a.fechafin,"%d/%m/%Y") as fechafin')),'a.horainicio','a.horafin','a.totaldias','a.idempleado','a.totalhoras','vd.solhoras','vd.soldias','vd.periodo')
-      ->where('a.fechainicio', '>=', $fechainicio, 'and', 'a.fechafin', '<=', $fechafinal, 'and','a.idempleado','=',$idempleado,'and','vd.estado','=','1')
-      ->where('a.fechafin', '<=', $fechafinal)
-      ->where('vd.estado','=',1)
-      ->where('a.idempleado','=',$idempleado)
-      ->where('vd.goce','!=','No_gozado')
-      ->get();
-
-      return response()->json(($usuario));
+         
+          print_r($totalemp);
     }
-    else{
-      return response()->json(array('error'=>'la fecha inicio no puede ser mayor que la fecha final'),404);
-    }
-  
-
-
 }

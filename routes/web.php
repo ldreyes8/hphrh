@@ -19,6 +19,8 @@ Route::resource('mintrabf','Controllermintrab');
 Route::get('excel','Controllermintrab@excel');
 Route::get('eventos','UController@listartablero');
 
+
+
 Route::group(['prefix'=>'listados'],function(){
 	Route::get('empleado','ListadoController@index');
 	Route::get('laboral/{id}','ListadoController@laboral');
@@ -367,6 +369,9 @@ Route::group(['prefix'=>'empleado'],function(){
 
 });
 
+Route::get('totalvacaciones','RHMintrab@ttvacaciones');
+
+
 //Errores
 Route::get('error404',function(){
 	abort(404);
@@ -405,5 +410,6 @@ Route::get('seguridad/buscar_usuarios/{rol}/{dato?}', 'PCUsuarioController@busca
 
 Route::post('crear_rol', 'PCUsuarioController@crear_rol')->middleware('roleshinobi:informatica');
 Route::get('borrar_rol/{idrol}', 'PCUsuarioController@borrar_rol')->middleware('roleshinobi:informatica');
+
 
 
