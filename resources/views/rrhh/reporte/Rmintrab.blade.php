@@ -143,6 +143,26 @@
                             @endif
                         @endforeach
                     </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        @foreach($bajas as $baj)
+                            @if($baj->idempleado == $per->idempleado)
+                            {{\Carbon\Carbon::createFromFormat('Y-m-d', $baj->fechabaja)->format('d-m-Y')}}
+                            @endif
+                        @endforeach
+                    </td>
+
+                    <td>
+                        @foreach($totalvacaciones as $vac)
+                            @if($vac[1] == $per->idempleado)
+                                {{$vac[0]}}
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>   
+                    </td>
 
                     
                 </tr>               

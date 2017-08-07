@@ -14,6 +14,8 @@ use App\Persona;
 use Carbon\Carbon;  // para poder usar la fecha y hora
 use Response;
 use Illuminate\Support\Collection;
+use App\Constants;
+use App\Vacaciones;
 
 class RHMintrab extends Controller
 {
@@ -21,7 +23,6 @@ class RHMintrab extends Controller
     {
         //$this->middleware('auth');
     }
-
 
     /*
     select sum(vd.acudias), sum(a.totaldias), sum(a.totalhoras), sum(vd.soldias), sum(vd.solhoras), vd.idempleado
@@ -39,53 +40,63 @@ class RHMintrab extends Controller
       $inicioaño = $year.'-01-01';      // se concatena el año actual con un texto determinado para obtener el incio del año actual
       $finaño = $year.'-12-31';         // se concatena el año actual con un texto determinado para obtener el fin del año actual
 
-      //$idempleado = $request->idempleado;
-
-      $historialvacaciones =DB::table('ausencia as a')
-          ->join('empleado as emp','a.idempleado','=','emp.idempleado')
-          ->join('persona as per','emp.identificacion','=','per.identificacion') 
-          ->join('tipoausencia as ta','a.idtipoausencia','=','ta.idtipoausencia')
-          ->join('vacadetalle as vd','a.idausencia','=','vd.idausencia')
-          ->select('vd.idempleado')
-          ->where('ta.ausencia','=','Vacaciones')
-          ->where('a.autorizacion','=','Confirmado')
-          ->where('a.fechasolicitud', '>=', $inicioaño)
-          ->where('a.fechasolicitud', '<=', $finaño)
-          ->groupBy('a.idempleado')
-          ->orderBy('a.idempleado','desc')
-          ->get();
+      $vac = new Vacaciones();
+      $vac = $vac->selectQuery(Constants::VACATOMADA_GENERAL_QUERY,array('fini'=>$inicioaño,'ffin'=>$finaño));
 
 
-          $historialvacaciones = array("175","176","841");
+        $sum = 0;
+        $res = 0;
 
-      $totalempleados = DB::table('empleado as emp')
-            ->join('nomytras as nt','emp.idempleado','=','nt.idempleado')
-            ->join('status as st','emp.idstatus','=','st.idstatus')
-            ->join('puesto as pu','nt.idpuesto','=','pu.idpuesto')
-            ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
-            ->join('caso as c','c.idcaso','=','nt.idcaso')
-            ->select('emp.idempleado')
-            ->where('emp.idstatus','=', 2)
-            ->groupBy('emp.idempleado')      
-            ->orderBy('emp.idempleado','desc')
-            ->get();
-
-      $totalemp = array();
-
-
-      foreach ($totalempleados as $valor) {
-        if(in_array($valor, $historialvacaciones))
+        if(count($vac)>0)
         {
-          $totalemp[] = array("mensaje");
-        }
-        else
-        {
-          $totalemp[] = "*.*";
-        }
-      }
+          for($i = 0; $i < count($vac); $i++)
+          {
+            $dsolicitado = $vac[$i]->totaldias;
+            $hsolicitado = $vac[$i]->totalhoras;
+            $dnotomado =   $vac[$i]->soldias;
+            $hnotomado =   $vac[$i]->solhoras;
 
+            $hsolicitado =(int)$hsolicitado; 
+            $hnotomado = (int)$hnotomado;
 
-         
-          print_r($totalemp);
+            $tdsolicitado =0;
+            $tdnotomado = 0;
+
+            $td =0;
+            $resul =0;
+            
+            $dsolicitado = $dsolicitado * 8;
+            $dnotomado = $dnotomado *8;
+
+            $tdsolicitado = $dsolicitado + $hsolicitado;
+            $tdnotomado = $dnotomado + $hnotomado;
+
+            $td = $tdsolicitado - $tdnotomado;
+            $td = $td/8;
+            $sum += $td;
+          
+            if ($td - floor($td) == 0) {
+              $resul = $td." Días";
+            }
+            else{
+              $td = $td - 0.5;
+              $resul = $td." ½ "."Días";
+            }
+
+            $calculo[] = array($resul, $vac[$i]->idempleado);
+          }
+
+          if ($sum - floor($sum) == 0) {
+            $res = $sum." Días";
+          }
+          else{
+            $sum = $sum - 0.5;
+            $res = $sum." ½ "."Días";
+          }
+        }
+        else{
+          $calculo[] = 0;
+        }
+      
     }
 }

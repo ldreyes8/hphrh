@@ -13,6 +13,9 @@ use Carbon\Carbon;  // para poder usar la fecha y hora
 use Response;
 use Illuminate\Support\Collection;
 
+use App\Constants;
+use App\Vacaciones;
+
 class Controllermintrab extends Controller
 {
     //
@@ -48,6 +51,8 @@ class Controllermintrab extends Controller
             ->join('status as st','em.idstatus','=','st.idstatus')
             ->select('em.idempleado','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','nac.nombre as nnac','ec.idcivil','p.identificacion','do.codmintrab as mtdo','ps.codmintrab as mtps','mun.mintrab as mtmun','em.nit','em.afiliacionigss as iggs','p.genero','p.fechanac','ena.idetnia')
             ->where('em.idstatus','=',2)
+            ->orwhere('em.idstatus','=',5)
+
             ->orderBy('em.idempleado','asc')
             ->get();
 
@@ -99,7 +104,88 @@ class Controllermintrab extends Controller
         ->get();
 
         //return view('rrhh.reporte.Rmintrab',['persona'=>$persona,'hijo'=>$hijo,'trabajoextranjero'=>$trabajoextranjero,'idioma'=>$idioma,'ntitulo'=>$ntitulo]);
-        return view('rrhh.reporte.Rmintrab',['persona'=>$persona,'hijo'=>$hijo,'academico'=>$academico,'trabajoextranjero'=>$trabajoextranjero,'idioma'=>$idioma]);
+
+        $academico=DB::table('persona as p')
+        ->join('personaacademico as pa','p.identificacion','=','pa.identificacion')
+        ->join('nivelacademico as na','pa.idnivel','=','na.idnivel')
+        ->select(DB::raw('max(na.idnivel) as idnivel, pa.titulo'),'p.identificacion')
+        ->where('na.mintrabna','=',1)
+        ->groupBy('p.identificacion')
+        ->orderBy('p.identificacion','asc')
+        ->get();
+
+        $today = Carbon::now();
+        $year = $today->format('Y');
+
+        $inicioaño = $year.'-01-01';      // se concatena el año actual con un texto determinado para obtener el incio del año actual
+        $finaño = $year.'-12-31';         // se concatena el año actual con un texto determinado para obtener el fin del año actual
+
+        $vac = new Vacaciones();
+        $vac = $vac->selectQuery(Constants::VACATOMADA_GENERAL_QUERY,array('fini'=>$inicioaño,'ffin'=>$finaño));
+
+        $sum = 0;
+        $res = 0;
+
+        if(count($vac)>0)
+        {
+          for($i = 0; $i < count($vac); $i++)
+          {
+            $dsolicitado = $vac[$i]->totaldias;
+            $hsolicitado = $vac[$i]->totalhoras;
+            $dnotomado =   $vac[$i]->soldias;
+            $hnotomado =   $vac[$i]->solhoras;
+
+            $hsolicitado =(int)$hsolicitado; 
+            $hnotomado = (int)$hnotomado;
+
+            $tdsolicitado =0;
+            $tdnotomado = 0;
+
+            $td =0;
+            $resul =0;
+            
+            $dsolicitado = $dsolicitado * 8;
+            $dnotomado = $dnotomado *8;
+
+            $tdsolicitado = $dsolicitado + $hsolicitado;
+            $tdnotomado = $dnotomado + $hnotomado;
+
+            $td = $tdsolicitado - $tdnotomado;
+            $td = $td/8;
+            $sum += $td;
+          
+            if ($td - floor($td) == 0) {
+              $resul = $td." Días";
+            }
+            else{
+              $td = $td - 0.5;
+              $resul = $td." ½ "."Días";
+            }
+
+            $calculo[] = array($resul, $vac[$i]->idempleado);
+          }
+
+          if ($sum - floor($sum) == 0) {
+            $res = $sum." Días";
+          }
+          else{
+            $sum = $sum - 0.5;
+            $res = $sum." ½ "."Días";
+          }
+        }
+        else{
+          $calculo[] = 0;
+        }
+        
+        $vac = Collection::make($calculo);
+
+        $bajas = DB::table('empleado as emp')
+        ->join('bajas as ba','emp.idempleado','=','ba.idempleado')
+        ->select('ba.idempleado','ba.fechabaja')
+        ->get();
+
+
+        return view('rrhh.reporte.Rmintrab',['persona'=>$persona,'hijo'=>$hijo,'academico'=>$academico,'trabajoextranjero'=>$trabajoextranjero,'idioma'=>$idioma,'totalvacaciones'=>$vac,'bajas'=>$bajas]);
     }
 
     public function excel()

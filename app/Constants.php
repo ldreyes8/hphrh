@@ -11,6 +11,19 @@ class Constants
 
     //const NOMBRE_ROL_POR_USUARIO="select r.nombre from seg_usuario_rol ur,seg_rol r where ur.ide_usuario=:ideUsuario and r.ide_rol=ur.ide_rol";
     //const NOMBRE_ROL_POR_USUARIO="select r.name from roles r,role_user ru where ru.user_id=:ideUsuario and r.id =ru.role_id";
+	//$inicioaño,$finaño
+    const VACATOMADA_GENERAL_QUERY = "SELECT vd.idempleado, 
+    IFNULL(sum(a.totaldias),0) as totaldias, 
+    IFNULL(sum(vd.soldias),0) as soldias,
+	IFNULL(sum(vd.solhoras/10000),0) as solhoras, 
+	IFNULL(sum(a.totalhoras/10000),0) as totalhoras 
+	from vacadetalle as vd
+	LEFT JOIN ausencia as a on vd.idausencia = a.idausencia
+	LEFT JOIN empleado as emp on vd.idempleado = emp.idempleado 
+	INNER JOIN persona as per on emp.identificacion = per.identificacion
+	where (emp.idstatus = 2 or emp.idstatus = 5 or emp.idstatus = 6 or emp.idstatus = 8) and vd.estado = 1 and per.idpais = 73 and vd.fecharegistro between '2017-06-01' and '2017-12-31'
+	group By vd.idempleado
+	order by vd.idempleado";
 
 	const ASIGNAJEFE_PROYECTO_QUERY ="SELECT p.nombre1, p.nombre2,p.apellido1,p.apellido2, p.identificacion from persona as p inner join empleado as em on p.identificacion = em.identificacion inner join status as sts on em.idstatus = sts.idstatus and em.idstatus = 2  where not exists (select aj.identificacion from asignajefe as aj where aj.identificacion = p.identificacion and aj.idempleado = :idempleado )";
 
@@ -32,3 +45,5 @@ class Constants
     const AREA_OBJETIVO_QUERY="SELECT a.ide_area,a.nombre FROM cfg_area_atencion a WHERE NOT EXISTS(SELECT o.ide_area FROM pln_area_objetivo o WHERE o.ide_area=a.ide_area AND o.ide_proyecto=:ideProyecto)";
     const INDICADOR_AREA_QUERY="SELECT i.ide_indicador,i.nombre FROM cfg_indicador i WHERE NOT EXISTS(SELECT a.ide_indicador FROM pln_indicador_area a WHERE a.ide_indicador=i.ide_indicador and a.ide_proyecto=:ideProyecto)";
 }
+
+
