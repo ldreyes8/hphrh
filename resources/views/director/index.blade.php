@@ -4,7 +4,7 @@
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet">
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet">
         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
-        
+        <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
 @endsection
 @section ('contenido')
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -65,6 +65,8 @@
     <meta name="_token" content="{!! csrf_token() !!}" />
     <script src="{{asset('assets/js/perfil/solicitud.js')}}"></script>
     <script src="{{asset('assets/js/JefeInmediato/permisovacaciones.js')}}"></script>
+    <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
+
     <script>cargar_formulario(4);</script>
 
 

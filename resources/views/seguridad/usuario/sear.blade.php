@@ -4,7 +4,7 @@
                     
                     <div class="col-lg-9">
                         <div class="input-group">     
-                            <input type="text" class="form-control" id="dato_buscado">
+                            <input type="text" class="form-control" autofocus id="dato_buscado">
                             <span class="input-group-btn">
                                 <button class="btn btn-info btn-flat" type="button"   onclick="buscarusuario();" >Buscar!</button>
                             </span>
@@ -39,9 +39,16 @@
         <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
 
 
-<script type="text/javascript"> $(document).ready(function() {
-
+    <script type="text/javascript">
+        $(document).ready(function() {
             $(".select2").select2();
 
-            
-        });</script>
+            $('#dato_buscado').keypress(function(e){   
+                if(e.which == 13){      
+                    buscarusuario();
+                }   
+            });
+        });
+    </script>
+
+

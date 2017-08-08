@@ -17,13 +17,12 @@
         </div>
     </div>
 
-<script type="text/javascript"> $(document).ready(function() {
-
-
-            $('#searchText').keypress(function(e){   
-               if(e.which == 13){      
-                 buscarempleadoActivo();
-               }   
-              });    
-            
-        });</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+	        $('#searchText').keypress(function(e){   
+	            if(e.which == 13){      
+	                 buscarempleadoActivo();
+	            }   
+	        });    
+        });
+    </script>
