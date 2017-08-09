@@ -177,3 +177,27 @@ function cargarusuario(listado){
     $("#contentsecundario").html(resul);
     });
 }
+
+function cambiarclave(idusu){
+  var password=$("#password").val();
+  var urlraiz=$("#url_raiz_proyecto").val();
+  $("#zona_etiquetas_roles").html($("#cargador_empresa").html());
+  var miurl=urlraiz+"/cambiarclave/"+idusu+"/"+password+""; 
+
+  $.ajax({
+    url: miurl
+  }).done( function(resul) 
+  { 
+    var etiquetas="";
+    var password=$.parseJSON(resul);
+    $.each(password,function(index, value) {
+      etiquetas+= '<span class="label label-warning" style="margin-left:10px;" >'+value+'</span> ';
+    })
+
+    $("#zona_etiquetas_roles").html(etiquetas);
+  }).fail( function() 
+  {
+    $("#zona_etiquetas_roles").html('<span style="color:red;">...Error: Aun no ha agregado roles  o revise su conexion...</span>');
+  });
+}
+

@@ -15,20 +15,19 @@
 			{!!Form::open(array('url'=>'seguridad/usuario/store','method'=>'POST','autocomplete'=>'off','files'=>'true'))!!}
             {{Form::token()}}
 
-                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                    <label for="name" class="col-md-4 control-label">Nombre</label>
+                    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                        <label for="name" class="col-md-4 control-label">Nombre</label>
                         <div class="col-md-6">
                             <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                            @if ($errors->has('name'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </span>
+                            @endif
                         </div>
+                    </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail</label>
 
                             <div class="col-md-6">
@@ -40,17 +39,16 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
+                    </div>
                         
-                        <div class="form-group{{ $errors->has('empleado') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('empleado') ? ' has-error' : '' }}">
                             <label for="empleado" class="col-md-4 control-label">Empleado</label>
                             <div class="col-md-6">
                                 <input id="identificacion" type="text" class="form-control" name="identificacion" required>
                             </div>
-                        </div>
-    	
+                    </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Contraseña</label>
 
                             <div class="col-md-6">
@@ -62,16 +60,14 @@
                                     </span>
                                 @endif
                             </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password-confirm" class="col-md-4 control-label">Confirmar Contraseña</label>
+                        <div class="col-md-6">
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                         </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirmar Contraseña</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
+                    </div>
             
             <div class="form-group">
             	<button class="btn btn-primary" type="submit">Guardar</button>

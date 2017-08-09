@@ -63,6 +63,7 @@ class ListadoController extends Controller
         ->join('caso as c','c.idcaso','=','nt.idcaso')
         ->select('empleado.idempleado','empleado.identificacion','empleado.nit','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado','c.idcaso',DB::raw('max(nt.idnomytas) as idnomytas'))
         ->where('empleado.idstatus','!=', 5)
+        ->where('empleado.idstatus','!=', 8)
         ->groupBy('empleado.idempleado')      
         ->orderBy('empleado.idempleado','desc')
         ->paginate(20);
@@ -70,6 +71,7 @@ class ListadoController extends Controller
         $status = DB::table('status as st')
         ->select('st.idstatus','st.statusemp')
         ->where('st.idstatus','=',5)
+        ->orwhere('st.idstatus','=',8)
         ->get();
 
 
@@ -124,6 +126,7 @@ class ListadoController extends Controller
         ->join('caso as c','c.idcaso','=','nt.idcaso')
         ->select('empleado.idempleado','empleado.identificacion','empleado.nit','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado','c.idcaso',DB::raw('max(nt.idnomytas) as idnomytas'))
         ->where('empleado.idstatus','!=', 5)
+        ->where('empleado.idstatus','!=', 8)
         ->groupBy('empleado.idempleado')      
         ->orderBy('empleado.idempleado','desc')
         ->paginate(20);
@@ -547,6 +550,7 @@ class ListadoController extends Controller
                 $motivo = $request->motivo;
                 $comentarios = $request->observaciones;
                 $idstatus = $request->idstatus;
+                dd($idstatus);
 
                 $fechabaja = Carbon::createFromFormat('d/m/Y',$fechabaja);
                 $fechabaja = $fechabaja->toDateString();
@@ -571,11 +575,16 @@ class ListadoController extends Controller
                 ->where('U.identificacion','=',$identificacion)
                 ->first();
 
-                $usuario = user::find($idusario->id);
-                //$usuario->password=bcrypt('brcsolera12072017');
-                $usuario->password=bcrypt('DespidoATM');
-                $usuario->estado = 0;
-                $usuario->save();
+                if(empty($idusario))
+                {                  
+                }
+                else{
+                    $usuario = user::find($idusario->id);
+                    //$usuario->password=bcrypt('brcsolera12072017');
+                    $usuario->password=bcrypt('DespidoATM');
+                    $usuario->estado = 0;
+                    $usuario->save();  
+                }
 
                 DB::commit();
                 
@@ -615,7 +624,7 @@ class ListadoController extends Controller
             ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
             ->select('e.idempleado','e.identificacion','e.nit','e.afiliacionigss','e.numerodependientes','e.aportemensual','e.vivienda','e.alquilermensual','e.otrosingresos','p.nombre1','p.nombre2','p.apellido1','p.apellido2','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado',DB::raw('max(nt.idnomytas) as idnomytas'))
             ->where('e.idstatus','=',5)
-            ->orwhere('e.idstatus','=',4)
+            ->orwhere('e.idstatus','=',8)
             ->groupBy('e.idempleado')      
             ->orderBy('e.idempleado','desc')
             ->paginate(20);

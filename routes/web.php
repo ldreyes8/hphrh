@@ -403,6 +403,7 @@ Route::get('seguridad/usuario/editar_usuario/{id}', 'PCUsuarioController@editar_
 Route::delete('destroy/{id}','PCUsuarioController@destroy')->middleware('roleshinobi:informatica');
 Route::get('asignar_rol/{idusu}/{idrol}', 'PCUsuarioController@asignar_rol')->middleware('roleshinobi:informatica');
 Route::get('quitar_rol/{idusu}/{idrol}','PCUsuarioController@quitar_rol')->middleware('roleshinobi:informatica');
+Route::get('cambiarclave/{id}/{clave}','PCUsuarioController@cambiarclave')->middleware('roleshinobi:informatica');
 
 //Route::get('form_nuevo_usuario', 'UsuariosController@form_nuevo_usuario');
 Route::get('seguridad/usuario/form_nuevo_rol', 'PCUsuarioController@form_nuevo_rol')->middleware('roleshinobi:informatica');

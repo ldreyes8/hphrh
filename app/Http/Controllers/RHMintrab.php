@@ -34,69 +34,9 @@ class RHMintrab extends Controller
 
     public function ttvacaciones()
     {
-      $today = Carbon::now();
-      $year = $today->format('Y');
 
-      $inicioaño = $year.'-01-01';      // se concatena el año actual con un texto determinado para obtener el incio del año actual
-      $finaño = $year.'-12-31';         // se concatena el año actual con un texto determinado para obtener el fin del año actual
-
-      $vac = new Vacaciones();
-      $vac = $vac->selectQuery(Constants::VACATOMADA_GENERAL_QUERY,array('fini'=>$inicioaño,'ffin'=>$finaño));
-
-
-        $sum = 0;
-        $res = 0;
-
-        if(count($vac)>0)
-        {
-          for($i = 0; $i < count($vac); $i++)
-          {
-            $dsolicitado = $vac[$i]->totaldias;
-            $hsolicitado = $vac[$i]->totalhoras;
-            $dnotomado =   $vac[$i]->soldias;
-            $hnotomado =   $vac[$i]->solhoras;
-
-            $hsolicitado =(int)$hsolicitado; 
-            $hnotomado = (int)$hnotomado;
-
-            $tdsolicitado =0;
-            $tdnotomado = 0;
-
-            $td =0;
-            $resul =0;
-            
-            $dsolicitado = $dsolicitado * 8;
-            $dnotomado = $dnotomado *8;
-
-            $tdsolicitado = $dsolicitado + $hsolicitado;
-            $tdnotomado = $dnotomado + $hnotomado;
-
-            $td = $tdsolicitado - $tdnotomado;
-            $td = $td/8;
-            $sum += $td;
-          
-            if ($td - floor($td) == 0) {
-              $resul = $td." Días";
-            }
-            else{
-              $td = $td - 0.5;
-              $resul = $td." ½ "."Días";
-            }
-
-            $calculo[] = array($resul, $vac[$i]->idempleado);
-          }
-
-          if ($sum - floor($sum) == 0) {
-            $res = $sum." Días";
-          }
-          else{
-            $sum = $sum - 0.5;
-            $res = $sum." ½ "."Días";
-          }
-        }
-        else{
-          $calculo[] = 0;
-        }
-      
+      return view('rrhh.renuncia.index');
     }
+
+
 }

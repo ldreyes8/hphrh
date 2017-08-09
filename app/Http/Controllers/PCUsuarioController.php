@@ -146,21 +146,38 @@ class PCUsuarioController extends Controller
     	return Redirect::to('seguridad/usuario');
     }
 
-       public function cambiar_password(Request $request){
-            $this->validateRequestPassword($request);
-            $id=$request->get('idusuario');
-            $usuario=User::find($id);
-            $password=$request->input("password");
-            $usuario->password=bcrypt($password);
-            $r=$usuario->save();
+    public function cambiar_password(Request $request){
+        $this->validateRequestPassword($request);
+        $id=$request->get('idusuario');
+        $usuario=User::find($id);
+        $password=$request->input("password");
+        $usuario->password=bcrypt($password);
+        $r=$usuario->save();
 
-            if($r){
-                return response()->json($usuario);
-            }
-            else
-            {
-                return view("mensajes.msj_rechazado")->with("msj","Error al actualizar el password");
-            }
+        if($r){
+            return response()->json($usuario);
+        }
+        else
+        {
+            return view("mensajes.msj_rechazado")->with("msj","Error al actualizar el password");
+        }
     }
 
+    public function cambiarclave($id,$password){
+        $usuario=User::find($id);
+        $usuario->password=bcrypt($password);
+        $r=$usuario->save();
+
+        if($r){
+            $calculo[] = "Se modifico la clave";
+            $usuario = Collection::make($calculo);
+            return json_encode ($usuario);
+        }
+        else
+        {
+            $calculo[] = "error";
+            $usuario = Collection::make($calculo);
+            return json_encode ($usuario);
+        }
+    }
 }

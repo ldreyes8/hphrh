@@ -238,7 +238,7 @@ EOF;
         $hostMatches = false;
         $methods = $route->getMethods();
 
-        $supportsTrailingSlash = $supportsRedirections && (!$methods || in_array('HEAD', $methods));
+        $supportsTrailingSlash = $supportsRedirections && (!$methods || in_array('HEAD', $methods) || in_array('GET', $methods));
         $regex = $compiledRoute->getRegex();
 
         if (!count($compiledRoute->getPathVariables()) && false !== preg_match('#^(.)\^(?P<url>.*?)\$\1#'.(substr($regex, -1) === 'u' ? 'u' : ''), $regex, $m)) {
@@ -307,7 +307,7 @@ EOF;
                 if (in_array('GET', $methods)) {
                     // Since we treat HEAD requests like GET requests we don't need to match it.
                     $methodVariable = 'canonicalMethod';
-                    $methods = array_filter($methods, function ($method) { return 'HEAD' !== $method; });
+                    $methods = array_values(array_filter($methods, function ($method) { return 'HEAD' !== $method; }));
                 }
 
                 if (1 === count($methods)) {
