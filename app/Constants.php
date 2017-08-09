@@ -30,15 +30,52 @@ class Constants
 
 	//consutlas abner
 	const listadoresultadosji ="SELECT e.nit,p.identificacion,e.idempleado, e.idstatus, p.nombre1,p.nombre2, p.apellido1,p.apellido2 ,pu.nombre as puesto, af.nombre as afnombre ,s.statusemp as status from empleado as e 
-	inner join persona as p on p.identificacion = e.identificacion
-	inner join puesto as pu on p.idpuesto = pu.idpuesto
-	inner join afiliado as af on p.idafiliado = af.idafiliado
-	inner join status as s on e.idstatus = s.idstatus and e.idstatus=14
-	where not exists(select * from resultado as r
-	inner join users as urs on urs.id= r.evaluador
-	where urs.id = :idusuario and e.idempleado = r.idempleado)";
+		inner join persona as p on p.identificacion = e.identificacion
+		inner join puesto as pu on p.idpuesto = pu.idpuesto
+		inner join afiliado as af on p.idafiliado = af.idafiliado
+		inner join status as s on e.idstatus = s.idstatus and e.idstatus=14
+		where not exists(select * from resultado as r
+		inner join users as urs on urs.id= r.evaluador
+		where urs.id = :idusuario and e.idempleado = r.idempleado)";
 
+	const listadoindex="SELECT e.idempleado, e.identificacion, e.nit,pu.nombre1,pu.nombre2,pu.nombre3, pu.apellido1,pu.apellido2,ec.estado as estadocivil,s.idstatus,s.statusemp as status,
+		po.nombre as puesto,af.nombre as afnombre from persona as pu
+		join empleado as e on e.identificacion = pu.identificacion
+		join puesto as po on po.idpuesto=pu.idpuesto
+		join afiliado as af on af.idafiliado=pu.idafiliado
+		join administraciones as ad on ad.idpuesto=po.idpuesto
+		join estadocivil as ec on e.idcivil = ec.idcivil
+		join status as s on e.idstatus = s.idstatus
+		where (s.statusemp='Aspirante' or s.statusemp='Solicitante Interno') and af.idafiliado=ad.idafiliado and exists(select p.identificacion, p.nombre1, admin.idpuesto, admin.identificacion from users as u
+		join persona as p on p.identificacion=u.identificacion
+		join administraciones as admin on p.identificacion=admin.identificacion
+		where u.id= :idusuario and p.identificacion =ad.identificacion)";
 
+	const listadopreentrevistadosji="SELECT e.idempleado, e.identificacion, e.nit,pu.nombre1,pu.nombre2,pu.nombre3, pu.apellido1,pu.apellido2,ec.estado as estadocivil,s.idstatus,s.statusemp as status,
+		po.nombre as puesto,af.nombre as afnombre from persona as pu
+		join empleado as e on e.identificacion = pu.identificacion
+		join puesto as po on po.idpuesto=pu.idpuesto
+		join afiliado as af on af.idafiliado=pu.idafiliado
+		join administraciones as ad on ad.idpuesto=po.idpuesto
+		join estadocivil as ec on e.idcivil = ec.idcivil
+		join status as s on e.idstatus = s.idstatus
+		where s.statusemp='Pre-entrevistado' and af.idafiliado=ad.idafiliado and exists(select p.identificacion, p.nombre1, admin.idpuesto, admin.identificacion from users as u
+		join persona as p on p.identificacion=u.identificacion
+		join administraciones as admin on p.identificacion=admin.identificacion
+		where u.id= :idusuario and p.identificacion =ad.identificacion)";
+
+	const listadoprecalificadosji="SELECT e.idempleado, e.identificacion, e.nit,pu.nombre1,pu.nombre2,pu.nombre3, pu.apellido1,pu.apellido2,ec.estado as estadocivil,s.idstatus,s.statusemp as status,
+		po.nombre as puesto,af.nombre as afnombre from persona as pu
+		join empleado as e on e.identificacion = pu.identificacion
+		join puesto as po on po.idpuesto=pu.idpuesto
+		join afiliado as af on af.idafiliado=pu.idafiliado
+		join administraciones as ad on ad.idpuesto=po.idpuesto
+		join estadocivil as ec on e.idcivil = ec.idcivil
+		join status as s on e.idstatus = s.idstatus
+		where s.statusemp='Pre-calificado' and af.idafiliado=ad.idafiliado and exists(select p.identificacion, p.nombre1, admin.idpuesto, admin.identificacion from users as u
+		join persona as p on p.identificacion=u.identificacion
+		join administraciones as admin on p.identificacion=admin.identificacion
+		where u.id= :idusuario and p.identificacion =ad.identificacion)";
 
 
     const OBJETIVO_META_QUERY="SELECT o.ide_objetivo,o.nombre FROM cfg_objetivo o WHERE NOT EXISTS (SELECT m.ide_objetivo FROM pln_objetivo_meta m WHERE m.ide_objetivo=o.ide_objetivo and m.ide_proyecto=:ideProyecto)";

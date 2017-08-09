@@ -16,6 +16,8 @@ use Carbon\Carbon;  // para poder usar la fecha y hora
 use Response;
 use Illuminate\Support\Collection;
 use Mail;
+use Illuminate\Support\Facades\Auth;
+use App\Constants;
 
 class RHPrecalificado extends Controller
 {
@@ -53,6 +55,14 @@ class RHPrecalificado extends Controller
             ->paginate(19);
         }
         return view('rrhh.precalificados.listadoPC',["empleados"=>$empleados,"searchText"=>$query]); 
+    }
+
+    public function listadopreCjf (Request $request)
+    {
+        $query=trim($request->get('searchText'));
+        $perosna=new Persona;
+        $empleados = $perosna->selectQuery(Constants::listadoprecalificadosji,array(Auth::user()->id));
+        return view('rrhh.jfreclutamiento.solicitudjfpc',["empleados"=>$empleados,"searchText"=>$query]);
     }
 
     public function show($id)
