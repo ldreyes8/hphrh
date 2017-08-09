@@ -17,6 +17,8 @@ use DateTime;
 use Carbon\Carbon;  // para poder usar la fecha y hora
 use Response;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use App\Constants;
 
 class RHPreentrevista extends Controller
 {
@@ -198,6 +200,14 @@ class RHPreentrevista extends Controller
             ->paginate(19);
             }
             return view('rrhh.preentrevista.listadoPE',["empleados"=>$empleados,"searchText"=>$query]);	
+    }
+    public function prelistadojf(Request $request)
+    {
+        $query=trim($request->get('searchText'));
+        $perosna=new Persona;
+        $empleados = $perosna->selectQuery(Constants::listadopreentrevistadosji,array(Auth::user()->id));
+        $area=DB::table('area')->get();
+        return view('rrhh.jfreclutamiento.solicitudjfpre',["empleados"=>$empleados,"searchText"=>$query]);
     }
     public function prentrevista (Request $request)
     {

@@ -60,7 +60,6 @@ class RHNombramientoEmpleado extends Controller
         ->select('st.idstatus','st.statusemp')
         ->where('st.idstatus','=',5)
         ->get();
-        
         /*
     	       $puestos=Puesto::all();
 

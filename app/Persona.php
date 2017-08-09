@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Persona extends Model
+class Persona extends BaseModel
 {
     //
     protected $table='persona';
@@ -54,5 +54,16 @@ class Persona extends Model
             ->orwhere('apellido1','like','%'.$dato.'%')
             ->orwhere('apellido2','like','%'.$dato.'%')
             ->orwhere(\DB::raw("CONCAT(nombre1,' ',apellido1)"),'like','%'.$dato.'%');
+    }
+
+    public function scopeSolicitante($query,$dato="")
+    {
+
+        $resultado=$query->where('nombre1','like','%'.$dato.'%')
+            ->orwhere('nombre2','like','%'.$dato.'%')
+            ->orwhere('apellido1','like','%'.$dato.'%')
+            ->orwhere('apellido2','like','%'.$dato.'%')
+            ->orwhere(\DB::raw("CONCAT(nombre1,' ',apellido1)"),'like','%'.$dato.'%');
+            return $resultado;
     }
 }
