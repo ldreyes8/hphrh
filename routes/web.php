@@ -96,11 +96,13 @@ Route::group(['prefix'=>'empleado'],function(){
 	//Listapo reclutamiento
 	Route::get('listadoR','RHReclutamiento@listadoR');
 	Route::get('solicitudes','RHReclutamiento@index');
-	Route::get('busquedas/{dato?}','RHReclutamiento@busquedas');
+	Route::get('solicitudesjf','RHReclutamiento@indexjf');
+	Route::get('busquedas/{dato?}','RHReclutamiento@busquedas');//dssdsd//
 	Route::get('update/{id}','Pprueba@update');
 
 	//Preentrevistados
 	Route::get('pre_entrevistado','RHPreentrevista@listadopreE');
+	Route::get('pre_entrevistadoji','RHPreentrevista@prelistadojf');
 	Route::get('upPreentrevista/{id}/{ids?}','RHPreentrevista@upPreentrevista');
 	//Route::get('rechazo/{id}/{ids?}','SController@rechazo');
 	Route::get('preentre/{id}','RHPreentrevista@preentre');
@@ -122,6 +124,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	//Precalificar
 	Route::get('precalificar/{id}','RHPrecalificado@precalificar');
 	Route::get('pre_calificados','RHPrecalificado@listadopreC');
+	Route::get('pre_calificadosjf','RHPrecalificado@listadopreCjf');
 	Route::get('pre_calificados/show/{id}','RHPrecalificado@show');
 	Route::get('precali/{id}','RHPrecalificado@precali');
 	Route::post('precali/prentrevista','RHPreentrevista@prentrevista');
@@ -218,6 +221,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('contacto','PerController@contacto');
 
 	Route::get('rechazo/{id}/{ids?}','SController@rechazo');
+	Route::get('rechazope/{id}/{ids?}','SController@rechazope');
 	//Route::get();
 	Route::get('rechazoPP/{id}','SController@rechazoPP');
 	Route::get('rechazoPI/{id}','SController@rechazoPI');

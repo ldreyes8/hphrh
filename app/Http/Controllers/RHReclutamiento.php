@@ -14,6 +14,8 @@ use DateTime;
 use Carbon\Carbon;  // para poder usar la fecha y hora
 use Response;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use App\Constants;
 
 class RHReclutamiento extends Controller
 {
@@ -121,8 +123,10 @@ class RHReclutamiento extends Controller
     public function index(Request $request)
     {
         if($request)
-        {
-            $query=trim($request->get('searchText'));
+            {
+            //$dato=$request;
+            $dato=trim($request->get('dato_buscado'));
+            //dd($query);
             $empleados=DB::table('empleado as e')
             ->join('persona as p','e.identificacion','=','p.identificacion')
             ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
@@ -130,51 +134,47 @@ class RHReclutamiento extends Controller
             ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
             ->join('status as s','e.idstatus','=','s.idstatus')
             ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
-            //->where('p.nombre1','LIKE','%'.$query.'%')
-            //->andwhere('p.apellido1','LIKE','%'.$query.'%')
+            
+            //->where('p.apellido1','LIKE','%'.$query.'%')
 
-            ->where('s.statusemp','=','Aspirante')
+            ->where('s.statusemp','=','Aspirante'  )
             ->orwhere('s.statusemp','=','Solicitante Interno')
 
-            ->where('p.nombre1','LIKE','%'.$query.'%')
+            //->where('p.nombre1','LIKE','%'.$query.'%')
             //->orwhere('p.apellido1','LIKE','%'.$query.'%')
 
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
             ->orderBy('e.idempleado','desc')
-            
             ->paginate(19);
+            return view('rrhh.reclutamiento.solicitud',["empleados"=>$empleados,"dato"=>$dato]);
             }
-            return view('rrhh.reclutamiento.solicitud',["empleados"=>$empleados,"searchText"=>$query]);
+
         
     }
 
+    public function indexjf(Request $request)
+    {
+        $query=trim($request->get('searchText'));
+        $perosna=new Persona;
+        $empleados = $perosna->selectQuery(Constants::listadoindex,array(Auth::user()->id));
+        $area=DB::table('area')->get();
+        //dd($empleados);
+        return view('rrhh.jfreclutamiento.solicitudjf',["empleados"=>$empleados,"searchText"=>$query]);
+    }
     public function busquedas($dato="")
     {
-      
-            $query=$dato;
-            $empleados=DB::table('empleado as e')
-            ->join('persona as p','e.identificacion','=','p.identificacion')
+        $empleados= Persona::Solicitante($dato)->join('empleado as e','e.identificacion','=','persona.identificacion')
             ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
-            ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-            ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
+            ->join('puesto as pu','persona.idpuesto','=','pu.idpuesto')
+            ->join('afiliado as af','persona.idafiliado','=','af.idafiliado')
             ->join('status as s','e.idstatus','=','s.idstatus')
-            ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
-            //->where('p.nombre1','LIKE','%'.$query.'%')
-            //->andwhere('p.apellido1','LIKE','%'.$query.'%')
-
-            ->where('s.statusemp','=','Aspirante')
+            ->select('e.idempleado','e.identificacion','e.nit','persona.nombre1','persona.nombre2','persona.nombre3','persona.apellido1','persona.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
+            ->where('s.statusemp','=','Aspirante'  )
             ->orwhere('s.statusemp','=','Solicitante Interno')
-
-            ->where('p.nombre1','LIKE','%'.$query.'%')
-            //->orwhere('p.apellido1','LIKE','%'.$query.'%')
-
-            ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
+            ->groupBy('e.idempleado','e.identificacion','e.nit','persona.nombre1','persona.nombre2','persona.nombre3','persona.apellido1','persona.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
             ->orderBy('e.idempleado','desc')
-            
             ->paginate(19);
-
-            return view('rrhh.reclutamiento.solicitud',["empleados"=>$empleados,"searchText"=>$query]);
-        
+        return view('rrhh.reclutamiento.indexb',["empleados"=>$empleados,"dato"=>$dato]);        
     }
 
 

@@ -35,8 +35,8 @@
                                 <input type="hidden" class="idstatus" value="{{$em->idstatus}}">
                             </td>
                             <td>
-                                <a href="{{URL::action('RHPreentrevista@show',$em->identificacion)}}"><button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button></a>
-                                <a href="{{URL::action('RHPreentrevista@preentre',$em->idempleado)}}"><button class="btn btn-success" title="Pre Entrevistar"><i class="md md-border-color"></i></button></a>
+                                <a href="{{URL::action('RHPrecalificado@show',$em->identificacion)}}"><button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button></a>
+                                <a href="{{URL::action('RHPrecalificado@precali',$em->idempleado)}}"><button class="btn btn-success" title="Pre Calificar"><i class="md md-border-color"></i></button></a>
                             
                                 <a> 
                                     <button title="Rechazar" id="btnrechazo" 
@@ -63,7 +63,8 @@
                                                     },
                                                     function()
                                                     {
-                                                        window.location.href="{{url("empleado/rechazope",array("id"=>$em->idempleado,"ids"=>$em->idstatus))}}";
+                                                        window.location.href="{{url("empleado/rechazo",array("id"=>$em->idempleado,"ids"=>$em->idstatus))}}";
+                                                        location.reload();
                                                     }
                                                 ); 
                                             }

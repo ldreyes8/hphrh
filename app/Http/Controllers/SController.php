@@ -302,7 +302,30 @@ class SController extends Controller
             $st-> idstatus='10';
             $st->update();
         }
-        return Redirect::to('empleado/solicitudes');
+        if ($idS=="13") {
+            $st=Empleado::find($idE);
+            $st-> idstatus='10';
+            $st->update();
+        }
+        if ($idS=="4") {
+            $st=Empleado::find($idE);
+            $st-> idstatus='10';
+            $st->update();
+        }
+        if ($idS=="14") {
+            $st=Empleado::find($idE);
+            $st-> idstatus='10';
+            $st->update();
+        }
+        //return Redirect::to('empleado/solicitudes');
+    }
+    public function rechazope($idE,$idS)
+    {
+        
+        $st=Empleado::find($idE);
+        $st-> idstatus='10';
+        $st->update();
+        return Redirect::to('empleado/pre_entrevistado');
     }
     public function rechazoPP($idE)
     {
