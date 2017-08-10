@@ -140,6 +140,35 @@ $(document).ready(function(){
                 }
             });
         });
+
+        /**/
+        $(document).on('click','.btn-evaluaprueba',function(){
+            var errHTML="";
+            idempleado=$(this).val();
+            $('#inputTitlepp').html("Evaluación de periodo de prueba");
+            //$('#formAgregarpp').trigger("reset");
+            $('#formModalpp').modal('show');
+            var idem=$("#idemple").val(idempleado);                
+
+        });
+        $(document).on('click','.btn-satisfac',function(){
+            var errHTML="";
+            var idempleado=$("#idemple").val();
+            $('#formModalpp').modal('hide');                 
+
+        });
+        $(document).on('click','.btn-insatisfac',function(){
+            var errHTML="";
+            idempleado=$("#idemple").val();
+            $('#formModalpp').modal('hide');               
+
+        });
+        $(document).on('click','.btn-pprueba',function(){
+            var errHTML="";
+            idempleado= $("#idemple").val();
+            $('#formModalpp').modal('hide');            
+
+        });
 });
 
 
