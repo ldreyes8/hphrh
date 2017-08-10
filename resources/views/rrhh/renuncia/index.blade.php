@@ -9,7 +9,7 @@
     <div id="main">
         <ul id="navigationMenu">
             <li>
-                <a class="home" href="#">
+                <a class="home" onclick="cargar_formularioR(1);">
                     <span>Renunciar</span>
                     <img src="{{asset('assets/images/renuncia.png')}}" alt="" />
                 </a>
@@ -43,6 +43,7 @@
             </li>
         </ul>
     </div>
+    <div id="renuncia"></div>
 @endsection
 
 @section('fin')
@@ -55,3 +56,31 @@
 
     <script>cargarusuario(1);</script>
 @endsection
+
+
+<script type="text/javascript">
+
+
+function cargar_formularioR(arg){
+  var urlraiz=$("#url_raiz_proyecto").val();
+
+   $("#capa_modal").show();
+   $("#renuncia").show();
+   var screenTop = $(document).scrollTop();
+   $("#renuncia").css('top', screenTop);
+   $("#renuncia").html($("#cargador_empresa").html());
+   //if(arg==1){ var miurl=urlraiz+"/form_nuevo_usuario"; }
+   if(arg==1){ var miurl="https://learn.jquery.com/ajax/working-with-jsonp/"; }
+ 
+    $.ajax({
+    url: miurl
+    }).done( function(resul) 
+    {
+     $("#renuncia").html(resul);
+   
+    }).fail( function() 
+   {
+    $("#renuncia").html('<span>...Ha ocurrido un error, revise su conexión y vuelva a intentarlo...</span>');
+   }) ;
+}
+</script>
