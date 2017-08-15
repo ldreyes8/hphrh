@@ -9,15 +9,15 @@
     <div id="main">
         <ul id="navigationMenu">
             <li>
-                <a class="home" onclick="cargar_formularioR(1);">
+                <a class="home" onclick="cargar_pagexterna(1);">
                     <span>Renunciar</span>
                     <img src="{{asset('assets/images/renuncia.png')}}" alt="" />
                 </a>
             </li>
 
             <li>
-                <a class="about" href="#">
-                    <img src="{{asset('assets/images/danger.png')}}" alt="" />
+                <a class="about" onclick="cargar_pagexterna(2);">
+                    <img src="{{asset('assets/images/danger.png')}}" alt="" /> 
                     <span>Acerca</span>
                 </a>
             </li>
@@ -82,5 +82,13 @@ function cargar_formularioR(arg){
    {
     $("#renuncia").html('<span>...Ha ocurrido un error, revise su conexión y vuelva a intentarlo...</span>');
    }) ;
+}
+
+function cargar_pagexterna(arg){
+  var urlraiz=$("#url_raiz_proyecto").val();
+
+   if(arg==1){ var miurl="https://learn.jquery.com/ajax/working-with-jsonp/"; }
+   if(arg==2){ var miurl="https://www.office.com/?auth=2&home=1";}
+   window.open(miurl,'','width=600,height=600,left=50,top=50,toolbar=yes');
 }
 </script>

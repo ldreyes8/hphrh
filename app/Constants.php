@@ -12,6 +12,30 @@ class Constants
     //const NOMBRE_ROL_POR_USUARIO="select r.nombre from seg_usuario_rol ur,seg_rol r where ur.ide_usuario=:ideUsuario and r.ide_rol=ur.ide_rol";
     //const NOMBRE_ROL_POR_USUARIO="select r.name from roles r,role_user ru where ru.user_id=:ideUsuario and r.id =ru.role_id";
 	//$inicioaño,$finaño
+
+	const GALERIA_QUERY = "SELECT U.name, U.fotoperfil, U.email, emp.celcorporativo, nt.idnomytas, nt.idempleado,a.nombre as afiliado ,p.nombre as puesto from
+	(select nt.idnomytas, nt.idempleado, nt.idpuesto, nt.idafiliado
+		from (select nts.idempleado, nts.idnomytas,nts.idpuesto, nts.idafiliado 
+			from nomytras as nts
+				order by nts.idnomytas desc)nt
+			group by nt.idempleado desc)nt
+		inner join afiliado as a on nt.idafiliado = a.idafiliado
+		join puesto as p on nt.idpuesto = p.idpuesto 
+		join empleado as emp on nt.idempleado = emp.idempleado 
+		inner join persona as per on emp.identificacion = per.identificacion
+		inner join users as U on per.identificacion = U.identificacion
+		where U.estado = 1 and U.id <> :id 
+		group by nt.idempleado desc";
+
+	const ACADEMICO_GENERAL_QUERY = "SELECT pa.idempleado, pa.idnivel,pa.titulo,pa.identificacion from 
+					(select pac.idempleado, pac.idnivel, pac.titulo, pac.identificacion 
+						from personaacademico as pac
+						inner join nivelacademico as na on pac.idnivel = na.idnivel
+				        where na.mintrabna = 1
+				        group by idempleado, idnivel
+				        order by idempleado, idnivel desc) pa
+						group by pa.idempleado";
+
     const VACATOMADA_GENERAL_QUERY = "SELECT vd.idempleado, 
     IFNULL(sum(a.totaldias),0) as totaldias, 
     IFNULL(sum(vd.soldias),0) as soldias,

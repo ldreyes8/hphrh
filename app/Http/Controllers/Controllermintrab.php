@@ -15,6 +15,7 @@ use Illuminate\Support\Collection;
 
 use App\Constants;
 use App\Vacaciones;
+use App\Academico;
 
 class Controllermintrab extends Controller
 {
@@ -113,6 +114,15 @@ class Controllermintrab extends Controller
         ->groupBy('p.identificacion')
         ->orderBy('p.identificacion','asc')
         ->get();
+
+        $academico = new Academico();
+        $academico = $academico->selectQuery(Constants::ACADEMICO_GENERAL_QUERY,array());
+        /*
+        $idnivel7  = DB::table('personaacademico as pa')
+        ->select('pa.idnivel as idnivel', 'pa.titulo','pa.identificacion')
+        ->where('pa.idnivel','=','7')
+        ->orderBy('pa.idempleado','asc')
+        ->get();*/
 
         $today = Carbon::now();
         $year = $today->format('Y');

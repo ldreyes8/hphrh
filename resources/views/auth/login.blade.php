@@ -54,13 +54,14 @@
                                 </button>
                     </div>
                 </div>
-
+                <!--
                 <div class="form-group m-t-30">
                     <div class="col-sm-7">
                         <a class="btn btn-link" href="{{ url('/password/reset') }}">¿Olvidaste tu contraseña?
                     </div>
                     
                 </div>
+                -->
             </form>
         </div>
 @endsection

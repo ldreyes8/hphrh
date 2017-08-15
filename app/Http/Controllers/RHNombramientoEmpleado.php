@@ -212,8 +212,21 @@ class RHNombramientoEmpleado extends Controller
             $nomtras-> idafiliado=$request->get('idafiliado');
             $nomtras-> idcaso=$idco;
             $nomtras->save();
+            /*
 
+            $per=DB::table('empleado as e')
+            ->join('persona as p','e.identificacion','=','p.identificacion')
+            ->select('p.identificacion')
+            ->where('e.idempleado','=',$idem)
+            ->first();
+
+            $persona = Persona::find($per->identificacion);
+            $persona-> idpuesto= $request->get('idpuesto');
+            $persona-> idafiliado = $request->get('idafiliado');
+            $persona->update();*/
+            
             $asignajefe = new Asignajefe;
+
 
 
             foreach ($miArray as $key => $value) {
@@ -232,9 +245,8 @@ class RHNombramientoEmpleado extends Controller
                 $asignajefe->identificacion = $value['0'];
                 $asignajefe->notifica = $notifica;
                 $asignajefe->save();
-                
- //               dd($key, $value['0'],$value['1'] );
             }
+
 
                 //$st=Empleado::find($idem);
                 //$st-> fechaingreso=$fecha;

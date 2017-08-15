@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Nomytras extends Model
+class Nomytras extends BaseModel
 {
     //
     protected $table='nomytras';
