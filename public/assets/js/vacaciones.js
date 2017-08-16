@@ -194,6 +194,7 @@ $(document).ready(function(){
                 name: $('#name').val(),
                 tdias: $('#tdias').val(),
                 thoras: $("#thoras").val(),
+                justificacion: $('#observaciones').val(),
                 
             };
             $.ajaxSetup({
@@ -253,7 +254,8 @@ $(document).ready(function(){
         var miurl="vacaciones/diashatomar";
         var formData = {                      
             fecha_inicio: $("#fecha_inicio").val(),
-            fecha_final : $("#fecha_final").val(),    
+            fecha_final : $("#fecha_final").val(),
+            emergencia : $("#emergencia").val(),    
         };
         $.ajaxSetup({
             headers: {
@@ -297,7 +299,7 @@ $(document).ready(function(){
                         errHTML+="<li>"+data.responseJSON[er]+"</li>";
                     }
                 }else{
-                    errHTML+='<li>Error.</li>';
+                    errHTML+='<li>Error. ff</li>';
                 }
                 $("#erroresContent").html(errHTML); 
                 $('#erroresModal').modal('show');

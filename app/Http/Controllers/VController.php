@@ -130,8 +130,6 @@ class VController extends Controller
     ->where('U.id','=',Auth::user()->id)
     ->first();
 
-   
-
     $dias =DB::table('vacadetalle as va')
     ->join('empleado as emp','va.idempleado','=','emp.idempleado')
     ->join('persona as per','emp.identificacion','=','per.identificacion')
@@ -250,6 +248,7 @@ class VController extends Controller
 
     $fechainicio = $request->fecha_inicio;
     $fechafinal = $request->fecha_final;
+    $emergencia = $request->emergencia;
 
 
     $today = $today->format('Y-m-d'); 
@@ -264,14 +263,9 @@ class VController extends Controller
 
 
     if($fechafinal >= $fechainicio){
-      if($fechainicio === $today){
-        return response()->json(array('error' => 'Fecha inicio no puede ser igual ala fecha actual'),404);
-      }
 
-      elseif ($fechainicio < $today) {
-                return response()->json(array('error' => 'No se puede realizar esta accion'),404);
-      }
-      else{
+      if($emergencia === "1")
+      {
         while ($ffin >= $fini) {
           if($fini != $ffin){
             if($fini->isWeekend() === false){ 
@@ -283,8 +277,34 @@ class VController extends Controller
             break;
           }
         }
+        return response()->json(array($days));
       }
-      return response()->json(array($days));
+      else
+      {
+        if($fechainicio === $today){
+          return response()->json(array('error' => 'Fecha inicio no puede ser igual a la fecha actual'),404);
+        }
+
+        elseif ($fechainicio < $today) {
+                  return response()->json(array('error' => 'No se puede realizar esta accion'),404);
+        }
+        else{
+          while ($ffin >= $fini) {
+            if($fini != $ffin){
+              if($fini->isWeekend() === false){ 
+                $days++;
+              }
+              $fini->addDay();
+            }
+            else{
+              break;
+            }
+          }
+        }
+        return response()->json(array($days));
+      }
+
+     
     }
     else{
       return response()->json(array('error'=>'la fecha inicio no puede ser mayor que la fecha final'),404);
@@ -322,6 +342,7 @@ class VController extends Controller
       $mytime = Carbon::now('America/Guatemala');
       $vacaciones->fechasolicitud=$mytime->toDateString();
       $vacaciones->idtipoausencia= '3';
+      $vacaciones->justificacion = $request->justificacion;
 
       $vacaciones->save();
 

@@ -3,6 +3,8 @@
     @parent
         <link href="{{asset('assets/css/minimalista.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/plugins/RWD-Table-Patterns/dist/css/rwd-table.min.css')}}" rel="stylesheet" type="text/css" media="screen">
+
     @endsection
 
 @section ('contenido')
@@ -43,7 +45,50 @@
             </li>
         </ul>
     </div>
+    <!--
     <div id="renuncia"></div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="card-box">
+
+
+                  <div class="table-rep-plugin">
+                    <div class="table-responsive" data-pattern="priority-columns">
+                      <table id="tech-companies-1" class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Company</th>
+                            <th data-priority="1">Last Trade LA PERLA NEGRA 45</th>
+                            <th data-priority="3">Trade Time NOMBRE FT</th>
+                            <th data-priority="1">Change</th>
+                            <th data-priority="3">Prev Close</th>
+                            <th data-priority="3">Open</th>
+                            <th data-priority="6">Bid</th>
+                            <th data-priority="6">Ask</th>
+                            <th data-priority="6">1y Target Est</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th>GUATEMALA CITY 14 CALLE DIAGONAL 22 <span class="co-name">Quetzaltenangno, Quetzaltenango Colonia los tulipanes.</span></th>
+                            <td>597.74</td>
+                            <td>12:12PM</td>
+                            <td>14.81 (2.54%)</td>
+                            <td>582.93</td>
+                            <td>597.95</td>
+                            <td>597.73 x 1000000</td>
+                            <td>597.91 x 300000</td>
+                            <td>731.10</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            -->
 @endsection
 
 @section('fin')
@@ -51,8 +96,7 @@
 
     <script src="{{asset('assets/js/PanelControl/Usuario.js')}}"></script>
     <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
-
-
+    <script src="{{asset('assets/plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js')}}" type="text/javascript"></script>
 
     <script>cargarusuario(1);</script>
 @endsection

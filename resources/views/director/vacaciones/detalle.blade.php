@@ -59,6 +59,9 @@
                     <th>Días disponibles</th><td>{{$calculo[1]}}</td>
                     <th>Horas disponibles</th><td>{{$calculo[0]}}</td>
                   </tr>
+                  <tr>
+                    <th>Justificación</th><td colspan="5">{{$empleado->justificacion}}</td>
+                  </tr>
           			</tbody>
     		      </table>
     	   </div>

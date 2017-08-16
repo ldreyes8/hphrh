@@ -20,6 +20,7 @@
             <input type="hidden" name="solhoras" value="{{$ausencia->totalhoras}}" id="solhoras">
             <input type="hidden" name="soldias" value="{{$ausencia->totaldias}}" id="soldias">
             <input type="hidden" name="idvacadetalle" value="{{$ausencia->idvacadetalle}}" id="idvacadetalle">
+
         @else
             <input type="hidden" name="idempleado" value="{{$usuarios->idempleado}}" id="idempleado">
             <input type="hidden" name="name" value="{{$usuarios->nombre}}" id="name">
@@ -28,6 +29,8 @@
             <input type="hidden" name="idvacadetalle" value="{{$vacaciones->idvacadetalle}}" id="idvacadetalle">
 
         @endif()
+        <input type="hidden" name="emergencia" id="emergencia" value="0">
+
     <div class="row">
         <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <div class="table-responsive">
@@ -94,6 +97,12 @@
                                 <input id="dacumulado" type="text" class="form-control" name="dias">   
                             </div>
                         </div>
+
+                        <div id="divEmergencia">
+                        <br>
+                            <input type="checkbox" id="casillaEmergencia" value="1" onclick="desactivarEmergencia()"/> Esta solicitud es por un caso de emergencia
+                        </div>
+
                         <div class="modal-header">
                             <div><p><br></p></div>
 
@@ -113,6 +122,7 @@
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="modal-header">
                         <br>
@@ -145,9 +155,18 @@
                             </div>
 
                         </div>
+
                         <div id="ModificaActiva">
                         <h4><strong>Si no es correcto haga click aqui para modificar</strong></h4>
                         <input type="checkbox" id="casilla" value="1" onclick="desactivar()"/>Activar campo Dias y Hora
+                        </div>
+
+                        <div class="modal-header" id="divJustificacion">
+                            <div><p><br></p></div>
+                            <div class="form-group">
+                                <label>Justificación</label>
+                                <textarea class="form-control" placeholder=".........." id="observaciones" rows="3" maxlength="100"></textarea>
+                            </div>
                         </div>
                         
                     </form>
@@ -252,6 +271,14 @@
     
     <script>
 
+        function desactivarEmergencia() {
+            if($("#casillaEmergencia:checked").val()==1) {
+                $("#casillaEmergencia").attr('disabled', 'disabled');
+                $("#divJustificacion").show();
+                document.getElementById('emergencia').value = 1;
+                }
+            }
+
         function desactivar() {
             if($("#casilla:checked").val()==1) {
                 $("#casilla").attr('disabled', 'disabled');
@@ -270,6 +297,8 @@
 
     $(document).on('click','.btn-nuevoV',function(e){
         $("#ModificaActiva").hide();
+        $("#divJustificacion").hide();
+
 
         var errHTML="";
         e.preventDefault();
@@ -319,6 +348,5 @@
     <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
     <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
-              <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
-
-        <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
+    <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
+    <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
