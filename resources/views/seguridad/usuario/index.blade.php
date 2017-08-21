@@ -3,7 +3,7 @@
 
         <div class="row">
         	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                @include('seguridad.usuario.sear')
+                @include('seguridad.usuario.search')
 
         	</div>
             <div><br></div>
@@ -13,29 +13,31 @@
         @if(count($usuarios) > 0)
 
             <div class="row">
-                <div><br></div>
-                <div class="margin" id="botones_control">
-                    @role('informatica')
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div><br></div>
+                    <div class="margin" id="botones_control">
+                        @role('informatica')
 
-                    <a href="usuario/create" class="btn btn-xs btn-primary">Agregar Usuarios</a>
-                    <!--<a href="{{ url("/listado_usuarios") }}" class="btn btn-xs btn-primary" >Listado Usuarios</a> -->
-                    <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formulario(2);">Roles</a> 
-                    <!--<a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formulario(3);" >Permisos</a>-->
-                    @endrole
+                        <a href="usuario/create" class="btn btn-xs btn-primary">Agregar Usuarios</a>
+                        <!--<a href="{{ url("/listado_usuarios") }}" class="btn btn-xs btn-primary" >Listado Usuarios</a> -->
+                        <a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formulario(2);">Roles</a> 
+                        <!--<a href="javascript:void(0);" class="btn btn-xs btn-primary" onclick="cargar_formulario(3);" >Permisos</a>-->
+                        @endrole
+                    </div>
+                    <div><br></div>
                 </div>
-                <div><br></div>
             </div>
 
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-condensed table-hover"> 
-                            <thead>
-                                <th style="width: 5%">Id</th>
-                                <th style="width: 20%">Nombre</th>
-                                <th style="width: 20%">Email</th>
-                                <th>Roles</th>
-                                <th style="width: 5%">Opciones</th>
+                            <thead >
+                                <th class="success" style="width: 5%">Id</th>
+                                <th class="success" style="width: 20%">Nombre</th>
+                                <th class="success" style="width: 20%">Email</th>
+                                <th class="success" >Roles</th>
+                                <th class="success" style="width: 5%">Opciones</th>
                             </thead>
 
                                 @foreach ($usuarios as $usu)

@@ -35,7 +35,7 @@
                                         <li class="">
                                             <a data-toggle="tab" aria-expanded="false" onclick="cargar_formulario(7);">
                                                 <span class="visible-xs"><i class="ion ion-clipboard"></i></span>
-                                                <span class="hidden-xs">Verificados</span>
+                                                <span class="hidden-xs">En Vacaciones</span>
                                             </a>
                                         </li>
                                     </ul>

@@ -97,11 +97,12 @@
                                 <input id="dacumulado" type="text" class="form-control" name="dias">   
                             </div>
                         </div>
-
+                        <!--
                         <div id="divEmergencia">
                         <br>
                             <input type="checkbox" id="casillaEmergencia" value="1" onclick="desactivarEmergencia()"/> Esta solicitud es por un caso de emergencia
                         </div>
+                        -->
 
                         <div class="modal-header">
                             <div><p><br></p></div>

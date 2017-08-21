@@ -60,8 +60,7 @@ class RHPermiso extends Controller
 
     public function indexconfirmado (Request $request)
     {
-        $permisos = DB::table('asignajefe as aj')
-	        ->join('empleado as emp','aj.idempleado','=','emp.idempleado')
+        $permisos = DB::table('empleado as emp')
 	        ->join('ausencia as au','emp.idempleado','=','au.idempleado')
 	        ->join('persona as per','emp.identificacion','=','per.identificacion')
 	        ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
@@ -79,8 +78,7 @@ class RHPermiso extends Controller
 
      public function indexrechazado (Request $request)
     {
-        $permisos = DB::table('asignajefe as aj')
-	        ->join('empleado as emp','aj.idempleado','=','emp.idempleado')
+        $permisos = DB::table('empleado as emp')
 	        ->join('ausencia as au','emp.idempleado','=','au.idempleado')
 	        ->join('persona as per','emp.identificacion','=','per.identificacion')
 	        ->join('tipoausencia as tp','au.idtipoausencia','=','tp.idtipoausencia')
