@@ -63,9 +63,9 @@
                     <label>Motivo ausencia</label>
                     <select name="idtipoausencia" id="idtipoausencia" class="form-control select2" data-live-search="true">
                     @if (isset($tausencia))
-                        @foreach($tausencia as $tau)
-                            <option value="{{$tau->idtipoausencia}}">{{$tau->ausencia}}</option>
-                        @endforeach
+                    @foreach($tausencia as $tau)
+                        <option value="{{$tau->idtipoausencia}}">{{$tau->ausencia}}</option>
+                    @endforeach
                     @endif
                     </select>
                 </div>

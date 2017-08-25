@@ -277,12 +277,12 @@ class UController extends Controller
 
                 if ($validacion->fails())
                 {
-                   
-                  return view("mensajes.msj_rechazado")->with("msj","El archivo no es una imagen valida");
+                    return view("mensajes.msj_rechazado")->with("msj","El archivo no es una imagen valida");
                 }
                 else
                 {  
                     $file = $user->fotoperfil;
+                   
                     Storage::delete(public_path().$file);
 
                     $nombre_original=$fotoperfil->getClientOriginalName();

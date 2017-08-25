@@ -550,7 +550,6 @@ class ListadoController extends Controller
                 $motivo = $request->motivo;
                 $comentarios = $request->observaciones;
                 $idstatus = $request->idstatus;
-                dd($idstatus);
 
                 $fechabaja = Carbon::createFromFormat('d/m/Y',$fechabaja);
                 $fechabaja = $fechabaja->toDateString();

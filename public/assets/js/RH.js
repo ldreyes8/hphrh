@@ -120,9 +120,16 @@ $(document).ready(function(){
 
                 success: function (data) {
                     
+                    swal({
+                      title:"Envio correcto",
+                      text: "Se ha despedido al empleado correctamente",
+                      type: "success",
+                    });
+
                     $("#empleado" + idEP).remove();
                     $('#formDespedir').trigger("reset");
                     $('#formModalDespedir').modal('hide');
+
                     
                 },
                 error: function (data) {

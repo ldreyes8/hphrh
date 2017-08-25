@@ -12,9 +12,6 @@
         <div class="">
             <div class="">
                 <ul class="nav nav-tabs navtab-custom">
-
-                   
-
                     <li class="active" data-toggle="tab" aria-expanded="false">
                         <a data-toggle="tab" aria-expanded="false" onclick="cargar_formularioRH(1);">
                             <span class="visible-xs"><i class="md md-perm-contact-cal"></i></span>
@@ -24,20 +21,20 @@
 
                     <li class="">
                         <a data-toggle="tab" aria-expanded="false" onclick="cargar_formularioRH(2);">
-                            <span class="visible-xs"><i class="md md-school"></i></span>
+                            <span class="visible-xs"><i class="fa fa-check"></i></span>
                             <span class="hidden-xs">Aceptados</span>
                         </a>
                     </li>
                    
                     <li class="">
                         <a data-toggle="tab" aria-expanded="false" onclick="cargar_formularioRH(3);">
-                            <span class="visible-xs"><i class="md md-people"></i></span>
+                            <span class="visible-xs"><i class="fa fa-times"></i></span>
                             <span class="hidden-xs">Rechazados</span>
                         </a>
                     </li>
                     <li class="">
                         <a data-toggle="tab" aria-expanded="false" onclick="cargar_formularioRH(4);">
-                            <span class="visible-xs"><i class="ion ion-clipboard"></i></span>
+                            <span class="visible-xs"><i class="fa fa-plane"></i></span>
                             <span class="hidden-xs">En Vacaciones</span>
                         </a>
                     </li>

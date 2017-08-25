@@ -270,6 +270,14 @@
                                 </a>
                             </li>
 
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect waves-primary" onclick="cargarvacante(1);">&nbsp;&nbsp;&nbsp;
+                                    <i class="fa fa-file-text"></i><span>Solicitar puesto</span>
+                                </a>
+                            </li>
+
+
+
                             @endrole
 
                         <!-- // Recurso Humano___ // -->
@@ -288,7 +296,7 @@
 
                                 <li>
                                 <a href="{{ url('/empleado/listadoPV')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i
-                                    class="md-perm-contact-cal"></i><span>Permiso y vacaciones</span></a>
+                                    class="fa fa-id-card"></i><span>Permiso y vacaciones</span></a>
                                 </li>
                                 
                                 <li>
@@ -298,7 +306,7 @@
                                 <li>
 
                                 <a href="{{ url('/empleado/Rmintrab')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i
-                                    class="md-perm-contact-cal"></i><span>Reportes</span></a>
+                                    class="glyphicon glyphicon-file"></i><span>Reportes</span></a>
                                 </li>
 
 
@@ -641,6 +649,13 @@
         </div>
 
         <!-- END wrapper -->
+
+
+
+    @include('director.vacante.solicitarpuesto')
+    
+
+    <input type="hidden"  id="url_raiz_proyecto" value="{{ url("/") }}" />
         @section('fin') 
         
         <!-- Plugins  -->
@@ -674,6 +689,9 @@
         <script src="{{asset('assets/js/jquery.core.js')}}"></script>
         <script src="{{asset('assets/js/jquery.app.js')}}"></script>
         <script src="{{asset('assets/js/modernizr.min.js')}}"></script>
+        <script src="{{asset('assets/js/JefeInmediato/modal.js')}}"></script>
+
+
 
 
 

@@ -361,6 +361,9 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('detalleconfirmado/{idpersona}','JIPermiso@detalleconfirmado')->middleware('roleshinobi:jefeinmediato');
 	Route::get('detallerechazado/{idpersona}','JIPermiso@detallerechazado')->middleware('roleshinobi:jefeinmediato');
 
+//Solicita plaza vacante de un puesto en un afiliado.
+	Route::get('plazavacante','JIvacante@add')->middleware('roleshinobi:jefeinmediato');
+	Route::post('addplazavacante','JIvacante@store')->middleware('roleshinobi:jefeinmediato');
 
 //Reportes
 	Route::get('reporteEmpleado','Reporte@index')->middleware('roleshinobi:reporte');
