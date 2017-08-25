@@ -154,20 +154,22 @@ $(document).ready(function(){
         $(document).on('click','.btn-satisfac',function(){
             var errHTML="";
             var idempleado=$("#idemple").val();
-            $('#formModalpp').modal('hide');                 
+            $('#formModalpp').modal('hide');
+            window.location.href="/empleado/update/"+idempleado;                 
 
         });
         $(document).on('click','.btn-insatisfac',function(){
             var errHTML="";
-            idempleado=$("#idemple").val();
-            $('#formModalpp').modal('hide');               
+            var idempleado=$("#idemple").val();
+            $('#formModalpp').modal('hide');
+            window.location.href="/empleado/update/"+idempleado;                  
 
         });
         $(document).on('click','.btn-pprueba',function(){
             var errHTML="";
-            idempleado= $("#idemple").val();
+            var idempleado= $("#idemple").val();
             $('#formModalpp').modal('hide');            
-
+            window.location.href="/empleado/update/"+idempleado;   
         });
 });
 

@@ -8,6 +8,7 @@
 <div class="row">
     
 @role('jfreclutamiento')
+    <h3>Reclutamineto de personal Afiliados</h3>
     <div class="col-sm-4 col-xs-12">
                                 <div class="card m-b-2 card-inverse" style="background-color: #333; border-color: #333;">
                                     <div class="card-box" style="background-color: #333; border-color: #333;">
@@ -34,19 +35,10 @@
                             </div>
 @endrole
 
-@role('evaluador')
-    <div class="col-sm-4 col-xs-12">
-                                <div class="card m-b-2 card-inverse" style="background-color: #5bc0de; border-color: #5bc0de;">
-                                    <div class="card-box" style="background-color: #5bc0de; border-color: #5bc0de;">
-                                        <h3 class="mt-0" style="color:#FFFFFF" >Asignar notas</h3>
-                                        <a href="{{url('/empleado/resultados')}}" class="btn btn-inverse">Ir</a>
-                                    </div>
-                                </div>
-                            </div>
-@endrole
+
 
 @role('rhreclutamiento')
-
+    <h3>Reclutamiento de personal Nacional</h3>
     <div class="col-sm-4 col-xs-12">
                                 <div class="card m-b-2 card-inverse" style="background-color: #333; border-color: #333;">
                                     <div class="card-box" style="background-color: #333; border-color: #333;">
@@ -96,7 +88,18 @@
                                 </div>
                             </div>
 
-@endrole    
+@endrole  
+@role('evaluador')
+    <h3>Asignar notas a personal aspirante a un puesto</h3>
+    <div class="col-sm-4 col-xs-12">
+        <div class="card m-b-2 card-inverse" style="background-color: #5bc0de; border-color: #5bc0de;">
+            <div class="card-box" style="background-color: #5bc0de; border-color: #5bc0de;">
+                <h3 class="mt-0" style="color:#FFFFFF" >Asignar notas</h3>
+                <a href="{{url('/empleado/resultados')}}" class="btn btn-inverse">Ir</a>
+            </div>
+        </div>
+    </div>
+@endrole  
 </div>
 
 @endsection

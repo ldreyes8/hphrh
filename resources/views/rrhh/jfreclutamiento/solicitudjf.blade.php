@@ -43,9 +43,7 @@
                                 <input type="hidden" class="idstatus" value="{{$em->idstatus}}">
                             </td>
                             <td>
-                                <a href="{{URL::action('SController@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
-                                <a href="{{URL::action('Pprueba@update',$em->idempleado)}}"><button class="btn btn-primary">Aceptar</button></a>
-                            
+                                <a href="{{URL::action('RHReclutamiento@showjf',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>                            
                                 <a> 
                                     <button id="btnrechazo" 
                                         onclick='
@@ -72,6 +70,7 @@
                                                     function()
                                                     {
                                                         window.location.href="{{url("empleado/rechazo",array("id"=>$em->idempleado,"ids"=>$em->idstatus))}}";
+                                                        location.reload();
                                                     }
                                                 ); 
                                             }

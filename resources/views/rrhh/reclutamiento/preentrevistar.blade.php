@@ -402,6 +402,7 @@
                             function()
                             {
                               location.href=("{{URL::action("RHPrecalificado@precalificar",$persona->idempleado)}}");
+                              window.location.href="{{url("empleado/listadoR")}}";
                             }
                           ); 
                         }

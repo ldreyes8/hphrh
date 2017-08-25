@@ -35,7 +35,7 @@
                                 <input type="hidden" class="idstatus" value="{{$em->idstatus}}">
                             </td>
                             <td>
-                                <a href="{{URL::action('RHPrecalificado@show',$em->identificacion)}}"><button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button></a>
+                                <a href="{{URL::action('RHPrecalificado@showjfpc',$em->identificacion)}}"><button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button></a>
                                 <a href="{{URL::action('RHPrecalificado@precali',$em->idempleado)}}"><button class="btn btn-success" title="Pre Calificar"><i class="md md-border-color"></i></button></a>
                             
                                 <a> 

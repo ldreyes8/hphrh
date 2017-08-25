@@ -64,6 +64,7 @@
                                                     function()
                                                     {
                                                         window.location.href="{{url("empleado/rechazope",array("id"=>$em->idempleado,"ids"=>$em->idstatus))}}";
+                                                        location.reload();
                                                     }
                                                 ); 
                                             }

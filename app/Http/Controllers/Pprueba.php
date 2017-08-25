@@ -110,6 +110,9 @@ class Pprueba extends Controller
 
         $caso=DB::table('caso as c')
         ->select('c.idcaso','c.nombre')
+        ->where('c.idcaso','=',4)
+        ->orwhere('c.idcaso','=',6)
+        ->orwhere('c.idcaso','=',7)
         ->get();
 
         return view("rrhh.reclutamiento.create",["puestos"=>$puestos,"afiliados"=>$afiliados,"caso"=>$caso,"empleado"=>$empleado,"jefesinmediato"=>$jefesinmediato]);

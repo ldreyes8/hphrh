@@ -403,6 +403,7 @@
                             function()
                             {
                               location.href="{{url("empleado/envioaevaluar",array("id"=>$persona->idempleado,"ids"=>$persona->correo))}}";
+                              window.location.href="{{url("empleado/listadoR")}}";
                             }
                           ); 
                         }

@@ -3,13 +3,14 @@
     @parent
     <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
     <style >
-input[type=text] {
+input[type=textt] {
 
     background: transparent;
     width: 100%;
     border: 0px;outline:none;
     text-align: justify;
     text-justify:inter-word;
+    background-color: #ffff90;
 }
     </style>
 @endsection
@@ -19,31 +20,32 @@ input[type=text] {
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
       <label >Nombre Completo</label>
         <div class="row">
-          <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
             <div class="form-group">
-                <input type="text" id="nombre1" value="{{$persona->nombre1}}">
-                <input type="text" id="apellido1" value="{{$persona->apellido1}}">
+                <input type="textt" id="nombre1" value="{{$persona->nombre1}}">
+                <input type="textt" id="apellido1" value="{{$persona->apellido1}}">
             </div>
           </div>
-          <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
             <div class="form-group">
-                <input type="text" id="nombre2" value="{{$persona->nombre2}}">
-                <input type="text" id="apellido2" value="{{$persona->apellido2}}">
+                <input type="textt" id="nombre2" value="{{$persona->nombre2}}">
+                <input type="textt" id="apellido2" value="{{$persona->apellido2}}">
             </div>
           </div>
         </div>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
       <div class="form-group">
-        <label >Identificación</label>
-        <input type="text" id="identificacionup" value="{{$empleado->identificacion}}">
+        <label >Identificación</label><br>
+        {{$empleado->identificacion}}
+        <input type="hidden" id="identificacionup" value="{{$empleado->identificacion}}">
         <input type="hidden" id="idempleado" value="{{$empleado->idempleado}}">
       </div>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
       <div class="form-group">
       <label>Nit</label>
-        <input type="text" id="nit" value="{{$empleado->nit}}">
+        <input type="textt" id="nit" value="{{$empleado->nit}}">
         <input type="hidden" id="nit" value="{{$empleado->idstatus}}">
         <input type="hidden" id="" value="{{$entrev->identrevista}}">
       </div>
@@ -74,9 +76,9 @@ input[type=text] {
               </thead>
               <tbody>
                 <tr>
-                  <td><input type="text" id="barriocolonia" value="{{$persona->barriocolonia}} "></td>
-                  <td><input type="text" id="telefono" maxlength="8" value="{{$persona->telefono}}"></td>
-                  <td><input type="text" id="fechanac" value="{{ \Carbon\Carbon::createFromFormat('Y-m-d', $persona->fechanac)->format('d-m-Y')}}"></td>
+                  <td><input type="textt" id="barriocolonia" value="{{$persona->barriocolonia}} "></td>
+                  <td><input type="textt" id="telefono" maxlength="8" value="{{$persona->telefono}}"></td>
+                  <td><input type="textt" id="fechanac" value="{{ \Carbon\Carbon::createFromFormat('Y-m-d', $persona->fechanac)->format('d-m-Y')}}"></td>
                   @if (!empty($persona->departamento))
                     <td>{{$persona->departamento}}</td>
                     <td>{{$persona->municipio}}</td>
@@ -85,7 +87,7 @@ input[type=text] {
                     <td>Extranjero</td>
                   @endif
                   <td>
-                    <select class="form-control selectpicker1">
+                    <select class="form-control selectpicker1" style="background-color: #ffff90;">
                       
                       @foreach($estadocivil as $cat)
                         @if($cat->idcivil == $empleado->idcivil)
@@ -98,12 +100,12 @@ input[type=text] {
                   </td>
                   <td>{{$persona->afiliado}}</td>
                   <td>{{$persona->puesto}}</td>
-                  <td><input type="text" maxlength="13" id="iggs" value="{{$empleado->afiliacionigss}}"></td>
-                  <td><input type="text" id="dependientes" value="{{$empleado->numerodependientes}}"></td>
-                  <td><input type="text" id="aportemensual" value="{{$empleado->aportemensual}}"></td>
-                  <td><input type="text" id="vivienda" value="{{$empleado->vivienda}}"></td>
-                  <td><input type="text" id="alquilermensual" value="{{$empleado->alquilermensual}}"></td>
-                  <td><input type="text" id="otrosingresos" value="{{$empleado->otrosingresos}}"></td>
+                  <td><input type="textt" maxlength="13" id="iggs" value="{{$empleado->afiliacionigss}}"></td>
+                  <td><input type="textt" id="dependientes" value="{{$empleado->numerodependientes}}"></td>
+                  <td><input type="textt" id="aportemensual" value="{{$empleado->aportemensual}}"></td>
+                  <td><input type="textt" id="vivienda" value="{{$empleado->vivienda}}"></td>
+                  <td><input type="textt" id="alquilermensual" value="{{$empleado->alquilermensual}}"></td>
+                  <td><input type="textt" id="otrosingresos" value="{{$empleado->otrosingresos}}"></td>
                   <td>{{$empleado->pretension}}</td>
                   <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d',$empleado->fechasolicitud)->format('d-m-Y')}}</td>
                 </tr>
@@ -127,11 +129,11 @@ input[type=text] {
               @foreach($familiares as $fam)
                 <tr class="filaTableF">
                   <td><input type="hidden" class="idpfamilia" value="{{$fam->idpfamilia}}"></td>
-                  <td><input type="text" class="nombref" value="{{$fam->nombref}}"></td>
-                  <td><input type="text" class="parentezco" value="{{$fam->parentezco}}"></td>
-                  <td><input type="text" class="telefonof" value="{{$fam->telefonof}}"></td>
-                  <td><input type="text" class="ocupacion" value="{{$fam->ocupacion}}"></td>
-                  <td><input type="text" class="edad" value="{{$fam->edad}}"></td>
+                  <td><input type="textt" class="nombref" value="{{$fam->nombref}}"></td>
+                  <td><input type="textt" class="parentezco" value="{{$fam->parentezco}}"></td>
+                  <td><input type="textt" class="telefonof" value="{{$fam->telefonof}}"></td>
+                  <td><input type="textt" class="ocupacion" value="{{$fam->ocupacion}}"></td>
+                  <td><input type="textt" class="edad" value="{{$fam->edad}}"></td>
                   <td>{{$fam->emergencia}}</td>
                 </tr>
                 @endforeach
@@ -156,19 +158,19 @@ input[type=text] {
                 @foreach($academicos as $aca)
                 <tr class="filaTableA">
                   <td><input type="hidden" class="idpacademico" value="{{$aca->idpacademico}}"></td>
-                  <td><input type="text" class="titulo" value="{{$aca->titulo}}"></td>
-                  <td><input type="text" class="establecimiento" value="{{$aca->establecimiento}}"></td>
-                  <td><input type="text" class="duracion" value="{{$aca->duracion}}"></td>
+                  <td><input type="textt" class="titulo" value="{{$aca->titulo}}"></td>
+                  <td><input type="textt" class="establecimiento" value="{{$aca->establecimiento}}"></td>
+                  <td><input type="textt" class="duracion" value="{{$aca->duracion}}"></td>
                   <td>
-                    <select  class="form-control selectpicker" >
+                    <select  class="form-control selectpicker" style="background-color: #ffff90;">
                         <option value="{{$aca->idnivel}}">{{$aca->nivel}}</option>
                         @foreach($nivelacademico as $ac)
                         <option value="{{$ac->idnivel}}">{{$ac->nombrena}}</option>
                         @endforeach
                     </select>
                   </td>
-                  <td><input type="text" class="fingreso" value="{{$aca->fingreso}}"></td>
-                  <td><input type="text" class="fsalida" value="{{$aca->fsalida}}"></td>
+                  <td><input type="textt" class="fingreso" value="{{$aca->fingreso}}"></td>
+                  <td><input type="textt" class="fsalida" value="{{$aca->fsalida}}"></td>
                  </tr>
                  @endforeach
               </tbody>
@@ -185,8 +187,8 @@ input[type=text] {
                   @foreach($idiomas as $idi)
                   <tr>
                   <td></td>
-                   <td><input type="text" class="" value="{{$idi->idioma}}"></td>
-                   <td><input type="text" class="" value="{{$idi->nivel}}"></td>                
+                   <td><input type="textt" class="" value="{{$idi->idioma}}"></td>
+                   <td><input type="textt" class="" value="{{$idi->nivel}}"></td>                
                   </tr>
                   @endforeach              
                 </tbody>
@@ -210,13 +212,13 @@ input[type=text] {
               @foreach($referencias as $ref)
                 <tr class="filaTableR">
                   <td><input type="hidden" class="idpreferencia" value="{{$ref->idpreferencia}}"></td>
-                  <td><input type="text" class="nombrer" value="{{$ref->nombrer}}"></td>
-                  <td><input type="text" class="telefonor" value="{{$ref->telefonor}}"></td>
-                  <td><input type="text" class="profesion" value="{{$ref->profesion}}"></td>
-                  <td><input type="text" class="tiporeferencia" value="{{$ref->tiporeferencia}}"></td>
-                  <td><input type="text" class="recomiendaPL" name="recomiendaPL" maxlength="2" placeholder="Si ó No" value="{{$ref->recomiendaper}}"></td>
-                  <td><input type="text" class="confirmadorref" maxlength="50" value=""></td>
-                  <td><input type="text" class="observacionr" maxlength="300" value=""></td>                  
+                  <td><input type="textt" class="nombrer" value="{{$ref->nombrer}}"></td>
+                  <td><input type="textt" class="telefonor" value="{{$ref->telefonor}}"></td>
+                  <td><input type="textt" class="profesion" value="{{$ref->profesion}}"></td>
+                  <td><input type="textt" class="tiporeferencia" value="{{$ref->tiporeferencia}}"></td>
+                  <td><input type="textt" class="recomiendaPL" name="recomiendaPL" maxlength="2" placeholder="Si ó No" value="{{$ref->recomiendaper}}"></td>
+                  <td><input type="textt" class="confirmadorref" maxlength="50" value=""></td>
+                  <td><input type="textt" class="observacionr" maxlength="300" value=""></td>                  
                 </tr>
                 @endforeach
               </tbody>
@@ -224,8 +226,25 @@ input[type=text] {
       </div>
 
       <div class="form-group">
-          <label>Observación</label>
-          <textarea maxlength="100" class="form-control" id="observacionR" ></textarea>
+          <button class="btn btn-info" type="button" id="btncomentarioR" >Agregar una observación</button>
+      </div>
+      <div class="table-responsive">
+        <table id="detalle6" class="table table-striped table-bordered table-condensed table-hover">
+          <thead>
+            <th>Observación</th>
+          </thead>
+          <tbody id="productsref" name="productsref"> 
+            @foreach($observaR as $obR)
+              <tr class="even gradeA">
+                @if (!empty($obR->descripcion))
+                  <td>{{$obR->descripcion}}</td>
+                @else
+                  <td></td>
+                @endif
+              </tr>
+            @endforeach        
+          </tbody>
+        </table>
       </div>
 
       <div class="table-responsive">    
@@ -248,16 +267,16 @@ input[type=text] {
                 @foreach($experiencias as $exp)
                 <tr class="filaTableEL">
                   <td><input type="hidden" class="idpexperiencia" value="{{$exp->idpexperiencia}}"></td>
-                  <td><input type="text" class="empresa" value="{{$exp->empresa}}"></td>
-                  <td><input type="text" class="puesto" value="{{$exp->puesto}}"></td>
-                  <td><input type="text" class="jefeinmediato" value="{{$exp->jefeinmediato}}"></td>
-                  <td><input type="text" class="motivoretiro" value="{{$exp->motivoretiro}}"></td>
-                  <td><input type="text" class="ultimosalario" value="{{$exp->ultimosalario}}"></td>
-                  <td><input type="text" class="fingresoex" value="{{$exp->fingresoex}}"></td>
-                  <td><input type="text" class="fsalidaex" value="{{$exp->fsalidaex}}"></td>
-                  <td><input type="text" name="recomiendaP" class="recomiendaexp" maxlength="2" placeholder="Si ó No" value="{{$exp->recomiendaexp}}"></td>
-                  <td><input type="text" class="confirmadorexp" value=""></td>
-                  <td><input type="text" class="observacionel" value=""></td>
+                  <td><input type="textt" class="empresa" value="{{$exp->empresa}}"></td>
+                  <td><input type="textt" class="puesto" value="{{$exp->puesto}}"></td>
+                  <td><input type="textt" class="jefeinmediato" value="{{$exp->jefeinmediato}}"></td>
+                  <td><input type="textt" class="motivoretiro" value="{{$exp->motivoretiro}}"></td>
+                  <td><input type="textt" class="ultimosalario" value="{{$exp->ultimosalario}}"></td>
+                  <td><input type="textt" class="fingresoex" value="{{$exp->fingresoex}}"></td>
+                  <td><input type="textt" class="fsalidaex" value="{{$exp->fsalidaex}}"></td>
+                  <td><input type="textt" name="recomiendaP" class="recomiendaexp" maxlength="2" placeholder="Si ó No" value="{{$exp->recomiendaexp}}"></td>
+                  <td><input type="textt" class="confirmadorexp" value=""></td>
+                  <td><input type="textt" class="observacionel" value=""></td>
                  </tr>
                  @endforeach
               </tbody>
@@ -265,8 +284,25 @@ input[type=text] {
       </div>
 
       <div class="form-group">
-        <label>Observación</label>
-        <textarea maxlength="100" class="form-control" id="observacionEL" ></textarea>
+        <button class="btn btn-info" type="button" id="btncomentarioEL" >Agregar una observación</button>
+      </div>
+      <div class="table-responsive">
+        <table id="detalle6" class="table table-striped table-bordered table-condensed table-hover">
+          <thead>
+            <th>Observación</th>
+          </thead>
+          <tbody id="productsel" name="productsel">
+            @foreach($observaE as $obE) 
+              <tr class="even gradeA">
+                @if (!empty($obE->descripcion))
+                  <td>{{$obE->descripcion}}</td>
+                @else
+                  <td></td>
+                @endif
+              </tr>
+            @endforeach          
+          </tbody>
+        </table>
       </div>
 
       <div class="table-responsive">
@@ -283,10 +319,10 @@ input[type=text] {
                 @foreach($deudas as $deu)
                 <tr class="filaTableD">
                   <td><input type="hidden" class="idpdeudas" value="{{$deu->idpdeudas}}"></td>
-                  <td><input type="text" class="acreedor" value="{{$deu->acreedor}}"></td>
-                  <td><input type="text" class="pago" value="{{$deu->pago}}"></td>
-                  <td><input type="text" class="montodeuda" value="{{$deu->montodeuda}}"></td>
-                  <td><input type="text" class="motivodeuda" value="{{$deu->motivodeuda}}"></td>
+                  <td><input type="textt" class="acreedor" value="{{$deu->acreedor}}"></td>
+                  <td><input type="textt" class="pago" value="{{$deu->pago}}"></td>
+                  <td><input type="textt" class="montodeuda" value="{{$deu->montodeuda}}"></td>
+                  <td><input type="textt" class="motivodeuda" value="{{$deu->motivodeuda}}"></td>
                  </tr>
                  @endforeach
               </tbody>
@@ -304,7 +340,7 @@ input[type=text] {
                 @foreach($padecimientos as $pad)
                 <tr class="filaTable">
                   <td><input type="hidden" class="idpad" value="{{$pad->idppadecimientos}}"></td>
-                  <td><input type="text" class="nombrepa" value="{{$pad->nombre}}"></td>
+                  <td><input type="textt" class="nombrepa" value="{{$pad->nombre}}"></td>
                 </tr>
                  @endforeach
               </tbody>
@@ -327,10 +363,10 @@ input[type=text] {
             <tbody>
               @foreach($pais as $pas)
                 <tr>
-                  <td><input type="text" name="" value="{{$pas->trabajoext}}"></td>
-                  <td><input type="text" name="" value="{{$pas->forma}}"></td>
-                  <td><input type="text" name="" value="{{$pas->motivofin}}"></td>
-                  <td><input type="text" name="" value="{{$pas->nombre}}"></td>
+                  <td><input type="textt" name="" value="{{$pas->trabajoext}}"></td>
+                  <td><input type="textt" name="" value="{{$pas->forma}}"></td>
+                  <td><input type="textt" name="" value="{{$pas->motivofin}}"></td>
+                  <td><input type="textt" name="" value="{{$pas->nombre}}"></td>
                 </tr>
               @endforeach
             </tbody>
@@ -351,34 +387,17 @@ input[type=text] {
             <tbody>
               @foreach($pariente as $par)
                 <tr>
-                  <td><input type="text" name="" value="{{$par->nombre}}"></td>
-                  <td><input type="text" name="" value="{{$par->puesto}}"></td>
-                  <td><input type="text" name="" value="{{$par->dependencia}}"></td>
+                  <td><input type="textt" name="" value="{{$par->nombre}}"></td>
+                  <td><input type="textt" name="" value="{{$par->puesto}}"></td>
+                  <td><input type="textt" name="" value="{{$par->dependencia}}"></td>
                 </tr>
               @endforeach
             </tbody>
         </table>
       </div>
 
-      <div class="table-responsive">
-            <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
-            <p><h2 ALIGN=center>Observaciones</h2></p>
-              <thead style="background-color:#A9D0F5">
-                <th>Observación</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{{$empleado->observacion}}</td>
-                </tr>
-                
-              </tbody>
-            </table>
-      </div>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-      <div class="form-group">
-        <button class="btn btn-info" type="button" id="btncomentario" >Agregar una observación</button>
-      </div>
       <button id="btnupsolicitud" type="button" class="btn btn-primary" >Guardar cambios</button>
       <a href="{{URL::action('RHPreentrevista@preentre',$empleado->idempleado)}}"><button type="button" class="btn btn-primary" >Pre-entrevistar</button></a>
       <a> 
@@ -407,6 +426,8 @@ input[type=text] {
                     function()
                     {
                       window.location.href="{{url("empleado/rechazope",array("id"=>$empleado->idempleado,"ids"=>$empleado->idstatus))}}";
+                      window.location.href="{{url("empleado/pre_entrevistado")}}";
+                      
                     }
                   ); 
                 }
@@ -481,24 +502,55 @@ input[type=text] {
 $(document).ready(function(){
 
 
-  $('#btncomentario').click(function(){
+  $('#btncomentarioEL').click(function(){
       $('#inputTitle').html("Agregar observacion del solicitante");
       $('#formAgregar').trigger("reset");
+      $('#btnGuardar').val('expec');
+      $('#formModal').modal('show');
+  });
+
+  $('#btncomentarioR').click(function(){
+      $('#inputTitle').html("Agregar observacion del solicitante");
+      $('#formAgregar').trigger("reset");
+      $('#btnGuardar').val('refc');
       $('#formModal').modal('show');
   });
 
   $("#btnGuardar").click(function(e){
-        var miurl="upt";
-
-        var formData = {
-            observacion: $("#observacion").val(),
-            idempleado: $("#idempleado").val(),
-        };
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
+        var miurl;
+        var formData;
+        var state=$("#btnGuardar").val();
+
+
+        var referenciaid= $(".idpreferencia").val();
+        var explaboral=$('.idpexperiencia').val();
+        var identificacion=$('#identificacionup').val();
+
+        if (state == "refc") 
+                {
+                  formData = {
+                    referenciaid: referenciaid,
+                    observacion: $("#observacion").val(),
+                    identificacion: identificacion,
+                  };
+                  miurl = 'refcomentario';
+                }
+        if (state == "expec") 
+                {
+                  formData = {
+                    explaboral: explaboral,
+                    observacion: $("#observacion").val(),
+                    identificacion: identificacion,
+                  };
+                  miurl = 'expcomentaro';
+                }
+
+        var obs=$("#observacion").val();
 
         $.ajax({
             type: "POST",
@@ -507,8 +559,20 @@ $(document).ready(function(){
             dataType: 'json',
 
             success: function (data) {
-    
-                $('#formModal').modal('hide');
+              if (state == "refc")
+                {
+                  var item = '<tr class="even gradeA" >';
+                    item += '<td>'+obs+'</td>';
+                  $('#productsref').append(item);
+                }
+              if (state == "expec")
+                {
+                  var item = '<tr class="even gradeA" >';
+                    item += '<td>'+obs+'</td>';
+                  $('#productsel').append(item);
+                }
+
+              $('#formModal').modal('hide');
                 
             },
             error: function (data) {

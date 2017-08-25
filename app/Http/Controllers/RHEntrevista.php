@@ -212,12 +212,26 @@ class RHEntrevista extends Controller
         ->select('pa.observacion as obpa','pf.observacion as obpf','pr.observacion as obpr','pe.observacion as obpe')
         ->where('p.identificacion','=',$id)
         ->first();
+
+        $observaR=DB::table('observaciones as ob')
+            ->join('persona as p','p.identificacion','=','ob.identificacion')
+            ->join('personareferencia as pr','pr.idpreferencia','=','ob.obreferencia')
+            ->select('p.identificacion','ob.descripcion','pr.idpreferencia')
+            ->where('p.identificacion','=',$id)
+            ->get();
+        
+        $observaE=DB::table('observaciones as ob')
+            ->join('persona as p','p.identificacion','=','ob.identificacion')
+            ->join('personaexperiencia as pe','pe.idpexperiencia','=','ob.obexperiencia')
+            ->select('p.identificacion','ob.descripcion','pe.idpexperiencia')
+            ->where('p.identificacion','=',$id)
+            ->get();
       
         $nivelacademico = DB::table('nivelacademico')->get();
         $estadocivil=DB::table('estadocivil')->get();
 
 
-        return view('rrhh.entrevista.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones,'entrev'=>$entrev]);
+        return view('rrhh.entrevista.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones,'entrev'=>$entrev,"observaR"=>$observaR,"observaE"=>$observaE]);
     }
     public function entrevistarh ($id)
     {

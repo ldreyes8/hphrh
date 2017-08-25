@@ -29,7 +29,7 @@ class Constants
 
 
 	//consutlas abner
-	const listadoresultadosji ="SELECT e.nit,p.identificacion,e.idempleado, e.idstatus, p.nombre1,p.nombre2, p.apellido1,p.apellido2 ,pu.nombre as puesto, af.nombre as afnombre ,s.statusemp as status from empleado as e 
+	/*const listadoresultadosji ="SELECT e.nit,p.identificacion,e.idempleado, e.idstatus, p.nombre1,p.nombre2, p.apellido1,p.apellido2 ,pu.nombre as puesto, af.nombre as afnombre ,s.statusemp as status from empleado as e 
 		inner join persona as p on p.identificacion = e.identificacion
 		inner join puesto as pu on p.idpuesto = pu.idpuesto
 		inner join afiliado as af on p.idafiliado = af.idafiliado
@@ -37,6 +37,19 @@ class Constants
 		where not exists(select * from resultado as r
 		inner join users as urs on urs.id= r.evaluador
 		where urs.id = :idusuario and e.idempleado = r.idempleado)";
+*/
+	const listadoresultadosji ="SELECT e.nit,p.identificacion,e.idempleado, e.idstatus, p.nombre1,p.nombre2, p.apellido1,p.apellido2 ,pu.nombre as puesto, 
+af.nombre as afnombre ,s.statusemp as status from empleado as e 
+join persona as p on p.identificacion = e.identificacion
+join puesto as pu on p.idpuesto = pu.idpuesto
+join afiliado as af on p.idafiliado = af.idafiliado
+join status as s on e.idstatus = s.idstatus and e.idstatus=14
+where exists(select * from users as urs
+join persona as per on urs.identificacion=per.identificacion
+join evaluadores as es on per.identificacion = es.identificacion
+join unidadmin as udn on udn.idunidad=es.idunidad
+join puesto as pst on udn.idunidad=pst.idunidad
+where urs.id = :idusuario and pst.idpuesto=pu.idpuesto)";
 
 	const listadoindex="SELECT e.idempleado, e.identificacion, e.nit,pu.nombre1,pu.nombre2,pu.nombre3, pu.apellido1,pu.apellido2,ec.estado as estadocivil,s.idstatus,s.statusemp as status,
 		po.nombre as puesto,af.nombre as afnombre from persona as pu
