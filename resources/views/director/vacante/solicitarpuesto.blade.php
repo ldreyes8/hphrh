@@ -1,3 +1,4 @@
+
 <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
 <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
 
@@ -45,12 +46,7 @@
 </div>
 
 <meta name="_token" content="{!! csrf_token() !!}" />
-<script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
 <script type="text/javascript">
-
-$(document).ready(function() {
-  $(".select2").select2();        
-});
 
  $("#btnguardarvacante").click(function(e){
         $.ajaxSetup({
@@ -99,6 +95,4 @@ $(document).ready(function() {
         });
     });
 </script>
-
-    <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
-    <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
+<script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>

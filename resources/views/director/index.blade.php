@@ -62,12 +62,12 @@
 @endsection
 @section('fin')
     @parent
-    <meta name="_token" content="{!! csrf_token() !!}" />
-    <script src="{{asset('assets/js/perfil/solicitud.js')}}"></script>
-    <script src="{{asset('assets/js/JefeInmediato/permisovacaciones.js')}}"></script>
-    <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
+        <meta name="_token" content="{!! csrf_token() !!}" />
+        <script src="{{asset('assets/js/perfil/solicitud.js')}}"></script>
+        <script src="{{asset('assets/js/JefeInmediato/permisovacaciones.js')}}"></script>
+        <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
 
-    <script>cargar_formulario(4);</script>
+        <script>cargar_formulario(4);</script>
 
 
 @endsection

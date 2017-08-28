@@ -93,7 +93,7 @@
                               <input type="text" id="fecha_inicio" class="form-control" name="fechainicio">
                           </div>
                           <label>Tipo de baja</label>
-                          <select name="idstatus" id="idstatus" class="form-control selectpicker" data-live-search="true">
+                          <select name="idstatus" id="idstatus" class="form-control select2" data-live-search="true">
                           @if (isset($status))
                               @foreach($status as $sta)
                               <option value="{{$sta->idstatus}}">{{$sta->statusemp}}</option>
@@ -143,5 +143,12 @@
 <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
 <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
-          <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
-        <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
+<script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
+<script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
+
+<script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".select2").select2();        
+  });
+</script>

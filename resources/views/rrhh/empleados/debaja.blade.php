@@ -13,26 +13,22 @@
                          <th>Afiliado</th>
                          <th>Puesto</th>
                          <th>Status</th>
-                         <th>Opciones</th>
+                         <th style="width: 13%">Opciones</th>
                      </thead>
                      @foreach ($empleado as $em)
                      <tr id="empleado{{$em->idempleado}}">
-                     <td>{{$em->idempleado}}</td>
-                     <td>{{$em->identificacion}}</td>
-                     <td>{{$em->nit}}</td>
-                     <td>{{$em->nombre1.' '.$em->nombre2.' '.$em->apellido1.' '.$em->apellido2}}</td>
-                     <td>{{$em->afiliado}}</td>
-                     <td>{{$em->puesto}}</td>
-                     <td>{{$em->statusn}}</td>
-                    <td>
-                         <a href="{{URL::action('ListadoController@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
-                         <!--a href="{{URL::action('ListadoController@historial',$em->idempleado)}}"><button class="btn btn-primary">Historial</button></a>
-                         <a href="{{URL::action('ListadoController@Acta',$em->idempleado)}}"><button class="btn btn-primary">Acta</button></a-->
-                         <a href="{{URL::action('ListadoController@laboral',$em->idempleado)}}"><button class="btn btn-primary
-                         ">Historia laboral</button></a>                 
-                     </td>
+                         <td>{{$em->idempleado}}</td>
+                         <td>{{$em->identificacion}}</td>
+                         <td>{{$em->nit}}</td>
+                         <td>{{$em->nombre1.' '.$em->nombre2.' '.$em->apellido1.' '.$em->apellido2}}</td>
+                         <td>{{$em->afiliado}}</td>
+                         <td>{{$em->puesto}}</td>
+                         <td>{{$em->statusn}}</td>
+                        <td>
+                            <a href="{{URL::action('ListadoController@show',$em->identificacion)}}"><button class="btn btn-primary" title="Detalles"><i class="fa fa-search-plus"></i></button></a>
+                            <a href="{{URL::action('ListadoController@laboral',$em->idempleado)}}"><button class="btn btn-primary" title="Historial laboral "><i class="fa fa-stack-overflow"></i></button></a>
+                         </td>
                      </tr>
-
                      @endforeach
                  </table>
              </div>
@@ -61,18 +57,3 @@
     </div>
   </div>
 </div>
-
-    <!--
-        <meta name="_token" content="{!! csrf_token() !!}" />
-        <script src="{{asset('assets/js/RH.js')}}"></script>
-        <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
-        <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
-        <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
-        -->
-        <!--
-        <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
-        <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
-        -->
-
-
-

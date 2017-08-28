@@ -21,7 +21,6 @@
         <link href="{{asset('assets/css/pages.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/menu.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/responsive.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets/icomoon/style.css')}}" rel="stylesheet" type="text/css">
 
         
 
@@ -404,6 +403,8 @@
                     <hr style="color:#003" width="50%">
                 <br>
             </div>
+
+            <div id="listadoVacante"></div>
             
              
             <!-- ============================================================== -->
@@ -652,13 +653,13 @@
 
 
 
-    @include('director.vacante.solicitarpuesto')
+
     
 
     <input type="hidden"  id="url_raiz_proyecto" value="{{ url("/") }}" />
-        @section('fin') 
+    @section('fin') 
         
-        <!-- Plugins  -->
+    <!-- Plugins  -->
         <script src="{{asset('assets/js/jquery.min.js')}}"></script>
         <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
         <script src="{{asset('assets/js/detect.js')}}"></script>
@@ -671,7 +672,7 @@
         <script src="{{asset('assets/js/jquery.scrollTo.min.js')}}"></script>
         <script src="{{asset('assets/plugins/switchery/switchery.min.js')}}"></script>
         
-        <!-- Counter Up  -->
+    <!-- Counter Up  -->
         <script src="{{asset('assets/plugins/waypoints/lib/jquery.waypoints.js')}}"></script>
         <script src="{{asset('assets/plugins/counterup/jquery.counterup.min.js')}}"></script>
 
@@ -691,14 +692,10 @@
         <script src="{{asset('assets/js/modernizr.min.js')}}"></script>
         <script src="{{asset('assets/js/JefeInmediato/modal.js')}}"></script>
 
-
-
-
-
         @show
 
         @section('text') 
-         <script>
+        <script>
             var resizefunc = [];
         </script>
         <script type="text/javascript">
@@ -726,7 +723,6 @@
                 icons.play();
             };
         </script>
-        
         @show
     </body>
 </html>

@@ -37,115 +37,123 @@ $(document).ready(function(){
         $(document).on('click','.btn-despedir',function(){
             var errHTML="";
             idempleado=$(this).val();
-            
-            $.get('personabaja/'+idempleado,function(data){
+
+                $.get('personabaja/'+idempleado,function(data){
+                   
+                    var nombre1 = '';
+                    var nombre2 = '';
+                    var nombre3 = '';
+                    var apellido1 = '';
+                    var apellido2 = '';
+                    var apellido3 = '';
+
+                    var NC = "";
+
+                    $('#inputTitleDespedir').html("Formulario de despidos");
+                    $('#formDespedir').trigger("reset");
+                    $('#formModalDespedir').modal('show');
+
+                    if (data.nombre2 == null)
+                    {
+                        data.nombre2 = '';
+                    }
+
+                    if (data.nombre3 == null)
+                    {
+                        data.nombre3 = '';
+                    }
+
+                     if (data.apellido2 == null)
+                    {
+                        data.apellido2 = '';
+                    }
+
+                    if (data.apellido3 == null)
+                    {
+                        data.apellido3 = '';
+                    }
+
+                    NC = (data.nombre1 + ' ' +data.nombre2 + ' ' +data.nombre3 + ' ' +data.apellido1 + ' ' +data.apellido2 + ' ' +data.apellido3);
+
+                    document.getElementById('idE').value = idempleado;
+                    document.getElementById('nombreC').value = NC;
+                    document.getElementById('idemple').value = data.idempleado;
+                    document.getElementById('identifica').value = data.identificacion;
+                });
                
-                var nombre1 = '';
-                var nombre2 = '';
-                var nombre3 = '';
-                var apellido1 = '';
-                var apellido2 = '';
-                var apellido3 = '';
-
-                var NC = "";
-
-                $('#inputTitleDespedir').html("Formulario de despidos");
-                $('#formDespedir').trigger("reset");
-                $('#formModalDespedir').modal('show');
-
-                if(data.nombre2 == null && data.nombre3 == null && data.apellido2 == null && data.apellido3 == null)
-                {
-                    NC = (data.nombre1 + ' '+ data.apellido1);                
-                }
-
-                if(data.nombre3 == null && data.apellido2 == null && data.apellido3 == null)
-                {
-                    NC = (data.nombre1 + ' ' + data.nombre2 + ' '+ data.apellido1);                
-                }
-
-                if(data.nombre3 == null && data.apellido3 == null)
-                {
-                    NC = (data.nombre1 + ' ' + data.nombre2 + ' '+ data.apellido1 + ' ' + data.apellido2);
-                }
-
-                if(data.apellido3 == null && data.nombre3 != null)
-                {
-                    NC = (data.nombre1 + ' ' + data.nombre2 + ' ' + data.nombre3 + ' ' + data.apellido1 + ' ' + data.apellido2);                
-                }
-
-                if(data.nombre1 != null && data.nombre2 != null && data.nombre3 != null && data.apellido1 != null && data.apellido2 != null && data.apellido3 != null)
-                {
-                    NC = (data.nombre1 + ' ' + data.nombre2 + ' ' + data.nombre3 + ' ' + data.apellido1 + ' ' + data.apellido2 + ' ' + data.apellido3);
-                }
-
-                            document.getElementById('idE').value = idempleado;
-
-                document.getElementById('nombreC').value = NC;
-                document.getElementById('idemple').value = data.idempleado;
-                document.getElementById('identifica').value = data.identificacion;
-
-            });
         });
 
         $(document).on('click','.btn-adddespedir',function(e){
 
-            var idEP=$("#idE").val();
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                }
-            });
-            var formData = {
-                idempleado: $("#idemple").val(),
-                identificacion: $("#identifica").val(),
-                fecha_despido: $("#fecha_inicio").val(),           
-                motivo: $("#idstatus option:selected").text(),
-                observaciones : $("#observaciones").val(),
-                idstatus: $("#idstatus").val(),
-            };
+            swal({
+                title: "¿Esta seguro de despedir a esta persona?",
+                text: "No podrá revertir este cambio",
+                type: "error",
+                showCancelButton: true,
+                confirmButtonClass: 'btn-danger waves-effect waves-light',
+                confirmButtonText: "Si, despedir",
+                closeOnConfirm: false
+            }, 
 
-            var state=$("#btnGuardarBaja").val();
-
-            var type;
-            var my_url;
-
-            type="POST";
-            my_url = 'addbaja';
-
-            $.ajax({
-                type: type,
-                url: my_url,
-                data: formData,
-                dataType: 'json',
-
-                success: function (data) {
-                    
-                    swal({
-                      title:"Envio correcto",
-                      text: "Se ha despedido al empleado correctamente",
-                      type: "success",
-                    });
-
-                    $("#empleado" + idEP).remove();
-                    $('#formDespedir').trigger("reset");
-                    $('#formModalDespedir').modal('hide');
-
-                    
-                },
-                error: function (data) {
-                    $('#loading').modal('hide');
-                    var errHTML="";
-                    if((typeof data.responseJSON != 'undefined')){
-                        for( var er in data.responseJSON){
-                            errHTML+="<li>"+data.responseJSON[er]+"</li>";
-                        }
-                    }else{
-                        errHTML+='<li>Error</li>';
+            function () {
+                var idEP=$("#idE").val();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                     }
-                    $("#erroresContent").html(errHTML); 
-                    $('#erroresModal').modal('show');
-                }
-            });
+                });
+                var formData = {
+                    idempleado: $("#idemple").val(),
+                    identificacion: $("#identifica").val(),
+                    fecha_despido: $("#fecha_inicio").val(),           
+                    motivo: $("#idstatus option:selected").text(),
+                    observaciones : $("#observaciones").val(),
+                    idstatus: $("#idstatus").val(),
+                };
+
+                var state=$("#btnGuardarBaja").val();
+
+                var type;
+                var my_url;
+
+                type="POST";
+                my_url = 'addbaja';
+
+                $.ajax({
+                    type: type,
+                    url: my_url,
+                    data: formData,
+                    dataType: 'json',
+
+                    success: function (data) {
+                        
+                        swal({
+                          title:"Envio correcto",
+                          text: "Se ha despedido al empleado correctamente",
+                          type: "success",
+                        });
+
+                        $("#empleado" + idEP).remove();
+                        $('#formDespedir').trigger("reset");
+                        $('#formModalDespedir').modal('hide');
+
+                        
+                    },
+                    error: function (data) {
+                        $('#loading').modal('hide');
+                        var errHTML="";
+                        if((typeof data.responseJSON != 'undefined')){
+                            for( var er in data.responseJSON){
+                                errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                            }
+                        }else{
+                            errHTML+='<li>Error</li>';
+                        }
+                        $("#erroresContent").html(errHTML); 
+                        $('#erroresModal').modal('show');
+                    }
+                });
+            });           
         });
 });
 

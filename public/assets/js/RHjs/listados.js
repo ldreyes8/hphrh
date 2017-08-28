@@ -23,23 +23,21 @@ function cargar_formularioRH(arg){
     }) ;
   }
 
-function  vernombramiento_emp(arg){
-
-  var urlraiz=$("#url_raiz_proyecto").val();
+function vernombramiento_emp(arg){
+    var urlraiz=$("#url_raiz_proyecto").val();
     var miurl =urlraiz+"/empleado/addnombramiento/"+arg+""; 
-    $("#lisadoEmp").show();
     $("#lisadoEmp").show();
     var screenTop = $(document).scrollTop();
     $("#lisadoEmp").css('top', screenTop);
-  $("#lisadoEmp").html($("#cargador_empresa").html());
+    $("#lisadoEmp").html($("#cargador_empresa").html());
 
-  $.ajax({
-    url: miurl
-  }).done( function(resul) 
-  {
-    $("#lisadoEmp").html(resul);
-  }).fail( function() 
-  {
-    $("#lisadoEmp").html('<span>...Ha ocurrido un error, revise su conexión y vuelva a intentarlo...</span>');
-  }) ;
+    $.ajax({
+      url: miurl
+    }).done( function(resul) 
+    {
+      $("#lisadoEmp").html(resul);
+    }).fail( function() 
+    {
+      $("#lisadoEmp").html('<span>...Ha ocurrido un error, revise su conexión y vuelva a intentarlo...</span>');
+    });
 }

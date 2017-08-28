@@ -65,15 +65,14 @@
 @endsection
 @section('fin')
     @parent
-    <meta name="_token" content="{!! csrf_token() !!}" />
-    <script src="{{asset('assets/js/perfil/solicitud.js')}}"></script>
+        <meta name="_token" content="{!! csrf_token() !!}" />
+        <script src="{{asset('assets/js/perfil/solicitud.js')}}"></script>
         <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
+        <script>cargar_formulario(1);</script>
 
-    <script>cargar_formulario(1);</script>
-
-<script type="text/javascript">
-        $(document).ready(function() {
-            $(".select2").select2();        
-        });
-    </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(".select2").select2();        
+            });
+        </script>
 @endsection

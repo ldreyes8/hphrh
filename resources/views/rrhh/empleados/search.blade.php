@@ -35,24 +35,24 @@
 
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-                    <div class="col-lg-3 col-md-12 col-sm-1 col-xs-12">
+                    <div class="col-lg-3 col-md-6 col-sm-3 col-xs-12">
 
                         <p>Detalles</p>
                         <button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button>
                     </div>
                     
-                    <div class="col-lg-3 col-md-12 col-sm-4 col-xs-12">
+                    <div class="col-lg-3 col-md-6 col-sm-3 col-xs-12">
 
                         <p>Historial</P>
                         <button class="btn btn-primary" title="Historial laboral"><i class="fa fa-stack-overflow"></i></button>
                     </div>
 
-                    <div class="col-lg-3 col-md-12 col-sm-1 col-xs-12">
+                    <div class="col-lg-3 col-md-6 col-sm-3 col-xs-12">
                         <p>Vacaciones</p>
                         <button class="btn btn-primary" title="Vacaciones"><i class="fa fa-camera-retro fa-lg"></i></button>
                     </div>
 
-                    <div class="col-lg-3 col-md-12 col-sm-1 col-xs-12">
+                    <div class="col-lg-3 col-md-6 col-sm-3 col-xs-12">
                         <p>Despedir</p>
                         <button class="btn btn-danger" id="FWEF" value="" title="Despedir" ><i class="fa fa-remove"></i></button>
                     </div>
@@ -60,16 +60,14 @@
             </div>
         </div>
     </div>
-        <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
 
-<script type="text/javascript"> $(document).ready(function() {
-
-            $(".select2").select2();
-
-            $('#searchText').keypress(function(e){   
-               if(e.which == 13){      
-                 buscarempleado();      
-               }   
-              });    
+ <script type="text/javascript">
+                $(".select2").select2();
+                
+                $('#searchText').keypress(function(e){   
+                if(e.which == 13){      
+                     buscarempleado();
+                }   
+            });         
             
-        });</script>
+        </script>
