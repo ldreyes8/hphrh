@@ -424,8 +424,8 @@ input[type=text] {
                     },
                     function()
                     {
-                      window.location.href="{{url("empleado/rechazo",array("id"=>$empleado->idempleado,"ids"=>$empleado->idstatus))}}";
-                      window.location.href="{{url("empleado/resultadosev")}}";
+                      window.location.href="{{url("empleado/rechazoe",array("id"=>$empleado->idempleado,"ids"=>$empleado->idstatus))}}";
+                      //window.location.href="{{url("empleado/resultadosev")}}";
                     }
                   ); 
                 }

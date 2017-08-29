@@ -108,8 +108,11 @@
                                         <tr>
                                             <th style="width: 20%">Tipo de residencia</th><td>{{$persona->vivienda}}</td>
                                         </tr>
-                                        
-                                            <th>¿A qué se dedica su esposa?</th><td>{{$esposa->ocupacion}}</td>
+                                            @if (!empty($esposa->ocupacion))
+                                                <th>¿A qué se dedica su esposa/o?</th><td>{{$esposa->ocupacion}}</td>
+                                            @else
+                                                <th>¿A qué se dedica su esposa/o?</th><td>&nbsp;&nbsp;No ingreso Datos</td>
+                                            @endif
                                         </tr>
                                         <tr>
                                         <th>¿Cuántos hijos tiene?</th>
@@ -291,10 +294,37 @@
                                     <tr>
                                         <th>¿Cuál es su pretensión salarial mínima?</th><td>&nbsp;&nbsp;{{$entre->pretensionminima}}</td>
                                     </tr>
-                                    <tr>
+                                    <!--tr>
                                         <th>Recomendaciones o observaciones que se consideren</th><td></td>
+                                    </tr-->
+                                </thead>
+                            </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h5>&nbsp;&nbsp;Presenta deudas</h5>
+                            <table width="100%" border="1" cellpadding="0" cellspacing="1" bordercolor="#000000" style="border-collapse:collapse;border-color:#ddd;" >
+                                <thead>
+                                    <tr>
+                                        <th style="width: 25%">Acreedor</th>
+                                        <th style="width: 15%">Amortización mensual</th>
+                                        <th style="width: 10%">Monto credito</th>
+                                        <th style="width: 50%">Motivo del crédito</th>
                                     </tr>
                                 </thead>
+                                <tbody id="productsA" name="productsA">
+                                    @if (isset($deuda))
+                                        @for ($i=0;$i<count($deuda);$i++)
+                                            <tr class="even gradeA" id="academicos{{$deuda[$i]->idpdeudas}}">
+                                                <td>{{$deuda[$i]->acreedor}}</td>
+                                                <td>{{$deuda[$i]->pago}}</td>
+                                                <td>{{$deuda[$i]->montodeuda}}</td>
+                                                <td>{{$deuda[$i]->motivodeuda}}</td>
+                                            </tr>
+                                        @endfor
+                                    @endif
+                                </tbody>
                             </table>
                     </div>
                 </div>

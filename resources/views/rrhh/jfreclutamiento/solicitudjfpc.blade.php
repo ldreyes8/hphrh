@@ -63,8 +63,8 @@
                                                     },
                                                     function()
                                                     {
-                                                        window.location.href="{{url("empleado/rechazo",array("id"=>$em->idempleado,"ids"=>$em->idstatus))}}";
-                                                        location.reload();
+                                                        window.location.href="{{url("empleado/rechazojpc",array("id"=>$em->idempleado,"ids"=>$em->idstatus))}}";
+                                                        //window.location.reload();
                                                     }
                                                 ); 
                                             }

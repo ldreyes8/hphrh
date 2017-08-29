@@ -60,7 +60,7 @@
         @foreach($resultados as $res)
           <tr class="filaTableF">
             <td>{{$res->nombre1.' '.$res->nombre2.' '.$res->apellido1.' '.$res->apellido2}}</td>
-            <td>{{$res->areanombre}}</td>
+            <td>{{$res->unidadadmin}}</td>
             <td>{{$res->nota}}</td>
             <td>{{$res->observacion}}</td>
           </tr>
@@ -103,8 +103,8 @@
                     },
                     function()
                     {
-                      window.location.href="{{url("empleado/rechazo",array("id"=>$persona->idempleado,"ids"=>$persona->idstatus))}}";
-                      window.location.href="{{url("empleado/resultadosev")}}";
+                      window.location.href="{{url("empleado/rechazoe",array("id"=>$persona->idempleado,"ids"=>$persona->idstatus))}}";
+                      //window.location.href="{{url("empleado/resultadosev")}}";
                     }
                   ); 
                 }

@@ -422,7 +422,7 @@ input[type=textt] {
                             function()
                             {
                               window.location.href="{{url("empleado/upPreentrevista",array("id"=>$empleado->idempleado,"ids"=>$persona->identificacion))}}";
-                              window.location.href="{{url("empleado/solicitudesjf")}}";
+                              //window.location.href="{{url("empleado/solicitudesjf")}}";
                             }
                           ); 
                         }
@@ -463,9 +463,9 @@ input[type=textt] {
                     },
                     function()
                     {
-                      window.location.href="{{url("empleado/rechazo",array("id"=>$empleado->idempleado,"ids"=>$empleado->idstatus))}}";
+                      window.location.href="{{url("empleado/rechazojf",array("id"=>$empleado->idempleado,"ids"=>$empleado->idstatus))}}";
                       //location.reload();
-                      window.location.href="{{url("empleado/solicitudesjf")}}";
+                      //window.location.href="{{url("empleado/solicitudesjf")}}";
                                                         //location.reload();
                     }
                   ); 

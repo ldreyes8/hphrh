@@ -425,9 +425,9 @@ input[type=textt] {
                     },
                     function()
                     {
-                      window.location.href="{{url("empleado/rechazope",array("id"=>$empleado->idempleado,"ids"=>$empleado->idstatus))}}";
+                      window.location.href="{{url("empleado/rechazopej",array("id"=>$empleado->idempleado,"ids"=>$empleado->idstatus))}}";
                       //location.reload();
-                      window.location.href="{{url("empleado/pre_entrevistadoji")}}";
+                      //window.location.href="{{url("empleado/pre_entrevistadoji")}}";
                     }
                   ); 
                 }

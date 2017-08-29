@@ -266,7 +266,7 @@
                             -->
 
                             <li class="has_sub"> 
-                                <a href="{{ url('/empleado/reclutamiento')}}" class="waves-effect waves-primary">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-drivers-license-o"></i><span>Reclutamiento</span>
+                                <a href="{{ url('/empleado/listadoR')}}" class="waves-effect waves-primary">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-drivers-license-o"></i><span>Reclutamiento</span>
                                 </a>
                             </li>
 

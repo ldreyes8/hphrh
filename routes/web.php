@@ -98,8 +98,12 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('solicitudesjf','RHReclutamiento@indexjf');
 	Route::get('busquedas/{dato?}','RHReclutamiento@busquedas');//dssdsd//
 	Route::get('update/{id}','Pprueba@update');
+	//Route::get('solicitudesjf/show/upPreentrevista1/{id}/{ids?}','RHPreentrevista@upPreentrevista');
 
 	//JI reclutamiento
+	Route::get('precalificarjf/{id}','RHPrecalificado@precalificarjf');
+	Route::get('upPreentrevistajf/{id}/{ids?}','RHPreentrevista@upPreentrevistajf');
+
 	Route::get('solicitudesjf/show/{id}','RHReclutamiento@showjf');
 	Route::post('solicitudesjf/show/expcomentaro/','PersonaController@expcomentaro');// agregar una observacion experiencia
 	Route::post('solicitudesjf/show/refcomentario/','PersonaController@refcomentario');// agregar una observacion referencia
@@ -216,6 +220,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::post('entrevistarh/adicionalacad','RHPreentrevista@adicionalacad');
 	Route::post('entrevistarh/agregarexperiencia','RHPreentrevista@agregarexperiencia');
 	Route::get('nombramiento1/{id}','RHEntrevista@nombramiento1');
+	Route::get('PDFEntre/{id}','RHEntrevista@PDFEntre');
 		Route::post('listadoen/show/upt/','SController@upt');// agregar una observacion 
 
 		Route::post('listadoen/show/expcomentaro/','PersonaController@expcomentaro');// agregar una observacion experiencia
@@ -282,9 +287,16 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('Spdf/{id}', 'SController@Spdf');
 	Route::get('perfil','PerController@index');		// PerController = PerfilController
 	Route::get('contacto','PerController@contacto');
-
+	//Rechazos de eempleados rutas
 	Route::get('rechazo/{id}/{ids?}','SController@rechazo');
 	Route::get('rechazope/{id}/{ids?}','SController@rechazope');
+	Route::get('rechazopc/{id}/{ids?}','SController@rechazopc');
+	Route::get('rechazoe/{id}/{ids?}','SController@rechazoe');
+	Route::get('rechazoet/{id}/{ids?}','SController@rechazoet');
+	Route::get('rechazon/{id}/{ids?}','SController@rechazon');
+	Route::get('rechazojf/{id}/{ids?}','SController@rechazojf');
+	Route::get('rechazopej/{id}/{ids?}','SController@rechazopej');
+	Route::get('rechazojpc/{id}/{ids?}','SController@rechazojpc');
 	//Route::get();
 	Route::get('rechazoPP/{id}','SController@rechazoPP');
 	Route::get('rechazoPI/{id}','SController@rechazoPI');

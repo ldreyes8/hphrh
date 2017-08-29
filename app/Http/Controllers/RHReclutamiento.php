@@ -323,6 +323,7 @@ class RHReclutamiento extends Controller
         $st->update();
         return Redirect::to('listados/interino');
     }
+    
     public function upt (Request $request)
     {
         $id = $request->get('idempleado');
@@ -334,6 +335,7 @@ class RHReclutamiento extends Controller
     }
     public function showjf($id)
     {
+        //dd($id);
         $municipio=DB::table('persona as p')
         ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
         ->select('m.idmunicipio')

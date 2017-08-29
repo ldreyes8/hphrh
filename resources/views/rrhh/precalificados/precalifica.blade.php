@@ -37,13 +37,13 @@
                     <table class="table table-striped table-bordered table-condensed table-hover" >
                         <thead>
                             <tr>
-                                <th style="width: 20%">Nombre Completo:</th><td>&nbsp;&nbsp;<input type="textt" name="" value="{{$persona->nombre1.' '.$persona->nombre2.' '.$persona->nombre3.' '.$persona->apellido1.' '.$persona->apellido2}}"></td>
+                                <th style="width: 20%">Nombre Completo:</th><td>&nbsp;&nbsp;{{$persona->nombre1.' '.$persona->nombre2.' '.$persona->nombre3.' '.$persona->apellido1.' '.$persona->apellido2}}</td>
                             </tr>
                             <tr>
-                                <th>Fecha de la Entrevista: </th><td>&nbsp;&nbsp;<input type="textt" id="fechaentre" maxlength="50" value="{{$date}}" disabled="disabled"></td>
+                                <th>Fecha de la Entrevista: </th><td>&nbsp;&nbsp;{{$date}}<input type="hidden" id="fechaentre" maxlength="50" value="{{$date}}" disabled="disabled"></td>
                             </tr>
                             <tr>
-                                <th>Dirección:</th><td>&nbsp;&nbsp;<input type="textt" id="lugar" name="lugar" maxlength="50" value="{{$entre->lugar}}"></td>
+                                <th>Dirección:</th><td>&nbsp;&nbsp;{{$persona->barriocolonia}}<input type="hidden" id="lugar" name="lugar" maxlength="50" value="{{$entre->lugar}}"></td>
                             </tr>
                             <tr>
                                 <th>Edad:</th><td>&nbsp;&nbsp;{{$fnac}}&nbsp;años</td>
@@ -120,7 +120,12 @@
                                             <th style="width: 20%">Tipo de residencia</th><td>{{$persona->vivienda}}</td>
                                         </tr>
                                         <tr>
-                                            <th>¿A qué se dedica su esposa?</th><td>{{$esposa->ocupacion}}</td>
+
+                                            @if (!empty($esposa->ocupacion))
+                                                <th>¿A qué se dedica su esposa/o?</th><td>{{$esposa->ocupacion}}</td>
+                                            @else
+                                                <th>¿A qué se dedica su esposa/o?</th><td>&nbsp;&nbsp;No ingreso Datos</td>
+                                            @endif
                                         </tr>
                                         <tr>
                                         <th>¿Cuántos hijos tiene?</th>
@@ -344,10 +349,35 @@
                                     <tr>
                                         <th>¿Cuál es su pretensión salarial mínima?</th><td>&nbsp;&nbsp;<input type="textt" id="pretensionminima" maxlength="10" value="{{$entre->pretensionminima}}"></td>
                                     </tr>
-                                    <tr>
+                                    <!--tr>
                                         <th>Recomendaciones o observaciones que se consideren</th><td></td>
-                                    </tr>
+                                    </tr-->
                                 </thead>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                        <h5>&nbsp;&nbsp;Presenta deudas</h5>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-condensed table-hover" >
+                                <thead>
+                                    <th style="width: 25%">Acreedor</th>
+                                    <th style="width: 15%">Amortización mensual</th>
+                                    <th style="width: 10%">Monto credito</th>
+                                    <th style="width: 50%">Motivo del crédito</th>
+                                </thead>
+                                <tbody id="productsA" name="productsA">
+                                    @if (isset($deuda))
+                                        @for ($i=0;$i<count($deuda);$i++)
+                                            <tr class="even gradeA" id="academicos{{$deuda[$i]->idpdeudas}}">
+                                                <td>{{$deuda[$i]->acreedor}}</td>
+                                                <td>{{$deuda[$i]->pago}}</td>
+                                                <td>{{$deuda[$i]->montodeuda}}</td>
+                                                <td>{{$deuda[$i]->motivodeuda}}</td>
+                                            </tr>
+                                        @endfor
+                                    @endif
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -403,7 +433,7 @@
                             function()
                             {
                               location.href="{{url("empleado/envioaevaluar",array("id"=>$persona->idempleado,"ids"=>$persona->correo))}}";
-                              window.location.href="{{url("empleado/listadoR")}}";
+                              //window.location.href="{{url("empleado/listadoR")}}";
                             }
                           ); 
                         }

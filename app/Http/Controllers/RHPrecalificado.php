@@ -27,8 +27,15 @@ class RHPrecalificado extends Controller
         $od=Empleado::find($id);
         $od-> idstatus = '4';
         $od->update();
-        //return Redirect::to('empleado/pre_entrevistado');
+        return Redirect::to('empleado/listadoR');
     }
+    /*public function precalificarjf($id)
+    {
+        $od=Empleado::find($id);
+        $od-> idstatus = '4';
+        $od->update();
+        return Redirect::to('empleado/listadoR');
+    }*/
 
     public function listadopreC (Request $request)
     {
@@ -228,9 +235,13 @@ class RHPrecalificado extends Controller
         ->select(DB::raw('max(na.idnivel) as idnivel'),'p.identificacion')
         ->where('em.idempleado','=',$id)
         ->where('na.mintrabna','=',1)
-
         ->first();
 
+        $deuda=DB::table('personadeudas as pd')
+        ->join('empleado as p','pd.idempleado','=','p.idempleado')
+        ->select('pd.idpdeudas','pd.acreedor','pd.amortizacionmensual as pago','pd.montodeuda','pd.motivodeuda')
+        ->where('p.idempleado','=',$id)
+        ->get();
 
         $academico=DB::table('persona as p')
         ->join('personaacademico as pa','p.identificacion','=','pa.identificacion')
@@ -314,7 +325,7 @@ class RHPrecalificado extends Controller
             ->get();
 
 
-        return view('rrhh.precalificados.precalifica',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre]);
+        return view('rrhh.precalificados.precalifica',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre,"deuda"=>$deuda]);
     }
 
     public function PDFpreC ($id)
@@ -348,6 +359,12 @@ class RHPrecalificado extends Controller
         ->where('na.idnivel','=',$ntitulo->idnivel)
         ->where('na.mintrabna','=',1)
         ->first();
+
+        $deuda=DB::table('personadeudas as pd')
+        ->join('empleado as p','pd.idempleado','=','p.idempleado')
+        ->select('pd.idpdeudas','pd.acreedor','pd.amortizacionmensual as pago','pd.montodeuda','pd.motivodeuda')
+        ->where('p.idempleado','=',$id)
+        ->get();
 
         $licencias=DB::table('empleado as em')
         ->join('persona as p','em.identificacion','=','p.identificacion')
@@ -420,7 +437,7 @@ class RHPrecalificado extends Controller
             ->get();
 
 
-        $pdf= PDF::loadView('rrhh.precalificados.pdfPreC',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre]);
+        $pdf= PDF::loadView('rrhh.precalificados.pdfPreC',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre,"deuda"=>$deuda]);
         return $pdf->download('Pre-Calificado.pdf'); 
     }
 

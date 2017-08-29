@@ -33,9 +33,21 @@ class RHPreentrevista extends Controller
         $ent-> lugar="";
         $ent-> perentrevista = $ids;
         $ent->save();
-
-        //return Redirect::to('empleado/solicitudes');
+        //dd($id);
+        return Redirect::to('empleado/listadoR');
     }
+    /*public function upPreentrevistajf ($id,$ids)
+    {
+        $od=Empleado::find($id);
+        $od-> idstatus = '13';
+        $od->update();
+
+        $ent = new Entrevista;
+        $ent-> lugar="";
+        $ent-> perentrevista = $ids;
+        $ent->save();
+        return Redirect::to('empleado/solicitudesjf');
+    }*/
     public static function  getTowns(Request $request, $id)
     {
             if ($request->ajax())
@@ -90,6 +102,11 @@ class RHPreentrevista extends Controller
         ->where('na.mintrabna','=',1)
         ->first();
 
+        $deuda=DB::table('personadeudas as pd')
+        ->join('empleado as p','pd.idempleado','=','p.idempleado')
+        ->select('pd.idpdeudas','pd.acreedor','pd.amortizacionmensual as pago','pd.montodeuda','pd.motivodeuda')
+        ->where('p.idempleado','=',$id)
+        ->get();
 
         $academico=DB::table('persona as p')
         ->join('personaacademico as pa','p.identificacion','=','pa.identificacion')
@@ -173,7 +190,7 @@ class RHPreentrevista extends Controller
             ->get();
 
 
-        return view('rrhh.reclutamiento.preentrevistar',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre]);
+        return view('rrhh.reclutamiento.preentrevistar',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre,"deuda"=>$deuda]);
     }
     public function listadopreE (Request $request)
     {
@@ -523,6 +540,12 @@ class RHPreentrevista extends Controller
         ->where('na.mintrabna','=',1)
         ->first();
 
+        $deuda=DB::table('personadeudas as pd')
+        ->join('empleado as p','pd.idempleado','=','p.idempleado')
+        ->select('pd.idpdeudas','pd.acreedor','pd.amortizacionmensual as pago','pd.montodeuda','pd.motivodeuda')
+        ->where('p.idempleado','=',$id)
+        ->get();
+        
         $licencias=DB::table('empleado as em')
         ->join('persona as p','em.identificacion','=','p.identificacion')
         ->join('personalicencia as pl','p.identificacion','=','pl.identificacion')
@@ -594,7 +617,7 @@ class RHPreentrevista extends Controller
             ->get();
 
 
-        $pdf= PDF::loadView('rrhh.preentrevista.pdfpentre',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre]);
+        $pdf= PDF::loadView('rrhh.preentrevista.pdfpentre',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre,"deuda"=>$deuda]);
         return $pdf->download('Pre-Entrevista.pdf'); 
     }
 

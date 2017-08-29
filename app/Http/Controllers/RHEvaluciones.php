@@ -34,7 +34,7 @@ class RHEvaluciones extends Controller
         $msj->to($em);
       });*/
 
-        return Redirect::to('empleado/pre_entrevistado');
+        return Redirect::to('empleado/listadoR');
   }
 
     public function listadoev ()
@@ -84,10 +84,11 @@ class RHEvaluciones extends Controller
 
         $resultados=DB::table('empleado as e')
         ->join('resultado as r','r.idempleado','=','e.idempleado')
-        ->join('area as ar','r.area','=','ar.idarea')
         ->join('users as urs','urs.id','=','r.evaluador')
         ->join('persona as p','urs.identificacion','=','p.identificacion')
-        ->select('r.observacion','r.nota','ar.areanombre','p.nombre1','p.nombre2','p.apellido1','p.apellido2')
+        ->join('evaluadores as es','p.identificacion','=','es.identificacion')
+        ->join('unidadmin as udn','udn.idunidad','=','es.idunidad')
+        ->select('r.observacion','r.nota','udn.unidadadmin','p.nombre1','p.nombre2','p.apellido1','p.apellido2')
         ->where('e.idempleado','=',$id)
         ->get();
         

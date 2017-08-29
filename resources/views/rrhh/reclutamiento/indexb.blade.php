@@ -60,9 +60,11 @@
                                                     function()
                                                     {
                                                         window.location.href="{{url("empleado/rechazo",array("id"=>$em->idempleado,"ids"=>$em->idstatus))}}";
-                                                        location.reload();
+                                                        //window.location.reload(true);
+                                                        //window.self.close(); 
                                                     }
-                                                ); 
+                                                );
+
                                             }
 
                                             else {

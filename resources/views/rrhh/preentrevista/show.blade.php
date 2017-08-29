@@ -426,7 +426,7 @@ input[type=textt] {
                     function()
                     {
                       window.location.href="{{url("empleado/rechazope",array("id"=>$empleado->idempleado,"ids"=>$empleado->idstatus))}}";
-                      window.location.href="{{url("empleado/pre_entrevistado")}}";
+                      //window.location.href="{{url("empleado/pre_entrevistado")}}";
                       
                     }
                   ); 
