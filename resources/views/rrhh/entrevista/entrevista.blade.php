@@ -276,7 +276,16 @@
                                         <th>¿Le gusta la atención al público?</th><td>&nbsp;&nbsp;<input type="textt" id="atencionpublico" maxlength="100" value="{{$entre->atencionpublico}}"></td>
                                     </tr>
                                     <tr>
-                                        <th>Es ordenado.</th><td>&nbsp;&nbsp;<input type="textt" id="ordenado" maxlength="2" value="{{$entre->ordenado}}"></td>
+                                        <th>Es ordenado.</th>
+                                        @if($entre->ordenado == 'Si')
+                                            <td>&nbsp;&nbsp;
+                                                <input type="checkbox"  name="ordenado" value="Si" checked>Si
+                                                <input type="checkbox"  name="ordenado" value="No" >No
+                                            </td>
+                                        @else
+                                            <td>&nbsp;&nbsp;<input type="checkbox"  name="ordenado" value="Si" >Si
+                                            <input type="checkbox"  name="ordenado" value="No" checked>No</td>
+                                        @endif
                                     </tr>
                                 </thead>
                             </table>

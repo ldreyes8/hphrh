@@ -5,7 +5,13 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
-		
+		var ordenado=document.getElementsByName("ordenado");
+    var ordenados="ni";
+    for (var i=0;i<ordenado.length;i++)
+     {
+      if(ordenado[i].checked)
+        ordenados=ordenado[i].value;
+     }
 		var formData = {
             identificacion:$("#identificacion").val(),
    			idempleado:$("#idempleado").val(),
@@ -18,7 +24,7 @@ $(document).ready(function(){
    			trabajoequipo:$("#trabajoequipo").val(),
    			bajopresion:$("#bajopresion").val(),
    			atencionpublico:$("#atencionpublico").val(),
-   			ordenado:$("#ordenado").val(),
+   			ordenado:ordenados,
    			entrevistadores:$("#entrevistadores").val(),
         };
        	$.ajax({

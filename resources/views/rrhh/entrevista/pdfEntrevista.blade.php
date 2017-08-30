@@ -230,7 +230,16 @@
 			                            <th>¿Le gusta la atención al público?</th><td>&nbsp;&nbsp;{{$entre->atencionpublico}}</td>
 			                        </tr>
 			                        <tr>
-			                            <th>Es ordenado.</th><td>&nbsp;&nbsp;{{$entre->ordenado}}</td>
+			                            <th>Es ordenado.</th>
+			                            @if($entre->ordenado == 'Si')
+                                            <td>&nbsp;&nbsp;
+                                                <input type="checkbox"  name="ordenado" value="Si" checked>Si
+                                                <input type="checkbox"  name="ordenado" value="No" >No
+                                            </td>
+                                        @else
+                                            <td>&nbsp;&nbsp;<input type="checkbox"  name="ordenado" value="Si" >Si
+                                            <input type="checkbox"  name="ordenado" value="No" checked>No</td>
+                                        @endif
 			                        </tr>
 			                    </thead>
 			                </table>
@@ -343,6 +352,12 @@
 			    </div>
 			</div>
 		</div>
+		<footer class="footer text-right">
+    		Habitat para la humanidad
+        	{{$date}} by:solera
+        	<br>
+    		<strong>Copyright &copy; <a href="www.solera.com">Solera</a>.</strong> All rights reserved.
+    	</footer>
 	</div>
 <script src="assets/js/bootstrap.min.js"></script>
 </body>
