@@ -34,16 +34,26 @@ class RHEvaluciones extends Controller
         $msj->to($em);
       });*/
 
-        return Redirect::to('empleado/pre_entrevistado');
+        return Redirect::to('empleado/listadoR');
   }
 
     public function listadoev ()
     {
         $resultado=new Resultado;
         $empleados = $resultado->selectQuery(Constants::listadoresultadosji,array(Auth::user()->id));
-        $area=DB::table('area')->get();
         //dd($empleados);
-        return view('rrhh.evaluaciones.resultados',["area"=>$area,"empleados"=>$empleados]);
+        return view('rrhh.evaluaciones.resultados',["empleados"=>$empleados]);
+    }
+
+    public function busquedaevaluacion($dato="")
+    {
+                $resultado=new Resultado;
+
+                $empleados = $resultado->selectQuery(Constants::busquedaresultadosji,array($dato, Auth::user()->id));
+
+        //$empleados = $resultado->selectQuery(Constants::listadoresultadosji,array(Auth::user()->id));
+        //dd($empleados);
+        return view('rrhh.evaluaciones.contresultado',["empleados"=>$empleados,"datos"=>$dato]);
     }
 
     public function listadores (Request $request)
@@ -75,21 +85,21 @@ class RHEvaluciones extends Controller
 
     public function listadotablares ($id)
     {
-        //dd($id);
         $persona=DB::table('persona as p')
         ->join('empleado as em','p.identificacion','=','em.identificacion')
         ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
         ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-        ->select('p.identificacion','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','a.nombre as afiliado','pu.nombre as puesto','em.idempleado','em.nit')
+        ->select('p.identificacion','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.celular as telefono','p.fechanac','p.barriocolonia','a.nombre as afiliado','pu.nombre as puesto','em.idempleado','em.nit','em.idstatus')
         ->where('em.idempleado','=',$id)
         ->first();
 
         $resultados=DB::table('empleado as e')
         ->join('resultado as r','r.idempleado','=','e.idempleado')
-        ->join('area as ar','r.area','=','ar.idarea')
         ->join('users as urs','urs.id','=','r.evaluador')
         ->join('persona as p','urs.identificacion','=','p.identificacion')
-        ->select('r.observacion','r.nota','ar.areanombre','p.nombre1','p.nombre2','p.apellido1','p.apellido2')
+        ->join('evaluadores as es','p.identificacion','=','es.identificacion')
+        ->join('unidadmin as udn','udn.idunidad','=','es.idunidad')
+        ->select('r.observacion','r.nota','udn.unidadadmin','p.nombre1','p.nombre2','p.apellido1','p.apellido2')
         ->where('e.idempleado','=',$id)
         ->get();
         
@@ -233,19 +243,32 @@ class RHEvaluciones extends Controller
         ->select('pa.observacion as obpa','pf.observacion as obpf','pr.observacion as obpr','pe.observacion as obpe')
         ->where('p.identificacion','=',$id)
         ->first();
+
+        $observaR=DB::table('observaciones as ob')
+            ->join('persona as p','p.identificacion','=','ob.identificacion')
+            ->join('personareferencia as pr','pr.idpreferencia','=','ob.obreferencia')
+            ->select('p.identificacion','ob.descripcion','pr.idpreferencia')
+            ->where('p.identificacion','=',$id)
+            ->get();
+        
+        $observaE=DB::table('observaciones as ob')
+            ->join('persona as p','p.identificacion','=','ob.identificacion')
+            ->join('personaexperiencia as pe','pe.idpexperiencia','=','ob.obexperiencia')
+            ->select('p.identificacion','ob.descripcion','pe.idpexperiencia')
+            ->where('p.identificacion','=',$id)
+            ->get();
       
         $nivelacademico = DB::table('nivelacademico')->get();
         $estadocivil=DB::table('estadocivil')->get();
 
 
-        return view('rrhh.evaluaciones.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones,'entrev'=>$entrev]);     
+        return view('rrhh.evaluaciones.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones,'entrev'=>$entrev,"observaR"=>$observaR,"observaE"=>$observaE]);     
     }
 
     public function agregarnota (Request $request)
     {
         $idempleado =$request->get("idempleado");
         $nota =$request->get("nota");
-        $idarea =$request->get("idarea");
         $observacion =$request->get("observacion");
         $id=Auth::user()->id;
 
@@ -253,8 +276,7 @@ class RHEvaluciones extends Controller
         $result-> idempleado=$idempleado;
         $result-> observacion=$observacion;
         $result-> nota=$nota;
-        $result-> evaluador=$id;
-        $result-> area=$idarea;        
+        $result-> evaluador=$id;        
         $result->save();
 
         //return view('rrhh.evaluaciones.resultados');

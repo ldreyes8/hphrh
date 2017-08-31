@@ -6,156 +6,7 @@
 @endsection
 @section ('contenido')
         
-
-        <div class="row">
-           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                 <div class="table-responsive">
-                     <table class="table table-striped table-bordered table-condensed table-hover">
-                         <thead>
-                             <th style="width: 2%">Id</th>
-                             <th style="width: 4%">Identificación</th>
-                             <th style="width: 2%">Nit</th>
-                             <th style="width: 25%">Nombre</th>
-                             <th style="width: 5%">Afiliado </th>
-                             <th style="width: 15%">Puesto </th>
-                             <th style="width: 10%">Status</th>
-                             <th style="width: 42%">Opciones</th>
-                         </thead>
-                         @foreach ($empleados as $em)
-                         <tr class="even gradeA">
-                            <td>{{$em->idempleado}}
-                                <input type="hidden" id="idempleado" class="idempleado" value="{{$em->idempleado}}">
-                            </td>
-                            <td>{{$em->identificacion}}</td>
-                            <td>{{$em->nit}}</td>
-                            <td>{{$em->nombre1.' '.$em->nombre2.' '.$em->apellido1.' '.$em->apellido2}}</td>
-                            <td>{{$em->afnombre}}</td>
-                            <td>{{$em->puesto}}</td>
-                            <td>{{$em->status}}
-                                <input type="hidden" class="idstatus" value="{{$em->idstatus}}">
-                            </td>
-                            <td>
-                                <a href="{{URL::action('RHEvaluciones@show',$em->identificacion)}}"><button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button></a>
-                                <button type="button" class="btn btn-success btnresult" id="resultado" value="{{$em->idempleado}}" title="Asignar Resultado"><i class="fa-calculator"></i></button>
-                            
-                                <a> 
-                                    <button title="Rechazar" id="btnrechazo" 
-                                        onclick='
-                                        swal({
-                                            title: "¿Está seguro de Rechazar la solicitud?",
-                                            text: "Usted rechazara la solicitud de empleo",
-                                            type: "warning",
-                                            showCancelButton: true,
-                                            confirmButtonColor: "#DD6B55",
-                                            confirmButtonText: "¡Si!",
-                                            cancelButtonText: "No",
-                                            closeOnConfirm: false,
-                                            closeOnCancel: false },
-
-                                            function(isConfirm){
-                                            if (isConfirm) 
-                                            {
-                                                swal(
-                                                    {
-                                                        title: "¡Hecho!",
-                                                        text: "Solicitud rechazada con éxito!!!",
-                                                        type: "success"
-                                                    },
-                                                    function()
-                                                    {
-                                                        window.location.href="{{url("empleado/rechazo",array("id"=>$em->idempleado,"ids"=>$em->idstatus))}}";
-                                                    }
-                                                ); 
-                                            }
-
-                                            else {
-                                            swal("¡Cancelado!",
-                                            "No se ha realizado algún cambio...",
-                                            "error");
-                                            }
-                                            });
-                                        ' 
-                                    class="btn btn-danger btnrechazo"><i class="fa fa-remove"></i> </button>
-                                </a>
-                                
-                            </td>
-                         </tr>
-                         @endforeach
-                     </table>
-                 </div>
-                 
-           </div>
-        </div>
-
-    <div class="col-lg-12">
-        <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title" id="inputTitle"></h4>
-              </div>
-              <div class="modal-body">
-              <form role="form" id="formAgregar">
-                    <input type="hidden" id="idempleado" name="idempleado" value="">
-                    <div class="form-group">
-                        <label for="nombrer">Nombre completo *</label>
-                        <input type="text" id="nombre" name="nombre" class="form-control" >
-                    </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" >                                   
-                        <div class="form-group">
-                            <label for="nota">Nota *</label>
-                            <input type="text" id="nota"  maxlength="3" class="form-control" onkeypress="return valida(event)">
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-4 col-sm-4 col-xs-12" >   
-                        <div class="form-group">
-                            <label for="profesion">Area</label>
-                            <select id="areaid" class="form-control selectpicker" data-live-search="true">
-                                  @foreach($area as $p)
-                                      <option value="{{$p->idarea}}">{{$p->areanombre}}</option>
-                                  @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-4 col-xs-12" >
-                        <div class="form-group">
-                            <label>Observacion</label>
-                            <textarea maxlength="99" class="form-control" id="observacione" ></textarea>
-                        </div>
-                    </div>  
-              </form>                                                                       
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="btnGuardar">Guardar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <h4 class="modal-title">Errores</h4>
-          </div>
-
-          <div class="modal-body">
-            <ul style="list-style-type:circle" id="erroresContent"></ul>
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    @include('rrhh.evaluaciones.contresultado')
 @endsection
 @section('fin')
     @parent
@@ -201,7 +52,6 @@
                         observacion: $("#observacione").val(),
                         idempleado: $("#idempleado").val(),
                         nota: $("#nota").val(),
-                        idarea: $("#areaid").val(),
 
                     };
                     console.log(formData);
@@ -239,7 +89,7 @@
                                     errHTML+="<li>"+data.responseJSON[er]+"</li>";
                                 }
                             }else{
-                                errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                                errHTML+='<li>Error, en este momento no se puede ingresar la nota intente mas tarde.</li>';
                             }
                             $("#erroresContent").html(errHTML); 
                             $('#erroresModal').modal('show');

@@ -19,6 +19,7 @@ use App\Idioma;
 use App\Licencia;
 use App\PuestoPublico;
 use App\Textranjero;
+use App\Observacion;
 Use Session;
 use Storage;
 use DB;
@@ -47,7 +48,6 @@ class PersonaController extends Controller
         if ($request)
         {
         }
-
     }
     public static function  getTowns(Request $request, $id)
     {
@@ -663,10 +663,11 @@ class PersonaController extends Controller
         $telefonor=$request->get('telefonor');
         $profesion=$request->get('profesion');
         $tiporeferencia=$request->get('tiporeferencia');
-
+        $identificacionup=$request->get('identificacionup');
         $recomiendaper = $request->get('recomiendaper');
         $confirmadorref = $request->get('confirmadorref');
         $observacion = $request->get('observacionr');
+        
 
         $referencia = Referencia::findOrFail($idpreferencia);
         $referencia-> nombrer=$nombrer;
@@ -677,6 +678,8 @@ class PersonaController extends Controller
         $referencia-> confirmadorref=$confirmadorref;
         $referencia-> observacion = $observacion;
         $referencia->save();
+
+
 
         return response()->json($referencia);
     }
@@ -713,4 +716,56 @@ class PersonaController extends Controller
         $personas=array($persona,$empleado);
         return response()->json($personas);
     }
+
+    public function refcomentario(Request $request)
+    {
+        $this->validateRequestOb($request);
+        $idper=$request->get('identificacion');
+        $observacionG = $request->get('observacion');
+        $idobservacionGR = $request->get('referenciaid');
+
+        $obs= new observacion;
+        $obs-> descripcion=$observacionG;
+        $obs-> identificacion=$idper;
+        $obs-> obreferencia=$idobservacionGR;
+        $obs->save();
+
+        return response()->json($obs);
+    }
+    public function expcomentaro(Request $request)
+    {
+        $this->validateRequestObE($request);
+        $idper=$request->get('identificacion');
+        $observacionGE = $request->get('observacion');
+        $idpexperienciaGE = $request->get('explaboral');
+
+        $obs= new observacion;
+        $obs-> descripcion=$observacionGE;
+        $obs-> identificacion=$idper;
+        $obs-> obexperiencia=$idpexperienciaGE;
+        $obs->save();
+        return response()->json($obs);
+    }
+    public function validateRequestOb($request){
+            $rules=[
+            'observacion' => 'required|max:300',
+
+            ];
+            $messages=[
+            'required' => 'Debe ingresar :attribute.',
+            'max'  => 'La capacidad del campo :attribute es :max',
+            ];
+            $this->validate($request, $rules,$messages);        
+        }
+    public function validateRequestObE($request){
+            $rules=[
+            'observacion' => 'required|max:300',
+
+            ];
+            $messages=[
+            'required' => 'Debe ingresar :attribute.',
+            'max'  => 'La capacidad del campo :attribute es :max',
+            ];
+            $this->validate($request, $rules,$messages);        
+        }
 }

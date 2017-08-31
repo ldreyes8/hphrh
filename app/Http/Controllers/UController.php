@@ -14,7 +14,7 @@ use App\Referencia;
 use App\Deudas;
 use App\Padecimientos;
 use App\Experiencia;
-
+use App\Observacion;
 use App\Eventos;
 use App\User;  
 use App\Licencia;
@@ -595,6 +595,7 @@ class UController extends Controller
             $refe-> profesion = $request->get('profesion');
             $refe-> tiporeferencia = $request->get('tiporeferencia');
             $refe->save();
+
             return response()->json($refe);
         }
         public function deleteref ($id)

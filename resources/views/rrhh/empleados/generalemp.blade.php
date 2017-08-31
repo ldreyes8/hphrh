@@ -25,12 +25,18 @@
                             <td>{{$em->afiliado}}</td>
                             <td>{{$em->puesto}}</td>
                             <td>{{$em->statusn}}</td>
+                            
                             <td>
                                 <a href="{{URL::action('ListadoController@show',$em->identificacion)}}"><button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button></a>
                                 <a href="{{URL::action('ListadoController@laboral',$em->idempleado)}}"><button class="btn btn-primary" title="Historial laboral"><i class="fa fa-stack-overflow"></i></button></a>
-                                <button class="btn btn-primary btn-vacaciones" id="btnsaldo" value="{{$em->idempleado}}" title="Vacaciones"><i class="fa fa-camera-retro fa-lg"></i></button>
+                                @if($em->statusn=='Activo' or $em->statusn=='Interino')
+                                <button class="btn btn-primary btn-vacaciones" id="btnsaldo" value="{{$em->idempleado}}" title="Vacaciones"><i class="fa fa-camera-retro fa-xs"></i></button>
+                                @else
+                                <button class="btn btn-success btn-evaluaprueba" id="btnsaldo" value="{{$em->idempleado}}" title="Evaluacion de periodo Prueba"><i class="md md-border-color"></i></button>
+                                @endif
                                 <button class="btn btn-danger btn-despedir" id="FWEF" value="{{$em->idempleado}}" title="Despedir" ><i class="fa fa-remove"></i></button>
                             </td>
+
                         </tr>
 
                          @endforeach
@@ -116,6 +122,34 @@
           </div>
       </div>
     </div>
+</div>
+<div class="col-lg-12">
+  <div class="modal fade" id="formModalpp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="inputTitlepp"></h4>
+        </div>
+        <input type="hidden" name="idemple" id="idemple" >
+        <form role="form" id="formAgregarpp">
+          <div class="modal-header">
+          <br>                           
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <button type="button" class="btn btn-primary btn-satisfac" id="btnGuardarBaja">Satisfactorio</button>  
+              <button type="button" class="btn btn-danger btn-insatisfac" id="btnGuardarBaja">In-Satisfactorio</button>  
+              <button type="button" class="btn btn-success btn-pprueba" id="btnGuardarBaja">Seguir en periodo de prueba</button>   
+            </div>
+          </div>
+        </form>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          <input type="hidden" name="idE" id="idEmp" value="0"/>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">

@@ -16,7 +16,6 @@ class Resultado extends BaseModel
     	'nota',
         'observacion',
         'evaluador',
-        'area',
     ];
 
 }

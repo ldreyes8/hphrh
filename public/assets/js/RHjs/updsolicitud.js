@@ -102,6 +102,7 @@ $(document).ready(function(){
                 
                 confirmadorref: confirmadorref,
                 observacionr: observacionr,
+
             });
             r++;
         
@@ -173,6 +174,12 @@ $(document).ready(function(){
                 alquilermensual: $('#alquilermensual').val(),
                 otrosingresos: $('#otrosingresos').val(),
                 selectpicker1: $('.selectpicker1').val(),
+
+                idobservacionGR: $(".idpreferencia").val(),
+                observacionG: $("#observacionGR").val(),
+
+                idpexperienciaGE:$('.idpexperiencia').val(),
+                observacionGE: $("#observacionGEL").val(),
 
         }
        console.log(formData);
