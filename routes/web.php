@@ -42,12 +42,11 @@ Route::group(['prefix'=>'listados'],function(){
 	Route::get('pconfirmado','RHPermiso@indexconfirmado')->middleware('roleshinobi:recurso');
 
 
-	//Route::get('index/{id}','ListadoController@show');
 	Route::get('pprueba','Pprueba@index');
 	Route::resource('confirmacion','Confirmacion');
 	Route::resource('rechazados','Rechazados');
 	Route::resource('interino','Interino');
-	//Route::get('pprueba/update/{id}','Pprueba@update');
+	
 	Route::post('pprueba/agregar','Pprueba@store');
 	Route::get('update/{id}','Confirmacion@update');
 	Route::get('rechazados/eliminar/{id}','Rechazados@eliminar');//prueba de eliminar
@@ -60,7 +59,6 @@ Route::group(['prefix'=>'empleado'],function(){
 	//Listado general
 	Route::get('listado/{page?}','ListadoController@listado'); 
 	Route::get('busqueda/{rol}/{dato?}','ListadoController@busqueda'); 
-
 	Route::get('empleados','ListadoController@index');
 	Route::get('empleados/calculardias/{id}','ListadoController@calculardias'); 
 	Route::get('rechazados','Rechazados@index');
@@ -99,6 +97,46 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('solicitudesjf','RHReclutamiento@indexjf');
 	Route::get('busquedas/{dato?}','RHReclutamiento@busquedas');//dssdsd//
 	Route::get('update/{id}','Pprueba@update');
+	//Route::get('solicitudesjf/show/upPreentrevista1/{id}/{ids?}','RHPreentrevista@upPreentrevista');
+
+	//JI reclutamiento
+	Route::get('precalificarjf/{id}','RHPrecalificado@precalificarjf');
+	Route::get('upPreentrevistajf/{id}/{ids?}','RHPreentrevista@upPreentrevistajf');
+
+	Route::get('solicitudesjf/show/{id}','RHReclutamiento@showjf');
+	Route::post('solicitudesjf/show/expcomentaro/','PersonaController@expcomentaro');// agregar una observacion experiencia
+	Route::post('solicitudesjf/show/refcomentario/','PersonaController@refcomentario');// agregar una observacion referencia
+	
+	Route::post('solicitudesjf/show/upsolicitud','PersonaController@upsolicitud');//update de la solicitud para precalificacion
+	Route::post('solicitudesjf/show/upsolicitudPE','PersonaController@upsolicitudPE');//update de la solicitud para precalificacion
+	Route::post('solicitudesjf/show/upsolicitudPD','PersonaController@upsolicitudPD');//update de la solicitud para precalificacion
+	Route::post('solicitudesjf/show/upsolicitudPEL','PersonaController@upsolicitudPEL');//update de la solicitud para precalificacion
+	Route::post('solicitudesjf/show/upsolicitudPR','PersonaController@upsolicitudPR');//update de la solicitud para precalificacion
+	Route::post('solicitudesjf/show/upsolicitudPF','PersonaController@upsolicitudPF');//update de la solicitud para precalificacion
+	Route::post('solicitudesjf/show/upsolicitudPA','PersonaController@upsolicitudPA');//update de la solicitud para precalificacion
+
+	Route::get('pre_entrevistadoji/show/{id}','RHPreentrevista@showprejf');
+
+	Route::post('pre_entrevistadoji/show/expcomentaro/','PersonaController@expcomentaro');// agregar una observacion experiencia
+	Route::post('pre_entrevistadoji/show/refcomentario/','PersonaController@refcomentario');// agregar una observacion referencia
+	Route::post('pre_entrevistadoji/show/upsolicitud','PersonaController@upsolicitud');//update de la solicitud para precalificacion
+	Route::post('pre_entrevistadoji/show/upsolicitudPE','PersonaController@upsolicitudPE');//update de la solicitud para precalificacion
+	Route::post('pre_entrevistadoji/show/upsolicitudPD','PersonaController@upsolicitudPD');//update de la solicitud para precalificacion
+	Route::post('pre_entrevistadoji/show/upsolicitudPEL','PersonaController@upsolicitudPEL');//update de la solicitud para precalificacion
+	Route::post('pre_entrevistadoji/show/upsolicitudPR','PersonaController@upsolicitudPR');//update de la solicitud para precalificacion
+	Route::post('pre_entrevistadoji/show/upsolicitudPF','PersonaController@upsolicitudPF');//update de la solicitud para precalificacion
+	Route::post('pre_entrevistadoji/show/upsolicitudPA','PersonaController@upsolicitudPA');//update de la solicitud para precalificacion
+
+	Route::get('pre_calificadosjf/show/{id}','RHPrecalificado@showjfpc');
+	Route::post('pre_calificadosjf/show/expcomentaro/','PersonaController@expcomentaro');// agregar una observacion experiencia
+	Route::post('pre_calificadosjf/show/refcomentario/','PersonaController@refcomentario');// agregar una observacion referencia
+	Route::post('pre_calificadosjf/show/upsolicitud','PersonaController@upsolicitud');//update de la solicitud para precalificacion
+	Route::post('pre_calificadosjf/show/upsolicitudPE','PersonaController@upsolicitudPE');//update de la solicitud para precalificacion
+	Route::post('pre_calificadosjf/show/upsolicitudPD','PersonaController@upsolicitudPD');//update de la solicitud para precalificacion
+	Route::post('pre_calificadosjf/show/upsolicitudPEL','PersonaController@upsolicitudPEL');//update de la solicitud para precalificacion
+	Route::post('pre_calificadosjf/show/upsolicitudPR','PersonaController@upsolicitudPR');//update de la solicitud para precalificacion
+	Route::post('pre_calificadosjf/show/upsolicitudPF','PersonaController@upsolicitudPF');//update de la solicitud para precalificacion
+	Route::post('pre_calificadosjf/show/upsolicitudPA','PersonaController@upsolicitudPA');//update de la solicitud para precalificacion
 
 	//Preentrevistados
 	Route::get('pre_entrevistado','RHPreentrevista@listadopreE');
@@ -112,7 +150,12 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::post('preentre/agregarexperiencia','RHPreentrevista@agregarexperiencia');
 	Route::get('pre_entrevistado/show/{id}','RHPreentrevista@show');
 	Route::get('PDFpre/{id}','RHPreentrevista@PDFpre');
-	Route::post('pre_entrevistado/show/upt/','SController@upt');// agregar una observacion 
+	
+	Route::post('pre_entrevistado/show/upt/','SController@upt');// agregar una observacion
+
+		Route::post('pre_entrevistado/show/expcomentaro/','PersonaController@expcomentaro');// agregar una observacion experiencia
+		Route::post('pre_entrevistado/show/refcomentario/','PersonaController@refcomentario');// agregar una observacion referencia
+
 	Route::post('pre_entrevistado/show/upsolicitud','PersonaController@upsolicitud');//update de la solicitud para precalificacion
 	Route::post('pre_entrevistado/show/upsolicitudPE','PersonaController@upsolicitudPE');//update de la solicitud para precalificacion
 	Route::post('pre_entrevistado/show/upsolicitudPD','PersonaController@upsolicitudPD');//update de la solicitud para precalificacion
@@ -133,6 +176,10 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::post('precali/agregarexperiencia','RHPreentrevista@agregarexperiencia');
 	Route::get('PDFpreC/{id}','RHPrecalificado@PDFpreC');
 		Route::post('pre_calificados/show/upt/','SController@upt');// agregar una observacion 
+
+			Route::post('pre_calificados/show/expcomentaro/','PersonaController@expcomentaro');// agregar una observacion experiencia
+			Route::post('pre_calificados/show/refcomentario/','PersonaController@refcomentario');// agregar una observacion referencia
+
 		Route::post('pre_calificados/show/upsolicitud','PersonaController@upsolicitud');//update de la solicitud para precalificacion
 		Route::post('pre_calificados/show/upsolicitudPE','PersonaController@upsolicitudPE');//update de la solicitud para precalificacion
 		Route::post('pre_calificados/show/upsolicitudPD','PersonaController@upsolicitudPD');//update de la solicitud para precalificacion
@@ -142,6 +189,7 @@ Route::group(['prefix'=>'empleado'],function(){
 		Route::post('pre_calificados/show/upsolicitudPA','PersonaController@upsolicitudPA');//update de la solicitud para precalificacion
 
 	//Evaluaciones
+	Route::get('busquedaeva/{dato?}','RHEvaluciones@busquedaevaluacion');//dssdsd//
 	Route::get('envioaevaluar/{id}/{ids?}','RHEvaluciones@envioaevaluar');
 	Route::get('resultados','RHEvaluciones@listadoev');
 	Route::get('resultados/show/{id}','RHEvaluciones@show');
@@ -151,7 +199,11 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('resultadosev/listadotablares/{id}','RHEvaluciones@listadotablares');
 	Route::get('entrevista/{id}','RHEntrevista@entrevista');
 	Route::get('listadoen','RHEntrevista@listadoentrevista');
-		Route::post('resultados/show/upt/','SController@upt');// agregar una observacion 
+		Route::post('resultados/show/upt/','SController@upt');// agregar una observacion
+
+			Route::post('resultados/show/expcomentaro/','PersonaController@expcomentaro');// agregar una observacion experiencia
+			Route::post('resultados/show/refcomentario/','PersonaController@refcomentario');// agregar una observacion referencia
+
 		Route::post('resultados/show/upsolicitud','PersonaController@upsolicitud');//update de la solicitud para precalificacion
 		Route::post('resultados/show/upsolicitudPE','PersonaController@upsolicitudPE');//update de la solicitud para precalificacion
 		Route::post('resultados/show/upsolicitudPD','PersonaController@upsolicitudPD');//update de la solicitud para precalificacion
@@ -169,7 +221,12 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::post('entrevistarh/adicionalacad','RHPreentrevista@adicionalacad');
 	Route::post('entrevistarh/agregarexperiencia','RHPreentrevista@agregarexperiencia');
 	Route::get('nombramiento1/{id}','RHEntrevista@nombramiento1');
+	Route::get('PDFEntre/{id}','RHEntrevista@PDFEntre');
 		Route::post('listadoen/show/upt/','SController@upt');// agregar una observacion 
+
+		Route::post('listadoen/show/expcomentaro/','PersonaController@expcomentaro');// agregar una observacion experiencia
+		Route::post('listadoen/show/refcomentario/','PersonaController@refcomentario');// agregar una observacion referencia
+
 		Route::post('listadoen/show/upsolicitud','PersonaController@upsolicitud');//update de la solicitud para precalificacion
 		Route::post('listadoen/show/upsolicitudPE','PersonaController@upsolicitudPE');//update de la solicitud para precalificacion
 		Route::post('listadoen/show/upsolicitudPD','PersonaController@upsolicitudPD');//update de la solicitud para precalificacion
@@ -180,6 +237,18 @@ Route::group(['prefix'=>'empleado'],function(){
 
 	//Nombramiento
 	Route::get('listadon1','RHEntrevista@listadonombramiento');
+	Route::get('listadon1/show/{id}','RHNombramientoEmpleado@show');
+
+	Route::post('listadon1/show/expcomentaro/','PersonaController@expcomentaro');// agregar una observacion experiencia
+		Route::post('listadon1/show/refcomentario/','PersonaController@refcomentario');// agregar una observacion referencia
+
+		Route::post('listadon1/show/upsolicitud','PersonaController@upsolicitud');//update de la solicitud para precalificacion
+		Route::post('listadon1/show/upsolicitudPE','PersonaController@upsolicitudPE');//update de la solicitud para precalificacion
+		Route::post('listadon1/show/upsolicitudPD','PersonaController@upsolicitudPD');//update de la solicitud para precalificacion
+		Route::post('listadon1/show/upsolicitudPEL','PersonaController@upsolicitudPEL');//update de la solicitud para precalificacion
+		Route::post('listadon1/show/upsolicitudPR','PersonaController@upsolicitudPR');//update de la solicitud para precalificacion
+		Route::post('listadon1/show/upsolicitudPF','PersonaController@upsolicitudPF');//update de la solicitud para precalificacion
+		Route::post('listadon1/show/upsolicitudPA','PersonaController@upsolicitudPA');//update de la solicitud para precalificacion
 
 	//Reporte
 	Route::get('Rmintrab','Controllermintrab@index');
@@ -219,14 +288,25 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('Spdf/{id}', 'SController@Spdf');
 	Route::get('perfil','PerController@index');		// PerController = PerfilController
 	Route::get('contacto','PerController@contacto');
-
+	//Rechazos de eempleados rutas
 	Route::get('rechazo/{id}/{ids?}','SController@rechazo');
 	Route::get('rechazope/{id}/{ids?}','SController@rechazope');
+	Route::get('rechazopc/{id}/{ids?}','SController@rechazopc');
+	Route::get('rechazoe/{id}/{ids?}','SController@rechazoe');
+	Route::get('rechazoet/{id}/{ids?}','SController@rechazoet');
+	Route::get('rechazon/{id}/{ids?}','SController@rechazon');
+	Route::get('rechazojf/{id}/{ids?}','SController@rechazojf');
+	Route::get('rechazopej/{id}/{ids?}','SController@rechazopej');
+	Route::get('rechazojpc/{id}/{ids?}','SController@rechazojpc');
 	//Route::get();
 	Route::get('rechazoPP/{id}','SController@rechazoPP');
 	Route::get('rechazoPI/{id}','SController@rechazoPI');
 	
-	Route::post('solicitante/upt/','SController@upt');// agregar una observacion 
+	Route::post('solicitante/upt/','SController@upt');// agregar una observacion
+	
+	Route::post('solicitante/expcomentaro/','PersonaController@expcomentaro');// agregar una observacion experiencia
+	Route::post('solicitante/refcomentario/','PersonaController@refcomentario');// agregar una observacion referencia
+	
 	Route::post('solicitante/upsolicitud','PersonaController@upsolicitud');//update de la solicitud para precalificacion
 	Route::post('solicitante/upsolicitudPE','PersonaController@upsolicitudPE');//update de la solicitud para precalificacion
 	Route::post('solicitante/upsolicitudPD','PersonaController@upsolicitudPD');//update de la solicitud para precalificacion

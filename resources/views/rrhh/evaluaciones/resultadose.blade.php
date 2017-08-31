@@ -60,7 +60,7 @@
         @foreach($resultados as $res)
           <tr class="filaTableF">
             <td>{{$res->nombre1.' '.$res->nombre2.' '.$res->apellido1.' '.$res->apellido2}}</td>
-            <td>{{$res->areanombre}}</td>
+            <td>{{$res->unidadadmin}}</td>
             <td>{{$res->nota}}</td>
             <td>{{$res->observacion}}</td>
           </tr>
@@ -78,7 +78,46 @@
   </div>
 
   <div class="row">
-        <button type="button" id="btnprecalguardar" class="btn btn-primary">Rechazar</button>
+        <a> 
+          <button type="button" id="btnrechazo" 
+            onclick='
+            swal({
+                title: "¿Está seguro de Rechazar la solicitud?",
+                text: "Usted rechazara la solicitud de empleo",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "¡Si!",
+                cancelButtonText: "No",
+                closeOnConfirm: false,
+                closeOnCancel: false },
+
+                function(isConfirm){
+                if (isConfirm) 
+                {
+                  swal(
+                    {
+                      title: "¡Hecho!",
+                      text: "Solicitud rechazada con éxito!!!",
+                      type: "success"
+                    },
+                    function()
+                    {
+                      window.location.href="{{url("empleado/rechazoe",array("id"=>$persona->idempleado,"ids"=>$persona->idstatus))}}";
+                      //window.location.href="{{url("empleado/resultadosev")}}";
+                    }
+                  ); 
+                }
+
+                else {
+                swal("¡Cancelado!",
+                "No se ha realizado algún cambio...",
+                "error");
+                }
+                });
+            ' 
+          class="btn btn-primary btnrechazo">Rechazar</button>
+      </a>
         <a><button type="button" class="btn btn-primary" 
                   onclick='
                     swal({
@@ -118,6 +157,7 @@
                     ' 
 
       >Enviar a entrevista</button></a>
+      <a href="{{url('empleado/resultadosev')}}"><button type="button" class="btn btn-primary">Regresar</button></a>
     </div>
 @endsection
 @section('fin')

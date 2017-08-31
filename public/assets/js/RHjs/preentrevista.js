@@ -9,9 +9,11 @@ $(document).ready(function(){
      var dispo=document.getElementsByName("disponibilidad");
      var dispofin=document.getElementsByName("dispfinsemana");
      var dispovia=document.getElementsByName("dispoviajar");
+     var ordenado=document.getElementsByName("ordenado");
      var dispoenvio="ni";
      var dispoenfin="ni";
      var dispoenvia="ni";
+     var ordenados="ni";
      for (var i=0;i<dispo.length;i++)
      {
       if(dispo[i].checked)
@@ -29,6 +31,11 @@ $(document).ready(function(){
       if(dispovia[i].checked)
         dispoenvia=dispovia[i].value;
      }
+     for (var i=0;i<ordenado.length;i++)
+     {
+      if(ordenado[i].checked)
+        ordenados=ordenado[i].value;
+     }
 		var formData = {
         identificacion:$("#identificacion").val(),
         identrevista:$("#identrevista").val(),
@@ -43,7 +50,7 @@ $(document).ready(function(){
    			trabajoequipo:$("#trabajoequipo").val(),
    			bajopresion:$("#bajopresion").val(),
    			atencionpublico:$("#atencionpublico").val(),
-   			ordenado:$("#ordenado").val(),
+   			ordenado:ordenados,
    			entrevistadores:$("#entrevistadores").val(),
    			puntual:$("#puntual").val(),
    			presentacion:$("#presentacion").val(),

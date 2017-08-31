@@ -17,7 +17,7 @@
 			        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			            <div class="form-group">
 			                <div class="col-md-10 col-md-12 col-sm-12 col-xs-12">
-			                    <h3 class="text-center">Informe Pre Calificado</h3>  
+			                    <h3 class="text-center">Informe de Entrevista</h3>  
 			                    <h3 class="text-center">Información General</h3>    
 			                </div>
 			            </div>
@@ -308,19 +308,20 @@
 			                        </tr-->
 			                    </thead>
 			                </table>
+			            
 			        </div>
 			    </div>
 			    <div class="row">
-                    <div class="col-lg-12">
-                        <h5>&nbsp;&nbsp;Presenta deudas</h5>
+			    	<div class="col-lg-12">
+			    		<h5>&nbsp;&nbsp;Presenta deudas</h5>
                             <table width="100%" border="1" cellpadding="0" cellspacing="1" bordercolor="#000000" style="border-collapse:collapse;border-color:#ddd;" >
                                 <thead>
-                                    <tr>
-                                        <th style="width: 25%">Acreedor</th>
-                                        <th style="width: 15%">Amortización mensual</th>
-                                        <th style="width: 10%">Monto credito</th>
-                                        <th style="width: 50%">Motivo del crédito</th>
-                                    </tr>
+                                	<tr>
+	                                    <th style="width: 25%">Acreedor</th>
+	                                    <th style="width: 15%">Amortización mensual</th>
+	                                    <th style="width: 10%">Monto credito</th>
+	                                    <th style="width: 50%">Motivo del crédito</th>
+	                                </tr>
                                 </thead>
                                 <tbody id="productsA" name="productsA">
                                     @if (isset($deuda))
@@ -335,8 +336,8 @@
                                     @endif
                                 </tbody>
                             </table>
-                    </div>
-                </div>
+			    	</div>
+			    </div>
 			    <div class="row">
 			        <div class="col-lg-12">
 			            <h5>Nombres de las personas que entrevistaron</h5>

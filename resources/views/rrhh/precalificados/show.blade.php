@@ -10,6 +10,7 @@ input[type=text] {
     border: 0px;outline:none;
     text-align: justify;
     text-justify:inter-word;
+    background-color: #ffff90;
 }
     </style>
 @endsection
@@ -19,13 +20,13 @@ input[type=text] {
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
       <label >Nombre Completo</label>
         <div class="row">
-          <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
             <div class="form-group">
                 <input type="text" id="nombre1" value="{{$persona->nombre1}}">
                 <input type="text" id="apellido1" value="{{$persona->apellido1}}">
             </div>
           </div>
-          <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
             <div class="form-group">
                 <input type="text" id="nombre2" value="{{$persona->nombre2}}">
                 <input type="text" id="apellido2" value="{{$persona->apellido2}}">
@@ -35,8 +36,9 @@ input[type=text] {
     </div>
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
       <div class="form-group">
-        <label >Identificación</label>
-        <input type="text" id="identificacionup" value="{{$empleado->identificacion}}">
+        <label >Identificación</label><br>
+        {{$empleado->identificacion}}
+        <input type="hidden" id="identificacionup" value="{{$empleado->identificacion}}">
         <input type="hidden" id="idempleado" value="{{$empleado->idempleado}}">
       </div>
     </div>
@@ -185,8 +187,8 @@ input[type=text] {
                   @foreach($idiomas as $idi)
                   <tr>
                   <td></td>
-                   <td><input type="text" class="" value="{{$idi->idioma}}"></td>
-                   <td><input type="text" class="" value="{{$idi->nivel}}"></td>                
+                   <td>{{$idi->idioma}}</td>
+                   <td>{{$idi->nivel}}</td>                
                   </tr>
                   @endforeach              
                 </tbody>
@@ -224,8 +226,25 @@ input[type=text] {
       </div>
 
       <div class="form-group">
-          <label>Observación</label>
-          <textarea maxlength="100" class="form-control" id="observacionR" ></textarea>
+          <button class="btn btn-info" type="button" id="btncomentarioR" >Agregar una observación</button>
+      </div>
+      <div class="table-responsive">
+        <table id="detalle6" class="table table-striped table-bordered table-condensed table-hover">
+          <thead>
+            <th>Observación</th>
+          </thead>
+          <tbody id="productsref" name="productsref"> 
+            @foreach($observaR as $obR)
+              <tr class="even gradeA">
+                @if (!empty($obR->descripcion))
+                  <td>{{$obR->descripcion}}</td>
+                @else
+                  <td></td>
+                @endif
+              </tr>
+            @endforeach        
+          </tbody>
+        </table>
       </div>
 
       <div class="table-responsive">    
@@ -265,8 +284,25 @@ input[type=text] {
       </div>
 
       <div class="form-group">
-        <label>Observación</label>
-        <textarea maxlength="100" class="form-control" id="observacionEL" ></textarea>
+        <button class="btn btn-info" type="button" id="btncomentarioEL" >Agregar una observación</button>
+      </div>
+      <div class="table-responsive">
+        <table id="detalle6" class="table table-striped table-bordered table-condensed table-hover">
+          <thead>
+            <th>Observación</th>
+          </thead>
+          <tbody id="productsel" name="productsel">
+            @foreach($observaE as $obE) 
+              <tr class="even gradeA">
+                @if (!empty($obE->descripcion))
+                  <td>{{$obE->descripcion}}</td>
+                @else
+                  <td></td>
+                @endif
+              </tr>
+            @endforeach          
+          </tbody>
+        </table>
       </div>
 
       <div class="table-responsive">
@@ -327,10 +363,10 @@ input[type=text] {
             <tbody>
               @foreach($pais as $pas)
                 <tr>
-                  <td><input type="text" name="" value="{{$pas->trabajoext}}"></td>
-                  <td><input type="text" name="" value="{{$pas->forma}}"></td>
-                  <td><input type="text" name="" value="{{$pas->motivofin}}"></td>
-                  <td><input type="text" name="" value="{{$pas->nombre}}"></td>
+                  <td>{{$pas->trabajoext}}</td>
+                  <td>{{$pas->forma}}</td>
+                  <td>{{$pas->motivofin}}</td>
+                  <td>{{$pas->nombre}}</td>
                 </tr>
               @endforeach
             </tbody>
@@ -351,34 +387,17 @@ input[type=text] {
             <tbody>
               @foreach($pariente as $par)
                 <tr>
-                  <td><input type="text" name="" value="{{$par->nombre}}"></td>
-                  <td><input type="text" name="" value="{{$par->puesto}}"></td>
-                  <td><input type="text" name="" value="{{$par->dependencia}}"></td>
+                  <td>{{$par->nombre}}</td>
+                  <td>{{$par->puesto}}</td>
+                  <td>{{$par->dependencia}}</td>
                 </tr>
               @endforeach
             </tbody>
         </table>
       </div>
 
-      <div class="table-responsive">
-            <table id="detalles" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
-            <p><h2 ALIGN=center>Observaciones</h2></p>
-              <thead style="background-color:#A9D0F5">
-                <th>Observación</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{{$empleado->observacion}}</td>
-                </tr>
-                
-              </tbody>
-            </table>
-      </div>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-      <div class="form-group">
-        <button class="btn btn-info" type="button" id="btncomentario" >Agregar una observación</button>
-      </div>
       <button id="btnupsolicitud" type="button" class="btn btn-primary" >Guardar cambios</button>
       <a href="{{URL::action('RHPrecalificado@precali',$empleado->idempleado)}}"><button type="button" class="btn btn-primary" >Pre-calificar</button></a>
       <a> 
@@ -406,7 +425,8 @@ input[type=text] {
                     },
                     function()
                     {
-                      window.location.href="{{url("empleado/rechazo",array("id"=>$empleado->idempleado,"ids"=>$empleado->idstatus))}}";
+                      window.location.href="{{url("empleado/rechazopc",array("id"=>$empleado->idempleado,"ids"=>$empleado->idstatus))}}";
+                      //window.location.href="{{url("empleado/pre_calificados")}}";
                     }
                   ); 
                 }
@@ -420,7 +440,7 @@ input[type=text] {
             ' 
           class="btn btn-primary btnrechazo">Rechazar</button>
       </a>
-
+      <a href="{{url('empleado/pre_calificados')}}"><button type="button" class="btn btn-primary">Regresar</button></a>
     </div>
 </form>
      <div class="col-lg-12">
@@ -481,24 +501,55 @@ input[type=text] {
 $(document).ready(function(){
 
 
-  $('#btncomentario').click(function(){
+  $('#btncomentarioEL').click(function(){
       $('#inputTitle').html("Agregar observacion del solicitante");
       $('#formAgregar').trigger("reset");
+      $('#btnGuardar').val('expec');
+      $('#formModal').modal('show');
+  });
+
+  $('#btncomentarioR').click(function(){
+      $('#inputTitle').html("Agregar observacion del solicitante");
+      $('#formAgregar').trigger("reset");
+      $('#btnGuardar').val('refc');
       $('#formModal').modal('show');
   });
 
   $("#btnGuardar").click(function(e){
-        var miurl="upt";
-
-        var formData = {
-            observacion: $("#observacion").val(),
-            idempleado: $("#idempleado").val(),
-        };
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
+        var miurl;
+        var formData;
+        var state=$("#btnGuardar").val();
+
+
+        var referenciaid= $(".idpreferencia").val();
+        var explaboral=$('.idpexperiencia').val();
+        var identificacion=$('#identificacionup').val();
+
+        if (state == "refc") 
+                {
+                  formData = {
+                    referenciaid: referenciaid,
+                    observacion: $("#observacion").val(),
+                    identificacion: identificacion,
+                  };
+                  miurl = 'refcomentario';
+                }
+        if (state == "expec") 
+                {
+                  formData = {
+                    explaboral: explaboral,
+                    observacion: $("#observacion").val(),
+                    identificacion: identificacion,
+                  };
+                  miurl = 'expcomentaro';
+                }
+
+        var obs=$("#observacion").val();
 
         $.ajax({
             type: "POST",
@@ -507,8 +558,20 @@ $(document).ready(function(){
             dataType: 'json',
 
             success: function (data) {
-    
-                $('#formModal').modal('hide');
+              if (state == "refc")
+                {
+                  var item = '<tr class="even gradeA" >';
+                    item += '<td>'+obs+'</td>';
+                  $('#productsref').append(item);
+                }
+              if (state == "expec")
+                {
+                  var item = '<tr class="even gradeA" >';
+                    item += '<td>'+obs+'</td>';
+                  $('#productsel').append(item);
+                }
+
+              $('#formModal').modal('hide');
                 
             },
             error: function (data) {

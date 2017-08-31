@@ -35,7 +35,7 @@
                                 <input type="hidden" class="idstatus" value="{{$em->idstatus}}">
                             </td>
                             <td>
-                                <a href="{{URL::action('RHEntrevista@show',$em->identificacion)}}"><button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button></a>
+                                <a href="{{URL::action('RHNombramientoEmpleado@show',$em->identificacion)}}"><button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button></a>
                                 <a href="{{URL::action('Pprueba@update',$em->idempleado)}}"><button class="btn btn-success" title="Nombramiento"><i class="md md-border-color"></i></button></a>
                                 <a> 
                                     <button title="Rechazar" id="btnrechazo" 
@@ -62,7 +62,8 @@
                                                     },
                                                     function()
                                                     {
-                                                        window.location.href="{{url("empleado/rechazo",array("id"=>$em->idempleado,"ids"=>$em->idstatus))}}";
+                                                        window.location.href="{{url("empleado/rechazon",array("id"=>$em->idempleado,"ids"=>$em->idstatus))}}";
+                                                        //location.reload();
                                                     }
                                                 ); 
                                             }

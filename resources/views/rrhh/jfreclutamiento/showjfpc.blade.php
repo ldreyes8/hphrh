@@ -3,7 +3,7 @@
     @parent
     <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
     <style >
-input[type=textt] {
+input[type=text] {
 
     background: transparent;
     width: 100%;
@@ -22,14 +22,14 @@ input[type=textt] {
         <div class="row">
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
             <div class="form-group">
-                <input type="textt" id="nombre1" value="{{$persona->nombre1}}">
-                <input type="textt" id="apellido1" value="{{$persona->apellido1}}">
+                <input type="text" id="nombre1" value="{{$persona->nombre1}}">
+                <input type="text" id="apellido1" value="{{$persona->apellido1}}">
             </div>
           </div>
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
             <div class="form-group">
-                <input type="textt" id="nombre2" value="{{$persona->nombre2}}">
-                <input type="textt" id="apellido2" value="{{$persona->apellido2}}">
+                <input type="text" id="nombre2" value="{{$persona->nombre2}}">
+                <input type="text" id="apellido2" value="{{$persona->apellido2}}">
             </div>
           </div>
         </div>
@@ -45,8 +45,9 @@ input[type=textt] {
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
       <div class="form-group">
       <label>Nit</label>
-        <input type="textt" id="nit" value="{{$empleado->nit}}">
+        <input type="text" id="nit" value="{{$empleado->nit}}">
         <input type="hidden" id="nit" value="{{$empleado->idstatus}}">
+        <input type="hidden" id="" value="{{$entrev->identrevista}}">
       </div>
     </div>
   </div>
@@ -75,9 +76,9 @@ input[type=textt] {
               </thead>
               <tbody>
                 <tr>
-                  <td><input type="textt" id="barriocolonia" value="{{$persona->barriocolonia}} "></td>
-                  <td><input type="textt" id="telefono" maxlength="8" value="{{$persona->telefono}}"></td>
-                  <td><input type="textt" id="fechanac" value="{{ \Carbon\Carbon::createFromFormat('Y-m-d', $persona->fechanac)->format('d-m-Y')}}"></td>
+                  <td><input type="text" id="barriocolonia" value="{{$persona->barriocolonia}} "></td>
+                  <td><input type="text" id="telefono" maxlength="8" value="{{$persona->telefono}}"></td>
+                  <td><input type="text" id="fechanac" value="{{ \Carbon\Carbon::createFromFormat('Y-m-d', $persona->fechanac)->format('d-m-Y')}}"></td>
                   @if (!empty($persona->departamento))
                     <td>{{$persona->departamento}}</td>
                     <td>{{$persona->municipio}}</td>
@@ -99,12 +100,12 @@ input[type=textt] {
                   </td>
                   <td>{{$persona->afiliado}}</td>
                   <td>{{$persona->puesto}}</td>
-                  <td><input type="textt" maxlength="13" id="iggs" value="{{$empleado->afiliacionigss}}"></td>
-                  <td><input type="textt" id="dependientes" value="{{$empleado->numerodependientes}}"></td>
-                  <td><input type="textt" id="aportemensual" value="{{$empleado->aportemensual}}"></td>
-                  <td><input type="textt" id="vivienda" value="{{$empleado->vivienda}}"></td>
-                  <td><input type="textt" id="alquilermensual" value="{{$empleado->alquilermensual}}"></td>
-                  <td><input type="textt" id="otrosingresos" value="{{$empleado->otrosingresos}}"></td>
+                  <td><input type="text" maxlength="13" id="iggs" value="{{$empleado->afiliacionigss}}"></td>
+                  <td><input type="text" id="dependientes" value="{{$empleado->numerodependientes}}"></td>
+                  <td><input type="text" id="aportemensual" value="{{$empleado->aportemensual}}"></td>
+                  <td><input type="text" id="vivienda" value="{{$empleado->vivienda}}"></td>
+                  <td><input type="text" id="alquilermensual" value="{{$empleado->alquilermensual}}"></td>
+                  <td><input type="text" id="otrosingresos" value="{{$empleado->otrosingresos}}"></td>
                   <td>{{$empleado->pretension}}</td>
                   <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d',$empleado->fechasolicitud)->format('d-m-Y')}}</td>
                 </tr>
@@ -128,11 +129,11 @@ input[type=textt] {
               @foreach($familiares as $fam)
                 <tr class="filaTableF">
                   <td><input type="hidden" class="idpfamilia" value="{{$fam->idpfamilia}}"></td>
-                  <td><input type="textt" class="nombref" value="{{$fam->nombref}}"></td>
-                  <td><input type="textt" class="parentezco" value="{{$fam->parentezco}}"></td>
-                  <td><input type="textt" class="telefonof" value="{{$fam->telefonof}}"></td>
-                  <td><input type="textt" class="ocupacion" value="{{$fam->ocupacion}}"></td>
-                  <td><input type="textt" class="edad" value="{{$fam->edad}}"></td>
+                  <td><input type="text" class="nombref" value="{{$fam->nombref}}"></td>
+                  <td><input type="text" class="parentezco" value="{{$fam->parentezco}}"></td>
+                  <td><input type="text" class="telefonof" value="{{$fam->telefonof}}"></td>
+                  <td><input type="text" class="ocupacion" value="{{$fam->ocupacion}}"></td>
+                  <td><input type="text" class="edad" value="{{$fam->edad}}"></td>
                   <td>{{$fam->emergencia}}</td>
                 </tr>
                 @endforeach
@@ -157,19 +158,19 @@ input[type=textt] {
                 @foreach($academicos as $aca)
                 <tr class="filaTableA">
                   <td><input type="hidden" class="idpacademico" value="{{$aca->idpacademico}}"></td>
-                  <td><input type="textt" class="titulo" value="{{$aca->titulo}}"></td>
-                  <td><input type="textt" class="establecimiento" value="{{$aca->establecimiento}}"></td>
-                  <td><input type="textt" class="duracion" value="{{$aca->duracion}}"></td>
+                  <td><input type="text" class="titulo" value="{{$aca->titulo}}"></td>
+                  <td><input type="text" class="establecimiento" value="{{$aca->establecimiento}}"></td>
+                  <td><input type="text" class="duracion" value="{{$aca->duracion}}"></td>
                   <td>
-                    <select class="form-control selectpicker">
+                    <select  class="form-control selectpicker" >
                         <option value="{{$aca->idnivel}}">{{$aca->nivel}}</option>
                         @foreach($nivelacademico as $ac)
                         <option value="{{$ac->idnivel}}">{{$ac->nombrena}}</option>
                         @endforeach
                     </select>
                   </td>
-                  <td><input type="textt" class="fingreso" value="{{$aca->fingreso}}"></td>
-                  <td><input type="textt" class="fsalida" value="{{$aca->fsalida}}"></td>
+                  <td><input type="text" class="fingreso" value="{{$aca->fingreso}}"></td>
+                  <td><input type="text" class="fsalida" value="{{$aca->fsalida}}"></td>
                  </tr>
                  @endforeach
               </tbody>
@@ -211,14 +212,13 @@ input[type=textt] {
               @foreach($referencias as $ref)
                 <tr class="filaTableR">
                   <td><input type="hidden" class="idpreferencia" value="{{$ref->idpreferencia}}"></td>
-                  <td><input type="textt" class="nombrer" value="{{$ref->nombrer}}"></td>
-                  <td><input type="textt" class="telefonor" value="{{$ref->telefonor}}"></td>
-                  <td><input type="textt" class="profesion" value="{{$ref->profesion}}"></td>
-                  <td><input type="textt" class="tiporeferencia" value="{{$ref->tiporeferencia}}"></td>
-
-                  <td><input type="textt" class="recomiendaPL" name="recomiendaPL" maxlength="2" placeholder="Si ó No" value="{{$ref->recomiendaper}}"></td>
-                  <td><input type="textt" class="confirmadorref" maxlength="50" value="{{$ref->confirmadorref}}"></td>
-                  <td><input type="textt" class="observacionr" maxlength="300" value="{{$ref->observacion}}"></td>                  
+                  <td><input type="text" class="nombrer" value="{{$ref->nombrer}}"></td>
+                  <td><input type="text" class="telefonor" value="{{$ref->telefonor}}"></td>
+                  <td><input type="text" class="profesion" value="{{$ref->profesion}}"></td>
+                  <td><input type="text" class="tiporeferencia" value="{{$ref->tiporeferencia}}"></td>
+                  <td><input type="text" class="recomiendaPL" name="recomiendaPL" maxlength="2" placeholder="Si ó No" value="{{$ref->recomiendaper}}"></td>
+                  <td><input type="text" class="confirmadorref" maxlength="50" value=""></td>
+                  <td><input type="text" class="observacionr" maxlength="300" value=""></td>                  
                 </tr>
                 @endforeach
               </tbody>
@@ -246,6 +246,7 @@ input[type=textt] {
           </tbody>
         </table>
       </div>
+
       <div class="table-responsive">    
             <table id="detallesEL" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
             <p><h2 ALIGN=center>Experiencia Laboral</h2></p>
@@ -266,16 +267,16 @@ input[type=textt] {
                 @foreach($experiencias as $exp)
                 <tr class="filaTableEL">
                   <td><input type="hidden" class="idpexperiencia" value="{{$exp->idpexperiencia}}"></td>
-                  <td><input type="textt" class="empresa" value="{{$exp->empresa}}"></td>
-                  <td><input type="textt" class="puesto" value="{{$exp->puesto}}"></td>
-                  <td><input type="textt" class="jefeinmediato" value="{{$exp->jefeinmediato}}"></td>
-                  <td><input type="textt" class="motivoretiro" value="{{$exp->motivoretiro}}"></td>
-                  <td><input type="textt" class="ultimosalario" value="{{$exp->ultimosalario}}"></td>
-                  <td><input type="textt" class="fingresoex" value="{{$exp->fingresoex}}"></td>
-                  <td><input type="textt" class="fsalidaex" value="{{$exp->fsalidaex}}"></td>
-                  <td><input type="textt" name="recomiendaP" class="recomiendaexp" maxlength="2" placeholder="Si ó No" value="{{$exp->recomiendaexp}}"></td>
-                  <td><input type="textt" class="confirmadorexp" value="{{$exp->confirmadorexp}}"></td>
-                  <td><input type="textt" class="observacionel" value="{{$exp->observacion}}"></td>
+                  <td><input type="text" class="empresa" value="{{$exp->empresa}}"></td>
+                  <td><input type="text" class="puesto" value="{{$exp->puesto}}"></td>
+                  <td><input type="text" class="jefeinmediato" value="{{$exp->jefeinmediato}}"></td>
+                  <td><input type="text" class="motivoretiro" value="{{$exp->motivoretiro}}"></td>
+                  <td><input type="text" class="ultimosalario" value="{{$exp->ultimosalario}}"></td>
+                  <td><input type="text" class="fingresoex" value="{{$exp->fingresoex}}"></td>
+                  <td><input type="text" class="fsalidaex" value="{{$exp->fsalidaex}}"></td>
+                  <td><input type="text" name="recomiendaP" class="recomiendaexp" maxlength="2" placeholder="Si ó No" value="{{$exp->recomiendaexp}}"></td>
+                  <td><input type="text" class="confirmadorexp" value=""></td>
+                  <td><input type="text" class="observacionel" value=""></td>
                  </tr>
                  @endforeach
               </tbody>
@@ -318,10 +319,10 @@ input[type=textt] {
                 @foreach($deudas as $deu)
                 <tr class="filaTableD">
                   <td><input type="hidden" class="idpdeudas" value="{{$deu->idpdeudas}}"></td>
-                  <td><input type="textt" class="acreedor" value="{{$deu->acreedor}}"></td>
-                  <td><input type="textt" class="pago" value="{{$deu->pago}}"></td>
-                  <td><input type="textt" class="montodeuda" value="{{$deu->montodeuda}}"></td>
-                  <td><input type="textt" class="motivodeuda" value="{{$deu->motivodeuda}}"></td>
+                  <td><input type="text" class="acreedor" value="{{$deu->acreedor}}"></td>
+                  <td><input type="text" class="pago" value="{{$deu->pago}}"></td>
+                  <td><input type="text" class="montodeuda" value="{{$deu->montodeuda}}"></td>
+                  <td><input type="text" class="motivodeuda" value="{{$deu->motivodeuda}}"></td>
                  </tr>
                  @endforeach
               </tbody>
@@ -339,7 +340,7 @@ input[type=textt] {
                 @foreach($padecimientos as $pad)
                 <tr class="filaTable">
                   <td><input type="hidden" class="idpad" value="{{$pad->idppadecimientos}}"></td>
-                  <td><input type="textt" class="nombrepa" value="{{$pad->nombre}}"></td>
+                  <td><input type="text" class="nombrepa" value="{{$pad->nombre}}"></td>
                 </tr>
                  @endforeach
               </tbody>
@@ -394,50 +395,11 @@ input[type=textt] {
             </tbody>
         </table>
       </div>
+
     </div>
     <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
       <button id="btnupsolicitud" type="button" class="btn btn-primary" >Guardar cambios</button>
-      <a><button type="button" class="btn btn-primary" 
-                  onclick='
-                    swal({
-                      title: "¿Pre-Entrevistar?",
-                      text: "Esta seguro de precalicar a este usuario",
-                      type: "warning",
-                      showCancelButton: true,
-                      confirmButtonColor: "#DD6B55",
-                      confirmButtonText: "¡Si!",
-                      cancelButtonText: "No",
-                      closeOnConfirm: false,
-                      closeOnCancel: false 
-                      },
-                      function(isConfirm){
-                        if (isConfirm) 
-                        {
-                          swal(
-                            {
-                              title: "¡Hecho!",
-                              text: "Ahora ha cambiado de Aspirante a Pre-Entrevistado!!!",
-                              type: "success"
-                            },
-                            function()
-                            {
-                              window.location.href="{{url("empleado/upPreentrevista",array("id"=>$empleado->idempleado,"ids"=>$persona->identificacion))}}";
-                              //window.location.href="{{url("empleado/solicitudes")}}";
-                            }
-                          ); 
-                        }
-
-                        else 
-                        {
-                          swal("¡Cancelado!",
-                          "No se ha realizado cambios...",
-                          "error");
-                        }
-                      });
-                    ' 
-
-      >Pre-entrevistar</button></a>
-
+      <a href="{{URL::action('RHPrecalificado@precali',$empleado->idempleado)}}"><button type="button" class="btn btn-primary" >Pre-calificar</button></a>
       <a> 
           <button type="button" id="btnrechazo" 
             onclick='
@@ -463,8 +425,9 @@ input[type=textt] {
                     },
                     function()
                     {
-                      window.location.href="{{url("empleado/rechazo",array("id"=>$empleado->idempleado,"ids"=>$empleado->idstatus))}}";
-                      //window.location.href="{{url("empleado/solicitudes")}}";
+                      window.location.href="{{url("empleado/rechazojpc",array("id"=>$empleado->idempleado,"ids"=>$empleado->idstatus))}}";
+                      //location.reload();
+                      //window.location.href="{{url("empleado/pre_calificadosjf")}}";
                     }
                   ); 
                 }
@@ -479,7 +442,6 @@ input[type=textt] {
           class="btn btn-primary btnrechazo">Rechazar</button>
       </a>
 
-      <a href="{{url('empleado/solicitudes')}}"><button type="button" class="btn btn-primary">Regresar</button></a>
     </div>
 </form>
      <div class="col-lg-12">

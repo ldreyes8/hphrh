@@ -284,11 +284,28 @@ class SController extends Controller
         ->select('pa.observacion as obpa','pf.observacion as obpf','pr.observacion as obpr','pe.observacion as obpe')
         ->where('p.identificacion','=',$id)
         ->first();
+
+
+        $observaR=DB::table('observaciones as ob')
+            ->join('persona as p','p.identificacion','=','ob.identificacion')
+            ->join('personareferencia as pr','pr.idpreferencia','=','ob.obreferencia')
+            ->select('p.identificacion','ob.descripcion','pr.idpreferencia')
+            ->where('p.identificacion','=',$id)
+            ->get();
+        
+        $observaE=DB::table('observaciones as ob')
+            ->join('persona as p','p.identificacion','=','ob.identificacion')
+            ->join('personaexperiencia as pe','pe.idpexperiencia','=','ob.obexperiencia')
+            ->select('p.identificacion','ob.descripcion','pe.idpexperiencia')
+            ->where('p.identificacion','=',$id)
+            ->get();
+        
+        //dd($observaR);
       
         $nivelacademico = DB::table('nivelacademico')->get();
         $estadocivil=DB::table('estadocivil')->get();
 
-        return view('rrhh.reclutamiento.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones]);
+        return view('rrhh.reclutamiento.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones,"observaR"=>$observaR,"observaE"=>$observaE]);
     }
     public function rechazo($idE,$idS)
     {
@@ -302,30 +319,72 @@ class SController extends Controller
             $st-> idstatus='10';
             $st->update();
         }
-        if ($idS=="13") {
-            $st=Empleado::find($idE);
-            $st-> idstatus='10';
-            $st->update();
-        }
-        if ($idS=="4") {
-            $st=Empleado::find($idE);
-            $st-> idstatus='10';
-            $st->update();
-        }
-        if ($idS=="14") {
-            $st=Empleado::find($idE);
-            $st-> idstatus='10';
-            $st->update();
-        }
-        //return Redirect::to('empleado/solicitudes');
+        
+        //dd($idS);
+        return Redirect::to('empleado/solicitudes');
     }
     public function rechazope($idE,$idS)
     {
-        
         $st=Empleado::find($idE);
         $st-> idstatus='10';
         $st->update();
         return Redirect::to('empleado/pre_entrevistado');
+    }
+    public function rechazopc($idE,$idS)
+    {
+        $st=Empleado::find($idE);
+        $st-> idstatus='10';
+        $st->update();
+        return Redirect::to('empleado/pre_calificados');
+    }
+    public function rechazoe($idE,$idS)
+    {
+        $st=Empleado::find($idE);
+        $st-> idstatus='10';
+        $st->update();
+        return Redirect::to('empleado/resultadosev');
+    }
+    public function rechazoet($idE,$idS)
+    {
+        $st=Empleado::find($idE);
+        $st-> idstatus='10';
+        $st->update();
+        return Redirect::to('empleado/listadoen');
+    }
+    public function rechazon($idE,$idS)
+    {
+        $st=Empleado::find($idE);
+        $st-> idstatus='10';
+        $st->update();
+        return Redirect::to('empleado/listadoen');
+    }
+    public function rechazojf($idE,$idS)
+    {
+        if ($idS=="12") {
+            $st=Empleado::find($idE);
+            $st-> idstatus='2';
+            $st->update();
+        }
+        if ($idS=="1") {
+            $st=Empleado::find($idE);
+            $st-> idstatus='10';
+            $st->update();
+        }
+        return Redirect::to('empleado/solicitudesjf');
+    }
+    public function rechazopej($idE,$idS)
+    {
+        $st=Empleado::find($idE);
+        $st-> idstatus='10';
+        $st->update();
+        return Redirect::to('empleado/pre_entrevistadoji');
+    }
+    public function rechazojpc($idE,$idS)
+    {
+        $st=Empleado::find($idE);
+        $st-> idstatus='10';
+        $st->update();
+        return Redirect::to('empleado/pre_calificadosjf');
     }
     public function rechazoPP($idE)
     {
