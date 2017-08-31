@@ -457,6 +457,7 @@
                     ' 
 
       >Pre-calificar</button></a>
+      <a href="{{url('empleado/pre_entrevistado')}}"><button type="button" class="btn btn-primary">Regresar</button></a>
     </div>
 </form>
 

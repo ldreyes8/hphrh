@@ -187,8 +187,8 @@ input[type=text] {
                   @foreach($idiomas as $idi)
                   <tr>
                   <td></td>
-                   <td><input type="text" class="" value="{{$idi->idioma}}"></td>
-                   <td><input type="text" class="" value="{{$idi->nivel}}"></td>                
+                   <td>{{$idi->idioma}}</td>
+                   <td>{{$idi->nivel}}</td>                
                   </tr>
                   @endforeach              
                 </tbody>
@@ -363,10 +363,10 @@ input[type=text] {
             <tbody>
               @foreach($pais as $pas)
                 <tr>
-                  <td><input type="text" name="" value="{{$pas->trabajoext}}"></td>
-                  <td><input type="text" name="" value="{{$pas->forma}}"></td>
-                  <td><input type="text" name="" value="{{$pas->motivofin}}"></td>
-                  <td><input type="text" name="" value="{{$pas->nombre}}"></td>
+                  <td>{{$pas->trabajoext}}</td>
+                  <td>{{$pas->forma}}</td>
+                  <td>{{$pas->motivofin}}</td>
+                  <td>{{$pas->nombre}}</td>
                 </tr>
               @endforeach
             </tbody>
@@ -387,9 +387,9 @@ input[type=text] {
             <tbody>
               @foreach($pariente as $par)
                 <tr>
-                  <td><input type="text" name="" value="{{$par->nombre}}"></td>
-                  <td><input type="text" name="" value="{{$par->puesto}}"></td>
-                  <td><input type="text" name="" value="{{$par->dependencia}}"></td>
+                  <td>{{$par->nombre}}</td>
+                  <td>{{$par->puesto}}</td>
+                  <td>{{$par->dependencia}}</td>
                 </tr>
               @endforeach
             </tbody>
@@ -440,7 +440,7 @@ input[type=text] {
             ' 
           class="btn btn-primary btnrechazo">Rechazar</button>
       </a>
-
+      <a href="{{url('empleado/pre_calificados')}}"><button type="button" class="btn btn-primary">Regresar</button></a>
     </div>
 </form>
      <div class="col-lg-12">

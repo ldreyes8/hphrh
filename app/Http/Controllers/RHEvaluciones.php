@@ -45,6 +45,17 @@ class RHEvaluciones extends Controller
         return view('rrhh.evaluaciones.resultados',["empleados"=>$empleados]);
     }
 
+    public function busquedaevaluacion($dato="")
+    {
+                $resultado=new Resultado;
+
+                $empleados = $resultado->selectQuery(Constants::busquedaresultadosji,array($dato, Auth::user()->id));
+
+        //$empleados = $resultado->selectQuery(Constants::listadoresultadosji,array(Auth::user()->id));
+        //dd($empleados);
+        return view('rrhh.evaluaciones.contresultado',["empleados"=>$empleados,"datos"=>$dato]);
+    }
+
     public function listadores (Request $request)
     {
         if($request)

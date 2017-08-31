@@ -38,6 +38,16 @@ class Constants
 		inner join users as urs on urs.id= r.evaluador
 		where urs.id = :idusuario and e.idempleado = r.idempleado)";
 
+
+		const busquedaresultadosji ="SELECT e.nit,p.identificacion,e.idempleado, e.idstatus, p.nombre1,p.nombre2, p.apellido1,p.apellido2 ,pu.nombre as puesto, af.nombre as afnombre ,s.statusemp as status from empleado as e 
+		inner join persona as p on p.identificacion = e.identificacion
+		inner join puesto as pu on p.idpuesto = pu.idpuesto
+		inner join afiliado as af on p.idafiliado = af.idafiliado
+		inner join status as s on e.idstatus = s.idstatus and e.idstatus=14
+		where p.nombre1 like  concat( '%',:dato,'%') and not exists(select * from resultado as r
+		inner join users as urs on urs.id= r.evaluador
+		where urs.id = :idusuario and e.idempleado = r.idempleado)";
+
 	/*const listadoresultadosji ="SELECT e.nit,p.identificacion,e.idempleado, e.idstatus, p.nombre1,p.nombre2, p.apellido1,p.apellido2 ,pu.nombre as puesto, 
 af.nombre as afnombre ,s.statusemp as status from empleado as e 
 join persona as p on p.identificacion = e.identificacion

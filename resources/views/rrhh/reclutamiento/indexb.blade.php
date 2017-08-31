@@ -85,3 +85,5 @@
                 {{$empleados->render()}}
            </div>
         </div>
+
+

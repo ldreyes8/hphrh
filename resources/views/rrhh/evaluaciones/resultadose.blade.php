@@ -157,6 +157,7 @@
                     ' 
 
       >Enviar a entrevista</button></a>
+      <a href="{{url('empleado/resultadosev')}}"><button type="button" class="btn btn-primary">Regresar</button></a>
     </div>
 @endsection
 @section('fin')

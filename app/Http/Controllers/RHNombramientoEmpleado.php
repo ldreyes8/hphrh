@@ -252,7 +252,7 @@ class RHNombramientoEmpleado extends Controller
         //return Redirect::to('listados/pprueba');
     }
 
-    public function show($id)
+    public function show($id,$idb)
     {
         $municipio=DB::table('persona as p')
         ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
@@ -390,7 +390,7 @@ class RHNombramientoEmpleado extends Controller
         $nivelacademico = DB::table('nivelacademico')->get();
         $estadocivil=DB::table('estadocivil')->get();
 
-
+        
         return view('rrhh.nombramiento.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones,'entrev'=>$entrev,"observaR"=>$observaR,"observaE"=>$observaE]);
     }
 

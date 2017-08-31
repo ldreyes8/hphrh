@@ -187,8 +187,8 @@ input[type=textt] {
                   @foreach($idiomas as $idi)
                   <tr>
                   <td></td>
-                   <td><input type="textt" class="" value="{{$idi->idioma}}"></td>
-                   <td><input type="textt" class="" value="{{$idi->nivel}}"></td>                
+                   <td>{{$idi->idioma}}</td>
+                   <td>{{$idi->nivel}}</td>                
                   </tr>
                   @endforeach              
                 </tbody>
@@ -363,10 +363,10 @@ input[type=textt] {
             <tbody>
               @foreach($pais as $pas)
                 <tr>
-                  <td><input type="textt" name="" value="{{$pas->trabajoext}}"></td>
-                  <td><input type="textt" name="" value="{{$pas->forma}}"></td>
-                  <td><input type="textt" name="" value="{{$pas->motivofin}}"></td>
-                  <td><input type="textt" name="" value="{{$pas->nombre}}"></td>
+                  <td>{{$pas->trabajoext}}</td>
+                  <td>{{$pas->forma}}</td>
+                  <td>{{$pas->motivofin}}</td>
+                  <td>{{$pas->nombre}}</td>
                 </tr>
               @endforeach
             </tbody>
@@ -387,9 +387,9 @@ input[type=textt] {
             <tbody>
               @foreach($pariente as $par)
                 <tr>
-                  <td><input type="textt" name="" value="{{$par->nombre}}"></td>
-                  <td><input type="textt" name="" value="{{$par->puesto}}"></td>
-                  <td><input type="textt" name="" value="{{$par->dependencia}}"></td>
+                  <td>{{$par->nombre}}</td>
+                  <td>{{$par->puesto}}</td>
+                  <td>{{$par->dependencia}}</td>
                 </tr>
               @endforeach
             </tbody>

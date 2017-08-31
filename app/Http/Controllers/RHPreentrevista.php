@@ -621,8 +621,9 @@ class RHPreentrevista extends Controller
         return $pdf->download('Pre-Entrevista.pdf'); 
     }
 
-    public function showprejf($id)
+    public function showprejf($id,Request $request)
     {
+
         $municipio=DB::table('persona as p')
         ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
         ->select('m.idmunicipio')

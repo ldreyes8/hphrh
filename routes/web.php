@@ -117,6 +117,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::post('solicitudesjf/show/upsolicitudPA','PersonaController@upsolicitudPA');//update de la solicitud para precalificacion
 
 	Route::get('pre_entrevistadoji/show/{id}','RHPreentrevista@showprejf');
+
 	Route::post('pre_entrevistadoji/show/expcomentaro/','PersonaController@expcomentaro');// agregar una observacion experiencia
 	Route::post('pre_entrevistadoji/show/refcomentario/','PersonaController@refcomentario');// agregar una observacion referencia
 	Route::post('pre_entrevistadoji/show/upsolicitud','PersonaController@upsolicitud');//update de la solicitud para precalificacion
@@ -189,6 +190,7 @@ Route::group(['prefix'=>'empleado'],function(){
 		Route::post('pre_calificados/show/upsolicitudPA','PersonaController@upsolicitudPA');//update de la solicitud para precalificacion
 
 	//Evaluaciones
+	Route::get('busquedaeva/{dato?}','RHEvaluciones@busquedaevaluacion');//dssdsd//
 	Route::get('envioaevaluar/{id}/{ids?}','RHEvaluciones@envioaevaluar');
 	Route::get('resultados','RHEvaluciones@listadoev');
 	Route::get('resultados/show/{id}','RHEvaluciones@show');

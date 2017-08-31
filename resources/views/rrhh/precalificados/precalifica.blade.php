@@ -457,6 +457,7 @@
                     ' 
 
       >Enviar a pruebas</button></a>
+      <a href="{{url('empleado/pre_calificados')}}"><button type="button" class="btn btn-primary">Regresar</button></a>
     </div>
 </form>
 
