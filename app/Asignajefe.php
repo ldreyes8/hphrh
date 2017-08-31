@@ -8,7 +8,7 @@ class Asignajefe extends BaseModel
 {
     //
     protected $table ='asignajefe';
-    protected $primarykey ='idasignajefe';
+    protected $primaryKey ='idasignajefe';
 
     public $timestamps=false;
     

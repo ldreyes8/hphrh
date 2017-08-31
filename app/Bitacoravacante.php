@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bitacoravacante extends Model
 {
-    protected $primarykey='idbitacoravacante';
+    protected $primaryKey='idbitacoravacante';
     protected $table='bitacoravacante';
     
 

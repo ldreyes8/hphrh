@@ -21,8 +21,9 @@ class JIPermiso extends Controller
     }
 
     public function indexdirector(Request $request)
-    {
-      return view('director.index');
+    {        
+        //dd($request->get('idform'));
+        return view('director.index');
     }
 
 

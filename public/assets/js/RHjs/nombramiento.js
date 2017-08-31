@@ -206,3 +206,107 @@
                      //}
                 });             
             });
+
+$(document).on('click','.btn-aceptar',function(e){
+    
+    var miurl = "puestoupdate";
+    var status = "Autorizado";
+    var idvacante =$(this).val();
+
+    var formData = {
+        idvacante: $('#idvacante').val(),
+        idvacante: idvacante,
+        status: status,
+    };
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        type: "PUT",
+        url: miurl,
+        data: formData,
+        dataType: 'json',
+    
+        success: function (data) {
+            swal({ 
+                title:"Envio correcto",
+                text: "Gracias",
+                type: "success"
+                },
+
+            );
+            $("#vacante" + idvacante).remove();
+                                
+        },
+
+        error: function (data) {
+            $('#loading').modal('hide');
+            var errHTML="";
+            if((typeof data.responseJSON != 'undefined')){
+                for( var er in data.responseJSON){
+                    errHTML+="<li>"+data.responseJSON[er]+"</li>";
+            }
+            }else{
+                errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+            }
+                $("#erroresContent").html(errHTML); 
+                $('#erroresModal').modal('show');
+            },
+        });             
+    });
+
+$(document).on('click','.btn-rechazar',function(e){
+    
+    var miurl = "puestoupdate";
+    var status = "Rechazado";
+    var idvacante =$(this).val();
+
+    var formData = {
+        idvacante: $('#idvacante').val(),
+        idvacante: idvacante,
+        status: status,
+    };
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        type: "PUT",
+        url: miurl,
+        data: formData,
+        dataType: 'json',
+    
+        success: function (data) {
+            swal({ 
+                title:"Envio correcto",
+                text: "Gracias",
+                type: "success"
+                },
+
+            );
+            $("#vacante" + idvacante).remove();
+                                
+        },
+
+        error: function (data) {
+            $('#loading').modal('hide');
+            var errHTML="";
+            if((typeof data.responseJSON != 'undefined')){
+                for( var er in data.responseJSON){
+                    errHTML+="<li>"+data.responseJSON[er]+"</li>";
+            }
+            }else{
+                errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+            }
+                $("#erroresContent").html(errHTML); 
+                $('#erroresModal').modal('show');
+            },
+        });             
+    });

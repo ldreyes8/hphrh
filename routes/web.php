@@ -365,6 +365,11 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('plazavacante','JIvacante@add')->middleware('roleshinobi:jefeinmediato');
 	Route::post('addplazavacante','JIvacante@store')->middleware('roleshinobi:jefeinmediato');
 
+//Listado de puesto vacantes solicitados a RH
+	Route::get('vacante','RHPuestoVacante@index')->middleware('roleshinobi:recurso');
+	Route::get('puestosoliicatdo','RHPuestoVacante@vacante')->middleware('roleshinobi:recurso');
+	Route::put('puestoupdate','RHPuestoVacante@update')->middleware('roleshinobi:recurso');
+
 //Reportes
 	Route::get('reporteEmpleado','Reporte@index')->middleware('roleshinobi:reporte');
 

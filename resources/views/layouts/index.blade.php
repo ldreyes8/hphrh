@@ -302,6 +302,12 @@
                                 <a href="{{ url('/empleado/listadoR')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i
                                     class="md-perm-contact-cal"></i><span>Reclutamiento</span></a>
                                 </li>
+
+                                <li>
+                                <a href="{{ url('/empleado/vacante')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i
+                                    class="ion-briefcase"></i><span>Habilitar puesto</span></a>
+                                </li>
+
                                 <li>
 
                                 <a href="{{ url('/empleado/Rmintrab')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i

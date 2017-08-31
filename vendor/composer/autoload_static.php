@@ -10,13 +10,13 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '1d1b89d124cc9cb8219922c9d5569199' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
-        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
-        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
+        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
-        'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
@@ -73,6 +73,7 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
         'M' => 
         array (
             'Monolog\\' => 8,
+            'Maknz\\Slack\\' => 12,
         ),
         'L' => 
         array (
@@ -232,6 +233,10 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
+        'Maknz\\Slack\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/maknz/slack/src',
+        ),
         'League\\Flysystem\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/flysystem/src',
@@ -389,6 +394,7 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
         'App\\Asignajefe' => __DIR__ . '/../..' . '/app/Asignajefe.php',
         'App\\Bajas' => __DIR__ . '/../..' . '/app/Bajas.php',
         'App\\BaseModel' => __DIR__ . '/../..' . '/app/BaseModel.php',
+        'App\\Bitacoravacante' => __DIR__ . '/../..' . '/app/Bitacoravacante.php',
         'App\\Caso' => __DIR__ . '/../..' . '/app/Caso.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Constants' => __DIR__ . '/../..' . '/app/Constants.php',
@@ -412,6 +418,7 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
         'App\\Http\\Controllers\\Interino' => __DIR__ . '/../..' . '/app/Http/Controllers/Interino.php',
         'App\\Http\\Controllers\\JIPermiso' => __DIR__ . '/../..' . '/app/Http/Controllers/JIPermiso.php',
         'App\\Http\\Controllers\\JIReclutamiento' => __DIR__ . '/../..' . '/app/Http/Controllers/JIReclutamiento.php',
+        'App\\Http\\Controllers\\JIvacante' => __DIR__ . '/../..' . '/app/Http/Controllers/JIvacante.php',
         'App\\Http\\Controllers\\ListadoController' => __DIR__ . '/../..' . '/app/Http/Controllers/ListadoController.php',
         'App\\Http\\Controllers\\PCUsuarioController' => __DIR__ . '/../..' . '/app/Http/Controllers/PCUsuarioController.php',
         'App\\Http\\Controllers\\PController' => __DIR__ . '/../..' . '/app/Http/Controllers/PController.php',
@@ -426,6 +433,7 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
         'App\\Http\\Controllers\\RHPermiso' => __DIR__ . '/../..' . '/app/Http/Controllers/RHPermiso.php',
         'App\\Http\\Controllers\\RHPrecalificado' => __DIR__ . '/../..' . '/app/Http/Controllers/RHPrecalificado.php',
         'App\\Http\\Controllers\\RHPreentrevista' => __DIR__ . '/../..' . '/app/Http/Controllers/RHPreentrevista.php',
+        'App\\Http\\Controllers\\RHPuestoVacante' => __DIR__ . '/../..' . '/app/Http/Controllers/RHPuestoVacante.php',
         'App\\Http\\Controllers\\RHReclutamiento' => __DIR__ . '/../..' . '/app/Http/Controllers/RHReclutamiento.php',
         'App\\Http\\Controllers\\RHbajas' => __DIR__ . '/../..' . '/app/Http/Controllers/RHbajas.php',
         'App\\Http\\Controllers\\Rechazados' => __DIR__ . '/../..' . '/app/Http/Controllers/Rechazados.php',
@@ -469,6 +477,7 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\Vacaciones' => __DIR__ . '/../..' . '/app/Vacaciones.php',
         'App\\Vacadetalle' => __DIR__ . '/../..' . '/app/Vacadetalle.php',
+        'App\\Vacante' => __DIR__ . '/../..' . '/app/Vacante.php',
         'App\\Vdetalle' => __DIR__ . '/../..' . '/app/Vdetalle.php',
         'App\\afiliado' => __DIR__ . '/../..' . '/app/Afiliado.php',
         'App\\nomytas' => __DIR__ . '/../..' . '/app/Nomytas.php',
@@ -2115,6 +2124,14 @@ class ComposerStaticInit45c36e7d6bb9e85cefd1abe0d65ea350
         'Maatwebsite\\Excel\\Readers\\LaravelExcelReader' => __DIR__ . '/..' . '/maatwebsite/excel/src/Maatwebsite/Excel/Readers/LaravelExcelReader.php',
         'Maatwebsite\\Excel\\Writers\\CellWriter' => __DIR__ . '/..' . '/maatwebsite/excel/src/Maatwebsite/Excel/Writers/CellWriter.php',
         'Maatwebsite\\Excel\\Writers\\LaravelExcelWriter' => __DIR__ . '/..' . '/maatwebsite/excel/src/Maatwebsite/Excel/Writers/LaravelExcelWriter.php',
+        'Maknz\\Slack\\Attachment' => __DIR__ . '/..' . '/maknz/slack/src/Attachment.php',
+        'Maknz\\Slack\\AttachmentField' => __DIR__ . '/..' . '/maknz/slack/src/AttachmentField.php',
+        'Maknz\\Slack\\Client' => __DIR__ . '/..' . '/maknz/slack/src/Client.php',
+        'Maknz\\Slack\\Facades\\Slack' => __DIR__ . '/..' . '/maknz/slack/src/Facades/Slack.php',
+        'Maknz\\Slack\\Message' => __DIR__ . '/..' . '/maknz/slack/src/Message.php',
+        'Maknz\\Slack\\SlackServiceProvider' => __DIR__ . '/..' . '/maknz/slack/src/SlackServiceProvider.php',
+        'Maknz\\Slack\\SlackServiceProviderLaravel4' => __DIR__ . '/..' . '/maknz/slack/src/SlackServiceProviderLaravel4.php',
+        'Maknz\\Slack\\SlackServiceProviderLaravel5' => __DIR__ . '/..' . '/maknz/slack/src/SlackServiceProviderLaravel5.php',
         'Mandrill' => __DIR__ . '/..' . '/mandrill/mandrill/src/Mandrill.php',
         'Mandrill_Error' => __DIR__ . '/..' . '/mandrill/mandrill/src/Mandrill/Exceptions.php',
         'Mandrill_Exports' => __DIR__ . '/..' . '/mandrill/mandrill/src/Mandrill/Exports.php',

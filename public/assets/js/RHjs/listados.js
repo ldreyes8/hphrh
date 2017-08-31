@@ -11,6 +11,7 @@ function cargar_formularioRH(arg){
     if(arg==2){ var miurl=urlraiz+"/empleado/debaja"; }
     if(arg==3){ var miurl=urlraiz+"/empleado/rechazados";}
     if(arg==4){ var miurl=urlraiz+"/empleado/indexnombramiento"; }
+    if(arg==5){ var miurl=urlraiz+"/empleado/puestosoliicatdo";}
 
     $.ajax({
       url: miurl

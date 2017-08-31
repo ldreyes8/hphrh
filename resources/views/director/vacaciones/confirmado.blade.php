@@ -122,6 +122,13 @@
    		</div>
    	</div>
 </div> 
+<!--
+<a href="{{url('/empleado/autorizaciones')}}"><button class="btn btn-success"  type="reset">Regresar</button></a>
+<input type="hidden" name="idform" value="7">
+-->
+
+
+
 
 <div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
   <div class="modal-dialog">
@@ -152,6 +159,9 @@
         <script src="{{asset('assets/plugins/summernote/dist/summernote.min.js')}}"></script>
         <script src="{{asset('assets/js/permiso.js')}}"></script>
         <meta name="_token" content="{!! csrf_token() !!}" />
+
+        <script src="{{asset('assets/js/perfil/solicitud.js')}}"></script>
+
         <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
         <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
 

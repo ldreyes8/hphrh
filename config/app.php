@@ -182,6 +182,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Caffeinated\Shinobi\ShinobiServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        //Maknz\Slack\SlackServiceProvider::class,
       
 
 
@@ -240,6 +241,7 @@ return [
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
         'Shinobi' => Caffeinated\Shinobi\Facades\Shinobi::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        //'Slack' => Maknz\Slack\Facades\Slack::class,
       
     ],
 

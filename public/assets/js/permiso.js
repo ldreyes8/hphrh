@@ -105,7 +105,7 @@ $(document).ready(function(){
                             errHTML+="<li>"+data.responseJSON[er]+"</li>";
                         }
                     }else{
-                        errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                        errHTML+='<li>Error</li>';
                     }
                     $("#erroresContent").html(errHTML); 
                     $('#erroresModal').modal('show');
@@ -279,7 +279,7 @@ $(document).ready(function(){
                             errHTML+="<li>"+data.responseJSON[er]+"</li>";
                         }
                     }else{
-                        errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                        errHTML+='<li>Error.</li>';
                     }
                     $("#erroresContent").html(errHTML); 
                     $('#erroresModal').modal('show');

@@ -17,6 +17,11 @@ use Illuminate\Support\Collection;
 
 class Reporte extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {   
     	$nomytras = DB::table('nomytras as nt')
@@ -26,11 +31,14 @@ class Reporte extends Controller
     	->join('persona as per','emp.identificacion','=','per.identificacion')
         ->join('caso as ca','nt.idcaso','=','ca.idcaso')
     	->select('a.nombre as afiliado','p.nombre as puesto','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','nt.salario','per.identificacion','emp.fechaingreso as fecha','ca.nombre as caso')
+        ->where('emp.idstatus','=',2)
     	->groupBy('emp.idempleado')
     	->orderBy('a.nombre','asc')
         ->orderBy('p.nombre','asc')
         ->orderBy('per.apellido1')
-    	->get();            
+    	->get();
+
+        
 
     	return view('reporte.empleadosalario',["nomytras"=>$nomytras]);
     	//$usuarioactual=\Auth::user();
@@ -54,7 +62,8 @@ class Reporte extends Controller
     	->join('persona as per','emp.identificacion','=','per.identificacion')
         ->join('caso as ca','nt.idcaso','=','ca.idcaso')
     	->select('a.nombre as afiliado','p.nombre as puesto','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','nt.salario','per.identificacion','emp.fechaingreso as fecha','emp.idempleado','ca.nombre as caso')
-    	->groupBy('emp.idempleado')
+    	->where('emp.idstatus','=',2)
+        ->groupBy('emp.idempleado')
     	->orderBy('a.nombre','asc')
         ->orderBy('p.nombre','asc')
         ->orderBy('per.apellido1')
