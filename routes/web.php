@@ -42,7 +42,6 @@ Route::group(['prefix'=>'listados'],function(){
 	Route::get('pconfirmado','RHPermiso@indexconfirmado')->middleware('roleshinobi:recurso');
 
 
-	//Route::get('index/{id}','ListadoController@show');
 	Route::get('pprueba','Pprueba@index');
 	Route::resource('confirmacion','Confirmacion');
 	Route::resource('rechazados','Rechazados');
