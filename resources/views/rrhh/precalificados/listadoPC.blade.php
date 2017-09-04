@@ -33,6 +33,7 @@
                             <td>{{$em->puesto}}</td>
                             <td>{{$em->status}}
                                 <input type="hidden" class="idstatus" value="{{$em->idstatus}}">
+                                <input type="hidden" class="idstatus" value="{{$var}}">
                             </td>
                             <td>
                                 <a href="{{URL::action('RHPrecalificado@show',$em->identificacion)}}"><button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button></a>

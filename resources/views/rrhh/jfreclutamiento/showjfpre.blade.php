@@ -441,7 +441,7 @@ input[type=textt] {
             ' 
           class="btn btn-primary btnrechazo">Rechazar</button>
       </a>
-
+      <a href="{{url('empleado/pre_entrevistadoji')}}"><button type="button" class="btn btn-primary">Regresar</button></a>
     </div>
 </form>
      <div class="col-lg-12">

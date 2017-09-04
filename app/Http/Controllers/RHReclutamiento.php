@@ -143,7 +143,9 @@ class RHReclutamiento extends Controller
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
             ->orderBy('e.idempleado','desc')
             ->paginate(19);
-            return view('rrhh.reclutamiento.solicitud',["empleados"=>$empleados,"dato"=>$dato]);
+
+            $var='1';
+            return view('rrhh.reclutamiento.solicitud',["empleados"=>$empleados,"dato"=>$dato,"var"=>$var]);
             }
     }
     public function indexjf(Request $request)

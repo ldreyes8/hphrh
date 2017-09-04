@@ -339,6 +339,29 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
+                        <h5>&nbsp;&nbsp;Observaciones realizadas</h5>
+                            <table width="100%" border="1" cellpadding="0" cellspacing="1" bordercolor="#000000" style="border-collapse:collapse;border-color:#ddd;" >
+                                <thead>
+                                    <tr>
+                                        <th>Observación</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productsA" name="productsA">
+                                    @foreach($observaR as $obR)
+                                        <tr class="even gradeA">
+                                            @if (!empty($obR->descripcion))
+                                              <td>{{$obR->descripcion}}</td>
+                                            @else
+                                              <td></td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
                         <h5>Nombres de las personas que entrevistaron</h5>
                             <table width="100%" border="1" cellpadding="0" cellspacing="1" bordercolor="#000000" style="border-collapse:collapse;border-color:#ddd;">
                                 <tbody>

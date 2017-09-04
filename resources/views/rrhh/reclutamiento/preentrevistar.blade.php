@@ -388,6 +388,27 @@
                             </table>
                         </div>
                     </div>
+                    <div>
+                        <h5>Agregar las observaciones que sean necesarias.<button id="btnAgregarO" type="button" class="btn btn-success">Add.</button></h5>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-condensed table-hover" >
+                                <thead>
+                                    <th>Observación</th>
+                                </thead>
+                                <tbody id="listaOb" name="listaOb">
+                                    @foreach($observaR as $obR)
+                                        <tr class="even gradeA">
+                                            @if (!empty($obR->descripcion))
+                                              <td>{{$obR->descripcion}}</td>
+                                            @else
+                                              <td></td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -457,7 +478,7 @@
                     ' 
 
       >Pre-calificar</button></a>
-      <a href="{{url('empleado/pre_entrevistado')}}"><button type="button" class="btn btn-primary">Regresar</button></a>
+      <a href="{{url('empleado/listadoR')}}"><button type="button" class="btn btn-primary">Regresar</button></a>
     </div>
 </form>
 
@@ -645,6 +666,31 @@
     </div>
 </div>
 
+<div class="col-lg-12">
+    <div class="modal fade" id="formModalo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="inputTitleo"></h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" id="formAgregaro">
+                        <div class="form-group">
+                            <label>Observación</label>
+                            <textarea maxlength="300" class="form-control" id="observacion" name="observacion"></textarea>
+                        </div>  
+                    </form>                                                                       
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnGuardaro">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -676,8 +722,7 @@
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/datapickerf.js')}}"></script>
         <script src="{{asset('assets/js/RHjs/RHPEacad.js')}}"></script>
         <script src="{{asset('assets/js/RHjs/RHPEexp.js')}}"></script>
-
-
+        <script src="{{asset('assets/js/RHjs/insobservacion.js')}}"></script>
 
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>

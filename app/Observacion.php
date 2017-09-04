@@ -16,6 +16,7 @@ class Observacion extends Model
     	'descripcion',
     	'obexperiencia',
     	'obreferencia',
+        'identrevista',
     	'identificacion',
     ];
 
