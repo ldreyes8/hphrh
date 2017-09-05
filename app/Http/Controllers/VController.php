@@ -270,22 +270,22 @@ class VController extends Controller
           if($fini != $ffin){                               //Se valida que fecha inicio no sea igual a fecha final
             if($fini->isWeekend() === false){               //Se valida que fecha inicio no sea un fin de semana
               $days++;                                      //Se suma dias a tomar
-            }                                               //Se cierra 
-            $fini->addDay();
-          }
+            }                                               //Se cierra el if
+            $fini->addDay();                                //Se agrega dia a fecha inicio
+          }                                                 //Se cierra el if de $fini != $ffin
           else{
             break;
           }
         }
-        return response()->json(array($days));
+        return response()->json(array($days));              //Se retorna un arreglo con el total de dias a tomar
       }
       else
       {
-        if($fechainicio === $today){
+        if($fechainicio === $today){                        //Se valida si fecha inicio = a la fecha actual
           return response()->json(array('error' => 'Fecha inicio no puede ser igual a la fecha actual'),404);
         }
 
-        elseif ($fechainicio < $today) {
+        elseif ($fechainicio < $today) {                    //Se valida que fecha inicio no sea menor a la fecha actual
                   return response()->json(array('error' => 'No se puede realizar esta accion'),404);
         }
         else{
