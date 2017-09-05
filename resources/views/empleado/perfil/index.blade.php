@@ -221,6 +221,8 @@
 
     <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>
+        <script src="{{asset('assets/js/foto.js')}}"></script>
+
 
     
     

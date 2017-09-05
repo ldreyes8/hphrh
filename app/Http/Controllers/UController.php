@@ -289,8 +289,12 @@ class UController extends Controller
                     $nombre_original=$fotoperfil->getClientOriginalName();
                     $extension=$fotoperfil->getClientOriginalExtension();
                     $nuevo_nombre="userimagen-".$id.".".$extension;
-                    
-                    $r1=Storage::disk('fotografias')->put($nuevo_nombre,  \File::get($fotoperfil) );
+
+                    $img = Image::make($fotoperfil)->resize(350, 350);
+
+                    $r1=Storage::disk('fotografias')->put($nuevo_nombre,   (string) $img->encode() );
+
+                    //$r1=Storage::disk('fotografias')->put($nuevo_nombre,  \File::get($img) );
 
                     /*$r1 = Image::make($fotoperfil)
                     ->resize(350,350)
