@@ -61,7 +61,8 @@ class RHPrecalificado extends Controller
             
             ->paginate(19);
         }
-        return view('rrhh.precalificados.listadoPC',["empleados"=>$empleados,"searchText"=>$query]); 
+        $var='2';
+        return view('rrhh.precalificados.listadoPC',["empleados"=>$empleados,"searchText"=>$query,"var"=>$var]); 
     }
 
     public function listadopreCjf (Request $request)
@@ -324,8 +325,15 @@ class RHPrecalificado extends Controller
             ->where('e.idempleado','=',$id)
             ->get();
 
+        $observaR=DB::table('persona as p')
+            ->join('empleado as e','p.identificacion','=','e.identificacion')
+            ->join('observaciones as ob','p.identificacion','=','ob.identificacion')
+            ->join('entrevista as pr','pr.identrevista','=','ob.identrevista')
+            ->select('p.identificacion','ob.descripcion','pr.identrevista')
+            ->where('e.idempleado','=',$id)
+            ->get();
 
-        return view('rrhh.precalificados.precalifica',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre,"deuda"=>$deuda]);
+        return view('rrhh.precalificados.precalifica',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre,"observaR"=>$observaR,"deuda"=>$deuda]);
     }
 
     public function PDFpreC ($id)
@@ -436,8 +444,15 @@ class RHPrecalificado extends Controller
             ->where('e.idempleado','=',$id)
             ->get();
 
+        $observaR=DB::table('persona as p')
+            ->join('empleado as e','p.identificacion','=','e.identificacion')
+            ->join('observaciones as ob','p.identificacion','=','ob.identificacion')
+            ->join('entrevista as pr','pr.identrevista','=','ob.identrevista')
+            ->select('p.identificacion','ob.descripcion','pr.identrevista')
+            ->where('e.idempleado','=',$id)
+            ->get();
 
-        $pdf= PDF::loadView('rrhh.precalificados.pdfPreC',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre,"deuda"=>$deuda]);
+        $pdf= PDF::loadView('rrhh.precalificados.pdfPreC',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre,"observaR"=>$observaR,"deuda"=>$deuda]);
         return $pdf->download('Pre-Calificado.pdf'); 
     }
 

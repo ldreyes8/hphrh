@@ -36,18 +36,7 @@ class RHPreentrevista extends Controller
         //dd($id);
         return Redirect::to('empleado/listadoR');
     }
-    /*public function upPreentrevistajf ($id,$ids)
-    {
-        $od=Empleado::find($id);
-        $od-> idstatus = '13';
-        $od->update();
 
-        $ent = new Entrevista;
-        $ent-> lugar="";
-        $ent-> perentrevista = $ids;
-        $ent->save();
-        return Redirect::to('empleado/solicitudesjf');
-    }*/
     public static function  getTowns(Request $request, $id)
     {
             if ($request->ajax())
@@ -189,8 +178,15 @@ class RHPreentrevista extends Controller
             ->where('e.idempleado','=',$id)
             ->get();
 
+        $observaR=DB::table('persona as p')
+            ->join('empleado as e','p.identificacion','=','e.identificacion')
+            ->join('observaciones as ob','p.identificacion','=','ob.identificacion')
+            ->join('entrevista as pr','pr.identrevista','=','ob.identrevista')
+            ->select('p.identificacion','ob.descripcion','pr.identrevista')
+            ->where('e.idempleado','=',$id)
+            ->get();
 
-        return view('rrhh.reclutamiento.preentrevistar',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre,"deuda"=>$deuda]);
+        return view('rrhh.reclutamiento.preentrevistar',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre,"observaR"=>$observaR,"deuda"=>$deuda]);
     }
     public function listadopreE (Request $request)
     {
@@ -216,7 +212,8 @@ class RHPreentrevista extends Controller
             
             ->paginate(19);
             }
-            return view('rrhh.preentrevista.listadoPE',["empleados"=>$empleados,"searchText"=>$query]);	
+            $var='1';
+            return view('rrhh.preentrevista.listadoPE',["empleados"=>$empleados,"searchText"=>$query,"var"=>$var]);	
     }
     public function prelistadojf(Request $request)
     {
@@ -505,8 +502,10 @@ class RHPreentrevista extends Controller
         $nivelacademico = DB::table('nivelacademico')->get();
         $estadocivil=DB::table('estadocivil')->get();
 
-
-        return view('rrhh.preentrevista.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones,'entrev'=>$entrev,"observaR"=>$observaR,"observaE"=>$observaE]);
+        
+            return view('rrhh.preentrevista.show',["persona"=>$persona,"empleado"=>$empleado,"academicos"=>$academicos,"experiencias"=>$experiencias,"familiares"=>$familiares,"idiomas"=>$idiomas,"referencias"=>$referencias,"deudas"=>$deudas,"padecimientos"=>$padecimientos,"pais"=>$pais,"pariente"=>$pariente,"nivelacademico"=>$nivelacademico,"estadocivil"=>$estadocivil,"observaciones"=>$observaciones,'entrev'=>$entrev,"observaR"=>$observaR,"observaE"=>$observaE]);
+        
+        
     }
     public function PDFpre ($id)
     {
@@ -616,8 +615,15 @@ class RHPreentrevista extends Controller
             ->where('e.idempleado','=',$id)
             ->get();
 
-
-        $pdf= PDF::loadView('rrhh.preentrevista.pdfpentre',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre,"deuda"=>$deuda]);
+        $observaR=DB::table('persona as p')
+            ->join('empleado as e','p.identificacion','=','e.identificacion')
+            ->join('observaciones as ob','p.identificacion','=','ob.identificacion')
+            ->join('entrevista as pr','pr.identrevista','=','ob.identrevista')
+            ->select('p.identificacion','ob.descripcion','pr.identrevista')
+            ->where('e.idempleado','=',$id)
+            ->get();
+            
+        $pdf= PDF::loadView('rrhh.preentrevista.pdfpentre',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre,"observaR"=>$observaR,"deuda"=>$deuda]);
         return $pdf->download('Pre-Entrevista.pdf'); 
     }
 
