@@ -275,6 +275,7 @@ class UController extends Controller
                 $reglas = array('image' => 'required|image|mimes:jpeg,jpg,png|max:2000');
                 $validacion = Validator::make($input,  $reglas);
 
+
                 if ($validacion->fails())
                 {
                     return view("mensajes.msj_rechazado")->with("msj","El archivo no es una imagen valida");
@@ -282,8 +283,8 @@ class UController extends Controller
                 else
                 {  
                     $file = $user->fotoperfil;
-                   
-                    Storage::delete(public_path().$file);
+
+                    Storage::delete(public_path()."/fotografias/".$file);
 
                     $nombre_original=$fotoperfil->getClientOriginalName();
                     $extension=$fotoperfil->getClientOriginalExtension();
@@ -294,7 +295,7 @@ class UController extends Controller
                     ->resize(350,350)
                     ->save(public_path('fotografias/'.$nuevo_nombre));
                     $rutadelaimagen=$nuevo_nombre;
-                
+
                     if ($r1){
 
                         $usuario=User::find($id);

@@ -262,15 +262,15 @@ class VController extends Controller
     $fechafinal = $fechafinal->toDateString();
 
 
-    if($fechafinal >= $fechainicio){
+    if($fechafinal >= $fechainicio){                        //Se verifica que la fecha final sea mayor igual a la fecha inicial
 
-      if($emergencia === "1")
+      if($emergencia === "1")                               //Se valida si esta activo el check de emergencia
       {
-        while ($ffin >= $fini) {
-          if($fini != $ffin){
-            if($fini->isWeekend() === false){ 
-              $days++;
-            }
+        while ($ffin >= $fini) {                            //Mientras $fecha final sea mayor o igual a fecha inicio
+          if($fini != $ffin){                               //Se valida que fecha inicio no sea igual a fecha final
+            if($fini->isWeekend() === false){               //Se valida que fecha inicio no sea un fin de semana
+              $days++;                                      //Se suma dias a tomar
+            }                                               //Se cierra 
             $fini->addDay();
           }
           else{
