@@ -493,7 +493,7 @@ input[type=textt] {
               <div class="modal-body">
               <form role="form" id="formAgregar">
                       <div class="form-group">
-                          <label>Observacion</label>
+                          <label>Observación</label>
                           <textarea maxlength="300" class="form-control" id="observacion" name="observacion"></textarea>
                       </div>  
               </form>                                                                       

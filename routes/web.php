@@ -148,9 +148,10 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('preentre/towns/{id}', 'RHPreentrevista@getTowns');
 	Route::post('preentre/adicionalacad','RHPreentrevista@adicionalacad');
 	Route::post('preentre/agregarexperiencia','RHPreentrevista@agregarexperiencia');
+	//Route::get('pre_entrevistado/show/{id}/{idp?}','RHPreentrevista@show');//-----------------------------------------------
 	Route::get('pre_entrevistado/show/{id}','RHPreentrevista@show');
 	Route::get('PDFpre/{id}','RHPreentrevista@PDFpre');
-	
+	Route::post('preentre/objtpre/','PersonaController@entreob');
 	Route::post('pre_entrevistado/show/upt/','SController@upt');// agregar una observacion
 
 		Route::post('pre_entrevistado/show/expcomentaro/','PersonaController@expcomentaro');// agregar una observacion experiencia
@@ -169,11 +170,13 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('pre_calificados','RHPrecalificado@listadopreC');
 	Route::get('pre_calificadosjf','RHPrecalificado@listadopreCjf');
 	Route::get('pre_calificados/show/{id}','RHPrecalificado@show');
+	//Route::get('pre_calificados/show/{id}/{idp?}','RHPreentrevista@show');
 	Route::get('precali/{id}','RHPrecalificado@precali');
 	Route::post('precali/prentrevista','RHPreentrevista@prentrevista');
 	Route::get('precali/towns/{id}', 'RHPreentrevista@getTowns');
 	Route::post('precali/adicionalacad','RHPreentrevista@adicionalacad');
 	Route::post('precali/agregarexperiencia','RHPreentrevista@agregarexperiencia');
+	Route::post('precali/objtpc/','PersonaController@entreob');
 	Route::get('PDFpreC/{id}','RHPrecalificado@PDFpreC');
 		Route::post('pre_calificados/show/upt/','SController@upt');// agregar una observacion 
 
@@ -220,6 +223,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('entrevistarh/towns/{id}', 'RHPreentrevista@getTowns');
 	Route::post('entrevistarh/adicionalacad','RHPreentrevista@adicionalacad');
 	Route::post('entrevistarh/agregarexperiencia','RHPreentrevista@agregarexperiencia');
+	Route::post('entrevistarh/obje/','PersonaController@entreob');
 	Route::get('nombramiento1/{id}','RHEntrevista@nombramiento1');
 	Route::get('PDFEntre/{id}','RHEntrevista@PDFEntre');
 		Route::post('listadoen/show/upt/','SController@upt');// agregar una observacion 

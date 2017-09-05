@@ -345,8 +345,15 @@ class RHEntrevista extends Controller
             ->where('e.idempleado','=',$id)
             ->get();
 
+        $observaR=DB::table('persona as p')
+            ->join('empleado as e','p.identificacion','=','e.identificacion')
+            ->join('observaciones as ob','p.identificacion','=','ob.identificacion')
+            ->join('entrevista as pr','pr.identrevista','=','ob.identrevista')
+            ->select('p.identificacion','ob.descripcion','pr.identrevista')
+            ->where('e.idempleado','=',$id)
+            ->get();
 
-        return view('rrhh.entrevista.entrevista',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre,"deuda"=>$deuda]);
+        return view('rrhh.entrevista.entrevista',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre,"observaR"=>$observaR,"deuda"=>$deuda]);
     }
     public function PDFEntre ($id)
     {
@@ -455,8 +462,15 @@ class RHEntrevista extends Controller
             ->where('e.idempleado','=',$id)
             ->get();
 
-
-        $pdf= PDF::loadView('rrhh.entrevista.pdfEntrevista',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre,"deuda"=>$deuda]);
+        $observaR=DB::table('persona as p')
+            ->join('empleado as e','p.identificacion','=','e.identificacion')
+            ->join('observaciones as ob','p.identificacion','=','ob.identificacion')
+            ->join('entrevista as pr','pr.identrevista','=','ob.identrevista')
+            ->select('p.identificacion','ob.descripcion','pr.identrevista')
+            ->where('e.idempleado','=',$id)
+            ->get();
+            
+        $pdf= PDF::loadView('rrhh.entrevista.pdfEntrevista',["persona"=>$persona,"date"=>$date,"fnac"=>$fnac,"academico"=>$academico,"licencias"=>$licencias,"nivelacademico"=>$nivelacademico,"academicoIns"=>$academicoIns,'pais'=>$pais,'departamento'=>$departamento,"experiencia"=>$experiencia,"hermanos"=>$hermanos,"hijo"=>$hijo,'esposa'=>$esposa,"entre"=>$entre,"observaR"=>$observaR,"deuda"=>$deuda]);
         return $pdf->download('Entrevista.pdf'); 
     }
 }

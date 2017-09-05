@@ -746,6 +746,20 @@ class PersonaController extends Controller
         $obs->save();
         return response()->json($obs);
     }
+    public function entreob(Request $request)
+    {
+        $this->validateRequestObE($request);
+        $idper=$request->get('identificacion');
+        $observacionGE = $request->get('observacion');
+        $identrevista = $request->get('identrevista');
+
+        $obs= new observacion;
+        $obs-> descripcion=$observacionGE;
+        $obs-> identificacion=$idper;
+        $obs-> identrevista=$identrevista;
+        $obs->save();
+        return response()->json($obs);
+    }
     public function validateRequestOb($request){
             $rules=[
             'observacion' => 'required|max:300',
