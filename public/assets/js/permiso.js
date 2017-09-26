@@ -61,12 +61,13 @@ $(document).ready(function(){
             }
 
             var formData = {
-                observaciones :$("#observaciones").val(),
+                observaciones: $("#observaciones").val(),
                 autorizacion: resultado,
                 receptor: $("#receptor").val(),
                 idausencia: $("#idausencia").val(),
                 name: $("#name").val(),
-                emisor: $("#emisor").val(), 
+                emisor: $("#emisor").val(),
+                idempleado: $("#idempleado").val(), 
             };
             $.ajaxSetup({
                 headers: {

@@ -262,6 +262,7 @@ Route::group(['prefix'=>'empleado'],function(){
 
         
 	Route::get('solicitud','PerController@solicitud');
+	Route::get('solicitudpermiso','PerController@solicitudpermiso');
 
 
     
@@ -459,9 +460,17 @@ Route::group(['prefix'=>'empleado'],function(){
 
 //Excel
 	Route::get('reporteEmpleadoExcel','Reporte@Empleadoexcel')->middleware('roleshinobi:reporte');
+//Notificacion
+	Route::get('notificacion','NotificacionController@notificacion');
+	Route::post('leernotifica','NotificacionController@leernotifica');
 
 	//FotoController@agregarimagen
 	//Route::put('/colaboradores/{id}',['uses' => 'Colaboradores@update', 'middleware' => 'auth']);
+
+//Viaje
+	Route::get('viaje','EViajeController@index');
+	Route::get('viaje/solicitar','EViajeController@viaje');
+	Route::get('viaje/liquidar','EViajeController@liquidar');
 
 });
 
@@ -484,9 +493,13 @@ Route::get('pdf','SController@pdf');
 
 ///
 Auth::routes();
-Route::get('/{slug?}','HomeController@index');
 
-Route::get('/home', 'HomeController@index');
+Route::group(['middleware' => 'auth'], function () {
+	Route::get('/', 'HomeController@index');
+	Route::get('/home', 'HomeController@index');
+	Route::get('/{slug?}','HomeController@index');
+
+});
 //rutas del controlador de Usuario
 
 

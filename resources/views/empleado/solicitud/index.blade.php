@@ -16,16 +16,22 @@
             <div class="">
                 <ul class="nav nav-tabs navtab-custom">
 
-                   
-
+                    @if($parametro ==1)
                     <li class="active" data-toggle="tab" aria-expanded="false">
+                    @else
+                    <li class="" data-toggle="tab" aria-expanded="false">
+                    @endif
                         <a data-toggle="tab" aria-expanded="false" onclick="cargar_formulario(1);">
                             <span class="visible-xs"><i class="md md-perm-contact-cal"></i></span>
                             <span class="hidden-xs">Vacaciones</span>
                         </a>
                     </li>
 
+                    @if($parametro == 2)
+                        <li class="active" data-toggle="tab" aria-expanded="false">
+                    @else
                     <li class="">
+                    @endif
                         <a data-toggle="tab" aria-expanded="false" onclick="cargar_formulario(2);">
                             <span class="visible-xs"><i class="md md-school"></i></span>
                             <span class="hidden-xs">Permisos</span>
@@ -68,7 +74,7 @@
         <meta name="_token" content="{!! csrf_token() !!}" />
         <script src="{{asset('assets/js/perfil/solicitud.js')}}"></script>
         <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
-        <script>cargar_formulario(1);</script>
+        <script>cargar_formulario({{$parametro}});</script>
 
         <script type="text/javascript">
             $(document).ready(function() {

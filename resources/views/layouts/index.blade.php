@@ -22,17 +22,28 @@
         <link href="{{asset('assets/css/menu.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/responsive.css')}}" rel="stylesheet" type="text/css">
 
+
         
 
         @show
 
     </head>
-
+    @if(isset($mensaje))
+        @if($mensaje->conteo > 0)
+        <body class="fixed-left" onload="$.Notification.autoHideNotify('info', 'top right', 'Notificaciones','Hay actividades que requieren su atención')">
+        @else
+        <body class="fixed-left">
+        @endif
+    @else
     <body class="fixed-left">
+    @endif
+
+
+
         
         <!-- Begin page -->
         <div id="wrapper">
-        
+
             <!-- Top Bar Start -->
             <div class="topbar">
 
@@ -61,10 +72,7 @@
                                 </button>
                                 <span class="clearfix"></span>
                             </div>
-                            <div  >
-                                <br>
-                                <h4 style="text-align: right; color: white;"> {{ Auth::user()->name }}</h4>
-                            </div>
+                         
                             <!--
                             <ul class="nav navbar-nav hidden-xs">
                                 <li><a href="#" class="waves-effect">Files</a></li>
@@ -84,84 +92,32 @@
                                  <input type="text" placeholder="Search..." class="form-control app-search-input">
                                  <a href=""><i class="fa fa-search"></i></a>
                             </form>
+                            -->
                             <ul class="nav navbar-nav navbar-right pull-right">
-                                <li class="dropdown hidden-xs">
-                                    <a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light"
-                                       data-toggle="dropdown" aria-expanded="true">
-                                        <i class="md md-notifications"></i> <span
-                                            class="badge badge-xs badge-pink">3</span>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-lg">
-                                        <li class="text-center notifi-title">Notification</li>
-                                        <li class="list-group nicescroll notification-list"> 
-                                        -->
-                                            <!-- list item-->
-                                            <!--
-                                            <a href="javascript:void(0);" class="list-group-item">
-                                                <div class="media">
-                                                    <div class="pull-left p-r-10">
-                                                        <em class="fa fa-diamond noti-primary"></em>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h5 class="media-heading">A new order has been placed A new
-                                                            order has been placed
-                                                        </h5>
-                                                        <p class="m-0">
-                                                            <small>There are new settings available</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            -->
-
-                                            <!-- list item-->
-                                            <!--
-                                            <a href="javascript:void(0);" class="list-group-item">
-                                                <div class="media">
-                                                    <div class="pull-left p-r-10">
-                                                        <em class="fa fa-cog noti-warning"></em>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h5 class="media-heading">New settings</h5>
-                                                        <p class="m-0">
-                                                            <small>There are new settings available</small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            -->
-
-                                            <!-- list item-->
-                                            <!--
-                                            <a href="javascript:void(0);" class="list-group-item">
-                                                <div class="media">
-                                                    <div class="pull-left p-r-10">
-                                                        <em class="fa fa-bell-o noti-success"></em>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h5 class="media-heading">Updates</h5>
-                                                        <p class="m-0">
-                                                            <small>There are <span class="text-primary">2</span> new
-                                                                updates available
-                                                            </small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class=" text-right">
-                                                <small><b>See all notifications</b></small>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
                                 <li class="hidden-xs">
-                                    <a href="#" class="right-bar-toggle waves-effect waves-light"><i
-                                            class="md md-settings"></i></a>
+                                    <a href="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">
+                                        {{ Auth::user()->name }}
+
+                                    </a>
+                                </li>
+                                <li class="dropdown hidden-xs" id="">
+
+                                    <a href="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" onclick="cargarnotificacion(1);">
+                                        <i class="md md-notifications"></i> 
+                                        <span class="badge badge-xs badge-pink"> {{Session::get('mensaje','0')}}</span>
+                                    </a>
+                                    
+                                    <ul class="dropdown-menu dropdown-menu-lg" id="noti">
+                                    </ul>
+
+                                </li>
+                                
+                                <li class="hidden-xs">
+                                    <a href="#" class="right-bar-toggle waves-effect waves-light">
+                                        <i class="md md-settings"></i>
+                                    </a>
                                 </li>
                             </ul>
-                            -->
                         </div>
                         <!--/.nav-collapse -->
                     </div>
@@ -199,6 +155,13 @@
                                 <i class="md md-assignment"></i><span>Solicitud</span>
                                 </a> 
                             </li>
+                            <!--
+                            <li>
+                                <a href="{{url('/empleado/viaje')}}" class="waves-effect waves-primary">&nbsp;&nbsp;
+                                <i class="md md-airplanemode-on"></i><span>Movilizaci&oacute;n</span>
+                                </a> 
+                            </li>
+                            -->
 
                             <!--
 
@@ -274,6 +237,15 @@
                                     <i class="fa fa-file-text"></i><span>Solicitar puesto</span>
                                 </a>
                             </li>
+
+                            <!--
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect waves-primary" onclick="cargarvacante(1);">&nbsp;&nbsp;&nbsp;
+                                    <i class="md md-local-library"></i><span>Liquidaci&oacute;n</span>
+                                </a>
+                            </li>
+
+                            -->
 
 
 
@@ -388,13 +360,14 @@
             <!-- ============================================================== -->
             <!-- Start right Content here -->
 
+
             <div class="content-page">
                 <!-- Start content -->
                 <div class="content">
                 
                     <div class="container" id="contenidoprincipal">
                         @yield('contenido')
-                    </div><!-- /.row -->   
+                    </div><!-- /.row -->
                 </div>
                 <footer class="footer text-right">
                     2017 © Solera.
@@ -697,6 +670,14 @@
         <script src="{{asset('assets/js/jquery.app.js')}}"></script>
         <script src="{{asset('assets/js/modernizr.min.js')}}"></script>
         <script src="{{asset('assets/js/JefeInmediato/modal.js')}}"></script>
+        <script src="{{asset('assets/js/notificacion.js')}}"></script>
+
+
+        <!-- Notification js -->
+        <script src="{{asset('assets/plugins/notifyjs/dist/notify.min.js')}}"></script>
+        <script src="{{asset('assets/plugins/notifications/notify-metro.js')}}"></script>
+    <meta name="_token" content="{!! csrf_token() !!}" />
+
 
         @show
 
@@ -728,6 +709,8 @@
                 icons.set(list[i], list[i]);
                 icons.play();
             };
+           
+          
         </script>
         @show
     </body>

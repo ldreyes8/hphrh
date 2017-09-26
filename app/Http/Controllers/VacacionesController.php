@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use App\Vacaciones;
 use App\Vacadetalle;
-
+use App\Notificacion;
 use Mail;
 
 class VacacionesController extends Controller
@@ -69,7 +69,7 @@ class VacacionesController extends Controller
     ->where('tp.idtipoausencia','=','3')        
     ->paginate(15);  
 
-    return view('director.vacaciones.indexconfirmado',["permisos"=>$permisos])  ;        
+    return view('director.vacaciones.indexconfirmado',["permisos"=>$permisos]);        
   }
 
   public function indexrechazado (Request $request)
@@ -339,6 +339,35 @@ class VacacionesController extends Controller
       $ausencia->autorizacion = $request->autorizacion;
       $ausencia->id=Auth::user()->id;
       $ausencia->save();
+
+      $idnoti = DB::table('notificacion as n')
+      ->select('n.idnotificacion')
+      ->where('n.idausencia','=',$codigo)
+      ->first();
+
+      if(empty($idnoti)){
+      }
+      else{
+        $notidelete = DB::table('notificacion')->where('idnotificacion','=',$idnoti->idnotificacion)->delete();
+      }
+
+
+      
+
+
+      $notificacion = new Notificacion;
+
+      $notificacion->idemisor = Auth::user()->id;
+      $notificacion->idreceptor = $idempleado;
+      $notificacion->tiponotificacion = "Vacaciones";
+      $notificacion->estado = 1;
+      $notificacion->autorizacion = $request->autorizacion;
+      $notificacion->respuesta = 1;
+      $notificacion->save();
+      
+      
+
+
       /*
       Mail::send('emails.envempermiso',$request->all(), function($msj) use ($request){
         $receptor = $request->receptor;
@@ -396,7 +425,18 @@ class VacacionesController extends Controller
         $vacadetalle->estado = 1;
 
         $vacadetalle->save();
-      } 
+      }
+
+      $idnoti = DB::table('notificacion as n')
+      ->select('n.idnotificacion')
+      ->where('n.idausencia','=',$codigo)
+      ->first();
+
+      if(empty($idnoti)){
+      }
+      else{
+        $notidelete = DB::table('notificacion')->where('idnotificacion','=',$idnoti->idnotificacion)->delete();
+      }
 
       /*Mail::send('emails.envempermiso',$request->all(), function($msj) use ($request){
         $receptor = $request->receptor;

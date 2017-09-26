@@ -34,10 +34,26 @@
       min-height: 100%;
     }
 </style>
-    <link href="{{asset('assets/css/mockup1.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/mockup1.css')}}" rel="stylesheet" type="text/css">
+
+
 
 @endsection
 @section ('contenido')
+<div>
+    <script type="text/javascript">
+     $(document).ready(function() {
+        $.Notification.autoHideNotify('success', 'top right', 'Notificaciones','Hay actividades que requieren su atención');
+        });
+
+    </script>
+</div>
+
+    <div id="capa">
+
+        
+    </div>
+<div load="$.Notification.autoHideNotify('success', 'top right', 'Notificaciones','Hay actividades que requieren su atención')"></div>
 
 <div class="col-sm-12">
     <div class="card-box">
@@ -156,6 +172,18 @@
 
 
 @endsection
+        <!-- https://www.digitalocean.com/community/questions/smtp-mandrill-port-587-connection-timed-out -->
+        <!-- Notification js -->
+        <!--
 
+        <script src="{{asset('assets/plugins/notifyjs/dist/notify.min.js')}}"></script>
+        <script src="{{asset('assets/plugins/notifications/notify-metro.js')}}"></script>
+
+        <script type="text/javascript">
+              $(document).ready(function() {
+                    $("#capa").load($.Notification.autoHideNotify('success', 'top right', 'Notificaciones','Hay actividades que requieren su atención'));
+                });
+        </script>
+        -->
 
 

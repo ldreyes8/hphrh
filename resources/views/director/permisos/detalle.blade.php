@@ -29,6 +29,8 @@
     <input type="hidden" name="idausencia" id="idausencia"  value="{{$empleado->idausencia}}">
     <input type="hidden" class="form-control" name="emisor" id="emisor" value="{{Auth::user()->email}}">
     <input type="hidden" class="form-control" name="name" id="name" value="{{$user->nombre1.' '.$user->nombre2.' '.$user->apellido1 }}">
+    <input type="hidden" name="idempleado" id="idempleado" value="{{$empleado->idempleado}}">
+
 	<div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-condensed table-hover">

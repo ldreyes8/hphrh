@@ -11,7 +11,7 @@ use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Session;
 
 use Carbon\Carbon;  // para poder usar la fecha y hora
 
@@ -33,7 +33,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $today = Carbon::now();
         $year = $today->format('Y');
@@ -73,8 +73,20 @@ class HomeController extends Controller
         ->where('evento.home','=',0)
         ->get();
 
+        $mensaje = DB::table('notificacion as n')
+        ->join('users as U','n.idreceptor','=','U.id')
+        ->select(DB::raw('count(n.idnotificacion) as conteo'))
+        ->where('n.idreceptor','=',Auth::user()->id)
+        ->where('n.estado','=',1)
+        ->first();
 
-        return view('home',array('tablero'=>$tablero,'tableroini'=>$tableroini,'persona'=>$persona,'cumpledia'=>$cumpledia));
+        
+        $value = $request->session($mensaje->conteo);
+        Session::put('mensaje',$mensaje->conteo);
+
+
+
+        return view('home',array('tablero'=>$tablero,'tableroini'=>$tableroini,'persona'=>$persona,'cumpledia'=>$cumpledia,'mensaje'=>$mensaje));
     }
     /*
     public function subirimagen(Request $request)

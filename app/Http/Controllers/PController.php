@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
 use Mail;
 use Session;
 
+use App\Notificacion;
 use App\Tausencia;
 use App\Vacaciones;
 
@@ -328,6 +329,7 @@ class PController extends Controller
               $mytime = Carbon::now('America/Guatemala');
               $vacaciones->fechasolicitud=$mytime->toDateString();
               $vacaciones->save();
+
             }
             $idausencia = $vacaciones->idausencia;
             $url = url('empleado/verificar/'.$idausencia);
@@ -415,6 +417,36 @@ class PController extends Controller
                 }
               });
             */
+
+              //notificaciones
+
+                $empleado = DB::table('empleado as e')
+                ->join('persona as p','e.identificacion','=','p.identificacion')
+                ->join('users as U','p.identificacion','=','U.identificacion')
+                ->select('e.idempleado')
+                ->where('U.id','=',Auth::user()->id)
+                ->first();
+            
+                $idpersona = DB::table('asignajefe as aj')
+                ->join('persona as p','aj.identificacion','=','p.identificacion')
+                ->join('users as U','U.identificacion','=','p.identificacion')
+                ->join('empleado as e','e.idempleado','=','aj.idempleado')
+                ->select('U.email','U.id')
+                ->where('aj.notifica','=','1')
+                ->where('aj.idempleado','=',$empleado->idempleado)
+                ->get();
+
+                $notificacion = new Notificacion;
+
+                foreach ($idpersona as $per) {
+                  $notificacion->idemisor = Auth::user()->id;
+                  $notificacion->idreceptor = $per->id;
+                  $notificacion->tiponotificacion = "Permisos";
+                  $notificacion->estado = 1;
+                  $notificacion->idausencia = $idausencia;
+                  $notificacion->save();
+                }
+            
             DB::commit();
                     
           }catch (\Exception $e) 

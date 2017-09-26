@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use App\Vacaciones;
 use App\Tausencia;
+use App\Notificacion;
 
 use Mail;
 
@@ -143,6 +144,8 @@ class JIPermiso extends Controller
         $this->validateRequest($request);  
 
         $codigo=$request->idausencia;
+        $idempleado=$request->idempleado;
+
        
         $ausencia = Vacaciones::find($codigo);
 
@@ -150,6 +153,32 @@ class JIPermiso extends Controller
         $ausencia->autorizacion = $request->autorizacion;
         $ausencia->id=Auth::user()->id;
         $ausencia->save();
+
+        $idnoti = DB::table('notificacion as n')
+        ->select('n.idnotificacion')
+        ->where('n.idausencia','=',$codigo)
+        ->first();
+
+
+        $notificacion = new Notificacion;
+
+        $notificacion->idemisor = Auth::user()->id;
+        $notificacion->idreceptor = $idempleado;
+        $notificacion->tiponotificacion = "Permisos";
+        $notificacion->estado = 1;
+        $notificacion->autorizacion = $request->autorizacion;
+        $notificacion->respuesta = 1;
+
+        $notificacion->save();
+
+        if(empty($idnoti)){
+
+        }
+        else{
+            $notidelete = DB::table('notificacion')->where('idnotificacion','=',$idnoti->idnotificacion)->delete();
+        }
+
+       
 
         /*
         Mail::send('emails.envempermiso',$request->all(), function($msj) use ($request){

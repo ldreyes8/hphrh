@@ -12,6 +12,7 @@ use App\Vacadetalle;
 use App\Tausencia;
 //use App\HPMEConstants;
 use App\Http\Requests\VRequest;
+use App\Notificacion;
 use Validator;
 
 use Carbon\Carbon;  // para poder usar la fecha y hora
@@ -403,6 +404,37 @@ class VController extends Controller
 
       $url = url('empleado/vverificar/'.$codigo);
       $calculo = array($name,$url);
+
+
+
+      //notificaciones
+
+      $empleado = DB::table('empleado as e')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->join('users as U','p.identificacion','=','U.identificacion')
+        ->select('e.idempleado')
+        ->where('U.id','=',Auth::user()->id)
+        ->first();
+    
+        $idpersona = DB::table('asignajefe as aj')
+        ->join('persona as p','aj.identificacion','=','p.identificacion')
+        ->join('users as U','U.identificacion','=','p.identificacion')
+        ->join('empleado as e','e.idempleado','=','aj.idempleado')
+        ->select('U.email','U.id')
+        ->where('aj.notifica','=','1')
+        ->where('aj.idempleado','=',$empleado->idempleado)
+        ->get();
+
+        $notificacion = new Notificacion;
+
+        foreach ($idpersona as $per) {
+          $notificacion->idemisor = Auth::user()->id;
+          $notificacion->idreceptor = $per->id;
+          $notificacion->tiponotificacion = "Vacaciones";
+          $notificacion->estado = 1;
+          $notificacion->idausencia = $codigo;
+          $notificacion->save();
+        }
       
       /*
       Mail::send('emails.envacaciones',['calculo' => $calculo], function($msj) use ($request){
@@ -478,8 +510,37 @@ class VController extends Controller
 
       $calculo = array($name,$url);
 
-
       $vacaciones->save();
+
+      //notificaciones
+
+      $empleado = DB::table('empleado as e')
+        ->join('persona as p','e.identificacion','=','p.identificacion')
+        ->join('users as U','p.identificacion','=','U.identificacion')
+        ->select('e.idempleado')
+        ->where('U.id','=',Auth::user()->id)
+        ->first();
+    
+        $idpersona = DB::table('asignajefe as aj')
+        ->join('persona as p','aj.identificacion','=','p.identificacion')
+        ->join('users as U','U.identificacion','=','p.identificacion')
+        ->join('empleado as e','e.idempleado','=','aj.idempleado')
+        ->select('U.email','U.id')
+        ->where('aj.notifica','=','1')
+        ->where('aj.idempleado','=',$empleado->idempleado)
+        ->get();
+
+        $notificacion = new Notificacion;
+
+        foreach ($idpersona as $per) {
+          $notificacion->idemisor = Auth::user()->id;
+          $notificacion->idreceptor = $per->id;
+          $notificacion->tiponotificacion = "Solicitud_Goce";
+          $notificacion->estado = 1;
+          $notificacion->idausencia = $va;
+          $notificacion->save();
+        }
+
       /*
       Mail::send('emails.envautorizacion',['calculo' => $calculo], function($msj) use ($request){
 

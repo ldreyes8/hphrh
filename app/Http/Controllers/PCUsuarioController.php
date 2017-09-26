@@ -29,7 +29,12 @@ use Caffeinated\Shinobi\Models\Permission;
 
 class PCUsuarioController extends Controller
 {
-	  public function contenedor(Request $request)
+
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+	public function contenedor(Request $request)
     {
         return view('seguridad.usuario.contenedor');
     }

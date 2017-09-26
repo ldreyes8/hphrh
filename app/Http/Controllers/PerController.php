@@ -36,6 +36,13 @@ class PerController extends Controller
 
     public function solicitud(Request $request)
     {
-        return view('empleado.solicitud.index');
+        $parametro = 1;
+        return view('empleado.solicitud.index',["parametro"=>$parametro]);
+    }
+
+    public function solicitudpermiso(Request $request)
+    {
+        $parametro = 2;
+        return view('empleado.solicitud.index',["parametro"=>$parametro]);
     }
 }

@@ -36,4 +36,16 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
+
+    public function sectionmensaje()
+    {
+        $mensaje = DB::table('notificacion as n')
+        ->join('users as U','n.idreceptor','=','U.id')
+        ->select(DB::raw('count(n.idnotificacion) as conteo'))
+        ->where('n.idreceptor','=',Auth::user()->id)
+        ->where('n.estado','=',1)
+        ->first();
+
+        Session::put('mensaje',$mensaje->conteo);
+    }
 }
