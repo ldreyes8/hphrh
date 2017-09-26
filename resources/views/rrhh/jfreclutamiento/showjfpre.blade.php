@@ -217,8 +217,8 @@ input[type=textt] {
                   <td><input type="textt" class="profesion" value="{{$ref->profesion}}"></td>
                   <td><input type="textt" class="tiporeferencia" value="{{$ref->tiporeferencia}}"></td>
                   <td><input type="textt" class="recomiendaPL" name="recomiendaPL" maxlength="2" placeholder="Si ó No" value="{{$ref->recomiendaper}}"></td>
-                  <td><input type="textt" class="confirmadorref" maxlength="50" value=""></td>
-                  <td><input type="textt" class="observacionr" maxlength="300" value=""></td>                  
+                  <td><input type="textt" class="confirmadorref" maxlength="50" value="{{$ref->confirmadorref}}"></td>
+                  <td><input type="textt" class="observacionr" maxlength="300" value="{{$ref->observacion}}"></td>                  
                 </tr>
                 @endforeach
               </tbody>
@@ -275,8 +275,8 @@ input[type=textt] {
                   <td><input type="textt" class="fingresoex" value="{{$exp->fingresoex}}"></td>
                   <td><input type="textt" class="fsalidaex" value="{{$exp->fsalidaex}}"></td>
                   <td><input type="textt" name="recomiendaP" class="recomiendaexp" maxlength="2" placeholder="Si ó No" value="{{$exp->recomiendaexp}}"></td>
-                  <td><input type="textt" class="confirmadorexp" value=""></td>
-                  <td><input type="textt" class="observacionel" value=""></td>
+                  <td><input type="textt" class="confirmadorexp" value="{{$exp->confirmadorexp}}"></td>
+                  <td><input type="textt" class="observacionel" value="{{$exp->observacion}}"></td>
                  </tr>
                  @endforeach
               </tbody>
@@ -498,101 +498,5 @@ input[type=textt] {
     <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
     <meta name="_token" content="{!! csrf_token() !!}" />
     <script src="{{asset('assets/js/RHjs/updsolicitud.js')}}"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-
-
-  $('#btncomentarioEL').click(function(){
-      $('#inputTitle').html("Agregar observacion del solicitante");
-      $('#formAgregar').trigger("reset");
-      $('#btnGuardar').val('expec');
-      $('#formModal').modal('show');
-  });
-
-  $('#btncomentarioR').click(function(){
-      $('#inputTitle').html("Agregar observacion del solicitante");
-      $('#formAgregar').trigger("reset");
-      $('#btnGuardar').val('refc');
-      $('#formModal').modal('show');
-  });
-
-  $("#btnGuardar").click(function(e){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
-        var miurl;
-        var formData;
-        var state=$("#btnGuardar").val();
-
-
-        var referenciaid= $(".idpreferencia").val();
-        var explaboral=$('.idpexperiencia').val();
-        var identificacion=$('#identificacionup').val();
-
-        if (state == "refc") 
-                {
-                  formData = {
-                    referenciaid: referenciaid,
-                    observacion: $("#observacion").val(),
-                    identificacion: identificacion,
-                  };
-                  miurl = 'refcomentario';
-                }
-        if (state == "expec") 
-                {
-                  formData = {
-                    explaboral: explaboral,
-                    observacion: $("#observacion").val(),
-                    identificacion: identificacion,
-                  };
-                  miurl = 'expcomentaro';
-                }
-
-        var obs=$("#observacion").val();
-
-        $.ajax({
-            type: "POST",
-            url: miurl,
-            data: formData,
-            dataType: 'json',
-
-            success: function (data) {
-              if (state == "refc")
-                {
-                  var item = '<tr class="even gradeA" >';
-                    item += '<td>'+obs+'</td>';
-                  $('#productsref').append(item);
-                }
-              if (state == "expec")
-                {
-                  var item = '<tr class="even gradeA" >';
-                    item += '<td>'+obs+'</td>';
-                  $('#productsel').append(item);
-                }
-
-              $('#formModal').modal('hide');
-                
-            },
-            error: function (data) {
-                $('#loading').modal('hide');
-                var errHTML="";
-                if((typeof data.responseJSON != 'undefined')){
-                    for( var er in data.responseJSON){
-                        errHTML+="<li>"+data.responseJSON[er]+"</li>";
-                    }
-                }else{
-                    errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
-                }
-                $("#erroresContent").html(errHTML); 
-                $('#erroresModal').modal('show');
-            }
-        });
-    });
-  
-});
-</script>
-
-
+    <script src="{{asset('assets/js/RHjs/comentariosRH.js')}}"></script>
 @endsection

@@ -41,9 +41,10 @@
                             <td>{{$em->puesto}}</td>
                             <td>{{$em->status}}
                                 <input type="hidden" class="idstatus" value="{{$em->idstatus}}">
+                                <input type="hidden" value="{{$var}}">
                             </td>
                             <td>
-                                <a href="{{URL::action('RHReclutamiento@showjf',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>                            
+                                <a href="{{url('empleado/solicitudesjf/show',array('id'=>$em->identificacion,'ids'=>$var))}}"><button class="btn btn-primary" title="Detalles">Detalles</button></a>                            
                                 <a> 
                                     <button id="btnrechazo" 
                                         onclick='
