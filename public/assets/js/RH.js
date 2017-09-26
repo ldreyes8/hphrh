@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     //Calculo de vacaciones de un empleado
         $(document).on('click','.btn-vacaciones',function(){
             var errHTML="";

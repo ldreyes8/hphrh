@@ -57,7 +57,6 @@ $(document).ready(function(){
    			disponibilidad:dispoenvio,
    			dispfinsemana:dispoenfin,
    			dispoviajar:dispoenvia,
-   			bajopresion:$("#bajopresion").val(),
    			pretensionminima:$("#pretensionminima").val(),
         dedicanpadres:$("#dedicanpadres").val(),
         lugar:$("#lugar").val(),

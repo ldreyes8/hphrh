@@ -6,6 +6,7 @@
         
            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                  <div class="table-responsive">
+                    <input type="hidden" value="{{$var}}">
                      <table class="table table-striped table-bordered table-condensed table-hover">
                          <thead>
                              <th style="width: 2%">Id</th>
@@ -29,9 +30,11 @@
                             <td>{{$em->puesto}}</td>
                             <td>{{$em->status}}
                                 <input type="hidden" class="idstatus" value="{{$em->idstatus}}">
+                                
                             </td>
                             <td>
-                                <a href="{{URL::action('SController@show',$em->identificacion)}}"><button class="btn btn-primary">Detalles</button></a>
+                                <a href="{{url('empleado/solicitudes/show',array('id'=>$em->identificacion,'ids'=>$var))}}"><button class="btn btn-primary" title="Detalles">Detalles</button></a>
+                                
                                 <a href="{{URL::action('Pprueba@update',$em->idempleado)}}"><button class="btn btn-primary">Aceptar</button></a>
                             
                                 <a> 
