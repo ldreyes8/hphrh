@@ -155,14 +155,12 @@
                                 <i class="md md-assignment"></i><span>Solicitud</span>
                                 </a> 
                             </li>
-                            <!--
                             <li>
                                 <a href="{{url('/empleado/viaje')}}" class="waves-effect waves-primary">&nbsp;&nbsp;
                                 <i class="md md-airplanemode-on"></i><span>Movilizaci&oacute;n</span>
                                 </a> 
                             </li>
-                            -->
-
+                            
                             <!--
 
                             <li class="has_sub">
@@ -238,14 +236,14 @@
                                 </a>
                             </li>
 
-                            <!--
+
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary" onclick="cargarvacante(1);">&nbsp;&nbsp;&nbsp;
                                     <i class="md md-local-library"></i><span>Liquidaci&oacute;n</span>
                                 </a>
                             </li>
 
-                            -->
+                            
 
 
 
