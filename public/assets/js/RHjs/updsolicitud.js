@@ -5,8 +5,17 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
+        var ident=$('#identificacionup').val();
         
-        var myurl='upsolicitudPE';
+
+        var urlraiz=$("#url_raiz_proyecto").val();
+        var myurl=urlraiz+'/empleado/pre_entrevistado/show/1/upsolicitudPE';
+        var itemsData=[];
+        var itemsDataR=[];
+        var itemsDataF=[];
+        var itemsDataE=[];
+        var itemsDataD=[];
+        var itemsDataA=[];
         var tablaP=$("#detallesPad .filaTable");
         var tablaD=$("#detallesD .filaTableD");
         var tablaEL=$("#detallesEL .filaTableEL");
@@ -18,37 +27,25 @@ $(document).ready(function(){
         var r=0;  //contadir para el recorrido de la tabla referencias 
         var el=0; //contador para el recorrido de la tabla experiencia laboral 
         var d=0;  //contador para el rocorrido de la tabla deudas
-        var i=0;  //contador para el recorrido de la tabla padecimientos  
+        var i=0;  //contador para el recorrido de la tabla padecimientos
+
         tablaP.each(function(){//se recorre la tabla 
             var idpad=$('.idpad:eq('+i+')').val();//se obtiene cada valor 
             var np=$('.nombrepa:eq('+i+')').val();
-            $.post(my_url='upsolicitud',
-            {
-                idpad: idpad,
-                np: np,
-            },
-            function(data){});
+            valor = new Array(idpad,np);
+            itemsData.push(valor);
             i++;
         });
-
         tablaD.each(function(){
             var idpdeudas=$('.idpdeudas:eq('+d+')').val();
             var acreedor=$('.acreedor:eq('+d+')').val();
             var pago=$('.pago:eq('+d+')').val();
             var montodeuda=$('.montodeuda:eq('+d+')').val();
             var motivodeuda=$('.motivodeuda:eq('+d+')').val();
-            $.post(my_url='upsolicitudPD',
-            {
-                idpdeudas: idpdeudas,
-                acreedor: acreedor,
-                pago: pago,
-                montodeuda: montodeuda,
-                motivodeuda: motivodeuda,
-            },
-            function(data){});
+            valor = new Array(idpdeudas,acreedor,pago,montodeuda,motivodeuda);
+            itemsDataD.push(valor);
             d++;
         });
-
         tablaEL.each(function(){
             var idpexperiencia=$('.idpexperiencia:eq('+el+')').val();
             var empresa=$('.empresa:eq('+el+')').val();
@@ -61,25 +58,10 @@ $(document).ready(function(){
             var recomiendaexp=$('.recomiendaexp:eq('+el+')').val();
             var confirmadorexp=$('.confirmadorexp:eq('+el+')').val();
             var observacionel=$('.observacionel:eq('+el+')').val();
-
-            $.post(my_url='upsolicitudPEL',
-            {
-                idpexperiencia: idpexperiencia,
-                empresa: empresa,
-                puesto: puesto,
-                jefeinmediato: jefeinmediato,
-                motivoretiro: motivoretiro,
-                ultimosalario: ultimosalario,
-                fingresoex: fingresoex,
-                fsalidaex: fsalidaex,
-                recomiendaexp: recomiendaexp,
-                confirmadorexp: confirmadorexp,
-                observacionel: observacionel,
-            },
-            function(data){});
+            valor = new Array(idpexperiencia,empresa,puesto,jefeinmediato,motivoretiro,ultimosalario,fingresoex,fsalidaex,recomiendaexp,confirmadorexp,observacionel);
+            itemsDataE.push(valor);
             el++;
         });
-
         tablaR.each(function(){
             var idpreferencia=$('.idpreferencia:eq('+r+')').val();
             var nombrer=$('.nombrer:eq('+r+')').val();
@@ -90,24 +72,10 @@ $(document).ready(function(){
             var recomiendaper=$('.recomiendaPL:eq('+r+')').val();
             var confirmadorref=$('.confirmadorref:eq('+r+')').val();
             var observacionr=$('.observacionr:eq('+r+')').val();
-            $.post(my_url='upsolicitudPR',
-            {
-                idpreferencia: idpreferencia,
-                nombrer: nombrer,
-                telefonor: telefonor,
-                profesion: profesion,
-                tiporeferencia: tiporeferencia,
-
-                recomiendaper: recomiendaper,
-                
-                confirmadorref: confirmadorref,
-                observacionr: observacionr,
-
-            });
+            valor=new Array(idpreferencia,nombrer,telefonor,profesion,tiporeferencia,recomiendaper,confirmadorref,observacionr);
+            itemsDataR.push(valor);
             r++;
-        
         });
-
         tablaF.each(function(){
             var idpfamilia=$('.idpfamilia:eq('+f+')').val();
             var nombref=$('.nombref:eq('+f+')').val();
@@ -115,22 +83,10 @@ $(document).ready(function(){
             var telefonof=$('.telefonof:eq('+f+')').val();
             var ocupacion=$('.ocupacion:eq('+f+')').val();
             var edad=$('.edad:eq('+f+')').val();
-
-            $.post(my_url='upsolicitudPF',
-            {
-                idpfamilia: idpfamilia,
-                nombref: nombref,
-                parentezco: parentezco,
-                telefonof: telefonof,
-                ocupacion: ocupacion,
-                edad: edad,
-                observacion: $('#observacionF').val(),
-
-            },
-            function(data){});
+            valor = new Array(idpfamilia,nombref,parentezco,telefonof,ocupacion,edad);
+            itemsDataF.push(valor);
             f++;
         });
-
         tablaA.each(function(){
             var idpacademico=$('.idpacademico:eq('+a+')').val();
             var titulo=$('.titulo:eq('+a+')').val();
@@ -139,18 +95,8 @@ $(document).ready(function(){
             var selectpicker=$('.selectpicker:eq('+a+')').val();
             var fingreso=$('.fingreso:eq('+a+')').val();
             var fsalida=$('.fsalida:eq('+a+')').val();
-            $.post(my_url='upsolicitudPA',
-            {
-                idpacademico: idpacademico,
-                titulo: titulo,
-                establecimiento: establecimiento,
-                duracion: duracion,
-                fingreso: fingreso,
-                fsalida: fsalida,
-                selectpicker: selectpicker,
-                observacion: $('#observacionA').val(),
-            },
-            function(data){});
+            valor = new Array(idpacademico,titulo,establecimiento,duracion,selectpicker,fingreso,fsalida);
+            itemsDataA.push(valor);
             a++;
         });
 
@@ -180,9 +126,13 @@ $(document).ready(function(){
 
                 idpexperienciaGE:$('.idpexperiencia').val(),
                 observacionGE: $("#observacionGEL").val(),
-
-        }
-       console.log(formData);
+                items:itemsData,
+                itemsR:itemsDataR,
+                itemsF:itemsDataF,
+                itemsE:itemsDataE,
+                itemsD:itemsDataD,
+                itemsA:itemsDataA,
+        };
        $.ajax({
             type: "POST",
             url: myurl,
@@ -208,7 +158,7 @@ $(document).ready(function(){
                         errHTML+="<li>"+data.responseJSON[er]+"</li>";
                     }
                 }else{
-                    errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
+                    errHTML+='<li>Error, intente mas tarde gracias.</li>';
                 }
                 $("#erroresContent").html(errHTML); 
                 $('#erroresModal').modal('show');

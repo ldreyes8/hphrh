@@ -80,7 +80,8 @@ class RHEvaluciones extends Controller
             
             ->paginate(19);
         }
-        return view('rrhh.evaluaciones.listadoresultados',["empleados"=>$empleados,"searchText"=>$query]); 
+        $var='4';
+        return view('rrhh.evaluaciones.listadoresultados',["empleados"=>$empleados,"searchText"=>$query,"var"=>$var]); 
     }
 
     public function listadotablares ($id)

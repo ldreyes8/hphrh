@@ -35,10 +35,10 @@
                             <td>{{$em->puesto}}</td>
                             <td>{{$em->status}}
                                 <input type="hidden" class="idstatus" value="{{$em->idstatus}}">
+                                <input type="hidden" value="{{$var}}">
                             </td>
                             <td>
-                                <a href="{{URL::action('RHPreentrevista@show',$em->identificacion)}}"><button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button></a>
-
+                                <a href="{{url('empleado/pre_entrevistado/show',array('id'=>$em->identificacion,'ids'=>$var))}}"><button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button></a>
                                 <a href="{{URL::action('RHPreentrevista@preentre',$em->idempleado)}}"><button class="btn btn-success" title="Pre Entrevistar"><i class="md md-border-color"></i></button></a>
                             
                                 <a> 

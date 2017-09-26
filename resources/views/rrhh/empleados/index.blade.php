@@ -55,6 +55,7 @@
         <meta name="_token" content="{!! csrf_token() !!}" />
         <script src="{{asset('assets/js/RHjs/listados.js')}}"></script>
         <script src="{{asset('assets/js/RH.js')}}"></script>
+        <script src="{{asset('assets/js/RHjs/cambiostatus.js')}}"></script>
 
         <script src="{{asset('assets/js/RHjs/busqueda.js')}}"></script>
         <script src="{{asset('assets/js/RHjs/nombramiento.js')}}"></script>

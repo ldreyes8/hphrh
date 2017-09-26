@@ -43,7 +43,7 @@
                                 <th>Fecha de la Entrevista: </th><td>&nbsp;&nbsp;{{$date}}<input type="hidden" id="fechaentre" maxlength="50" value="{{$date}}" disabled="disabled"></td>
                             </tr>
                             <tr>
-                                <th>Dirección:</th><td>&nbsp;&nbsp;{{$persona->barriocolonia}}<input type="hidden" id="lugar" name="lugar" maxlength="50" value="{{$entre->lugar}}"></td>
+                                <th>Dirección:</th><td>&nbsp;&nbsp;{{$persona->barriocolonia}}</td>
                             </tr>
                             <tr>
                                 <th>Edad:</th><td>&nbsp;&nbsp;{{$fnac}}&nbsp;años</td>
@@ -280,12 +280,12 @@
                                         <th>Es ordenado.</th>
                                         @if($entre->ordenado == 'Si')
                                             <td>&nbsp;&nbsp;
-                                                <input type="checkbox"  name="ordenado" value="Si" checked>Si
-                                                <input type="checkbox"  name="ordenado" value="No" >No
+                                                <input type="radio"  name="ordenado" value="Si" checked>Si
+                                                <input type="radio"  name="ordenado" value="No" >No
                                             </td>
                                         @else
-                                            <td>&nbsp;&nbsp;<input type="checkbox"  name="ordenado" value="Si" >Si
-                                            <input type="checkbox"  name="ordenado" value="No" checked>No</td>
+                                            <td>&nbsp;&nbsp;<input type="radio"  name="ordenado" value="Si" >Si
+                                            <input type="radio"  name="ordenado" value="No" checked>No</td>
                                         @endif
                                     </tr>
                                 </thead>
@@ -315,22 +315,22 @@
                                         <th>Tiene disponibilidad inmediata: </th>
                                         @if($entre->disponibilidad == 'Si')
                                             <td>&nbsp;&nbsp;
-                                                <input type="checkbox"  name="disponibilidad" value="Si" checked>Si
-                                                <input type="checkbox"  name="disponibilidad" value="No" >No
+                                                <input type="radio"  name="disponibilidad" value="Si" checked>Si
+                                                <input type="radio"  name="disponibilidad" value="No" >No
                                             </td>
                                         @else
-                                            <td>&nbsp;&nbsp;<input type="checkbox"  name="disponibilidad" value="Si" >Si
-                                            <input type="checkbox"  name="disponibilidad" value="No" checked>No</td>
+                                            <td>&nbsp;&nbsp;<input type="radio"  name="disponibilidad" value="Si" >Si
+                                            <input type="radio"  name="disponibilidad" value="No" checked>No</td>
                                         @endif
                                     </tr>
                                     <tr>
                                         <th>Tiene disponibilidad de horario incluso en fines de semana cuando así se requiera:</th>
                                         @if($entre->dispfinsemana == 'Si')
-                                            <td>&nbsp;&nbsp;<input type="checkbox" name="dispfinsemana" value="Si" checked>Si
-                                            <input type="checkbox" name="dispfinsemana" value="No" >No</td>
+                                            <td>&nbsp;&nbsp;<input type="radio" name="dispfinsemana" value="Si" checked>Si
+                                            <input type="radio" name="dispfinsemana" value="No" >No</td>
                                         @else
-                                            <td>&nbsp;&nbsp;<input type="checkbox" name="dispfinsemana" value="Si" >Si
-                                            <input type="checkbox" name="dispfinsemana" value="No" checked>No</td>
+                                            <td>&nbsp;&nbsp;<input type="radio" name="dispfinsemana" value="Si" >Si
+                                            <input type="radio" name="dispfinsemana" value="No" checked>No</td>
                                         @endif
 
                                         
@@ -342,18 +342,18 @@
                                         <th>Tiene disponibilidad para viajar:</th>
                                         @if($entre->dispoviajar == 'Si')
                                             <td>&nbsp;&nbsp;
-                                                <input type="checkbox" name="dispoviajar" value="Si" checked>Si
-                                                <input type="checkbox" name="dispoviajar" value="No">No
+                                                <input type="radio" name="dispoviajar" value="Si" checked>Si
+                                                <input type="radio" name="dispoviajar" value="No">No
                                             </td>
                                         @else
                                             <td>&nbsp;&nbsp;
-                                                <input type="checkbox" name="dispoviajar" value="Si" >Si
-                                                <input type="checkbox" name="dispoviajar" value="No" checked>No
+                                                <input type="radio" name="dispoviajar" value="Si" >Si
+                                                <input type="radio" name="dispoviajar" value="No" checked>No
                                             </td>
                                         @endif
                                     </tr>
                                     <tr>
-                                        <th>¿Está dispuesto(a) a trabajar bajo presión?</th><td>&nbsp;&nbsp;<input type="textt" id="bajopresion" maxlength="150" value="{{$entre->bajopresion}}"></td>
+                                        <th>¿Está dispuesto(a) a trabajar bajo presión?</th><td>&nbsp;&nbsp;<input type="textt" id="lugar" maxlength="150" value="{{$entre->lugar}}"></td>
                                     </tr>
                                     <tr>
                                         <th>¿Cuál es su pretensión salarial mínima?</th><td>&nbsp;&nbsp;<input type="textt" id="pretensionminima" maxlength="10" value="{{$entre->pretensionminima}}"></td>

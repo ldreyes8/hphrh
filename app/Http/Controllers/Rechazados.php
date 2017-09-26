@@ -11,6 +11,7 @@ use Carbon\Carbon; //para poder usar la fecha y hora
 use Response;
 
 use App\Persona;
+use App\Empleado;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,28 +37,27 @@ class Rechazados extends Controller
         ->where('p.nombre1','LIKE','%'.$query.'%')
         ->orderBy('e.idempleado','desc')
         //->orderBy('e.idempleado','desc')
-         ->paginate(19);
-         /*
-
-        $query=trim($request->get('searchText'));
-        $empleado=DB::table('empleado as e')
-        ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
-        ->join('status as st','e.idstatus','=','st.idstatus')
-        ->join('persona as p','e.identificacion','=','p.identificacion')
-        ->join('nomytras as nt','e.idempleado','=','nt.idempleado')
-        ->join('puesto as po','nt.idpuesto','=','po.idpuesto')
-        ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
-        ->select('e.idempleado','e.identificacion','e.nit','p.nombre1 as nombre','p.apellido1 as apellido','st.statusemp as statusn','po.nombre as npo','af.nombre as naf')
-        ->where('e.idstatus','=',2)
-        ->where('p.nombre1','LIKE','%'.$query.'%')
-        ->orderBy('e.idempleado','asc')
-        //->orderBy('e.idempleado','desc')
-         ->paginate(19);*/
+         ->paginate(10);
         }
 
-        //return view('listados.rechazados.index',["empleado"=>$empleado,"searchText"=>$query]);
-        return view("rrhh.empleados.rechazados",["empleado"=>$empleado,"searchText"=>$query]);
-        //return view("hr.padecimientos",["padecimiento"=>$padecimiento,"empleado"=>$empleado]);
+        $puestos=DB::table('puesto as p')
+        ->where('p.statusp','=','2')
+        ->orderBy('p.nombre','asc')
+        ->get();
+        $afiliados=DB::table('afiliado as a')
+        ->where('a.statusa','=','2')
+        ->orderBy('a.nombre','asc')
+        ->get();
+        return view("rrhh.empleados.rechazados",["empleado"=>$empleado,'afiliados'=>$afiliados,"puestos"=>$puestos,"searchText"=>$query]);
+    }
+    public function nombrelistr($id)
+    {
+        $empleado=DB::table('persona as p')
+        ->join('empleado as e','e.identificacion','=','p.identificacion')
+        ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','e.idempleado')
+        ->where('p.identificacion','=',$id)
+        ->first();
+        return response()->json($empleado);
     }
     public function show ($id)
     {
@@ -152,5 +152,20 @@ class Rechazados extends Controller
             Persona::destroy($id); 
         return Redirect::to('listados/rechazados');
         //return view('listados.rechazados.index');
+    }
+    public function uprechazo(Request $request, $id)
+    {
+        
+        $idemp = $request->get('empleado');
+        $upp= Persona::findOrFail($id);
+        $upp-> idpuesto = $request->get('puesto');
+        $upp-> idafiliado = $request->get('afiliado');
+        $upp->save();
+
+        $emp= Empleado::findOrFail($idemp);
+        $emp-> idstatus = '1';
+        $emp->save();
+
+        return response()->json($upp);
     }
 }
