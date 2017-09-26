@@ -125,7 +125,7 @@ class SController extends Controller
             ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
             ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
             ->join('status as s','e.idstatus','=','s.idstatus')
-            ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
+            ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre','e.fechasolicitud')
             //->where('p.nombre1','LIKE','%'.$query.'%')
             //->andwhere('p.apellido1','LIKE','%'.$query.'%')
 
@@ -135,9 +135,9 @@ class SController extends Controller
             ->where('p.nombre1','LIKE','%'.$query.'%')
             //->orwhere('p.apellido1','LIKE','%'.$query.'%')
 
-            ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
+            ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre','e.fechasolicitud')
             //->orderBy('e.idempleado','desc')
-            ->orderBy('pu.nombre','asc')
+            ->orderBy('e.fechasolicitud','desc')
             ->paginate(19);
             }
             $var='1';
