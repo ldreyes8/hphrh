@@ -188,7 +188,7 @@ class RHPreentrevista extends Controller
             //->orwhere('p.apellido1','LIKE','%'.$query.'%')
 
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
-            ->orderBy('e.idempleado','desc')
+            ->orderBy('e.fechasolicitud','desc')
             
             ->paginate(19);
             }
