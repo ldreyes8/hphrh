@@ -348,6 +348,11 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('viaje/solicitar','EViajeController@viaje');
 	Route::get('viaje/liquidar','EViajeController@liquidar');
 
+//viajejf
+	Route::get('viajejf','JIViajeController@index');
+	Route::get('viajejf/solicitados','JIViajeController@solicitado');
+	Route::get('viaje/liquidar','JIViajeController@liquidar');
+
 });
 
 Route::get('totalvacaciones','RHMintrab@ttvacaciones');

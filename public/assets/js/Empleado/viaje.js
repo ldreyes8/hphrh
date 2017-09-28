@@ -11,6 +11,7 @@ function cargar_formularioviaje(arg){
    if(arg==2){ var miurl=urlraiz+"/empleado/viaje/liquidar"; }
    if(arg==3){ var miurl=urlraiz+"/empleado/prechazado"; }
 
+   if(arg==20){ var miurl=urlraiz+"/empleado/viajejf/solicitados"; }
    //Listado de Jefe Inmediato Autorizaciones Vacacioens Y permisos
 
    if(arg==4){ var miurl=urlraiz+"/empleado/vautorizadopv"; }
