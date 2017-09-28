@@ -6,7 +6,12 @@
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet">
         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
-                <link href="{{asset('assets/css/minimalista.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/css/minimalista.css')}}" rel="stylesheet" />
+
+
+        <link rel="stylesheet" href="{{asset('assets/plugins/magnific-popup/dist/magnific-popup.css')}}" />
+        <link rel="stylesheet" href="{{asset('assets/plugins/jquery-datatables-editable/datatables.css')}}" />
+
 
 
         
@@ -83,6 +88,12 @@
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
         <script src="{{asset('assets/js/Empleado/viaje.js')}}"></script>
 
+           <!-- Examples -->
+        <script src="{{asset('assets/plugins/magnific-popup/dist/jquery.magnific-popup.min.js')}}"></script>
+
+        <script src="{{asset('assets/plugins/jquery-datatables-editable/jquery.dataTables.js')}}"></script>
+        <script src="{{asset('assets/plugins/datatables/dataTables.bootstrap.js')}}"></script>
+        <script src="{{asset('assets/plugins/tiny-editable/mindmup-editabletable.js')}}"></script>
 
         <script type="text/javascript">
             $(document).ready(function() {
@@ -94,6 +105,7 @@
             $(document).ready(function(){
                 var hdrht = ($(window).height()) - ($("#site-header").height());
                 $(".wrapper").height(hdrht);
+                    $('#datatable-editable').DataTable();
             });
         </script>
         <script>
@@ -106,15 +118,14 @@
             ga('send', 'pageview');
         </script>
         <script type="text/javascript">
-    
-    $(document).on('click','.btn-openviaje',function(e){
-        $('#inputTitleViaje').html("Nuevo viaje");
-        //$('#formModificar').trigger("reset");
-        $('#formAgregarViaje').trigger('reset');
-        $('#formModal').modal('show');
 
+            $(document).on('click','.btn-openviaje',function(e){
+                $('#inputTitleViaje').html("Nuevo viaje");
+                //$('#formModificar').trigger("reset");
+                $('#formAgregarViaje').trigger('reset');
+                $('#formModal').modal('show');
+            }); 
+        </script>
 
-    }); 
-
-</script>
+ 
 @endsection

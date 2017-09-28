@@ -7,9 +7,7 @@
 
     <!--  searchempleado-->
 
-    <div class="panel-heading">
-        <button class="btn btn-success btn-openviaje" title="Detalles"><i class="fa fa-plus-square"></i></button>
-    </div>
+    
 
     <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <div class="table-responsive">
