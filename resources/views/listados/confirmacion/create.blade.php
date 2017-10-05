@@ -19,7 +19,7 @@
         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
-                    <label>Empleado</label>
+                    <label>Empleadoasdfa</label>
                     <select name="idempleado" class="form-control selectpicker" data-live-search="true" data-style="btn-info">
                             <option value="{{$empleado->idempleado}}">{{$empleado->nombre1.': '.$empleado->apellido1}}</option>
                     </select>

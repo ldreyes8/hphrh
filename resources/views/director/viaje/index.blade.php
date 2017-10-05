@@ -25,8 +25,8 @@
                                 <span>Solicitados</span>
                             </li>
                             <li>
-                                <a onclick="cargar_formularioviaje(2);"><img src="{{asset('assets/images/laravel.png')}}"/></a>
-                                <span>Autrizados</span>
+                                <a onclick="cargar_formularioviaje(21);"><img src="{{asset('assets/images/laravel.png')}}"/></a>
+                                <span>Autorizados</span>
                             </li>
                             <li>
                                 <span>Confirmados</span>

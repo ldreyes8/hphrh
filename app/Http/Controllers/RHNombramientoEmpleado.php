@@ -263,5 +263,168 @@ class RHNombramientoEmpleado extends Controller
         return json_encode ($asignajefe); 
         //return Redirect::to('listados/pprueba');
     }
-   
+    
+    public function store(Nomrequest $request)
+    {
+        try 
+        {
+            $idem = $request->get('idempleado');
+            //dd($idem);
+            $idco = $request->get('idcaso');
+            //$idji = $request->get('idjefe');
+            $today = Carbon::now();
+            $year = $today->format('Y');
+            $miArray = $request->items;
+            if ($idco=="4")
+            {
+                //dd($idem,$idco);
+                $fecha=$request->get('fecha');
+                $fecha=Carbon::createFromFormat('d/m/Y',$fecha);
+                $fecha=$fecha->format('Y-m-d');
+
+                $nomtras=new Nomytras;
+                $nomtras-> idpuesto=$request->get('idpuesto');
+                $nomtras-> idempleado=$idem;
+                $nomtras-> fecha=$fecha;
+                $nomtras-> salario=$request->get('salario');
+                $nomtras-> descripcion=$request->get('descripcion');
+                $nomtras-> idafiliado=$request->get('idafiliado');
+                $nomtras-> idcaso=$idco;
+                $nomtras->save();
+
+                $asignajefe = new Asignajefe;
+
+
+
+            foreach ($miArray as $key => $value) {
+                $notifica = $value['1'];
+
+                if($notifica == "No")
+                {
+                    $notifica =0;
+                }
+                if($notifica == "Si")
+                {
+                    $notifica = 1;
+                }
+
+                $asignajefe->idempleado = $idem;
+                $asignajefe->identificacion = $value['0'];
+                $asignajefe->notifica = $notifica;
+                $asignajefe->save();
+            }
+
+
+
+                if ($miArray > 0) 
+                {
+                    foreach ($miArray as $key => $value) {
+                        $asjefe = new Asignajefe;
+                        $asjefe-> identificacion=$value['0'];
+                        $asjefe-> idempleado=$idem;
+                        $asjefe-> notifica=$value['1'];
+                        $asjefe->save();
+                    }
+                }
+
+                $vacas=new Vacadetalle;
+                $vacas-> idempleado=$idem;
+                $vacas-> periodo=$year;
+                $vacas-> acuhoras='0';
+                $vacas-> acudias='0';
+                $vacas-> solhoras='0';
+                $vacas-> fecharegistro=$fecha;
+                $vacas-> soldias='0';
+                $vacas->save();
+
+                $st=Empleado::find($idem);
+                $st-> fechaingreso=$fecha;
+                $st-> idstatus='9';
+                $st-> update();
+            }
+            if ($idco=="6")
+            {
+                //dd($idem,$idco);
+                $fecha=$request->get('fecha');
+                $fecha=Carbon::createFromFormat('d/m/Y',$fecha);
+                $fecha=$fecha->format('Y-m-d');
+
+                $nomtras=new Nomytras;
+                $nomtras-> idpuesto=$request->get('idpuesto');
+                $nomtras-> idempleado=$idem;
+                $nomtras-> fecha=$fecha;
+                $nomtras-> salario=$request->get('salario');
+                $nomtras-> descripcion=$request->get('descripcion');
+                $nomtras-> idafiliado=$request->get('idafiliado');
+                $nomtras-> idcaso=$idco;
+                $nomtras->save();
+
+                if ($miArray > 0) 
+                {
+                    foreach ($miArray as $key => $value) {
+                        $asjefe = new Asignajefe;
+                        $asjefe-> identificacion=$value['0'];
+                        $asjefe-> idempleado=$idem;
+                        $asjefe-> notifica=$value['1'];
+                        $asjefe->save();
+                    }
+                }
+
+                $vacas=new Vacadetalle;
+                $vacas-> idempleado=$idem;
+                $vacas-> periodo=$year;
+                $vacas-> acuhoras='0';
+                $vacas-> acudias='0';
+                $vacas-> solhoras='0';
+                $vacas-> fecharegistro=$fecha;
+                $vacas-> soldias='0';
+                $vacas->save();
+
+                $st=Empleado::find($idem);
+                $st-> fechaingreso=$fecha;
+                //$st-> idjefeinmediato=$idji;
+                $st-> idstatus='2';
+                $st-> update();
+            }
+
+            if ($idco=="7") 
+            {
+                //dd($idem,$idco);
+                $fecha=$request->get('fecha');
+                $fecha=Carbon::createFromFormat('d/m/Y',$fecha);
+                $fecha=$fecha->format('Y-m-d');
+
+                $nomtras=new Nomytras;
+                $nomtras-> idpuesto=$request->get('idpuesto');
+                $nomtras-> idempleado=$idem;
+                $nomtras-> fecha=$fecha;
+                $nomtras-> salario=$request->get('salario');
+                $nomtras-> descripcion=$request->get('descripcion');
+                $nomtras-> idafiliado=$request->get('idafiliado');
+                $nomtras-> idcaso=$idco;
+                $nomtras->save();
+
+                if ($miArray > 0) 
+                {
+                    foreach ($miArray as $key => $value) {
+                        $asjefe = new Asignajefe;
+                        $asjefe-> identificacion=$value['0'];
+                        $asjefe-> idempleado=$idem;
+                        $asjefe-> notifica=$value['1'];
+                        $asjefe->save();
+                    }
+                }
+
+                $st=Empleado::find($idem);
+                $st-> fechaingreso=$fecha;
+                //$st-> idjefeinmediato=$idji;
+                $st-> idstatus='11';
+                $st-> update();
+            }
+
+            return response()->json($nomtras);
+        } catch (Exception $e) 
+        {}
+        //return Redirect::to('empleado/listadoR');    
+    }
 }

@@ -5,23 +5,23 @@
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
         <link rel="stylesheet" href="{{asset('assets/css/bootstrap-select.min.css')}}">
+        <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section ('contenido')
 <div class="row">
-	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<h3>Confirmacion Periodo de Prueba</h3>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h3>Confirmacion Periodo de Prueba</h3>
         <h5>Campos obligatorios *</h5>
-	</div>
+    </div>
 </div>
 <div class="row">
-    {!!Form::open(array('url'=>'listados/pprueba/agregar','method'=>'POST','autocomplete'=>'off','id'=>'form','onkeypress'=>'return anular(event)','enctype'=>'multipart/form_data'))!!}
-    {{Form::token()}}
+
         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Empleado</label>
-                    <select name="idempleado" class="form-control " data-live-search="true" data-style="btn-info">
+                    <select name="idempleado" id="idempleado" class="form-control " data-live-search="true" data-style="btn-info">
                             <option value="{{$empleado->idempleado}}">{{$empleado->nombre1.' '.$empleado->nombre2.' '.$empleado->apellido1.' '.$empleado->apellido2}}</option>
                     </select>
                 </div>                                                
@@ -30,7 +30,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Afiliado al que aplica</label>
-                    <select name="idafiliado" class="form-control selectpicker" data-live-search="true">
+                    <select name="idafiliado" id="idafiliado" class="form-control selectpicker" data-live-search="true">
                         @foreach($afiliados as $af)
                             @if($af->idafiliado == $empleado->idafiliado)
                                 <option value="{{$af->idafiliado}}" selected>{{$af->nombre}}</option>
@@ -45,7 +45,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Puesto</label>
-                    <select name="idpuesto" class="form-control selectpicker" data-live-search="true">
+                    <select name="idpuesto" id="idpuesto" class="form-control selectpicker" data-live-search="true">
                         @foreach($puestos as $pu)
                             @if($pu->idpuesto == $empleado->idpuesto)
                                 <option value="{{$pu->idpuesto}}" selected>{{$pu->nombre}}</option>
@@ -62,7 +62,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Caso</label>
-                    <select name="idcaso" class="form-control selectpicker" data-live-search="true" >
+                    <select name="idcaso" id="idcaso" class="form-control selectpicker" data-live-search="true" >
                         @foreach($caso as $co)
                             <option value="{{$co->idcaso}}">{{$co->nombre}}</option>
                         @endforeach
@@ -117,15 +117,12 @@
             <div class="col-lg-3 col-sm-12 col-md-12 col-xs-12">
                 <table id="detalle7" class="table table-striped table-bordered table-condensed table-hover ">
                     <thead>
-                        <th>opciones</th>
-                        <th>Jefe</th>
-                        <th>Notifica</th>
+                        <tr>
+                            <th>opciones</th>
+                            <th>Jefe</th>
+                            <th>Notifica</th>
+                        </tr>
                     </thead>
-                    <tfoot>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tfoot>
                     <tbody>
                     </tbody>
                 </table>
@@ -137,7 +134,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="descripcion">Observaciones</label>
                 <div class="form-group">
-                    <textarea class="form-control" maxlength="100" name="descripcion" placeholder=".........." rows="3"></textarea>
+                    <textarea class="form-control" maxlength="100" id="descripcion" name="descripcion" placeholder=".........." rows="3"></textarea>
                 </div>
             </div>
         </div>
@@ -145,12 +142,32 @@
         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group">
-                    <button class="btn btn-primary" id="btnguardar">Guardar</button>
-                    <a href=""><button class="btn btn-danger" id="btncancelar" type="button">Cancelar</button></a>
+                    <button class="btn btn-primary btnguardar" id="btnguardar">Guardar</button>
+                    <a href=""><button class="btn btn-danger " id="btncancelar" type="button">Cancelar</button></a>
                 </div>
             </div>
         </div>
-    {!!Form::close()!!}
+
+</div>
+<div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Errores</h4>
+      </div>
+
+      <div class="modal-body">
+        <ul style="list-style-type:circle" id="erroresContent"></ul>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection
 
@@ -161,6 +178,8 @@
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/datapickerf.js')}}"></script>
         <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
         <script src="{{asset('assets/js/bootstrap-select.min.js')}}"></script>
+        <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
+        <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
     //
         <script type="text/javascript">
         $(document).ready(function() {
@@ -206,7 +225,7 @@
                 {
                     if($('#confirma').is(':checked'))
                     {
-                        var fila='<tr class="selected" id="fila'+contJI+'"><td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminar('+contJI+');">X</button></td><td><input type="hidden" name="idjefes[]" value="'+idjefe+'">'+jefeTex+'</td> <td><input type="hidden" name="confirma[]" value="'+confirma+'">'+si+'</td> </tr>';
+                        var fila='<tr class="selected" id="fila'+contJI+'"><td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminar('+contJI+');">X</button></td><td><input type="hidden" id="idjefe" name="idjefes[]" value="'+idjefe+'">'+jefeTex+'</td> <td><input type="hidden" name="confirma[]" id="idchek" value="'+confirma+'">'+si+'</td> </tr>';
                         contJI++;
                         $('#detalle7').append(fila);
                         limpiar();
@@ -214,7 +233,7 @@
                     }
                     else
                     {
-                        var fila='<tr class="selected" id="fila'+contJI+'"><td><button type="button" style="background-color:#E6E6E6"  class="btn " onclick="eliminar('+contJI+');">X</button></td><td><input type="hidden" name="idjefes[]" value="'+idjefe+'">'+jefeTex+'</td> <td><input type="hidden" name="confirma[]" value="2">'+no+'</td> </tr>';
+                        var fila='<tr class="selected" id="fila'+contJI+'"><td><button type="button" style="background-color:#E6E6E6"  class="btn " onclick="eliminar('+contJI+');">X</button></td><td><input type="hidden" id="idjefe" name="idjefes[]" value="'+idjefe+'">'+jefeTex+'</td> <td><input type="hidden" name="confirma[]" id="idchek" value="2">'+no+'</td> </tr>';
                         contJI++;
                         $('#detalle7').append(fila);
                         $("#btnguardar").show();
@@ -230,20 +249,101 @@
             function eliminar(index)
             {
                 $("#fila" + index).remove();
+                $("#btnguardar").hide();
             }
 
-        /*$("#btnguardar").click(function()
-        { 
-            re=$("#detalle7").val();
-            if (re!="") {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }  
-              
-        });*/
+
+$(document).on('click','.btnguardar',function(e){
+    var urlraiz=$("#url_raiz_proyecto").val();
+                swal({
+                        title: "¿Estás seguro?",
+                        text: "No podrás eliminar este registro",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#FFFF00",
+                        confirmButtonText: "Si, enviar",
+                        cancelButtonText: "No, cancelar",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        var itemsData=[];//listados/agregar
+                        var miurl =urlraiz+"/empleado/nombraupdate";
+                        
+                        $('#detalle7 tr').each(function(){
+                            var jefe = $(this).closest('tr').find('input[id="idjefe"]').val();
+                            var notificar = $(this).closest('tr').find('input[id="idchek"]').val();
+                            valor = new Array(jefe,notificar);
+                            itemsData.push(valor);
+                        });
+
+                        var formData = {
+                            idpuesto: $('#idpuesto').val(),
+                            idempleado: $('#idempleado').val(),
+                            fecha: $('#dato1').val(),
+                            salario: $('#salario').val(),
+                            descripcion: $('#descripcion').val(),
+                            idafiliado: $('#idafiliado').val(),
+                            idcaso: $('#idcaso').val(),
+                            items: itemsData,
+                        };
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                            }
+                        });
+
+                        $.ajax({
+                            type: "POST",
+                            url: miurl,
+                            data: formData,
+                            dataType: 'json',
+                            //beforeSend: function(){ $f.data('locked', true);  // (2)
+                            //},
+
+                            success: function (data) {
+                                swal({ 
+                                    title:"Envio correcto",
+                                    text: "Gracias",
+                                    type: "success"
+                                },
+                               function(){
+                                    window.location.href="/empleado/listadon1"
+                                });                                
+                            },
+                            error: function (data) {
+                                $('#loading').modal('hide');
+                                var errHTML="";
+                                if((typeof data.responseJSON != 'undefined')){
+                                    for( var er in data.responseJSON){
+                                        errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                                    }
+                                }else{
+                                    errHTML+='<li>Error...</li>';
+                                }
+                                swal({ 
+                                    title:"Ups error",
+                                    text: "Verifique campos",
+                                    type: "error",
+                                    confirmButtonClass: 'btn-danger waves-effect waves-light',
+                                    confirmButtonText: 'OK!'
+                                },
+                               function(){
+                                    $("#erroresContent").html(errHTML); 
+                                    $('#erroresModal').modal('show');
+                                });  
+
+                               
+                            },
+                            //complete: function(){ $f.data('locked', false);  // (3)
+                            //}
+                        }); 
+                    }else {
+                         swal("Cancelado", "No se ha guardado el registro :)", "error");
+                    }
+                });                            
+});
+
         </script>
         
 @endsection
