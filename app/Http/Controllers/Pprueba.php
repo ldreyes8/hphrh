@@ -290,6 +290,7 @@ class Pprueba extends Controller
 
         } catch (Exception $e) 
         {}
-        return Redirect::to('empleado/listadoR');    }
+        return Redirect::to('empleado/listadoR');    
+    }
 
 }

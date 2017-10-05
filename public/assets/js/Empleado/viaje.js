@@ -10,10 +10,13 @@ function cargar_formularioviaje(arg){
    if(arg==1){ var miurl=urlraiz+"/empleado/viaje/solicitar"; }
    if(arg==2){ var miurl=urlraiz+"/empleado/viaje/liquidar"; }
    if(arg==3){ var miurl=urlraiz+"/empleado/prechazado"; }
-
    //Listado de Jefe Inmediato Autorizaciones Vacacioens Y permisos
 
    if(arg==4){ var miurl=urlraiz+"/empleado/vautorizadopv"; }
+
+   if(arg==20){ var miurl=urlraiz+"/empleado/viajejf/solicitados"; }
+   if(arg==21){ var miurl=urlraiz+"/empleado/viajejf/autorizados"; }
+   if(arg==22){ var miurl=urlraiz+"/empleado/viajejf/detalleauto"; }
  
     $.ajax({
     url: miurl

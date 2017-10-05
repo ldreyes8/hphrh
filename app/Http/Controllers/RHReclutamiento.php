@@ -25,6 +25,7 @@ class RHReclutamiento extends Controller
     }
     public function listadoR(Request $request)
     {
+        
         return view('rrhh.reclutamiento.index');
     }
     public function pdf()
@@ -175,7 +176,6 @@ class RHReclutamiento extends Controller
         $var='1';
         return view('rrhh.reclutamiento.indexb',["empleados"=>$empleados,"dato"=>$dato,"var"=>$var]);        
     }
-    
     public function rechazo($idE,$idS)
     {
         if ($idS=="12") {
@@ -207,7 +207,6 @@ class RHReclutamiento extends Controller
         $st->update();
         return Redirect::to('listados/interino');
     }
-    
     public function upt (Request $request)
     {
         $id = $request->get('idempleado');
@@ -217,5 +216,5 @@ class RHReclutamiento extends Controller
         $od->save();
         return response()->json($od);
     }
-
+ 
 }
