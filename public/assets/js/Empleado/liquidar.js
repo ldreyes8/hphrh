@@ -6,7 +6,7 @@
 
 		options: {
 			addButton: '#addToTable',
-			table: '#datatable-editable',
+			table: '#tabprueba',
 			dialog: {
 				wrapper: '#dialog',
 				cancelButton: '#dialogCancel',
@@ -84,8 +84,8 @@
 			this.$table
 				.on('click', 'a.save-row', function( e ) {
 					e.preventDefault();
-
 					_self.rowSave( $(this).closest( 'tr' ) );
+
 				})
 				.on('click', 'a.cancel-row', function( e ) {
 					e.preventDefault();
@@ -146,20 +146,10 @@
 
 			var urlraiz=$("#url_raiz_proyecto").val();
 			var miurl = urlraiz+"/empleado/viaje/liquidar/add";
-
-			console.log(miurl);
-
-
-
+			
 			var actions,
 				data,
-				$row,
-				fecha,
-				empleado,
-				L10 = '<select></select>',
-				L8 ,
-				L9,
-				L12;
+				$row;	
 
 			actions = [
 				'<a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>',
@@ -168,44 +158,29 @@
 				'<a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>'
 			].join(' ');
 
-			fecha = [
-			'<input type="text" class="hidden on-editing form-control" data-mask="99/99/9999" value="" id="fecha" input-block placeholder="dd/mm/yyyy">',
-			].join(' ');
 
 			$.ajax({
 				url: miurl
 			}).done( function(resul) {
 
+			
 				$(resul).each( function(i,v){
-					L10 = ('<option value='+v.codigo+'">"'+v.nombre+'</option>');
+	
+					$("#abc").append('<option value='+v.codigo+'">'+v.nombre+'</option>');
+					$("#empleado").append('<option value='+v.codigo+'">'+v.nombre+'</option>');
 				});
-				console.log(L10);
 
-			}).fail(function() 
-			{
-				console.log('<span>...Ha ocurrido un error, revise su conexión y vuelva a intentarlo...</span>');
-			});
-				console.log(L10);
-
-				data = this.datatable.row.add([ fecha, '<input type="number" class="form-control" placeholder="dd/mm/yyyy">', 
-											'<select class="form-control select2"> <option>ABC</option><option>DEF</option></select>',
-											L10,
-											'',
-											'',
-											'',
-											'',
-											'',
-											'', actions ]);
-
-				$row = this.datatable.row( data[0] ).nodes().to$();
-				$row
-				.addClass( 'adding' )
+				data = $("#tabprueba tbody tr:eq(0)").clone().removeClass('fila-base').appendTo("#tabprueba tbody");
 				
-				.find('td')
-				.addClass('actions');
+				}).fail(function() 
+				{
+					console.log('<span>...Ha ocurrido un error, revise su conexión y vuelva a intentarlo...</span>');
+				});
 
-				this.rowEdit( $row );
-				this.datatable.order([0,'asc']).draw(); // always show fields			
+				$row = $(this).parents().get(0);
+				$("#tabprueba").DataTable().order([0,'asc']).draw();
+
+				this.rowEdit($row);		
 		},
 
 		rowCancel: function( $row ) {
@@ -241,6 +216,8 @@
 
 				if ( $this.hasClass('actions') ) {
 					_self.rowSetActionsEditing( $row );
+
+
 				} else {
 					$this.html( '<input type="text" class="form-control input-block" value="' + data[i] + '"/>' );
 				}
@@ -269,6 +246,8 @@
 				}
 			});
 			console.log(values);
+			console.log(this.datatable.row( $row.get(0) ).data( values ));
+
 
 			this.datatable.row( $row.get(0) ).data( values );
 

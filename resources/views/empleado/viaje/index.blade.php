@@ -45,7 +45,6 @@
                     </div>
                 </div>
 
-
                <!--
                 <ul class="nav nav-tabs navtab-custom">
                     <li class="active" data-toggle="tab" aria-expanded="false">
@@ -95,6 +94,13 @@
         <script src="{{asset('assets/plugins/datatables/dataTables.bootstrap.js')}}"></script>
         <script src="{{asset('assets/plugins/tiny-editable/mindmup-editabletable.js')}}"></script>
 
+          <!-- Sweet Alert js -->
+        <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
+         <script src="{{asset('assets/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js')}}" type="text/javascript"></script>
+
+
+
+
         <script type="text/javascript">
             $(document).ready(function() {
                 $(".select2").select2();        
@@ -105,7 +111,6 @@
             $(document).ready(function(){
                 var hdrht = ($(window).height()) - ($("#site-header").height());
                 $(".wrapper").height(hdrht);
-                    $('#datatable-editable').DataTable();
             });
         </script>
         <script>

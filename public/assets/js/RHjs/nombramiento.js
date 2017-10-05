@@ -72,9 +72,13 @@
             function evaluar(){
                 if (cont>0){
                     $("#btnguardar").show();
+                    //$("#btncancelar").show();
+
                 }
                 else{
                     $("#btnguardar").hide(); 
+                    $("#btncancelar").hide();
+
                 }
             }
 
@@ -83,6 +87,7 @@
                 $("#fila" + index).remove();
                 cont = cont -1;
                 console.log(cont);
+                console.log(index);
                 evaluar();
             }
 
@@ -108,8 +113,8 @@
                 }).done( function(resul) 
                 { 
                     var etiquetas="";
-                    var roles=$.parseJSON(resul);
                     $.each(roles,function(index, value) {
+                        console.log(resul);
                         etiquetas+= '<span class="label label-warning">'+value+'</span> ';
                     })
 
@@ -145,66 +150,106 @@
             }
 
             $(document).on('click','.btn-guardarAsecenso',function(e){
-                var itemsData=[];
-                var miurl = "addasecenso";
 
-                $('#detalle7 tr').each(function(){
-                    var jefe = $(this).find('td').eq(2).html();
-                    var notificar = $(this).find('td').eq(3).html();
-                    valor = new Array(jefe,notificar);
-                    itemsData.push(valor);
-                });
+                swal({
+                        title: "¿Estás seguro?",
+                        text: "No podrás eliminar este registro",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#FFFF00",
+                        confirmButtonText: "Si, enviar",
+                        cancelButtonText: "No, cancelar",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        var itemsData=[];
+                        var miurl = "addasecenso";
+                        
+                        $('#detalle7 tr').each(function(){
+                            var jefe = $(this).find('td').eq(2).html();
+                            var notificar = $(this).find('td').eq(3).html();
+                            valor = new Array(jefe,notificar);
+                            itemsData.push(valor);
+                        });
 
-                var formData = {
-                    idpuesto: $('#idpuesto').val(),
-                    idempleado: $('#idempleado').val(),
-                    fecha: $('#dato1').val(),
-                    salario: $('#salario').val(),
-                    descripcion: $('#descripcion').val(),
-                    idafiliado: $('#idafiliado').val(),
-                    idcaso: $('#idcaso').val(),
-                    items: itemsData,
-                };
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                    }
-                });
-
-                $.ajax({
-                    type: "POST",
-                    url: miurl,
-                    data: formData,
-                    dataType: 'json',
-                    //beforeSend: function(){ $f.data('locked', true);  // (2)
-                    //},
-
-                    success: function (data) {
-                        swal({ 
-                            title:"Envio correcto",
-                            text: "Gracias",
-                            type: "success"
-                        },
-                        function(){
-                            window.location.href="/empleado/listado"
-                        });                                
-                    },
-                    error: function (data) {
-                        $('#loading').modal('hide');
-                        var errHTML="";
-                        if((typeof data.responseJSON != 'undefined')){
-                            for( var er in data.responseJSON){
-                                errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                        var formData = {
+                            idpuesto: $('#idpuesto').val(),
+                            idempleado: $('#idempleado').val(),
+                            fecha: $('#dato1').val(),
+                            salario: $('#salario').val(),
+                            descripcion: $('#descripcion').val(),
+                            idafiliado: $('#idafiliado').val(),
+                            idcaso: $('#idcaso').val(),
+                            mjf: $("#mji").val(),
+                            items: itemsData,
+                        };
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                             }
-                        }else{
-                            errHTML+='<li>Error al borrar el &aacute;rea de atenci&oacute;n.</li>';
-                        }
-                        $("#erroresContent").html(errHTML); 
-                        $('#erroresModal').modal('show');
-                    },
-                    //complete: function(){ $f.data('locked', false);  // (3)
-                     //}
-                });             
+                        });
+
+                        $.ajax({
+                            type: "POST",
+                            url: miurl,
+                            data: formData,
+                            dataType: 'json',
+                            //beforeSend: function(){ $f.data('locked', true);  // (2)
+                            //},
+
+                            success: function (data) {
+                                swal({ 
+                                    title:"Envio correcto",
+                                    text: "Gracias",
+                                    type: "success"
+                                },
+                               function(){
+                                    window.location.href="/empleado/listado"
+                                });                                
+                            },
+                            error: function (data) {
+                                $('#loading').modal('hide');
+                                var errHTML="";
+                                if((typeof data.responseJSON != 'undefined')){
+                                    for( var er in data.responseJSON){
+                                        errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                                    }
+                                }else{
+                                    errHTML+='<li>Error...</li>';
+                                }
+                                swal({ 
+                                    title:"Ups error",
+                                    text: "Verifique campos",
+                                    type: "error",
+                                    confirmButtonClass: 'btn-danger waves-effect waves-light',
+                                    confirmButtonText: 'OK!'
+                                },
+                               function(){
+                                    $("#erroresContent").html(errHTML); 
+                                    $('#erroresModal').modal('show');
+                                });  
+
+                               
+                            },
+                            //complete: function(){ $f.data('locked', false);  // (3)
+                            //}
+                        }); 
+                    }else {
+                         swal("Cancelado", "No se ha guardado el registro :)", "error");
+                    }
+                });                            
+            });
+
+            $(document).on('click','.btn-cancelarAsecenso',function(e){
+                document.getElementById("inlineRadio1").checked = false;
+                document.getElementById("inlineRadio16").checked = false;
+                //var yea=document.getElementById("detalle7").rows.length;
+                var tam = cont - 1;
+                for (var i = Things.length - 1; i >= 0; i--) {
+                    Things[i]
+                }
+                cont = cont -1;
             });
 
 $(document).on('click','.btn-aceptar',function(e){

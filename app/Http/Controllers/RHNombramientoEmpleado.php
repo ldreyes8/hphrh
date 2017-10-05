@@ -184,13 +184,12 @@ class RHNombramientoEmpleado extends Controller
     {
 
 
-        $miArray1 = $_POST["items"];
+        //$miArray1 = $_POST["items"];
 
         
        
         try 
         {
-            $miArray = $request->items;
             
             $idem = $request->get('idempleado');
             $idco = $request->get('idcaso');
@@ -212,6 +211,11 @@ class RHNombramientoEmpleado extends Controller
             $nomtras-> idafiliado=$request->get('idafiliado');
             $nomtras-> idcaso=$idco;
             $nomtras->save();
+
+            $empleado = Empleado::find($idem);
+            $empleado->idstatus = 2;
+            $empleado->save();
+
             /*
 
             $per=DB::table('empleado as e')
@@ -224,29 +228,33 @@ class RHNombramientoEmpleado extends Controller
             $persona-> idpuesto= $request->get('idpuesto');
             $persona-> idafiliado = $request->get('idafiliado');
             $persona->update();*/
-            
-            $asignajefe = new Asignajefe;
+            $mjf = $request->get('mjf');
+            if($mjf == 0)
+            {
+                $miArray = $request->items;
+
+                $asignajefe = new Asignajefe;
 
 
 
-            foreach ($miArray as $key => $value) {
-                $notifica = $value['1'];
+                foreach ($miArray as $key => $value) {
+                    $notifica = $value['1'];
 
-                if($notifica == "No")
-                {
-                    $notifica =0;
+                    if($notifica == "No")
+                    {
+                        $notifica =0;
+                    }
+                    if($notifica == "Si")
+                    {
+                        $notifica = 1;
+                    }
+
+                    $asignajefe->idempleado = $idem;
+                    $asignajefe->identificacion = $value['0'];
+                    $asignajefe->notifica = $notifica;
+                    $asignajefe->save();
                 }
-                if($notifica == "Si")
-                {
-                    $notifica = 1;
-                }
-
-                $asignajefe->idempleado = $idem;
-                $asignajefe->identificacion = $value['0'];
-                $asignajefe->notifica = $notifica;
-                $asignajefe->save();
             }
-
 
                 //$st=Empleado::find($idem);
                 //$st-> fechaingreso=$fecha;
@@ -260,7 +268,15 @@ class RHNombramientoEmpleado extends Controller
             DB::rollback();
             return response()->json(array('error' => 'No se ha podido enviar la peticion de agregar nuevo nombramiento y/o asecenso'),404);         
         }
-        return json_encode ($asignajefe); 
+        $mjf = $request->get('mjf');
+          if($mjf == 0)
+            {
+                return json_encode ($asignajefe); 
+            }
+            else{
+                return json_encode ($nomtras);
+            }
+
         //return Redirect::to('listados/pprueba');
     }
    

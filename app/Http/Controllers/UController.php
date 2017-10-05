@@ -197,7 +197,7 @@ class UController extends Controller
                 ->where('U.id','!=',Auth::user()->id)
                 ->where('U.estado','=',1)
                 ->groupBy('emp.idempleado')            
-                ->paginate(30); 
+                ->paginate(30);
                
             
         		/*

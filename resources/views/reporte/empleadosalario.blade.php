@@ -16,6 +16,8 @@
                 <th>Identificaci&oacute;n</th>
                 <th>Salario</th>
                 <th>Fecha ingreso</th>
+                <th>Correo institucional</th>
+                <!--<th>Correo personal</th>-->
                 <th>Estado</th>
             </thead>
             <tbody>
@@ -27,10 +29,12 @@
                     <td>{{$ntr->identificacion}}</td>
                     <td>{{$ntr->salario}}</td>
                     <td>{{\Carbon\Carbon::createFromFormat('Y-m-d', $ntr->fecha)->format('d-m-Y')}}</td>
+                    <td>{{$ntr->email}}</td>
+                    <!--<td>{{$ntr->correo}}</td>-->
                     <td>{{$ntr->caso}}</td>
                 </tr>               
             @endforeach
-          </tbody>
+            </tbody>
         </table>
     </div>
 </div>

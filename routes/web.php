@@ -347,6 +347,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('viaje','EViajeController@index');
 	Route::get('viaje/solicitar','EViajeController@viaje');
 	Route::get('viaje/liquidar','EViajeController@liquidar');
+	Route::get('viaje/liquidar/add','EViajeController@add');
 
 });
 

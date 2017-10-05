@@ -30,14 +30,14 @@ class Reporte extends Controller
     	->join('empleado as emp','nt.idempleado','=','emp.idempleado')
     	->join('persona as per','emp.identificacion','=','per.identificacion')
         ->join('caso as ca','nt.idcaso','=','ca.idcaso')
-    	->select('a.nombre as afiliado','p.nombre as puesto','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','nt.salario','per.identificacion','emp.fechaingreso as fecha','ca.nombre as caso')
+        ->join('users as U','per.identificacion','=','U.identificacion')
+    	->select('a.nombre as afiliado','p.nombre as puesto','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','nt.salario','per.identificacion','emp.fechaingreso as fecha','ca.nombre as caso','U.email','per.correo')
         ->where('emp.idstatus','=',2)
     	->groupBy('emp.idempleado')
     	->orderBy('a.nombre','asc')
         ->orderBy('p.nombre','asc')
         ->orderBy('per.apellido1')
     	->get();
-
         
 
     	return view('reporte.empleadosalario',["nomytras"=>$nomytras]);
@@ -61,7 +61,8 @@ class Reporte extends Controller
     	->join('empleado as emp','nt.idempleado','=','emp.idempleado')
     	->join('persona as per','emp.identificacion','=','per.identificacion')
         ->join('caso as ca','nt.idcaso','=','ca.idcaso')
-    	->select('a.nombre as afiliado','p.nombre as puesto','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','nt.salario','per.identificacion','emp.fechaingreso as fecha','emp.idempleado','ca.nombre as caso')
+        ->join('users as U','per.identificacion','=','U.identificacion')
+    	->select('a.nombre as afiliado','p.nombre as puesto','per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','nt.salario','per.identificacion','emp.fechaingreso as fecha','emp.idempleado','ca.nombre as caso','ca.nombre as caso','U.email','per.correo')
     	->where('emp.idstatus','=',2)
         ->groupBy('emp.idempleado')
     	->orderBy('a.nombre','asc')

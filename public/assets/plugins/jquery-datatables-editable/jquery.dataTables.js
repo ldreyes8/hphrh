@@ -1492,8 +1492,8 @@
 			// This is very frustrating, but in IE if you just write directly
 			// to innerHTML, and elements that are overwritten are GC'ed,
 			// even if there is a reference to them elsewhere
-			console.log(cell);
-			console.log(col);
+			
+			
 			while ( cell.childNodes.length ) {
 				cell.removeChild( cell.firstChild );
 			}
@@ -7872,6 +7872,7 @@
 	
 	_api_register( 'row().data()', function ( data ) {
 		var ctx = this.context;
+		console.log(data);
 	
 		if ( data === undefined ) {
 			// Get
@@ -7879,7 +7880,7 @@
 				ctx[0].aoData[ this[0] ]._aData :
 				undefined;
 		}
-	
+		console.log(this[0]);	
 		// Set
 		ctx[0].aoData[ this[0] ]._aData = data;
 	

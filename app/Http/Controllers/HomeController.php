@@ -44,6 +44,7 @@ class HomeController extends Controller
         ->join('users as U','per.identificacion','=','U.identificacion')
         ->select('per.nombre1', 'per.apellido1','U.fotoperfil')
         ->whereMonth('per.fechanac','=',$month)
+        ->where('U.estado','=',1)
         ->get();
 
         $cumpledia = DB::table('persona as per')
@@ -55,12 +56,7 @@ class HomeController extends Controller
 
         $usuarioactual=\Auth::user();
 
-        $cumpledia = DB::table('persona as per')
-        ->join('users as U','per.identificacion','=','U.identificacion')
-        ->select('per.nombre1', 'per.apellido1','U.fotoperfil')
-        ->whereDay('per.fechanac','=',$day)
-        ->whereMonth('per.fechanac','=',$month)
-        ->get();
+     
 
         $tableroini = DB::table('tablero as evento')
         ->select('evento.imagen')

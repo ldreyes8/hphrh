@@ -1,4 +1,4 @@
-<div class="card-box">
+<div class="card-box" id="lisadoEmp">
     <div class="row">
         <h3>Listado de empleados que han sido despedidos o renunciaron</h3>
 
@@ -27,7 +27,9 @@
                         <td>
                             <a href="{{URL::action('ListadoController@show',$em->identificacion)}}"><button class="btn btn-primary" title="Detalles"><i class="fa fa-search-plus"></i></button></a>
                             <a href="{{URL::action('ListadoController@laboral',$em->idempleado)}}"><button class="btn btn-primary" title="Historial laboral "><i class="fa fa-stack-overflow"></i></button></a>
+                            <button class="btn  btn-default btn-md" onclick="vernombramiento_emp({{$em->idempleado }})"><i class="fa fa-handshake-o"></i></button>
                          </td>
+                      
                      </tr>
                      @endforeach
                  </table>

@@ -1,6 +1,7 @@
 <div class="card-box">
+    <button class="btn btn-success btn-md"onclick="cargar_formularioRH(4);"><i class="fa fa-reply-all"></i></button>
     <div class="box-header with-border my-box-header">
-        <h3 class="box-title"><strong>Asignar y/o quitar jefe inmediato</strong></h3>
+        <h3 class="box-title" align="center"><strong>Asignar y/o quitar jefe inmediato</strong></h3>
     </div>
 
     <hr style="border-color:black;" />
@@ -14,7 +15,6 @@
     <br>
 
     <div class="box-body">
-
         <div class="col-md-12">
             <div class="form-group">
                 <label class="col-sm-2" for="tipo">Jefe inmediato a asignar</label>
@@ -56,11 +56,10 @@
         </div>
     </div>
     
-
     <br><br><br>
 
     <div class="box-header with-border my-box-header">
-        <h3 class="box-title"><strong>Agregar nuevo nombramiento y/o asecenso</strong></h3>
+        <h3 class="box-title" align="center"><strong>Agregar nuevo nombramiento y/o asecenso</strong></h3>
     </div>   
 
     <hr style="border-color:black;" />
@@ -138,7 +137,27 @@
                 </div>
             </div>
 
-            <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label for="mjefeinmediato"></label>
+                    
+                    <div class="form-group">
+                        <label>Mantener jefe inmediato</label>
+                    </div>
+                    
+                        <input type="hidden" id="mji">
+                        <div class="radio radio-info radio-inline">
+                                <input type="radio" id="inlineRadio16" value="1" name="autorizacion" onclick="mantenerjf();">
+                                <label for="inlineRadio16">NO</label> <!-- Se tomo todos los dias solicitados  -->
+                        </div>
+                        <div class="radio radio-danger radio-inline">
+                                <input type="radio" id="inlineRadio1" value="0" name="autorizacion" onclick="mantenerjf();">
+                                <label for="inlineRadio1">SI</label> <!--No se tomo ningun dia solicitado-->
+                        </div>                    
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="jfoculto">
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label>Jefe inmediato</label>
@@ -173,13 +192,15 @@
                                     <th>Notifica</th>
                                 </tr>
                             </thead>
-                            <tr>
+                            <tr id="detallenom">
                                 
                             </tr>
                         </table>
                     </div>
                 </div>
             </div>
+
+           
 
             <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -195,7 +216,7 @@
                     <div class="form-group">
 
                         <button class="btn btn-primary btn-guardarAsecenso" id="btnguardar">Guardar</button>
-                        <a href=""><button class="btn btn-danger " id="btncancelar" type="button">Cancelar</button></a>
+                        <button class="btn btn-danger btn-cancelarAsecenso" id="btncancelar">Cancelar</button>
                     </div>
                 </div>
             </div>
@@ -214,6 +235,29 @@
 
             $("#btnguardar").hide();
             $("#btncancelar").hide();
+            $("#jfoculto").hide();
+
+            //$(document).ready(function() {
+                function mantenerjf(){
+                    if($("#inlineRadio1:checked").val()=="0")
+                    {
+                        $("#btnguardar").show();
+                        //$("#btncancelar").show();
+                        $("#mji").val(1);
+                        $("#jfoculto").hide();
+
+
+                    }
+                    if($("#inlineRadio16:checked").val()=="1"){
+                        $("#btnguardar").hide();
+                        $("#btncancelar").hide();
+                        $("#mji").val(0);
+                        $("#jfoculto").show();
+
+
+                    }
+               }
+ 
         </script>
 
        
