@@ -163,6 +163,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	//Nombramiento
 	Route::get('listadon1','RHEntrevista@listadonombramiento');
 	Route::get('listadon1/show/{id}/{idv?}','RHPreentrevista@show');
+	Route::post('nombraupdate','RHNombramientoEmpleado@store');
 
 	//Reporte
 	Route::get('Rmintrab','Controllermintrab@index');
@@ -347,6 +348,12 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('viaje','EViajeController@index');
 	Route::get('viaje/solicitar','EViajeController@viaje');
 	Route::get('viaje/liquidar','EViajeController@liquidar');
+
+//viajejf
+	Route::get('viajejf','JIViajeController@index');
+	Route::get('viajejf/solicitados','JIViajeController@solicitados');
+	Route::get('viajejf/autorizados','JIViajeController@autorizados');
+	Route::get('viajejf/detalleauto','JIViajeController@detalleauto');
 
 });
 
