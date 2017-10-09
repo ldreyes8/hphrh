@@ -34,7 +34,7 @@
                                         <li class="">
                                             <a data-toggle="tab" aria-expanded="false" onclick="cargar_formularioRH(4);">
                                                 <span class="visible-xs"><i class="ion ion-clipboard"></i></span>
-                                                <span class="hidden-xs">Nombramientos y/o asecensos</span>
+                                                <span class="hidden-xs">Promociones y/o traslados</span>
                                             </a>
                                         </li>
                                     </ul>

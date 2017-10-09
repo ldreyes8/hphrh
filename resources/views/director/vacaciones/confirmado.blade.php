@@ -77,10 +77,13 @@
               <div class="card-box m-t-20">
                 <div class="p-20">
                   <form role="form">
+                    <div align="center">
+                    <h4>Agregue los d&iacute;as que no tomo el usuario.</h4><p>(Estos no se descontaran del sistema)</p>
+                    </div>
                     <div class="modal-header" >                
                       <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                         <label for="dnotomado">Dias</label>
-                        <input id="dnotomado" type="number" name="dnotomado" min="0" class="form-control" onkeypress="return valida(event)" value="{{$dias->soldias}}">
+                        <input id="dnotomado" type="number" name="dnotomado" min="0" class="form-control" onkeypress="return valida(event)" value="{{$dias->soldias}}" max="{{$empleado->totaldias}}">
                       </div>
 
                       <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">

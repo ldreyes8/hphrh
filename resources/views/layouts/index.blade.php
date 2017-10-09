@@ -261,12 +261,12 @@
 
 
                                 <li>
-                                    <a href="{{ url('/empleado/listado')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i
+                                    <a href="{{ url('/rh/listado')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i
                                     class="md md-insert-emoticon"></i><span>Empleados</span></a>
                                 </li>
 
                                 <li>
-                                <a href="{{ url('/empleado/listadoPV')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i
+                                <a href="{{ url('/rh/listadoPV')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i
                                     class="fa fa-id-card"></i><span>Permiso y vacaciones</span></a>
                                 </li>
                                 
@@ -276,7 +276,7 @@
                                 </li>
 
                                 <li>
-                                <a href="{{ url('/empleado/vacante')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i
+                                <a href="{{ url('/rh/vacante')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i
                                     class="ion-briefcase"></i><span>Habilitar puesto</span></a>
                                 </li>
 

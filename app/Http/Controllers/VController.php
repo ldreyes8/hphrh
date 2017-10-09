@@ -745,8 +745,7 @@ class VController extends Controller
       $collection = Collection::make($calculo);
       //dd($calculo,$collection,$res,$rangogoce);
 
-
-      $pdf= PDF::loadView('pdfs.gocevacaciones',["usuario"=>$usuario,"year"=>$year,"rangogoce"=>$rangogoce,"collection"=>$collection,"res"=>$res]);
+      $pdf= PDF::loadView('pdfs.gocevacaciones',["usuario"=>$usuario,"year"=>$year,"rangogoce"=>$rangogoce,"collection"=>$collection,"res"=>$res,"fini"=>$fechainicio,"ffin"=>$fechafinal]);
       return $pdf->download($usuario->nombre1.'.pdf');
       
     }

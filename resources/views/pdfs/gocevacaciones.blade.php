@@ -22,6 +22,8 @@
         <h4>Ubicaci&oacute;n:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{$usuario->afiliado}}</strong></h4>
         <h4>Fecha de ingreso a la fundaci&oacute;n:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{\Carbon\Carbon::createFromFormat('Y-m-d',$usuario->fechaingreso)->format('d/m/Y')}}</strong></h4>
         <h4>Fecha de emision de la constancia:&nbsp;&nbsp;&nbsp;<strong>{{$year}}</strong></h4>
+        <h4>Fecha inicio:&nbsp;&nbsp;&nbsp;<strong>{{$fini}}</strong></h4>
+        <h4>Fecha final:&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{$ffin}}</strong></h4>        
         <p>Se hace constar que el colaborador (a) goz&oacute; de su per&iacute;odo vacacional como se detalla a continuaci&oacute;n</p>
     </div>
 </div>

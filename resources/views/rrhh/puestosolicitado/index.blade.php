@@ -17,6 +17,13 @@
                                                 <span class="hidden-xs">Solicitud</span>
                                             </a>
                                         </li>
+
+                                        <li class="" data-toggle="tab" aria-expanded="false">
+                                            <a data-toggle="tab" aria-expanded="false" onclick="cargar_formularioRH(6);">
+                                                <span class="visible-xs"><i class="md md-perm-contact-cal"></i></span>
+                                                <span class="hidden-xs">Plazas Autorizadas</span>
+                                            </a>
+                                        </li>
                                         <!--
 
                                         <li class="">

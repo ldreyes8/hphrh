@@ -4,6 +4,9 @@ $(document).ready(function(){
         var miurl="diastomado";
 
         $("#btndescargar").show();
+        var fini = $("#fecha_inicioG").val();
+        var ffin = $("#fecha_finalG").val();
+    
 
         var formData = {                      
             fecha_inicio: $("#fecha_inicioG").val(),
@@ -81,8 +84,9 @@ $(document).ready(function(){
                     }
 
                 document.getElementById('dtomado').innerHTML  = res;
-          
-                     $('#btnguardarV').removeAttr("disabled");
+                document.getElementById("finicio").innerHTML = "Fecha incio:"+"   "+ fini;
+                document.getElementById("ffinal").innerHTML = "Fecha final:" +"   "+ ffin;
+                $('#btnguardarV').removeAttr("disabled");
 
             },
             error: function (data) {
