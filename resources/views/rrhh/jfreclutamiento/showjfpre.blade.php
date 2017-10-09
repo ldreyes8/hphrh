@@ -45,7 +45,7 @@ input[type=textt] {
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
       <div class="form-group">
       <label>Nit</label>
-        <input type="textt" id="nit" value="{{$empleado->nit}}">
+        <input type="textt" id="nit" maxlength="9" value="{{$empleado->nit}}">
         <input type="hidden" id="nit" value="{{$empleado->idstatus}}">
         <input type="hidden" id="" value="{{$entrev->identrevista}}">
       </div>
@@ -131,7 +131,7 @@ input[type=textt] {
                   <td><input type="hidden" class="idpfamilia" value="{{$fam->idpfamilia}}"></td>
                   <td><input type="textt" class="nombref" value="{{$fam->nombref}}"></td>
                   <td><input type="textt" class="parentezco" value="{{$fam->parentezco}}"></td>
-                  <td><input type="textt" class="telefonof" value="{{$fam->telefonof}}"></td>
+                  <td><input type="textt" class="telefonof" maxlength="8" value="{{$fam->telefonof}}"></td>
                   <td><input type="textt" class="ocupacion" value="{{$fam->ocupacion}}"></td>
                   <td><input type="textt" class="edad" value="{{$fam->edad}}"></td>
                   <td>{{$fam->emergencia}}</td>
@@ -213,7 +213,7 @@ input[type=textt] {
                 <tr class="filaTableR">
                   <td><input type="hidden" class="idpreferencia" value="{{$ref->idpreferencia}}"></td>
                   <td><input type="textt" class="nombrer" value="{{$ref->nombrer}}"></td>
-                  <td><input type="textt" class="telefonor" value="{{$ref->telefonor}}"></td>
+                  <td><input type="textt" maxlength="8" class="telefonor" value="{{$ref->telefonor}}"></td>
                   <td><input type="textt" class="profesion" value="{{$ref->profesion}}"></td>
                   <td><input type="textt" class="tiporeferencia" value="{{$ref->tiporeferencia}}"></td>
                   <td><input type="textt" class="recomiendaPL" name="recomiendaPL" maxlength="2" placeholder="Si ó No" value="{{$ref->recomiendaper}}"></td>
@@ -249,12 +249,13 @@ input[type=textt] {
 
       <div class="table-responsive">    
             <table id="detallesEL" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
-            <p><h2 ALIGN=center>Experiencia Laboral</h2></p>
+            <p><h2 ALIGN=center>Jefes Inmediatos</h2></p>
               <thead style="background-color:#A9D0F5">
                 <th style="width: 0%"></th>
                 <th>Empresa</th>
                 <th>Puesto</th>
                 <th>Jefe Inmediato</th>
+                <th>Teléfono</th>
                 <th>Motivo Retiro</th>
                 <th>Ultimo Salario</th>
                 <th>Fecha Ingreso</th>
@@ -270,6 +271,7 @@ input[type=textt] {
                   <td><input type="textt" class="empresa" value="{{$exp->empresa}}"></td>
                   <td><input type="textt" class="puesto" value="{{$exp->puesto}}"></td>
                   <td><input type="textt" class="jefeinmediato" value="{{$exp->jefeinmediato}}"></td>
+                  <td><input type="textt" class="teljefeinmediato" maxlength="8" value="{{$exp->teljefeinmediato}}"></td>
                   <td><input type="textt" class="motivoretiro" value="{{$exp->motivoretiro}}"></td>
                   <td><input type="textt" class="ultimosalario" value="{{$exp->ultimosalario}}"></td>
                   <td><input type="textt" class="fingresoex" value="{{$exp->fingresoex}}"></td>

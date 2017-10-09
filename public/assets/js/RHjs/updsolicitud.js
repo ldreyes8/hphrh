@@ -51,6 +51,7 @@ $(document).ready(function(){
             var empresa=$('.empresa:eq('+el+')').val();
             var puesto=$('.puesto:eq('+el+')').val();
             var jefeinmediato=$('.jefeinmediato:eq('+el+')').val();
+            var teljefeinmediato=$('.teljefeinmediato:eq('+el+')').val();
             var motivoretiro=$('.motivoretiro:eq('+el+')').val();
             var ultimosalario=$('.ultimosalario:eq('+el+')').val();
             var fingresoex=$('.fingresoex:eq('+el+')').val();
@@ -58,7 +59,7 @@ $(document).ready(function(){
             var recomiendaexp=$('.recomiendaexp:eq('+el+')').val();
             var confirmadorexp=$('.confirmadorexp:eq('+el+')').val();
             var observacionel=$('.observacionel:eq('+el+')').val();
-            valor = new Array(idpexperiencia,empresa,puesto,jefeinmediato,motivoretiro,ultimosalario,fingresoex,fsalidaex,recomiendaexp,confirmadorexp,observacionel);
+            valor = new Array(idpexperiencia,empresa,puesto,jefeinmediato,teljefeinmediato,motivoretiro,ultimosalario,fingresoex,fsalidaex,recomiendaexp,confirmadorexp,observacionel);
             itemsDataE.push(valor);
             el++;
         });

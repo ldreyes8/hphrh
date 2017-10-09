@@ -198,6 +198,7 @@
                               <th>Empresa</th>
                               <th>Puesto</th>
                               <th>Jefe inmediato</th>
+                              <th>Teléfono Jefe</th>
                               <th>Motivo retiro</th>
                               <th>Ultimo salario</th>
                               <th>Año de ingreso</th>
@@ -210,6 +211,7 @@
                                     <td>{{$experiencia[$i]->empresa}}</td>
                                     <td>{{$experiencia[$i]->puesto}}</td>
                                     <td>{{$experiencia[$i]->jefeinmediato}}</td>
+                                    <td>{{$experiencia[$i]->teljefeinmediato}}</td>
                                     <td>{{$experiencia[$i]->motivoretiro}}</td>
                                     <td>{{$experiencia[$i]->ultimosalario}}</td>
                                     <td>{{$experiencia[$i]->fingresoex}}</td>
@@ -625,8 +627,15 @@
                       <input type="text" id="jefeinmediato" name="jefeinmediato" maxlength="50" class="form-control" onkeypress="return validaL(event)">
                     </div>
                   </div>
-                                                    
-                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">                                   
+                    <div class="form-group">
+                      <label for="jefeinmediato">Teléfono Jefe</label>
+                      <input type="text" id="teljefeinmediato" name="teljefeinmediato" maxlength="8" class="form-control" onkeypress="return validaL(event)">
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="form-group">
                       <label for="motivoretiro">Motivo de retiro</label>
                       <input type="text" id="motivoretiro" name="motivoretiro" maxlength="40" class="form-control" onkeypress="return validaL(event)">

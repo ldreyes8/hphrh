@@ -251,6 +251,7 @@ class PersonaController extends Controller
                         $empresa=$request->get('empresa');
                         $puesto=$request->get('puesto');
                         $jefeinmediato=$request->get('jefeinmediato');
+                        $teljefeinmediato=$request->get('teljefeinmediato');
                         $motivoretiro=$request->get('motivoretiro');
                         $ultimosalario=$request->get('ultimosalario');
                         $fingresoex=$request->get('fingresoex');
@@ -413,6 +414,7 @@ class PersonaController extends Controller
                                 $experiencia-> empresa=$empresa[$cont4];
                                 $experiencia-> puesto=$puesto[$cont4];
                                 $experiencia-> jefeinmediato=$jefeinmediato[$cont4];
+                                $experiencia-> teljefeinmediato=$teljefeinmediato[$cont4];
                                 $experiencia-> motivoretiro=$motivoretiro[$cont4];
                                 $experiencia-> ultimosalario=$ultimosalario[$cont4];
                                 $experiencia-> fingresoex=$fingresoex[$cont4];
@@ -604,13 +606,14 @@ class PersonaController extends Controller
                 $experiencia-> empresa=$value['1'];
                 $experiencia-> puesto=$value['2'];
                 $experiencia-> jefeinmediato=$value['3'];
-                $experiencia-> motivoretiro=$value['4'];
-                $experiencia-> ultimosalario=$value['5'];
-                $experiencia-> fingresoex=$value['6'];
-                $experiencia-> fsalidaex=$value['7'];
-                $experiencia-> recomiendaexp=$value['8'];
-                $experiencia-> confirmadorexp=$value['9'];
-                $experiencia-> observacion = $value['10'];
+                $experiencia-> teljefeinmediato=$value['4'];
+                $experiencia-> motivoretiro=$value['5'];
+                $experiencia-> ultimosalario=$value['6'];
+                $experiencia-> fingresoex=$value['7'];
+                $experiencia-> fsalidaex=$value['8'];
+                $experiencia-> recomiendaexp=$value['9'];
+                $experiencia-> confirmadorexp=$value['10'];
+                $experiencia-> observacion = $value['11'];
                 $experiencia->save();
             }
         }

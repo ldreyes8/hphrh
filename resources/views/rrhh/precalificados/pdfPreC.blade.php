@@ -169,6 +169,7 @@
 			                            <th>Empresa</th>
 			                            <th>Puesto</th>
 			                            <th>Jefe inmediato</th>
+			                            <th>Teléfono jefe</th>
 			                            <th>Motivo retiro</th>
 			                            <th>Salario</th>
 			                            <th>Ingreso</th>
@@ -182,6 +183,7 @@
 			                            <td>{{$experiencia[$i]->empresa}}</td>
 			                            <td>{{$experiencia[$i]->puesto}}</td>
 			                            <td>{{$experiencia[$i]->jefeinmediato}}</td>
+			                            <td>{{$experiencia[$i]->teljefeinmediato}}</td>
 			                            <td>{{$experiencia[$i]->motivoretiro}}</td>
 			                            <td>{{$experiencia[$i]->ultimosalario}}</td>
 			                            <td>{{$experiencia[$i]->fingresoex}}</td>

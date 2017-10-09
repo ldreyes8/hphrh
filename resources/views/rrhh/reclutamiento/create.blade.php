@@ -11,7 +11,7 @@
 @section ('contenido')
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <h3>Nombramiento</h3>
+        <h3>Confirmación de puesto</h3>
         <h5>Campos obligatorios *</h5>
     </div>
 </div>
@@ -256,8 +256,8 @@
 $(document).on('click','.btnguardar',function(e){
     var urlraiz=$("#url_raiz_proyecto").val();
                 swal({
-                        title: "¿Estás seguro?",
-                        text: "No podrás eliminar este registro",
+                        title: "¿Está seguro?",
+                        text: "Usted confirmara a esta persona en un puesto",
                         type: "warning",
                         showCancelButton: true,
                         confirmButtonColor: "#FFFF00",
