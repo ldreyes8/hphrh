@@ -16,6 +16,7 @@ class Experiencia extends Model
     	'empresa',
     	'puesto',
     	'jefeinmediato',
+        'teljefeinmediato',
     	'motivoretiro',
     	'ultimosalario',
     	'fingresoex',

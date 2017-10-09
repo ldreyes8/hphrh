@@ -417,7 +417,7 @@
                                                         </div>
                                                         <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
                                                             <div class="form-group">
-                                                                <label>Parentezco</label>
+                                                                <label>Parentesco</label>
                                                                 <select id="parentezco" class="form-control">
                                                                     <option value="Padre">Padre</option>
                                                                     <option value="Madre">Madre</option>
@@ -682,16 +682,22 @@
                                                             <input type="text" id="empresa" maxlength="100" class="form-control" onkeypress="return validaL(event)">
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                         <div class="form-group">
                                                             <label >Puesto</label>
                                                             <input type="text" id="puesto5" maxlength="50" class="form-control" onkeypress="return validaL(event)">
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                         <div class="form-group">
                                                             <label for="jefeinmediato">Jefe inmediato</label>
                                                             <input type="text" id="jefeinmediato" maxlength="50" class="form-control" onkeypress="return validaL(event)">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label for="teljefeinmediato">Teléfono Jefe inmediato</label>
+                                                            <input type="text" id="teljefeinmediato" maxlength="8" class="form-control" onkeypress="return valida(event)">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -733,12 +739,14 @@
                                                                 <th>Empresa</th>
                                                                 <th>Puesto</th>
                                                                 <th>Jefe inmediato</th>
+                                                                <th>Teléfono Jefe</th>
                                                                 <th>Motivo retiro</th>
                                                                 <th>Ultimo Salario</th>
                                                                 <th>Ingreso</th>
                                                                 <th>Salida</th>
                                                             </thead>
                                                             <tfoot>
+                                                                <th></th>
                                                                 <th></th>
                                                                 <th></th>
                                                                 <th></th>

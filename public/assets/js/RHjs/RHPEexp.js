@@ -16,6 +16,7 @@ $(document).ready(function(){
             empresa: $("#empresa").val(),
             puesto: $("#puesto").val(),
             jefeinmediato: $("#jefeinmediato").val(),
+            teljefeinmediato: $("#teljefeinmediato").val(),
             motivoretiro: $("#motivoretiro").val(),
             ultimosalario: $("#ultimosalario").val(),
             año_ingreso: $("#año_ingreso").val(),
@@ -36,7 +37,7 @@ $(document).ready(function(){
 
             success: function (data) {
                 var item = '<tr class="even gradeA" id="experiencia'+data.idpexperiencia+'">';
-                    item += '<td>'+data.empresa+'</td>'+'<td>' +data.puesto+ '</td>'+'<td>'+data.jefeinmediato+'</td>'+'<td>'+data.motivoretiro+'</td>'+'<td>'+data.ultimosalario+'</td>'+'<td>'+data.fingresoex+'</td>'+'<td>'+data.fsalidaex+'</td>';
+                    item += '<td>'+data.empresa+'</td>'+'<td>' +data.puesto+ '</td>'+'<td>'+data.jefeinmediato+'</td>'+'<td>'+data.teljefeinmediato+'</td>'+'<td>'+data.motivoretiro+'</td>'+'<td>'+data.ultimosalario+'</td>'+'<td>'+data.fingresoex+'</td>'+'<td>'+data.fsalidaex+'</td>';
                 $('#products').append(item);
                 $('#formAgregarE').trigger("reset");
                 $('#formModalE').modal('hide');

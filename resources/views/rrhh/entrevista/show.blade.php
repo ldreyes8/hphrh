@@ -45,7 +45,7 @@ input[type=text] {
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
       <div class="form-group">
       <label>Nit</label>
-        <input type="text" id="nit" value="{{$empleado->nit}}">
+        <input type="text" id="nit" maxlength="9" value="{{$empleado->nit}}">
         <input type="hidden" id="nit" value="{{$empleado->idstatus}}">
         <input type="hidden" id="" value="{{$entrev->identrevista}}">
       </div>
@@ -249,12 +249,13 @@ input[type=text] {
 
       <div class="table-responsive">    
             <table id="detallesEL" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
-            <p><h2 ALIGN=center>Experiencia Laboral</h2></p>
+            <p><h2 ALIGN=center>Jefes inmediatos</h2></p>
               <thead style="background-color:#A9D0F5">
                 <th style="width: 0%"></th>
                 <th>Empresa</th>
                 <th>Puesto</th>
                 <th>Jefe Inmediato</th>
+                <th>Teléfono</th>
                 <th>Motivo Retiro</th>
                 <th>Ultimo Salario</th>
                 <th>Fecha Ingreso</th>
@@ -270,6 +271,7 @@ input[type=text] {
                   <td><input type="text" class="empresa" value="{{$exp->empresa}}"></td>
                   <td><input type="text" class="puesto" value="{{$exp->puesto}}"></td>
                   <td><input type="text" class="jefeinmediato" value="{{$exp->jefeinmediato}}"></td>
+                  <td><input type="text" class="teljefeinmediato" maxlength="8" value="{{$exp->teljefeinmediato}}"></td>
                   <td><input type="text" class="motivoretiro" value="{{$exp->motivoretiro}}"></td>
                   <td><input type="text" class="ultimosalario" value="{{$exp->ultimosalario}}"></td>
                   <td><input type="text" class="fingresoex" value="{{$exp->fingresoex}}"></td>

@@ -77,16 +77,35 @@ class RHPrecalificado extends Controller
 
     public function precali ($id)
     {
-        $persona=DB::table('persona as p')
+        $municipio=DB::table('persona as p')
         ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
-        ->join('departamento as dp','m.iddepartamento','=','dp.iddepartamento')
-        ->join('empleado as em','p.identificacion','=','em.identificacion')
-        ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
-        ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-        ->join('estadocivil as ec','em.idcivil','=','ec.idcivil')
-        ->select('em.idempleado','p.identificacion','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.celular','p.fechanac','p.barriocolonia','p.correo','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive','ec.estado as ecivil','ec.idcivil','em.vivienda')
-        ->where('em.idempleado','=',$id)
+        ->select('m.idmunicipio')
+        ->where('p.identificacion','=',$id)
         ->first();
+
+        if (empty($municipio->idmunicipio)) {
+            $persona=DB::table('persona as p')
+            ->join('empleado as em','p.identificacion','=','em.identificacion')
+            ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
+            ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+            ->join('estadocivil as ec','em.idcivil','=','ec.idcivil')
+            ->select('em.idempleado','p.identificacion','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.celular','p.fechanac','p.barriocolonia','p.correo','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive','ec.estado as ecivil','ec.idcivil','em.vivienda')
+            ->where('em.idempleado','=',$id)
+            ->first();
+        }
+        else
+        {    
+            $persona=DB::table('persona as p')
+            ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
+            ->join('departamento as dp','m.iddepartamento','=','dp.iddepartamento')
+            ->join('empleado as em','p.identificacion','=','em.identificacion')
+            ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
+            ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+            ->join('estadocivil as ec','em.idcivil','=','ec.idcivil')
+            ->select('em.idempleado','p.identificacion','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.celular','p.fechanac','p.barriocolonia','p.correo','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive','ec.estado as ecivil','ec.idcivil','em.vivienda')
+            ->where('em.idempleado','=',$id)
+            ->first();
+        }
 
         $ntitulo=DB::table('persona as p')
         ->join('personaacademico as pa','p.identificacion','=','pa.identificacion')
@@ -180,7 +199,7 @@ class RHPrecalificado extends Controller
         $experiencia = DB::table('empleado as e')
             ->join('persona as p','e.identificacion','=','p.identificacion')
             ->join('personaexperiencia as pe','e.identificacion','=','pe.identificacion')
-            ->select('e.idempleado','p.identificacion','pe.idpexperiencia','pe.empresa','pe.puesto','pe.jefeinmediato','pe.motivoretiro','pe.ultimosalario','pe.fingresoex','pe.fsalidaex')
+            ->select('e.idempleado','p.identificacion','pe.idpexperiencia','pe.empresa','pe.puesto','pe.jefeinmediato','pe.teljefeinmediato','pe.motivoretiro','pe.ultimosalario','pe.fingresoex','pe.fsalidaex')
             ->where('e.idempleado','=',$id)
             ->get();
 
@@ -197,16 +216,35 @@ class RHPrecalificado extends Controller
 
     public function PDFpreC ($id)
     {
-        $persona=DB::table('persona as p')
+        $municipio=DB::table('persona as p')
         ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
-        ->join('departamento as dp','m.iddepartamento','=','dp.iddepartamento')
-        ->join('empleado as em','p.identificacion','=','em.identificacion')
-        ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
-        ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
-        ->join('estadocivil as ec','em.idcivil','=','ec.idcivil')
-        ->select('em.idempleado','p.identificacion','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.celular','p.fechanac','p.barriocolonia','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive','ec.estado as ecivil','ec.idcivil','em.vivienda')
-        ->where('em.idempleado','=',$id)
+        ->select('m.idmunicipio')
+        ->where('p.identificacion','=',$id)
         ->first();
+
+        if (empty($municipio->idmunicipio)) {
+            $persona=DB::table('persona as p')
+            ->join('empleado as em','p.identificacion','=','em.identificacion')
+            ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
+            ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+            ->join('estadocivil as ec','em.idcivil','=','ec.idcivil')
+            ->select('em.idempleado','p.identificacion','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.celular','p.fechanac','p.barriocolonia','p.correo','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive','ec.estado as ecivil','ec.idcivil','em.vivienda')
+            ->where('em.idempleado','=',$id)
+            ->first();
+        }
+        else
+        {    
+            $persona=DB::table('persona as p')
+            ->join('municipio as m','p.idmunicipio','=','m.idmunicipio')
+            ->join('departamento as dp','m.iddepartamento','=','dp.iddepartamento')
+            ->join('empleado as em','p.identificacion','=','em.identificacion')
+            ->join('afiliado as a','p.idafiliado','=','a.idafiliado')
+            ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
+            ->join('estadocivil as ec','em.idcivil','=','ec.idcivil')
+            ->select('em.idempleado','p.identificacion','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','p.telefono','p.celular','p.fechanac','p.barriocolonia','p.correo','dp.nombre as departamento','m.nombre as municipio','a.nombre as afiliado','pu.nombre as puesto','p.finiquitoive','ec.estado as ecivil','ec.idcivil','em.vivienda')
+            ->where('em.idempleado','=',$id)
+            ->first();
+        }
 
         $ntitulo=DB::table('persona as p')
         ->join('personaacademico as pa','p.identificacion','=','pa.identificacion')
@@ -299,7 +337,7 @@ class RHPrecalificado extends Controller
         $experiencia = DB::table('empleado as e')
             ->join('persona as p','e.identificacion','=','p.identificacion')
             ->join('personaexperiencia as pe','e.identificacion','=','pe.identificacion')
-            ->select('e.idempleado','p.identificacion','pe.idpexperiencia','pe.empresa','pe.puesto','pe.jefeinmediato','pe.motivoretiro','pe.ultimosalario','pe.fingresoex','pe.fsalidaex')
+            ->select('e.idempleado','p.identificacion','pe.idpexperiencia','pe.empresa','pe.puesto','pe.jefeinmediato','pe.teljefeinmediato','pe.motivoretiro','pe.ultimosalario','pe.fingresoex','pe.fsalidaex')
             ->where('e.idempleado','=',$id)
             ->get();
 

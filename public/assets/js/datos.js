@@ -498,6 +498,7 @@ $(document).ready(function() {
                 $("#empresa").val("");
                 $("#puesto5").val("");
                 $("#jefeinmediato").val("");
+                $("#teljefeinmediato").val("");
                 $("#motivoretiro").val("");
                 $("#ultimosalario").val("");
                 $("#fingresoex").val("");
@@ -700,6 +701,7 @@ $(document).ready(function() {
                 empresa=$("#empresa").val();
                 puesto=$("#puesto5").val();
                 jefeinmediato=$("#jefeinmediato").val();
+                teljefeinmediato=$("#teljefeinmediato").val();
                 motivoretiro=$("#motivoretiro").val();
                 ultimosalario=$("#ultimosalario").val();
                 fingresoex=$("#fingresoex").val();
@@ -707,7 +709,7 @@ $(document).ready(function() {
 
                 if (empresa!="")
                 {
-                    var filaEl='<tr class="selected" id="filaEl'+contEx+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarEl('+contEx+');">X</button></td> <td><input type="hidden" name="empresa[]" value="'+empresa+'">'+empresa+'</td> <td><input type="hidden" name="puesto[]" value="'+puesto+'">'+puesto+'</td> <td><input type="hidden" name="jefeinmediato[]" value="'+jefeinmediato+'">'+jefeinmediato+'</td> <td><input type="hidden" name="motivoretiro[]" value="'+motivoretiro+'">'+motivoretiro+'</td> <td><input type="hidden" name="ultimosalario[]" value="'+ultimosalario+'">'+ultimosalario+'</td> <td><input type="hidden" name="fingresoex[]" value="'+fingresoex+'">'+fingresoex+'</td> <td><input type="hidden" name="fsalidaex[]" value="'+fsalidaex+'">'+fsalidaex+'</td> </tr>';
+                    var filaEl='<tr class="selected" id="filaEl'+contEx+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarEl('+contEx+');">X</button></td> <td><input type="hidden" name="empresa[]" value="'+empresa+'">'+empresa+'</td> <td><input type="hidden" name="puesto[]" value="'+puesto+'">'+puesto+'</td> <td><input type="hidden" name="jefeinmediato[]" value="'+jefeinmediato+'">'+jefeinmediato+'</td> <td><input type="hidden" name="teljefeinmediato[]" value="'+teljefeinmediato+'">'+teljefeinmediato+'</td> <td><input type="hidden" name="motivoretiro[]" value="'+motivoretiro+'">'+motivoretiro+'</td> <td><input type="hidden" name="ultimosalario[]" value="'+ultimosalario+'">'+ultimosalario+'</td> <td><input type="hidden" name="fingresoex[]" value="'+fingresoex+'">'+fingresoex+'</td> <td><input type="hidden" name="fsalidaex[]" value="'+fsalidaex+'">'+fsalidaex+'</td> </tr>';
                     contEx++;
                     limpiar5();
                     $('#detalle5').append(filaEl);
