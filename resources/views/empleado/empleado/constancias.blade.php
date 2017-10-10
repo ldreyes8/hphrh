@@ -28,7 +28,7 @@
 	                        </div>
 	                                      
 	                        <div class="box-footer">
-	                            <button type="button" id="btngoce" class="btn btn-primary btn-sm w-sm waves-effect m-t-10 waves-light">Guardar</button>
+	                            <button type="button" id="btngoce" class="btn btn-primary btn-sm w-sm waves-effect m-t-10 waves-light">Generar constancia</button>
 	                        </div>
 	                    </div>
 	                </div> 
@@ -53,6 +53,8 @@
 	                    <h4>Ubicaci&oacute;n:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$usuario->afiliado}}</h4>
 	                    <h4>Fecha de ingreso a la fundaci&oacute;n:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{\Carbon\Carbon::createFromFormat('Y-m-d',$usuario->fechaingreso)->format('d/m/Y')}}</h4>
 	                    <h4>Fecha de emision de la constancia:&nbsp;&nbsp;&nbsp;{{$year}}</h4>
+	                    <h4 id="finicio"></h4>
+	                    <h4 id="ffinal"></h4>
 	                    <p>Se hace constar que el colaborador (a) gozó de su período vacacional como se detalla a continuaci&oacute;n</p>
 	            	</div>
 	            </div>
@@ -66,7 +68,7 @@
 	                                <th>FECHA DE SOLICITUD</th>
 	                                <th>DÍAS TOMADOS</th>
 	                                <th>TOTAL DE DIAS</th>
-	                                <th>PERÌODO VACACIONAL</th>
+	                                <th>AÑO</th>
 	                            </thead>
 	                        </table>
 	                    </div>

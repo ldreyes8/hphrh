@@ -4,7 +4,7 @@
 #tabla tbody tr{ background: #999; }
 .fila-base{ display: none; } /* fila base oculta */
 .eliminar{ cursor: pointer; color: #000; }
-input[type="text"]{ width: 80px; } /* ancho a los elementos input="text" */
+input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
  
 </style>
 <div class="card-box" id="VPJF">
@@ -15,14 +15,11 @@ input[type="text"]{ width: 80px; } /* ancho a los elementos input="text" */
     <input type="hidden" name="_token" id="_token"  value="<?= csrf_token(); ?>">
 
     <!--  searchempleado-->
-       <div class="col-6 col-md-6">
-                <select id="abc" class="form-control"></select>
-            </div>
+  
     <div class="panel-heading">
         <button class="btn btn-success btn-openviaje" title="Detalles"><i class="fa fa-plus-square"></i></button>
     </div>
 
-  
 
     <div class="panel">
         <div class="panel-body">
@@ -33,11 +30,7 @@ input[type="text"]{ width: 80px; } /* ancho a los elementos input="text" */
                     </div>
                 </div>
             </div>
-
-     
-
         
-<select class="form-control select2" id="empleado"></select>
             <div class="table-responsive">
                 <table class="table table-striped" id="tabprueba">
                     <thead>
@@ -56,24 +49,23 @@ input[type="text"]{ width: 80px; } /* ancho a los elementos input="text" */
                         </tr>
                     </thead>
                     <tbody>
-                    <!--
-                    <tr class="fila-base">
-                        <td><input type="text" autofocus class="form-control" data-mask="99/99/9999" value="" input-block placeholder="dd/mm/yyyy"></td>
-                        <td><input type="text" class="form-control" /></td>
-                        <td><input type="text" class="form-control" name=""></td>
-                        <td><select class="form-control select2" id="empleado"></select></td>
-                        <td><select class="form-control"><option>l10</option></select></td>
-                        <td><select class="form-control"><option>L8</option></select></td>
-                        <td><select class="form-control"><option>L9</option></select></td>
-                        <td><select class="form-control select2"><option>funcion</option></select></td>
-                        <td><input type="text" class="form-control" name=""></td>
-                        <td><input type="text" class="form-control" name="" disabled></td>
+                    
+                    <tr class="fila-base" id="rowtable">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td class="actions">
-                            <a href="#" class="on-editing save-row"><i class="fa fa-save"></i></a>
-                            <a href="#" class="on-editing cancel-row"><i class="fa fa-times"></i></a>
+                            
                         </td>
                     </tr>
-                    -->
+                    
                            
                     @foreach($liquidaciones as $liq)
                         <tr>
@@ -88,11 +80,11 @@ input[type="text"]{ width: 80px; } /* ancho a los elementos input="text" */
                         <td></td>
                         <td></td>
                         <td class="actions">
-                                    <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
-                                    <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
-                                    <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
-                                </td>
+                            <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
+                            <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
+                            <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                            <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                        </td>
                         </tr>
 
                     @endforeach                                           

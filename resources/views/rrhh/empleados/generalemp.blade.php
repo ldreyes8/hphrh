@@ -89,7 +89,7 @@
 
                   <form role="form" id="formDespedir">
                       <div class="modal-header">
-                      <br>                           
+                          <br>                           
                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                               <label class="control-label">Nombre</label>
                               <input id="nombreC" type="text" class="form-control" name="dias" aria-describedby="basic-addon1">   
@@ -115,8 +115,7 @@
                   <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                       <button type="button" class="btn btn-primary btn-adddespedir" id="btnGuardarBaja">Guardar</button>
-              <input type="hidden" name="idE" id="idE" value="0"/>
-
+                      <input type="hidden" name="idE" id="idE" value="0"/>
                   </div>
               </div>
           </div>

@@ -7,9 +7,9 @@ function cargar_formularioRH(arg){
    $("#capa_formularios").css('top', screenTop);
    $("#capa_formularios").html($("#cargador_empresa").html());
    //if(arg==1){ var miurl=urlraiz+"/form_nuevo_usuario"; }
-   if(arg==1){ var miurl=urlraiz+"/empleado/psolicitado"; }
-   if(arg==2){ var miurl=urlraiz+"/empleado/pconfirmado"; }
-   if(arg==3){ var miurl=urlraiz+"/empleado/prechazado"; }
+   if(arg==1){ var miurl=urlraiz+"/rh/psolicitado"; }
+   if(arg==2){ var miurl=urlraiz+"/rh/pconfirmado"; }
+   if(arg==3){ var miurl=urlraiz+"/rh/prechazado"; }
 
    //Listado de Jefe Inmediato Autorizaciones Vacacioens Y permisos
 

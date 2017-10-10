@@ -69,7 +69,8 @@
 					null, //Monto
 					null, //Saldo
 					{ "bSortable": false }
-				]
+				]//,
+				//select: true
 			});
 
 			window.dt = this.datatable;
@@ -162,13 +163,7 @@
 			$.ajax({
 				url: miurl
 			}).done( function(resul) {
-
-			
-				$(resul).each( function(i,v){
-	
-					$("#abc").append('<option value='+v.codigo+'">'+v.nombre+'</option>');
-					$("#empleado").append('<option value='+v.codigo+'">'+v.nombre+'</option>');
-				});
+				$("#rowtable").html(resul);
 
 				data = $("#tabprueba tbody tr:eq(0)").clone().removeClass('fila-base').appendTo("#tabprueba tbody");
 				
@@ -177,10 +172,12 @@
 					console.log('<span>...Ha ocurrido un error, revise su conexión y vuelva a intentarlo...</span>');
 				});
 
-				$row = $(this).parents().get(0);
-				$("#tabprueba").DataTable().order([0,'asc']).draw();
+				//document.getElementById("rowtable").reset();
 
-				this.rowEdit($row);		
+				//$row = $(this).parents().get(0);
+				//$("#tabprueba").DataTable().order([0,'asc']).draw();
+
+				//this.rowEdit($row);		
 		},
 
 		rowCancel: function( $row ) {
@@ -225,6 +222,9 @@
 		},
 
 		rowSave: function( $row ) {
+
+			this.$addButton.removeAttr( 'disabled' );
+
 			var _self     = this,
 				$actions,
 				values    = [];
@@ -245,8 +245,8 @@
 					return $.trim( $this.find('input').val() );
 				}
 			});
-			console.log(values);
-			console.log(this.datatable.row( $row.get(0) ).data( values ));
+			//console.log(values);
+			//console.log(this.datatable.row( $row.get(0) ).data( values ));
 
 
 			this.datatable.row( $row.get(0) ).data( values );

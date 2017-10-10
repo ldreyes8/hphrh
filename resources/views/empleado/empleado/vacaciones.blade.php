@@ -160,7 +160,7 @@
                         <input type="checkbox" id="casilla" value="1" onclick="desactivar()"/>Activar campo Dias y Hora
                         </div>
 
-                        <div class="modal-header" id="divJustificacion">
+                        <div class="modal-header">
                             <div><p><br></p></div>
                             <div class="form-group">
                                 <label>Justificación</label>
@@ -232,7 +232,7 @@
                        
                         <div class="modal-header" id="oculto">
                             <br>
-                            <h4>Seleccione los días no tomados</h4>
+                            <h4>Agregue los d&iacute;as que no tomo</h4>
 
                              <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                                 <label for="numerodependientes">Dias</label>
