@@ -51,6 +51,8 @@
         <meta name="_token" content="{!! csrf_token() !!}" />
         <script src="{{asset('assets/js/perfil/solicitud.js')}}"></script>
         <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
+        <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
+        <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
 
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       

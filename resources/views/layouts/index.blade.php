@@ -239,11 +239,11 @@
                             </li>
 
 
-                            <!--<li class="has_sub">
+                            <li class="has_sub">
                                 <a href="{{ url('/empleado/viajejf')}}" class="waves-effect waves-primary" onclick="cargarvacante(1);">&nbsp;&nbsp;&nbsp;
                                     <i class="md md-local-library"></i><span>Liquidaci&oacute;n</span>
                                 </a>
-                            </li>-->
+                            </li>
 
                             
 
