@@ -74,7 +74,6 @@ class ListadoController extends Controller
         ->orwhere('st.idstatus','=',8)
         ->get();
 
-
         return view("rrhh.empleados.generalemp",["empleado"=>$empleado,"searchText"=>$queryN,"casos"=>$casos,"select"=>$query,"status"=>$status]);
     }
   /*  public function busqueda($rol,$dato="")
