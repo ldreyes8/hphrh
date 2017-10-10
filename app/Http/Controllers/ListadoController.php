@@ -135,6 +135,7 @@ class ListadoController extends Controller
         $status = DB::table('status as st')
         ->select('st.idstatus','st.statusemp')
         ->where('st.idstatus','=',5)
+        ->orwhere('st.idstatus','=',8)
         ->get();
 
 
