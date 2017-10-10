@@ -382,13 +382,16 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['prefix'=>'rh'],function(){
 	
 	Route::get('listado/{page?}','ListadoController@listado');
-	Route::get('busqueda/{rol}/{dato?}','ListadoController@busqueda'); 
- 
+	Route::get('busqueda/{rol}/{dato?}','ListadoController@busqueda');
+	Route::get('calculardias/{id}','ListadoController@calculardias');
+	 
 
 	//Rutas de despido de un empleado
 	Route::get('personabaja/{id}','ListadoController@bajas');
 	Route::post('addbaja','ListadoController@addbaja');
 	Route::get('debaja','ListadoController@debaja');
+
+
 
 	//Rutas de nombramiento y/o asecensos.
 	Route::get('indexnombramiento','RHNombramientoEmpleado@index');
@@ -415,6 +418,10 @@ Route::group(['prefix'=>'rh'],function(){
 	Route::get('puestosoliicatdo','RHPuestoVacante@vacante')->middleware('roleshinobi:recurso');
 	Route::put('puestoupdate','RHPuestoVacante@update')->middleware('roleshinobi:recurso');
 	Route::get('plazasautorizadas','RHPuestoVacante@plazaautorizada')->middleware('roleshinobi:recurso');
+
+
+
+
 });
 
 //Rutas para Jefe Inmediato
