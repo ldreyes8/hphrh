@@ -30,7 +30,9 @@ class JIViajeController extends Controller
         ->join('gastoencabezado as ge','emp.idempleado','=','ge.idempleado')
         ->join('tipogasto as tg','ge.idtipogasto','=','tg.idtipogasto')
         ->join('proyectocabeza as pc','pc.idproyecto','=','ge.idproyecto')
-        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','tg.tipogasto','ge.montosolicitado','pc.nombreproyecto','pc.fechainicio','pc.fechafin')
+        ->join('gastoviaje as gv','gv.idgastocabeza','=','ge.idgastocabeza')
+        ->join('viaje as v','v.idviaje','=','gv.idviaje')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','emp.idempleado','tg.tipogasto','ge.montosolicitado','pc.nombreproyecto','v.fechainicio','v.fechafin')
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('pc.status','=','Solicitado')       
         ->paginate(15);  
@@ -52,11 +54,32 @@ class JIViajeController extends Controller
         ->join('gastoencabezado as ge','emp.idempleado','=','ge.idempleado')
         ->join('tipogasto as tg','ge.idtipogasto','=','tg.idtipogasto')
         ->join('proyectocabeza as pc','pc.idproyecto','=','ge.idproyecto')
-        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','tg.tipogasto','ge.montosolicitado','pc.nombreproyecto','pc.fechainicio','pc.fechafin')
+        ->join('gastoviaje as gv','gv.idgastocabeza','=','ge.idgastocabeza')
+        ->join('viaje as v','v.idviaje','=','gv.idviaje')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','emp.idempleado','tg.tipogasto','ge.montosolicitado','pc.nombreproyecto','v.fechainicio','v.fechafin')
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('pc.status','=','Solicitado')       
-        ->paginate(15); 
+        ->paginate(15);
+
     	return view ('director.viaje.indexauto',['viaje'=>$viaje]);
+    }
+    public function detallesol($id)
+    {
+        $viaje = DB::table('empleado as emp')
+        ->join('persona as per','emp.identificacion','=','per.identificacion')
+        ->join('gastoencabezado as ge','emp.idempleado','=','ge.idempleado')
+        ->join('tipogasto as tg','ge.idtipogasto','=','tg.idtipogasto')
+        ->join('proyectocabeza as pc','pc.idproyecto','=','ge.idproyecto')
+        ->join('gastoviaje as gv','gv.idgastocabeza','=','ge.idgastocabeza')
+        ->join('viaje as v','v.idviaje','=','gv.idviaje')
+        ->join('viajevehiculo as vv','vv.idviaje','=','v.idviaje')
+        ->join('vehiculo as vhc','vhc.idviajevehiculo','=','vv.idviajevehiculo')
+        ->join('vstatus as vs','vs.idvstatus','=','vhc.idvstatus')
+        ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','tg.tipogasto','ge.montosolicitado','pc.nombreproyecto','v.fechainicio','v.fechafin','ge.chequetransfe','ge.moneda','v.motivo','v.numerodias','vhc.placa','vhc.marca','vhc.color','vhc.kilacumulado')
+        ->where('emp.idempleado','=',$id)
+        ->where('pc.status','=','Solicitado')       
+        ->paginate(15);
+        //return view('director.viaje.detallesol',['detalle'=>$detalle])
     }
     public function detalleauto()
     {

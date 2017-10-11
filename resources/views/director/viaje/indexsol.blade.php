@@ -25,8 +25,13 @@
                     <td>{{$v-fechainicio}}</td>
                     <td>{{$v-fechafin}}</td>
                     <td>
-                        <a href="#"><button class="btn btn-success btn-md" id="btnconfirma" title="Aceptar"><i class="ion-checkmark-circled"></i></button></a>
-                        <a href="#"><button class="btn btn-danger btn-md" id="btnrechazo" title="Rechazar"><i class="ion-close-circled"></i></button></a>
+                        @if($v->tipogasto=='Caja Chica')
+                            <a href="#"><button class="btn btn-success btn-md" id="btnconfirmac" title="Aceptar"><i class="ion-checkmark-circled"></i></button></a>
+                            <a href="#"><button class="btn btn-danger btn-md" id="btnrechazoc" title="Rechazar"><i class="ion-close-circled"></i></button></a>
+                        @else
+                            <a href="#"><button class="btn btn-success btn-md" id="btnconfirmav" title="Detalles"><i class="ion-checkmark-circled"></i></button></a>
+                            <a href="#"><button class="btn btn-danger btn-md" id="btnrechazov" title="Rechazar"><i class="ion-close-circled"></i></button></a>
+                        @endif
                     </td>
                 </tr>
                 @endforeach   
