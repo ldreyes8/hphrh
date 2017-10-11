@@ -14,9 +14,9 @@ function cargar_formularioviaje(arg){
 
    if(arg==4){ var miurl=urlraiz+"/empleado/vautorizadopv"; }
 
-   if(arg==20){ var miurl=urlraiz+"/empleado/viajejf/solicitados"; }
-   if(arg==21){ var miurl=urlraiz+"/empleado/viajejf/autorizados"; }
-   if(arg==22){ var miurl=urlraiz+"/empleado/viajejf/detalleauto"; }
+   if(arg==20){ var miurl=urlraiz+"/ji/viajejf/solicitados"; }
+   if(arg==21){ var miurl=urlraiz+"/ji/viajejf/autorizados"; }
+   if(arg==22){ var miurl=urlraiz+"/ji/viajejf/detalleauto"; }
  
     $.ajax({
     url: miurl
