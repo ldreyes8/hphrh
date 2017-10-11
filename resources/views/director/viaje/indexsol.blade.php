@@ -18,6 +18,7 @@
                 </thead>
                 @foreach($viaje as $v)
                 <tr>
+                    <td><input type="hidden" id="id" value="{{v->id}}"></td>
                     <td>{{$v->nombre}}</td>
                     <td>{{$v->tipogasto}}</td>
                     <td>{{$v->montosolicitado}}</td>
@@ -27,11 +28,10 @@
                     <td>
                         @if($v->tipogasto=='Caja Chica')
                             <a href="#"><button class="btn btn-success btn-md" id="btnconfirmac" title="Aceptar"><i class="ion-checkmark-circled"></i></button></a>
-                            <a href="#"><button class="btn btn-danger btn-md" id="btnrechazoc" title="Rechazar"><i class="ion-close-circled"></i></button></a>
                         @else
                             <a href="#"><button class="btn btn-success btn-md" id="btnconfirmav" title="Detalles"><i class="ion-checkmark-circled"></i></button></a>
-                            <a href="#"><button class="btn btn-danger btn-md" id="btnrechazov" title="Rechazar"><i class="ion-close-circled"></i></button></a>
                         @endif
+                        <a href="#"><button class="btn btn-danger btn-md" id="btnrechazov" title="Rechazar"><i class="ion-close-circled"></i></button></a>
                     </td>
                 </tr>
                 @endforeach   

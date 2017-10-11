@@ -29,10 +29,10 @@
                             <td>
                                 <a href="{{URL::action('ListadoController@show',$em->identificacion)}}"><button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button></a>
                                 <a href="{{URL::action('ListadoController@laboral',$em->idempleado)}}"><button class="btn btn-primary" title="Historial laboral"><i class="fa fa-stack-overflow"></i></button></a>
-                                @if($em->statusn=='Activo' or $em->statusn=='Interino')
-                                <button class="btn btn-primary btn-vacaciones" id="btnsaldo" value="{{$em->idempleado}}" title="Vacaciones"><i class="fa fa-camera-retro fa-xs"></i></button>
-                                @else
+                                @if($em->statusn=='Período de Prueba' or $em->statusn=='Interino')
                                 <button class="btn btn-success btn-evaluaprueba" id="btnsaldo" value="{{$em->idempleado}}" title="Evaluacion de periodo Prueba"><i class="md md-border-color"></i></button>
+                                @else
+                                <button class="btn btn-primary btn-vacaciones" id="btnsaldo" value="{{$em->idempleado}}" title="Vacaciones"><i class="fa fa-camera-retro fa-xs"></i></button>
                                 @endif
                                 <button class="btn btn-danger btn-despedir" id="FWEF" value="{{$em->idempleado}}" title="Despedir" ><i class="fa fa-remove"></i></button>
 
