@@ -346,12 +346,6 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('viaje/liquidar','EViajeController@liquidar');
 	Route::get('viaje/liquidar/add','EViajeController@add');
 
-//viajejf
-	Route::get('viajejf','JIViajeController@index');
-	Route::get('viajejf/solicitados','JIViajeController@solicitados');
-	Route::get('viajejf/autorizados','JIViajeController@autorizados');
-	Route::get('viajejf/detalleauto','JIViajeController@detalleauto');
-
 });
 
 Route::get('totalvacaciones','RHMintrab@ttvacaciones');
@@ -430,6 +424,12 @@ Route::group(['prefix'=>'rh'],function(){
 
 //Rutas para Jefe Inmediato
 Route::group(['prefix'=>'ji'],function(){
+
+	//viajejf
+		Route::get('viajejf','JIViajeController@index');
+		Route::get('viajejf/solicitados','JIViajeController@solicitados');
+		Route::get('viajejf/autorizados','JIViajeController@autorizados');
+		Route::get('viajejf/detalleauto','JIViajeController@detalleauto');
 
 });
 

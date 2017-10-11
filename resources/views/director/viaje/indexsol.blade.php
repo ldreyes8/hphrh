@@ -16,32 +16,28 @@
                     <th>Fin</th>                               
                     <th>Opciones</th>
                 </thead>
+                @foreach($viaje as $v)
                 <tr>
-                    <td>Luis Reyes</td>
-                    <td>Caja Chica</td>
-                    <td>5000</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{$v->nombre}}</td>
+                    <td>{{$v->tipogasto}}</td>
+                    <td>{{$v->montosolicitado}}</td>
+                    <td>{{$v->nombreproyecto}}</td>
+                    <td>{{$v-fechainicio}}</td>
+                    <td>{{$v-fechafin}}</td>
                     <td>
-                    	<a href="#"><button class="btn btn-success btn-md" id="btnconfirma" title="Aceptar"><i class="ion-checkmark-circled"></i></button></a>
-                    	<a href="#"><button class="btn btn-danger btn-md" id="btnrechazo" title="Rechazar"><i class="ion-close-circled"></i></button></a>
+                        @if($v->tipogasto=='Caja Chica')
+                            <a href="#"><button class="btn btn-success btn-md" id="btnconfirmac" title="Aceptar"><i class="ion-checkmark-circled"></i></button></a>
+                            <a href="#"><button class="btn btn-danger btn-md" id="btnrechazoc" title="Rechazar"><i class="ion-close-circled"></i></button></a>
+                        @else
+                            <a href="#"><button class="btn btn-success btn-md" id="btnconfirmav" title="Detalles"><i class="ion-checkmark-circled"></i></button></a>
+                            <a href="#"><button class="btn btn-danger btn-md" id="btnrechazov" title="Rechazar"><i class="ion-close-circled"></i></button></a>
+                        @endif
                     </td>
                 </tr>
-                <tr>
-                    <td>Luis Reyes</td>
-                    <td>Viaje</td>
-                    <td>500</td>
-                    <td>Casas Verdes</td>
-                    <td>12/02/2018</td>
-                    <td>15/02/2018</td>
-                    <td>
-                    	<a href="#"><button class="btn btn-success btn-md" id="btnconfirma1" title="Aceptar"><i class="ion-checkmark-circled"></i></button></a>
-                    	<a href="#"><button class="btn btn-danger btn-md" id="btnrechazo1" title="Rechazar"><i class="ion-close-circled"></i></button></a>
-                    </td>
-                </tr>    
+                @endforeach   
             </table>
         </div>
+        {{$viaje->render()}}
     </div>
 </div>
 <script src="{{asset('assets/js/permiso.js')}}"></script>
