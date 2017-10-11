@@ -138,7 +138,6 @@ class ListadoController extends Controller
         ->orwhere('st.idstatus','=',8)
         ->get();
 
-
         return view('rrhh.empleados.generalemp')
         ->with("empleado", $empleado )
         ->with("casos", $casos)
