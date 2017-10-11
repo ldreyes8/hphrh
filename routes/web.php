@@ -383,9 +383,11 @@ Route::group(['middleware' => 'auth'], function () {
 //Rutas para RH
 Route::group(['prefix'=>'rh'],function(){
 	
+
 	Route::get('listado/{page?}','ListadoController@listado');
 	Route::get('busqueda/{rol}/{dato?}','ListadoController@busqueda');
 	Route::get('calculardias/{id}','ListadoController@calculardias');
+	Route::get('empleados/calculardias/{id}','ListadoController@calculardias');
 
 
 	//Rutas de despido de un empleado
