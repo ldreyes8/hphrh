@@ -155,6 +155,7 @@
                                 <i class="md md-assignment"></i><span>Solicitud</span>
                                 </a> 
                             </li>
+                            
                             <!--
                             <li>
                                 <a href="{{url('/empleado/viaje')}}" class="waves-effect waves-primary">&nbsp;&nbsp;
@@ -162,6 +163,7 @@
                                 </a> 
                             </li>
                             -->
+                            
                             
                             
                             <!--
