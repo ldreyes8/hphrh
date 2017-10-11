@@ -54,7 +54,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('listado/{page?}','ListadoController@listado'); 
 	Route::get('busqueda/{rol}/{dato?}','ListadoController@busqueda'); 
 	Route::get('empleados','ListadoController@index');
-	Route::get('empleados/calculardias/{id}','ListadoController@calculardias'); 
+	//Route::get('empleados/calculardias/{id}','ListadoController@calculardias'); 
 	Route::get('rechazados','Rechazados@index');
 	Route::get('hlaboral/{id}','ListadoController@laboral');
 	Route::get('show/{id}','ListadoController@show');
@@ -341,6 +341,8 @@ Route::group(['prefix'=>'empleado'],function(){
 //Viaje
 	Route::get('viaje','EViajeController@index');
 	Route::get('viaje/solicitar','EViajeController@viaje');
+	Route::get('viaje/add','EViajeController@addv');
+
 	Route::get('viaje/liquidar','EViajeController@liquidar');
 	Route::get('viaje/liquidar/add','EViajeController@add');
 
@@ -375,10 +377,12 @@ Route::group(['middleware' => 'auth'], function () {
 //Rutas para RH
 Route::group(['prefix'=>'rh'],function(){
 	
+
 	Route::get('listado/{page?}','ListadoController@listado');
 	Route::get('busqueda/{rol}/{dato?}','ListadoController@busqueda');
 	Route::get('calculardias/{id}','ListadoController@calculardias');
-	 
+	Route::get('empleados/calculardias/{id}','ListadoController@calculardias');
+
 
 	//Rutas de despido de un empleado
 	Route::get('personabaja/{id}','ListadoController@bajas');

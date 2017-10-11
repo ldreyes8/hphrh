@@ -1,3 +1,6 @@
+
+
+
 $(document).ready(function(){
     //Calculo de vacaciones de un empleado
         $(document).on('click','.btn-vacaciones',function(){
@@ -33,6 +36,15 @@ $(document).ready(function(){
                 
             });
         });
+
+    //Dias p2
+    $(document).on('click','.btn-caldias',function(){
+            var errHTML="";
+            idempleado=$(this).val();
+            var urlraiz=$("#url_raiz_proyecto").val();
+
+            alert(urlraiz+'/rh/calculardias/'+idempleado);
+    });
 
     //Despido de un empleado
 

@@ -35,6 +35,9 @@
                                 <button class="btn btn-primary btn-vacaciones" id="btnsaldo" value="{{$em->idempleado}}" title="Vacaciones"><i class="fa fa-camera-retro fa-xs"></i></button>
                                 @endif
                                 <button class="btn btn-danger btn-despedir" id="FWEF" value="{{$em->idempleado}}" title="Despedir" ><i class="fa fa-remove"></i></button>
+
+                                <button class="btn btn-warning btn-caldias" value="{{$em->idempleado}}" title="Vacaciones"><i class="fa fa-camera-retro fa-xs"></i></button>
+
                             </td>
 
                         </tr>

@@ -7,22 +7,57 @@ use DB;
 use Illuminate\Support\Facades\Auth;
 
 class EViajeController extends Controller
-{
+{   
+    // metodos del viaje
 	public function index(){
     	return view ('empleado.viaje.index');
     }
 
     public function viaje(){
-    	
-    	return view ('empleado.viaje.indexviaje');
+        $proyectos = DB::table('proyectocabeza as pca')
+        ->select('pca.idproyecto','pca.nombreproyecto as proyecto')
+        ->get();
+
+        $vehiculos = DB::table('vehiculo as veh')
+        ->join('vstatus as vst','veh.idvstatus','=','vst.idvstatus')
+        ->select('veh.color','veh.marca','veh.modelo','veh.idvehiculo')
+        ->where('veh.idvstatus','=',1)
+        ->get();
+
+        $eles = DB::table('codigointerno as cin')
+        ->join('codigoraiz as cra','cin.idele','=','cra.idele')
+        ->select('cin.codigo','cin.nombre','cra.codigo as L','cra.nombre as craiz')
+        ->get();
+
+    	return view ('empleado.viaje.indexviaje',["eles"=>$eles,"proyectos"=>$proyectos,"vehiculos"=>$vehiculos]);
     }
 
+    // metodos de una nueva liquidación
     public function liquidar(){
     	$liquidaciones = DB::table('tableedit as tab')
     	->select('tab.id','tab.fecha','tab.empleado','tab.factura')
     	->get();
 
     	return view ('empleado.viaje.indexliquidar',["liquidaciones"=>$liquidaciones]);
+    }
+
+    public function addv(){
+        $proyectos = DB::table('proyectocabeza as pca')
+        ->select('pca.idproyecto','pca.nombreproyecto as proyecto')
+        ->get();
+
+        $vehiculos = DB::table('vehiculo as veh')
+        ->join('vstatus as vst','veh.idvstatus','=','vst.idvstatus')
+        ->select('veh.color','veh.marca','veh.modelo','veh.idvehiculo')
+        ->where('veh.idvstatus','=',1)
+        ->get();
+
+        $eles = DB::table('codigointerno as cin')
+        ->join('codigoraiz as cra','cin.idele','=','cra.idele')
+        ->select('cin.codigo','cin.nombre','cra.codigo as L','cra.nombre as craiz')
+        ->get();
+
+        return view ('empleado.viaje.create',["eles"=>$eles,"proyectos"=>$proyectos,"vehiculos"=>$vehiculos]);
     }
     
     public function add(){
