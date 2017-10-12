@@ -22,19 +22,40 @@ class RHEntrevista extends Controller
 {
     public function entrevista($id)
     {
-    	//dd($id);
-        $od=Empleado::find($id);
-        $od-> idstatus = '3';
-        $od->update();
+    	$emp=DB::table('empleado as e')
+        ->select('e.idstatus')
+        ->where('e.idempleado','=',$id)
+        ->first();
+        if ($emp->idstatus===14) {
+            $od=Empleado::find($id);
+            $od-> idstatus = '3';
+            $od->update();
+        }
+        if ($emp->idstatus===18) {
+            $od=Empleado::find($id);
+            $od-> idstatus = '19';
+            $od->update();
+        }
         return Redirect::to('empleado/resultadosev');
     }
 
     public function nombramiento1($id)
     {
-    	//dd($id);
-        $od=Empleado::find($id);
-        $od-> idstatus = '15';
-        $od->update();
+    	$emp=DB::table('empleado as e')
+        ->select('e.idstatus')
+        ->where('e.idempleado','=',$id)
+        ->first();
+        if ($emp->idstatus===3) {
+            $od=Empleado::find($id);
+            $od-> idstatus = '15';
+            $od->update();
+
+        }
+        if ($emp->idstatus===19) {
+            $od=Empleado::find($id);
+            $od-> idstatus = '20';
+            $od->update();
+        }
         return Redirect::to('empleado/listadoen');
     }
 
@@ -53,8 +74,9 @@ class RHEntrevista extends Controller
             //->where('p.nombre1','LIKE','%'.$query.'%')
             //->andwhere('p.apellido1','LIKE','%'.$query.'%')
             ->where('e.idstatus','=',3)
+            ->orwhere('e.idstatus','=',19)
 
-            ->where('p.nombre1','LIKE','%'.$query.'%')
+            //->where('p.nombre1','LIKE','%'.$query.'%')
             //->orwhere('p.apellido1','LIKE','%'.$query.'%')
 
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
@@ -81,8 +103,9 @@ class RHEntrevista extends Controller
             //->where('p.nombre1','LIKE','%'.$query.'%')
             //->andwhere('p.apellido1','LIKE','%'.$query.'%')
             ->where('e.idstatus','=',15)
+            ->orwhere('e.idstatus','=',20)
 
-            ->where('p.nombre1','LIKE','%'.$query.'%')
+            //->where('p.nombre1','LIKE','%'.$query.'%')
             //->orwhere('p.apellido1','LIKE','%'.$query.'%')
 
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')

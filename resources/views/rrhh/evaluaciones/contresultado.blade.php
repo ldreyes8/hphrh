@@ -30,7 +30,6 @@
                                 <input type="hidden" class="idstatus" value="{{$em->idstatus}}">
                             </td>
                             <td>
-                                <!--a href="{{URL::action('RHEvaluciones@show',$em->identificacion)}}"><button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button></a-->
                                 <button type="button" class="btn btn-success btnresult" id="resultado" value="{{$em->idempleado}}" title="Asignar Resultado"><i class="fa-calculator"></i></button>                                
                             </td>
                         </tr>

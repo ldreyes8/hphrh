@@ -57,7 +57,7 @@ class Constants
 		inner join persona as p on p.identificacion = e.identificacion
 		inner join puesto as pu on p.idpuesto = pu.idpuesto
 		inner join afiliado as af on p.idafiliado = af.idafiliado
-		inner join status as s on e.idstatus = s.idstatus and e.idstatus=14
+		inner join status as s on e.idstatus = s.idstatus and (e.idstatus=14 or e.idstatus=18)
 		where not exists(select * from resultado as r
 		inner join users as urs on urs.id= r.evaluador
 		where urs.id = :idusuario and e.idempleado = r.idempleado)";
@@ -67,7 +67,7 @@ class Constants
 		inner join persona as p on p.identificacion = e.identificacion
 		inner join puesto as pu on p.idpuesto = pu.idpuesto
 		inner join afiliado as af on p.idafiliado = af.idafiliado
-		inner join status as s on e.idstatus = s.idstatus and e.idstatus=14
+		inner join status as s on e.idstatus = s.idstatus and (e.idstatus=14 or e.idstatus=18)
 		where p.nombre1 like  concat( '%',:dato,'%') and not exists(select * from resultado as r
 		inner join users as urs on urs.id= r.evaluador
 		where urs.id = :idusuario and e.idempleado = r.idempleado)";
