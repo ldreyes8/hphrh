@@ -24,9 +24,23 @@ class RHPrecalificado extends Controller
 
     public function precalificar($id)
     {
-        $od=Empleado::find($id);
-        $od-> idstatus = '4';
-        $od->update();
+        $emp=DB::table('empleado as e')
+        ->select('e.idstatus')
+        ->where('e.idempleado','=',$id)
+        ->first();
+        //dd($emp->idstatus);
+        if ($emp->idstatus===13) {
+
+            $od=Empleado::find($id);
+            $od-> idstatus = '4';
+            $od->update();
+        }
+        if ($emp->idstatus===16) {
+
+            $od=Empleado::find($id);
+            $od-> idstatus = '17';
+            $od->update();
+        }
         return Redirect::to('empleado/listadoR');
     }
     /*public function precalificarjf($id)
@@ -52,8 +66,8 @@ class RHPrecalificado extends Controller
             //->where('p.nombre1','LIKE','%'.$query.'%')
             //->andwhere('p.apellido1','LIKE','%'.$query.'%')
             ->where('e.idstatus','=',4)
-
-            ->where('p.nombre1','LIKE','%'.$query.'%')
+            ->orwhere('e.idstatus','=',17)
+            //->where('p.nombre1','LIKE','%'.$query.'%')
             //->orwhere('p.apellido1','LIKE','%'.$query.'%')
 
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
