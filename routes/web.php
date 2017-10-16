@@ -13,6 +13,7 @@
 
 
 Route::get('solicitud','PersonaController@create');
+Route::get('verificacion/{id}','PersonaController@verifica');
 Route::get('towns/{id}', 'PersonaController@getTowns');
 Route::post('solicitud/ds','PersonaController@store');
 Route::resource('mintrabf','Controllermintrab');

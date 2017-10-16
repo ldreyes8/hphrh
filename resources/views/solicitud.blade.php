@@ -92,13 +92,12 @@
                         </div>
                     <!-- END carousel-->
 
-                <div id='message-error' class="alert alert-danger danger" role='alert' style="display: none">
-                      <strong id="error"></strong>
-                </div>
+                    <div id='message-error' class="alert alert-danger danger" role='alert' style="display: none">
+                          <strong id="error"></strong>
+                    </div>
                     <div class="container" >                       
                         <div class="row">
-{!!Form::open(array('url'=>'solicitud/ds','method'=>'POST','autocomplete'=>'off','files'=>'true','id'=>'form','onkeypress'=>'return anular(event)','enctype'=>'multipart/form_data'))!!}
-{{Form::token()}}
+
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card-box p-b-0 ">
                 <h4 class="text-dark  header-title m-t-0"></h4>
@@ -152,7 +151,7 @@
                                             <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Tipo Documento</label>
-                                                    <select name="iddocumento" class="form-control " data-live-search="true" data-style="btn-info">
+                                                    <select id="iddocumento" name="iddocumento" class="form-control " data-live-search="true" data-style="btn-info">
                                                         @foreach($tdocumento as $depa)
                                                         <option value="{{$depa->iddocumento}}">{{$depa->documento}}</option>
                                                         @endforeach
@@ -162,11 +161,9 @@
                                             <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
                                                 <label for="identificacion">Identicación *</label>
                                                 <div class="form-group">
-                                                    <input type="text" name="identificacion" id="identificacion" maxlength="13" onkeypress="return valida(event)" placeholder="No colocar espacios ni guiones" class="form-control">
-                                                    <!--<div class="text-danger" id="error_identi">{{$errors->formulario->first('identificacion')}}</div>-->
-                                                        @if($errors->has('identificacion'))
-                                                            <span style="color: red;">{{$errors->first('identificacion')}}</span>
-                                                        @endif
+                                                    <input type="text" id="identificacion" maxlength="13" onkeypress="return valida(event)" placeholder="No colocar espacios ni guiones" class="form-control">
+                                                    
+                                                        
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
@@ -182,9 +179,7 @@
                                                 <div class="form-group">
                                                     <input type="text" name="nombre1" id="nombre1" class="form-control" onkeypress="return validaL(event)"  maxlength="15" >
                                                     <!--<div class="text-danger" id="error_n1">{{$errors->formulario->first('nombre1')}}</div>-->
-                                                    @if($errors->has('nombre1'))
-                                                        <span style="color: red;">{{$errors->first('nombre1')}}</span>
-                                                    @endif
+                                                   
                                                 </div>
 
                                             </div>
@@ -223,15 +218,15 @@
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <label>Genero</label>
                                                             <div class="form-group">
-                                                                <label ><input type="radio" name="genero" value="M">Masculino</label>
-                                                                <label ><input type="radio" name="genero" value="F">Femenino</label>
+                                                                <label ><input type="radio" id="genero" name="genero" value="M">Masculino</label>
+                                                                <label ><input type="radio" id="genero" name="genero" value="F">Femenino</label>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <label for="telefono">Teléfono </label>
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">502</i></span>
-                                                                <input type="text" maxlength="8" name="telefono" onkeypress="return valida(event)" class="form-control">
+                                                                <input type="text" maxlength="8" id="telefono" name="telefono" onkeypress="return valida(event)" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
@@ -275,7 +270,7 @@
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label>Nacionalidad</label>
-                                                                <select name="idnacionalidad" class="form-control " data-live-search="true" data-style="btn-info">
+                                                                <select name="idnacionalidad" id="idnacionalidad" class="form-control " data-live-search="true" data-style="btn-info">
                                                                     @foreach($nacionalidad as $nac)
                                                                     <option value="{{$nac->idnacionalidad}}">{{$nac->nombre}}</option>
                                                                     @endforeach
@@ -285,7 +280,7 @@
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label>Etnia</label>
-                                                                <select name="idetnia" class="form-control " data-live-search="true" data-style="btn-info">
+                                                                <select name="idetnia" id="idetnia" class="form-control " data-live-search="true" data-style="btn-info">
                                                                     @foreach($etnia as $et)
                                                                     <option value="{{$et->idetnia}}">{{$et->nombre}}</option>
                                                                     @endforeach
@@ -295,13 +290,13 @@
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label for="afiliacionigss">Afiliacion igss</label>
-                                                                <input type="text" name="afiliacionigss" class="form-control" maxlength="13">
+                                                                <input type="text" id="afiliacionigss" name="afiliacionigss" class="form-control" maxlength="13">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label>Estado civil</label>
-                                                                <select name="idcivil" class="form-control " data-live-search="true">
+                                                                <select name="idcivil" id="idcivil" class="form-control " data-live-search="true">
                                                                     @foreach($estadocivil as $cat)
                                                                         <option value="{{$cat->idcivil}}">{{$cat->estado}}</option>
                                                                     @endforeach
@@ -313,19 +308,19 @@
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label for="numerodependientes">Dependientes</label>
-                                                                <input type="number" name="numerodependientes" min="0" class="form-control" onkeypress="return valida(event)">
+                                                                <input type="number" name="numerodependientes" id="numerodependientes" min="0" class="form-control" onkeypress="return valida(event)">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label for="aportemensual">Aporte mensual</label>
-                                                                <input type="number" name="aportemensual" min="0" class="form-control" onkeypress="return valida(event)">
+                                                                <input type="number" id="aportemensual" name="aportemensual" min="0" class="form-control" onkeypress="return valida(event)">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <div class="form-group">
                                                                 <label>Vivienda</label>
-                                                                <select name="vivienda" class="form-control">
+                                                                <select name="vivienda" id="vivienda" class="form-control">
                                                                     <option value="casa propia">casa propia</option>
                                                                     <option value="vive con familiares">vive con familiares</option>
                                                                     <option value="Alquila">Alquila</option>
@@ -336,14 +331,14 @@
                                                             <label for="alquilermensual">Alquiler mensual</label>
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">Q</i></span>
-                                                                <input type="text" min="0" name="alquilermensual" class="form-control" onkeypress="return valida(event)">
+                                                                <input type="text" min="0" name="alquilermensual" id="alquilermensual" class="form-control" onkeypress="return valida(event)">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                                             <label for="otrosingresos">Otros ingresos</label>
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">Q</i></span>
-                                                                <input type="text" min="0" name="otrosingresos" class="form-control" onkeypress="return valida(event)">
+                                                                <input type="text" min="0" name="otrosingresos" id="otrosingresos" class="form-control" onkeypress="return valida(event)">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
@@ -458,25 +453,17 @@
                                                         <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                                             <table id="detalle4" class="table table-striped table-bordered table-condensed table-hover">
                                                                 <thead style="background-color:#A9D0F5">
-                                                                    <th style="width: 1%">Opciones</th>
-                                                                    <th>Nombre</th>
-                                                                    <th>Apellido</th>
-                                                                    <th>Edad</th>
-                                                                    <th>Teléfono</th>
-                                                                    <th>Parentezco</th>
-                                                                    <th>Ocupación</th>
-                                                                    <th>Emergencias</th>
+                                                                    <tr>
+                                                                        <th style="width: 1%">Opciones</th>
+                                                                        <th>Nombre</th>
+                                                                        <th>Apellido</th>
+                                                                        <th>Edad</th>
+                                                                        <th>Teléfono</th>
+                                                                        <th>Parentezco</th>
+                                                                        <th>Ocupación</th>
+                                                                        <th>Emergencias</th>
+                                                                    </tr>
                                                                 </thead>
-                                                                <tfoot>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                </tfoot>
                                                                 <tbody></tbody>
                                                             </table>
                                                         </div>
@@ -625,46 +612,31 @@
                                                     <div class="col-lg-8 col-sm-12 col-md-12 col-xs-12">
                                                         <table id="detalle6" class="table table-striped table-bordered table-condensed table-hover">
                                                             <thead>
-                                                                <th style="width: 1%">Opciones</th>
-                                                                <th>Título</th>
-                                                                <th>Establecimiento</th>
-                                                                <th>Duración</th>
-                                                                <th>-</th>
-                                                                <th>Nivel</th>
-                                                                <th>Fecha de ingreso</th>
-                                                                <th>Fecha de salida</th>
-                                                                <th>Lugar cursado</th>
+                                                                <tr>
+                                                                    <th style="width: 1%">Opciones</th>
+                                                                    <th>Título</th>
+                                                                    <th>Establecimiento</th>
+                                                                    <th>Duración</th>
+                                                                    <th>-</th>
+                                                                    <th>Nivel</th>
+                                                                    <th>Fecha de ingreso</th>
+                                                                    <th>Fecha de salida</th>
+                                                                    <th>Lugar cursado</th>
+                                                                </tr>
                                                             </thead>
-                                                            <tfoot>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                            </tfoot>
-                                                            <tbody>
-                                                                        
-                                                            </tbody>
+                                                            <tbody></tbody>
                                                         </table>
                                                     </div>
                                                     <div class="col-lg-4 col-sm-12 col-md-12 col-xs-12">
                                                         <table id="detalle7" class="table table-striped table-bordered table-condensed table-hover">
                                                             <thead>
-                                                                <th style="width: 1%">Opciones</th>
-                                                                <th>Idioma</th>
-                                                                <th>Nivel</th>
+                                                                <tr>
+                                                                    <th style="width: 1%">Opciones</th>
+                                                                    <th>Idioma</th>
+                                                                    <th>Nivel</th>
+                                                                </tr>
                                                             </thead>
-                                                            <tfoot>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                            </tfoot>
-                                                            <tbody>
-                                                            </tbody>
+                                                            <tbody></tbody>
                                                         </table>
                                                     </div>
                                                 </div>
@@ -735,27 +707,18 @@
                                                     <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                                         <table id="detalle5" class="table table-striped table-bordered table-condensed table-hover">
                                                             <thead style="background-color:#A9D0F5">
-                                                                <th style="width: 1%">Opciones</th>
-                                                                <th>Empresa</th>
-                                                                <th>Puesto</th>
-                                                                <th>Jefe inmediato</th>
-                                                                <th>Teléfono Jefe</th>
-                                                                <th>Motivo retiro</th>
-                                                                <th>Ultimo Salario</th>
-                                                                <th>Ingreso</th>
-                                                                <th>Salida</th>
+                                                                <tr>
+                                                                    <th style="width: 1%">Opciones</th>
+                                                                    <th>Empresa</th>
+                                                                    <th>Puesto</th>
+                                                                    <th>Jefe inmediato</th>
+                                                                    <th>Teléfono Jefe</th>
+                                                                    <th>Motivo retiro</th>
+                                                                    <th>Ultimo Salario</th>
+                                                                    <th>Ingreso</th>
+                                                                    <th>Salida</th>
+                                                                </tr>
                                                             </thead>
-                                                            <tfoot>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th></th>
-                                                            </tfoot>
                                                             <tbody></tbody>
                                                         </table>
                                                     </div>
@@ -801,19 +764,14 @@
                                                         <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                                             <table id="detalle3" class="table table-striped table-bordered table-condensed table-hover">
                                                                 <thead style="background-color:#A9D0F5">
-                                                                    <th style="width: 1%">Opciones</th>
-                                                                    <th>Nombre</th>
-                                                                    <th>Teléfono</th>
-                                                                    <th>Profesion</th>
-                                                                    <th>Tipo referencia</th>
+                                                                    <tr>
+                                                                        <th style="width: 1%">Opciones</th>
+                                                                        <th>Nombre</th>
+                                                                        <th>Teléfono</th>
+                                                                        <th>Profesion</th>
+                                                                        <th>Tipo referencia</th>
+                                                                    </tr>
                                                                 </thead>
-                                                                <tfoot>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                </tfoot>
                                                                 <tbody></tbody>
                                                             </table>
                                                         </div>
@@ -909,8 +867,8 @@
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="form-group">
                                                                     <label>¿Usted es una persona expuesta políticamente?</label>
-                                                                    <label ><input type="radio" name="ive" value="Si" onclick="Finiquito(this)">Si</label>
-                                                                    <label ><input type="radio" name="ive" value="No" onclick="Finiquito(this)">No</label>
+                                                                    <label ><input type="radio" name="ive" id="ive" value="Si" onclick="Finiquito(this)">Si</label>
+                                                                    <label ><input type="radio" name="ive" checked id="ive" value="No" onclick="Finiquito(this)">No</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-8 col-md-4 col-sm-6 col-xs-12" id="Dfini" style="display: none;">
@@ -922,28 +880,28 @@
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="form-group">
                                                                     <label>¿Tiene algún pariente político?</label>
-                                                                    <label ><input type="radio" name="parientepolitico" value="Si" onclick="FPariente(this)">Si</label>
-                                                                    <label ><input type="radio" name="parientepolitico" value="No" onclick="FPariente(this)">No</label>
+                                                                    <label ><input type="radio" name="parientepolitico" id="parientepolitico" value="Si" onclick="FPariente(this)">Si</label>
+                                                                    <label ><input type="radio" name="parientepolitico" id="parientepolitico" value="No" onclick="FPariente(this)" checked>No</label>
                                                                 </div>
                                                             </div>
                                                             <div id="Dpariente" style="display: none;">
                                                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                                     <div class="form-group">
                                                                         <label for="nombrep">Nombre</label>
-                                                                        <input type="text" name="nombrep" class="form-control" onkeypress="return validaL(event)">
+                                                                        <input type="text" name="nombrep" id="nombrep" class="form-control" onkeypress="return validaL(event)">
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                                     <div class="form-group">
                                                                         <label for="puestop">Puesto</label>
-                                                                        <input type="text" name="puestop" class="form-control" onkeypress="return validaL(event)">
+                                                                        <input type="text" name="puestop" id="puestop" class="form-control" onkeypress="return validaL(event)">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                                     <div class="form-group">
                                                                         <label for="dependencia">Dependencia</label>
-                                                                        <input type="text" name="dependencia" class="form-control" onkeypress="return validaL(event)">
+                                                                        <input type="text" name="dependencia" id="dependencia" class="form-control" onkeypress="return validaL(event)">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -951,8 +909,8 @@
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="form-group">
                                                                     <label>¿Ha trabajado en el extranjero?</label>
-                                                                    <label ><input type="radio" name="trabajoext" value="Si" onclick="Fextra(this)">Si</label>
-                                                                    <label ><input type="radio" name="trabajoext" value="No" checked onclick="Fextra(this)">No</label>
+                                                                    <label ><input type="radio" id="trabajoext" name="trabajoext" value="Si" onclick="Fextra(this)">Si</label>
+                                                                    <label ><input type="radio" id="trabajoext" name="trabajoext" value="No" checked onclick="Fextra(this)">No</label>
                                                                 </div>
                                                             </div>
                                                             <div id="Dextranjero" style="display: none;">
@@ -989,17 +947,13 @@
                                                                     <label></label>
                                                                     <table id="detalleTE" class="table table-striped table-bordered table-condensed table-hover">
                                                                         <thead style="background-color: #A9D0F5">
-                                                                            <th style="width: 1%">Opciones</th>
-                                                                            <th>Forma en la que trabajo</th>
-                                                                            <th>País en el que trabajo</th>
-                                                                            <th>Motívo de finalización laboral</th>
+                                                                            <tr>
+                                                                                <th style="width: 1%">Opciones</th>
+                                                                                <th>Forma en la que trabajo</th>
+                                                                                <th>País en el que trabajo</th>
+                                                                                <th>Motívo de finalización laboral</th>
+                                                                            </tr>
                                                                         </thead>
-                                                                        <tfoot>
-                                                                            <th></th>
-                                                                            <th></th>
-                                                                            <th></th>
-                                                                            <th></th>
-                                                                        </tfoot>
                                                                         <tbody></tbody>
                                                                     </table>
                                                                 </div>
@@ -1009,13 +963,11 @@
                                                                 <label></label>
                                                                 <table id="detalle" class="table table-striped table-bordered table-condensed table-hover">
                                                                     <thead style="background-color: #A9D0F5">
-                                                                        <th style="width: 1%">Opciones</th>
-                                                                        <th>Nombre del padecimiento</th>
+                                                                        <tr>
+                                                                            <th style="width: 1%">Opciones</th>
+                                                                            <th>Nombre del padecimiento</th>
+                                                                        </tr>
                                                                     </thead>
-                                                                    <tfoot>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                    </tfoot>
                                                                     <tbody></tbody>
                                                                 </table>
                                                             </div>
@@ -1024,36 +976,27 @@
                                                                 <label></label>
                                                                 <table id="detalle8" class="table table-striped table-bordered table-condensed table-hover">
                                                                     <thead style="background-color: #A9D0F5">
-                                                                        <th style="width: 1%">Opciones</th>
-                                                                        <th style="width: 3%" class="col-lg-3">Licencia</th>
-                                                                        <th class="col-lg-3">Vigencia</th>
+                                                                        <tr>
+                                                                            <th style="width: 1%">Opciones</th>
+                                                                            <th style="width: 3%" class="col-lg-3">Licencia</th>
+                                                                            <th class="col-lg-3">Vigencia</th>
+                                                                        </tr>
                                                                     </thead>
-                                                                    <tfoot>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                    </tfoot>
-                                                                    <tbody>
-                                                                    </tbody>
+                                                                    <tbody></tbody>
                                                                 </table>
                                                             </div>
                                                             <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                                                 <label></label>
                                                                 <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
                                                                     <thead style="background-color:#A9D0F5">
-                                                                        <th style="width: 1%">Opciones</th>
-                                                                        <th>Acreedor</th>
-                                                                        <th>Mensualidad</th>
-                                                                        <th>Acreedor</th>
-                                                                        <th>Motivo</th>
+                                                                        <tr>
+                                                                            <th style="width: 1%">Opciones</th>
+                                                                            <th>Acreedor</th>
+                                                                            <th>Mensualidad</th>
+                                                                            <th>Acreedor</th>
+                                                                            <th>Motivo</th>
+                                                                        </tr>
                                                                     </thead>
-                                                                    <tfoot>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                        <th></th>
-                                                                    </tfoot>
                                                                     <tbody></tbody>
                                                                 </table>
                                                             </div>
@@ -1069,16 +1012,20 @@
 
                                                 </div>
                                                 <ul class="pager m-b-0 wizard">
-                                                    <li class="previous"><a href="#" class="btn btn-primary waves-effect waves-light">Atras</a></li>
-                                                    <li class="next"><button class="btn btn-primary waves-effect waves-light" id="gdr" type="submit">Enviar datos</button></li>
+                                                    <li class="previous">
+                                                        <a href="#" class="btn btn-primary waves-effect waves-light">Atras</a>
+                                                    </li>
+                                                    <li class="next">
+                                                        <button class="btn btn-primary waves-effect waves-light btn-enviar-datos" id="gdr" type="button">Enviar datos</button>
+                                                    </li>
                                                 </ul>
                                             </div>
                     </div>
                 </div>
             </div>
         </div>
-    {!!Form::close()!!}
  </div>
+
                     </div>
                 </div>
 
@@ -1090,6 +1037,29 @@
                <!-- End FOOTER -->
             </div>
         </div>
+
+ <!-- -->
+ <div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Errores</h4>
+            </div>
+
+            <div class="modal-body">
+                <ul style="list-style-type:circle" id="erroresContent"></ul>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- -->
 
         <script>
             var resizefunc = [];
@@ -1121,7 +1091,8 @@
         <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
         <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
         <script src="{{asset('assets/js/datos.js')}}"></script>
-           
+        <script src="{{asset('assets/js/RHjs/solicitud.js')}}"></script>
+        <meta name="_token" content="{!! csrf_token() !!}" />
     </body>
 </html>
 

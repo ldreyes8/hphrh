@@ -88,448 +88,334 @@ class PersonaController extends Controller
 
         return view("solicitud",["departamento"=>$departamento,"estadocivil"=>$estadocivil,"idiomas"=>$idiomas,"puestos"=>$puestos,"afiliados"=>$afiliados,"licencia"=>$licencia,"etnia"=>$etnia,"nacionalidad"=>$nacionalidad,"tdocumento"=>$tdocumento,"nivelacademico"=>$nivelacademico,'pais'=>$pais]);
     }
-    public function store(PersonaRequest $request)
+    public function verifica(Request $request,$id)
     {
-        $identificacion=$request->get('identificacion');
-        $nombre1=$request->get('nombre1');
-        $apellido1=$request->get('apellido1');
-        $img=$request->file('archivo');
-        $forma=$request->get('formate');
-        $trabE=$request->get('trabajoext');
-        $paisTe=$request->get('paisTe');
-        $motivofint=$request->get('finmotivo');
-        $envcorreo=$request->get('correo');
-        //dd($trabE);
-        $paisP = $request->get('idpaisPS');
-        //dd($paisP);
-
-
-                    try 
+        $persona=DB::table('persona as p')
+        ->select('p.identificacion','p.nombre1')
+        ->where('p.identificacion','=',$id)
+        ->first();
+        if ($persona->identificacion==$id) {
+            return response()->json($persona);
+        }
+        else{return response()->json('Continuar');}
+        
+    }
+    public function store(Request $request)
+    {   
+        try {
+            DB::beginTransaction();
+                $this->Personavalid($request);
+                $identificacion=$request->get('identificacion');
+                $img=$request->file('archivo');
+                $trabE=$request->get('trabajoext');
+                $envcorreo=$request->get('correo');
+                $ived=$request->get('ive');
+                $pariente=$request->get('parientepolitico');
+                $paisP = $request->get('idpaisPS');
+                /*itmes*/
+                    $miArrayTE = $request->itemsTE;
+                    $miArrayPF = $request->itemsPF;
+                    $miArrayPA = $request->itemsPA;
+                    $miArrayPI = $request->itemsPI;
+                    $miArrayPL = $request->itemsPL;
+                    $miArrayPR = $request->itemsPR;
+                    $miArrayPP = $request->itemsPP;
+                    $miArrayPC = $request->itemsPC;
+                    $miArrayPD = $request->itemsPD;
+                /*fin items*/
+                //Datos persona
+                    $persona = new Persona;
+                    $persona-> identificacion = $identificacion;
+                    $persona-> nombre1 = $request->get('nombre1');
+                    $persona-> nombre2 = $request->get('nombre2');
+                    $persona-> nombre3 = $request->get('nombre3');
+                    $persona-> apellido1 = $request->get('apellido1');
+                    $persona-> apellido2 = $request->get('apellido2');
+                    $persona-> apellido3 = $request->get('apellido3');
+                    $persona-> telefono = $request->get('telefono');
+                    $persona-> celular = $request->get('celular');
+                    $fechanacs=$request->get('fechanac');
+                    $fechanacc=Carbon::createFromFormat('d/m/Y',$fechanacs);
+                    $fecha=$fechanacc->format('Y-m-d');
+                    $persona-> fechanac = $fecha;
+                    $persona-> barriocolonia = $request->get('barriocolonia');
+                    if ($paisP === "73") 
                     {
-                        DB::beginTransaction();
-                     //Datos persona
-                        $persona = new Persona;
-                        $persona-> identificacion = $identificacion;
-                        $persona-> nombre1 = $nombre1;
-                        $persona-> nombre2 = $request->get('nombre2');
-                        $persona-> nombre3 = $request->get('nombre3');
-                        $persona-> apellido1 = $apellido1;
-                        $persona-> apellido2 = $request->get('apellido2');
-                        $persona-> apellido3 = $request->get('apellido3');
-                        $persona-> telefono = $request->get('telefono');
-                        $persona-> celular = $request->get('celular');
-                        $fechanacs=$request->get('fechanac');
-                        $fechanacc=Carbon::createFromFormat('d/m/Y',$fechanacs);
-                        $fecha=$fechanacc->format('Y-m-d');
-                        $persona-> fechanac = $fecha;
-                        /*$persona-> avenida = $request->get('avenida');
-                        $persona-> calle = $request->get('calle');
-                        $persona-> nomenclatura = $request->get('nomenclatura');
-                        $persona-> zona = $request->get('zona');*/
-                        $persona-> barriocolonia = $request->get('barriocolonia');
-
-                        if ($paisP === "73") 
-                        {
-                            $persona-> idmunicipio = $request->get('idmunicipio');
-                        }
-                        else
-                        {
-                            $persona-> idmunicipio =NULL;
-                        }
-
-                        $persona-> ive = $request->get('ive');
-                        $persona-> parientepolitico = $request->get('parientepolitico');
-                        $persona-> idpuesto= $request->get('idpuesto');
-                        $persona-> idafiliado= $request->get('idafiliado');
-                        
-                        if($img === null)
-                        {
-                            $persona->finiquitoive="";
-                        }
-                        else
-                        {
-                            $file_route=time().'_'.$img->getClientOriginalName();
-                            Storage::disk('archivos')->put($file_route, file_get_contents($img->getRealPath() ) );
-                            $persona-> finiquitoive=$file_route;    
-                        }
-                        $persona-> correo=$envcorreo;
-                        $persona-> genero=$request->get('genero');
-                        $persona-> idetnia=$request->get('idetnia');
-                        $persona-> idnacionalidad=$request->get('idnacionalidad');
-                        $persona-> iddocumento=$request->get('iddocumento');
-                        $persona-> idpais=$paisP;
-                        $persona->save();
-                        //dd($paisP,$persona);
-                     //Datos empleado
-                        $empleado = new Empleado;
-                        $empleado-> identificacion= $request->get('identificacion');
-                        $empleado-> afiliacionigss= $request->get('afiliacionigss');
-                        $empleado-> numerodependientes= $request->get('numerodependientes');
-                        $empleado-> aportemensual= $request->get('aportemensual');
-                        $empleado-> vivienda= $request->get('vivienda');
-                        $empleado-> alquilermensual= $request->get('alquilermensual');
-                        $empleado-> otrosingresos= $request->get('otrosingresos');
-                        $empleado-> pretension= $request->get('pretension');
-                        $empleado-> nit= $request->get('nit');
-                        $mytime = Carbon::now('America/Guatemala');
-                        $empleado-> fechasolicitud=$mytime->toDateTimeString();
-                        $empleado-> idcivil= $request->get('idcivil');
-                        $empleado-> idstatus='1';
-                        $empleado-> observacion=$request->get('observacion');
-                        $empleado-> save();
-                        //dd($persona,$empleado);
-                     //Datos Puesto Publico
-                        $nombrep=$request->get('nombrep');
-                        $puestop=$request->get('puestop');
-                        $dependencia=$request->get('dependencia');
-
-                        if ($nombrep===null) {
-                            # code...
-                            $ppublico= new PuestoPublico;
-                            $ppublico-> nombre="";
-                        }
-                        else
-                        {
-                            $ppublico= new PuestoPublico;
-                            $ppublico-> nombre=$nombrep;
-                            $ppublico-> puesto=$puestop;
-                            $ppublico-> dependencia=$dependencia;
-                            $ppublico-> identificacion= $request->get('identificacion');
-                            $ppublico-> save();
-                        }
-
-                        //dd($persona,$empleado,$ppublico);
-                    //Datos trabajo extranjer
-                        $contTE=0;
-                        if ($trabE === "No" ) 
-                        {   
+                        $persona-> idmunicipio = $request->get('idmunicipio');
+                    }
+                    else
+                    {
+                        $persona-> idmunicipio =NULL;
+                    }
+                    $persona-> ive = $ived;
+                    $persona-> parientepolitico = $pariente;
+                    $persona-> idpuesto= $request->get('idpuesto');
+                    $persona-> idafiliado= $request->get('idafiliado');
+                    if($img === null)
+                    {
+                        $persona->finiquitoive="";
+                    }
+                    else
+                    {
+                        $file_route=time().'_'.$img->getClientOriginalName();
+                        Storage::disk('archivos')->put($file_route, file_get_contents($img->getRealPath() ) );
+                        $persona-> finiquitoive=$file_route;    
+                    }
+                    $persona-> correo=$envcorreo;
+                    $persona-> genero=$request->get('genero');
+                    $persona-> idetnia=$request->get('idetnia');
+                    $persona-> idnacionalidad=$request->get('idnacionalidad');
+                    $persona-> iddocumento=$request->get('iddocumento');
+                    $persona-> idpais=$paisP;
+                    $persona->save();
+                //Datos empleado
+                    $empleado = new Empleado;
+                    $empleado-> identificacion= $request->get('identificacion');
+                    $empleado-> afiliacionigss= $request->get('afiliacionigss');
+                    $empleado-> numerodependientes= $request->get('numerodependientes');
+                    $empleado-> aportemensual= $request->get('aportemensual');
+                    $empleado-> vivienda= $request->get('vivienda');
+                    $empleado-> alquilermensual= $request->get('alquilermensual');
+                    $empleado-> otrosingresos= $request->get('otrosingresos');
+                    $empleado-> pretension= $request->get('pretension');
+                    $empleado-> nit= $request->get('nit');
+                    $mytime = Carbon::now('America/Guatemala');
+                    $empleado-> fechasolicitud=$mytime->toDateTimeString();
+                    $empleado-> idcivil= $request->get('idcivil');
+                    $empleado-> idstatus='1';
+                    $empleado-> save();
+                //Datos Puesto Publico
+                    if ($pariente === 'No') 
+                    {
+                        $ppublico= new PuestoPublico;
+                        $ppublico-> nombre="";
+                    }
+                    else
+                    {
+                        $ppublico= new PuestoPublico;
+                        $ppublico-> nombre=$request->get('nombrep');
+                        $ppublico-> puesto=$request->get('puestop');
+                        $ppublico-> dependencia=$request->get('dependencia');
+                        $ppublico-> identificacion= $request->get('identificacion');
+                        $ppublico-> save();
+                    }
+                //Datos trabajo extranjer
+                    if ($trabE === "No" ) 
+                    {   
+                        $ptextra=new Textranjero;
+                        $ptextra-> idpais=NULL;
+                        $ptextra-> identificacion=$request->get('identificacion');
+                        $ptextra-> trabajoext=$trabE; 
+                        $ptextra-> forma="";
+                        $ptextra-> motivofin="";
+                        $ptextra->save();  
+                    }
+                    else 
+                    {
+                        foreach ($miArrayTE as $key => $value) {
                             $ptextra=new Textranjero;
-                            $ptextra-> idpais=NULL;
-                            $ptextra-> identificacion=$request->get('identificacion');
-                            $ptextra-> trabajoext=$trabE; 
-                            $ptextra-> forma="";
-                            $ptextra-> motivofin="";
+                            $ptextra-> forma=$value['0'];
+                            $ptextra-> idpais=$value['1'];
+                            $ptextra-> motivofin=$value['2'];
+                            $ptextra-> identificacion=$identificacion;
+                            $ptextra-> trabajoext=$trabE;
                             $ptextra->save();
-                            
-                        }
-                        else 
-                        {
-                            while($contTE < count($forma))
-                            {
-                                $ptextra=new Textranjero;
-                                $ptextra-> idpais=$paisTe[$contTE];
-                                $ptextra-> identificacion=$request->get('identificacion');
-                                $ptextra-> trabajoext=$trabE;
-                                $ptextra-> forma=$forma[$contTE];
-                                $ptextra-> motivofin=$motivofint[$contTE];
-                                $ptextra->save();
-                                $contTE=$contTE +1;
-                            }   
-                        }
-
-                        //dd($persona,$empleado,$ptextra);
-                     //Datos familia
-                        $nombref=$request->get('nombref');
-                        $apellidof=$request->get('apellidof');
-                        $edad=$request->get('edad');
-                        $telefonof=$request->get('telefonof');
-                        $parentezco=$request->get('parentezco');
-                        $ocupacion=$request->get('ocupacion');
-                        $emergencia=$request->get('emergencia');
-                     //Datos academicos
-                        $titulo=$request->get('titulo');
-                        $establecimiento=$request->get('establecimiento');
-                        $duracion=$request->get('duracion');
-                        $idnivel=$request->get('nivelid');
-                        $fsalida = $request->get('fsalida');
-                        $fechai=$request->get('fingreso');
-                        $periodo=$request->get('periodo');
-                        $pidmunicipio=$request->get('pidmunicipio');
-                        //dd($pidmunicipio);
-                        $idpaisA=$request->get('idpaisPAAT');
-                     //Datos Experiencia
-                        $empresa=$request->get('empresa');
-                        $puesto=$request->get('puesto');
-                        $jefeinmediato=$request->get('jefeinmediato');
-                        $teljefeinmediato=$request->get('teljefeinmediato');
-                        $motivoretiro=$request->get('motivoretiro');
-                        $ultimosalario=$request->get('ultimosalario');
-                        $fingresoex=$request->get('fingresoex');
-                        $fsalidaex=$request->get('fsalidaex');
-                     //Datos referencias
-                        $nombrer=$request->get('nombrer');
-                        $telefonor=$request->get('telefonor');
-                        $profesion=$request->get('profesion');
-                        $tiporeferencia=$request->get('tiporeferencia');
-                     //Datos deudas
-                        $acreedor=$request->get('acreedor');
-                        $amortizacionmensual=$request->get('amortizacionmensual');
-                        $montodeuda=$request->get('montodeuda');
-                        $modeuda=$request->get('mdeuda');
-                     //Datos padecimientos
-                        $nombre=$request->get('nombre');
-                        //otros datos 
-                        //otros datos 
-                     //Datos Idioma
-                        $nivelI=$request->get('niveli');
-                        $eidioma=$request->get('eidioma');
-                     //Datos licemcia
-                        $vigencia=$request->get('vigencia');
-                        $licenciaid=$request->get('licenciape');
-
-                        //dd($vigencia,$licenciaid);
-                     //contadores
-                        $cont = 0;
-                        $conts = 0;
-                        $cont2 = 0;
-                        $cont3 = 0;
-                        $cont4 = 0;
-                        $cont5 = 0;
-                        $cont6 = 0;
-                        $cont7 = 0;
-                     //while Licencia
-                        if ($vigencia === null)
-                        {
-                            $licencias = new Licencia;
-                            $licencias-> vigencia = "";
-                        }
-                        else 
-                        {
-                            while($cont7 < count($vigencia))
-                            {
-                                $licencias = new Licencia;
-                                $licencias-> vigencia = $vigencia[$cont7];
-                                $licencias-> idlicencia = $licenciaid[$cont7];
-                                $licencias-> identificacion = $empleado->identificacion;
-                                $licencias->save();
-                                $cont7=$cont7 + 1;
-                            }
-                        }         
-                     //dd($persona,$empleado,$licencias);
-                     //while Familia
-                        if ($nombref === null)
-                        {
+                        }   
+                    }
+                //Familia
+                    if ($miArrayPF > 0)
+                    {
+                        foreach ($miArrayPF as $key => $value) {
                             $familia = new Familia;
-                            $familia->nombref="El usuario no ingreso datos";
+                            $familia-> nombref = $value['0'];
+                            $familia-> apellidof = $value['1'];
+                            $familia-> edad = $value['2'];
+                            $familia-> telefonof = $value['3'];
+                            $familia-> parentezco = $value['4'];
+                            $familia-> ocupacion = $value['5']; 
+                            $familia-> emergencia = $value['6'];
                             $familia-> idempleado = $empleado->idempleado;
-                            $familia-> identificacion = $empleado->identificacion;
+                            $familia-> identificacion = $identificacion;
                             $familia->save();
+                        }      
+                    }
+                    else
+                    {
+                        $familia = new Familia;
+                        $familia->nombref="El usuario no ingreso datos";
+                        $familia-> idempleado = $empleado->idempleado;
+                        $familia-> identificacion = $empleado->identificacion;
+                        $familia->save();
+                    }
+                //Academico
+                    if ($miArrayPA > 0)
+                    {
+                        foreach ($miArrayPA as $key => $value)
+                        {   
+                            $value['5']=Carbon::createFromFormat('d/m/Y',$value['5']);
+                            $value['5']=$value['5']->format('Y-m-d');
+                            $value['6']=Carbon::createFromFormat('d/m/Y',$value['6']);
+                            $value['6']=$value['6']->format('Y-m-d');
 
-                        }
-                        else
-                        {
-                            while($cont3 < count($nombref))
-                            {
-                                $familia = new Familia;
-                                $familia-> nombref = $nombref[$cont3];
-                                $familia-> apellidof = $apellidof[$cont3];
-                                $familia-> edad = $edad[$cont3];
-                                $familia-> telefonof = $telefonof[$cont3];
-                                $familia-> parentezco = $parentezco[$cont3];
-                                $familia-> ocupacion = $ocupacion[$cont3]; 
-                                $familia-> emergencia = $emergencia[$cont3];
-                                $familia-> idempleado = $empleado->idempleado;
-                                $familia-> identificacion = $empleado->identificacion;
-                                $familia->save();
-                                $cont3=$cont3 + 1;
-                            }      
-                        }
-                     //dd($persona,$empleado,$familia);
-                     //while Academico
-                        if ($titulo === null)
-                        {
                             $academicos = new Academico;
-                            $academicos-> titulo = "El usuario no ingreso datos";
-                            
-                        }
-                        else 
-                        {
-                            while($cont5 < count($titulo))
+                            $academicos-> titulo = $value['0'];
+                            $academicos-> establecimiento = $value['1'];
+                            $academicos-> duracion = $value['2'];
+                            $academicos-> periodo =$value['3'];
+                            $academicos-> idnivel = $value['4'];
+                            $academicos-> fingreso =$value['5'];
+                            $academicos-> fsalida=$value['6'];
+                            if ($value['8'] ==="73") 
                             {
-                                
-                                    $fechai[$cont5]=Carbon::createFromFormat('d/m/Y',$fechai[$cont5]);
-                                    $fechai[$cont5]=$fechai[$cont5]->format('Y-m-d');
-                                    $fsalida[$cont5]=Carbon::createFromFormat('d/m/Y',$fsalida[$cont5]);
-                                    $fsalida[$cont5]=$fsalida[$cont5]->format('Y-m-d');
-                                    $academicos = new Academico;
-                                    $academicos-> titulo = $titulo[$cont5];
-                                    $academicos-> establecimiento = $establecimiento[$cont5];
-                                    $academicos-> duracion = $duracion[$cont5];
-                                    $academicos-> idnivel = $idnivel[$cont5];
-                                    $academicos-> fsalida=$fsalida[$cont5];
-                                    $academicos-> fingreso =$fechai[$cont5];
-                                    $academicos-> periodo =$periodo[$cont5];
-                                    if ($idpaisA[$cont5] ==="73") 
-                                    {
-                                        $academicos-> idmunicipio = $pidmunicipio[$cont5];
-                                        $academicos-> idpais = $idpaisA[$cont5];
-                                    }
-                                    else
-                                    {
-                                        //$academicos-> idmunicipio = NULL;
-                                        $academicos-> idpais = $idpaisA[$cont5];
-                                    }
+                                $academicos-> idmunicipio = $value['7'];
+                                $academicos-> idpais = $value['8'];
+                            }
+                            else
+                            {
+                                $academicos-> idpais = $value['8'];
+                            }
                                     
-                                    $academicos-> idempleado = $empleado->idempleado;
-                                    $academicos-> identificacion = $empleado->identificacion;
-                                    $academicos-> save();
-                                    $cont5=$cont5 + 1;   
-                            }
-                        }           
-                     //dd($persona,$empleado,$familia,$academicos);
-                     //while Idioma
-                        if ($nivelI === null)
-                        {
+                            $academicos-> idempleado = $empleado->idempleado;
+                            $academicos-> identificacion = $empleado->identificacion;
+                            $academicos-> save();
+                        } 
+                    }
+                    else 
+                    {
+                        $academicos = new Academico;
+                        $academicos-> titulo = "El usuario no ingreso datos";
+                    }
+                //Idioma
+                    if ($miArrayPI > 0)
+                    {
+                        foreach ($miArrayPI as $key => $value) {
                             $idioma = new Idioma;
-                            $idioma-> nivel = "";
+                            $idioma-> ididioma = $value['0'];
+                            $idioma-> nivel = $value['1'];
+                            $idioma-> idempleado = $empleado->idempleado;
+                            $idioma->save();
                         }
-                        else 
-                        {
-                            while($cont6 < count($nivelI))
-                            {
-                                $idioma = new Idioma;
-                                $idioma-> nivel = $nivelI[$cont6];
-                                $idioma-> ididioma = $eidioma[$cont6];
-                                $idioma-> idempleado = $empleado->idempleado;
-                                $idioma->save();
-                                $cont6=$cont6 + 1;
-                            }
-                        }         
-                        //dd($persona,$empleado,$familia,$academicos,$idioma);
-                     //while Experiencia
-                        if ($empresa === null) 
-                        {
+                    }
+                    else 
+                    {
+                        $idioma = new Idioma;
+                        $idioma-> nivel = "";
+                    }
+                //Experiencia
+                    if ($miArrayPL >0) 
+                    {
+                        foreach ($miArrayPL as $key => $value) {
                             $experiencia = new Experiencia;
-                            $experiencia-> empresa="El usuario no presenta experiencia laboral";
+                            $experiencia-> empresa=$value['0'];
+                            $experiencia-> puesto=$value['1'];
+                            $experiencia-> jefeinmediato=$value['2'];
+                            $experiencia-> teljefeinmediato=$value['3'];
+                            $experiencia-> motivoretiro=$value['4'];
+                            $experiencia-> ultimosalario=$value['5'];
+                            $experiencia-> fingresoex=$value['6'];
+                            $experiencia-> fsalidaex=$value['7'];
                             $experiencia-> idempleado=$empleado->idempleado;
                             $experiencia-> identificacion=$empleado->identificacion; 
                             $experiencia->save();
-
                         }
-                        else 
-                        {
-                            while($cont4 < count($empresa))
-                            {
-                                $experiencia = new Experiencia;
-                                $experiencia-> empresa=$empresa[$cont4];
-                                $experiencia-> puesto=$puesto[$cont4];
-                                $experiencia-> jefeinmediato=$jefeinmediato[$cont4];
-                                $experiencia-> teljefeinmediato=$teljefeinmediato[$cont4];
-                                $experiencia-> motivoretiro=$motivoretiro[$cont4];
-                                $experiencia-> ultimosalario=$ultimosalario[$cont4];
-                                $experiencia-> fingresoex=$fingresoex[$cont4];
-                                $experiencia-> fsalidaex=$fsalidaex[$cont4];
-                                $experiencia-> idempleado=$empleado->idempleado;
-                                $experiencia-> identificacion=$empleado->identificacion; 
-                                $experiencia->save();
-                                $cont4=$cont4 + 1;
-                            }    
-                        }            
-                        //dd($persona,$empleado,$familia,$academicos,$experiencia); 
-                     //while Referencia
-                       if ($nombrer === null) 
-                        {
+                    }
+                    else 
+                    {
+                        $experiencia = new Experiencia;
+                        $experiencia-> empresa="El usuario no presenta experiencia laboral";
+                        $experiencia-> idempleado=$empleado->idempleado;
+                        $experiencia-> identificacion=$empleado->identificacion; 
+                        $experiencia->save();    
+                    }
+                //Referencia
+                    if ($miArrayPR > 0) 
+                    {
+                        foreach ($miArrayPR as $key => $value) {
                             $referencia = new Referencia;
-                            $referencia-> nombrer="El usuario no ingreso datos";
+                            $referencia-> nombrer=$value['0'];
+                            $referencia-> telefonor=$value['1'];
+                            $referencia-> profesion=$value['2'];
+                            $referencia-> tiporeferencia=$value['3'];
                             $referencia-> idempleado=$empleado->idempleado;
                             $referencia-> identificacion=$empleado->identificacion; 
                             $referencia->save();
                         }
-                        else 
-                        {
-                            while($cont2 < count($nombrer))
-                            {
-                                $referencia = new Referencia;
-                                $referencia-> nombrer=$nombrer[$cont2];
-                                $referencia-> telefonor=$telefonor[$cont2];
-                                $referencia-> profesion=$profesion[$cont2];
-                                $referencia-> tiporeferencia=$tiporeferencia[$cont2];
-                                $referencia-> idempleado=$empleado->idempleado;
-                                $referencia-> identificacion=$empleado->identificacion; 
-                                $referencia->save();
-                                $cont2=$cont2 + 1;
-                            }
+                    }
+                    else 
+                    {
+                        $referencia = new Referencia;
+                        $referencia-> nombrer="El usuario no ingreso datos";
+                        $referencia-> idempleado=$empleado->idempleado;
+                        $referencia-> identificacion=$empleado->identificacion; 
+                        $referencia->save();
+                    }
+                //Padecimientos
+                    if ($miArrayPP >0) 
+                    {
+                        foreach ($miArrayPP as $key => $value) {
+                            $padecimiento= new Padecimientos;
+                            $padecimiento-> nombre = $value['0'];
+                            $padecimiento-> idempleado = $empleado->idempleado;
+                            $padecimiento-> identificacion = $empleado->identificacion;
+                            $padecimiento->save();
                         }
-                     //dd($persona,$empleado,$familia,$academicos,$experiencia,$referencia);
-                     //while deudas
-                        if ($acreedor === null) 
+                    }
+                    else 
+                    {
+                        $padecimiento= new Padecimientos;
+                        $padecimiento-> nombre = " ";
+                    }
+                //Licencia
+                    if ($miArrayPC > 0)
+                    {
+                        foreach ($miArrayPC as $key => $value) 
+                        {
+                            $licencias = new Licencia;
+                            $licencias-> idlicencia = $value['0'];
+                            $licencias-> vigencia = $value['1'];
+                            $licencias-> identificacion = $empleado->identificacion;
+                            $licencias->save();
+                        }
+                            
+                    }
+                    else 
+                    {
+                        $licencias = new Licencia;
+                        $licencias-> vigencia = "";
+                    }
+                //Deudas
+                    if ($miArrayPD > 0) 
+                    {
+                        foreach ($miArrayPD as $key => $value)
                         {
                             $deuda = new Deudas;
-                            $deuda-> acreedor="";
-                        }
-                        else 
-                        {
-                            while($conts < count($acreedor))
-                            {
-                                $deuda = new Deudas;
-                                $deuda-> acreedor=$acreedor[$conts];
-                                $deuda-> amortizacionmensual=$amortizacionmensual[$conts];
-                                $deuda-> montodeuda=$montodeuda[$conts];
-                                $deuda-> idempleado=$empleado->idempleado;
-                                $deuda-> identificacion=$empleado->identificacion;
-                                $deuda-> motivodeuda=$modeuda[$conts];
-                                $deuda->save();
-                                $conts=$conts + 1;
-                            }
-                        }            
-                     //dd($persona,$empleado,$familia,$academicos,$experiencia,$referencia,$deuda);
-                     //while padecimientos
-                        if ($nombre === null) 
-                        {
-                            $padecimiento= new Padecimientos;
-                            $padecimiento-> nombre = " ";
-                        }
-                        else 
-                        {
-                            while($cont < count($nombre))
-                            {
-                                $padecimiento= new Padecimientos;
-                                $padecimiento-> nombre = $nombre[$cont];
-                                $padecimiento-> idempleado = $empleado->idempleado;
-                                $padecimiento-> identificacion = $empleado->identificacion;
-                                $padecimiento->save();
-                                $cont=$cont + 1;
-                            }
-                        }
-                     //dd($persona,$empleado,$familia,$academicos,$experiencia,$referencia,$deuda,$padecimiento,$ppublico,$idioma);
-                     //dd($persona,$empleado,$familia,$padecimiento);
-                     //commit
-                        //Mail::send('emails.envsolicitud', function($msj){
-
-                        
-                        /*$calculo = array($envcorreo);
-
-                        Mail::send('emails.envsolicitud',['calculo' => $calculo], function($msj) use ($request){
-
-                            $msj->subject('Solicitud de empleo');
-                            //dd($persona-> correo);
-                            $msj->to($request->get('correo'));
-
-                            
-                        
-                          });*/
-
-                         /*Mail::send('emails.welcome', $data, function ($message) {
-                            $message->from('us@example.com', 'Laravel');
-
-                            $message->to('foo@example.com')->cc('bar@example.com');
-                        });*/
-                        DB::commit();
-                        
-                    }catch (\Exception $e) 
-                    {
-                        DB::rollback();
-                        dd('Error al enviar los datos, por favor intente mas tarde');         
+                            $deuda-> acreedor=$value['0'];
+                            $deuda-> amortizacionmensual=$value['1'];
+                            $deuda-> montodeuda=$value['2'];
+                            $deuda-> motivodeuda=$value['3'];
+                            $deuda-> idempleado=$empleado->idempleado;
+                            $deuda-> identificacion=$empleado->identificacion;
+                            $deuda->save();
+                        }   
                     }
-
-                    /*return response()->json(["valid" => true], 200);
-                }
-                else{
-                    return response()->json(array('error'=>'Error revise datos'),200);
-                }
-            }
-        }*/
-        return Redirect::to('https://www.habitatguate.org/');
+                    else 
+                    {
+                        $deuda = new Deudas;
+                        $deuda-> acreedor="";
+                    }
+                //mail
+                    /*Mail::send('emails.envsolicitud', function($msj){
+                    $calculo = array($envcorreo);
+                    Mail::send('emails.envsolicitud',['calculo' => $calculo], function($msj) use ($request){
+                        $msj->subject('Solicitud de empleo');
+                            //dd($persona-> correo);
+                        $msj->to($request->get('correo'));
+                    });*/
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+        }
+        return response()->json($persona);
     }
 
     public function upsolicitudPE(Request $request)
@@ -704,6 +590,34 @@ class PersonaController extends Controller
             $messages=[
             'required' => 'Debe ingresar :attribute.',
             'max'  => 'La capacidad del campo :attribute es :max',
+            ];
+            $this->validate($request, $rules,$messages);        
+        }
+    public function Personavalid($request){
+            $rules=[
+            'idpaisPS' => 'required',
+            'identificacion' => 'required',
+            'nombre1' => 'required',
+            'apellido1' => 'required',
+            'celular' => 'required',
+            'fechanac' => 'required',
+            'barriocolonia' => 'required',
+            'pretension' => 'required',
+            'idpuesto' => 'required',
+            'validacion' => 'required|recaptcha',
+
+            ];
+            $messages=[
+            'idpaisPS.required' => 'En datos generales, debe seleccionar su país de origen',
+            'identificacion.required' => 'Debe ingresar su Identificacion.',
+            'nombre1.required' => 'Almenos debe ingesar su primer nombre',
+            'apellido1.required' => 'Almenos debe ingresar su primer apellido',
+            'celular.required' => 'Su numero de celular es un campo obligatorio',
+            'fechanac.required' => 'Debe ingresar su fecha de nacimiento',
+            'barriocolonia.required' => 'Por favor ingrese su dirección',
+            'pretension.required' => 'Debe ingresar su pretensión salarial',
+            'idpuesto.required' => 'Debe seleccionar un puesto al que desee aplicar',
+            'validacion.required'=>'Aún le falta seleccionar el campo No Soy un Robot para terminar',
             ];
             $this->validate($request, $rules,$messages);        
         }

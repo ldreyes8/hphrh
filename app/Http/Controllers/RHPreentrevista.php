@@ -24,30 +24,33 @@ class RHPreentrevista extends Controller
 {
     public function upPreentrevista ($id,$ids)
     {
-        //dd($id);
 
         $emp=DB::table('empleado as e')
         ->select('e.idstatus')
         ->where('e.idempleado','=',$id)
         ->first();
-        //dd($emp->idstatus);
-        if ($emp->idstatus===1) {
+        if ($emp->idstatus==1) {
             $od=Empleado::find($id);
-            $od-> idstatus = '13';
+            $od-> idstatus = 13;
             $od->update();
+
+            $ent = new Entrevista;
+            $ent-> lugar="";
+            $ent-> perentrevista = $ids;
+            $ent->save();
         }
         
-        if ($emp->idstatus===12) {
+        if ($emp->idstatus==12) {
             $od=Empleado::find($id);
-            $od-> idstatus = '16';
+            $od-> idstatus = 16;
             $od->update();
+
+            $ent = new Entrevista;
+            $ent-> lugar="";
+            $ent-> perentrevista = $ids;
+            $ent->save();
         }
 
-        $ent = new Entrevista;
-        $ent-> lugar="";
-        $ent-> perentrevista = $ids;
-        $ent->save();
-        //dd($id);
         return Redirect::to('empleado/listadoR');
     }
 

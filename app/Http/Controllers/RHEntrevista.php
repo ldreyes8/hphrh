@@ -26,14 +26,14 @@ class RHEntrevista extends Controller
         ->select('e.idstatus')
         ->where('e.idempleado','=',$id)
         ->first();
-        if ($emp->idstatus===14) {
+        if ($emp->idstatus==14) {
             $od=Empleado::find($id);
-            $od-> idstatus = '3';
+            $od-> idstatus = 3;
             $od->update();
         }
-        if ($emp->idstatus===18) {
+        if ($emp->idstatus==18) {
             $od=Empleado::find($id);
-            $od-> idstatus = '19';
+            $od-> idstatus = 19;
             $od->update();
         }
         return Redirect::to('empleado/resultadosev');
@@ -45,15 +45,15 @@ class RHEntrevista extends Controller
         ->select('e.idstatus')
         ->where('e.idempleado','=',$id)
         ->first();
-        if ($emp->idstatus===3) {
+        if ($emp->idstatus==3) {
             $od=Empleado::find($id);
-            $od-> idstatus = '15';
+            $od-> idstatus = 15;
             $od->update();
 
         }
-        if ($emp->idstatus===19) {
+        if ($emp->idstatus==19) {
             $od=Empleado::find($id);
-            $od-> idstatus = '20';
+            $od-> idstatus = 20;
             $od->update();
         }
         return Redirect::to('empleado/listadoen');
