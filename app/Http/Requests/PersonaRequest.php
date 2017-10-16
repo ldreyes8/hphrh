@@ -25,15 +25,15 @@ class PersonaRequest extends FormRequest
     public function rules()
     {
         return [
-        'identificacion'=>'required|max:13',
+            'identificacion'=>'required',
             'nombre1'=>'required|max:40',
             'apellido1'=>'required|max:40',
             'celular'=>'required',
             //'nit'=>'required',
             'pretension'=>'required',
             //'barriocolonia'=>'required',
-            'g-recaptcha-response' => 'required|recaptcha',
-            'correo'=>'required',
+            //'g-recaptcha-response' => 'required|recaptcha',
+            //'correo'=>'required',
             //
         ];
     }
@@ -45,8 +45,8 @@ class PersonaRequest extends FormRequest
         'celular.required'=>'Campo celular es requerido',
         //'nit.required'=>'Campo nit es requerido',
         'pretension.required'=>'Campo pretension es requerido',
-        'g-recaptcha-response.required'=>'Validación oligatoria',
-        'correo.required'=>'Correo campo obligatorio',
+        //'g-recaptcha-response.required'=>'Validación oligatoria',
+        //'correo.required'=>'Correo campo obligatorio',
          ];
     }
     /*public function response(array $errors)

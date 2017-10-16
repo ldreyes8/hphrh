@@ -13,7 +13,7 @@ class Persona extends BaseModel
     public $timestamps=false;
     
     protected $fillable =[
-    	'nombre1',
+        'nombre1',
         'nombre2',
         'nombre3',
     	'apellido1',

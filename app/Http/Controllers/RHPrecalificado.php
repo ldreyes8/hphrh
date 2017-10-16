@@ -29,16 +29,16 @@ class RHPrecalificado extends Controller
         ->where('e.idempleado','=',$id)
         ->first();
         //dd($emp->idstatus);
-        if ($emp->idstatus===13) {
+        if ($emp->idstatus==13) {
 
             $od=Empleado::find($id);
-            $od-> idstatus = '4';
+            $od-> idstatus = 4;
             $od->update();
         }
-        if ($emp->idstatus===16) {
+        if ($emp->idstatus==16) {
 
             $od=Empleado::find($id);
-            $od-> idstatus = '17';
+            $od-> idstatus = 17;
             $od->update();
         }
         return Redirect::to('empleado/listadoR');

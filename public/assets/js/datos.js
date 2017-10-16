@@ -35,6 +35,7 @@ $(document).ready(function() {
                 });
                 $('#bt_next').click(function() {
                     identificacion=$("#identificacion").val();
+                    var miurl="verificacion/"+identificacion;
                     nombre1=$("#nombre1").val();
                     apellido1=$("#apellido1").val();
                     celular=$("#celular").val();
@@ -47,9 +48,27 @@ $(document).ready(function() {
                     puesto=$("#puesto").val();
                     afiliado=$("#afiliado").val();
                     correo=$("#correo").val();
+
                     if (identificacion!="" )
                         {  
-                                           
+                            $.ajax({
+                                url: miurl
+                            }).done( function(resul) 
+                            {
+                                swal({ 
+                                        title:"Mensaje de validación",
+                                        text: "Usted ya se encuntra en nuestros registros, no es necesario llenar este formulario",
+                                        type: "success"
+                                    },
+                                    function(){
+                                        window.location.href="https://www.habitatguate.org/"; 
+                                    });
+
+                            }).fail( function() 
+                            {
+                                
+                            });
+                                      
                         }
                     else
                         {
@@ -167,7 +186,7 @@ $(document).ready(function() {
                         }
                 });
 
-               $("#form").submit(function(e)
+               /*$("#form").submit(function(e)
                 {
                     identificacion=$("#identificacion").val();
                     nombre1=$("#nombre1").val();
@@ -304,7 +323,7 @@ $(document).ready(function() {
                             //alert('Gracias por enviar su solicitud');
 
                         }          
-                });
+                });*/
 
                 $('#basicwizard').bootstrapWizard({'tabClass': 'nav nav-tabs navtab-custom nav-justified bg-muted'});
 
@@ -560,7 +579,7 @@ $(document).ready(function() {
 
                 if (nombre!="")
                 {
-                    var filaP='<tr class="selected" id="filaP'+cont+'"><td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarP('+cont+');">X</button></td><td><input type="hidden" name="nombre[]" value="'+nombre+'">'+nombre+'</td>  </tr>';
+                    var filaP='<tr class="selected" id="filaP'+cont+'"><td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarP('+cont+');">X</button></td><td>'+nombre+'</td>  </tr>';
                     cont++;
                     limpiar1();
                     //evaluar();
@@ -592,7 +611,7 @@ $(document).ready(function() {
                 mdeuda=$("#mdeuda").val();
                 if ((acreedor!="") && (amortizacionmensual!="") && (montodeuda!=""))
                 {
-                    var filaC='<tr class="selected" id="filaC'+conts+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarC('+conts+');">X</button></td> <td><input type="hidden" name="acreedor[]" value="'+acreedor+'">'+acreedor+'</td> <td><input type="hidden" name="amortizacionmensual[]" value="'+amortizacionmensual+'">'+amortizacionmensual+'</td> <td><input type="hidden" name="montodeuda[]" value="'+montodeuda+'">'+montodeuda+'</td> <td><input type="hidden" name="mdeuda[]" value="'+mdeuda+'">'+mdeuda+'</td> </tr>';
+                    var filaC='<tr class="selected" id="filaC'+conts+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarC('+conts+');">X</button></td> <td>'+acreedor+'</td> <td>'+amortizacionmensual+'</td> <td>'+montodeuda+'</td> <td>'+mdeuda+'</td> </tr>';
                     conts++;
                     limpiar2();
                     $('#detalles').append(filaC);
@@ -626,7 +645,7 @@ $(document).ready(function() {
 
                 if ((nombrer!="") && (telefonor!="") && (profesion!="") )
                 {
-                    var filaR='<tr class="selected" id="filaR'+contss+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarR('+contss+');">X</button></td> <td><input type="hidden" name="nombrer[]" value="'+nombrer+'">'+nombrer+'</td> <td><input type="hidden" name="telefonor[]" value="'+telefonor+'">'+telefonor+'</td> <td><input type="hidden" name="profesion[]" value="'+profesion+'">'+profesion+'</td> <td><input type="hidden" name="tiporeferencia[]" value="'+tiporeferencia+'">'+tiporeferencia+'</td> </tr>';
+                    var filaR='<tr class="selected" id="filaR'+contss+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarR('+contss+');">X</button></td> <td>'+nombrer+'</td> <td>'+telefonor+'</td> <td>'+profesion+'</td> <td>'+tiporeferencia+'</td> </tr>';
                     contss++;
                     limpiar3();
                     $('#detalle3').append(filaR);
@@ -666,14 +685,14 @@ $(document).ready(function() {
                 {
                     if ( ($('#emergencia').is(':checked')) && (telefonof!=""))
                     {
-                        var filaF='<tr class="selected" id="filaF'+contsss+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarF('+contsss+');">X</button></td> <td><input type="hidden" name="nombref[]" value="'+nombref+'">'+nombref+'</td> <td><input type="hidden" name="apellidof[]" value="'+apellidof+'">'+apellidof+'</td> <td><input type="hidden" name="edad[]" value="'+edad+'">'+edad+'</td> <td><input type="hidden" name="telefonof[]" value="'+telefonof+'">'+telefonof+'</td> <td><input type="hidden" name="parentezco[]" value="'+parentezco+'">'+parentezco+'</td> <td><input type="hidden" name="ocupacion[]" value="'+ocupacion+'">'+ocupacion+'</td> <td><input type="hidden" name="emergencia[]" value="'+emergencia+'">'+emrg+'</td> </tr>';
+                        var filaF='<tr class="selected" id="filaF'+contsss+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarF('+contsss+');">X</button></td> <td>'+nombref+'</td> <td>'+apellidof+'</td> <td>'+edad+'</td> <td>'+telefonof+'</td> <td>'+parentezco+'</td> <td>'+ocupacion+'</td> <td><input type="hidden" id="emergencia" name="emergencia[]" value="'+emergencia+'">'+emrg+'</td> </tr>';
                     contsss++;
                     limpiar4();
                     $('#detalle4').append(filaF);
                     }
                     else 
                     {
-                        var filaF='<tr class="selected" id="filaF'+contsss+'"><td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarF('+contsss+');">X</button></td> <td><input type="hidden" name="nombref[]" value="'+nombref+'">'+nombref+'</td> <td><input type="hidden" name="apellidof[]" value="'+apellidof+'">'+apellidof+'</td> <td><input type="hidden" name="edad[]" value="'+edad+'">'+edad+'</td> <td><input type="hidden" name="telefonof[]" value="'+telefonof+'">'+telefonof+'</td> <td><input type="hidden" name="parentezco[]" value="'+parentezco+'">'+parentezco+'</td> <td><input type="hidden" name="ocupacion[]" value="'+ocupacion+'">'+ocupacion+'</td> <td><input type="hidden" name="emergencia[]" value="no">'+emr+'</td> </tr>';
+                        var filaF='<tr class="selected" id="filaF'+contsss+'"><td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarF('+contsss+');">X</button></td> <td>'+nombref+'</td> <td>'+apellidof+'</td> <td>'+edad+'</td> <td>'+telefonof+'</td> <td>'+parentezco+'</td> <td>'+ocupacion+'</td> <td><input type="hidden" id="emergencia" name="emergencia[]" value="No">'+emr+'</td> </tr>';
                     contsss++;
                     limpiar4();
                     $('#detalle4').append(filaF);
@@ -709,7 +728,7 @@ $(document).ready(function() {
 
                 if (empresa!="")
                 {
-                    var filaEl='<tr class="selected" id="filaEl'+contEx+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarEl('+contEx+');">X</button></td> <td><input type="hidden" name="empresa[]" value="'+empresa+'">'+empresa+'</td> <td><input type="hidden" name="puesto[]" value="'+puesto+'">'+puesto+'</td> <td><input type="hidden" name="jefeinmediato[]" value="'+jefeinmediato+'">'+jefeinmediato+'</td> <td><input type="hidden" name="teljefeinmediato[]" value="'+teljefeinmediato+'">'+teljefeinmediato+'</td> <td><input type="hidden" name="motivoretiro[]" value="'+motivoretiro+'">'+motivoretiro+'</td> <td><input type="hidden" name="ultimosalario[]" value="'+ultimosalario+'">'+ultimosalario+'</td> <td><input type="hidden" name="fingresoex[]" value="'+fingresoex+'">'+fingresoex+'</td> <td><input type="hidden" name="fsalidaex[]" value="'+fsalidaex+'">'+fsalidaex+'</td> </tr>';
+                    var filaEl='<tr class="selected" id="filaEl'+contEx+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarEl('+contEx+');">X</button></td> <td>'+empresa+'</td> <td>'+puesto+'</td> <td>'+jefeinmediato+'</td> <td>'+teljefeinmediato+'</td> <td>'+motivoretiro+'</td> <td>'+ultimosalario+'</td> <td>'+fingresoex+'</td> <td>'+fsalidaex+'</td> </tr>';
                     contEx++;
                     limpiar5();
                     $('#detalle5').append(filaEl);
@@ -757,7 +776,7 @@ $(document).ready(function() {
                     {
                         if (idpaisPA !="73") 
                         {
-                                var filaA='<tr class="selected" id="filaA'+contAc+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarA('+contAc+');">X</button></td> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingreso+'">'+fingreso+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalida+'">'+fsalida+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+munid+'"></td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
+                                var filaA='<tr class="selected" id="filaA'+contAc+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarA('+contAc+');">X</button></td> <td>'+titulo+'</td> <td>'+establecimiento+'</td> <td>'+duracion+'</td> <td>'+periodo+'</td> <td><input type="hidden" id="nivelid" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td>'+fingreso+'</td> <td>'+fsalida+'</td> <td><input type="hidden" id="pidmunicipio" name="pidmunicipio[]" value="'+munid+'"></td> <td><input type="hidden" id="idpaisPAAT" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
                                 contAc++;
                                 limpiar6();
                                 $('#detalle6').append(filaA);
@@ -766,7 +785,7 @@ $(document).ready(function() {
                         {
                             if(iddepartamento1!="1")
                             {
-                                var fila='<tr class="selected" id="filaA'+contAc+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarA('+contAc+');">X</button></td> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingreso+'">'+fingreso+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalida+'">'+fsalida+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+pidmunicipio+'">'+municipio+'</td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
+                                var fila='<tr class="selected" id="filaA'+contAc+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarA('+contAc+');">X</button></td> <td>'+titulo+'</td> <td>'+establecimiento+'</td> <td>'+duracion+'</td> <td>'+periodo+'</td> <td><input type="hidden" id="nivelid" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td>'+fingreso+'</td> <td>'+fsalida+'</td> <td><input type="hidden" id="pidmunicipio" name="pidmunicipio[]" value="'+pidmunicipio+'">'+municipio+'</td> <td><input type="hidden" id="idpaisPAAT" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
                                 contAc++;
                                 limpiar6();
                                 $('#detalle6').append(fila);
@@ -781,7 +800,7 @@ $(document).ready(function() {
                     {
                         if (idpaisPA !="73") 
                         {
-                                var filaA='<tr class="selected" id="filaA'+contAc+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarA('+contAc+');">X</button></td> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingresoDT+'">'+fingresoDT+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalidaDT+'">'+fsalidaDT+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+munid+'"></td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
+                                var filaA='<tr class="selected" id="filaA'+contAc+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarA('+contAc+');">X</button></td> <td>'+titulo+'</td> <td>'+establecimiento+'</td> <td>'+duracion+'</td> <td>'+periodo+'</td> <td><input type="hidden" id="nivelid" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td>'+fingresoDT+'</td> <td>'+fsalidaDT+'</td> <td><input type="hidden" id="pidmunicipio" name="pidmunicipio[]" value="'+munid+'"></td> <td><input type="hidden" id="idpaisPAAT" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
                                 contAc++;
                                 limpiar6();
                                 $('#detalle6').append(filaA);
@@ -790,7 +809,7 @@ $(document).ready(function() {
                         {
                             if(iddepartamento1!="1")
                             {
-                                var filaA='<tr class="selected" id="filaA'+contAc+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarA('+contAc+');">X</button></td> <td><input type="hidden" name="titulo[]" value="'+titulo+'">'+titulo+'</td> <td><input type="hidden" name="establecimiento[]" value="'+establecimiento+'">'+establecimiento+'</td> <td><input type="hidden" name="duracion[]" value="'+duracion+'">'+duracion+'</td> <td><input type="hidden" name="periodo[]" value="'+periodo+'">'+periodo+'</td> <td><input type="hidden" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td><input type="hidden" name="fingreso[]" value="'+fingresoDT+'">'+fingresoDT+'</td> <td><input type="hidden" name="fsalida[]" value="'+fsalidaDT+'">'+fsalidaDT+'</td> <td><input type="hidden" name="pidmunicipio[]" value="'+pidmunicipio+'">'+municipio+'</td> <td><input type="hidden" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
+                                var filaA='<tr class="selected" id="filaA'+contAc+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarA('+contAc+');">X</button></td> <td>'+titulo+'</td> <td>'+establecimiento+'</td> <td>'+duracion+'</td> <td>'+periodo+'</td> <td><input type="hidden" id="nivelid" name="nivelid[]" value="'+idnivels+'">'+idniveltx+'</td> <td>'+fingresoDT+'</td> <td>'+fsalidaDT+'</td> <td><input type="hidden" id="pidmunicipio" name="pidmunicipio[]" value="'+pidmunicipio+'">'+municipio+'</td> <td><input type="hidden" id="idpaisPAAT" name="idpaisPAAT[]" value="'+idpaisPA+'"></td> </tr>';
                                 contAc++;
                                 limpiar6();
                                 $('#detalle6').append(filaA);
@@ -830,7 +849,7 @@ $(document).ready(function() {
                 }
                 else
                 {
-                    var filaI='<tr class="selected" id="filaI'+contId+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarI('+contId+');">X</button></td> <td><input type="hidden" name="eidioma[]" value="'+idioma+'">'+idiomaTex+'</td> <td><input type="hidden" name="niveli[]" value="'+niveli+'">'+niveli+'</td> </tr>';
+                    var filaI='<tr class="selected" id="filaI'+contId+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarI('+contId+');">X</button></td> <td><input type="hidden" id="eidioma" name="eidioma[]" value="'+idioma+'">'+idiomaTex+'</td> <td>'+niveli+'</td> </tr>';
                     contId++;
                     $('#detalle7').append(filaI);
                 }
@@ -855,7 +874,7 @@ $(document).ready(function() {
                 vigencia=$("#vigencia").val();
                 if(vigencia!="")
                 {
-                    var filaL='<tr class="selected" id="filaL'+contL+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarL('+contL+');">X</button></td> <td><input type="hidden" name="licenciape[]" value="'+licencia+'">'+licenciatex+'</td> <td><input type="hidden" name="vigencia[]" value="'+vigencia+'">'+vigencia+'</td> </tr>';
+                    var filaL='<tr class="selected" id="filaL'+contL+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarL('+contL+');">X</button></td> <td><input type="hidden" id="licenciape" name="licenciape[]" value="'+licencia+'">'+licenciatex+'</td> <td>'+vigencia+'</td> </tr>';
                     contL++;
                     limpiar7();
                     $('#detalle8').append(filaL);
@@ -887,7 +906,10 @@ $(document).ready(function() {
                 if ((formate!="") && (finmotivo!="") && (paisid!=""))
                 {
                     
-                                var filaTE='<tr class="selected" id="filaTE'+contTE+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarTE('+contTE+');">X</button></td> <td><input type="hidden" name="formate[]" value="'+formate+'">'+formate+'</td> <td><input type="hidden" name="paisTe[]" value="'+paisid+'">'+paistext+'</td> <td><input type="hidden" name="finmotivo[]" value="'+finmotivo+'">'+finmotivo+'</td> </tr>';
+                                var filaTE ='<tr class="selected" id="filaTE'+contTE+'"> <td><button type="button" style="background-color:#E6E6E6"  class="btn" onclick="eliminarTE('+contTE+');">X</button></td>';
+                                    filaTE +='<td>'+formate+'</td>'; 
+                                    filaTE +='<td><input type="hidden" id="paisTe" name="paisTe[]" value="'+paisid+'">'+paistext+'</td>';
+                                    filaTE +='<td>'+finmotivo+'</td> </tr>';
                                 contTE++;
                                 limpiarTE();
                                 $('#detalleTE').append(filaTE);   

@@ -29,14 +29,14 @@ class RHEvaluciones extends Controller
         ->where('e.idempleado','=',$id)
         ->first();
         //dd($emp->idstatus);
-    if ($emp->idstatus===4) {	
+    if ($emp->idstatus==4) {	
         $od=Empleado::find($id);
-        $od-> idstatus = '14';
+        $od-> idstatus = 14;
         $od->update();
     }
-    if ($emp->idstatus===17) {   
+    if ($emp->idstatus==17) {   
         $od=Empleado::find($id);
-        $od-> idstatus = '18';
+        $od-> idstatus = 18;
         $od->update();
     }
 

@@ -240,7 +240,6 @@
                                     <i class="fa fa-file-text"></i><span>Solicitar puesto</span>
                                 </a>
                             </li>
-
                             <!--
                             <li class="has_sub">
                                 <a href="{{ url('/ji/viajejf')}}" class="waves-effect waves-primary" onclick="cargarvacante(1);">&nbsp;&nbsp;&nbsp;
@@ -249,8 +248,6 @@
                             </li>
 
                             -->
-
-
 
                             @endrole
 
