@@ -11,17 +11,40 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
     <h4 class="box-title" align="center">Liquidaci&oacute;n viaje</h4>
     <hr style="border-color:black;" />
 
-    <div><p><br></p></div>
-    <input type="hidden" name="_token" id="_token"  value="<?= csrf_token(); ?>">
+    <input type="hidden" name="_token" id="_token"  value="<?= csrf_token(); ?>" />
 
-    <!--  searchempleado-->
-  
-    <div class="panel-heading">
-        <button class="btn btn-success btn-openviaje" title="Detalles"><i class="fa fa-plus-square"></i></button>
-    </div>
-
+   
+                                                
 
     <div class="panel">
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Monto solicitado</label>
+            <div class="col-md-4">
+                <label>5000</label>            
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Tipo Proyecto</label>
+            <div class="col-md-4">
+                <label>5000</label>            
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Fecha inicio</label>
+            <div class="col-md-4">
+                <label>13-04-2017</label>            
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Fecha final</label>
+            <div class="col-md-4">
+                <label>17-04-2017</label>            
+            </div>
+        </div>
+
+
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-6">
@@ -39,6 +62,7 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                             <th>Descripci&oacute;n</th>
                             <th># Factura</th>
                             <th>Empleado</th>
+                            <th>Cuenta</th>
                             <th>LOB L10</th>
                             <th>Donador L8</th>
                             <th>Proyecto L9</th>
@@ -50,50 +74,45 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                     </thead>
                     <tbody>
                     
-                    <tr class="fila-base" id="rowtable">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="actions">
-                            
-                        </td>
-                    </tr>
-                    
-                           
-                    @foreach($liquidaciones as $liq)
-                        <tr>
-                        <td>{{$liq->fecha}}</td>
-                        <td></td>
-                        <td>{{$liq->factura}}</td>
-                        <td>{{$liq->empleado}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="actions">
-                            <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
-                            <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
-                            <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                            <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
-                        </td>
+                        <tr class="fila-base" id="rowtable">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="actions">                            
+                            </td>
                         </tr>
-
-                    @endforeach                                           
-                                        
+                        <tr>
+                            <td>10/05/2017</td>
+                            <td>fwefw</td>
+                            <td>10</td>
+                            <td>Luis</td>
+                            <td>Alimentacion</td>
+                            <td>ff</td>
+                            <td>10</td>
+                            <td>10</td>
+                            <td>10</td>
+                            <td>10</td>
+                            <td>10</td>
+                            <td class="actions">
+                                <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
+                                <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
+                                <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                            </td>
+                        </tr>                    
                     </tbody>
                 </table>
             </div>
         </div><!-- end: page -->
-    </div> <!-- end Panel -->
+    </div> 
 
 </div>
 

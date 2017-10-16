@@ -13,11 +13,17 @@
         @endforeach        
     </select>
 </td>
+
+<td>
+    <select class="form-control select2" id="cuenta">
+        @foreach($cuenta as $cue)
+        <option value="{{$cue->codigocuenta}}">{{$cue->nombrecuenta}}</option>
+        @endforeach        
+    </select>
+</td>
 <td>
     <select class="form-control"> 
-    @foreach($add as $ad)
-        <option value="{{$ad->codigo}}">{{$ad->nombre}}</option>
-    @endforeach
+   
     </select>
 </td>
 <td>

@@ -57,11 +57,12 @@
 				        "previous":   "Anterior"
 				    },
                 },
-				aoColumns: [
+				columns: [
 					null, //Fecha
 					null, //Descripcion
 					null, //#Factura
 					null, //Empleado
+					{ "bSortable": false },
 					null, //LOB L10
 					null, //Donador L8
 					null, //Proyecto L9
@@ -73,6 +74,13 @@
 				//select: true
 			});
 
+			/**
+			"columnDefs": [
+		 *          { "orderDataType": "dom-text", "targets": [ 2, 3 ] },
+		 *          { "type": "numeric", "targets": [ 3 ] },
+		 *          { "orderDataType": "dom-select", "targets": [ 4 ] },
+		 *          { "orderDataType": "dom-checkbox", "targets": [ 5 ] }
+		 *        ]*/
 			window.dt = this.datatable;
 
 			return this;
@@ -147,7 +155,7 @@
 
 			var urlraiz=$("#url_raiz_proyecto").val();
 			var miurl = urlraiz+"/empleado/viaje/liquidar/add";
-			
+
 			var actions,
 				data,
 				$row;	
@@ -223,6 +231,60 @@
 
 		rowSave: function( $row ) {
 
+			$.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+            
+            var formData = {
+                idempleado: $("#idemple").val(),
+                identificacion: $("#identifica").val(),
+                fecha_despido: $("#fecha_inicio").val(),           
+                motivo: $("#idstatus option:selected").text(),
+                observaciones : $("#observaciones").val(),
+                idstatus: $("#idstatus").val(),
+            };
+
+            var state=$("#btnGuardarBaja").val();
+
+            var type;
+
+            type="POST";
+            var my_url = 'addbaja';
+
+            $.ajax({
+                type: type,
+                url: my_url,
+                data: formData,
+                dataType: 'json',
+
+                success: function (data) {
+                    swal({
+                        title:"Envio correcto",
+                        text: "Se ha despedido al empleado correctamente",
+                        type: "success",
+                    });
+
+                    $("#empleado" + idEP).remove();
+                    $('#formDespedir').trigger("reset");
+                    $('#formModalDespedir').modal('hide');                        
+                },
+                error: function (data) {
+                    $('#loading').modal('hide');
+                    var errHTML="";
+                    if((typeof data.responseJSON != 'undefined')){
+                        for( var er in data.responseJSON){
+                            errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                        }
+                    }else{
+                        errHTML+='<li>Error</li>';
+                    }
+                    $("#erroresContent").html(errHTML); 
+                    $('#erroresModal').modal('show');
+                }
+            });
+
 			this.$addButton.removeAttr( 'disabled' );
 
 			var _self     = this,
@@ -245,9 +307,6 @@
 					return $.trim( $this.find('input').val() );
 				}
 			});
-			//console.log(values);
-			//console.log(this.datatable.row( $row.get(0) ).data( values ));
-
 
 			this.datatable.row( $row.get(0) ).data( values );
 

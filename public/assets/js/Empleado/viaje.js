@@ -1,65 +1,17 @@
-function cargar_formularioviaje(arg){
-  var urlraiz=$("#url_raiz_proyecto").val();
-
-   $("#capa_modal").show();
-   $("#capa_formularios").show();
-   var screenTop = $(document).scrollTop();
-   $("#capa_formularios").css('top', screenTop);
-   $("#capa_formularios").html($("#cargador_empresa").html());
-   //if(arg==1){ var miurl=urlraiz+"/form_nuevo_usuario"; }
-   if(arg==1){ var miurl=urlraiz+"/empleado/viaje/solicitar"; }
-   if(arg==2){ var miurl=urlraiz+"/empleado/viaje/liquidar"; }
-   if(arg==3){ var miurl=urlraiz+"/empleado/viaje/add"; }
-   //Listado de Jefe Inmediato Autorizaciones Vacacioens Y permisos
-
-   if(arg==4){ var miurl=urlraiz+"/empleado/vautorizadopv"; }
-
-   if(arg==20){ var miurl=urlraiz+"/ji/viajejf/solicitados"; }
-   if(arg==21){ var miurl=urlraiz+"/ji/viajejf/autorizados"; }
-   if(arg==22){ var miurl=urlraiz+"/ji/viajejf/detalleauto"; }
- 
-    $.ajax({
-    url: miurl
-    }).done( function(resul) 
-    {
-    	$("#capa_formularios").html(resul);
-    }).fail( function() 
-    {
-    	$("#capa_formularios").html('<span>...Ha ocurrido un error, revise su conexión y vuelva a intentarlo...</span>');
-    });
-}
-
-
-
-
-$(document).on("click",".pagination li a",function(e){
-    e.preventDefault();
-    var url = $(this).attr("href");
-    $("#pvsolicitados").html($("#cargador_empresa").html());
-
-    $.get(url,function(resul){
-        $("#pvsolicitados").html(resul);  
-    })
-});
-
-
-$(document).on('click','.btn-SolViaje',function(e){
-    $('#inputTitleViaje').html("Solicitud de viaje");
-    $('#formAgregarViaje').trigger("reset");
-    $('#formModal').modal("show");
-
-}); 
-
 $(document).on('click','.btn-addviaje',function(e){
     e.preventDefault();
     var $f = $(this);
 
+
     if($f.data('locked') == undefined && !$f.data('locked'))
     {
+        var urlraiz=$("#url_raiz_proyecto").val();
+
         var resdeposito="ninguno";
         var resvehiculo="ninguno";
+        var itemsData=[];
 
-        var miurl="vacaciones/update";
+        var miurl=urlraiz+"/empleado/viaje/store";
 
         var deposito=document.getElementsByName("deposito");
         var solicitarveh=document.getElementsByName("hvehiculo");
@@ -77,18 +29,28 @@ $(document).on('click','.btn-addviaje',function(e){
             if(solicitarveh[i].checked)
             resvehiculo=solicitarveh[i].value;
         }
+
+
+        $('#table-veh tr').each(function(){
+            var id = $(this).closest('tr').find('input[type="hidden"]').val();
+            var kilometraje = $(this).find('td').eq(2).html();
+            valor = new Array(id,kilometraje);
+            itemsData.push(valor);
+            
+        });
         
         var formData = {
-            idproyecto: $('#idproyecto').val(),
+            proyecto: $('#idproyecto').val(),
             monto_solicitado: $('#monto').val(),
             cheque_o_transferencia: resdeposito,
             moneda :$('#moneda').val(),
             fecha_inicio: $('#fecha_inicio').val(),
             fecha_final: $('#fecha_final').val(),
             motivo: $('#motivo').val(),
-            vehiculo: $('#idvehiculo').val(),
+            veh: resvehiculo,
             kilometraje_inicial: $('#kinicial').val(),
             kilometraje_final: $('#kfinal').val(),
+            vehiculo: itemsData,
         };
         
         $.ajaxSetup({
@@ -103,17 +65,19 @@ $(document).on('click','.btn-addviaje',function(e){
             data: formData,
             dataType: 'json',
 
-            beforeSend: function(){ $f.data('locked', true);  // (2)
-            },
+            //beforeSend: function(){ $f.data('locked', true);  // (2)
+            //},
 
             success: function (data) {
-                //document.getElementById("dataTableItems").innerHTML += "<tr class='fila'><td>" +hoy+ "</td><td>" +finicio + "</td><td>" +ffin  + "</td><td>" + td + "</td><td>" +th +"</td><td>" +"solicitado"+ "</td></tr>";
-                $('#formGoce').modal('hide');
+                $f.data('locked', true);
+
                 swal({
                     title:"Envio correcto",
                     text: "La solicitud ha sido enviada correctamente",
                     type: "success",
-                });                    
+                });
+
+                $f.data('locked',false);                    
             },
             error: function (data) {
                 $('#loading').modal('hide');
@@ -128,8 +92,8 @@ $(document).on('click','.btn-addviaje',function(e){
                 $("#erroresContent").html(errHTML); 
                 $('#erroresModal').modal('show');
             },
-            complete: function(){ $f.data('locked', false);  // (3)
-            }
+            //complete: function(){ $f.data('locked', false);  // (3)
+            //}
         });
     }else{
         swal({
@@ -140,4 +104,32 @@ $(document).on('click','.btn-addviaje',function(e){
     }
 });
 
+$(document).on('click','.btn-cancelviaje',function(e){
+    e.preventDefault();
+    swal({
+        title: "¿Estás seguro?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#FFFF00",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    }, function (isConfirm) {
+        if (isConfirm) {
+            swal({ 
+                title:"Gracias",
+                text: "Solicitud cancelada",
+                type: "success",
+                confirmButtonClass: 'btn-success waves-effect waves-light',
+                confirmButtonText: 'OK!'
+            },
+            function(){
+                cargar_formularioviaje(1);
+            });
+        }else {
+            swal("Cancelado", " :)", "error");
+        }
+    });    
+});
 

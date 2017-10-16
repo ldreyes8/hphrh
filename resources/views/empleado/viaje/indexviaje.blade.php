@@ -2,7 +2,6 @@
     <h4 class="box-title" align="center">Solicitar viaje</h4>
     <hr style="border-color:black;" />
 
-    <div><p><br></p></div>
     <input type="hidden" name="_token" id="_token"  value="<?= csrf_token(); ?>">
 
     <!--  searchempleado-->
@@ -17,7 +16,7 @@
 
     <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <div class="table-responsive">
-            <table class="table table-striped table-bordered table-condensed table-hover" id="datatable-editable">
+            <table class="table table-striped table-bordered table-condensed table-hover" id="index-viaje">
                 <thead>
                     <th>Solicitud</th>
                     <th>Inicio</th>
@@ -27,23 +26,21 @@
                     <th>Autorizaci&oacute;n</th>                                
                     <th>Opciones</th>
                 </thead>
+                @foreach ($viaje as $via)
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{$via->fechasolicitud}}</td>
+                    <td>{{$via->fechainicio}}</td>
+                    <td>{{$via->fechafin}}</td>
+                    <td>{{$via->montosolicitado}}</td>
+                    <td>{{$via->tipogasto}}</td>
+                    <td>{{$via->statusgasto}}</td>
                     <td><a href="#"><button class="btn btn-primary">Ver</button></a></td>
-                </tr>    
+                </tr> 
+                @endforeach
             </table>
         </div>
     </div>
-
-
 </div>
-
-
 
     <!-- Examples -->
         <script src="{{asset('assets/plugins/magnific-popup/dist/jquery.magnific-popup.min.js')}}"></script>
@@ -62,9 +59,11 @@
         function mostrar() {
             if($("#solvehiculo:checked").val()=="Si") {
                 $("#vehoculto").show();
+                $("#taboculto").show();
             }
             if($("#solvehiculo:checked").val()=="No") {
                 $("#vehoculto").hide();
+                $("#taboculto").hide();
             }
         }
             function valida(e){
@@ -101,3 +100,103 @@
             }
     </script>
 
+
+    <script type="text/javascript">
+        (function( $ ) {
+
+            'use strict';
+
+            var EditableTable = {
+
+                options: {
+                    addButton: '#addToTable',
+                    table: '#index-viaje',
+                    dialog: {
+                        wrapper: '#dialog',
+                        cancelButton: '#dialogCancel',
+                        confirmButton: '#dialogConfirm',
+                    }
+                },
+                
+                initialize: function() {
+                    this
+                        .setVars()
+                        .build()
+                        .events();
+                },
+
+                setVars: function() {
+                    this.$table             = $( this.options.table );
+                    //this.$addButton         = $( this.options.addButton );
+
+                    // dialog
+                    this.dialog             = {};
+                    //this.dialog.$wrapper    = $( this.options.dialog.wrapper );
+                    //this.dialog.$cancel     = $( this.options.dialog.cancelButton );
+                    //this.dialog.$confirm    = $( this.options.dialog.confirmButton );
+
+                    return this;
+                },
+
+                build: function() {
+                    this.datatable = this.$table.DataTable({
+                        "language": {
+                            "decimal":        "",
+                            "emptyTable":     "No data available in table",
+                            "info":           "Mostrando _START_ a _END_ de _TOTAL_ registros por pagina",
+                            "infoEmpty":      "Showing 0 to 0 of 0 entries",
+                            "infoFiltered":   "(filtered from _MAX_ total entries)",
+                            "infoPostFix":    "",
+                            "thousands":      ",",
+                            "lengthMenu":     "Mostrar _MENU_ registros",
+                            "loadingRecords": "Loading...",
+                            "processing":     "Processing...",
+                            "search":         "Buscar:",
+                            "total":          "total",          
+                            "zeroRecords":    "No se encontraron registros",
+                            "paginate": {
+                                "first":      "First",
+                                "last":       "Last",
+                                "next":       "Siguiente",
+                                "previous":   "Anterior"
+                            },
+                        },
+                        aoColumns: [
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            { "bSortable": false }
+                        ],
+                        aLengthMenu: [ 
+                            10, 
+                            15, 
+                            25, 
+                        ]
+                    });
+
+                    window.dt = this.datatable;
+
+                    return this;
+                },
+         
+
+                events: function() {
+                    var _self = this;
+
+                    this.$table
+                    
+
+                    return this;
+                },
+
+            };
+         
+            $(function() {
+                EditableTable.initialize();
+            });
+
+        }).apply( this, [ jQuery ]);
+    </script>
