@@ -32,7 +32,7 @@ class RHPreentrevista extends Controller
         if ($emp->idstatus==1) {
             $od=Empleado::find($id);
             $od-> idstatus = 13;
-            $od->update();
+            $od->save();
 
             $ent = new Entrevista;
             $ent-> lugar="";
@@ -43,7 +43,7 @@ class RHPreentrevista extends Controller
         if ($emp->idstatus==12) {
             $od=Empleado::find($id);
             $od-> idstatus = 16;
-            $od->update();
+            $od->save();
 
             $ent = new Entrevista;
             $ent-> lugar="";
