@@ -471,7 +471,7 @@
                                                 </div>
                                                 <ul class="pager m-b-0 wizard">
                                                     <li class="previous"><a href="#" class="btn btn-primary waves-effect waves-light">Atras</a></li>
-                                                    <li class="next"><a href="#" class="btn btn-primary waves-effect waves-light">Siguiente</a></li>
+                                                    <li class="next"><a href="#" id="btnnextf" class="btn btn-primary waves-effect waves-light">Siguiente</a></li>
                                                 </ul>
                                             </div>
                             <!--Datos Acaemicos -->
@@ -642,7 +642,7 @@
                                                 </div>
                                                 <ul class="pager m-b-0 wizard">
                                                     <li class="previous"><a href="#" class="btn btn-primary waves-effect waves-light">Atras</a></li>
-                                                    <li class="next"><a href="#" class="btn btn-primary waves-effect waves-light">Siguiente</a></li>
+                                                    <li class="next"><a href="#" id="btnextacad" class="btn btn-primary waves-effect waves-light">Siguiente</a></li>
                                                 </ul>
                                             </div>
                             <!--Datos Experiencia -->
@@ -779,7 +779,7 @@
                                                 </div>
                                                 <ul class="pager m-b-0 wizard">
                                                     <li class="previous"><a href="#" class="btn btn-primary waves-effect waves-light">Atras</a></li>
-                                                    <li class="next"><a href="#" class="btn btn-primary waves-effect waves-light">Siguiente</a></li>
+                                                    <li class="next"><a href="#" id="btnextref" class="btn btn-primary waves-effect waves-light">Siguiente</a></li>
                                                 </ul>
                                             </div>
                             <!--Datos varios -->
