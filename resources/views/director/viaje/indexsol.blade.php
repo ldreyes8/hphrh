@@ -18,7 +18,7 @@
                 </thead>
                 @foreach($viaje as $v)
                 <tr>
-                    <td><input type="hidden" id="id" value="{{v->id}}"></td>
+                    <td><input type="hidden" id="id" value="{{$v->id}}"></td>
                     <td>{{$v->nombre}}</td>
                     <td>{{$v->tipogasto}}</td>
                     <td>{{$v->montosolicitado}}</td>

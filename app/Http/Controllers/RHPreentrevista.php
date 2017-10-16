@@ -24,16 +24,33 @@ class RHPreentrevista extends Controller
 {
     public function upPreentrevista ($id,$ids)
     {
-        //dd($ids);
-        $od=Empleado::find($id);
-        $od-> idstatus = '13';
-        $od->update();
 
-        $ent = new Entrevista;
-        $ent-> lugar="";
-        $ent-> perentrevista = $ids;
-        $ent->save();
-        //dd($id);
+        $emp=DB::table('empleado as e')
+        ->select('e.idstatus')
+        ->where('e.idempleado','=',$id)
+        ->first();
+        if ($emp->idstatus==1) {
+            $od=Empleado::find($id);
+            $od-> idstatus = 13;
+            $od->update();
+
+            $ent = new Entrevista;
+            $ent-> lugar="";
+            $ent-> perentrevista = $ids;
+            $ent->save();
+        }
+        
+        if ($emp->idstatus==12) {
+            $od=Empleado::find($id);
+            $od-> idstatus = 16;
+            $od->update();
+
+            $ent = new Entrevista;
+            $ent-> lugar="";
+            $ent-> perentrevista = $ids;
+            $ent->save();
+        }
+
         return Redirect::to('empleado/listadoR');
     }
 
@@ -203,8 +220,9 @@ class RHPreentrevista extends Controller
             //->where('p.nombre1','LIKE','%'.$query.'%')
             //->andwhere('p.apellido1','LIKE','%'.$query.'%')
             ->where('e.idstatus','=',13)
+            ->orwhere('e.idstatus','=',16)
 
-            ->where('p.nombre1','LIKE','%'.$query.'%')
+            //->where('p.nombre1','LIKE','%'.$query.'%')
             //->orwhere('p.apellido1','LIKE','%'.$query.'%')
 
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')

@@ -190,38 +190,94 @@ class SController extends Controller
     }
     public function rechazope($idE,$idS)
     {
-        $st=Empleado::find($idE);
-        $st-> idstatus='10';
-        $st->update();
+        $emp=DB::table('empleado as e')
+        ->select('e.idstatus')
+        ->where('e.idempleado','=',$idE)
+        ->first();
+        if ($emp->idstatus===13) {
+            $st=Empleado::find($idE);
+            $st-> idstatus='10';
+            $st->update();
+        }
+        if ($emp->idstatus===16) {
+            $st=Empleado::find($idE);
+            $st-> idstatus='2';
+            $st->update();
+        }
         return Redirect::to('empleado/pre_entrevistado');
     }
     public function rechazopc($idE,$idS)
     {
-        $st=Empleado::find($idE);
-        $st-> idstatus='10';
-        $st->update();
+        $emp=DB::table('empleado as e')
+        ->select('e.idstatus')
+        ->where('e.idempleado','=',$idE)
+        ->first();
+        if ($emp->idstatus===4) {
+            $st=Empleado::find($idE);
+            $st-> idstatus='10';
+            $st->update();
+        }
+        if ($emp->idstatus===17) {
+            $st=Empleado::find($idE);
+            $st-> idstatus='2';
+            $st->update();
+        }
         return Redirect::to('empleado/pre_calificados');
     }
     public function rechazoe($idE,$idS)
     {
-        $st=Empleado::find($idE);
-        $st-> idstatus='10';
-        $st->update();
+        $emp=DB::table('empleado as e')
+        ->select('e.idstatus')
+        ->where('e.idempleado','=',$idE)
+        ->first();
+        if ($emp->idstatus===14) {
+            $st=Empleado::find($idE);
+            $st-> idstatus='10';
+            $st->update();
+        }
+        if ($emp->idstatus===18) {
+            $st=Empleado::find($idE);
+            $st-> idstatus='2';
+            $st->update();
+        }
         return Redirect::to('empleado/resultadosev');
     }
     public function rechazoet($idE,$idS)
     {
-        $st=Empleado::find($idE);
-        $st-> idstatus='10';
-        $st->update();
+        $emp=DB::table('empleado as e')
+        ->select('e.idstatus')
+        ->where('e.idempleado','=',$idE)
+        ->first();
+        if ($emp->idstatus===3) {
+            $st=Empleado::find($idE);
+            $st-> idstatus='10';
+            $st->update();
+        }
+        if ($emp->idstatus===19) {
+            $st=Empleado::find($idE);
+            $st-> idstatus='2';
+            $st->update();
+        }
         return Redirect::to('empleado/listadoen');
     }
     public function rechazon($idE,$idS)
     {
-        $st=Empleado::find($idE);
-        $st-> idstatus='10';
-        $st->update();
-        return Redirect::to('empleado/listadoen');
+
+        $emp=DB::table('empleado as e')
+        ->select('e.idstatus')
+        ->where('e.idempleado','=',$idE)
+        ->first();
+        if ($emp->idstatus===15) {
+            $st=Empleado::find($idE);
+            $st-> idstatus='10';
+            $st->update();
+        }
+        if ($emp->idstatus===20) {
+            $st=Empleado::find($idE);
+            $st-> idstatus='2';
+            $st->update();
+        }
+        return Redirect::to('empleado/listadon1');
     }
     public function rechazojf($idE,$idS)
     {
@@ -239,16 +295,38 @@ class SController extends Controller
     }
     public function rechazopej($idE,$idS)
     {
-        $st=Empleado::find($idE);
-        $st-> idstatus='10';
-        $st->update();
+        $emp=DB::table('empleado as e')
+        ->select('e.idstatus')
+        ->where('e.idempleado','=',$idE)
+        ->first();
+        if ($emp->idstatus===13) {
+            $st=Empleado::find($idE);
+            $st-> idstatus='10';
+            $st->update();
+        }
+        if ($emp->idstatus===16) {
+            $st=Empleado::find($idE);
+            $st-> idstatus='2';
+            $st->update();
+        }
         return Redirect::to('empleado/pre_entrevistadoji');
     }
     public function rechazojpc($idE,$idS)
     {
-        $st=Empleado::find($idE);
-        $st-> idstatus='10';
-        $st->update();
+        $emp=DB::table('empleado as e')
+        ->select('e.idstatus')
+        ->where('e.idempleado','=',$idE)
+        ->first();
+        if ($emp->idstatus===4) {
+            $st=Empleado::find($idE);
+            $st-> idstatus='10';
+            $st->update();
+        }
+        if ($emp->idstatus===17) {
+            $st=Empleado::find($idE);
+            $st-> idstatus='2';
+            $st->update();
+        }
         return Redirect::to('empleado/pre_calificadosjf');
     }
     public function rechazoPP($idE)

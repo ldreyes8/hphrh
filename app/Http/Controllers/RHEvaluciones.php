@@ -23,10 +23,22 @@ use App\Constants;
 class RHEvaluciones extends Controller
 {
   public function envioaevaluar ($id,$em)
-  {	
-    $od=Empleado::find($id);
-    $od-> idstatus = '14';
-    $od->update();
+  {
+    $emp=DB::table('empleado as e')
+        ->select('e.idstatus')
+        ->where('e.idempleado','=',$id)
+        ->first();
+        //dd($emp->idstatus);
+    if ($emp->idstatus==4) {	
+        $od=Empleado::find($id);
+        $od-> idstatus = 14;
+        $od->update();
+    }
+    if ($emp->idstatus==17) {   
+        $od=Empleado::find($id);
+        $od-> idstatus = 18;
+        $od->update();
+    }
 
     /*$calculo = array($em);
     Mail::send('emails.envevaluacion',['calculo' => $calculo], function($msj) use ($em){
@@ -71,8 +83,8 @@ class RHEvaluciones extends Controller
             //->where('p.nombre1','LIKE','%'.$query.'%')
             //->andwhere('p.apellido1','LIKE','%'.$query.'%')
             ->where('e.idstatus','=',14)
-
-            ->where('p.nombre1','LIKE','%'.$query.'%')
+            ->orwhere('e.idstatus','=',18)
+            //->where('p.nombre1','LIKE','%'.$query.'%')
             //->orwhere('p.apellido1','LIKE','%'.$query.'%')
 
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
