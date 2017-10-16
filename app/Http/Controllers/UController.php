@@ -735,7 +735,7 @@ class UController extends Controller
             ->join('persona as p','e.identificacion','=','p.identificacion')
             ->join('users as u','p.identificacion','=','u.identificacion')
             ->join('personaexperiencia as pe','e.identificacion','=','pe.identificacion')
-            ->select('e.idempleado','p.identificacion','pe.idpexperiencia','pe.empresa','pe.puesto','pe.jefeinmediato','pe.motivoretiro','pe.ultimosalario','pe.fingresoex','pe.fsalidaex')
+            ->select('e.idempleado','p.identificacion','pe.idpexperiencia','pe.empresa','pe.puesto','pe.jefeinmediato','pe.teljefeinmediato','pe.motivoretiro','pe.ultimosalario','pe.fingresoex','pe.fsalidaex')
             ->where('u.id','=',Auth::user()->id)
             ->get();
 
@@ -751,7 +751,7 @@ class UController extends Controller
         public function listarexperiencia1(Request $request, $id)
         {
             $experiencia = DB::table('personaexperiencia as pe')
-            ->select('pe.idpexperiencia','pe.empresa','pe.puesto','pe.jefeinmediato','pe.motivoretiro','pe.ultimosalario','pe.fingresoex','pe.fsalidaex')
+            ->select('pe.idpexperiencia','pe.empresa','pe.puesto','pe.jefeinmediato','pe.teljefeinmediato','pe.motivoretiro','pe.ultimosalario','pe.fingresoex','pe.fsalidaex')
             ->where('pe.idpexperiencia','=',$id)
             ->first();
             return response()->json($experiencia);
@@ -764,6 +764,7 @@ class UController extends Controller
             $familia->empresa = $request->get('empresa');
             $familia->puesto = $request->get('puesto');
             $familia->jefeinmediato = $request->get('jefeinmediato');
+            $familia->teljefeinmediato = $request->get('teljefeinmediato');
             $familia->motivoretiro = $request->get('motivoretiro');
             $familia->ultimosalario = $request->get('ultimosalario');
             $familia->fingresoex = $request->get('año_ingreso');
@@ -782,6 +783,7 @@ class UController extends Controller
             $ex-> empresa = $request->get('empresa');
             $ex-> puesto = $request->get('puesto');
             $ex-> jefeinmediato = $request->get('jefeinmediato');
+            $ex-> teljefeinmediato = $request->get('teljefeinmediato');
             $ex-> motivoretiro = $request->get('motivoretiro');
             $ex-> ultimosalario = $request->get('ultimosalario');
             $ex-> fingresoex = $request->get('año_ingreso');

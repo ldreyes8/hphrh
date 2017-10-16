@@ -56,9 +56,9 @@ $(document).ready(function() {
                             }).done( function(resul) 
                             {
                                 swal({ 
-                                        title:"Mensaje de validación",
-                                        text: "Usted ya se encuntra en nuestros registros, no es necesario llenar este formulario",
-                                        type: "success"
+                                        title:"Usuario Existente",
+                                        text: "Este DPI ya se encuentra en nuestros registros, si usted es empleado y desea aplicar a un puesto interno por favor realicelo en su perfil de usuario",
+                                        type: "error"
                                     },
                                     function(){
                                         window.location.href="https://www.habitatguate.org/"; 
@@ -185,146 +185,51 @@ $(document).ready(function() {
                             return false;
                         }
                 });
-
-               /*$("#form").submit(function(e)
-                {
-                    identificacion=$("#identificacion").val();
-                    nombre1=$("#nombre1").val();
-                    apellido1=$("#apellido1").val();
-                    celular=$("#celular").val();
-                    nit=$("#nit").val();
-                    pretension=$("#pretension").val();
-                    nom=$("#g-recaptcha-response").val();
-                    idpaisPS=$("#idpaisPS").val();
-                    iddepartamento=$("#iddepartamento").val();
-                    barriocolonia=$("#barriocolonia").val();
-                    puesto=$("#puesto").val();
-                    afiliado=$("#afiliado").val();
-                    correo=$("#correo").val();
-                    if (identificacion!="" )
-                        {  
-                                           
-                        }
-                    else
-                        {
-                            swal('En Datos Generales existen campos obligatorios *');
-                            return false;
-                        }
-                    if (nombre1!="" )
-                        {                     
-                        }
-                    else
-                        {
-                            swal('En Datos Generales existen campos obligatorios *');
-                            return false;
-                        }
-                    if (apellido1!="")
-                        {                     
-                        }
-                    else
-                        {
-                            swal('En Datos Generales existen campos obligatorios *');
-                            return false;
-                        }
-                    if (celular!="")
-                        {                     
-                        }
-                    else
-                        {
-                            swal('En Datos Generales existen campos obligatorios *');
-                            return false;
-                        }
-                    if (barriocolonia!="")
-                        {                     
-                        }
-                    else
-                        {
-                            swal('En Datos Generales existen campos obligatorios *');
-                            return false;
-                        }
-                    if (pretension!="")
-                        {                     
-                        }
-                    else
-                        {
-                            swal('En Datos Generales existen campos obligatorios *');
-                            return false;
-                        }
-
-                    if(puesto!="")
-                    {
-                        
-                    }
+                $('#btnnextf').click(function(){
+                    var valores =[];
+                    var tablaPF=$("#detalle4 tr");
+                    tablaPF.each(function(){
+                        var nombref = $(this).find('td').eq(1).html();
+                        valor = new Array(nombref);
+                        valores.push(valor);
+                    });
+                    if (valores != ""){}
                     else
                     {
-                        swal('En Datos Generales existen campos obligatorios *');
+                        swal("Error", "Ingrese un famíliar para poder continuar.", "error");
                         return false;
                     }
-                    if(afiliado!="")
-                    {
-                        
-                    }
+                });
+                $('#btnextacad').click(function(){
+                    var valores =[];
+                    var tablaPF=$("#detalle7 tr");
+                    tablaPF.each(function(){
+                        var nombref = $(this).find('td').eq(1).html();
+                        valor = new Array(nombref);
+                        valores.push(valor);
+                    });
+                    if (valores !=""){}
                     else
                     {
-                        swal('En Datos Generales existen campos obligatorios *');
+                        swal("Error", "Agregue sus datos académicos para poder continuar.", "error");
                         return false;
                     }
-                    if(correo!="")
-                    {
-                        
-                    }
+                });
+                $('#btnextref').click(function(){
+                    var valores =[];
+                    var tablaPF=$("#detalle3 tr");
+                    tablaPF.each(function(){
+                        var nombref = $(this).find('td').eq(1).html();
+                        valor = new Array(nombref);
+                        valores.push(valor);
+                    });
+                    if (valores !=""){}
                     else
                     {
-                        swal('En Datos Generales existen campos obligatorios *');
+                        swal("Error", "Debe inresar datos de refenicas para poder continuar.", "error");
                         return false;
                     }
-                    if(idpaisPS!="")
-                        {
-                            if (idpaisPS == "73") 
-                            {
-                                if(iddepartamento!="1")
-                                {
-                                }
-                                else
-                                {
-                                    swal('Departamento es un campo obligatorio *');
-                                    return false;
-                                }
-                                if (nit!="")
-                                    {                     
-                                    }
-                                else
-                                    {
-                                        swal('Nit es un campo obligatorio *');
-                                        return false;
-                                    }
-                            }
-                            else
-                            {
-                                    
-                            }
-                        }
-                    else
-                        {
-                            swal('En Datos Generales existen campos obligatorios *');
-                            return false;
-                        }
-
-                    if (nom==false) 
-                            {
-                                swal('Campo No soy un robot es obligatorio *');
-                                return false;
-                            }
-                    else
-                        {
-                            swal("Bien hecho!", "Su solicitud ha sido enviada correctamente!", "success");
-
-
-                            //alert('Gracias por enviar su solicitud');
-
-                        }          
-                });*/
-
+                });
                 $('#basicwizard').bootstrapWizard({'tabClass': 'nav nav-tabs navtab-custom nav-justified bg-muted'});
 
                 $('#progressbarwizard').bootstrapWizard({onTabShow: function(tab, navigation, index) {
