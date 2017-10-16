@@ -177,12 +177,12 @@ class SController extends Controller
         if ($idS=="12") {
             $st=Empleado::find($idE);
             $st-> idstatus='2';
-            $st->update();
+            $st->save();
         }
         if ($idS=="1") {
             $st=Empleado::find($idE);
             $st-> idstatus='10';
-            $st->update();
+            $st->save();
         }
         
         //dd($idS);
@@ -197,12 +197,12 @@ class SController extends Controller
         if ($emp->idstatus===13) {
             $st=Empleado::find($idE);
             $st-> idstatus='10';
-            $st->update();
+            $st->save();
         }
         if ($emp->idstatus===16) {
             $st=Empleado::find($idE);
             $st-> idstatus='2';
-            $st->update();
+            $st->save();
         }
         return Redirect::to('empleado/pre_entrevistado');
     }
@@ -215,12 +215,12 @@ class SController extends Controller
         if ($emp->idstatus===4) {
             $st=Empleado::find($idE);
             $st-> idstatus='10';
-            $st->update();
+            $st->save();
         }
         if ($emp->idstatus===17) {
             $st=Empleado::find($idE);
             $st-> idstatus='2';
-            $st->update();
+            $st->save();
         }
         return Redirect::to('empleado/pre_calificados');
     }
@@ -233,12 +233,12 @@ class SController extends Controller
         if ($emp->idstatus===14) {
             $st=Empleado::find($idE);
             $st-> idstatus='10';
-            $st->update();
+            $st->save();
         }
         if ($emp->idstatus===18) {
             $st=Empleado::find($idE);
             $st-> idstatus='2';
-            $st->update();
+            $st->save();
         }
         return Redirect::to('empleado/resultadosev');
     }
@@ -251,12 +251,12 @@ class SController extends Controller
         if ($emp->idstatus===3) {
             $st=Empleado::find($idE);
             $st-> idstatus='10';
-            $st->update();
+            $st->save();
         }
         if ($emp->idstatus===19) {
             $st=Empleado::find($idE);
             $st-> idstatus='2';
-            $st->update();
+            $st->save();
         }
         return Redirect::to('empleado/listadoen');
     }
@@ -270,12 +270,12 @@ class SController extends Controller
         if ($emp->idstatus===15) {
             $st=Empleado::find($idE);
             $st-> idstatus='10';
-            $st->update();
+            $st->save();
         }
         if ($emp->idstatus===20) {
             $st=Empleado::find($idE);
             $st-> idstatus='2';
-            $st->update();
+            $st->save();
         }
         return Redirect::to('empleado/listadon1');
     }
@@ -284,12 +284,12 @@ class SController extends Controller
         if ($idS=="12") {
             $st=Empleado::find($idE);
             $st-> idstatus='2';
-            $st->update();
+            $st->save();
         }
         if ($idS=="1") {
             $st=Empleado::find($idE);
             $st-> idstatus='10';
-            $st->update();
+            $st->save();
         }
         return Redirect::to('empleado/solicitudesjf');
     }
@@ -302,12 +302,12 @@ class SController extends Controller
         if ($emp->idstatus===13) {
             $st=Empleado::find($idE);
             $st-> idstatus='10';
-            $st->update();
+            $st->save();
         }
         if ($emp->idstatus===16) {
             $st=Empleado::find($idE);
             $st-> idstatus='2';
-            $st->update();
+            $st->save();
         }
         return Redirect::to('empleado/pre_entrevistadoji');
     }
@@ -320,12 +320,12 @@ class SController extends Controller
         if ($emp->idstatus===4) {
             $st=Empleado::find($idE);
             $st-> idstatus='10';
-            $st->update();
+            $st->save();
         }
         if ($emp->idstatus===17) {
             $st=Empleado::find($idE);
             $st-> idstatus='2';
-            $st->update();
+            $st->save();
         }
         return Redirect::to('empleado/pre_calificadosjf');
     }
@@ -333,14 +333,14 @@ class SController extends Controller
     {
         $st=Empleado::find($idE);
         $st-> idstatus='10';
-        $st->update();
+        $st->save();
         return Redirect::to('listados/pprueba');
     }
     public function rechazoPI($idE)
     {
         $st=Empleado::find($idE);
         $st-> idstatus='10';
-        $st->update();
+        $st->save();
         return Redirect::to('listados/interino');
     }
     public function upt (Request $request)

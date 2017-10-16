@@ -32,12 +32,12 @@ class RHEvaluciones extends Controller
     if ($emp->idstatus==4) {	
         $od=Empleado::find($id);
         $od-> idstatus = 14;
-        $od->update();
+        $od->save();
     }
     if ($emp->idstatus==17) {   
         $od=Empleado::find($id);
         $od-> idstatus = 18;
-        $od->update();
+        $od->save();
     }
 
     /*$calculo = array($em);
