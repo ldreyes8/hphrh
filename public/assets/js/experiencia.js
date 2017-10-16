@@ -23,6 +23,7 @@ $(document).ready(function(){
             $('#empresa').val(data.empresa);
             $('#puesto').val(data.puesto);
             $('#jefeinmediato').val(data.jefeinmediato);
+            $('#teljefeinmediato').val(data.teljefeinmediato);
             $('#motivoretiro').val(data.motivoretiro);
             $('#ultimosalario').val(data.ultimosalario);
             $('#año_ingreso').val(data.fingresoex);
@@ -87,6 +88,7 @@ $(document).ready(function(){
             empresa: $("#empresa").val(),
             puesto: $("#puesto").val(),
             jefeinmediato: $("#jefeinmediato").val(),
+            teljefeinmediato: $("#teljefeinmediato").val(),
             motivoretiro: $("#motivoretiro").val(),
             ultimosalario: $("#ultimosalario").val(),
             año_ingreso: $("#año_ingreso").val(),
@@ -119,7 +121,7 @@ $(document).ready(function(){
 
             success: function (data) {
                 var item = '<tr class="even gradeA" id="experiencia'+data.idpexperiencia+'">';
-                    item += '<td>'+data.empresa+'</td>'+'<td>' +data.puesto+ '</td>'+'<td>'+data.jefeinmediato+'</td>'+'<td>'+data.motivoretiro+'</td>'+'<td>'+data.ultimosalario+'</td>'+'<td>'+data.fingresoex+'</td>'+'<td>'+data.fsalidaex+'</td>';
+                    item += '<td>'+data.empresa+'</td>'+'<td>' +data.puesto+ '</td>'+'<td>'+data.jefeinmediato+'</td>'+'<td>'+data.teljefeinmediato+'</td>'+'<td>'+data.motivoretiro+'</td>'+'<td>'+data.ultimosalario+'</td>'+'<td>'+data.fingresoex+'</td>'+'<td>'+data.fsalidaex+'</td>';
                     item += '<td><button class="fa fa-pencil btn-editar-experiencia" value="'+data.idpexperiencia+'"></button>';
                     item += '<button class="fa fa-trash-o btn-delete-experiencia" value="'+data.idpexperiencia+'"></button></td></tr>';
                 if (state == "add")

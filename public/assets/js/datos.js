@@ -56,9 +56,9 @@ $(document).ready(function() {
                             }).done( function(resul) 
                             {
                                 swal({ 
-                                        title:"Mensaje de validación",
-                                        text: "Usted ya se encuntra en nuestros registros, no es necesario llenar este formulario",
-                                        type: "success"
+                                        title:"Usuario Existente",
+                                        text: "Este DPI ya se encuentra en nuestros registros, si usted es empleado y desea aplicar a un puesto interno por favor realicelo en su perfil de usuario",
+                                        type: "error"
                                     },
                                     function(){
                                         window.location.href="https://www.habitatguate.org/"; 
