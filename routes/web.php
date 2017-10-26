@@ -430,8 +430,11 @@ Route::group(['prefix'=>'ji'],function(){
 		Route::get('viajejf','JIViajeController@index');
 		Route::get('viajejf/solicitados','JIViajeController@solicitados');
 		Route::get('viajejf/autorizados','JIViajeController@autorizados');
-		Route::get('viajejf/detalleauto','JIViajeController@detalleauto');
-
+		Route::get('viajejf/detalleauto/{id}','JIViajeController@detalleauto');
+		Route::get('viajejf/detallesolicitud/{id}','JIViajeController@detallesolicitud');
+		Route::put('viajejf/respuesta','JIViajeController@respuestaviaje');
+		Route::delete('viajejf/delvhc/{id}','JIViajeController@delvhc');
+		Route::get('viajejf/rechazados','JIViajeController@rechazados');
 });
 
 
