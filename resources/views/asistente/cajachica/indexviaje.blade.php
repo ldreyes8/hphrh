@@ -34,11 +34,7 @@
                     <td>{{$via->montosolicitado}}</td>
                     <td>{{$via->tipogasto}}</td>
                     <td>{{$via->statusgasto}}</td>
-                    @if($via->statusgasto == 'Autorizado')
-                    <td><a onclick="cargar_formularioviaje(2);"><button class="btn btn-primary">Liquidar</button></a></td>
-                    @else 
                     <td><a href="#"><button class="btn btn-primary">Detalles</button></a></td>
-                    @endif
                 </tr> 
                 @endforeach
             </table>

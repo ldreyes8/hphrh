@@ -10,6 +10,7 @@ function cargar_formularioviaje(arg){
    if(arg==1){ var miurl=urlraiz+"/empleado/viaje/solicitar"; }
    if(arg==2){ var miurl=urlraiz+"/empleado/viaje/liquidar"; }
    if(arg==3){ var miurl=urlraiz+"/empleado/viaje/add"; }
+   if(arg==4){ var miurl=urlraiz+"/empleado/cajachica/solicitar"; }
    //Listado de Jefe Inmediato Autorizaciones Vacacioens Y permisos
 
    if(arg==4){ var miurl=urlraiz+"/empleado/vautorizadopv"; }

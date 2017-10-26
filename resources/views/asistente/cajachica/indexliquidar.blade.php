@@ -63,7 +63,7 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
             @if(isset($vehiculo))
             @if(count($vehiculo) > 0)
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <div class="table-responsive">
+                <div class="table-responsive" id="vehiculos">
                     <table class="table table-striped table-bordered table-condensed table-hover">
                         <thead>
                             <tr>
@@ -76,13 +76,12 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                         </thead>
                         <tbody>
                             @foreach($vehiculo as $veh)
-                            <tr id="vehiculos{{$veh->idviajevehiculo}}">
+                            <tr>
                                 <td>{{$veh->idviajevehiculo}}</td>
                                 <td>{{$veh->marca.' '.$veh->color.' '.$veh->modelo}}</td>
                                 <td>{{$veh->kilometrajeini}}</td>
                                 <td>{{$veh->kilometrajefin}}</td>
-                                <td>
-                                <a href="javascript:void(0);" onclick="vehiculo({{$veh->idviajevehiculo}});"><i class="fa fa-pencil"></i></a></td>
+                                <td><a href="#"><i class="fa fa-pencil"></i></a></td>                            
                             </tr>
                             @endforeach
                         </tbody>
@@ -92,31 +91,8 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
             @endif
             @endif
 
-            <div class="pull-right">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-condensed table-hover">
-                        <tr>
-                            <!--<th><p style="color:green;" align="center">Proyecto</p></th><td>{{$proyecto->nombreproyecto}}</td>-->
-                            <th><p style="color:green;" align="center">Fondo Efectivo</p></th><td>{{$proyecto->monto}}</td>
-
-                        </tr>
-                        <tr>
-                            <!--<th><p style="color:green;" align="center">Fecha Inicio</p></th><td>{{$proyecto->monto}}</td>-->                            
-                            <th bgcolor="#BCF5A9"><p style="color:green;" align="center">Liquidación</p></th><td bgcolor="#BCF5A9"><strong>{{$liquidacion->liquidacion}}</strong></td>
-                        </tr>
-                        <tr>
-                            <!--<th><p style="color:green;" align="center">Fecha final</p></th><td>{{$proyecto->monto}}</td>-->
-                            <th><p style="color:green;" align="center">Disponible</p></th><td>{{$proyecto->monto - $liquidacion->liquidacion}}</td>
-                        </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-           
-
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="table-responsive" id="mainTable">
+                <div class="table-responsive">
                     <table class="table table-striped table-bordered table-condensed table-hover" id="tabprueba">
                         <thead>
                             <tr>
@@ -149,7 +125,7 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                                 <td>{{$gvi->proyecto}}</td>
                                 <td>10</td>
                                 <td>{{$gvi->monto}}</td>
-                                <td>{{$proyecto->monto = $proyecto->monto - $gvi->monto}}</td>
+                                <td>10</td>
                                 <td class="actions">
                                     <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
                                     <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
@@ -158,7 +134,7 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                                 </td>
                             </tr>
                             @endforeach
-                        </tbody>
+                            </tbody>
                     </table>
                 </div>
             </div>
@@ -195,39 +171,6 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
     </div>
 </div>
 
-
-<div class="col-lg-12 col-md-12" id="modalveh">
-    <div class="modal fade" id="formModalVehiculo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" align="center" id="inputTitleVeh"></h4>
-                </div>
-
-                <form role="form" id="formLiquidarVeh">
-                    <div class="modal-header">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <label>Kilometraje final</label>
-                            <input id="kfinal" type="number" min="0" value="0" class="form-control" onkeypress="return valida(event)">
-                        </div>
-                    </div>
-                </form>
-
-                <div class="modal-footer">
-                    <div class="col-md-12">
-                        <div><br></div>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        <button type="button" id="Glvehiculo" class="btn btn-primary waves-effect waves-light btn-Glvehiculo">Guardar</i></button>
-                        <input type="hidden" id="idviajveh" value="0"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -255,8 +198,9 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
 <script src="{{asset('assets/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js')}}"></script>
 
 <script type="text/javascript">
+
     
-    var urlraiz=$("#url_raiz_proyecto").val();
+
     $(document).on('click','.btn-NuevoL',function(e){
         $.ajaxSetup({
             headers: {
@@ -264,6 +208,7 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
             }
         });
 
+        var urlraiz=$("#url_raiz_proyecto").val();
         var miurl = urlraiz+"/empleado/viaje/liquidar/add";
         $.get(miurl,function(data){
             $("#modaliq").html(data);
@@ -274,39 +219,11 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
         });
     });
 
-    function vehiculo(id)
-    {
-        var miurl = urlraiz+"/empleado/viaje/vehiculo/edit/"+id;
-        $.get(miurl,function(data){
-            //console.log(data);
-            $('#idviajveh').val(id);
-            $('#kfinal').val(data.kilometrajefin);
-            
-            $('#inputTitleVeh').html("Modificar kilometraje final");
-            $('#formModalVehiculo').modal('show');
-            //$('#btnGuardar').val('update');
-            //$('loading').modal('hide');
-        });        
-    }
-
-    $(document).on('click','a.veh-edit',function(e){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
-        alert("mensaje");
-    });
-
-
    
-    </script>
-    <!--
-    <script src="{{asset('assets/plugins/tiny-editable/numeric-input-example.js')}}"></script>
-    <script type="text/javascript">
-            $('#mainTable').editableTableWidget().numericInputExample().find('td:first').focus();
-    </script>
-    -->
+</script>
+
+
+
 
 
 

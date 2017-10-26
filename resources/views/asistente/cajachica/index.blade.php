@@ -21,6 +21,7 @@
 
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+     
                 <div id="dock-container" class="">
                     <div class="panel-body">
                         <ul>
@@ -30,7 +31,7 @@
                             </li>
                             <li>
                                 <a onclick="cargar_formularioviaje(2);"><img src="{{asset('assets/images/laravel.png')}}"/></a>
-                                <span>Caja chica</span>
+                                <span>Liquidaci&oacute;n</span>
                             </li>
                             <li>
                                 <span>Aperturar caja chica</span>
@@ -39,11 +40,7 @@
                             <li>
                                 <span>Liquidación caja chica</span>
                                 <a href="#"><img src="{{asset('assets/images/danger.png')}}"/></a>
-                            </li>
-                            <!--Funciones de la encargada de caja chica -->
-                            <li>
-                                <span>Solicitar caja chica</span>
-                            </li>
+                            </li>                            
                         </ul>
                     </div>
                 </div>
