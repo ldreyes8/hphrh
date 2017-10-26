@@ -29,12 +29,12 @@ class RHEntrevista extends Controller
         if ($emp->idstatus==14) {
             $od=Empleado::find($id);
             $od-> idstatus = 3;
-            $od->update();
+            $od->save();
         }
         if ($emp->idstatus==18) {
             $od=Empleado::find($id);
             $od-> idstatus = 19;
-            $od->update();
+            $od->save();
         }
         return Redirect::to('empleado/resultadosev');
     }
@@ -48,13 +48,13 @@ class RHEntrevista extends Controller
         if ($emp->idstatus==3) {
             $od=Empleado::find($id);
             $od-> idstatus = 15;
-            $od->update();
+            $od->save();
 
         }
         if ($emp->idstatus==19) {
             $od=Empleado::find($id);
             $od-> idstatus = 20;
-            $od->update();
+            $od->save();
         }
         return Redirect::to('empleado/listadoen');
     }
