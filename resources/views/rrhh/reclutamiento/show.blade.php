@@ -396,6 +396,25 @@ input[type=textt] {
             </tbody>
         </table>
       </div>
+
+      <div class="table-responsive">
+        <table id="" class="table table-striped table-bordered table-condensed table-hover table-responsive" >
+          <p><h2 ALIGN=center>Licencias de conducir</h2></p>
+            <thead style="background-color:#A9D0F5">
+              <th style="width: 15%">Licencia</th>
+              <th>Vigencia</th>
+            </thead>
+            <tbody>
+              @foreach($licencias as $lic)
+                <tr>
+                  <td>{{$lic->tipolicencia}}</td>
+                  <td>{{$lic->vigencia}}</td>
+                </tr>
+              @endforeach
+            </tbody>
+        </table>
+      </div>
+
     </div>
     <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
       <button id="btnupsolicitud" type="button" class="btn btn-primary" >Guardar cambios</button>

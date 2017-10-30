@@ -1,6 +1,6 @@
 <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
 <div class="card-box" id="VPJF">
-    <h4 class="box-title" align="center">Liquidación de gastos</h4>
+    <h4 class="box-title" align="center">Gastos rechazados</h4>
     <hr style="border-color:black;" />
 
     <div><p><br></p></div>
@@ -15,7 +15,7 @@
                     <th>Proyecto</th>
                     <th>Inicio</th>
                     <th>Fin</th>                               
-                    <th>Opciones</th>
+                    <th>Observación</th>
                 </thead>
                 @foreach($viaje as $v)
                 <tr>
@@ -26,12 +26,6 @@
                     <td>{{$v->fechainicio}}</td>
                     <td>{{$v->fechafin}}</td>
                     <td>
-                        @if($v->tipogasto=='caja chica')
-                            <a href="#"><button class="btn btn-success btn-md" value="{{$v->idgastocabeza}}" id="btnconfirmac" title="Caja Chica"><i class="ion-checkmark-circled"></i></button></a>
-                            <a href="#"><button class="btn btn-danger btn-md" id="btnrechazov" title="Rechazar"><i class="ion-close-circled"></i></button></a>
-                        @else
-                            <a onclick="detalleviaje(2,{{$v->idgastocabeza}});"><button class="btn btn-info btn-md" id="btnconfirmav" title="Detalles"><i class="glyphicon glyphicon-list-alt"></i></button></a>
-                        @endif
                     </td>
                 </tr>
                 @endforeach     

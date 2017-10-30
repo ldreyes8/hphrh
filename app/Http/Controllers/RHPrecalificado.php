@@ -151,7 +151,7 @@ class RHPrecalificado extends Controller
         ->join('persona as p','em.identificacion','=','p.identificacion')
         ->join('personalicencia as pl','p.identificacion','=','pl.identificacion')
         ->join('licencia as l','pl.idlicencia','=','l.idlicencia')
-        ->select('l.tipolicencia')
+        ->select('pl.vigencia','l.tipolicencia')
         ->where('em.idempleado','=',$id)
         ->get();
 

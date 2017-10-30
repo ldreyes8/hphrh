@@ -34,7 +34,7 @@
                             </li>
                             <li>
                                 <span>Rechazados</span>
-                                <a href="#"><img src="{{asset('assets/images/danger.png')}}"/></a>
+                                <a onclick="cargar_formularioviaje(22);"><img src="{{asset('assets/images/danger.png')}}"/></a>
                             </li>                            
                         </ul>
                     </div>
