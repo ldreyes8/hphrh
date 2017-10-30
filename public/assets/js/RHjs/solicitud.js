@@ -174,7 +174,6 @@ $(document).ready(function(){
                 validacion:$("#g-recaptcha-response").val(),
         };
         /*Inicio de ajax*/
-        console.log(formData);
         $.ajax({
             type: "POST",
             url: "solicitud/ds",

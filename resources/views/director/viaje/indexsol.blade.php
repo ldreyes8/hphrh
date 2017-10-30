@@ -18,20 +18,19 @@
                 </thead>
                 @foreach($viaje as $v)
                 <tr>
-                    <td><input type="hidden" id="id" value="{{$v->id}}"></td>
                     <td>{{$v->nombre}}</td>
                     <td>{{$v->tipogasto}}</td>
                     <td>{{$v->montosolicitado}}</td>
                     <td>{{$v->nombreproyecto}}</td>
-                    <td>{{$v-fechainicio}}</td>
-                    <td>{{$v-fechafin}}</td>
+                    <td>{{$v->fechainicio}}</td>
+                    <td>{{$v->fechafin}}</td>
                     <td>
-                        @if($v->tipogasto=='Caja Chica')
-                            <a href="#"><button class="btn btn-success btn-md" id="btnconfirmac" title="Aceptar"><i class="ion-checkmark-circled"></i></button></a>
+                        @if($v->tipogasto=='caja chica')
+                            <a href="#"><button class="btn btn-success btn-md" value="{{$v->idgastocabeza}}" id="btnconfirmac" title="Caja Chica"><i class="ion-checkmark-circled"></i></button></a>
+                            <a href="#"><button class="btn btn-danger btn-md" id="btnrechazov" title="Rechazar"><i class="ion-close-circled"></i></button></a>
                         @else
-                            <a href="#"><button class="btn btn-success btn-md" id="btnconfirmav" title="Detalles"><i class="ion-checkmark-circled"></i></button></a>
+                            <a onclick="detalleviaje(1,{{$v->idgastocabeza}});"><button class="btn btn-info btn-md" id="btnconfirmav" title="Detalles"><i class="glyphicon glyphicon-list-alt"></i></button></a>
                         @endif
-                        <a href="#"><button class="btn btn-danger btn-md" id="btnrechazov" title="Rechazar"><i class="ion-close-circled"></i></button></a>
                     </td>
                 </tr>
                 @endforeach   
@@ -42,3 +41,4 @@
 </div>
 <script src="{{asset('assets/js/permiso.js')}}"></script>
 <script src="{{asset('assets/js/JefeInmediato/viajejf.js')}}"></script>
+<script src="{{asset('assets/js/JefeInmediato/rutas.js')}}"></script>

@@ -246,9 +246,7 @@
                                     <i class="md md-local-library"></i><span>Liquidaci&oacute;n</span>
                                 </a>
                             </li>
-
                             -->
-
                             @endrole
 
                         <!-- // Recurso Humano___ // -->
