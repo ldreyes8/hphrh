@@ -158,9 +158,9 @@ $(document).ready(function() {
             this.datatable = this.$table.DataTable({
                 "language": {
                     "decimal":        "",
-                    "emptyTable":     "No data available in table",
+                    "emptyTable":     "No hay datos disponibles en la tabla",
                     "info":           "Mostrando _START_ a _END_ de _TOTAL_ registros por pagina",
-                    "infoEmpty":      "Showing 0 to 0 of 0 entries",
+                    "infoEmpty":      "Mostrando 0 a 0 de 0 registros",
                     "infoFiltered":   "(filtered from _MAX_ total entries)",
                     "infoPostFix":    "",
                     "thousands":      ",",

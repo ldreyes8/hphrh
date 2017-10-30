@@ -41,7 +41,7 @@
 					"decimal":        "",
 				    "emptyTable":     "No data available in table",
 				    "info":           "Mostrar _START_ a _END_ de _TOTAL_ registros por pagina",
-				    "infoEmpty":      "Showing 0 to 0 of 0 entries",
+				    "infoEmpty":      "Mostrando 0 a 0 de 0 registros",
 				    "infoFiltered":   "(filtered from _MAX_ total entries)",
 				    "infoPostFix":    "",
 				    "thousands":      ",",
@@ -50,7 +50,7 @@
 				    "processing":     "Processing...",
 				    "search":         "Buscar:",
 				    "total": 		  "total",			
-				    "zeroRecords":    "No matching records found",
+				    "zeroRecords":    "No se encontraron registros",
 				    "paginate": {
 				        "first":      "First",
 				        "last":       "Last",
