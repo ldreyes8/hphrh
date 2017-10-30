@@ -7872,7 +7872,6 @@
 	
 	_api_register( 'row().data()', function ( data ) {
 		var ctx = this.context;
-		console.log(data);
 	
 		if ( data === undefined ) {
 			// Get

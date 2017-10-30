@@ -18,4 +18,5 @@ class Vehiculo extends Model
     	'modelo',
         'idvstatus',
     ];
+
 }

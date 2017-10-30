@@ -1,7 +1,6 @@
 <div class="card-box" id="VPJF">
-    <h4 class="box-title" align="center">Solicitar viaje</h4>
-    <hr style="border-color:black;" />    
-
+    <h4 class="box-title" align="center">solicitar apertura caja chica</h4>
+    <hr style="border-color:black;" />
         <form role="form" id="formAgregarViaje">
             <div class="modal-header">
                 <label class="control-label">Proyecto</label>
