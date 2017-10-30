@@ -109,15 +109,14 @@ $(document).ready(function(){
             dataType: 'json',
 
             success: function (data) {
-                /*swal({ 
+                swal({ 
                     title:"Envio correcto",
                     text: "Información guardada correctamente",
                     type: "success"
                 },
                 function(){
-                    window.location.href="https://www.habitatguate.org/";        
-                });*/
-                    
+                    window.location.href="/ji/viajejf";        
+                });
             },
             error: function (data) {
                 $('#loading').modal('hide');
@@ -133,6 +132,5 @@ $(document).ready(function(){
                 $('#erroresModal').modal('show');
             }
         });
-
 	});
 });

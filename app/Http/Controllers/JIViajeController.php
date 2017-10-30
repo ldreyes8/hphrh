@@ -174,6 +174,7 @@ class JIViajeController extends Controller
             if ($var == 'Autorizado') {            
                 $gasto=GastoCabeza::findOrFail($idge);
                 $gasto-> statusgasto = $var;
+                $gasto-> observacion = $request->get('observacion');
                 $gasto->save();
 
                 if ($miArray > 0) {
@@ -189,6 +190,7 @@ class JIViajeController extends Controller
             {
                 $gasto=GastoCabeza::findOrFail($idge);
                 $gasto-> statusgasto = $var;
+                $gasto-> observacion = $request->get('observacion');
                 $gasto->save();
 
                 if ($miArray > 0) {

@@ -23,20 +23,37 @@
                     <th>Saldo </th>
                 </thead>
                 <tbody>
-                @foreach($liquida as $liq)
-                <tr>
-                    <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $liq->fechafactura)->format('d-m-Y')}}</td>
-                    <td>{{$liq->descripcion}}</td>
-                    <td>{{$liq->factura}}</td>
-                    <td>{{$liq->nombre}}</td>
-                    <td></td>
-                    <td></td>
-                    <td>{{$liq->nombreproyecto}}</td>
-                    <td></td>
-                    <td>{{$liq->montofactura}}</td>
-                    <td></td>
-                </tr>
-                @endforeach
+                @if(isset($liquida))
+                @if(count($liquida)>0)
+                    @foreach($liquida as $liq)
+                    <tr>
+                        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $liq->fechafactura)->format('d-m-Y')}}</td>
+                        <td>{{$liq->descripcion}}</td>
+                        <td>{{$liq->factura}}</td>
+                        <td>{{$liq->nombre}}</td>
+                        <td></td>
+                        <td></td>
+                        <td>{{$liq->nombreproyecto}}</td>
+                        <td></td>
+                        <td>{{$liq->montofactura}}</td>
+                        <td></td>
+                    </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td></td>
+                        <td>El usurio aún no ha liquidado gastos</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                @endif
+                @endif
                 </tbody>    
             </table>
         </div>

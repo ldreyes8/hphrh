@@ -17,5 +17,6 @@ class GastoCabeza extends Model
         'chequetransfe',
     	'montogastado',
         'statusgasto',
+        'observacion',
     ];
 }
