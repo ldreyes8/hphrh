@@ -240,13 +240,18 @@
                                     <i class="fa fa-file-text"></i><span>Solicitar puesto</span>
                                 </a>
                             </li>
-                            <!--
+                        
                             <li class="has_sub">
                                 <a href="{{ url('/ji/viajejf')}}" class="waves-effect waves-primary" onclick="cargarvacante(1);">&nbsp;&nbsp;&nbsp;
                                     <i class="md md-local-library"></i><span>Liquidaci&oacute;n</span>
                                 </a>
                             </li>
-                            -->
+                        
+                            @endrole
+
+                            @role('asistente') 
+                                <li class="menu-title"><strong>Movilización</strong></li>
+                                <li><a href="#" class="waves-effect waves-primary">&nbsp;&nbsp;<i class="md md-insert-emoticon"></i><span>Avances</span></a></li>
                             @endrole
 
                         <!-- // Recurso Humano___ // -->

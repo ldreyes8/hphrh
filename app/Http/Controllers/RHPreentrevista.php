@@ -228,7 +228,7 @@ class RHPreentrevista extends Controller
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
             ->orderBy('e.fechasolicitud','desc')
             
-            ->paginate(19);
+            ->get();
             }
             $var='2';
             return view('rrhh.preentrevista.listadoPE',["empleados"=>$empleados,"searchText"=>$query,"var"=>$var]);	

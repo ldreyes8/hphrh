@@ -1,7 +1,10 @@
 <div class="row" id="tblsolicitante">
-        	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        		@include('rrhh.reclutamiento.search')
-        	</div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3 class="box-title" align="center">Listado de solicitudes de empleo nacional</h3>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                @include('rrhh.reclutamiento.search')
+            </div>
 
         
            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -50,7 +53,6 @@
                                             cancelButtonText: "No",
                                             closeOnConfirm: false,
                                             closeOnCancel: false },
-
                                             function(isConfirm){
                                             if (isConfirm) 
                                             {
@@ -67,9 +69,7 @@
                                                         //window.self.close(); 
                                                     }
                                                 );
-
                                             }
-
                                             else {
                                             swal("¡Cancelado!",
                                             "No se ha realizado algún cambio...",
@@ -87,6 +87,4 @@
                  </div>
                 {{$empleados->render()}}
            </div>
-        </div>
-
-
+</div>
