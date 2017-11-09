@@ -341,6 +341,7 @@ Route::group(['prefix'=>'empleado'],function(){
 
 //Viaje
 	Route::get('viaje','EViajeController@index');
+	Route::get('viaje/status','EViajeController@obtenerstatus');
 	Route::get('viaje/solicitar','EViajeController@viaje');
 	Route::get('viaje/add','EViajeController@addv');
 	Route::get('viaje/cargarbusqueda','EViajeController@cargarbusqueda');
@@ -352,6 +353,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('viaje/liquidar/edit/{id}','EViajeController@editl');
 	Route::put('viaje/liquidar/update/{id}','EViajeController@updatel');
 	Route::post('viaje/liquidar/envio','EViajeController@enviol');
+	Route::get('viaje/liquidar/updatemonto','EViajeController@updateml');
 
 	Route::get('viaje/vehiculo/edit/{id}','EViajeController@vehedit');
 	Route::put('viaje/vehiculo/update/{id}','EViajeController@vehupdate');
@@ -429,6 +431,12 @@ Route::group(['prefix'=>'rh'],function(){
 	Route::put('puestoupdate','RHPuestoVacante@update')->middleware('roleshinobi:recurso');
 	Route::get('plazasautorizadas','RHPuestoVacante@plazaautorizada')->middleware('roleshinobi:recurso');
 
+	Route::get('reporte/vpempleado', 'RHReporte@vpempleado')->middleware('roleshinobi:recurso');
+	Route::get('reporte/vacaciones/{id}', 'RHReporte@vempleado')->middleware('roleshinobi:recurso');
+	Route::get('reporte/permiso/{id}', 'RHReporte@pempleado')->middleware('roleshinobi:recurso');
+
+
+
 
 
 
@@ -467,3 +475,6 @@ Route::get('seguridad/buscar_usuarios/{rol}/{dato?}', 'PCUsuarioController@busca
 
 Route::post('crear_rol', 'PCUsuarioController@crear_rol')->middleware('roleshinobi:informatica');
 Route::get('borrar_rol/{idrol}', 'PCUsuarioController@borrar_rol')->middleware('roleshinobi:informatica');
+
+//reporte empleado vacaciones y permisos.
+

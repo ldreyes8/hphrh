@@ -39,7 +39,7 @@
 			this.datatable = this.$table.DataTable({
 				"language": {
 					"decimal":        "",
-				    "emptyTable":     "No data available in table",
+				    "emptyTable":     "No hay datos disponibles en la tabla",
 				    "info":           "Mostrar _START_ a _END_ de _TOTAL_ registros por pagina",
 				    "infoEmpty":      "Mostrando 0 a 0 de 0 registros",
 				    "infoFiltered":   "(filtered from _MAX_ total entries)",
@@ -65,6 +65,8 @@
 					null, //#Factura
 					null, //Empleado
 					null, //Cuenta,
+					null, //Cliente
+					null, //Evento
 					null, //LOB L10
 					null, //Donador L8
 					null, //Proyecto L9
@@ -171,11 +173,19 @@
                    success: function (data) {
 	                   	if(state == "add"){	_self.rowAdd(data); }
 	                   	if(state == "update"){
-	                   		_self.rowUpdate(data);
 
+	                   		var urlraiz=$("#url_raiz_proyecto").val();
+	                   		$.get(urlraiz+'/empleado/viaje/liquidar/updatemonto',function(data){
+					            $("#disponible").html(data[0]);
+					            $("#liquidacion").html(data[1]);
+					       		$("#montot").html(data[2]);
+
+					        });
+
+	                   		_self.rowUpdate(data);
+	                   		console.log(data);
 	                   	}
               			
-
                         $('#formAgregarLiquidar').trigger("reset");
                         $('#formModalLiquidar').modal('hide');                            
                     },
@@ -225,7 +235,7 @@
 											$data.descripcion,
 											$data.factura,
 											$data.nombre2,
-											$data.cuenta,'','',
+											$data.cuenta,'','','','',
 											$data.proyecto,'',
 											$data.monto,'',
 											actions
@@ -287,6 +297,20 @@
 		},
 
 		rowUpdate: function($data){
+			var element = $(this);
+
+			var cont = $("#montot").val();
+			var dataRows = element.find('tbody tr');
+
+			console.log(cont);
+			cont = 
+			cont = parseFloat($data.montot) - parseFloat($data.monto);
+
+
+			console.log(dataRows);
+			//<td>{{$proyecto->monto = $proyecto->monto - $gvi->monto}}</td>
+
+
 			var _self     = this,
 				actions,
 				$actions,
@@ -314,14 +338,17 @@
 							$data.descripcion,
 							$data.factura,
 							n1+" "+n2+" "+n3+" "+a1+" "+a2+" "+a3,
-							$data.cuenta,'','',
+							$data.cuenta,'','','','',
 							$data.proyecto,'',
 							$data.monto,
-							'',
+							cont,
 							actions
 						];
-			this.datatable.row(indice).data(values);			
+
+			console.log(indice);
+			this.datatable.row(indice).data(values);
 			this.datatable.draw();
+			//console.log(this.datatable.row(indice).data(values));
 		},
 
 		rowSave: function( $row ) {
@@ -406,7 +433,7 @@ $(document).on('click','.btn-EnviarL',function(e){
 		type: "warning",
 		showCancelButton: true,
 		confirmButtonColor: "#FFFF00",
-		confirmButtonText: "Si, eliminarlo",
+		confirmButtonText: "Si, enviarlo",
 		cancelButtonText: "No, cancelar",
 		closeOnConfirm: false,
 		closeOnCancel: false
@@ -433,7 +460,7 @@ $(document).on('click','.btn-EnviarL',function(e){
 
 		        success: function (data) {
 		            $f.data('locked', true);
-		            swal("Eliminado", "el registro ha sido enviado correctamente", "success");
+		            swal("Enviado", "el registro ha sido enviado correctamente", "success");
 		            $f.data('locked',false);                    
 		        },
 		        error: function (data) {

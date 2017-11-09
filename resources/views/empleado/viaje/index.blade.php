@@ -25,11 +25,12 @@
                     <div class="panel-body">
                         <ul>
                             <li>
-                                <a onclick="cargar_formularioviaje(1);"><img src="{{asset('assets/images/collective.png')}}"/></a>
+                                <a onclick="cargar_formularioviaje(1);"><img src="{{asset('assets/images/viaje.jpg')}}"/></a>
                                 <span>Apertura Viaje</span>
                             </li>
                             <li>
-                                <a onclick="cargar_formularioviaje(2);"><img src="{{asset('assets/images/laravel.png')}}"/></a>
+                                <!--<a onclick="cargar_formularioviaje(2);"><img src="{{asset('assets/images/laravel.png')}}"/></a>-->
+                                <a><img src="{{asset('assets/images/liquidar.jpg')}}"/></a>
                                 <span>Caja chica</span>
                             </li>
                             <li>

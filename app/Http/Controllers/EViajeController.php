@@ -18,9 +18,13 @@ use Illuminate\Support\Collection as Collection;
 use Carbon\Carbon;  // para poder usar la fecha y hora
 class EViajeController extends Controller
 {   
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     // metodos del viaje
-	public function index(){
-    	return view ('empleado.viaje.index');
+    public function index(){
+        return view ('empleado.viaje.index');
     }
 
     public function viaje(){
@@ -41,7 +45,34 @@ class EViajeController extends Controller
             ->where('emp.idempleado','=',$empleado->idempleado)
             ->where('tga.idtipogasto','=',2)
             ->get();
-    	return view ('empleado.viaje.indexviaje',["viaje"=>$viaje]);
+
+        return view ('empleado.viaje.indexviaje',["viaje"=>$viaje]);
+    }
+
+    public function obtenerstatus()
+    {
+        $ausencia= DB::table('gastoencabezado as gen')
+        ->join('empleado as emp','gen.idempleado','=','emp.idempleado')
+        ->join('persona as per','emp.identificacion','=','per.identificacion')
+        ->join('users as U','per.identificacion','=','U.identificacion')
+        ->select('gen.statusgasto')
+        ->orderBy('gen.idgastocabeza','DESC')
+        ->where('idtipogasto','=','2')
+        ->where('U.id','=',Auth::user()->id)
+        ->first();
+
+
+        if($ausencia === null)
+        {
+          $autorizacion = "ninguno";
+        }
+        else
+        {
+          $autorizacion = $ausencia->statusgasto;
+        }
+
+        return response()->json($autorizacion);
+
     }
 
     public function addv(){
@@ -211,12 +242,14 @@ class EViajeController extends Controller
             ->orderby('gen.idgastocabeza','desc')
             ->first();
 
+        //dd($emp,$proyecto);
+
         if (empty($proyecto->idgastocabeza)) {
                 $liquidar = 0;
                  return view ('empleado.viaje.indexliquidar',["liquidar"=>$liquidar]);
         }
         else{
-                $liquidar = 1;
+            $liquidar = 1;
 
             $liquidacion= DB::table('gastoviajeempleado as gve')
             ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
@@ -249,7 +282,11 @@ class EViajeController extends Controller
                 ->orderby('ntr.idnomytas','desc')
                 ->first();
 
-            $genc = GastoEncabezado::findOrFail($proyecto->idproyecto);
+            //dd($proyecto);
+
+            //$genc = GastoEncabezado::findOrFail($proyecto->idproyecto);
+
+            //dd($genc);
 
             $empleado = new Persona();
             $empleado = $empleado->selectQuery(Constants::AFILIADO_EMPLEADO,array('idafiliado'=>$nomy->idafiliado));
@@ -346,7 +383,8 @@ class EViajeController extends Controller
             ->orderby('ntr.idnomytas','desc')
             ->first();
 
-        $genc = GastoEncabezado::findOrFail($proyecto->idproyecto);
+
+        $genc = GastoEncabezado::findOrFail($proyecto->idgastocabeza);
 
         $empleado = new Persona();
         $empleado = $empleado->selectQuery(Constants::AFILIADO_EMPLEADO,array('idafiliado'=>$nomy->idafiliado));
@@ -461,7 +499,7 @@ class EViajeController extends Controller
             ->orderby('ntr.idnomytas','desc')
             ->first();
 
-        $genc = GastoEncabezado::findOrFail($proyecto->idproyecto);
+        //$genc = GastoEncabezado::findOrFail($proyecto->idproyecto);
 
         $empleado = new Persona();
         $empleado = $empleado->selectQuery(Constants::AFILIADO_EMPLEADO,array('idafiliado'=>$nomy->idafiliado));
@@ -503,7 +541,8 @@ class EViajeController extends Controller
                 ->join('empleado as emp','gve.idempleado','=','emp.idempleado')
                 ->join('persona as per','emp.identificacion','=','per.identificacion')
                 ->join('plancuentas as pcu','gve.codigocuenta','pcu.codigocuenta')
-                ->select('per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','per.apellido3','gve.factura',(DB::raw('DATE_FORMAT(gve.fechafactura,"%d/%m/%Y") as fecha')),'gve.montofactura as monto','gve.descripcion','pcu.nombrecuenta as cuenta','pro.nombreproyecto as proyecto','gve.idgastoempleado')
+                ->join('gastoencabezado as gen','gvi.idgastocabeza','=','gen.idgastocabeza')
+                ->select('per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','per.apellido3','gve.factura',(DB::raw('DATE_FORMAT(gve.fechafactura,"%d/%m/%Y") as fecha')),'gve.montofactura as monto','gve.descripcion','pcu.nombrecuenta as cuenta','pro.nombreproyecto as proyecto','gve.idgastoempleado','gen.montosolicitado as montot')
                 ->where('gve.idgastoempleado','=',$gastoempleado->idgastoempleado)
                 ->first();
 
@@ -514,6 +553,41 @@ class EViajeController extends Controller
           return response()->json(array('error' => 'No se ha podido enviar la solicitud'),404);         
         }
         return response()->json($gastoviajeemp);
+    }
+
+    public function updateml()// update monto liquidacion y monto disponible
+    {
+        $emp = DB::table('empleado as emp')
+            ->join('persona as per','emp.identificacion','=','per.identificacion')
+            ->join('users as U','per.identificacion','=','U.identificacion')
+            ->select('emp.idempleado')
+            ->where('U.id','=',Auth::user()->id)
+            ->first();
+
+        $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
+            ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
+            ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
+            ->join('viaje as via','gvi.idviaje','=','via.idviaje')
+            ->where('gen.statusgasto','=','Autorizado')
+            //->where('gen.statusgasto','=','solicitado')
+            ->where('gen.idtipogasto','=',2)
+            ->where('gen.idempleado','=',$emp->idempleado)
+            ->select('gen.idgastocabeza','gen.fechasolicitud','gen.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje','via.idviaje')
+            ->orderby('gen.idgastocabeza','desc')
+            ->first();
+
+            $liquidacion= DB::table('gastoviajeempleado as gve')
+            ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
+            ->select(DB::raw('SUM(gve.montofactura) as liquidacion'))
+            ->where('gvi.idgastocabeza','=',$proyecto->idgastocabeza)
+            ->first();
+
+        $disponible = $proyecto->monto - $liquidacion->liquidacion;
+
+        $calculo = array($disponible,$liquidacion->liquidacion,$proyecto->monto);
+        
+        return response()->json($calculo);
+
     }
 
     public function enviol(Request $request)

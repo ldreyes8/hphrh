@@ -156,13 +156,12 @@
                                 </a> 
                             </li>
                             
-                            <!--
+                            
                             <li>
                                 <a href="{{url('/empleado/viaje')}}" class="waves-effect waves-primary">&nbsp;&nbsp;
                                 <i class="md md-airplanemode-on"></i><span>Movilizaci&oacute;n</span>
                                 </a> 
                             </li>
-                            -->
                             
                             
                             
@@ -278,12 +277,16 @@
                                     class="ion-briefcase"></i><span>Habilitar puesto</span></a>
                                 </li>
 
-                                <li>
-
-                                <a href="{{ url('/empleado/Rmintrab')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i
-                                    class="glyphicon glyphicon-file"></i><span>Reportes</span></a>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect waves-primary">&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-file"></i><span>Reportes</span> 
+                                             <span class="menu-arrow"></span>
+                                    </a><!--<span
+                                            class="label label-success pull-right">6</span> -->
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ url('/empleado/Rmintrab')}}">Mintrab</a></li>
+                                        <li><a href="{{ url('/rh/reporte/vpempleado')}}">Vacaciones y permiso</a></li>
+                                    </ul>                                
                                 </li>
-
 
                             @endrole
 

@@ -69,7 +69,7 @@
             </select>
         </div>
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-            <label class="control-label">Donador L8</label>
+            <label class="control-label">Línea de presupuesto</label>
             <select class="form-control select2" id="donador">
                 <option>Donante Generico</option>
                 <option>Fondos de agencia</option>

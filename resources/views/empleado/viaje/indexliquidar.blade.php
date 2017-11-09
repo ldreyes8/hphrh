@@ -15,8 +15,16 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
 
     @if($liquidar == 1)
 
-    <h4 class="box-title" align="center">Liquidaci&oacute;n viaje</h4>
-    <hr style="border-color:black;" />
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="navbar-form navbar-left pull-left">
+            <button class="btn btn-success btn-md"onclick="cargar_formularioviaje(1);"><i class="fa fa-reply-all"></i></button>
+        </div>
+
+        <h4 class="box-title" align="center">Liquidaci&oacute;n viaje</h4>
+        <hr style="border-color:black;" />
+
+    </div>
+
 
     <input type="hidden" name="_token" id="_token"  value="<?= csrf_token(); ?>" />
     <input type="hidden" id="idempleado" value="{{$proyecto->idempleado}}">
@@ -98,16 +106,17 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                         <table class="table table-bordered table-condensed table-hover">
                         <tr>
                             <!--<th><p style="color:green;" align="center">Proyecto</p></th><td>{{$proyecto->nombreproyecto}}</td>-->
-                            <th><p style="color:green;" align="center">Fondo Efectivo</p></th><td>{{$proyecto->monto}}</td>
+                            <th><p style="color:green;" align="center">Fondo Efectivo</p></th><td id="montot">{{$proyecto->monto}}</td>
 
                         </tr>
                         <tr>
                             <!--<th><p style="color:green;" align="center">Fecha Inicio</p></th><td>{{$proyecto->monto}}</td>-->                            
-                            <th bgcolor="#BCF5A9"><p style="color:green;" align="center">Liquidación</p></th><td bgcolor="#BCF5A9"><strong>{{$liquidacion->liquidacion}}</strong></td>
+                            <th bgcolor="#BCF5A9"><p style="color:green;" align="center">Liquidación</p></th><td bgcolor="#BCF5A9" id="liquidacion"><strong>{{$liquidacion->liquidacion}}</strong></td>
+
                         </tr>
                         <tr>
                             <!--<th><p style="color:green;" align="center">Fecha final</p></th><td>{{$proyecto->monto}}</td>-->
-                            <th><p style="color:green;" align="center">Disponible</p></th><td>{{$proyecto->monto - $liquidacion->liquidacion}}</td>
+                            <th><p style="color:green;" align="center">Disponible</p></th><td id="disponible">{{$proyecto->monto - $liquidacion->liquidacion}}</td>
                         </tr>
                         </table>
                     </div>
@@ -120,12 +129,14 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                     <table class="table table-striped table-bordered table-condensed table-hover" id="tabprueba">
                         <thead>
                             <tr>
-                                <th style="width: 2%">id</th>
+                                <th style="width: 2%">Id</th>
                                 <th style="width: 4%">Fecha</th>
                                 <th style="width: 14%">Descripci&oacute;n</th>
                                 <th style="width: 10%"># Factura</th>
                                 <th style="width: 12%">Empleado</th>
                                 <th style="width: 12%">Cuenta</th>
+                                <th style="width: 0%">Cliente</th>
+                                <th>Eventos</th>
                                 <th style="width: 6%">LOB L10</th>
                                 <th style="width: 8%">Donador L8</th>
                                 <th style="width: 10%">Proyecto L9</th>
@@ -144,6 +155,8 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                                 <td>{{$gvi->factura}}</td>
                                 <td>{{$gvi->nombre1.' '.$gvi->nombre2}}</td>
                                 <td>{{$gvi->cuenta}}</td>
+                                <td>clien</td>
+                                <td>Even</td>
                                 <td>ff</td>
                                 <td>10</td>
                                 <td>{{$gvi->proyecto}}</td>
@@ -278,7 +291,6 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
     {
         var miurl = urlraiz+"/empleado/viaje/vehiculo/edit/"+id;
         $.get(miurl,function(data){
-            //console.log(data);
             $('#idviajveh').val(id);
             $('#kfinal').val(data.kilometrajefin);
             
