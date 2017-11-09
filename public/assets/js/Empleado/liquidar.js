@@ -2,10 +2,11 @@
 
 	'use strict';
 	var resultadoglobal = "";
+	var indice = "";
 	var EditableTable = {
 
 		options: {
-			addButton: '#addToTable',
+			addButton: '#Glempleado',
 			table: '#tabprueba',
 			dialog: {
 				wrapper: '#dialog',
@@ -38,9 +39,9 @@
 			this.datatable = this.$table.DataTable({
 				"language": {
 					"decimal":        "",
-				    "emptyTable":     "No data available in table",
+				    "emptyTable":     "No hay datos disponibles en la tabla",
 				    "info":           "Mostrar _START_ a _END_ de _TOTAL_ registros por pagina",
-				    "infoEmpty":      "Showing 0 to 0 of 0 entries",
+				    "infoEmpty":      "Mostrando 0 a 0 de 0 registros",
 				    "infoFiltered":   "(filtered from _MAX_ total entries)",
 				    "infoPostFix":    "",
 				    "thousands":      ",",
@@ -49,7 +50,7 @@
 				    "processing":     "Processing...",
 				    "search":         "Buscar:",
 				    "total": 		  "total",			
-				    "zeroRecords":    "No matching records found",
+				    "zeroRecords":    "No se encontraron registros",
 				    "paginate": {
 				        "first":      "First",
 				        "last":       "Last",
@@ -57,11 +58,15 @@
 				        "previous":   "Anterior"
 				    },
                 },
-				aoColumns: [
+				columns: [
+					null, //id { "bVisible": false }
 					null, //Fecha
 					null, //Descripcion
 					null, //#Factura
 					null, //Empleado
+					null, //Cuenta,
+					null, //Cliente
+					null, //Evento
 					null, //LOB L10
 					null, //Donador L8
 					null, //Proyecto L9
@@ -69,12 +74,9 @@
 					null, //Monto
 					null, //Saldo
 					{ "bSortable": false }
-				]//,
-				//select: true
+				]
 			});
-
 			window.dt = this.datatable;
-
 			return this;
 		},
  
@@ -97,6 +99,7 @@
 					e.preventDefault();
 
 					_self.rowEdit( $(this).closest( 'tr' ) );
+					indice = $(this).closest( 'tr' );
 				})
 				.on( 'click', 'a.remove-row', function( e ) {
 					e.preventDefault();
@@ -120,15 +123,86 @@
 	                	} else {
 	                    	swal("Cancelado", "No se ha eliminado el registro :)", "error");
 	                	}
-	            	});
-
-	
+	            	});	
 				});
 
 			this.$addButton.on( 'click', function(e) {
 				e.preventDefault();
+				//_self.rowAdd();
+				var idliq=$('#idgastoemp').val();
 
-				_self.rowAdd();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+
+                var urlraiz=$("#url_raiz_proyecto").val();
+				var miurl;
+                var type;
+                var state=$("#Glempleado").val();
+
+
+                var formData = {
+                    empleado: $("#emple").val(),
+                    factura : $("#factura").val(),
+                    fecha_factura: $("#fechafactura").val(),
+                    monto: $("#monto").val(),
+                    descripcion: $("#descripcion").val(),
+                    cuenta: $("#cuenta").val(),
+                    proyecto: $("#proyecto").val(),
+                    gastoviaje: $("#idgastoviaje").val(),
+                };
+
+                if (state == "update") 
+                {
+                    type="PUT";
+                    miurl = urlraiz+"/empleado/viaje/liquidar/update/"+idliq;
+                }
+                if (state == "add") 
+                {
+                    type="POST";
+                    miurl = urlraiz+"/empleado/viaje/liquidar/store";
+                } 
+                $.ajax({
+                    type: type,
+                    url: miurl,
+                    data: formData,
+                    dataType: 'json',
+             
+                   success: function (data) {
+	                   	if(state == "add"){	_self.rowAdd(data); }
+	                   	if(state == "update"){
+
+	                   		var urlraiz=$("#url_raiz_proyecto").val();
+	                   		$.get(urlraiz+'/empleado/viaje/liquidar/updatemonto',function(data){
+					            $("#disponible").html(data[0]);
+					            $("#liquidacion").html(data[1]);
+					       		$("#montot").html(data[2]);
+
+					        });
+
+	                   		_self.rowUpdate(data);
+	                   		console.log(data);
+	                   	}
+              			
+                        $('#formAgregarLiquidar').trigger("reset");
+                        $('#formModalLiquidar').modal('hide');                            
+                    },
+                    
+                    error: function (data) {                            
+                        var errHTML="";
+                        if((typeof data.responseJSON != 'undefined')){
+                            for( var er in data.responseJSON){
+                                errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                            }
+                        }else{
+                            errHTML+='<li>Error</li>';
+                        } 
+                        $("#erroresContent").html(errHTML); 
+                        $('#erroresModal').modal('show');
+                    }
+                });
 			});
 
 			this.dialog.$cancel.on( 'click', function( e ) {
@@ -142,12 +216,9 @@
 		// ==========================================================================================
 		// ROW FUNCTIONS
 		// ==========================================================================================
-		rowAdd: function() {
+		rowAdd: function($data) {
+			var _self     = this;
 			this.$addButton.attr({ 'disabled': 'disabled' });
-
-			var urlraiz=$("#url_raiz_proyecto").val();
-			var miurl = urlraiz+"/empleado/viaje/liquidar/add";
-			
 			var actions,
 				data,
 				$row;	
@@ -159,25 +230,24 @@
 				'<a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>'
 			].join(' ');
 
+			data = this.datatable.row.add([ $data.idgastoempleado,
+											$data.fecha,
+											$data.descripcion,
+											$data.factura,
+											$data.nombre2,
+											$data.cuenta,'','','','',
+											$data.proyecto,'',
+											$data.monto,'',
+											actions
+										]);
 
-			$.ajax({
-				url: miurl
-			}).done( function(resul) {
-				$("#rowtable").html(resul);
-
-				data = $("#tabprueba tbody tr:eq(0)").clone().removeClass('fila-base').appendTo("#tabprueba tbody");
-				
-				}).fail(function() 
-				{
-					console.log('<span>...Ha ocurrido un error, revise su conexión y vuelva a intentarlo...</span>');
-				});
-
-				//document.getElementById("rowtable").reset();
-
-				//$row = $(this).parents().get(0);
-				//$("#tabprueba").DataTable().order([0,'asc']).draw();
-
-				//this.rowEdit($row);		
+			$row = this.datatable.row( data[0] ).nodes().to$();
+			$row
+				.addClass( 'adding' )
+				.find('td')
+				.addClass('actions');
+			this.datatable.order([0,'asc']).draw(); 
+			_self.rowSave($row);
 		},
 
 		rowCancel: function( $row ) {
@@ -196,35 +266,92 @@
 				$actions = $row.find('td.actions');
 				if ( $actions.get(0) ) {
 					this.rowSetActionsDefault( $row );
-				}
-
+				}				
 				this.datatable.draw();
 			}
 		},
 
 		rowEdit: function( $row ) {
 			var _self = this,
-				data;
+				dat;
+			dat = this.datatable.row( $row.get(0) ).data();
+            var id = $row.children('td').eq(0).html();
 
-			data = this.datatable.row( $row.get(0) ).data();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
 
-			$row.children( 'td' ).each(function( i ) {
-				var $this = $( this );
+            var urlraiz=$("#url_raiz_proyecto").val();
+			var miurl = urlraiz+"/empleado/viaje/liquidar/edit/"+id;
+			$('#idgastoemp').val(id);
 
-				if ( $this.hasClass('actions') ) {
-					_self.rowSetActionsEditing( $row );
+			$.get(miurl,function(data){
+	            // $('#cuenta').append('<option value="opcion_nueva_1" selected="selected">Opción nueva 1</option>')
+                $('#inputTitleLiquidar').html("Editar factura");	           
+	            $("#modaliq").html(data);
+	            $('#formModalLiquidar').modal('show');
+	            $('#Glempleado').val('update');
+	        });
+		},
+
+		rowUpdate: function($data){
+			var element = $(this);
+
+			var cont = $("#montot").val();
+			var dataRows = element.find('tbody tr');
+
+			console.log(cont);
+			cont = 
+			cont = parseFloat($data.montot) - parseFloat($data.monto);
 
 
-				} else {
-					$this.html( '<input type="text" class="form-control input-block" value="' + data[i] + '"/>' );
-				}
-			});
+			console.log(dataRows);
+			//<td>{{$proyecto->monto = $proyecto->monto - $gvi->monto}}</td>
+
+
+			var _self     = this,
+				actions,
+				$actions,
+				values    = [];
+
+				actions = [
+				'<td class="actions">',
+				'<a href="#" class="edit-row"><i class="fa fa-pencil"></i></a>',
+				'<a href="#" class="remove-row"><i class="fa fa-trash-o"></i></a>',
+				'</td>'
+				].join(' ');
+			var n1 = $data.nombre1, 
+				n2 = $data.nombre2, 
+				n3 = $data.nombre3, 
+				a1 = $data.apellido1,
+				a2 = $data.apellido2,
+				a3 = $data.apellido3;
+				if(n2 == null){n2 = "";}
+				if(n3 == null){n3 = "";}
+				if(a2 == null){a2 = "";}
+				if(a3 == null){a3 = "";}
+
+				values = [	$data.idgastoempleado,
+							$data.fecha,
+							$data.descripcion,
+							$data.factura,
+							n1+" "+n2+" "+n3+" "+a1+" "+a2+" "+a3,
+							$data.cuenta,'','','','',
+							$data.proyecto,'',
+							$data.monto,
+							cont,
+							actions
+						];
+
+			console.log(indice);
+			this.datatable.row(indice).data(values);
+			this.datatable.draw();
+			//console.log(this.datatable.row(indice).data(values));
 		},
 
 		rowSave: function( $row ) {
-
-			this.$addButton.removeAttr( 'disabled' );
-
 			var _self     = this,
 				$actions,
 				values    = [];
@@ -232,7 +359,6 @@
 			if ( $row.hasClass( 'adding' ) ) {
 				this.$addButton.removeAttr( 'disabled' );
 				$row.removeClass( 'adding' );
-				console.log($row);
 			}
 
 			values = $row.find('td').map(function() {
@@ -245,15 +371,11 @@
 					return $.trim( $this.find('input').val() );
 				}
 			});
-			//console.log(values);
-			//console.log(this.datatable.row( $row.get(0) ).data( values ));
-
 
 			this.datatable.row( $row.get(0) ).data( values );
 
 			$actions = $row.find('td.actions');
 			if ( $actions.get(0) ) {
-				console.log(this.rowSetActionsDefault( $row ));
 				this.rowSetActionsDefault( $row );
 			}
 
@@ -277,7 +399,6 @@
 			$row.find( '.on-editing' ).addClass( 'hidden' );
 			$row.find( '.on-default' ).removeClass( 'hidden' );
 		}
-
 	};
  
  	$(function() {
@@ -285,3 +406,132 @@
 	});
 
 }).apply( this, [ jQuery ]);
+
+
+var cont = 0;
+
+$(document).ready(function() {
+    $('#btnEnviarL').hide();
+    $('#vehiculos tr').each(function(){
+        //var id = $(this).closest('tr').find('input[type="hidden"]').val();
+        var id = $(this).find('td').eq(0).html();
+        var kfin = $(this).find('td').eq(3).html();
+        if(kfin == "")
+        {
+             cont++;   
+        }
+    });
+    if(cont>0)
+    {$('#btnEnviarL').hide();}
+    else{$('#btnEnviarL').show();}
+});
+
+$(document).on('click','.btn-EnviarL',function(e){
+	swal({
+	    title: "¿Estás seguro?",
+	    text: "No podrás modificar el registro por el momento",
+		type: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#FFFF00",
+		confirmButtonText: "Si, enviarlo",
+		cancelButtonText: "No, cancelar",
+		closeOnConfirm: false,
+		closeOnCancel: false
+	}, function (isConfirm) {
+	  	if (isConfirm) {
+	  		var urlraiz=$("#url_raiz_proyecto").val();
+		    var miurl = urlraiz+"/empleado/viaje/liquidar/envio";
+
+		    $.ajaxSetup({
+		        headers: {
+		            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+		        }
+		    });
+
+		    var formData = {
+		        gastocabeza: $('#idgastocabeza').val(),
+		    };
+
+		    $.ajax({
+		        type: "POST",
+		        url: miurl,
+		        data: formData,
+		        dataType: 'json',
+
+		        success: function (data) {
+		            $f.data('locked', true);
+		            swal("Enviado", "el registro ha sido enviado correctamente", "success");
+		            $f.data('locked',false);                    
+		        },
+		        error: function (data) {
+		            $('#loading').modal('hide');
+		            var errHTML="";
+		            if((typeof data.responseJSON != 'undefined')){
+		                for( var er in data.responseJSON){
+		                    errHTML+="<li>"+data.responseJSON[er]+"</li>";
+		                }
+		            }else{
+		                errHTML+='<li>Error.</li>';
+		            }
+		            $("#erroresContent").html(errHTML); 
+		            $('#erroresModal').modal('show');
+		        },
+		    });
+	   	} else {
+	       	swal("Cancelado", "No se ha enviado el registro :)", "error");
+	    }
+	});	
+
+
+
+ 	
+});
+
+$(document).on('click','.btn-Glvehiculo',function(e){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+    var idviajveh=$('#idviajveh').val();
+    var urlraiz=$("#url_raiz_proyecto").val();
+  	var miurl = urlraiz+"/empleado/viaje/vehiculo/update/"+idviajveh;
+	var formData = {
+        kilometraje_final: $("#kfinal").val(),
+    };
+         
+    $.ajax({
+        type: 'PUT',
+        url: miurl,
+        data: formData,
+        dataType: 'json',
+
+        success: function (data) {
+   	    swal({
+         	title:"Envio correcto",
+            text: "Se ha guardado el registro correctamente",
+            type: "success",
+        });
+        var item = '<tr class="even gradeA" id="vehiculos'+data.idviajevehiculo+'">';
+            item +='<td>'+data.idviajevehiculo+'</td>'+'<td>'+data.marca+' '+data.color+''+data.modelo+'</td>'+'<td>'+data.kilometrajeini+'</td>'+'<td>'+data.kilometrajefin+'</td>';
+            item += '<td><a href="javascript:void(0);" onclick="vehiculo('+data.idviajevehiculo+');"><i class="fa fa-pencil"></i></a></td></tr>';
+
+            $("#vehiculos"+idviajveh).replaceWith(item);
+            $('#formAgregar').trigger("reset");
+            $('#formModalVehiculo').modal('hide');           
+        },
+        error: function (data) {
+            $('#loading').modal('hide');
+            var errHTML="";
+            if((typeof data.responseJSON != 'undefined')){
+                for( var er in data.responseJSON){
+                    errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                }
+            }else{
+                errHTML+='<li>Error</li>';
+            }
+            $("#erroresContent").html(errHTML); 
+            $('#erroresModal').modal('show');
+        }
+    });
+});

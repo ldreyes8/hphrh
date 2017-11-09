@@ -10,8 +10,6 @@ function cargarvacante(arg){
 		}).done( function(resul) 
 		{
 			$("#listadoVacante").html(resul);
-			//$("#idempleado").append(resul);
-
 			$('#inputTitleVacante').html("Solicitud de un puesto vacante");
         	$('#formModalVacante').modal('show');
 

@@ -13,6 +13,16 @@ class Constants
     //const NOMBRE_ROL_POR_USUARIO="select r.name from roles r,role_user ru where ru.user_id=:ideUsuario and r.id =ru.role_id";
 	//$inicioaño,$finaño
 
+	const AFILIADO_EMPLEADO = "SELECT per.nombre1, per.nombre2, per.nombre3, per.apellido1, per.apellido2, per.apellido3, emp.idstatus, emp.idempleado 
+	from persona as per
+	join empleado as emp on per.identificacion = emp.identificacion
+	join afiliado as afi on per.idafiliado = afi.idafiliado
+	where afi.idafiliado = :idafiliado  and emp.idstatus = 2 or emp.idstatus = 9 or emp.idstatus = 11
+	or emp.idstatus = 12 or emp.idstatus = 16 or emp.idstatus = 17 or emp.idstatus = 18
+	or emp.idstatus = 19 or emp.idstatus = 20
+	order by per.nombre1 asc";
+
+
 	const GALERIA_QUERY = "SELECT U.name, U.fotoperfil, U.email, emp.celcorporativo, nt.idnomytas, nt.idempleado,a.nombre as afiliado ,p.nombre as puesto from
 	(select nt.idnomytas, nt.idempleado, nt.idpuesto, nt.idafiliado
 		from (select nts.idempleado, nts.idnomytas,nts.idpuesto, nts.idafiliado 
