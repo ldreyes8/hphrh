@@ -341,6 +341,7 @@ Route::group(['prefix'=>'empleado'],function(){
 
 //Viaje
 	Route::get('viaje','EViajeController@index');
+	Route::get('viaje/retornaindex','EViajeController@retornaindex');
 	Route::get('viaje/status','EViajeController@obtenerstatus');
 	Route::get('viaje/solicitar','EViajeController@viaje');
 	Route::get('viaje/add','EViajeController@addv');
@@ -357,8 +358,6 @@ Route::group(['prefix'=>'empleado'],function(){
 
 	Route::get('viaje/vehiculo/edit/{id}','EViajeController@vehedit');
 	Route::put('viaje/vehiculo/update/{id}','EViajeController@vehupdate');
-
-	
 
 });
 

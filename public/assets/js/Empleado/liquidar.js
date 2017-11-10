@@ -65,14 +65,14 @@
 					null, //#Factura
 					null, //Empleado
 					null, //Cuenta,
-					null, //Cliente
+					//null, //Cliente
 					null, //Evento
-					null, //LOB L10
+					// null, //LOB L10
 					null, //Donador L8
 					null, //Proyecto L9
 					null, //Funcion L2
 					null, //Monto
-					null, //Saldo
+					//null, //Saldo
 					{ "bSortable": false }
 				]
 			});
@@ -230,14 +230,25 @@
 				'<a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>'
 			].join(' ');
 
+				var n1 = $data.nombre1, 
+				n2 = $data.nombre2, 
+				n3 = $data.nombre3, 
+				a1 = $data.apellido1,
+				a2 = $data.apellido2,
+				a3 = $data.apellido3;
+				if(n2 == null){n2 = "";}
+				if(n3 == null){n3 = "";}
+				if(a2 == null){a2 = "";}
+				if(a3 == null){a3 = "";}
+
 			data = this.datatable.row.add([ $data.idgastoempleado,
 											$data.fecha,
 											$data.descripcion,
 											$data.factura,
-											$data.nombre2,
-											$data.cuenta,'','','','',
+											n1+" "+n2+" "+n3+" "+a1+" "+a2+" "+a3,
+											$data.cuenta,'','',
 											$data.proyecto,'',
-											$data.monto,'',
+											$data.monto,
 											actions
 										]);
 
@@ -306,8 +317,6 @@
 			cont = 
 			cont = parseFloat($data.montot) - parseFloat($data.monto);
 
-
-			console.log(dataRows);
 			//<td>{{$proyecto->monto = $proyecto->monto - $gvi->monto}}</td>
 
 
@@ -338,14 +347,12 @@
 							$data.descripcion,
 							$data.factura,
 							n1+" "+n2+" "+n3+" "+a1+" "+a2+" "+a3,
-							$data.cuenta,'','','','',
+							$data.cuenta,'','',
 							$data.proyecto,'',
 							$data.monto,
-							cont,
 							actions
 						];
 
-			console.log(indice);
 			this.datatable.row(indice).data(values);
 			this.datatable.draw();
 			//console.log(this.datatable.row(indice).data(values));

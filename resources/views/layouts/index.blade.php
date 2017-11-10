@@ -21,6 +21,8 @@
         <link href="{{asset('assets/css/pages.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/menu.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/responsive.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/css/spinners.css')}}" rel="stylesheet" type="text/css">
+
 
 
         
@@ -387,6 +389,21 @@
                 <br>
                     <hr style="color:#003" width="50%">
                 <br>
+            </div>
+
+            <div style="display: none;" id="cargador1" align="center">
+                <br>
+                <label style="color:#FFF; background-color:#ABB6BA; text-align:center">&nbsp;&nbsp;&nbsp;Espere... &nbsp;&nbsp;&nbsp;</label>
+                &nbsp;<label style="color:#ABB6BA">Realizando tarea solicitada ...</label>
+                <br>
+                <hr style="color:#003" width="50%">
+                <br>
+
+                <div class="ibox-content text-center">
+                    <div class="h1 m-t-xs text-navy">
+                        <span class="loading star"></span>
+                    </div>
+                </div>
             </div>
 
             <div id="listadoVacante"></div>

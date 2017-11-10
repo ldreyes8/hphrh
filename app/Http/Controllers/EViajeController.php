@@ -27,6 +27,10 @@ class EViajeController extends Controller
         return view ('empleado.viaje.index');
     }
 
+    public function retornaindex(){
+        return view ('empleado.viaje.retornaindex');
+    }
+
     public function viaje(){
         $empleado = DB::table('empleado as emp')
             ->join('persona as per','emp.identificacion','=','per.identificacion')
@@ -34,6 +38,7 @@ class EViajeController extends Controller
             ->select('emp.idempleado')
             ->where('U.id','=',Auth::user()->id)
             ->first();
+
 
         $viaje = DB::table('gastoencabezado as gas')
             ->join('tipogasto as tga','gas.idtipogasto','=','tga.idtipogasto')
@@ -43,7 +48,6 @@ class EViajeController extends Controller
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->select('gas.fechasolicitud','via.fechainicio','via.fechafin','gas.montosolicitado','gas.statusgasto','tga.tipogasto')
             ->where('emp.idempleado','=',$empleado->idempleado)
-            ->where('tga.idtipogasto','=',2)
             ->get();
 
         return view ('empleado.viaje.indexviaje',["viaje"=>$viaje]);
@@ -60,7 +64,6 @@ class EViajeController extends Controller
         ->where('idtipogasto','=','2')
         ->where('U.id','=',Auth::user()->id)
         ->first();
-
 
         if($ausencia === null)
         {
@@ -263,7 +266,7 @@ class EViajeController extends Controller
                 ->join('empleado as emp','gve.idempleado','=','emp.idempleado')
                 ->join('persona as per','emp.identificacion','=','per.identificacion')
                 ->join('plancuentas as pcu','gve.codigocuenta','pcu.codigocuenta')
-                ->select('per.nombre1','per.nombre2','gve.factura','gve.fechafactura as fecha','gve.montofactura as monto','gve.descripcion','pcu.nombrecuenta as cuenta','pro.nombreproyecto as proyecto','gve.idgastoempleado')
+                ->select('per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','per.apellido3','gve.factura','gve.fechafactura as fecha','gve.montofactura as monto','gve.descripcion','pcu.nombrecuenta as cuenta','pro.nombreproyecto as proyecto','gve.idgastoempleado')
                 ->where('gvi.idgastocabeza','=',$proyecto->idgastocabeza)
                 ->get();
 
@@ -426,7 +429,7 @@ class EViajeController extends Controller
                 ->join('empleado as emp','gve.idempleado','=','emp.idempleado')
                 ->join('persona as per','emp.identificacion','=','per.identificacion')
                 ->join('plancuentas as pcu','gve.codigocuenta','pcu.codigocuenta')
-                ->select('per.nombre1','per.nombre2','gve.factura','gve.fechafactura as fecha','gve.montofactura as monto','gve.descripcion','pcu.nombrecuenta as cuenta','pro.nombreproyecto as proyecto','gve.idgastoempleado')
+                ->select('per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','per.apellido3','gve.factura','gve.fechafactura as fecha','gve.montofactura as monto','gve.descripcion','pcu.nombrecuenta as cuenta','pro.nombreproyecto as proyecto','gve.idgastoempleado')
                 ->where('gve.idgastoempleado','=',$gastoempleado->idgastoempleado)
                 ->first();
 
@@ -480,7 +483,7 @@ class EViajeController extends Controller
             ->join('empleado as emp','gve.idempleado','=','emp.idempleado')
             ->join('persona as per','emp.identificacion','=','per.identificacion')
             ->join('plancuentas as pcu','gve.codigocuenta','pcu.codigocuenta')
-            ->select('per.nombre1','per.nombre2','gve.factura','gve.fechafactura as fecha','gve.montofactura as monto','gve.descripcion','pcu.nombrecuenta as cuenta','pro.nombreproyecto as proyecto','gve.idgastoempleado')
+            ->select('per.nombre1','per.nombre2','per.nombre3','gve.factura','gve.fechafactura as fecha','gve.montofactura as monto','gve.descripcion','pcu.nombrecuenta as cuenta','pro.nombreproyecto as proyecto','gve.idgastoempleado')
             ->where('gvi.idgastocabeza','=',$proyecto->idgastocabeza)
             ->get();
 

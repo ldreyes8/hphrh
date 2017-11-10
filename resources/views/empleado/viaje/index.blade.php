@@ -21,62 +21,75 @@
 
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div id="dock-container" class="">
+        <div id="dock-container" class="">
                     <div class="panel-body">
                         <ul>
                             <li>
-                                <a onclick="cargar_formularioviaje(1);"><img src="{{asset('assets/images/viaje.jpg')}}"/></a>
-                                <span>Apertura Viaje</span>
+                                <a onclick="openmodal();"><img src="{{asset('assets/images/viaje.png')}}"/></a>
+                                <span>Apertura avance</span>
                             </li>
                             <li>
                                 <!--<a onclick="cargar_formularioviaje(2);"><img src="{{asset('assets/images/laravel.png')}}"/></a>-->
-                                <a><img src="{{asset('assets/images/liquidar.jpg')}}"/></a>
-                                <span>Caja chica</span>
+                                <a onclick="cargar_formularioviaje(2);"><img src="{{asset('assets/images/liquidar.png')}}"/></a>
+                                <span>Liquidar</span>
                             </li>
                             <li>
-                                <span>Aperturar caja chica</span>
-                                <a href="#"><img src="{{asset('assets/images/chrome.png')}}"/></a>
+                                <span>Historial</span>
+                                <a onclick="cargar_formularioviaje(3);"><img src="{{asset('assets/images/historial.png')}}"/></a>
                             </li>
+                            <!--
                             <li>
                                 <span>Liquidación caja chica</span>
                                 <a href="#"><img src="{{asset('assets/images/danger.png')}}"/></a>
                             </li>
+                            -->
                             <!--Funciones de la encargada de caja chica -->
+                            <!--
                             <li>
                                 <span>Solicitar caja chica</span>
                             </li>
+                            -->
                         </ul>
                     </div>
-                </div>
+        </div>
 
-               <!--
-                <ul class="nav nav-tabs navtab-custom">
-                    <li class="active" data-toggle="tab" aria-expanded="false">
-                    <a data-toggle="tab" aria-expanded="false" onclick="cargar_formulario(1);">
-                            <span class="visible-xs"><i class="md md-perm-contact-cal"></i></span>
-                            <span class="hidden-xs">Apertura Viaje</span>
-                        </a>
-                    </li>
-                    <li class="">
-                    <a data-toggle="tab" aria-expanded="false" onclick="cargar_formulario(2);">
-                            <span class="visible-xs"><i class="md md-school"></i></span>
-                            <span class="hidden-xs">Liquidaci&oacute;n</span>
-                        </a>
-                    </li>
-                </ul>
-                -->
+        <div id="capa_formularios" class="div_modal">
+            @include('empleado.viaje.retornaindex')
+        </div>
 
-                <input type="hidden"  id="url_raiz_proyecto" value="{{ url("/") }}" />
-                <div id="capa_modal" class="div_modal" style="display: none;"></div>
-                <div id="capa_formularios" class="div_contenido" style="display: none;"></div>
-                
-                <!--<div class="tab-content">
-                    @include('rrhh.permisosvacaciones.indexsolicitados')
-                    @include('rrhh.permisosvacaciones.indexconfirmado')
-                    @include('rrhh.permisosvacaciones.indexrechazado')
-                    @include('rrhh.permisosvacaciones.indexautorizado')
+        <div class="col-lg-12 col-md-12" id="modalMS">
+                    <div class="modal fade" id="formModalMS" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" align="center" id="inputTitleMS"></h4>
+                                </div>
+
+                                <form role="form" id="formMS">
+                                    <div class="modal-header">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <label>Monto a solicitar</label>
+                                            <input id="MSinicial" type="number" min="0" value="0" class="form-control" onkeypress="return valida(event)">
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="modal-footer">
+                                    <div class="col-md-12">
+                                        <div><br></div>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                        <button type="button" id="MontoIni" class="btn btn-primary waves-effect waves-light btn-Montos">Enviar</i></button>
+                                        <input type="hidden" id="idmontos" value="0"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                -->
+        </div>
+
+        <input type="hidden"  id="url_raiz_proyecto" value="{{ url("/") }}" />
     </div>
 </div>
 @endsection
@@ -84,13 +97,13 @@
     @parent
         <meta name="_token" content="{!! csrf_token() !!}" />
         <script src="{{asset('assets/js/perfil/solicitud.js')}}"></script>
-                <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
 
 
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
-        <script src="{{asset('assets/js/Empleado/cargarmodal.js')}}"></script>
+        <script src="{{asset('assets/js/Empleado/cargaravance.js')}}"></script>
            <!-- Examples -->
         <script src="{{asset('assets/plugins/magnific-popup/dist/jquery.magnific-popup.min.js')}}"></script>
 
@@ -103,30 +116,48 @@
         <script src="{{asset('assets/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js')}}" type="text/javascript"></script>
 
         <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
+        <script src="{{asset('assets/js/valida.js')}}"></script>
 
 
 
         <script type="text/javascript">
             $(document).ready(function() {
                 $(".select2").select2();        
-            });
-        </script>
-
-        <script>
-            $(document).ready(function(){
+        
                 var hdrht = ($(window).height()) - ($("#site-header").height());
                 $(".wrapper").height(hdrht);
             });
-        </script>
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-            ga('create', 'UA-68852337-1', 'auto');
-            ga('send', 'pageview');
+            function openmodal(){
+
+            $('#inputTitleMS').html("Monto a solicitar");
+            $('#formMS').trigger("reset");
+            $('#formModalMS').modal('show');
+            //cargar_formularioviaje(1);
+            }
+
+            $('#MontoIni').click(function(e) {
+                var minicial = $("#MSinicial").val();
+
+                if(minicial > 0)
+                {
+                    $('#formModalMS').modal('hide');
+                    if(minicial >  500)
+                    {
+                        cargar_formularioviaje(1);
+                    }
+                    else{
+                        alert("actualmente no se cuenta con este formulario esperamos que regrese pronto gracias :) ");
+                    }
+   
+                }
+                else{
+                    alert("debe de ingresar un monto inical razonable");
+                }
+
+            });
         </script>
+
         <script type="text/javascript">
 
             $(document).on('click','.btn-openviaje',function(e){

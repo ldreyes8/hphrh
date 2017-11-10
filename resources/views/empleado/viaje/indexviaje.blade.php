@@ -6,13 +6,7 @@
 
     <!--  searchempleado-->
 
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="m-b-30">
-                <button class="btn btn-primary waves-effect waves-light btn-SolViaje">Agregar <i class="fa fa-plus"></i></button>
-            </div>
-        </div>
-    </div>
+   
 
     <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <div class="table-responsive">
@@ -35,7 +29,7 @@
                     <td>{{$via->tipogasto}}</td>
                     <td>{{$via->statusgasto}}</td>
                     @if($via->statusgasto == 'Autorizado')
-                    <td><a onclick="cargar_formularioviaje(2);"><button class="btn btn-primary">Liquidar</button></a></td>
+                    <td><a onclick="cargar_formularioviaje(3);"><button class="btn btn-primary">Liquidar</button></a></td>
                     @else 
                     <td><a href="#"><button class="btn btn-primary">Detalles</button></a></td>
                     @endif
@@ -51,10 +45,10 @@
 <!-- FONDOS LOCALES-PAGO CASAS default L8  titulo Linea de presupuesto-->
 <!-- A ON -->           <!-- l2 !-->
 <!-- P Afilidaso -->
-
 <!-- f steve -->
 <!-- L5 DEFAULT GENERIC Y OCULTO -->
 <!-- L9 SIRVIENDO FAMILIAS GUATEMALTEC default -->
+<!-- FACTURAS ESPECIALES NEGATIVOS -->
 
     <!-- Examples -->
         <script src="{{asset('assets/plugins/magnific-popup/dist/jquery.magnific-popup.min.js')}}"></script>

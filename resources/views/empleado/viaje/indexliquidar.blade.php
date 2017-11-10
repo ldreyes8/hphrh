@@ -11,20 +11,21 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
 -->
 <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
 
+
+
 <div class="card-box" id="VPJF">
 
     @if($liquidar == 1)
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="navbar-form navbar-left pull-left">
-            <button class="btn btn-success btn-md"onclick="cargar_formularioviaje(1);"><i class="fa fa-reply-all"></i></button>
+            <button class="btn btn-success btn-md"onclick="cargar_formularioviaje(0);"><i class="fa fa-reply-all"></i></button>
         </div>
 
         <h4 class="box-title" align="center">Liquidaci&oacute;n viaje</h4>
         <hr style="border-color:black;" />
 
     </div>
-
 
     <input type="hidden" name="_token" id="_token"  value="<?= csrf_token(); ?>" />
     <input type="hidden" id="idempleado" value="{{$proyecto->idempleado}}">
@@ -55,11 +56,11 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                 </div>
                 <div class="form-group col-lg-6">
                     <label>Fecha inicio</label>
-                    <label>{{$proyecto->fechainicio}}</label>
+                    <label>{{\Carbon\Carbon::createFromFormat('Y-m-d',$proyecto->fechainicio)->format('d/m/Y')}}</label>
                 </div>
                 <div class="form-group col-lg-6">
                     <label>Fecha final</label>
-                    <label>{{$proyecto->fechafin}}</label>
+                    <label>{{\Carbon\Carbon::createFromFormat('Y-m-d',$proyecto->fechafin)->format('d/m/Y')}}</label>
                 </div>
             </div>            
         </div>
@@ -135,14 +136,11 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                                 <th style="width: 10%"># Factura</th>
                                 <th style="width: 12%">Empleado</th>
                                 <th style="width: 12%">Cuenta</th>
-                                <th style="width: 0%">Cliente</th>
                                 <th>Eventos</th>
-                                <th style="width: 6%">LOB L10</th>
-                                <th style="width: 8%">Donador L8</th>
+                                <th style="width: 8%">Línea de presupuesto</th>
                                 <th style="width: 10%">Proyecto L9</th>
                                 <th style="width: 8%">Funci&oacute;n L2</th>
                                 <th style="width: 6%">Monto</th>
-                                <th style="width: 6%">Saldo</th>
                                 <th style="width: 4%"></th>
                             </tr>
                         </thead>
@@ -153,16 +151,13 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                                 <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$gvi->fecha)->format('d/m/Y')}}</td>
                                 <td>{{$gvi->descripcion}}</td>
                                 <td>{{$gvi->factura}}</td>
-                                <td>{{$gvi->nombre1.' '.$gvi->nombre2}}</td>
+                                <td>{{$gvi->nombre1.' '.$gvi->nombre2.' '.$gvi->nombre3.' '.$gvi->apellido1.' '.$gvi->apellido2.' '.$gvi->apellido3}}</td>
                                 <td>{{$gvi->cuenta}}</td>
-                                <td>clien</td>
                                 <td>Even</td>
                                 <td>ff</td>
-                                <td>10</td>
                                 <td>{{$gvi->proyecto}}</td>
                                 <td>10</td>
                                 <td>{{$gvi->monto}}</td>
-                                <td>{{$proyecto->monto = $proyecto->monto - $gvi->monto}}</td>
                                 <td class="actions">
                                     <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
                                     <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
@@ -248,7 +243,7 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="inputError"></h4>
+                <h4 class="modal-title" id="inputError">Errores</h4>
             </div>
             <div class="modal-body">
                 <ul style="list-style-type:circle" id="erroresContent"></ul>
@@ -284,6 +279,7 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
             $('#formAgregarLiquidar').trigger("reset");
             $('#formModalLiquidar').modal('show');
             $('#Glempleado').val('add');
+
         });
     });
 

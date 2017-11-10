@@ -25,7 +25,7 @@
                         <option>USD</option>
                     </select>
                 </div>
-                <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">                   
+                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">                   
                     <label class="control-label">Deposito</label>
                     <div class="form-group">
                         <div class="radio radio-success radio-inline">
@@ -100,7 +100,7 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-danger btn-cancelviaje" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary btn-addviaje" id="btnGuardarViaje">Guardar</button>
+        <button type="button" class="btn btn-primary btn-addviaje" id="btnGuardarAvance">Guardar</button>
         <input type="hidden" name="idE" id="idE" value="0"/>
     </div>
 </div>
@@ -135,10 +135,18 @@
     $("#vehoculto").hide();
     $("#taboculto").hide();
 
-     function eliminar(index){
+    function eliminar(index){
         console.log(index);
-       $("#veh" + index).remove();
-       //evaluar();
+        $("#veh" + index).remove();
+        //evaluar();
     }
+
+    $(document).ready(function() {
+        var montoini = $("#MSinicial").val();
+        $("#monto").val(montoini);
+        document.getElementById("fecha_inicio").focus();
+    });
+
+
 </script>
 
