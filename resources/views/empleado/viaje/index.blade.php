@@ -35,7 +35,7 @@
                             </li>
                             <li>
                                 <span>Historial</span>
-                                <a onclick="cargar_formularioviaje(3);"><img src="{{asset('assets/images/historial.png')}}"/></a>
+                                <a onclick="cargar_formularioviaje(4);"><img src="{{asset('assets/images/historial.png')}}"/></a>
                             </li>
                             <!--
                             <li>
@@ -147,7 +147,8 @@
                         cargar_formularioviaje(1);
                     }
                     else{
-                        alert("actualmente no se cuenta con este formulario esperamos que regrese pronto gracias :) ");
+                        cargar_formularioviaje(5);
+                        //alert("actualmente no se cuenta con este formulario esperamos que regrese pronto gracias :) ");
                     }
    
                 }

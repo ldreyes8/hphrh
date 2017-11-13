@@ -1,5 +1,5 @@
 <div class="card-box" id="SviajeE">
-    <h4 class="box-title" align="center">Liquidaciones en proceso</h4>
+    <h4 class="box-title" align="center">Historial de avances</h4>
     <hr style="border-color:black;" />
 
     <input type="hidden" name="_token" id="_token"  value="<?= csrf_token(); ?>">
@@ -24,14 +24,8 @@
                     <td>{{$via->montosolicitado}}</td>
                     <td>{{$via->tipogasto}}</td>
                     <td>{{$via->statusgasto}}</td>
-                    @if($via->statusgasto == 'Autorizado')
-                    <td><a onclick="cargar_formularioviaje(3);"><button class="btn btn-primary">Liquidar</button></a></td>
-                    @elseif($via->statusgasto == 'solicitado')
-                    <td><a href="javascript:void(0);" onclick="detalleavance(2,{{$via->idgastocabeza}});"><button class="btn btn-primary">Detalles</button></a>
-                        <a href="#"><button class="btn btn-danger" id="cancelarmov" value="{{$via->idgastocabeza}}">Cancelar</button></a></td>
-                    @else
-                        <td><a href="#"><button class="btn btn-primary">Detalles</button></a>
-                    @endif
+                 
+                    <td><a href="javascript:void(0);" onclick="detalleavance(1,{{$via->idgastocabeza}});"><button class="btn btn-primary">Detalles</button></a></td>
                 </tr> 
                 @endforeach
             </table>
@@ -60,53 +54,6 @@
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
 
         <script src="{{asset('assets/js/Empleado/cargardetalle.js')}}"></script>
-
-    <script type="text/javascript">
-        $("#vehoculto").hide();
-
-        function mostrar() {
-            if($("#solvehiculo:checked").val()=="Si") {
-                $("#vehoculto").show();
-                $("#taboculto").show();
-            }
-            if($("#solvehiculo:checked").val()=="No") {
-                $("#vehoculto").hide();
-                $("#taboculto").hide();
-            }
-        }
-            function valida(e){
-                tecla = e.keyCode || e.which;
-                tecla_final = String.fromCharCode(tecla);
-                //Tecla de retroceso para borrar, siempre la permite
-                if (tecla==8 || tecla==37 || tecla==39 ||tecla==46 ||tecla==9)
-                    {
-                        return true;
-                    } 
-                // Patron de entrada, en este caso solo acepta numeros
-                patron =/[0-9]/;
-                //patron =/^\d{9}$/;
-                return patron.test(tecla_final);
-
-            }
-            //Se utiliza para que el campo de texto solo acepte letras
-            function validaL(e) {
-                key = e.keyCode || e.which;
-                tecla = String.fromCharCode(key).toString();
-                letras = " áéíóúabcdefghijklmnñopqrstuvwxyzÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ63";//Se define todo el abecedario que se quiere que se muestre.
-                especiales = [8, 37, 39, 46, 9]; //Es la validación del KeyCodes, que teclas recibe el campo de texto.
-                tecla_especial = false
-                for(var i in especiales) {
-                    if(key == especiales[i]) {
-                        tecla_especial = true;
-                        break;
-                    }
-                }
-                if(letras.indexOf(tecla) == -1 && !tecla_especial){
-                    //alert('Tecla no aceptada');
-                    return false;
-                  }
-            }
-    </script>
 
 
     <script type="text/javascript">

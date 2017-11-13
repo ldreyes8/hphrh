@@ -1,5 +1,5 @@
 <div class="card-box" id="VPJF">
-    <h4 class="box-title" align="center">Solicitar viaje</h4>
+    <h4 class="box-title" align="center">Solicitar vale</h4>
     <hr style="border-color:black;" />    
 
         <form role="form" id="formAgregarViaje">
@@ -25,19 +25,21 @@
                         <option>USD</option>
                     </select>
                 </div>
+                <!--
                 <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label">Deposito</label>
                     <div class="form-group">
                         <div class="radio radio-success radio-inline">
                             <input type="radio" id="deposito" value="cheque" name="deposito" checked>
-                            <label for="inlineRadio2">Cheque</label><!--No se tomo a su totalidad los dias solicitados-->
+                            <label for="inlineRadio2">Cheque</label>
                         </div>
                         <div class="radio radio-info radio-inline">
                             <input type="radio" id="deposito" value="transferencia" name="deposito" checked>
-                            <label for="inlineRadio16">Transferencia</label> <!-- Se tomo todos los dias solicitados -->
+                            <label for="inlineRadio16">Transferencia</label>
                         </div>
                     </div>
                 </div>
+                -->
             </div>
 
             <div class="modal-header">
@@ -60,11 +62,11 @@
                 <div class="input-group">
                     <div class="radio radio-success radio-inline">
                         <input type="radio" id="solvehiculo" value="Si" name="hvehiculo" checked onclick="mostrar()">
-                        <label for="inlineRadio2">Si</label><!--No se tomo a su totalidad los dias solicitados-->
+                        <label for="inlineRadio2">Si</label>
                     </div>
                     <div class="radio radio-danger radio-inline">
                         <input type="radio" id="solvehiculo" value="No" name="hvehiculo" checked onclick="mostrar()">
-                        <label for="inlineRadio1">No</label> <!-- Se tomo todos los dias solicitados -->
+                        <label for="inlineRadio1">No</label>
                     </div>
                 </div>
             </div>
