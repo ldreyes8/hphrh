@@ -25,7 +25,7 @@
                         <th>Fin</th>                               
                         <th>Opciones</th>
                     </thead>
-                    @foreach($viaje as $v)
+                    @foreach($asistente as $v)
                     <tr>
                         <td>{{$v->nombre}}</td>
                         <td>{{$v->tipogasto}}</td>

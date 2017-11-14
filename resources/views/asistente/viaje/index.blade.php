@@ -21,16 +21,12 @@
                     <div class="panel-body">
                         <ul>
                             <li>
-                                <a onclick="cargar_formularioviaje(20);"><img src="{{asset('assets/images/collective.png')}}"/></a>
+                                <a onclick="cargar_formularioviaje(23);"><img src="{{asset('assets/images/collective.png')}}"/></a>
                                 <span>Solicitados</span>
                             </li>
                             <li>
                                 <a onclick="cargar_formularioviaje(21);"><img src="{{asset('assets/images/laravel.png')}}"/></a>
                                 <span>Autorizados</span>
-                            </li>
-                            <li>
-                                <span>Confirmados</span>
-                                <a href="#"><img src="{{asset('assets/images/chrome.png')}}"/></a>
                             </li>
                             <li>
                                 <span>Rechazados</span>

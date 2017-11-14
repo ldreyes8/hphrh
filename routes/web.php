@@ -455,7 +455,13 @@ Route::group(['prefix'=>'ji'],function(){
 		Route::get('viajejf/rechazados','JIViajeController@rechazados');
 });
 
-
+//Rutas asistente o conta
+Route::group(['prefix'=>'asistete'],function()
+{
+	//viaje
+		Route::get('viaje','JIViajeController@indexas');
+		Route::get('viaje/avance','JIViajeController@vasistentes');
+});
 //rutas del controlador de Usuario
 
 Route::get('seguridad/usuario', 'PCUsuarioController@contenedor')->middleware('roleshinobi:informatica');
