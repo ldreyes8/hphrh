@@ -12,7 +12,8 @@ function cargar_formularioviaje(arg){
    if(arg==1){ var miurl=urlraiz+"/empleado/viaje/add"; }
    if(arg==2){ var miurl=urlraiz+"/empleado/viaje/solicitar"; }
    if(arg==3){ var miurl=urlraiz+"/empleado/viaje/liquidar"; }
-   if(arg==4){ var miurl=urlraiz+"/empleado/viaje/historial"; }
+   if(arg==4){ var miurl=urlraiz+"/empleado/viaje/indexhistorial"; }
+   if(arg==5){ var miurl=urlraiz+"/empleado/cajachica/add"; }
 
    /*
 
@@ -23,7 +24,6 @@ function cargar_formularioviaje(arg){
    */
    //Listado de Jefe Inmediato Autorizaciones Vacacioens Y permisos
 
-   if(arg==4){ var miurl=urlraiz+"/empleado/vautorizadopv"; }
 
    if(arg==20){ var miurl=urlraiz+"/ji/viajejf/solicitados"; }
    if(arg==21){ var miurl=urlraiz+"/ji/viajejf/autorizados"; }

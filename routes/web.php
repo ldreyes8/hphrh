@@ -355,9 +355,19 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::put('viaje/liquidar/update/{id}','EViajeController@updatel');
 	Route::post('viaje/liquidar/envio','EViajeController@enviol');
 	Route::get('viaje/liquidar/updatemonto','EViajeController@updateml');
+	Route::post('viaje/liquidar/cancelar','EViajeController@cancelarl');
 
 	Route::get('viaje/vehiculo/edit/{id}','EViajeController@vehedit');
 	Route::put('viaje/vehiculo/update/{id}','EViajeController@vehupdate');
+
+	Route::get('viaje/indexhistorial','EViajeController@indexhistorial');
+	Route::get('viaje/detallehistorial/{id}','EViajeController@detallehistorial');
+	Route::get('viaje/detalleavance/{id}','EViajeController@detalle');
+
+	Route::get('cajachica/add','ECajaChica@add');
+
+
+
 
 });
 

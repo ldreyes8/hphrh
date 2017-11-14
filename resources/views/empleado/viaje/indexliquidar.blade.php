@@ -279,7 +279,6 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
             $('#formAgregarLiquidar').trigger("reset");
             $('#formModalLiquidar').modal('show');
             $('#Glempleado').val('add');
-
         });
     });
 
@@ -307,7 +306,6 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
     });
 
 
-   
     </script>
     <!--
     <script src="{{asset('assets/plugins/tiny-editable/numeric-input-example.js')}}"></script>
