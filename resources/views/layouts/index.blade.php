@@ -23,10 +23,6 @@
         <link href="{{asset('assets/css/responsive.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/css/spinners.css')}}" rel="stylesheet" type="text/css">
 
-
-
-        
-
         @show
 
     </head>
@@ -40,9 +36,6 @@
     <body class="fixed-left">
     @endif
 
-
-
-        
         <!-- Begin page -->
         <div id="wrapper">
 
@@ -158,31 +151,13 @@
                                 </a> 
                             </li>
                             
-                            
                             <li>
                                 <a href="{{url('/empleado/viaje')}}" class="waves-effect waves-primary">&nbsp;&nbsp;
                                 <i class="md md-airplanemode-on"></i><span>Movilizaci&oacute;n</span>
                                 </a> 
                             </li>
                             
-                            
-                            
-                            <!--
-
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i
-                                        class="md md-assignment"></i><span> Solicitud </span> 
-                                         <span class="menu-arrow"></span>
-                                </a>
-                                <ul class="list-unstyled">
-                                    <li><a href="{{ url('/empleado/vacaciones')}}">Vacaciones</a></li>
-                                    <li><a href="{{ url('/empleado/permiso')}}">Permisos</a></li>
-                                    <li><a href="{{ url('/empleado/goce')}}">Constancia de vacaciones</a></li>
-
-                                </ul>
-                            </li>
-                            -->
-
+                          
 
                         <!-- // Gestiones___ // -->
 
@@ -196,40 +171,7 @@
                                 </a> 
                             </li>
                             
-                            <!--
-
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Autorizaciones</span> 
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul class="list-unstyled">
-                                    <li class="has_sub">
-                                        <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="fa fa-drivers-license-o"></i><span>Permisos</span> 
-                                        <span class="menu-arrow"></span>
-                                        </a>
-                                        <ul class="list-unstyled">
-                                            <li><a href="{{ url('/empleado/permisos')}}">Solicitados</a></li>
-                                            <li><a href="{{ url('/empleado/confirmado')}}">Confirmados</a></li>
-                                            <li><a href="{{ url('/empleado/rechazado')}}">Rechazados</a></li>
-          
-                                        </ul>
-                                    </li>
-                                    <li class="has_sub">
-                                        <a href="javascript:void(0);" class="waves-effect waves-primary"> <i class="fa fa-address-card-o"></i><span>Vacaciones</span> 
-                                                 <span class="menu-arrow"></span>
-                                        </a>
-                                        <ul class="list-unstyled">
-                                            <li><a href="{{ url('/empleado/vsolicitado')}}">Solicitados</a></li>
-                                            <li><a href="{{ url('/empleado/vautorizado')}}">Autorizados</a></li>
-                                            <li><a href="{{ url('/empleado/vconfirmado')}}">Confirmados</a></li>
-                                            <li><a href="{{ url('/empleado/vrechazado')}}">Rechazados</a></li>
-                                        </ul>
-                                    </li>
-
-                                
-                                </ul>
-                            </li>
-                            -->
+                        
 
                             <li class="has_sub"> 
                                 <a href="{{ url('/empleado/listadoR')}}" class="waves-effect waves-primary">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-drivers-license-o"></i><span>Reclutamiento</span>
@@ -246,6 +188,15 @@
                                 <a href="{{ url('/ji/viajejf')}}" class="waves-effect waves-primary" onclick="cargarvacante(1);">&nbsp;&nbsp;&nbsp;
                                     <i class="md md-local-library"></i><span>Liquidaci&oacute;n</span>
                                 </a>
+                            </li>
+
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect waves-primary">&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-folder-open"></i> <span>Reportes</span>
+                                     <span class="menu-arrow"></span>
+                                </a>
+                                <ul class="list-unstyled">
+                                    <li><a href="{{ url('/ji/reporte/vpempleado')}}">Vacaciones y permiso</a></li>
+                                </ul>
                             </li>
                         
                             @endrole

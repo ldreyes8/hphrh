@@ -13,6 +13,33 @@ class Constants
     //const NOMBRE_ROL_POR_USUARIO="select r.name from roles r,role_user ru where ru.user_id=:ideUsuario and r.id =ru.role_id";
 	//$inicioaño,$finaño
 
+	const RH_vempleado = "SELECT per.nombre1, per.nombre2, per.apellido1, per.apellido2, emp.idempleado, emp.identificacion, emp.nit, st.statusemp as statusn, pu.nombre as puesto, af.nombre as afiliado, c.idcaso, max((nt.idnomytas))
+	from empleado as emp
+	inner join persona  as per  on emp.identificacion = per.identificacion
+	inner join nomytras as nt   on emp.idempleado = nt.idempleado
+	inner join status   as st   on emp.idstatus = st.idstatus 
+	inner join puesto   as pu   on nt.idpuesto = pu.idpuesto
+    inner join afiliado as af   on nt.idafiliado = af.idafiliado
+    inner join caso     as c 	  on nt.idcaso = c.idcaso
+    where c.idcaso = 4 and emp.idstatus <> 5 or c.idcaso = 6 and emp.idstatus <> 5 or c.idcaso = 7 and emp.idstatus <> 5
+    group by emp.idempleado
+    order by af.nombre asc";
+
+
+    const JI_vempleado = "SELECT per.nombre1, per.nombre2, per.apellido1, per.apellido2, emp.idempleado, emp.identificacion, emp.nit, st.statusemp as statusn, pu.nombre as puesto, af.nombre as afiliado, c.idcaso, max((nt.idnomytas))
+	from empleado as emp
+	inner join persona  as per  on emp.identificacion = per.identificacion
+	inner join nomytras as nt   on emp.idempleado = nt.idempleado
+	inner join status   as st   on emp.idstatus = st.idstatus 
+	inner join puesto   as pu   on nt.idpuesto = pu.idpuesto
+    inner join afiliado as af   on nt.idafiliado = af.idafiliado
+    inner join caso     as c 	on nt.idcaso = c.idcaso
+    inner join asignajefe as aj on emp.idempleado = aj.idempleado
+    where c.idcaso = 4 and emp.idstatus <> 5 and aj.identificacion = :id or c.idcaso = 6 and emp.idstatus <> 5  and aj.identificacion = :id  or c.idcaso = 7 and emp.idstatus <> 5 and aj.identificacion = :id
+    group by emp.idempleado
+    order by af.nombre asc";
+
+
 	const AFILIADO_EMPLEADO = "SELECT per.nombre1, per.nombre2, per.nombre3, per.apellido1, per.apellido2, per.apellido3, emp.idstatus, emp.idempleado 
 	from persona as per
 	join empleado as emp on per.identificacion = emp.identificacion

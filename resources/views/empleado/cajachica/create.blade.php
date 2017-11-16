@@ -25,21 +25,22 @@
                         <option>USD</option>
                     </select>
                 </div>
-                <!--
+                
                 <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label">Deposito</label>
                     <div class="form-group">
                         <div class="radio radio-success radio-inline">
                             <input type="radio" id="deposito" value="cheque" name="deposito" checked>
-                            <label for="inlineRadio2">Cheque</label>
+                            <label for="inlineRadio2">Efectivo</label>
                         </div>
+                        <!--
                         <div class="radio radio-info radio-inline">
                             <input type="radio" id="deposito" value="transferencia" name="deposito" checked>
                             <label for="inlineRadio16">Transferencia</label>
                         </div>
+                        -->
                     </div>
                 </div>
-                -->
             </div>
 
             <div class="modal-header">

@@ -27,15 +27,6 @@ function cargar_formularioRH(arg){
    }) ;
 }
 
-$(document).on("click",".pagination li a",function(e){
-    e.preventDefault();
-    var url = $(this).attr("href");
-    $("#pvsolicitados").html($("#cargador_empresa").html());
-
-    $.get(url,function(resul){
-        $("#pvsolicitados").html(resul);  
-    })
-  })
 
 function buscarindexsolicitado()
 {

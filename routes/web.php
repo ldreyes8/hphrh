@@ -441,12 +441,9 @@ Route::group(['prefix'=>'rh'],function(){
 	Route::get('plazasautorizadas','RHPuestoVacante@plazaautorizada')->middleware('roleshinobi:recurso');
 
 	Route::get('reporte/vpempleado', 'RHReporte@vpempleado')->middleware('roleshinobi:recurso');
+	Route::get('reporte/vpempleado/index', 'RHReporte@vpindex')->middleware('roleshinobi:recurso');
 	Route::get('reporte/vacaciones/{id}', 'RHReporte@vempleado')->middleware('roleshinobi:recurso');
 	Route::get('reporte/permiso/{id}', 'RHReporte@pempleado')->middleware('roleshinobi:recurso');
-
-
-
-
 
 
 });
@@ -463,6 +460,13 @@ Route::group(['prefix'=>'ji'],function(){
 		Route::put('viajejf/respuesta','JIViajeController@respuestaviaje');
 		Route::delete('viajejf/delvhc/{id}','JIViajeController@delvhc');
 		Route::get('viajejf/rechazados','JIViajeController@rechazados');
+
+	//Reporte de vacaciones y permisos.
+		Route::get('reporte/vpempleado', 'JIReporte@reportevp')->middleware('roleshinobi:jefeinmediato');
+		Route::get('reporte/vpempleado/index', 'JIReporte@vpindex')->middleware('roleshinobi:jefeinmediato');
+		Route::get('reporte/vacaciones/{id}', 'JIReporte@vempleado')->middleware('roleshinobi:jefeinmediato');
+		Route::get('reporte/permiso/{id}', 'JIReporte@pempleado')->middleware('roleshinobi:jefeinmediato');
+
 });
 
 //Rutas asistente o conta

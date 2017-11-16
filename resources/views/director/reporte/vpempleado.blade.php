@@ -37,13 +37,13 @@
                             <td>{{$em->idempleado}}</td>
                             <td>{{$em->identificacion}}</td>
                             <td>{{$em->nit}}</td>
-                            <td>{{$em->nombre1.' '.$em->nombre2.' '.$em->apellido1.' '.$em->apellido2}}</td>
+                            <td>{{$em->persona->nombre1.' '.$em->persona->nombre2.' '.$em->persona->apellido1.' '.$em->persona->apellido2}}</td>
                             <td>{{$em->afiliado}}</td>
                             <td>{{$em->puesto}}</td>
                             <td>{{$em->statusn}}</td>
                             <td>
-                                <button class="btn btn-primary btn-vacaciones" onclick="rh_reporte(1,{{$em->idempleado }})" title="Vacaciones"><i class="fa fa-camera-retro fa-xs"></i></button>
-                                <button class="btn btn-primary btn-permisos" onclick="rh_reporte(2,{{$em->idempleado }})" title="Permisos"><i class="fa fa-leanpub"></i></button>
+                                <button class="btn btn-primary btn-vacaciones" onclick="ji_reporte(1,{{$em->idempleado }})" title="Vacaciones"><i class="fa fa-camera-retro fa-xs"></i></button>
+                                <button class="btn btn-primary btn-permisos" onclick="ji_reporte(2,{{$em->idempleado }})" title="Permisos"><i class="fa fa-leanpub"></i></button>
                             </td>
                         </tr>
 
@@ -70,7 +70,7 @@
         <script src="{{asset('assets/plugins/jquery-datatables-editable/jquery.dataTables.js')}}"></script>
         <script src="{{asset('assets/plugins/datatables/dataTables.bootstrap.js')}}"></script>
         <script src="{{asset('assets/plugins/tiny-editable/mindmup-editabletable.js')}}"></script>
-        <script src="{{asset('assets/js/RHjs/ListadoVP.js')}}"></script>
+        <script src="{{asset('assets/js/JefeInmediato/reporte.js')}}"></script>
 
 
         <script type="text/javascript">

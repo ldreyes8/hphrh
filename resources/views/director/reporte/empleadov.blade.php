@@ -2,7 +2,7 @@
     <div class=class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         	<div class="navbar-form navbar-left pull-left">
-				<button class="btn btn-success btn-md" onclick="rh_reportes(0);"><i class="fa fa-reply-all"></i></button>
+				<button class="btn btn-success btn-md" onclick="ji_reportes(0);"><i class="fa fa-reply-all"></i></button>
 			</div>
 			<h4 class="box-title" align="center">Historial de vacaciones del año {{$year}}</h4>
 			<hr style="border-color:black;" />

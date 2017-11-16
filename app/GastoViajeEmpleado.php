@@ -19,7 +19,9 @@ class GastoViajeEmpleado extends Model
     	'descripcion',
     	'codigocuenta',
     	'idproyecto',
-    	'idgastoviaje'
+    	'idgastoviaje',
+        'check1',
+        'check2'
     ];
 
     protected $guarder=[

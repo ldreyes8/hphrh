@@ -65,7 +65,18 @@
         <script src="{{asset('assets/js/RH.js')}}"></script>
         <script src="{{asset('assets/js/RHjs/ListadoVP.js')}}"></script>
 
-          <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
+        <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
+        <script type="text/javascript">
+            $(document).on("click",".pagination li a",function(e){
+                e.preventDefault();
+                var url = $(this).attr("href");
+                $("#pvsolicitados").html($("#cargador_empresa").html());
+
+                $.get(url,function(resul){
+                    $("#pvsolicitados").html(resul);  
+                })
+            })
+          </script>
 
 
 
