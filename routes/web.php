@@ -469,8 +469,10 @@ Route::group(['prefix'=>'ji'],function(){
 Route::group(['prefix'=>'asistete'],function()
 {
 	//viaje
-		Route::get('viaje','JIViajeController@indexas');
-		Route::get('viaje/avance','JIViajeController@vasistentes');
+		Route::get('viaje','AsistenteC@index');
+		Route::get('viaje/avance','AsistenteC@vasistentes');
+		Route::get('viaje/detallesliq/{id}','AsistenteC@detalleautoas');
+		Route::put('viaje/revision','AsistenteC@revision');
 });
 //rutas del controlador de Usuario
 

@@ -40,9 +40,9 @@
 				"language": {
 					"decimal":        "",
 				    "emptyTable":     "No hay datos disponibles en la tabla",
-				    "info":           "",
-				    "infoEmpty":      "",
-				    "infoFiltered":   "",
+				    "info":           "Mostrar _START_ a _END_ de _TOTAL_ registros por pagina",
+				    "infoEmpty":      "Mostrando 0 a 0 de 0 registros",
+				    "infoFiltered":   "(filtered from _MAX_ total entries)",
 				    "infoPostFix":    "",
 				    "thousands":      ",",
 				    "lengthMenu":     "Mostrar _MENU_ registros",
@@ -59,16 +59,20 @@
 				    },
                 },
 				columns: [
+					null, //id { "bVisible": false }
 					null, //Fecha
 					null, //Descripcion
 					null, //#Factura
 					null, //Empleado
-					null, //LOB L10
+					null, //Cuenta,
+					//null, //Cliente
+					null, //Evento
+					// null, //LOB L10
 					null, //Donador L8
 					null, //Proyecto L9
 					null, //Funcion L2
 					null, //Monto
-					null, //Saldo
+					//null, //Saldo
 					{ "bSortable": false }
 				]
 			});
@@ -103,8 +107,8 @@
 					var $row = $(this).closest( 'tr' );
 
 					swal({
-	                	title: "¿Estás seguro?",
-	                	text: "No podrás recuperar este registro",
+	                	title: "¿Está seguro?",
+	                	text: "No podrá recuperar este registro",
 		                type: "warning",
 		                showCancelButton: true,
 		                confirmButtonColor: "#FFFF00",
@@ -216,6 +220,8 @@
 			var _self     = this;
 			this.$addButton.attr({ 'disabled': 'disabled' });
 			var actions,
+				check1,
+				check2,
 				data,
 				$row;	
 
@@ -225,15 +231,33 @@
 				'<a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>',
 				'<a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>'
 			].join(' ');
+			check1 = [
+				'<input id="checkbox1" type="checkbox">'
+			].join(' ');
+			check2 = [
+				'<input id="checkbox2" type="checkbox">'
+			].join(' ');
+				var n1 = $data.nombre1, 
+				n2 = $data.nombre2, 
+				n3 = $data.nombre3, 
+				a1 = $data.apellido1,
+				a2 = $data.apellido2,
+				a3 = $data.apellido3;
+				if(n2 == null){n2 = "";}
+				if(n3 == null){n3 = "";}
+				if(a2 == null){a2 = "";}
+				if(a3 == null){a3 = "";}
 
 			data = this.datatable.row.add([ $data.idgastoempleado,
 											$data.fecha,
 											$data.descripcion,
 											$data.factura,
-											$data.nombre2,
-											$data.cuenta,'','','','',
+											n1+" "+n2+" "+n3+" "+a1+" "+a2+" "+a3,
+											$data.cuenta,
 											$data.proyecto,'',
-											$data.monto,'',
+											$data.monto,
+											check1,
+											check2,
 											actions
 										]);
 
@@ -302,13 +326,13 @@
 			cont = 
 			cont = parseFloat($data.montot) - parseFloat($data.monto);
 
-
-			console.log(dataRows);
 			//<td>{{$proyecto->monto = $proyecto->monto - $gvi->monto}}</td>
 
 
 			var _self     = this,
 				actions,
+				check1,
+				check2,
 				$actions,
 				values    = [];
 
@@ -317,6 +341,12 @@
 				'<a href="#" class="edit-row"><i class="fa fa-pencil"></i></a>',
 				'<a href="#" class="remove-row"><i class="fa fa-trash-o"></i></a>',
 				'</td>'
+				].join(' ');
+				check1 = [
+					'<input id="checkbox1" type="checkbox">'
+				].join(' ');
+				check2 = [
+					'<input id="checkbox2" type="checkbox">'
 				].join(' ');
 			var n1 = $data.nombre1, 
 				n2 = $data.nombre2, 
@@ -334,14 +364,14 @@
 							$data.descripcion,
 							$data.factura,
 							n1+" "+n2+" "+n3+" "+a1+" "+a2+" "+a3,
-							$data.cuenta,'','','','',
+							$data.cuenta,
 							$data.proyecto,'',
 							$data.monto,
-							cont,
+							check1,
+							check2,
 							actions
 						];
 
-			console.log(indice);
 			this.datatable.row(indice).data(values);
 			this.datatable.draw();
 			//console.log(this.datatable.row(indice).data(values));
@@ -423,64 +453,85 @@ $(document).ready(function() {
 });
 
 $(document).on('click','.btn-EnviarL',function(e){
-	swal({
-	    title: "¿Estás seguro?",
-	    text: "No podrás modificar el registro por el momento",
-		type: "warning",
-		showCancelButton: true,
-		confirmButtonColor: "#FFFF00",
-		confirmButtonText: "Si, enviarlo",
-		cancelButtonText: "No, cancelar",
-		closeOnConfirm: false,
-		closeOnCancel: false
-	}, function (isConfirm) {
-	  	if (isConfirm) {
-	  		var urlraiz=$("#url_raiz_proyecto").val();
-		    var miurl = urlraiz+"/empleado/viaje/liquidar/envio";
 
-		    $.ajaxSetup({
-		        headers: {
-		            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-		        }
-		    });
-
-		    var formData = {
-		        gastocabeza: $('#idgastocabeza').val(),
-		    };
-
-		    $.ajax({
-		        type: "POST",
-		        url: miurl,
-		        data: formData,
-		        dataType: 'json',
-
-		        success: function (data) {
-		            $f.data('locked', true);
-		            swal("Enviado", "el registro ha sido enviado correctamente", "success");
-		            $f.data('locked',false);                    
-		        },
-		        error: function (data) {
-		            $('#loading').modal('hide');
-		            var errHTML="";
-		            if((typeof data.responseJSON != 'undefined')){
-		                for( var er in data.responseJSON){
-		                    errHTML+="<li>"+data.responseJSON[er]+"</li>";
-		                }
-		            }else{
-		                errHTML+='<li>Error.</li>';
-		            }
-		            $("#erroresContent").html(errHTML); 
-		            $('#erroresModal').modal('show');
-		        },
-		    });
-	   	} else {
-	       	swal("Cancelado", "No se ha enviado el registro :)", "error");
-	    }
-	});	
+	var $f = $(this);
 
 
+    if($f.data('locked') == undefined && !$f.data('locked'))
+    {
 
- 	
+		swal({
+		    title: "¿Estás seguro?",
+		    text: "No podrás modificar el registro por el momento",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#FFFF00",
+			confirmButtonText: "Si, enviarlo",
+			cancelButtonText: "No, cancelar",
+			closeOnConfirm: false,
+			closeOnCancel: false
+		}, function (isConfirm) {
+		  	if (isConfirm) {
+		  		var urlraiz=$("#url_raiz_proyecto").val();
+			    var miurl = urlraiz+"/empleado/viaje/liquidar/envio";
+
+			    $.ajaxSetup({
+			        headers: {
+			            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+			        }
+			    });
+
+			    var formData = {
+			        gastocabeza: $('#idgastocabeza').val(),
+			    };
+
+			    $.ajax({
+			        type: "POST",
+			        url: miurl,
+			        data: formData,
+			        dataType: 'json',
+
+			        success: function (data) {
+			            $f.data('locked', true);
+
+			            swal({ 
+			                title:"Enviado",
+			                text: "el registro ha sido enviado correctamente",
+			                type: "success",
+			                confirmButtonClass: 'btn-success waves-effect waves-light',
+			                confirmButtonText: 'OK!'
+			            },
+			            function(){
+			                cargar_formularioviaje(2);
+			            });
+			            $f.data('locked',false);
+			            
+			        },
+			        error: function (data) {
+			            $('#loading').modal('hide');
+			            var errHTML="";
+			            if((typeof data.responseJSON != 'undefined')){
+			                for( var er in data.responseJSON){
+			                    errHTML+="<li>"+data.responseJSON[er]+"</li>";
+			                }
+			            }else{
+			                errHTML+='<li>Error.</li>';
+			            }
+			            $("#erroresContent").html(errHTML); 
+			            $('#erroresModal').modal('show');
+			        },
+			    });
+		   	} else {
+		       	swal("Cancelado", "No se ha enviado el registro :)", "error");
+		    }
+		});
+	}else{
+        swal({
+            title:"Envio en espera",
+            text: "Se esta enviando su solicitud :)",
+            type: "warning",
+        });
+    }
 });
 
 $(document).on('click','.btn-Glvehiculo',function(e){
