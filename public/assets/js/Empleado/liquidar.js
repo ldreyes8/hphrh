@@ -171,7 +171,16 @@
                     dataType: 'json',
              
                    success: function (data) {
-	                   	if(state == "add"){	_self.rowAdd(data); }
+	                   	if(state == "add"){	
+	                   		var urlraiz=$("#url_raiz_proyecto").val();
+	                   		$.get(urlraiz+'/empleado/viaje/liquidar/updatemonto',function(data){
+					            $("#disponible").html(data[0]);
+					            $("#liquidacion").html(data[1]);
+					       		$("#montot").html(data[2]);
+
+					        });
+
+	                   		_self.rowAdd(data); }
 	                   	if(state == "update"){
 
 	                   		var urlraiz=$("#url_raiz_proyecto").val();
@@ -313,12 +322,7 @@
 			var cont = $("#montot").val();
 			var dataRows = element.find('tbody tr');
 
-			console.log(cont);
-			cont = 
-			cont = parseFloat($data.montot) - parseFloat($data.monto);
-
 			//<td>{{$proyecto->monto = $proyecto->monto - $gvi->monto}}</td>
-
 
 			var _self     = this,
 				actions,

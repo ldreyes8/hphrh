@@ -1,21 +1,8 @@
-@extends ('layouts.index')
-@section('estilos')
-    @parent
-        <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet">
-        <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet">
-        <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
-
-                <link rel="stylesheet" href="{{asset('assets/plugins/magnific-popup/dist/magnific-popup.css')}}" />
+     <link rel="stylesheet" href="{{asset('assets/plugins/magnific-popup/dist/magnific-popup.css')}}" />
         <link rel="stylesheet" href="{{asset('assets/plugins/jquery-datatables-editable/datatables.css')}}" />
 
-@endsection
-@section ('contenido')
-
-@if (isset($empleado))
-<div id="capa_formularios">
-    <div class="card-box" id="lisadoEmp">
-        <h4 class="box-title" align="center">Reporte vacaciones y permisos</h4>
+<div class="card-box" id="lisadoEmp">
+    <h4 class="box-title" align="center">Reporte vacaciones y permisos</h4>
         <hr style="border-color:black;" />
         <div class="row">
 
@@ -52,25 +39,15 @@
                  </div>
            </div>
         </div>
-    </div>
 </div>
-
-@endif
-@endsection
-@section('fin')
-    @parent
-        <meta name="_token" content="{!! csrf_token() !!}" />
-        <script src="{{asset('assets/js/RHjs/listados.js')}}"></script>
-        <!--
-        <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
-        <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
-        -->
 
         <script src="{{asset('assets/plugins/magnific-popup/dist/jquery.magnific-popup.min.js')}}"></script>
         <script src="{{asset('assets/plugins/jquery-datatables-editable/jquery.dataTables.js')}}"></script>
         <script src="{{asset('assets/plugins/datatables/dataTables.bootstrap.js')}}"></script>
         <script src="{{asset('assets/plugins/tiny-editable/mindmup-editabletable.js')}}"></script>
         <script src="{{asset('assets/js/RHjs/ListadoVP.js')}}"></script>
+
+
 
 
         <script type="text/javascript">
@@ -170,4 +147,3 @@
 
         }).apply( this, [ jQuery ]);
     </script>
-@endsection

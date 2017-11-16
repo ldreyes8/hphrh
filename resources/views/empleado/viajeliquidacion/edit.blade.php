@@ -116,7 +116,7 @@
         <br>
         <div class="form-group">
             <label>Descripción</label>
-            <textarea class="form-control" placeholder=".........." id="descripcion" rows="1" maxlength="50"></textarea>
+            <textarea class="form-control" placeholder=".........." id="descripcion" rows="1" maxlength="50">{{$gastoempleado->descripcion}}</textarea>
         </div>
     </div>
 </form>

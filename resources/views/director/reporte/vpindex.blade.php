@@ -1,21 +1,8 @@
-@extends ('layouts.index')
-@section('estilos')
-    @parent
-        <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet">
-        <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet">
-        <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
-
-                <link rel="stylesheet" href="{{asset('assets/plugins/magnific-popup/dist/magnific-popup.css')}}" />
+     <link rel="stylesheet" href="{{asset('assets/plugins/magnific-popup/dist/magnific-popup.css')}}" />
         <link rel="stylesheet" href="{{asset('assets/plugins/jquery-datatables-editable/datatables.css')}}" />
 
-@endsection
-@section ('contenido')
-
-@if (isset($empleado))
-<div id="capa_formularios">
-    <div class="card-box" id="lisadoEmp">
-        <h4 class="box-title" align="center">Reporte vacaciones y permisos</h4>
+<div class="card-box" id="lisadoEmp">
+    <h4 class="box-title" align="center">Reporte vacaciones y permisos</h4>
         <hr style="border-color:black;" />
         <div class="row">
 
@@ -37,13 +24,13 @@
                             <td>{{$em->idempleado}}</td>
                             <td>{{$em->identificacion}}</td>
                             <td>{{$em->nit}}</td>
-                            <td>{{$em->nombre1.' '.$em->nombre2.' '.$em->apellido1.' '.$em->apellido2}}</td>
+                            <td>{{$em->persona->nombre1.' '.$em->persona->nombre2.' '.$em->persona->apellido1.' '.$em->persona->apellido2}}</td>
                             <td>{{$em->afiliado}}</td>
                             <td>{{$em->puesto}}</td>
                             <td>{{$em->statusn}}</td>
                             <td>
-                                <button class="btn btn-primary btn-vacaciones" onclick="rh_reporte(1,{{$em->idempleado }})" title="Vacaciones"><i class="fa fa-camera-retro fa-xs"></i></button>
-                                <button class="btn btn-primary btn-permisos" onclick="rh_reporte(2,{{$em->idempleado }})" title="Permisos"><i class="fa fa-leanpub"></i></button>
+                                <button class="btn btn-primary btn-vacaciones" onclick="ji_reporte(1,{{$em->idempleado }})" title="Vacaciones"><i class="fa fa-camera-retro fa-xs"></i></button>
+                                <button class="btn btn-primary btn-permisos" onclick="ji_reporte(2,{{$em->idempleado }})" title="Permisos"><i class="fa fa-leanpub"></i></button>
                             </td>
                         </tr>
 
@@ -52,25 +39,15 @@
                  </div>
            </div>
         </div>
-    </div>
 </div>
-
-@endif
-@endsection
-@section('fin')
-    @parent
-        <meta name="_token" content="{!! csrf_token() !!}" />
-        <script src="{{asset('assets/js/RHjs/listados.js')}}"></script>
-        <!--
-        <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
-        <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
-        -->
 
         <script src="{{asset('assets/plugins/magnific-popup/dist/jquery.magnific-popup.min.js')}}"></script>
         <script src="{{asset('assets/plugins/jquery-datatables-editable/jquery.dataTables.js')}}"></script>
         <script src="{{asset('assets/plugins/datatables/dataTables.bootstrap.js')}}"></script>
         <script src="{{asset('assets/plugins/tiny-editable/mindmup-editabletable.js')}}"></script>
-        <script src="{{asset('assets/js/RHjs/ListadoVP.js')}}"></script>
+        <script src="{{asset('assets/js/JefeInmediato/reporte.js')}}"></script>
+
+
 
 
         <script type="text/javascript">
@@ -170,4 +147,3 @@
 
         }).apply( this, [ jQuery ]);
     </script>
-@endsection

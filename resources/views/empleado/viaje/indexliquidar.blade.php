@@ -31,6 +31,8 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
     <input type="hidden" id="idempleado" value="{{$proyecto->idempleado}}">
     <input type="hidden" id="idgastocabeza" value="{{$proyecto->idgastocabeza}}">
     <input type="hidden" id="idgastoviaje" value="{{$proyecto->idgastoviaje}}">
+    <input type="hidden" id="liqui" value="{{$liquidacion->liquidacion}}">
+    <input type="hidden" id="dispo" value="{{$proyecto->monto - $liquidacion->liquidacion}}">
     <div class="panel">
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -62,7 +64,7 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                     <label>Fecha final</label>
                     <label>{{\Carbon\Carbon::createFromFormat('Y-m-d',$proyecto->fechafin)->format('d/m/Y')}}</label>
                 </div>
-            </div>            
+            </div>
         </div>
 
         <div class="panel-body">
@@ -104,10 +106,13 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
             <div class="pull-right">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-condensed table-hover">
+                        <table class="table table-bordered table-condensed table-hover" id="detallefondo">
                         <tr>
                             <!--<th><p style="color:green;" align="center">Proyecto</p></th><td>{{$proyecto->nombreproyecto}}</td>-->
-                            <th><p style="color:green;" align="center">Fondo Efectivo</p></th><td id="montot">{{$proyecto->monto}}</td>
+                            <th>
+                            <p style="color:green;" align="center">Fondo Efectivo</p>
+                            </th>
+                            <td id="montot">{{$proyecto->monto}}</td>
 
                         </tr>
                         <tr>
@@ -263,6 +268,17 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
 <script src="{{asset('assets/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js')}}"></script>
 
 <script type="text/javascript">
+
+    $(document).ready(function() {
+
+        var tablaF=$("#detallefondo tr");
+        var itemsData=[];
+        tablaF.each(function(){
+            var nombrefam = $(this).find('td').eq(0).html();
+            valor = new Array(nombrefam);
+            itemsData.push(valor);
+        });
+    });
     
     var urlraiz=$("#url_raiz_proyecto").val();
     $(document).on('click','.btn-NuevoL',function(e){
@@ -291,8 +307,6 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
             
             $('#inputTitleVeh').html("Modificar kilometraje final");
             $('#formModalVehiculo').modal('show');
-            //$('#btnGuardar').val('update');
-            //$('loading').modal('hide');
         });        
     }
 
@@ -302,33 +316,6 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
-        alert("mensaje");
     });
 
-
     </script>
-    <!--
-    <script src="{{asset('assets/plugins/tiny-editable/numeric-input-example.js')}}"></script>
-    <script type="text/javascript">
-            $('#mainTable').editableTableWidget().numericInputExample().find('td:first').focus();
-    </script>
-    -->
-
-
-
-
-<!--
-<script type="text/javascript">
-    $('#datatable-editable').DataTable({
-        order:[[1,'desc']],
-        columns:[
-        {
-             identifier: [0, 'id'],
-        editable: [[1, 'nickname'], [2, 'firstname'], [3, 'lastname'],[4,'gender','{"1"}: "Lki-Lki"'],
-                  [4, 'lastname'],[5, 'lastname'],[6, 'lastname'],[7, 'lastname'],[8, 'lastname'],[9, 'lastname'],[10, 'lastname']]           
-        }]
-    });
-</script>
-
--->
-

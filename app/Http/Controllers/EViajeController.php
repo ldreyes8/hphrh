@@ -32,7 +32,6 @@ class EViajeController extends Controller
     }
 
     public function empleado(){
-        
         $empleado = DB::table('empleado as emp')
             ->join('persona as per','emp.identificacion','=','per.identificacion')
             ->join('users as U','per.identificacion','=','U.identificacion')
@@ -151,8 +150,7 @@ class EViajeController extends Controller
         return view ('empleado.viaje.indexhistorial',["viaje"=>$viaje]);
     } 
 
-    public function obtenerstatus()
-    {
+    public function obtenerstatus(){
         $ausencia= DB::table('gastoencabezado as gen')
         ->join('empleado as emp','gen.idempleado','=','emp.idempleado')
         ->join('persona as per','emp.identificacion','=','per.identificacion')
@@ -177,51 +175,50 @@ class EViajeController extends Controller
 
     public function addv(){
         $proyectos = DB::table('proyectocabeza as pca')
-        ->select('pca.idproyecto','pca.nombreproyecto as proyecto')
-        ->get();
+            ->select('pca.idproyecto','pca.nombreproyecto as proyecto')
+            ->get();
 
         $vehiculos = DB::table('vehiculo as veh')
-        ->join('vstatus as vst','veh.idvstatus','=','vst.idvstatus')
-        ->select('veh.color','veh.marca','veh.modelo','veh.idvehiculo')
-        ->where('veh.idvstatus','=',1)
-        ->get();
+            ->join('vstatus as vst','veh.idvstatus','=','vst.idvstatus')
+            ->select('veh.color','veh.marca','veh.modelo','veh.idvehiculo')
+            ->where('veh.idvstatus','=',1)
+            ->get();
 
         $eles = DB::table('codigointerno as cin')
-        ->join('codigoraiz as cra','cin.idele','=','cra.idele')
-        ->select('cin.codigo','cin.nombre','cra.codigo as L','cra.nombre as craiz')
-        ->get();
+            ->join('codigoraiz as cra','cin.idele','=','cra.idele')
+            ->select('cin.codigo','cin.nombre','cra.codigo as L','cra.nombre as craiz')
+            ->get();
 
         return view ('empleado.viaje.create',["eles"=>$eles,"proyectos"=>$proyectos,"vehiculos"=>$vehiculos]);
     }
 
-    public function cargarbusqueda()
-    {
+    public function cargarbusqueda(){
         $emp = DB::table('empleado as emp')
-        ->join('persona as per','emp.identificacion','=','per.identificacion')
-        ->join('users as U','per.identificacion','=','U.identificacion')
-        ->select('per.idafiliado')
-        ->where('U.id','=', Auth::user()->id)
-        ->first();
+            ->join('persona as per','emp.identificacion','=','per.identificacion')
+            ->join('users as U','per.identificacion','=','U.identificacion')
+            ->select('per.idafiliado')
+            ->where('U.id','=', Auth::user()->id)
+            ->first();
 
         $vehiculos = DB::table('vehiculo as veh')
-        ->join('vstatus as vst','veh.idvstatus','=','vst.idvstatus')
-        ->select('veh.placa','veh.color','veh.marca','veh.modelo','veh.kilacumulado','veh.idvehiculo','vst.statusvehiculo as status')
-        ->where('veh.idvstatus','=',1)
-        ->where('veh.idafiliado','=',$this->empleado()->idafiliado)
-        ->orwhere('veh.idvstatus','=',2)
-        ->where('veh.idafiliado','=',$this->empleado()->idafiliado)
-        ->get();
+            ->join('vstatus as vst','veh.idvstatus','=','vst.idvstatus')
+            ->select('veh.placa','veh.color','veh.marca','veh.modelo','veh.kilacumulado','veh.idvehiculo','vst.statusvehiculo as status')
+            ->where('veh.idvstatus','=',1)
+            ->where('veh.idafiliado','=',$this->empleado()->idafiliado)
+            ->orwhere('veh.idvstatus','=',2)
+            ->where('veh.idafiliado','=',$this->empleado()->idafiliado)
+            ->get();
 
         return view('empleado.viaje.modalbuscar',["vehiculos"=>$vehiculos]);
     }
 
-    public function store(Request $request)
-    {
-        try 
+    public function store(Request $request){
+        $this->validateRequest($request);
+
+        try
         {
             DB::beginTransaction();
 
-            $this->validateRequest($request);
 
             $fechainicio = $request->fecha_inicio; 
             $fechafinal = $request->fecha_final;
@@ -271,6 +268,7 @@ class EViajeController extends Controller
                 $encabezado-> idempleado = $this->empleado()->idempleado;
                 $encabezado-> statusgasto = 'solicitado';
                 $encabezado-> statuspago = 0;
+                $encabezado-> observacion = $request->motivo;
 
                 $encabezado->save();
 
@@ -307,8 +305,8 @@ class EViajeController extends Controller
             DB::commit();
         }catch (\Exception $e) 
         {
-          DB::rollback();
-          return response()->json(array('error' => 'No se ha podido enviar la solicitud'),404);         
+            DB::rollback();
+            return response()->json(array('error' => 'No se ha podido enviar la solicitud'),404);         
         }
         return response()->json($encabezado);
     }
@@ -390,8 +388,7 @@ class EViajeController extends Controller
         return view('empleado.viaje.row',["empleado"=>$empleado,"cuenta"=>$cuenta,"gencabezado"=>$genc]);
     }
 
-    public function addl()
-    {
+    public function addl(){
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
             ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
@@ -442,8 +439,7 @@ class EViajeController extends Controller
         return view ('empleado.viajeliquidacion.create',["proyecto"=>$proyecto,"empleado"=>$empleado,"cuenta"=>$cuenta,"gencabezado"=>$genc,"proyectos"=>$proyectos,"gastoviajeemp"=>$gastoviajeemp]);        
     }
 
-    public function storel(Request $request)
-    {
+    public function storel(Request $request){
         $this->validateRequestViaje($request);        
         try 
         {
@@ -487,8 +483,7 @@ class EViajeController extends Controller
 
     //fechagasto , descripcion, factura, empleado, cuenta, l10, 
     //donador, proyecto, funcion l2, monto, saldo
-    public function editl(Request $request,$id)
-    {
+    public function editl(Request $request,$id){
         $gastoempleado = DB::table('gastoviajeempleado as gvi')
             ->join('proyectocabeza as pca','gvi.idproyecto','=','pca.idproyecto')
             ->join('plancuentas as pcu','gvi.codigocuenta','=','pcu.codigocuenta')
@@ -591,8 +586,8 @@ class EViajeController extends Controller
         return response()->json($gastoviajeemp);
     }
 
-    public function updateml()// update monto liquidacion y monto disponible
-    {
+    // update monto liquidacion y monto disponible
+    public function updateml(){
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
             ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
@@ -618,8 +613,7 @@ class EViajeController extends Controller
         return response()->json($calculo);
     }
 
-    public function enviol(Request $request)
-    {
+    public function enviol(Request $request){
         $idgasto = $request->gastocabeza;
         $gastoencabezado = GastoEncabezado::findOrFail($idgasto);
         $gastoencabezado->statusgasto = 'solicitado';
@@ -628,8 +622,7 @@ class EViajeController extends Controller
         return response()->json($gastoencabezado);
     }
 
-    public function cancelarl(Request $request)
-    {
+    public function cancelarl(Request $request){
         $idgasto = $request->gasto_encabezado;
         $gastoencabezado = GastoEncabezado::findOrFail($idgasto);
         $gastoencabezado->statusgasto = 'Cancelado';
@@ -638,8 +631,7 @@ class EViajeController extends Controller
         return response()->json($gastoencabezado);
     }
 
-    public function vehedit($id)
-    {
+    public function vehedit($id){
         $viajeveh = DB::table('viajevehiculo as vve')
         ->select('vve.idviajevehiculo','vve.kilometrajefin')
         ->where('vve.idviajevehiculo','=',$id)
@@ -648,8 +640,7 @@ class EViajeController extends Controller
         return response()->json($viajeveh);
     }
 
-    public function vehupdate(Request $request, $id)
-    {
+    public function vehupdate(Request $request, $id){
         //$this->validateRequestViaje($request);
         try 
         {
@@ -678,6 +669,7 @@ class EViajeController extends Controller
         $rules=[
         'fecha_inicio' => 'required',
         'fecha_final' => 'required',
+        'motivo' => 'required',
         ];
         $messages=[
           'required' => 'Debe ingresar :attribute.',
@@ -704,6 +696,7 @@ class EViajeController extends Controller
         'monto' => 'required',
         'empleado' => 'required',
         'proyecto' => 'required',
+        'descripcion' => 'required',
         ];
         $messages=[
           'required' => 'Debe ingresar :attribute.',
