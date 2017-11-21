@@ -29,8 +29,8 @@
                                 <span>Autorizados</span>
                             </li>
                             <li>
-                                <span>Confirmados</span>
-                                <a href="#"><img src="{{asset('assets/images/chrome.png')}}"/></a>
+                                <span>Revisados</span>
+                                <a onclick="cargar_formularioviaje(24);"><img src="{{asset('assets/images/chrome.png')}}"/></a>
                             </li>
                             <li>
                                 <span>Rechazados</span>
@@ -57,7 +57,7 @@
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
-        <script src="{{asset('assets/js/Empleado/viaje.js')}}"></script>
+        <script src="{{asset('assets/js/Empleado/cargaravance.js')}}"></script>
 
 
         <script type="text/javascript">
