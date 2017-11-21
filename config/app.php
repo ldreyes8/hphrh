@@ -183,7 +183,8 @@ return [
         Caffeinated\Shinobi\ShinobiServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         //Maknz\Slack\SlackServiceProvider::class,
-      
+        Backpack\BackupManager\BackupManagerServiceProvider::class,
+        Spatie\Backup\BackupServiceProvider::class,
 
 
     ],

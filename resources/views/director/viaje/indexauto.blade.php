@@ -23,7 +23,7 @@
                         <th>Proyecto</th>
                         <th>Inicio</th>
                         <th>Fin</th>                               
-                        <th>Opciones</th>
+                        <th>Estado</th>
                     </thead>
                     @foreach($viaje as $v)
                     <tr>
@@ -34,12 +34,14 @@
                         <td>{{$v->fechainicio}}</td>
                         <td>{{$v->fechafin}}</td>
                         <td>
-                            @if($v->tipogasto=='caja chica')
+                            <!--@if($v->tipogasto=='caja chica')
                                 <a href="#"><button class="btn btn-success btn-md" value="{{$v->idgastocabeza}}" id="btnconfirmac" title="Caja Chica"><i class="ion-checkmark-circled"></i></button></a>
                                 <a href="#"><button class="btn btn-danger btn-md" id="btnrechazov" title="Rechazar"><i class="ion-close-circled"></i></button></a>
                             @else
-                                <a onclick="detalleviaje(2,{{$v->idgastocabeza}});"><button class="btn btn-info btn-md" id="btnconfirmav" title="Detalles"><i class="glyphicon glyphicon-list-alt"></i></button></a>
+                                <a onclick="detalleviaje(2,{{$v->idempleado}});"><button class="btn btn-info btn-md" id="btnconfirmav" title="Detalles"><i class="glyphicon glyphicon-list-alt"></i></button></a>
                             @endif
+                            -->
+                            <label>En proceso</label>
                         </td>
                     </tr>
                     @endforeach     

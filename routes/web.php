@@ -455,12 +455,14 @@ Route::group(['prefix'=>'ji'],function(){
 		Route::get('viajejf','JIViajeController@index');
 		Route::get('viajejf/solicitados','JIViajeController@solicitados');
 		Route::get('viajejf/autorizados','JIViajeController@autorizados');
-		Route::get('viajejf/detalleauto/{id}','JIViajeController@detalleauto');
+		Route::get('viajejf/revisionji','JIViajeController@revisionji');
+		Route::get('viajejf/rechazados','JIViajeController@rechazados');
 		Route::get('viajejf/detallesolicitud/{id}','JIViajeController@detallesolicitud');
 		Route::put('viajejf/respuesta','JIViajeController@respuestaviaje');
 		Route::delete('viajejf/delvhc/{id}','JIViajeController@delvhc');
-		Route::get('viajejf/rechazados','JIViajeController@rechazados');
-
+		Route::get('viajejf/detallesliq/{id}','JIViajeController@detalleautoas');
+		Route::put('viajejf/revok','JIViajeController@revok');
+		Route::put('viajejf/revretorna','JIViajeController@revretorna');
 	//Reporte de vacaciones y permisos.
 		Route::get('reporte/vpempleado', 'JIReporte@reportevp')->middleware('roleshinobi:jefeinmediato');
 		Route::get('reporte/vpempleado/index', 'JIReporte@vpindex')->middleware('roleshinobi:jefeinmediato');
@@ -469,7 +471,20 @@ Route::group(['prefix'=>'ji'],function(){
 
 });
 
-
+//Rutas asistente o conta
+Route::group(['prefix'=>'asistete'],function()
+{
+	//viaje
+		Route::get('viaje','AsistenteC@index');
+		Route::get('viaje/avancesol','AsistenteC@vasistentes');
+		Route::get('viaje/avance','AsistenteC@revasistentes');
+		Route::get('viaje/detallesliq/{id}','AsistenteC@detalleautoas');
+		Route::put('viaje/revision','AsistenteC@revision');
+		Route::put('viaje/revision2','AsistenteC@revision2');
+		Route::get('viaje/liquidar/add/{id}','AsistenteC@addl');
+		Route::put('viaje/revisado','AsistenteC@revisado');
+		Route::put('viaje/tramite','AsistenteC@tramite');
+});
 //rutas del controlador de Usuario
 
 Route::get('seguridad/usuario', 'PCUsuarioController@contenedor')->middleware('roleshinobi:informatica');
