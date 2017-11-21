@@ -348,6 +348,10 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('viaje/cargarbusqueda','EViajeController@cargarbusqueda');
 	Route::post('viaje/store','EViajeController@store');
 
+
+	Route::get('viaje/liquidar/pdf/{id}','EViajeController@descargardetalle');
+
+
 	Route::get('viaje/liquidar','EViajeController@liquidar');
 	Route::get('viaje/liquidar/add','EViajeController@addl');
 	Route::post('viaje/liquidar/store','EViajeController@storel');
@@ -365,9 +369,6 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('viaje/detalleavance/{id}','EViajeController@detalle');
 
 	Route::get('cajachica/add','ECajaChica@add');
-
-
-
 
 });
 

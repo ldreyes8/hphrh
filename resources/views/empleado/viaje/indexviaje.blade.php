@@ -29,6 +29,9 @@
                     @elseif($via->statusgasto == 'solicitado')
                     <td><a href="javascript:void(0);" onclick="detalleavance(2,{{$via->idgastocabeza}});"><button class="btn btn-primary">Detalles</button></a>
                         <a href="#"><button class="btn btn-danger" id="cancelarmov" value="{{$via->idgastocabeza}}">Cancelar</button></a></td>
+                    @elseif($via->statusgasto == 'Finalizado')
+                    <td><a href="javascript:void(0);" onclick="detalleavance(2,{{$via->idgastocabeza}});"><button class="btn btn-primary">Detalles</button></a>
+                         <a href="{{URL::action('EViajeController@descargardetalle',$via->idgastocabeza)}}"><button class="btn btn-success">Descargar</button></a></td>
                     @else
                         <td><a href="#"><button class="btn btn-primary">Detalles</button></a>
                     @endif

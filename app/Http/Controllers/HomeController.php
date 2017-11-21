@@ -194,7 +194,6 @@ class HomeController extends Controller
         $estadocivil=DB::table('estadocivil')->get();
 
         return view("hr.persona",["departamento"=>$departamento,"estadocivil"=>$estadocivil,"empleado"=>$empleado]);
-        //return view("empleado.empleado.index")->with("departamento",$departamento,"empleado",$empleado,"estadocivil",$estadocivil);
     }
 
     public function listardgenerales()
@@ -223,76 +222,38 @@ class HomeController extends Controller
         $this->validateRequest($request);
 
         $identificacion = $request->get('idper');
-
         $fechanac = $request->fechanac; 
 
         $empleado = Empleado::findOrFail($id);
-        //afiliacionigss, numerodependientes,aportemensual,viivienda,alquilermensual,otrosingresos,nit,
-        //idcivil.
-
-        $empleado->afiliacionigss = $request->afiliacionigss;
-        $empleado->numerodependientes = $request->dependientes;
-        $empleado->aportemensual = $request->aportemensual;
-        $empleado->vivienda =$request->vivienda;
-        $empleado->alquilermensual = $request->alquilermensual;
-        $empleado->otrosingresos = $request->otrosingresos;
-        $empleado->nit = $request->nit;
-        $empleado->idcivil = $request->estadocivil;
+        
+        $empleado->afiliacionigss       = $request->afiliacionigss;
+        $empleado->numerodependientes   = $request->dependientes;
+        $empleado->aportemensual        = $request->aportemensual;
+        $empleado->vivienda             = $request->vivienda;
+        $empleado->alquilermensual      = $request->alquilermensual;
+        $empleado->otrosingresos        = $request->otrosingresos;
+        $empleado->nit                  = $request->nit;
+        $empleado->idcivil              = $request->estadocivil;
         $empleado->save();
 
         $persona = Persona::findOrFail($identificacion);
 
-        $persona->identificacion = $request->identificacion;
-        $persona->nombre1 = $request->nombre1; 
-        $persona->nombre2 = $request->nombre2;
-        $persona->nombre3 = $request->nombre3;
-
-        $persona->apellido1 = $request->apellido1; 
-        $persona->apellido1 = $request->apellido1;
-        $persona->apellido1 = $request->apellido1;
-
-
-        $persona->genero = $request->genero;
-
-        $persona->barriocolonia = $request->barriocolonia;
+        $persona->identificacion    = $request->identificacion;
+        $persona->nombre1           = $request->nombre1; 
+        $persona->nombre2           = $request->nombre2;
+        $persona->nombre3           = $request->nombre3;
+        $persona->apellido1         = $request->apellido1; 
+        $persona->apellido1         = $request->apellido1;
+        $persona->apellido1         = $request->apellido1;
+        $persona->genero            = $request->genero;
+        $persona->barriocolonia     = $request->barriocolonia;
 
         $fechanac = Carbon::createFromFormat('d/m/Y',$fechanac);
         $fechanac = $fechanac->toDateString();
 
-        $persona->fechanac = $fechanac;
+        $persona->fechanac          = $fechanac;
         $persona->save();
 
-
-        //$fechaingreso = Carbon::createFromFormat('d/m/Y',$fechaingreso);
-        //$fechasalida = Carbon::createFromFormat('d/m/Y',$fechasalida);
-        //$fechaingreso = $fechaingreso->toDateString();
-        //$fechasalida = $fechasalida->toDateString();
-        //$academico->titulo = $request->get('titulo');
-        //$academico->establecimiento = $request->get('establecimiento');
-        //$academico->duracion = $request->get('duracion');
-        //$academico->fingreso = $fechaingreso;
-        //$academico->fsalida = $fechasalida;
-
-        /*
-        identificacion: $("#identificacion").val(),
-        nit: $("#nit").val(),
-        nombre1: $("#nombre1").val(),           
-        nombre2: $("#nombre2").val(),
-         nombre3: $('#nombre3').val(),
-                        apellido1: $('#apellido1').val(),
-                        apellido2: $('#apellido2').val(),
-                        apellido3: $('#apellido3').val(),
-
-                        fechanac : $("#fechanac").val(),
-                        estadocivil: $("#estadocivil").val(),
-                        genero: $("#genero").val(),
-                        dependientes: $("#dependientes").val(),
-                        aportemensual: $("#aportemensual").val(),
-                        vivienda: $("#vivienda").val(),
-                        alquilermensual: $("#alquilermensual").val(),
-                        otrosingresos: $("#otrosingresos").val(),
-                        barriocolonia: $("#barriocolonia").val(),
-        */
         return response()->json($persona);
     }
 

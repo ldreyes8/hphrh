@@ -2140,7 +2140,7 @@ window.ParsleyConfig.i18n = window.ParsleyConfig.i18n || {};
 window.ParsleyConfig.i18n.en = jQuery.extend(window.ParsleyConfig.i18n.en || {}, {
   defaultMessage: "This value seems to be invalid.",
   type: {
-    email:        "This value should be a valid email.",
+    email:        "Debe ser un correo electronico valido.",
     url:          "This value should be a valid url.",
     number:       "This value should be a valid number.",
     integer:      "This value should be a valid integer.",
@@ -2148,7 +2148,7 @@ window.ParsleyConfig.i18n.en = jQuery.extend(window.ParsleyConfig.i18n.en || {},
     alphanum:     "This value should be alphanumeric."
   },
   notblank:       "This value should not be blank.",
-  required:       "This value is required.",
+  required:       "Este campo es requerido.",
   pattern:        "This value seems to be invalid.",
   min:            "This value should be greater than or equal to %s.",
   max:            "This value should be lower than or equal to %s.",
@@ -2159,7 +2159,7 @@ window.ParsleyConfig.i18n.en = jQuery.extend(window.ParsleyConfig.i18n.en || {},
   mincheck:       "You must select at least %s choices.",
   maxcheck:       "You must select %s choices or fewer.",
   check:          "You must select between %s and %s choices.",
-  equalto:        "This value should be the same."
+  equalto:        "Este valor no coincide."
 });
 // If file is loaded after Parsley main file, auto-load locale
 if ('undefined' !== typeof window.ParsleyValidator)

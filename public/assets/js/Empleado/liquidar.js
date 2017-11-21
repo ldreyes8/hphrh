@@ -107,8 +107,8 @@
 					var $row = $(this).closest( 'tr' );
 
 					swal({
-	                	title: "¿Estás seguro?",
-	                	text: "No podrás recuperar este registro",
+	                	title: "¿Esta seguro?",
+	                	text: "No podra recuperar este registro",
 		                type: "warning",
 		                showCancelButton: true,
 		                confirmButtonColor: "#FFFF00",
@@ -123,7 +123,7 @@
 	                	} else {
 	                    	swal("Cancelado", "No se ha eliminado el registro :)", "error");
 	                	}
-	            	});	
+	            	});
 				});
 
 			this.$addButton.on( 'click', function(e) {
@@ -446,8 +446,8 @@ $(document).on('click','.btn-EnviarL',function(e){
     {
 
 		swal({
-		    title: "¿Estás seguro?",
-		    text: "No podrás modificar el registro por el momento",
+		    title: "¿Esta seguro?",
+		    text: "No podra modificar el registro por el momento",
 			type: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#FFFF00",

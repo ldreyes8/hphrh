@@ -103,13 +103,14 @@ function cargar_formulario(arg){
    var urlraiz=$("#url_raiz_proyecto").val();
    console.log(urlraiz);
    $("#capa_modal").show();
-   $("#capa_formularios").show();
+   $("#contentsecundario").show();
    var screenTop = $(document).scrollTop();
-   $("#capa_formularios").css('top', screenTop);
-   $("#capa_formularios").html($("#cargador_empresa").html());
+   $("#contentsecundario").css('top', screenTop);
+   $("#contentsecundario").html($("#cargador_empresa").html());
    //if(arg==1){ var miurl=urlraiz+"/form_nuevo_usuario"; }
    if(arg==2){ var miurl=urlraiz+"/seguridad/usuario/form_nuevo_rol"; }
    if(arg==3){ var miurl=urlraiz+"/form_nuevo_permiso"; }
+   if(arg==4){ var miurl=urlraiz+"/seguridad/usuario/create"; }
 
    console.log(miurl);
 
@@ -117,11 +118,11 @@ function cargar_formulario(arg){
     url: miurl
     }).done( function(resul) 
     {
-     $("#capa_formularios").html(resul);
+     $("#contentsecundario").html(resul);
    
     }).fail( function() 
    {
-    $("#capa_formularios").html('<span>...Ha ocurrido un error, revise su conexión y vuelva a intentarlo...</span>');
+    $("#contentsecundario").html('<span>...Ha ocurrido un error, revise su conexión y vuelva a intentarlo...</span>');
    }) ;
 
 }

@@ -20,24 +20,23 @@ class Constants
 	inner join status   as st   on emp.idstatus = st.idstatus 
 	inner join puesto   as pu   on nt.idpuesto = pu.idpuesto
     inner join afiliado as af   on nt.idafiliado = af.idafiliado
-    inner join caso     as c 	  on nt.idcaso = c.idcaso
+    inner join caso     as c 	on nt.idcaso = c.idcaso
     where c.idcaso = 4 and emp.idstatus <> 5 or c.idcaso = 6 and emp.idstatus <> 5 or c.idcaso = 7 and emp.idstatus <> 5
     group by emp.idempleado
-    order by af.nombre asc";
+    order by af.nombre asc, pu.nombre asc, per.apellido1 asc
+    ";
 
-
-    const JI_vempleado = "SELECT per.nombre1, per.nombre2, per.apellido1, per.apellido2, emp.idempleado, emp.identificacion, emp.nit, st.statusemp as statusn, pu.nombre as puesto, af.nombre as afiliado, c.idcaso, max((nt.idnomytas))
-	from empleado as emp
-	inner join persona  as per  on emp.identificacion = per.identificacion
-	inner join nomytras as nt   on emp.idempleado = nt.idempleado
-	inner join status   as st   on emp.idstatus = st.idstatus 
-	inner join puesto   as pu   on nt.idpuesto = pu.idpuesto
-    inner join afiliado as af   on nt.idafiliado = af.idafiliado
-    inner join caso     as c 	on nt.idcaso = c.idcaso
-    inner join asignajefe as aj on emp.idempleado = aj.idempleado
-    where c.idcaso = 4 and emp.idstatus <> 5 and aj.identificacion = :id or c.idcaso = 6 and emp.idstatus <> 5  and aj.identificacion = :id  or c.idcaso = 7 and emp.idstatus <> 5 and aj.identificacion = :id
+    const FI_reporte = "SELECT a.nombre as afiliado, p.nombre as puesto, per.nombre1, per.nombre2, per.nombre3, per.apellido1, per.apellido2, nt.salario, per.identificacion, emp.fechaingreso as fecha, ca.nombre as caso, U.email,per.correo ,emp.idempleado
+    from nomytras as nt
+    inner join afiliado as a on nt.idafiliado = a.idafiliado
+    inner join puesto as p on nt.idpuesto = p.idpuesto
+    inner join empleado as emp on nt.idempleado = emp.idempleado
+    inner join persona as per on emp.identificacion = per.identificacion
+    inner join caso as ca on nt.idcaso = ca.idcaso
+    inner join users as U on per.identificacion = U.identificacion
+    where nt.idcaso = 6 and emp.idstatus <> 5 and emp.idstatus <> 8
     group by emp.idempleado
-    order by af.nombre asc";
+    order by a.nombre asc, p.nombre asc, per.apellido1";
 
 
 	const AFILIADO_EMPLEADO = "SELECT per.nombre1, per.nombre2, per.nombre3, per.apellido1, per.apellido2, per.apellido3, emp.idstatus, emp.idempleado 

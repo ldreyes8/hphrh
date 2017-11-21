@@ -14,6 +14,7 @@ use App\Vehiculo;
 use App\Persona;
 use App\Constants;
 use Illuminate\Support\Collection as Collection;
+use PDF;
 
 use Carbon\Carbon;  // para poder usar la fecha y hora
 class EViajeController extends Controller
@@ -136,8 +137,6 @@ class EViajeController extends Controller
         else{
             $liquidar = 1;
 
-           
-
             $vehiculo = DB::table('viajevehiculo as vve')
                 ->join('vehiculo as veh','vve.idvehiculo','=','veh.idvehiculo')
                 ->select('veh.placa','veh.color','veh.marca','veh.modelo','veh.kilacumulado','vve.idviajevehiculo','vve.kilometrajeini','vve.kilometrajefin')
@@ -218,8 +217,6 @@ class EViajeController extends Controller
         try
         {
             DB::beginTransaction();
-
-
             $fechainicio = $request->fecha_inicio; 
             $fechafinal = $request->fecha_final;
 
@@ -663,6 +660,18 @@ class EViajeController extends Controller
         }
 
         return response()->json($vehiculo);
+    }
+
+    public function descargardetalle($id){
+        $today = Carbon::now();
+        $year = $today->format('d/m/Y');
+
+
+        $gastoviajeemp = DB::select("call E_detallegasto(?)",array($id));
+        //$dompdf->set_paper("letter", $orientation = "landscape");
+        $pdf= PDF::loadView('empleado.viajeliquidacion.pdf',["gastoviajeemp"=>$gastoviajeemp]);
+        $pdf->setPaper("letter","landscape");
+        return $pdf->download('liquidacion-'.$year.'.pdf');
     }
 
     public function validateRequest($request){

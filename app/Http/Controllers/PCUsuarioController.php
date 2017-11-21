@@ -46,11 +46,6 @@ class PCUsuarioController extends Controller
             $usuarios = User::name($request->get('name'))->orderBy('id','DESC')->paginate(15);
             $roles=Role::all();
             return view('seguridad.usuario.index',compact('usuarios','roles'));
-            //$usuarios=User::all()->where('name','LIKE','%'.$query.'%')
-            //->orderBy('id','desc')
-            //->paginate(15);
-            //$usuarios=User::paginate(15);
-            //return view('seguridad.usuario.index',["usuarios"=>$usuarios,"roles"=>$roles]);
     	}
     }
 
@@ -67,21 +62,21 @@ class PCUsuarioController extends Controller
 
     public function add()
     {
-        //return view("seguridad.usuario.create",["personas"=>$personas,"articulos"=>$articulos]);
-    	//$empleados=DB::table('persona')->where('tipo_persona','=','empleado')->get();
-    	//return view("seguridad.usuario.create",["empleados"=>$empleados])
-    	$usuario = user::all();
+     	$usuario = user::all();
     	return view("seguridad.usuario.create",["usuario"=>$usuario]);
     }
-    public function store(UFormRequest $request)
+    public function store(Request $request)
     {
+        $this->validateRequestU($request);
+
     	$usuario=new User;
-    	$usuario->name=$request->get('name');
+    	$usuario->name=$request->get('usuario');
     	$usuario->email=$request->get('email');
     	$usuario->password=bcrypt($request->get('password'));
     	$usuario->identificacion=$request->get('identificacion');
     	$usuario->save();
-    	return Redirect::to('seguridad/usuario');		
+
+        return response()->json($usuario);
     }
 
     public function editar_usuario($id)
@@ -184,5 +179,23 @@ class PCUsuarioController extends Controller
             $usuario = Collection::make($calculo);
             return json_encode ($usuario);
         }
+    }
+
+    public function validateRequestU($request){                
+        $rules=[
+            'usuario'           => 'required|max:50',
+            'email'             => 'unique:users|required|email|max:150',
+            'identificacion'    => 'unique:users|required|max:13',
+            'password'          => 'required|confirmed|min:4|max:18'
+        ];
+        $messages=[
+            'required'          => 'Debe ingresar :attribute.',
+            'password.required' => 'Debe ingresar contraseña.',
+            'max'               => 'La capacidad del campo :attribute es :max',
+            'unique'            => ':attribute ya ha sido utilizado',
+            'email'             => 'La direcci&oacute;n de correo es inv&aacute;lida',
+            'password.confirmed' => 'La contraseña no coinciden',
+        ];
+        $this->validate($request, $rules,$messages);        
     }
 }
