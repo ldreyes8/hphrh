@@ -29,7 +29,9 @@ function cargar_formularioviaje(arg){
    if(arg==21){ var miurl=urlraiz+"/ji/viajejf/autorizados"; }
    if(arg==22){ var miurl=urlraiz+"/ji/viajejf/rechazados"; }
    if(arg==23){ var miurl=urlraiz+"/asistete/viaje/avance"; }
- 
+   if(arg==24){ var miurl=urlraiz+"/ji/viajejf/revisionji"; }
+   if(arg==25){ var miurl=urlraiz+"/asistete/viaje/avancesol"; }
+
     $.ajax({
     url: miurl
     }).done( function(resul) 

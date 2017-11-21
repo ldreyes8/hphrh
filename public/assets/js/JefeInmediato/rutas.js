@@ -4,7 +4,8 @@ function detalleviaje(arg,id)
 console.log(id);
 	if(arg==1){var miurl =urlraiz+"/ji/viajejf/detallesolicitud/"+id+"";}
   if(arg==2){var miurl =urlraiz+"/ji/viajejf/detalleauto/"+id+"";}
-  if(arg==3){var miurl =urlraiz+"/asistete/viaje/detallesliq/"+id+"";}  
+  if(arg==3){var miurl =urlraiz+"/asistete/viaje/detallesliq/"+id+"";}
+  if(arg==4){var miurl =urlraiz+"/ji/viajejf/detallesliq/"+id+"";}  
 	$.ajax({
 		url: miurl
     }).done( function(resul) 

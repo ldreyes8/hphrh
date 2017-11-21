@@ -39,10 +39,10 @@
 			this.datatable = this.$table.DataTable({
 				"language": {
 					"decimal":        "",
-				    "emptyTable":     "No hay datos disponibles en la tabla",
-				    "info":           "Mostrar _START_ a _END_ de _TOTAL_ registros por pagina",
-				    "infoEmpty":      "Mostrando 0 a 0 de 0 registros",
-				    "infoFiltered":   "(filtered from _MAX_ total entries)",
+				    "emptyTable":     "El usuario aún no ha liquidado gastos",
+				    "info":           "",
+				    "infoEmpty":      "",
+				    "infoFiltered":   "",
 				    "infoPostFix":    "",
 				    "thousands":      ",",
 				    "lengthMenu":     "Mostrar _MENU_ registros",
@@ -50,7 +50,7 @@
 				    "processing":     "Processing...",
 				    "search":         "Buscar:",
 				    "total": 		  "total",			
-				    "zeroRecords":    "No se encontraron registros",
+				    "zeroRecords":    "No se encontraron registros de su busqueda",
 				    "paginate": {
 				        "first":      "First",
 				        "last":       "Last",
@@ -461,19 +461,19 @@ $(document).on('click','.btn-EnviarL',function(e){
     {
 
 		swal({
-		    title: "¿Estás seguro?",
-		    text: "No podrás modificar el registro por el momento",
+		    title: "¿Está seguro de finalizar la revisión?",
+		    text: "",
 			type: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#FFFF00",
-			confirmButtonText: "Si, enviarlo",
+			confirmButtonText: "Si, enviar",
 			cancelButtonText: "No, cancelar",
 			closeOnConfirm: false,
 			closeOnCancel: false
 		}, function (isConfirm) {
 		  	if (isConfirm) {
 		  		var urlraiz=$("#url_raiz_proyecto").val();
-			    var miurl = urlraiz+"/empleado/viaje/liquidar/envio";
+			    var miurl = urlraiz+"/asistete/viaje/revisado";
 
 			    $.ajaxSetup({
 			        headers: {
@@ -486,7 +486,7 @@ $(document).on('click','.btn-EnviarL',function(e){
 			    };
 
 			    $.ajax({
-			        type: "POST",
+			        type: "PUT",
 			        url: miurl,
 			        data: formData,
 			        dataType: 'json',
@@ -502,7 +502,7 @@ $(document).on('click','.btn-EnviarL',function(e){
 			                confirmButtonText: 'OK!'
 			            },
 			            function(){
-			                cargar_formularioviaje(2);
+			                cargar_formularioviaje(23);
 			            });
 			            $f.data('locked',false);
 			            
@@ -522,7 +522,7 @@ $(document).on('click','.btn-EnviarL',function(e){
 			        },
 			    });
 		   	} else {
-		       	swal("Cancelado", "No se ha enviado el registro :)", "error");
+		       	swal("Cancelado", "No se envio el registro :)", "error");
 		    }
 		});
 	}else{

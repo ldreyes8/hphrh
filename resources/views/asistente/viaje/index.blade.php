@@ -21,17 +21,13 @@
                     <div class="panel-body">
                         <ul>
                             <li>
-                                <a onclick="cargar_formularioviaje(23);"><img src="{{asset('assets/images/collective.png')}}"/></a>
+                                <a onclick="cargar_formularioviaje(25);"><img src="{{asset('assets/images/collective.png')}}"/></a>
                                 <span>Solicitados</span>
                             </li>
                             <li>
-                                <a onclick="cargar_formularioviaje(21);"><img src="{{asset('assets/images/laravel.png')}}"/></a>
+                                <a onclick="cargar_formularioviaje(23);"><img src="{{asset('assets/images/laravel.png')}}"/></a>
                                 <span>Autorizados</span>
                             </li>
-                            <li>
-                                <span>Rechazados</span>
-                                <a onclick="cargar_formularioviaje(22);"><img src="{{asset('assets/images/danger.png')}}"/></a>
-                            </li>                            
                         </ul>
                     </div>
                 </div>
@@ -80,7 +76,6 @@
     
     $(document).on('click','.btn-openviaje',function(e){
         $('#inputTitleViaje').html("Nuevo viaje");
-        //$('#formModificar').trigger("reset");
         $('#formAgregarViaje').trigger('reset');
         $('#formModal').modal('show');
 

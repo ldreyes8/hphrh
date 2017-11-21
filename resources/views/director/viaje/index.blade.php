@@ -29,8 +29,8 @@
                                 <span>Autorizados</span>
                             </li>
                             <li>
-                                <span>Confirmados</span>
-                                <a href="#"><img src="{{asset('assets/images/chrome.png')}}"/></a>
+                                <span>Revisados</span>
+                                <a onclick="cargar_formularioviaje(24);"><img src="{{asset('assets/images/chrome.png')}}"/></a>
                             </li>
                             <li>
                                 <span>Rechazados</span>

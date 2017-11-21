@@ -37,10 +37,10 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
             <div class="navbar-form navbar-left pull-left">
                 <div class="row">
                     <div class="col-sm-5">
-                        <button class="btn btn-info waves-effect waves-light btn-NuevoL">Agregar <i class="fa fa-plus"></i></button>
+                        <button class="btn btn-info waves-effect waves-light btn-NuevoL" value="{{$proyecto->idempleado}}">Agregar <i class="fa fa-plus"></i></button>
                     </div>
                     <div class="col-sm-3">
-                        <button class="btn btn-success waves-effect waves-light btn-EnviarL" id="btnEnviarL">Enviar liquidación</button>
+                        <button class="btn btn-success waves-effect waves-light btn-EnviarL" id="btnEnviarL">Finalizar revisión</button>
                     </div>
                 </div>
             </div>
@@ -156,8 +156,16 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                                 <td>{{$gvi->proyecto}}</td>
                                 <td>10</td>
                                 <td>{{$gvi->monto}}</td>
-                                <td><input id="checkbox1" type="checkbox" value="{{$gvi->idgastoempleado}}"></td>
-                                <td><input id="checkbox2" type="checkbox" value="{{$gvi->idgastoempleado}}"></td>
+                                @if($gvi->check1 == 1)
+                                <td><input id="checkbox1" name="checkbox1" class="checkbox1" type="checkbox" checked value="{{$gvi->idgastoempleado}}"></td>
+                                @else
+                                <td><input id="checkbox1" name="checkbox1" class="checkbox1" type="checkbox" value="{{$gvi->idgastoempleado}}"></td>
+                                @endif
+                                @if($gvi->check2 == 1)
+                                <td><input id="checkbox2" class="checkbox2" type="checkbox" checked value="{{$gvi->idgastoempleado}}"></td>
+                                @else
+                                <td><input id="checkbox2" class="checkbox2" type="checkbox" value="{{$gvi->idgastoempleado}}"></td>
+                                @endif
                                 <td class="actions">
                                     <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
                                     <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
@@ -271,8 +279,8 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
-
-        var miurl = urlraiz+"/empleado/viaje/liquidar/add";
+        var id=$(this).val();
+        var miurl = urlraiz+"/asistete/viaje/liquidar/add/"+id;
         $.get(miurl,function(data){
             $("#modaliq").html(data);
             $('#inputTitleLiquidar').html("Agregar registro liquidación");
@@ -282,31 +290,71 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
 
         });
     });
-    $(document).on('click','#checkbox1',function(e){
+    $(document).on('change','.checkbox1',function(e){
     	$.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
         var miurl = urlraiz+"/asistete/viaje/revision";
-        var formData=[];
-        var id=$(this).val();
-        var check = document.getElementById("checkbox1");
-        var valor=1;
-        var valor1=0;
-        if(check.checked) {
-            formData = {
-	            valores:valor,
-	            idgasto:id,
-	        };
+        if($(this).is(':checked')) {
+            valor=1;
+            //alert('Seleccionado');
         }
         else
         {
-        	formData = {
-	            valores:valor1,
-	            idgasto:id,
-	        };
+        	valor=0;
+        	//alert('Desseleccionado');
         }
+        var formData = {
+	            valores:valor,
+	            idgasto:$(this).val(),
+	        };
+        /**/
+        $.ajax({
+            type: "PUT",
+            url: miurl,
+            data: formData,
+            dataType: 'json',
+
+            success: function (data) {                
+            },
+            error: function (data) {
+                $('#loading').modal('hide');
+                var errHTML="";
+                if((typeof data.responseJSON != 'undefined')){
+                    for( var er in data.responseJSON){
+                        errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                    }
+                }else{
+                    errHTML+='<li>Error al enviar los datos, por favor intente mas tarde.</li>';
+                }
+                $("#erroresContent").html(errHTML); 
+                $('#erroresModal').modal('show');
+            }
+        });
+        /**/
+    });
+    $(document).on('change','.checkbox2',function(e){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+        var miurl = urlraiz+"/asistete/viaje/revision2";
+        if($(this).is(':checked')) {
+            valor=1;
+            //alert('Seleccionado');
+        }
+        else
+        {
+            valor=0;
+            //alert('Desseleccionado');
+        }
+        var formData = {
+                valores:valor,
+                idgasto:$(this).val(),
+            };
         /**/
         $.ajax({
             type: "PUT",
