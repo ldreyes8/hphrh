@@ -357,12 +357,15 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::post('viaje/liquidar/store','EViajeController@storel');
 	Route::get('viaje/liquidar/edit/{id}','EViajeController@editl');
 	Route::put('viaje/liquidar/update/{id}','EViajeController@updatel');
+	Route::delete('viaje/liquidar/delete/{id}','EViajeController@deletel');
 	Route::post('viaje/liquidar/envio','EViajeController@enviol');
 	Route::get('viaje/liquidar/updatemonto','EViajeController@updateml');
 	Route::post('viaje/liquidar/cancelar','EViajeController@cancelarl');
 
+
 	Route::get('viaje/vehiculo/edit/{id}','EViajeController@vehedit');
 	Route::put('viaje/vehiculo/update/{id}','EViajeController@vehupdate');
+
 
 	Route::get('viaje/indexhistorial','EViajeController@indexhistorial');
 	Route::get('viaje/detallehistorial/{id}','EViajeController@detallehistorial');
@@ -486,13 +489,30 @@ Route::group(['prefix'=>'asistete'],function()
 		Route::put('viaje/revisado','AsistenteC@revisado');
 		Route::put('viaje/tramite','AsistenteC@tramite');
 });
+
+Route::group(['prefix'=>'asistente'],function()
+{
+	//Aperturar Caja chica
+		Route::get('cajachica','ACajaChica@index');
+		Route::get('cajachica/create','ACajaChica@create');
+		Route::post('cajachica/store','ACajaChica@store');
+});
+
 //rutas del controlador de Usuario
 
-Route::get('seguridad/usuario', 'PCUsuarioController@contenedor')->middleware('roleshinobi:informatica');
-Route::get('seguridad/usuarios/{page?}','PCUsuarioController@index')->middleware('roleshinobi:informatica');
-Route::get('seguridad/usuario/create','PCUsuarioController@add')->middleware('roleshinobi:informatica');
-Route::post('seguridad/usuario/store','PCUsuarioController@store')->middleware('roleshinobi:informatica');
-Route::get('seguridad/usuario/editar_usuario/{id}', 'PCUsuarioController@editar_usuario')->middleware('roleshinobi:informatica');
+Route::group(['prefix'=>'seguridad'],function()
+{
+	Route::get('usuario', 'PCUsuarioController@contenedor')->middleware('roleshinobi:informatica');
+	Route::get('usuarios/{page?}','PCUsuarioController@index')->middleware('roleshinobi:informatica');
+	Route::get('usuario/create','PCUsuarioController@add')->middleware('roleshinobi:informatica');
+	Route::post('usuario/store','PCUsuarioController@store')->middleware('roleshinobi:informatica');
+	Route::get('usuario/editar_usuario/{id}', 'PCUsuarioController@editar_usuario')->middleware('roleshinobi:informatica');
+
+	// Rutas del proyecto de liquidacion, caja chica.
+
+	Route::get('proyecto','PCProyecto@index')->middleware('roleshinobi:informatica');
+});
+
 Route::delete('destroy/{id}','PCUsuarioController@destroy')->middleware('roleshinobi:informatica');
 Route::get('asignar_rol/{idusu}/{idrol}', 'PCUsuarioController@asignar_rol')->middleware('roleshinobi:informatica');
 Route::get('quitar_rol/{idusu}/{idrol}','PCUsuarioController@quitar_rol')->middleware('roleshinobi:informatica');
@@ -504,6 +524,9 @@ Route::get('seguridad/buscar_usuarios/{rol}/{dato?}', 'PCUsuarioController@busca
 
 Route::post('crear_rol', 'PCUsuarioController@crear_rol')->middleware('roleshinobi:informatica');
 Route::get('borrar_rol/{idrol}', 'PCUsuarioController@borrar_rol')->middleware('roleshinobi:informatica');
+
+
+
 
 //reporte empleado vacaciones y permisos.
 

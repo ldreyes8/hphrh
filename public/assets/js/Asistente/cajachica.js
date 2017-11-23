@@ -1,10 +1,4 @@
-$(document).on('click','.btn-SolViaje',function(e){
-    $('#inputTitleViaje').html("Solicitud de viaje");
-    $('#formAgregarViaje').trigger("reset");
-    $('#formModal').modal("show");
-}); 
-
-$('#btnGuardarAvance').click(function(e) {
+$('#btnGuardarAperturaC').click(function(e) {
     e.preventDefault();
     var $f = $(this);
 
@@ -16,7 +10,7 @@ $('#btnGuardarAvance').click(function(e) {
         var resvehiculo="ninguno";
         var itemsData=[];
 
-        var miurl=urlraiz+"/empleado/viaje/store";
+        var miurl=urlraiz+"/asistente/cajachica/store";
 
         var deposito=document.getElementsByName("deposito");
         var solicitarveh=document.getElementsByName("hvehiculo");
@@ -28,19 +22,6 @@ $('#btnGuardarAvance').click(function(e) {
             if(deposito[i].checked)
             resdeposito=deposito[i].value;
         }
-
-        for(var i=0;i<solicitarveh.length;i++)
-        {
-            if(solicitarveh[i].checked)
-            resvehiculo=solicitarveh[i].value;
-        }
-
-        $('#table-veh tr').each(function(){
-            var id = $(this).closest('tr').find('input[type="hidden"]').val();
-            var kilometraje = $(this).find('td').eq(2).html();
-            valor = new Array(id,kilometraje);
-            itemsData.push(valor); 
-        });
         
         var formData = {
             proyecto: $('#idproyecto').val(),
@@ -50,10 +31,6 @@ $('#btnGuardarAvance').click(function(e) {
             fecha_inicio: $('#fecha_inicio').val(),
             fecha_final: $('#fecha_final').val(),
             motivo: $('#motivo').val(),
-            veh: resvehiculo,
-            kilometraje_inicial: $('#kinicial').val(),
-            kilometraje_final: $('#kfinal').val(),
-            vehiculo: itemsData,
         };
         
         $.ajaxSetup({

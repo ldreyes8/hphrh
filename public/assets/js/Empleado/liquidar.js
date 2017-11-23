@@ -79,8 +79,7 @@
 			window.dt = this.datatable;
 			return this;
 		},
- 
-
+		
 		events: function() {
 			var _self = this;
 
@@ -105,6 +104,14 @@
 					e.preventDefault();
 
 					var $row = $(this).closest( 'tr' );
+					var id = $row.children('td').eq(0).html();
+					var urlraiz=$("#url_raiz_proyecto").val();
+
+					$.ajaxSetup({
+                		headers: {
+                    		'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                		}
+            		});
 
 					swal({
 	                	title: "¿Esta seguro?",
@@ -118,8 +125,17 @@
 		                closeOnCancel: false
 	            	}, function (isConfirm) {
 	                	if (isConfirm) {
-	                    	swal("Eliminado", "Se ha eliminado el registro", "success");
-	                    	_self.rowRemove( $row);
+	                		$.ajax({
+				                type: "DELETE",
+				                url: urlraiz+"/empleado/viaje/liquidar/delete/"+id,
+				                success: function (data) {
+				                   	_self.rowRemove( $row);
+				                    swal("Eliminado", "Se ha eliminado el registro", "success");
+				                },
+				                error: function (data) {
+				                    console.log('Error:', data);
+				                }
+				            });
 	                	} else {
 	                    	swal("Cancelado", "No se ha eliminado el registro :)", "error");
 	                	}

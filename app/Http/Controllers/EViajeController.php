@@ -93,10 +93,10 @@ class EViajeController extends Controller
             $liquidar = 1;
 
             $liquidacion= DB::table('gastoviajeempleado as gve')
-            ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
-            ->select(DB::raw('SUM(gve.montofactura) as liquidacion'))
-            ->where('gvi.idgastocabeza','=',$id)
-            ->first();
+                ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
+                ->select(DB::raw('SUM(gve.montofactura) as liquidacion'))
+                ->where('gvi.idgastocabeza','=',$id)
+                ->first();
 
             $gastoviajeemp = DB::table('gastoviajeempleado as gve')
                 ->join('proyectocabeza as pro','gve.idproyecto','=','pro.idproyecto')
@@ -136,29 +136,26 @@ class EViajeController extends Controller
         }
         else{
             $liquidar = 1;
-
             $vehiculo = DB::table('viajevehiculo as vve')
                 ->join('vehiculo as veh','vve.idvehiculo','=','veh.idvehiculo')
                 ->select('veh.placa','veh.color','veh.marca','veh.modelo','veh.kilacumulado','vve.idviajevehiculo','vve.kilometrajeini','vve.kilometrajefin')
                 ->where('vve.idviaje','=',$proyecto->idviaje)
                 ->get();
-
             return view ('empleado.viajeliquidacion.detalle',["proyecto"=>$proyecto,"vehiculo"=>$vehiculo,"liquidar"=>$liquidar]);
         }
-
         return view ('empleado.viaje.indexhistorial',["viaje"=>$viaje]);
-    } 
+    }
 
     public function obtenerstatus(){
         $ausencia= DB::table('gastoencabezado as gen')
-        ->join('empleado as emp','gen.idempleado','=','emp.idempleado')
-        ->join('persona as per','emp.identificacion','=','per.identificacion')
-        ->join('users as U','per.identificacion','=','U.identificacion')
-        ->select('gen.statusgasto')
-        ->orderBy('gen.idgastocabeza','DESC')
-        ->where('idtipogasto','=','2')
-        ->where('U.id','=',Auth::user()->id)
-        ->first();
+            ->join('empleado as emp','gen.idempleado','=','emp.idempleado')
+            ->join('persona as per','emp.identificacion','=','per.identificacion')
+            ->join('users as U','per.identificacion','=','U.identificacion')
+            ->select('gen.statusgasto')
+            ->orderBy('gen.idgastocabeza','DESC')
+            ->where('idtipogasto','=','2')
+            ->where('U.id','=',Auth::user()->id)
+            ->first();
 
         if($ausencia === null)
         {
@@ -213,7 +210,6 @@ class EViajeController extends Controller
 
     public function store(Request $request){
         $this->validateRequest($request);
-
         try
         {
             DB::beginTransaction();
@@ -281,17 +277,22 @@ class EViajeController extends Controller
                 $gastoviaje->save();
 
                 if($request->veh === 'Si'){
-                    $this->validateRequestVeh($request);
                     $miArray = $request->vehiculo;
+                    if ($miArray == null) {
+                        return response()->json(array('error'=>'Debe agregar a la tabla los datos de un vehiculo, dando click en el boton buscar y seguidamente seleccionar el vehiculo y agregar '),404);
+                    }
+                    else
+                    {
 
-                    foreach ($miArray as $key => $value) {
-                        $viajeveh = new ViajeVehiculo;
+                        foreach ($miArray as $key => $value) {
+                            $viajeveh = new ViajeVehiculo;
 
-                        $viajeveh->idviaje = $viaje->idviaje;
-                        $viajeveh->idvehiculo = $value['0'];
-                        $viajeveh->kilometrajeini = $value['1'];
-                        $viajeveh->kilometrajefin = 0;
-                        $viajeveh->save();
+                            $viajeveh->idviaje = $viaje->idviaje;
+                            $viajeveh->idvehiculo = $value['0'];
+                            $viajeveh->kilometrajeini = $value['1'];
+                            $viajeveh->kilometrajefin = 0;
+                            $viajeveh->save();
+                        }
                     }
                 }
             }
@@ -330,10 +331,10 @@ class EViajeController extends Controller
             $liquidar = 1;
 
             $liquidacion= DB::table('gastoviajeempleado as gve')
-            ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
-            ->select(DB::raw('SUM(gve.montofactura) as liquidacion'))
-            ->where('gvi.idgastocabeza','=',$proyecto->idgastocabeza)
-            ->first();
+                ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
+                ->select(DB::raw('SUM(gve.montofactura) as liquidacion'))
+                ->where('gvi.idgastocabeza','=',$proyecto->idgastocabeza)
+                ->first();
 
             $gastoviajeemp = DB::table('gastoviajeempleado as gve')
                 ->join('proyectocabeza as pro','gve.idproyecto','=','pro.idproyecto')
@@ -423,7 +424,6 @@ class EViajeController extends Controller
             ->orderby('ntr.idnomytas','desc')
             ->first();
 
-
         $genc = GastoEncabezado::findOrFail($proyecto->idgastocabeza);
 
         $empleado = new Persona();
@@ -433,7 +433,7 @@ class EViajeController extends Controller
             ->select('c.codigocuenta','c.nombrecuenta')
             ->get();
 
-        return view ('empleado.viajeliquidacion.create',["proyecto"=>$proyecto,"empleado"=>$empleado,"cuenta"=>$cuenta,"gencabezado"=>$genc,"proyectos"=>$proyectos,"gastoviajeemp"=>$gastoviajeemp]);        
+        return view ('empleado.viajeliquidacion.create',["proyecto"=>$proyecto,"empleado"=>$empleado,"cuenta"=>$cuenta,"gencabezado"=>$genc,"proyectos"=>$proyectos,"gastoviajeemp"=>$gastoviajeemp]);
     }
 
     public function storel(Request $request){
@@ -626,6 +626,14 @@ class EViajeController extends Controller
         $gastoencabezado->save();
 
         return response()->json($gastoencabezado);
+    }
+
+    public function deletel($id)
+    {
+        $gastoviajeempleado = GastoViajeEmpleado::find($id);
+        $gastoviajeempleado->delete();
+        
+        return response()->json($gastoviajeempleado);
     }
 
     public function vehedit($id){

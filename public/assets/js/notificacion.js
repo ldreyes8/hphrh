@@ -2,7 +2,6 @@ function cargarnotificacion(arg){
 	var urlraiz=$("#url_raiz_proyecto").val();
 	$("#noti").html($("#cargador_empresa").html());
 	
-
 	if(arg==1){var miurl=urlraiz+"/empleado/notificacion";}
 	if(arg==2){var miurl=urlraiz+"/empleado/add";}
 	if(arg==3){var miurl=urlraiz+"/seguridad/index";}
@@ -16,11 +15,10 @@ function cargarnotificacion(arg){
     url: miurl
     }).done( function(resul) 
     {
-     $("#noti").html(resul);
-   
+        $("#noti").html(resul);
     }).fail( function() 
-   {
-    $("#noti").html('<span>...Ha ocurrido un error, revise su conexión y vuelva a intentarlo...</span>');
+    {
+        $("#noti").html('<span>...Ha ocurrido un error, revise su conexión y vuelva a intentarlo...</span>');
    }) ;
 }
 
@@ -73,4 +71,3 @@ function VP(arg,notifi){
         }
     });   
 }
-               

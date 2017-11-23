@@ -42,3 +42,30 @@ function cargar_formularioviaje(arg){
     	$("#capa_formularios").html('<span>...Ha ocurrido un error, revise su conexión y vuelva a intentarlo...</span>');
     });
 }
+
+
+function cargar_formularioasistente(arg){
+    var urlraiz=$("#url_raiz_proyecto").val();
+    $("#capa_modal").show();
+    $("#capa_formularios").show();
+    var screenTop = $(document).scrollTop();
+    $("#capa_formularios").css('top', screenTop);
+    $("#capa_formularios").html($("#cargador1").html());
+
+    if(arg==0){ var miurl=urlraiz+"/asistente/viaje/retornaindex"; }
+    if(arg==1){ var miurl=urlraiz+"/asistente/cajachica/create"; }
+    if(arg==2){ var miurl=urlraiz+"/asistente/viaje/solicitar"; }
+    if(arg==3){ var miurl=urlraiz+"/asistente/viaje/liquidar"; }
+    if(arg==4){ var miurl=urlraiz+"/asistente/viaje/indexhistorial"; }
+    if(arg==5){ var miurl=urlraiz+"/asistente/cajachica/add"; }
+
+    $.ajax({
+    url: miurl
+    }).done( function(resul) 
+    {
+      $("#capa_formularios").html(resul);
+    }).fail( function() 
+    {
+      $("#capa_formularios").html('<span>...Ha ocurrido un error, revise su conexión y vuelva a intentarlo...</span>');
+    });
+}

@@ -16,25 +16,46 @@ use App\Persona;
 use App\Constants;
 use Illuminate\Support\Collection as Collection;
 
-class ECajaChica extends Controller
+use Carbon\Carbon;  // para poder usar la fecha y hora
+
+class ACajaChica extends Controller
 {
-    public function add(){
+	public function index(){
+        return view ('asistente.cajachica.index');
+    }
+
+    public function retornaindex(){
+        return view ('empleado.viaje.retornaindex');
+    }
+
+    public function create(){
         $proyectos = DB::table('proyectocabeza as pca')
-        ->select('pca.idproyecto','pca.nombreproyecto as proyecto')
-        ->get();
+            ->select('pca.idproyecto','pca.nombreproyecto as proyecto')
+            ->get();
 
         $vehiculos = DB::table('vehiculo as veh')
-        ->join('vstatus as vst','veh.idvstatus','=','vst.idvstatus')
-        ->select('veh.color','veh.marca','veh.modelo','veh.idvehiculo')
-        ->where('veh.idvstatus','=',1)
-        ->get();
+            ->join('vstatus as vst','veh.idvstatus','=','vst.idvstatus')
+            ->select('veh.color','veh.marca','veh.modelo','veh.idvehiculo')
+            ->where('veh.idvstatus','=',1)
+            ->get();
 
         $eles = DB::table('codigointerno as cin')
-        ->join('codigoraiz as cra','cin.idele','=','cra.idele')
-        ->select('cin.codigo','cin.nombre','cra.codigo as L','cra.nombre as craiz')
-        ->get();
+        	->join('codigoraiz as cra','cin.idele','=','cra.idele')
+            ->select('cin.codigo','cin.nombre','cra.codigo as L','cra.nombre as craiz')
+            ->get();
 
-        return view ('empleado.cajachica.create',["eles"=>$eles,"proyectos"=>$proyectos,"vehiculos"=>$vehiculos]);
+        return view ('asistente.cajachica.create',["eles"=>$eles,"proyectos"=>$proyectos,"vehiculos"=>$vehiculos]);
+    }
+
+    public function empleado(){
+        $empleado = DB::table('empleado as emp')
+            ->join('persona as per','emp.identificacion','=','per.identificacion')
+            ->join('users as U','per.identificacion','=','U.identificacion')
+            ->select('emp.idempleado','per.idafiliado')
+            ->where('U.id','=',Auth::user()->id)
+            ->first();
+
+        return $empleado;
     }
 
     public function store(Request $request){
@@ -80,7 +101,7 @@ class ECajaChica extends Controller
 
                 $encabezado-> fechasolicitud = $mytime->toDateString(); 
                 $encabezado-> montosolicitado = $request->monto_solicitado;
-                $encabezado-> chequetransfe = 'efectivo';
+                $encabezado-> chequetransfe = $request->cheque_o_transferencia;
                 $encabezado-> montogastado = 0;
                 $encabezado-> fechaliquidacion = $mytime->toDateString();
                 $encabezado-> moneda = $request->moneda;
@@ -104,25 +125,6 @@ class ECajaChica extends Controller
                 $gastoviaje-> idgastocabeza = $encabezado->idgastocabeza;
                 $gastoviaje-> idviaje = $viaje->idviaje;
                 $gastoviaje->save();
-
-                if($request->veh === 'Si'){
-                    $miArray = $request->vehiculo;
-                    if ($miArray == null) {
-                        return response()->json(array('error'=>'Debe agregar a la tabla los datos de un vehiculo, dando click en el boton buscar y seguidamente seleccionar el vehiculo y agregar '),404);
-                    }
-                    else
-                    {
-                        foreach ($miArray as $key => $value) {
-                            $viajeveh = new ViajeVehiculo;
-
-                            $viajeveh->idviaje = $viaje->idviaje;
-                            $viajeveh->idvehiculo = $value['0'];
-                            $viajeveh->kilometrajeini = $value['1'];
-                            $viajeveh->kilometrajefin = 0;
-                            $viajeveh->save();
-                        }
-                    }
-                }
             }
             else{
                 return response()->json(array('error'=>'la fecha inicio no puede ser mayor que la fecha final'),404);
@@ -135,5 +137,18 @@ class ECajaChica extends Controller
             return response()->json(array('error' => 'No se ha podido enviar la solicitud'),404);         
         }
         return response()->json($encabezado);
+    }
+
+    public function validateRequest($request){
+        $rules=[
+        'fecha_inicio' => 'required',
+        'fecha_final' => 'required',
+        'motivo' => 'required',
+        ];
+        $messages=[
+          'required' => 'Debe ingresar :attribute.',
+          'max'  => 'La capacidad del campo :attribute es :max',
+        ];
+        $this->validate($request, $rules,$messages);        
     }
 }
