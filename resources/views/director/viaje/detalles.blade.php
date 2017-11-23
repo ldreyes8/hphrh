@@ -1,38 +1,18 @@
-<!--
-<style type="text/css">
- 
-#tabla{ border: solid 1px #333; width: 300px; }
-#tabla tbody tr{ background: #999; }
-.fila-base{ display: none; } /* fila base oculta */
-.eliminar{ cursor: pointer; color: #000; }
-input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
- 
-</style>
--->
 <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
-
-
-
 <div class="card-box" id="VPJF">
-
     @if($liquidar == 1)
-
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="navbar-form navbar-left pull-left">
             <button class="btn btn-success btn-md"onclick="cargar_formularioviaje(21);"><i class="fa fa-reply-all"></i></button>
         </div>
-
         <h4 class="box-title" align="center">Liquidaci&oacute;n viaje</h4>
         <hr style="border-color:black;" />
-
     </div>
-
     <input type="hidden" name="_token" id="_token"  value="<?= csrf_token(); ?>" />
     <input type="hidden" id="idempleado" value="{{$proyecto->idempleado}}">
     <input type="hidden" id="idgastocabeza" value="{{$proyecto->idgastocabeza}}">
     <input type="hidden" id="idgastoviaje" value="{{$proyecto->idgastoviaje}}">
     <div class="panel">
-
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="navbar-form navbar-left pull-left">
                 <div class="row">
@@ -44,7 +24,6 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                     </div>
                 </div>
             </div>
-
             <div class="navbar-form navbar-left pull-right">
                 <div class="form-group col-lg-6">
                     <label>Monto solicitado</label>
@@ -64,11 +43,9 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                 </div>
             </div>            
         </div>
-
         <div class="panel-body">
             <div class="row">
             </div>
-
             @if(isset($vehiculo))
             @if(count($vehiculo) > 0)
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -100,31 +77,23 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
             </div>
             @endif
             @endif
-
             <div class="pull-right">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="table-responsive">
                         <table class="table table-bordered table-condensed table-hover">
                         <tr>
-                            <!--<th><p style="color:green;" align="center">Proyecto</p></th><td>{{$proyecto->nombreproyecto}}</td>-->
                             <th><p style="color:green;" align="center">Fondo Efectivo</p></th><td id="montot">{{$proyecto->monto}}</td>
-
                         </tr>
-                        <tr>
-                            <!--<th><p style="color:green;" align="center">Fecha Inicio</p></th><td>{{$proyecto->monto}}</td>-->                            
+                        <tr>                       
                             <th bgcolor="#BCF5A9"><p style="color:green;" align="center">Liquidación</p></th><td bgcolor="#BCF5A9" id="liquidacion"><strong>{{$liquidacion->liquidacion}}</strong></td>
-
                         </tr>
                         <tr>
-                            <!--<th><p style="color:green;" align="center">Fecha final</p></th><td>{{$proyecto->monto}}</td>-->
                             <th><p style="color:green;" align="center">Disponible</p></th><td id="disponible">{{$proyecto->monto - $liquidacion->liquidacion}}</td>
                         </tr>
                         </table>
                     </div>
                 </div>
             </div>
-           
-
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="table-responsive" id="mainTable">
                     <table class="table table-striped table-bordered table-condensed table-hover" id="tabprueba">
@@ -172,24 +141,19 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
             </div>
         </div><!-- end: page -->
     </div> 
-
     @else
         <br/><div class='rechazado' align="center"><label style='color:#FA206A'>...No se ha encontrado ninguna liquidacion...</label>  </div> 
     @endif
 </div>
-
 <div class="col-lg-12 col-md-12" id="modales">
     <div class="modal fade" id="formModalLiquidar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" align="center" id="inputTitleLiquidar"></h4>
                 </div>
-
                 <div id="modaliq"></div>
-
                 <div class="modal-footer">
                     <div class="col-md-12">
                         <div><br></div>
@@ -202,18 +166,14 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
         </div>
     </div>
 </div>
-
-
 <div class="col-lg-12 col-md-12" id="modalveh">
     <div class="modal fade" id="formModalVehiculo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" align="center" id="inputTitleVeh"></h4>
                 </div>
-
                 <form role="form" id="formLiquidarVeh">
                     <div class="modal-header">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -222,7 +182,6 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                         </div>
                     </div>
                 </form>
-
                 <div class="modal-footer">
                     <div class="col-md-12">
                         <div><br></div>
@@ -235,7 +194,6 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -248,22 +206,18 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
             <div class="modal-body">
                 <ul style="list-style-type:circle" id="erroresContent"></ul>
             </div>
-
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
 </div>
-
 <meta name="_token" content="{!! csrf_token() !!}" />
 <script src="{{asset('assets/js/valida.js')}}"></script>
 <script src="{{asset('assets/js/Empleado/liquidar.js')}}"></script>
 <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
 <script src="{{asset('assets/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js')}}"></script>
-
 <script type="text/javascript">
-    
     var urlraiz=$("#url_raiz_proyecto").val();
     $(document).on('click','.btn-NuevoL',function(e){
         $.ajaxSetup({
@@ -271,7 +225,6 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
-
         var miurl = urlraiz+"/empleado/viaje/liquidar/add";
         $.get(miurl,function(data){
             $("#modaliq").html(data);
@@ -279,10 +232,8 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
             $('#formAgregarLiquidar').trigger("reset");
             $('#formModalLiquidar').modal('show');
             $('#Glempleado').val('add');
-
         });
     });
-
     function vehiculo(id)
     {
         var miurl = urlraiz+"/empleado/viaje/vehiculo/edit/"+id;
@@ -292,11 +243,8 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
             
             $('#inputTitleVeh').html("Modificar kilometraje final");
             $('#formModalVehiculo').modal('show');
-            //$('#btnGuardar').val('update');
-            //$('loading').modal('hide');
         });        
     }
-
     $(document).on('click','a.veh-edit',function(e){
         $.ajaxSetup({
             headers: {
@@ -305,32 +253,4 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
         });
         alert("mensaje");
     });
-
-
-   
     </script>
-    <!--
-    <script src="{{asset('assets/plugins/tiny-editable/numeric-input-example.js')}}"></script>
-    <script type="text/javascript">
-            $('#mainTable').editableTableWidget().numericInputExample().find('td:first').focus();
-    </script>
-    -->
-
-
-
-
-<!--
-<script type="text/javascript">
-    $('#datatable-editable').DataTable({
-        order:[[1,'desc']],
-        columns:[
-        {
-             identifier: [0, 'id'],
-        editable: [[1, 'nickname'], [2, 'firstname'], [3, 'lastname'],[4,'gender','{"1"}: "Lki-Lki"'],
-                  [4, 'lastname'],[5, 'lastname'],[6, 'lastname'],[7, 'lastname'],[8, 'lastname'],[9, 'lastname'],[10, 'lastname']]           
-        }]
-    });
-</script>
-
--->
-

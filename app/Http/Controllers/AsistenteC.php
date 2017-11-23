@@ -31,7 +31,6 @@ class AsistenteC extends Controller
         $asistente=DB::select("call pcasistente(?)",array(Auth::user()->id));
         return view('asistente.viaje.indexsol',["asistente"=>$asistente]);
     }
-
     public function revasistentes()
     {
         $asistente=DB::select("call pcasistente2(?)",array(Auth::user()->id));
@@ -176,6 +175,12 @@ class AsistenteC extends Controller
             ->get();
 
         return view ('empleado.viajeliquidacion.create',["proyecto"=>$proyecto,"empleado"=>$empleado,"cuenta"=>$cuenta,"gencabezado"=>$genc,"proyectos"=>$proyectos,"gastoviajeemp"=>$gastoviajeemp]);        
+    }
+    public function elimina($id)
+    {
+        $cre =  GastoViajeEmpleado::findOrFail($id); 
+            GastoViajeEmpleado::destroy($id);
+        return response()->json('Ok');
     }
     public function revisado(Request $request){
         $idgasto = $request->get('gastocabeza');
