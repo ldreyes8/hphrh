@@ -105,7 +105,7 @@
 					e.preventDefault();
 
 					var $row = $(this).closest( 'tr' );
-
+					
 					swal({
 	                	title: "¿Está seguro?",
 	                	text: "No podrá recuperar este registro",
@@ -118,6 +118,7 @@
 		                closeOnCancel: false
 	            	}, function (isConfirm) {
 	                	if (isConfirm) {
+
 	                    	swal("Eliminado", "Se ha eliminado el registro", "success");
 	                    	_self.rowRemove( $row);
 	                	} else {
@@ -232,10 +233,10 @@
 				'<a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>'
 			].join(' ');
 			check1 = [
-				'<input id="checkbox1" type="checkbox">'
+				'<input id="checkbox1" type="checkbox" class="checkbox1" value="'+$data.idgastoempleado+'">'
 			].join(' ');
 			check2 = [
-				'<input id="checkbox2" type="checkbox">'
+				'<input id="checkbox2" type="checkbox" class="checkbox2" value="'+$data.idgastoempleado+'">'
 			].join(' ');
 				var n1 = $data.nombre1, 
 				n2 = $data.nombre2, 
@@ -343,10 +344,10 @@
 				'</td>'
 				].join(' ');
 				check1 = [
-					'<input id="checkbox1" type="checkbox">'
+					'<input id="checkbox1" type="checkbox" class="checkbox1" value="'+$data.idgastoempleado+'">'
 				].join(' ');
 				check2 = [
-					'<input id="checkbox2" type="checkbox">'
+					'<input id="checkbox2" type="checkbox" class="checkbox2" value="'+$data.idgastoempleado+'">'
 				].join(' ');
 			var n1 = $data.nombre1, 
 				n2 = $data.nombre2, 
@@ -412,8 +413,26 @@
 			if ( $row.hasClass('adding') ) {
 				this.$addButton.removeAttr( 'disabled' );
 			}
-
 			this.datatable.row( $row.get(0) ).remove().draw();
+            var id = $row.children('td').eq(0).html();
+            console.log(id);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+            var urlraiz=$("#url_raiz_proyecto").val();
+			var miurl = urlraiz+"/asistete/viaje/delete/"+id;
+            $.ajax({
+                    type: "DELETE",
+                    url: miurl,
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
 		},
 
 		rowSetActionsEditing: function( $row ) {

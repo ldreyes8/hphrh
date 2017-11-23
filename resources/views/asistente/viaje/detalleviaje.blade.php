@@ -1,38 +1,18 @@
-<!--
-<style type="text/css">
- 
-#tabla{ border: solid 1px #333; width: 300px; }
-#tabla tbody tr{ background: #999; }
-.fila-base{ display: none; } /* fila base oculta */
-.eliminar{ cursor: pointer; color: #000; }
-input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
- 
-</style>
--->
 <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
-
-
-
 <div class="card-box" id="VPJF">
-
     @if($liquidar == 1)
-
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="navbar-form navbar-left pull-left">
             <button class="btn btn-success btn-md"onclick="cargar_formularioviaje(23);"><i class="fa fa-reply-all"></i></button>
         </div>
-
         <h4 class="box-title" align="center">Liquidaci&oacute;n viaje Asistente</h4>
         <hr style="border-color:black;" />
-
     </div>
-
     <input type="hidden" name="_token" id="_token"  value="<?= csrf_token(); ?>" />
     <input type="hidden" id="idempleado" value="{{$proyecto->idempleado}}">
     <input type="hidden" id="idgastocabeza" value="{{$proyecto->idgastocabeza}}">
     <input type="hidden" id="idgastoviaje" value="{{$proyecto->idgastoviaje}}">
     <div class="panel">
-
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="navbar-form navbar-left pull-left">
                 <div class="row">
@@ -44,7 +24,6 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                     </div>
                 </div>
             </div>
-
             <div class="navbar-form navbar-left pull-right">
                 <div class="form-group col-lg-6">
                     <label>Monto solicitado</label>
@@ -64,11 +43,9 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                 </div>
             </div>            
         </div>
-
         <div class="panel-body">
             <div class="row">
             </div>
-
             @if(isset($vehiculo))
             @if(count($vehiculo) > 0)
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -100,7 +77,6 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
             </div>
             @endif
             @endif
-
             <div class="pull-right">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="table-responsive">
@@ -108,12 +84,10 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                         <tr>
                             <!--<th><p style="color:green;" align="center">Proyecto</p></th><td>{{$proyecto->nombreproyecto}}</td>-->
                             <th><p style="color:green;" align="center">Fondo Efectivo</p></th><td id="montot">{{$proyecto->monto}}</td>
-
                         </tr>
                         <tr>
                             <!--<th><p style="color:green;" align="center">Fecha Inicio</p></th><td>{{$proyecto->monto}}</td>-->                            
                             <th bgcolor="#BCF5A9"><p style="color:green;" align="center">Liquidación</p></th><td bgcolor="#BCF5A9" id="liquidacion"><strong>{{$liquidacion->liquidacion}}</strong></td>
-
                         </tr>
                         <tr>
                             <!--<th><p style="color:green;" align="center">Fecha final</p></th><td>{{$proyecto->monto}}</td>-->
@@ -123,8 +97,6 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                     </div>
                 </div>
             </div>
-           
-
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="table-responsive" id="mainTable">
                     <table class="table table-striped table-bordered table-condensed table-hover" id="tabprueba">
@@ -157,9 +129,9 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                                 <td>10</td>
                                 <td>{{$gvi->monto}}</td>
                                 @if($gvi->check1 == 1)
-                                <td><input id="checkbox1" name="checkbox1" class="checkbox1" type="checkbox" checked value="{{$gvi->idgastoempleado}}"></td>
+                                <td><input id="checkbox1" class="checkbox1" type="checkbox" checked value="{{$gvi->idgastoempleado}}"></td>
                                 @else
-                                <td><input id="checkbox1" name="checkbox1" class="checkbox1" type="checkbox" value="{{$gvi->idgastoempleado}}"></td>
+                                <td><input id="checkbox1" class="checkbox1" type="checkbox" value="{{$gvi->idgastoempleado}}"></td>
                                 @endif
                                 @if($gvi->check2 == 1)
                                 <td><input id="checkbox2" class="checkbox2" type="checkbox" checked value="{{$gvi->idgastoempleado}}"></td>
@@ -180,29 +152,24 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
             </div>
         </div><!-- end: page -->
     </div> 
-
     @else
         <br/><div class='rechazado' align="center"><label style='color:#FA206A'>...No se ha encontrado ninguna liquidacion...</label>  </div> 
     @endif
 </div>
-
 <div class="col-lg-12 col-md-12" id="modales">
     <div class="modal fade" id="formModalLiquidar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" align="center" id="inputTitleLiquidar"></h4>
                 </div>
-
                 <div id="modaliq"></div>
-
                 <div class="modal-footer">
                     <div class="col-md-12">
                         <div><br></div>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                         <button id="Glempleado" class="btn btn-primary waves-effect waves-light">Guardar</i></button>
+                        <button id="Glempleado" class="btn btn-primary waves-effect waves-light">Guardar</i></button>
                         <input type="hidden" id="idgastoemp" value="0"/>
                     </div>
                 </div>
@@ -210,8 +177,6 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
         </div>
     </div>
 </div>
-
-
 <div class="col-lg-12 col-md-12" id="modalveh">
     <div class="modal fade" id="formModalVehiculo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -243,7 +208,6 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -263,15 +227,12 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
         </div>
     </div>
 </div>
-
 <meta name="_token" content="{!! csrf_token() !!}" />
 <script src="{{asset('assets/js/valida.js')}}"></script>
 <script src="{{asset('assets/js/JefeInmediato/liquidarJI.js')}}"></script>
 <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
 <script src="{{asset('assets/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js')}}"></script>
-
 <script type="text/javascript">
-    
     var urlraiz=$("#url_raiz_proyecto").val();
     $(document).on('click','.btn-NuevoL',function(e){
         $.ajaxSetup({
@@ -299,18 +260,15 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
         var miurl = urlraiz+"/asistete/viaje/revision";
         if($(this).is(':checked')) {
             valor=1;
-            //alert('Seleccionado');
         }
         else
         {
         	valor=0;
-        	//alert('Desseleccionado');
         }
         var formData = {
 	            valores:valor,
 	            idgasto:$(this).val(),
 	        };
-        /**/
         $.ajax({
             type: "PUT",
             url: miurl,
@@ -333,7 +291,6 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                 $('#erroresModal').modal('show');
             }
         });
-        /**/
     });
     $(document).on('change','.checkbox2',function(e){
         $.ajaxSetup({
@@ -344,18 +301,15 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
         var miurl = urlraiz+"/asistete/viaje/revision2";
         if($(this).is(':checked')) {
             valor=1;
-            //alert('Seleccionado');
         }
         else
         {
             valor=0;
-            //alert('Desseleccionado');
         }
         var formData = {
                 valores:valor,
                 idgasto:$(this).val(),
             };
-        /**/
         $.ajax({
             type: "PUT",
             url: miurl,
@@ -378,7 +332,6 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                 $('#erroresModal').modal('show');
             }
         });
-        /**/
     });
     function vehiculo(id)
     {
@@ -389,11 +342,8 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
             
             $('#inputTitleVeh').html("Modificar kilometraje final");
             $('#formModalVehiculo').modal('show');
-            //$('#btnGuardar').val('update');
-            //$('loading').modal('hide');
         });        
     }
-
     $(document).on('click','a.veh-edit',function(e){
         $.ajaxSetup({
             headers: {
@@ -402,4 +352,4 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
         });
         alert("mensaje");
     });
-    </script>
+</script>

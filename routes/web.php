@@ -488,6 +488,7 @@ Route::group(['prefix'=>'asistete'],function()
 		Route::get('viaje/liquidar/add/{id}','AsistenteC@addl');
 		Route::put('viaje/revisado','AsistenteC@revisado');
 		Route::put('viaje/tramite','AsistenteC@tramite');
+		Route::delete('viaje/delete/{id}','AsistenteC@elimina');
 });
 
 Route::group(['prefix'=>'asistente'],function()

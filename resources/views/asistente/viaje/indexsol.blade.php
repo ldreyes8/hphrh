@@ -1,15 +1,12 @@
 <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
-<!-- DataTables -->
-    <link href="{{asset('assets/plugins/datatables/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/plugins/datatables/buttons.bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/plugins/datatables/fixedHeader.bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/plugins/datatables/responsive.bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('assets/plugins/datatables/scroller.bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
-
+<link href="{{asset('assets/plugins/datatables/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/plugins/datatables/buttons.bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/plugins/datatables/fixedHeader.bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/plugins/datatables/responsive.bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/plugins/datatables/scroller.bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 <div class="card-box" id="VPJF">
     <h4 class="box-title" align="center">Liquidación de gastos Asistente</h4>
     <hr style="border-color:black;" />
-
     <div><p><br></p></div>
     <input type="hidden" name="_token" id="_token"  value="<?= csrf_token(); ?>">
     <div class="row">
@@ -65,24 +62,21 @@
 <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
 <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
 <script src="{{asset('assets/js/JefeInmediato/rutas.js')}}"></script>
-<!-- Datatables-->
-    <script src="{{asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/datatables/dataTables.bootstrap.js')}}"></script>
-    <script src="{{asset('assets/plugins/datatables/dataTables.buttons.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/datatables/buttons.bootstrap.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/datatables/jszip.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/datatables/pdfmake.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/datatables/vfs_fonts.js')}}"></script>
-    <script src="{{asset('assets/plugins/datatables/buttons.html5.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/datatables/buttons.print.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/datatables/dataTables.fixedHeader.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/datatables/dataTables.keyTable.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/datatables/dataTables.responsive.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/datatables/responsive.bootstrap.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/datatables/dataTables.scroller.min.js')}}"></script>
-<!-- Datatable init js -->
-    <script src="{{asset('assets/js/JefeInmediato/datatablesJF.js')}}"></script>
-
+<script src="{{asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/dataTables.bootstrap.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/buttons.bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/jszip.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/pdfmake.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/vfs_fonts.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/buttons.html5.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/buttons.print.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/dataTables.fixedHeader.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/dataTables.keyTable.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/responsive.bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/dataTables.scroller.min.js')}}"></script>
+<script src="{{asset('assets/js/JefeInmediato/datatablesJF.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
             $('#datatable').dataTable();
@@ -92,7 +86,6 @@
             var table = $('#datatable-fixed-header').DataTable( { fixedHeader: true } );
     } );
     TableManageButtons.init();
-
     $(document).on('click','.btnconfirma',function(e){
     	$.ajaxSetup({
 			headers: {
