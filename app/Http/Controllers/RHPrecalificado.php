@@ -42,13 +42,6 @@ class RHPrecalificado extends Controller
         }
         return Redirect::to('empleado/listadoR');
     }
-    /*public function precalificarjf($id)
-    {
-        $od=Empleado::find($id);
-        $od-> idstatus = '4';
-        $od->update();
-        return Redirect::to('empleado/listadoR');
-    }*/
 
     public function listadopreC (Request $request)
     {
@@ -62,12 +55,8 @@ class RHPrecalificado extends Controller
             ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
             ->join('status as s','e.idstatus','=','s.idstatus')
             ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
-            //->where('p.nombre1','LIKE','%'.$query.'%')
-            //->andwhere('p.apellido1','LIKE','%'.$query.'%')
             ->where('e.idstatus','=',4)
             ->orwhere('e.idstatus','=',17)
-            //->where('p.nombre1','LIKE','%'.$query.'%')
-            //->orwhere('p.apellido1','LIKE','%'.$query.'%')
 
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
             ->orderBy('e.fechasolicitud','desc')
@@ -82,7 +71,6 @@ class RHPrecalificado extends Controller
     {
         $query=trim($request->get('searchText'));
         $perosna=new Persona;
-        //$empleados = $perosna->selectQuery(Constants::listadoprecalificadosji,array(Auth::user()->id));
         $empleados =DB::select("call pcsolicitudpc(?)",array(Auth::user()->id));
         $var='9';
         return view('rrhh.jfreclutamiento.solicitudjfpc',["empleados"=>$empleados,"searchText"=>$query,"var"=>$var]);
@@ -159,7 +147,6 @@ class RHPrecalificado extends Controller
         ->join('empleado as emp','emp.idempleado','pf.idempleado')
         ->select(DB::raw('count(pf.parentezco) as hermano'),'p.identificacion','pf.parentezco')
         ->where('pf.parentezco','=','Hermano')
-        //->where('emp.idempleado','=',$id)
         ->groupBy('p.identificacion','pf.parentezco')
         ->get();
 
@@ -177,7 +164,6 @@ class RHPrecalificado extends Controller
         ->join('empleado as emp','emp.idempleado','pf.idempleado')
         ->select(DB::raw('count(pf.parentezco) as hijos'),'p.identificacion','pf.parentezco')
         ->where('pf.parentezco','=','Hijo')
-        //->where('emp.idempleado','=',$id)
         ->groupBy('p.identificacion','pf.parentezco')
         ->get();
 
@@ -188,7 +174,6 @@ class RHPrecalificado extends Controller
         ->where('e.idempleado','=',$id)
         ->first();
 
-        //dd($entre);
         $date = Carbon::now('America/Guatemala');
         $date = $date->format('d-m-Y');
 
@@ -297,7 +282,6 @@ class RHPrecalificado extends Controller
         ->join('empleado as emp','emp.idempleado','pf.idempleado')
         ->select(DB::raw('count(pf.parentezco) as hermano'),'p.identificacion','pf.parentezco')
         ->where('pf.parentezco','=','Hermano')
-        //->where('emp.idempleado','=',$id)
         ->groupBy('p.identificacion','pf.parentezco')
         ->get();
 
@@ -315,7 +299,6 @@ class RHPrecalificado extends Controller
         ->join('empleado as emp','emp.idempleado','pf.idempleado')
         ->select(DB::raw('count(pf.parentezco) as hijos'),'p.identificacion','pf.parentezco')
         ->where('pf.parentezco','=','Hijo')
-        //->where('emp.idempleado','=',$id)
         ->groupBy('p.identificacion','pf.parentezco')
         ->get();
 
@@ -326,7 +309,6 @@ class RHPrecalificado extends Controller
         ->where('e.idempleado','=',$id)
         ->first();
 
-        //dd($entre);
         $date = Carbon::now('America/Guatemala');
         $date = $date->format('d-m-Y');
 
