@@ -28,7 +28,6 @@ class RHPrecalificado extends Controller
         ->select('e.idstatus')
         ->where('e.idempleado','=',$id)
         ->first();
-        //dd($emp->idstatus);
         if ($emp->idstatus==13) {
 
             $od=Empleado::find($id);
