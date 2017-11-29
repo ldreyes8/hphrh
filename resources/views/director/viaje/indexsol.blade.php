@@ -4,7 +4,7 @@
 <link href="{{asset('assets/plugins/datatables/responsive.bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/plugins/datatables/scroller.bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 <div class="card-box" id="VPJF">
-    <h4 class="box-title" align="center">Solicitud de gastos</h4>
+    <h4 class="box-title" align="center">Solicitud de gasto</h4>
     <hr style="border-color:black;" />
     <div><p><br></p></div>
     <input type="hidden" name="_token" id="_token"  value="<?= csrf_token(); ?>">

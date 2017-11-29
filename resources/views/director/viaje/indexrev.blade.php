@@ -20,7 +20,7 @@
                         <th>Proyecto</th>
                         <th>Inicio</th>
                         <th>Fin</th>                               
-                        <th>Estado</th>
+                        <th>Opciones</th>
                     </thead>
                     @foreach($viaje as $v)
                     <tr>
