@@ -1,9 +1,9 @@
 <div class="card-box">
     <div class="panel-heading">
-        <button class="btn btn-success btn-nuevoV" id="btnnuevoV"><i class="icon-user icon-white" ></i>Nueva solicitud de vacaciones</button>
+        <button class="btn btn-success waves-effect waves-light btn-nuevoV" id="btnnuevoV" title="Nueva solicitud de vacaciones">
+            Nuevo <i class="fa fa-plus"></i>
+        </button>
     </div>
-
-
     <div><br></div>
     
     @if (!empty($usuarios->idmunicipio))

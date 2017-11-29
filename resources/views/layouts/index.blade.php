@@ -150,12 +150,12 @@
                                 <i class="md md-assignment"></i><span>Solicitud</span>
                                 </a> 
                             </li>
-                            
+                            <!--
                             <li>
                                 <a href="{{url('/empleado/viaje')}}" class="waves-effect waves-primary">&nbsp;&nbsp;
                                 <i class="md md-airplanemode-on"></i><span>Movilizaci&oacute;n</span>
                                 </a> 
-                            </li>
+                            </li>-->
                             
                           
 

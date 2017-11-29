@@ -26,7 +26,7 @@
                     </li>-->
                     <li>
                         <a onclick="cargar_formularioviaje(2);"><img src="{{asset('assets/images/liquidar.png')}}"/></a>
-                        <span>Liquidar</span>
+                        <span>Enviar reporte</span>
                     </li>
                     <li>
                         <a onclick="cargar_formularioviaje(4);"><img src="{{asset('assets/images/historial.png')}}"/></a>

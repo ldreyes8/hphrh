@@ -39,7 +39,6 @@ class EViajeController extends Controller
             ->select('emp.idempleado','per.idafiliado')
             ->where('U.id','=',Auth::user()->id)
             ->first();
-
         return $empleado;
     }
 
@@ -55,7 +54,6 @@ class EViajeController extends Controller
             ->where('gas.statusgasto','!=','Cancelado')
             ->where('gas.statusgasto','!=','Contabilizado')
             ->get();
-
         return view ('empleado.viaje.indexviaje',["viaje"=>$viaje]);
     }
 
@@ -86,8 +84,8 @@ class EViajeController extends Controller
             ->first();
 
         if (empty($proyecto->idgastocabeza)) {
-                $liquidar = 0;
-                 return view ('empleado.viaje.indexhistorial',["liquidar"=>$liquidar]);
+            $liquidar = 0;
+            return view ('empleado.viaje.indexhistorial',["liquidar"=>$liquidar]);
         }
         else{
             $liquidar = 1;
@@ -129,10 +127,9 @@ class EViajeController extends Controller
             ->select('gen.idgastocabeza','gen.fechasolicitud','gen.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje','via.idviaje')
             ->orderby('gen.idgastocabeza','desc')
             ->first();
-
         if (empty($proyecto->idgastocabeza)) {
-                $liquidar = 0;
-                 return view ('empleado.viaje.indexhistorial',["liquidar"=>$liquidar]);
+            $liquidar = 0;
+            return view ('empleado.viaje.indexhistorial',["liquidar"=>$liquidar]);
         }
         else{
             $liquidar = 1;
@@ -159,11 +156,11 @@ class EViajeController extends Controller
 
         if($ausencia === null)
         {
-          $autorizacion = "ninguno";
+            $autorizacion = "ninguno";
         }
         else
         {
-          $autorizacion = $ausencia->statusgasto;
+            $autorizacion = $ausencia->statusgasto;
         }
 
         return response()->json($autorizacion);
@@ -226,7 +223,6 @@ class EViajeController extends Controller
             $fechafinal = $fechafinal->toDateString();
 
             if($fechafinal >= $fechainicio){
-
                 //Gasto encabezado
                 $encabezado = new GastoEncabezado;
                 $viaje = new Viaje;
@@ -283,7 +279,6 @@ class EViajeController extends Controller
                     }
                     else
                     {
-
                         foreach ($miArray as $key => $value) {
                             $viajeveh = new ViajeVehiculo;
 
@@ -325,7 +320,7 @@ class EViajeController extends Controller
 
         if (empty($proyecto->idgastocabeza)) {
                 $liquidar = 0;
-                 return view ('empleado.viaje.indexliquidar',["liquidar"=>$liquidar]);
+            return view ('empleado.viaje.indexliquidar',["liquidar"=>$liquidar]);
         }
         else{
             $liquidar = 1;
@@ -441,11 +436,9 @@ class EViajeController extends Controller
         try 
         {
             DB::beginTransaction();
-
             $fechafactura = $request->fecha_factura;
             $fechafactura = Carbon::createFromFormat('d/m/Y',$fechafactura);
             $fechafactura = $fechafactura->toDateString();
-
             //Gasto viaje empleado
             $gastoempleado = new GastoViajeEmpleado;
             $gastoempleado->idempleado   = $request->empleado;
@@ -456,9 +449,7 @@ class EViajeController extends Controller
             $gastoempleado->codigocuenta = $request->cuenta;
             $gastoempleado->idproyecto   = $request->proyecto;
             $gastoempleado->idgastoviaje = $request->gastoviaje;
-
             $gastoempleado->save();
-
             $gastoviajeemp = DB::table('gastoviajeempleado as gve')
                 ->join('proyectocabeza as pro','gve.idproyecto','=','pro.idproyecto')
                 ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
@@ -560,7 +551,6 @@ class EViajeController extends Controller
             $gastoempleado->codigocuenta = $request->cuenta;
             $gastoempleado->idproyecto   = $request->proyecto;
             $gastoempleado->idgastoviaje = $request->gastoviaje;
-
             $gastoempleado->save();
 
             $gastoviajeemp = DB::table('gastoviajeempleado as gve')
@@ -604,7 +594,6 @@ class EViajeController extends Controller
             ->first();
 
         $disponible = $proyecto->monto - $liquidacion->liquidacion;
-
         $calculo = array($disponible,$liquidacion->liquidacion,$proyecto->monto);
         
         return response()->json($calculo);
@@ -674,50 +663,48 @@ class EViajeController extends Controller
         $today = Carbon::now();
         $year = $today->format('d/m/Y');
 
-
         $gastoviajeemp = DB::select("call E_detallegasto(?)",array($id));
-        //$dompdf->set_paper("letter", $orientation = "landscape");
         $pdf= PDF::loadView('empleado.viajeliquidacion.pdf',["gastoviajeemp"=>$gastoviajeemp]);
-        $pdf->setPaper("letter","landscape");
+        $pdf->setPaper("letter","landscape");       //Se convierte el html en hoja vertical para su descargue
         return $pdf->download('liquidacion-'.$year.'.pdf');
     }
 
     public function validateRequest($request){
         $rules=[
-        'fecha_inicio' => 'required',
-        'fecha_final' => 'required',
-        'motivo' => 'required',
+            'fecha_inicio' => 'required',
+            'fecha_final' => 'required',
+            'motivo' => 'required',
         ];
         $messages=[
-          'required' => 'Debe ingresar :attribute.',
-          'max'  => 'La capacidad del campo :attribute es :max',
+            'required' => 'Debe ingresar :attribute.',
+            'max'  => 'La capacidad del campo :attribute es :max',
         ];
         $this->validate($request, $rules,$messages);        
     }
 
     public function validateRequestVeh($request){
         $rules=[
-        'vehiculo' => 'required',
+            'vehiculo' => 'required',
         ];
         $messages=[
-          'required' => 'Debe ingresar :attribute.',
-          'max'  => 'La capacidad del campo :attribute es :max',
+            'required' => 'Debe ingresar :attribute.',
+            'max'  => 'La capacidad del campo :attribute es :max',
         ];
         $this->validate($request, $rules,$messages);        
     }
 
     public function validateRequestViaje($request){
         $rules=[
-        'fecha_factura' => 'required',
-        'factura' => 'required',
-        'monto' => 'required',
-        'empleado' => 'required',
-        'proyecto' => 'required',
-        'descripcion' => 'required',
+            'fecha_factura' => 'required',
+            'factura' => 'required',
+            'monto' => 'required',
+            'empleado' => 'required',
+            'proyecto' => 'required',
+            'descripcion' => 'required',
         ];
         $messages=[
-          'required' => 'Debe ingresar :attribute.',
-          'max'  => 'La capacidad del campo :attribute es :max',
+            'required' => 'Debe ingresar :attribute.',
+            'max'  => 'La capacidad del campo :attribute es :max',
         ];
         $this->validate($request, $rules,$messages);        
     }

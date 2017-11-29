@@ -8,8 +8,8 @@ $('#cancelarmov').click(function(e) {
     {
 
         swal({
-            title: "¿Estás seguro?",
-            text: "No podrás modificar el registro",
+            title: "¿Esta seguro?",
+            text: "No podra modificar el registro",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#FFFF00",
