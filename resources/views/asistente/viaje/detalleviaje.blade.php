@@ -5,7 +5,7 @@
         <div class="navbar-form navbar-left pull-left">
             <button class="btn btn-success btn-md"onclick="cargar_formularioviaje(23);"><i class="fa fa-reply-all"></i></button>
         </div>
-        <h4 class="box-title" align="center">Liquidaci&oacute;n viaje Asistente</h4>
+        <h4 class="box-title" align="center">Revisión de liquidaci&oacute;n de gastos</h4>
         <hr style="border-color:black;" />
     </div>
     <input type="hidden" name="_token" id="_token"  value="<?= csrf_token(); ?>" />
@@ -195,7 +195,6 @@
                         </div>
                     </div>
                 </form>
-
                 <div class="modal-footer">
                     <div class="col-md-12">
                         <div><br></div>

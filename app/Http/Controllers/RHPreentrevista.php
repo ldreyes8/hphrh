@@ -24,7 +24,6 @@ class RHPreentrevista extends Controller
 {
     public function upPreentrevista ($id,$ids)
     {
-        dd($ids);
         $emp=DB::table('empleado as e')
         ->select('e.idstatus')
         ->where('e.idempleado','=',$id)

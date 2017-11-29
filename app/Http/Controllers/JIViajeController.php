@@ -44,7 +44,7 @@ class JIViajeController extends Controller
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','emp.idempleado','tg.tipogasto','ge.idgastocabeza','ge.montosolicitado','pc.nombreproyecto','v.fechainicio','v.fechafin')
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('ge.statusgasto','=','solicitado')       
-        ->paginate(15);  
+        ->get();  
     	return view ('director.viaje.indexsol',['viaje'=>$viaje]);
     }
     public function autorizados()
@@ -66,8 +66,8 @@ class JIViajeController extends Controller
         ->join('viaje as v','v.idviaje','=','gv.idviaje')
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','emp.idempleado','tg.tipogasto','ge.idgastocabeza','ge.montosolicitado','pc.nombreproyecto','v.fechainicio','v.fechafin')
         ->where('aj.identificacion','=',$usuario->identificacion)
-        ->where('ge.statusgasto','=','Autorizado')       
-        ->paginate(15);  
+        ->where('ge.statusgasto','=','Autorizado')      
+        ->get();  
 
     	return view ('director.viaje.indexauto',['viaje'=>$viaje]);
     }
@@ -91,7 +91,7 @@ class JIViajeController extends Controller
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','emp.idempleado','tg.tipogasto','ge.idgastocabeza','ge.montosolicitado','pc.nombreproyecto','v.fechainicio','v.fechafin')
         ->where('aj.identificacion','=',$usuario->identificacion)
         ->where('ge.statusgasto','=','Revisado')       
-        ->paginate(15);  
+        ->get();  
 
         return view ('director.viaje.indexrev',['viaje'=>$viaje]);
     }
