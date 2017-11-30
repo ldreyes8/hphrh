@@ -25,7 +25,6 @@ class RHReclutamiento extends Controller
     }
     public function listadoR(Request $request)
     {
-        
         return view('rrhh.reclutamiento.index');
     }
     public function pdf()
@@ -46,15 +45,12 @@ class RHReclutamiento extends Controller
         ->where('em.identificacion','=',$id)
         ->first();
 
-
-
         $fedad = new DateTime($persona->fechanac);
         
         $month = $fedad->format('m');
         $day = $fedad->format('d');
         $year = $fedad->format('Y');
         $fnac = Carbon::createFromDate($year,$month,$day)->age;
-
 
         $empleado=DB::table('empleado as e')
         ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
@@ -67,7 +63,6 @@ class RHReclutamiento extends Controller
         ->join('nivelacademico as na','pc.idnivel','=','na.idnivel')
         ->select('pc.titulo','pc.establecimiento','pc.duracion','na.nombrena as nivel','pc.fingreso','pc.fsalida')
         ->where('pc.identificacion','=',$id)
-
         ->get();
 
         $experiencias=DB::table('personaexperiencia as pe')
@@ -122,9 +117,7 @@ class RHReclutamiento extends Controller
     {
         if($request)
             {
-            //$dato=$request;
             $dato=trim($request->get('dato_buscado'));
-            //dd($query);
             $empleados=DB::table('empleado as e')
             ->join('persona as p','e.identificacion','=','p.identificacion')
             ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
@@ -132,19 +125,12 @@ class RHReclutamiento extends Controller
             ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
             ->join('status as s','e.idstatus','=','s.idstatus')
             ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
-            
-            //->where('p.apellido1','LIKE','%'.$query.'%')
-
             ->where('s.statusemp','=','Aspirante'  )
             ->orwhere('s.statusemp','=','Solicitante Interno')
-
-            //->where('p.nombre1','LIKE','%'.$query.'%')
-            //->orwhere('p.apellido1','LIKE','%'.$query.'%')
-
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
             ->orderBy('e.fechasolicitud','desc')
             ->paginate(19);
-
+            //->get();
             $var='1';
             return view('rrhh.reclutamiento.solicitud',["empleados"=>$empleados,"dato"=>$dato,"var"=>$var]);
             }
@@ -153,10 +139,7 @@ class RHReclutamiento extends Controller
     {
         $query=trim($request->get('searchText'));
         $perosna=new Persona;
-        /*$empleados = $perosna->selectQuery(Constants::listadoindex,array(Auth::user()->id));*/
-        //$area=DB::table('area')->get();
         $empleados =DB::select("call pcsolicitud(?)",array(Auth::user()->id));
-        //dd($empleados);
         $var='7';
         return view('rrhh.jfreclutamiento.solicitudjf',["empleados"=>$empleados,"searchText"=>$query,"var"=>$var]);
     }
@@ -188,7 +171,6 @@ class RHReclutamiento extends Controller
             $st-> idstatus='10';
             $st->update();
         }
-        //return view('rrhh.reclutamiento.index');
         return Redirect::to('empleado/listadoR');
     }
     public function rechazoPP($idE)

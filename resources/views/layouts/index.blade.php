@@ -200,7 +200,7 @@
                             </li>
                         
                             @endrole
-                            <!--
+
                             @role('asistente') 
                                 <li class="menu-title"><strong>Movilización</strong></li>
                                 <li>
@@ -208,7 +208,7 @@
                                 </li>
                                 <li><a href="{{ url('/asistete/viaje')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i class="md md-insert-emoticon"></i><span>Avances</span></a></li>
                             @endrole
-                            -->
+
 
                         <!-- // Recurso Humano___ // -->
 
