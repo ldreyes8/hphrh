@@ -121,7 +121,6 @@ class RHPreentrevista extends Controller
         ->where('na.idnivel','=',$ntitulo->idnivel)
         ->where('em.idempleado','=',$id)
         ->where('na.mintrabna','=',1)
-        //->groupBy('p.identificacion','na.idnivel')
         ->first();
 
         $licencias=DB::table('empleado as em')
@@ -137,7 +136,6 @@ class RHPreentrevista extends Controller
         ->join('empleado as emp','emp.idempleado','pf.idempleado')
         ->select(DB::raw('count(pf.parentezco) as hermano'),'p.identificacion','pf.parentezco')
         ->where('pf.parentezco','=','Hermano')
-        //->where('emp.idempleado','=',$id)
         ->groupBy('p.identificacion','pf.parentezco')
         ->get();
 
@@ -155,7 +153,6 @@ class RHPreentrevista extends Controller
         ->join('empleado as emp','emp.idempleado','pf.idempleado')
         ->select(DB::raw('count(pf.parentezco) as hijos'),'p.identificacion','pf.parentezco')
         ->where('pf.parentezco','=','Hijo')
-        //->where('emp.idempleado','=',$id)
         ->groupBy('p.identificacion','pf.parentezco')
         ->get();
 
@@ -166,7 +163,6 @@ class RHPreentrevista extends Controller
         ->where('e.idempleado','=',$id)
         ->first();
 
-        //dd($entre);
         $date = Carbon::now('America/Guatemala');
         $date = $date->format('d-m-Y');
 
@@ -216,13 +212,8 @@ class RHPreentrevista extends Controller
             ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
             ->join('status as s','e.idstatus','=','s.idstatus')
             ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
-            //->where('p.nombre1','LIKE','%'.$query.'%')
-            //->andwhere('p.apellido1','LIKE','%'.$query.'%')
             ->where('e.idstatus','=',13)
             ->orwhere('e.idstatus','=',16)
-
-            //->where('p.nombre1','LIKE','%'.$query.'%')
-            //->orwhere('p.apellido1','LIKE','%'.$query.'%')
 
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
             ->orderBy('e.fechasolicitud','desc')
@@ -236,7 +227,6 @@ class RHPreentrevista extends Controller
     {
         $query=trim($request->get('searchText'));
         $perosna=new Persona;
-        //$empleados = $perosna->selectQuery(Constants::listadopreentrevistadosji,array(Auth::user()->id));
 
         $empleados =DB::select("call pcsolicitudpe(?)",array(Auth::user()->id));
         $var='8';
@@ -245,7 +235,6 @@ class RHPreentrevista extends Controller
     public function prentrevista (Request $request)
     {
         $iden=$request->get("identrevista");
-        //dd($iden);
         $entre = Entrevista::findOrFail($iden);
     	$entre-> perentrevista = $request->get('identificacion');
 
@@ -301,9 +290,6 @@ class RHPreentrevista extends Controller
             $academico->fingreso = $fechaingreso;
             $academico->fsalida = $fechasalida;
 
-            /*$academico->idpais = $request->get('idpais');
-            $academico->idmunicipio = $request->get('idmunicipio');*/
-
             if ($idpais ==="73") 
             {
                 $academico->idpais = $idpais;
@@ -311,18 +297,14 @@ class RHPreentrevista extends Controller
             }
             else
             {
-                   //$academicos-> idmunicipio = NULL;
                 $academico->idpais = $idpais;
             }
-
 
             $academico->idempleado = $request->get('idempleado');
             $academico->identificacion = $request->get('identificacion');
             $academico->idnivel = $request->get('idnivel');
             $academico->periodo = $request->get('periodo');
 
-            //$data = $request->toArray();
-            //$academico = Academico::create($data);
             $academico->save();
                     
             return response()->json($academico);
@@ -335,7 +317,6 @@ class RHPreentrevista extends Controller
             'duracion'=> 'required|max:2',
             'fecha_salida'=>'required',
             'fecha_ingreso'=>'required',
-
 
             ];
             $messages=[
@@ -373,8 +354,6 @@ class RHPreentrevista extends Controller
             'ultimosalario' => 'required|max:10',
             'año_ingreso' => 'required|max:4',
             'año_salida' => 'required|max:4',
-
-
             ];
             $messages=[
             'required' => 'Debe ingresar :attribute.',
@@ -608,7 +587,6 @@ class RHPreentrevista extends Controller
         ->join('empleado as emp','emp.idempleado','pf.idempleado')
         ->select(DB::raw('count(pf.parentezco) as hermano'),'p.identificacion','pf.parentezco')
         ->where('pf.parentezco','=','Hermano')
-        //->where('emp.idempleado','=',$id)
         ->groupBy('p.identificacion','pf.parentezco')
         ->get();
 
@@ -626,7 +604,6 @@ class RHPreentrevista extends Controller
         ->join('empleado as emp','emp.idempleado','pf.idempleado')
         ->select(DB::raw('count(pf.parentezco) as hijos'),'p.identificacion','pf.parentezco')
         ->where('pf.parentezco','=','Hijo')
-        //->where('emp.idempleado','=',$id)
         ->groupBy('p.identificacion','pf.parentezco')
         ->get();
 
@@ -637,7 +614,6 @@ class RHPreentrevista extends Controller
         ->where('e.idempleado','=',$id)
         ->first();
 
-        //dd($entre);
         $date = Carbon::now('America/Guatemala');
         $date = $date->format('d-m-Y');
 
