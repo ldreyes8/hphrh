@@ -137,7 +137,7 @@ class JIViajeController extends Controller
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.statusgasto','=','Revisado')
-            ->where('gen.idtipogasto','=',2)
+            //->where('gen.idtipogasto','=',2)
             ->where('gen.idempleado','=',$id)
             ->select('gen.idgastocabeza','gen.fechasolicitud','gen.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje','via.idviaje')
             ->orderby('gen.idgastocabeza','desc')

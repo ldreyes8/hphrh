@@ -51,7 +51,7 @@ class AsistenteC extends Controller
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.statusgasto','=','Autorizado')
-            ->where('gen.idtipogasto','=',2)
+            //->where('gen.idtipogasto','=',2)
             ->where('gen.idempleado','=',$id)
             ->select('gen.idgastocabeza','gen.fechasolicitud','gen.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje','via.idviaje')
             ->orderby('gen.idgastocabeza','desc')
@@ -122,7 +122,6 @@ class AsistenteC extends Controller
     public function revision2(Request $request)
     {
         $id=$request->get('idgasto');
-        //dd($id);
         $valor=$request->get('valores');
         $gve=GastoViajeEmpleado::findOrFail($id);
         $gve-> check2 = $valor;
@@ -134,7 +133,7 @@ class AsistenteC extends Controller
             ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
-            ->where('gen.idtipogasto','=',2)
+            //->where('gen.idtipogasto','=',2)
             ->where('gen.idempleado','=',$id)
             ->select('gen.idgastocabeza','gen.fechasolicitud','gen.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje')
             ->orderby('gen.idgastocabeza','desc')

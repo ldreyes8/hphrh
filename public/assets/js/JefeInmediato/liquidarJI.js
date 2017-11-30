@@ -172,19 +172,15 @@
                     dataType: 'json',
              
                    success: function (data) {
+                   		var urlraiz=$("#url_raiz_proyecto").val();
+	                   	$.get(urlraiz+'/empleado/viaje/liquidar/updatemonto',function(data){
+					        $("#disponible").html(data[0]);
+					        $("#liquidacion").html(data[1]);
+					       	$("#montot").html(data[2]);
+					    });
 	                   	if(state == "add"){	_self.rowAdd(data); }
 	                   	if(state == "update"){
-
-	                   		var urlraiz=$("#url_raiz_proyecto").val();
-	                   		$.get(urlraiz+'/empleado/viaje/liquidar/updatemonto',function(data){
-					            $("#disponible").html(data[0]);
-					            $("#liquidacion").html(data[1]);
-					       		$("#montot").html(data[2]);
-
-					        });
-
 	                   		_self.rowUpdate(data);
-	                   		console.log(data);
 	                   	}
               			
                         $('#formAgregarLiquidar').trigger("reset");
