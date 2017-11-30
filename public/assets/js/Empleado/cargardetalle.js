@@ -89,6 +89,8 @@ function detalleavance(arg,id)
     if(arg==1){var miurl =urlraiz+"/empleado/viaje/detallehistorial/"+id;}
     if(arg==2){var miurl =urlraiz+"/empleado/viaje/detalleavance/"+id;}
     if(arg==4){var miurl =urlraiz+"/asistente/cajachica/"+id;}
+    if(arg==5){var miurl =urlraiz+"/asistente/cajachica/liquidar/"+id;}
+
 
     $.ajax({
         url: miurl

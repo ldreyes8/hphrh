@@ -186,29 +186,19 @@
                     data: formData,
                     dataType: 'json',
              
-                   success: function (data) {
+                	success: function (data) {
+                   		var urlraiz=$("#url_raiz_proyecto").val();
+	                   	$.get(urlraiz+'/empleado/viaje/liquidar/updatemonto',function(data){
+					            $("#disponible").html(data[0]);
+					            $("#liquidacion").html(data[1]);
+					       		$("#montot").html(data[2]);
+					    });
+
 	                   	if(state == "add"){	
-	                   		var urlraiz=$("#url_raiz_proyecto").val();
-	                   		$.get(urlraiz+'/empleado/viaje/liquidar/updatemonto',function(data){
-					            $("#disponible").html(data[0]);
-					            $("#liquidacion").html(data[1]);
-					       		$("#montot").html(data[2]);
-
-					        });
-
-	                   		_self.rowAdd(data); }
+	                   		_self.rowAdd(data);
+	                   	}
 	                   	if(state == "update"){
-
-	                   		var urlraiz=$("#url_raiz_proyecto").val();
-	                   		$.get(urlraiz+'/empleado/viaje/liquidar/updatemonto',function(data){
-					            $("#disponible").html(data[0]);
-					            $("#liquidacion").html(data[1]);
-					       		$("#montot").html(data[2]);
-
-					        });
-
 	                   		_self.rowUpdate(data);
-	                   		console.log(data);
 	                   	}
               			
                         $('#formAgregarLiquidar').trigger("reset");
@@ -375,8 +365,7 @@
 
 			this.datatable.row(indice).data(values);
 			this.datatable.draw();
-			//console.log(this.datatable.row(indice).data(values));
-		},
+	},
 
 		rowSave: function( $row ) {
 			var _self     = this,

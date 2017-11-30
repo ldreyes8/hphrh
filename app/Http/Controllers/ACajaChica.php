@@ -63,6 +63,13 @@ class ACajaChica extends Controller
         try
         {
             DB::beginTransaction();
+            $afiliado = $request->afiliado;
+            $cajachica = DB::table('cajachica as caj')
+                ->select('caj.idcajachica')
+                ->where('caj.idafiliado','=',$afiliado->idafiliado)
+                ->first();
+
+
             $fechainicio = $request->fecha_inicio; 
             $fechafinal = $request->fecha_final;
 
@@ -112,6 +119,7 @@ class ACajaChica extends Controller
                 $encabezado-> statusgasto = 'solicitado';
                 $encabezado-> statuspago = 0;
                 $encabezado-> observacion = $request->motivo;
+                $encabezado-> idcajachica = $cajachica->idcajachica;
 
                 $encabezado->save();
 
@@ -138,6 +146,68 @@ class ACajaChica extends Controller
         }
         return response()->json($encabezado);
     }
+
+    // metodos de una nueva liquidación
+    public function liquidar($id){
+        $proyecto = DB::table('cajachica as caj')
+            ->join('gastoencabezado as gen','caj.idcajachica','=','gen.idcajachica')
+            ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
+            ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
+            ->join('viaje as via','gvi.idviaje','=','via.idviaje')
+            ->where('gen.statusgasto','=','Autorizado')
+            ->where('gen.idcajachica','=', $id)
+            ->select('gen.idgastocabeza','gen.fechasolicitud','caj.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje','via.idviaje')
+            ->first();
+
+        if (empty($proyecto->idgastocabeza)) {
+            $liquidar = 0;
+            return view ('empleado.viaje.indexliquidar',["liquidar"=>$liquidar]);
+        }
+        else{
+            $liquidar = 1;
+
+            $liquidacion= DB::table('gastoviajeempleado as gve')
+                ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
+                ->join('gastoencabezado as gen','gvi.idgastocabeza','=','gen.idgastocabeza')
+                ->join('cajachica as caj','gen.idcajachica','=','caj.idcajachica')
+                ->select(DB::raw('SUM(gve.montofactura) as liquidacion'))
+                ->where('caj.idcajachica','=',$id)
+                ->first();
+
+            $gastoviajeemp = DB::table('gastoviajeempleado as gve')
+                ->join('proyectocabeza as pro','gve.idproyecto','=','pro.idproyecto')
+                ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
+                ->join('empleado as emp','gve.idempleado','=','emp.idempleado')
+                ->join('persona as per','emp.identificacion','=','per.identificacion')
+                ->join('plancuentas as pcu','gve.codigocuenta','pcu.codigocuenta')
+                ->join('gastoencabezado as gen','gvi.idgastocabeza','=','gen.idgastocabeza')
+                ->join('cajachica as caj','gen.idcajachica','=','caj.idcajachica')
+                ->select('per.nombre1','per.nombre2','per.nombre3','per.apellido1','per.apellido2','per.apellido3','gve.factura','gve.fechafactura as fecha','gve.montofactura as monto','gve.descripcion','pcu.nombrecuenta as cuenta','pro.nombreproyecto as proyecto','gve.idgastoempleado')
+                ->where('caj.idcajachica','=',$id)
+                ->get();
+
+            $vehiculo = DB::table('viajevehiculo as vve')
+                ->join('vehiculo as veh','vve.idvehiculo','=','veh.idvehiculo')
+                ->select('veh.placa','veh.color','veh.marca','veh.modelo','veh.kilacumulado','vve.idviajevehiculo','vve.kilometrajeini','vve.kilometrajefin')
+                ->where('vve.idviaje','=',$proyecto->idviaje)
+                ->get();
+
+            return view ('empleado.viaje.indexliquidar',["proyecto"=>$proyecto,"gastoviajeemp"=>$gastoviajeemp,"vehiculo"=>$vehiculo,"liquidar"=>$liquidar,"liquidacion"=>$liquidacion]);
+        }
+    }
+
+    public function indexliquidar(){
+        $viaje = DB::table('cajachica as caj')
+            ->join('tipogasto as tga','caj.idtipogasto','=','tga.idtipogasto')
+            ->join('proyectocabeza as pca','caj.idproyecto','=','pca.idproyecto')
+            ->join('empleado as emp','caj.idempleado','=','emp.idempleado')
+            ->select('caj.fechasolicitud','caj.montosolicitado','caj.statusgasto','tga.tipogasto','caj.idcajachica','pca.nombreproyecto as proyecto')
+            ->where('emp.idempleado','=',$this->empleado()->idempleado)
+            ->get();
+        return view ('asistente.cajachica.indexviaje',["viaje"=>$viaje]);
+    }
+
+
 
     public function validateRequest($request){
         $rules=[

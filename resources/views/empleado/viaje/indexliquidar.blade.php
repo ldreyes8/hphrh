@@ -288,7 +288,9 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
             }
         });
 
-        var miurl = urlraiz+"/empleado/viaje/liquidar/add";
+        var id = $("#idgastocabeza").val();
+
+        var miurl = urlraiz+"/empleado/viaje/liquidar/add/"+id;
         $.get(miurl,function(data){
             $("#modaliq").html(data);
             $('#inputTitleLiquidar').html("Agregar registro liquidación");

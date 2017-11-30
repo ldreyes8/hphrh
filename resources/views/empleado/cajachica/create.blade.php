@@ -1,6 +1,7 @@
 <div class="card-box" id="VPJF">
     <h4 class="box-title" align="center">Solicitar vale</h4>
-    <hr style="border-color:black;" />    
+    <hr style="border-color:black;" />
+    <input type="hidden" name="" id="idafiliado" value="{{$afiliado->idafiliado}}">
 
         <form role="form" id="formAgregarViaje">
             <div class="modal-header">
@@ -33,12 +34,6 @@
                             <input type="radio" id="deposito" value="cheque" name="deposito" checked>
                             <label for="inlineRadio2">Efectivo</label>
                         </div>
-                        <!--
-                        <div class="radio radio-info radio-inline">
-                            <input type="radio" id="deposito" value="transferencia" name="deposito" checked>
-                            <label for="inlineRadio16">Transferencia</label>
-                        </div>
-                        -->
                     </div>
                 </div>
             </div>
@@ -79,18 +74,18 @@
             </div>
 
             <div id="taboculto" class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                        <div><br></div>
-                    <table id="table-veh" class="table table-striped table-bordered table-hover">
-                        <thead style="background-color:#A9D0F5">
-                            <tr>
-                                <th>Opciones</th>
-                                <th>Vehiculo</th>
-                                <th>Kilometraje</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                <div><br></div>
+                <table id="table-veh" class="table table-striped table-bordered table-hover">
+                    <thead style="background-color:#A9D0F5">
+                        <tr>
+                            <th>Opciones</th>
+                            <th>Vehiculo</th>
+                            <th>Kilometraje</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
         </div>
         <div class="modal-header">
@@ -103,7 +98,7 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-danger btn-cancelviaje" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary btn-addviaje" id="btnGuardarAvance">Guardar</button>
+        <button type="button" class="btn btn-primary btn-addviaje" value="cajac" id="btnGuardarAvance">Guardar</button>
         <input type="hidden" name="idE" id="idE" value="0"/>
     </div>
 </div>

@@ -348,30 +348,27 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('viaje/cargarbusqueda','EViajeController@cargarbusqueda');
 	Route::post('viaje/store','EViajeController@store');
 
-
 	Route::get('viaje/liquidar/pdf/{id}','EViajeController@descargardetalle');
+	Route::get 	('viaje/liquidar/updatemonto','EViajeController@updateml');
 
-
-	Route::get('viaje/liquidar','EViajeController@liquidar');
-	Route::get('viaje/liquidar/add','EViajeController@addl');
-	Route::post('viaje/liquidar/store','EViajeController@storel');
-	Route::get('viaje/liquidar/edit/{id}','EViajeController@editl');
-	Route::put('viaje/liquidar/update/{id}','EViajeController@updatel');
+	Route::get 	('viaje/liquidar/{id}','EViajeController@liquidar');
+	Route::get 	('viaje/liquidar/add/{id}','EViajeController@addl');
+	Route::post ('viaje/liquidar/store','EViajeController@storel');
+	Route::get 	('viaje/liquidar/edit/{id}','EViajeController@editl');
+	Route::put 	('viaje/liquidar/update/{id}','EViajeController@updatel');
 	Route::delete('viaje/liquidar/delete/{id}','EViajeController@deletel');
-	Route::post('viaje/liquidar/envio','EViajeController@enviol');
-	Route::get('viaje/liquidar/updatemonto','EViajeController@updateml');
-	Route::post('viaje/liquidar/cancelar','EViajeController@cancelarl');
+	Route::post ('viaje/liquidar/envio','EViajeController@enviol');
+	Route::post ('viaje/liquidar/cancelar','EViajeController@cancelarl');
 
+	Route::get 	('viaje/vehiculo/edit/{id}','EViajeController@vehedit');
+	Route::put 	('viaje/vehiculo/update/{id}','EViajeController@vehupdate');
 
-	Route::get('viaje/vehiculo/edit/{id}','EViajeController@vehedit');
-	Route::put('viaje/vehiculo/update/{id}','EViajeController@vehupdate');
+	Route::get 	('viaje/indexhistorial','EViajeController@indexhistorial');
+	Route::get 	('viaje/detallehistorial/{id}','EViajeController@detallehistorial');
+	Route::get 	('viaje/detalleavance/{id}','EViajeController@detalle');
 
-
-	Route::get('viaje/indexhistorial','EViajeController@indexhistorial');
-	Route::get('viaje/detallehistorial/{id}','EViajeController@detallehistorial');
-	Route::get('viaje/detalleavance/{id}','EViajeController@detalle');
-
-	Route::get('cajachica/add','ECajaChica@add');
+	Route::get 	('cajachica/add','ECajaChica@add');
+	Route::post ('cajachica/store','ECajaChica@store');
 
 });
 
@@ -494,9 +491,13 @@ Route::group(['prefix'=>'asistete'],function()
 Route::group(['prefix'=>'asistente'],function()
 {
 	//Aperturar Caja chica
-		Route::get('cajachica','ACajaChica@index');
-		Route::get('cajachica/create','ACajaChica@create');
-		Route::post('cajachica/store','ACajaChica@store');
+		Route::get 	('cajachica','ACajaChica@index');
+		Route::get 	('cajachica/create','ACajaChica@create');
+		Route::post ('cajachica/store','ACajaChica@store');
+		Route::get 	('cajachica/indexliquidar','ACajaChica@indexliquidar');
+		Route::get  ('cajachica/liquidando','ACajaChica@indexliquidar');
+		Route::get 	('cajachica/liquidar/{id}','ACajaChica@liquidar');
+
 });
 
 //rutas del controlador de Usuario

@@ -6,7 +6,9 @@ $(document).on('click','.btn-SolViaje',function(e){
 
 $('#btnGuardarAvance').click(function(e) {
     e.preventDefault();
+
     var $f = $(this);
+    var stad=$("#btnGuardarAvance").val();
 
     if($f.data('locked') == undefined && !$f.data('locked'))
     {
@@ -15,8 +17,16 @@ $('#btnGuardarAvance').click(function(e) {
         var resdeposito="ninguno";
         var resvehiculo="ninguno";
         var itemsData=[];
+        var miurl;
+        if(stad == "cajac")
+        {
+            miurl=urlraiz+"/empleado/cajachica/store";
+        }
 
-        var miurl=urlraiz+"/empleado/viaje/store";
+        if(stad =="movi")
+        {
+            miurl=urlraiz+"/empleado/viaje/store";
+        }
 
         var deposito=document.getElementsByName("deposito");
         var solicitarveh=document.getElementsByName("hvehiculo");
@@ -54,6 +64,7 @@ $('#btnGuardarAvance').click(function(e) {
             kilometraje_inicial: $('#kinicial').val(),
             kilometraje_final: $('#kfinal').val(),
             vehiculo: itemsData,
+            afiliado: $('#idafiliado').val(),
         };
         
         $.ajaxSetup({

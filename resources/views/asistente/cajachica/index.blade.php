@@ -25,7 +25,7 @@
                         <span>Apertura caja chica</span>
                     </li>-->
                     <li>
-                        <a onclick="cargar_formularioviaje(2);"><img src="{{asset('assets/images/liquidar.png')}}"/></a>
+                        <a onclick="cargar_formularioasistente(2);"><img src="{{asset('assets/images/liquidar.png')}}"/></a>
                         <span>Enviar reporte</span>
                     </li>
                     <li>

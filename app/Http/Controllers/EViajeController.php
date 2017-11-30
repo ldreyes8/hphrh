@@ -17,6 +17,7 @@ use Illuminate\Support\Collection as Collection;
 use PDF;
 
 use Carbon\Carbon;  // para poder usar la fecha y hora
+
 class EViajeController extends Controller
 {   
     public function __construct()
@@ -305,21 +306,20 @@ class EViajeController extends Controller
     }
 
     // metodos de una nueva liquidación
-    public function liquidar(){
+    public function liquidar($id){
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
             ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.statusgasto','=','Autorizado')
-            //->where('gen.statusgasto','=','solicitado')
-            ->where('gen.idtipogasto','=',2)
-            ->where('gen.idempleado','=',$this->empleado()->idempleado)
+            ->where('gen.idgastocabeza','=', $id)
             ->select('gen.idgastocabeza','gen.fechasolicitud','gen.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje','via.idviaje')
             ->orderby('gen.idgastocabeza','desc')
             ->first();
 
+
         if (empty($proyecto->idgastocabeza)) {
-                $liquidar = 0;
+            $liquidar = 0;
             return view ('empleado.viaje.indexliquidar',["liquidar"=>$liquidar]);
         }
         else{
@@ -381,14 +381,13 @@ class EViajeController extends Controller
         return view('empleado.viaje.row',["empleado"=>$empleado,"cuenta"=>$cuenta,"gencabezado"=>$genc]);
     }
 
-    public function addl(){
+    public function addl($id){
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
             ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.statusgasto','=','Autorizado')
-            //->where('gen.statusgasto','=','solicitado')
-            ->where('gen.idtipogasto','=',2)
+            ->where('gen.idgastocabeza','=',$id)
             ->where('gen.idempleado','=',$this->empleado()->idempleado)
             ->select('gen.idgastocabeza','gen.fechasolicitud','gen.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje')
             ->orderby('gen.idgastocabeza','desc')
@@ -575,13 +574,12 @@ class EViajeController extends Controller
 
     // update monto liquidacion y monto disponible
     public function updateml(){
+
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
             ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.statusgasto','=','Autorizado')
-            //->where('gen.statusgasto','=','solicitado')
-            ->where('gen.idtipogasto','=',2)
             ->where('gen.idempleado','=',$this->empleado()->idempleado)
             ->select('gen.idgastocabeza','gen.fechasolicitud','gen.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje','via.idviaje')
             ->orderby('gen.idgastocabeza','desc')

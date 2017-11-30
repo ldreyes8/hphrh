@@ -12,7 +12,7 @@
                     <th>Inicio</th>
                     <th>Fin</th>
                     <th>Monto solicitado</th>
-                    <th>Tipo proyecto</th>
+                    <th>Tipo gasto</th>
                     <th>Autorizaci&oacute;n</th>                                
                     <th>Opciones</th>
                 </thead>
@@ -26,7 +26,7 @@
                     <td>{{$via->statusgasto}}</td>
                     @if($via->statusgasto == 'Autorizado')
                     <td>
-                        <a onclick="cargar_formularioviaje(3);"><button class="btn btn-primary" title="Agregar factura"><i class="glyphicon glyphicon-edit"></i></button></a>
+                        <a onclick="cargar_liquidacion(3,{{$via->idgastocabeza}});"><button class="btn btn-primary" title="Agregar factura" value="ad" id="liquidarvia"><i class="glyphicon glyphicon-edit"></i></button></a>
                     </td>
                     @elseif($via->statusgasto == 'solicitado')
                     <td>

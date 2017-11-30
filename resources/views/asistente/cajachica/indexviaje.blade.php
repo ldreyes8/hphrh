@@ -9,28 +9,22 @@
             <table class="table table-striped table-bordered table-condensed table-hover" id="index-viaje"> 
                 <thead>
                     <th>Solicitud</th>
-                    <th>Inicio</th>
-                    <th>Fin</th>
                     <th>Monto solicitado</th>
-                    <th>Tipo proyecto</th>
-                    <th>Autorizaci&oacute;n</th>                                
+                    <th>Tipo gasto</th>
+                    <th>Autorizaci&oacute;n</th>
+                    <th>Proyecto</th>                                
                     <th>Opciones</th>
                 </thead>
                 @foreach ($viaje as $via)
                 <tr>
                     <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$via->fechasolicitud)->format('d/m/Y')}}</td>
-                    <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$via->fechainicio)->format('d/m/Y')}}</td>
-                    <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$via->fechafin)->format('d/m/Y')}}</td>
                     <td>{{$via->montosolicitado}}</td>
                     <td>{{$via->tipogasto}}</td>
                     <td>{{$via->statusgasto}}</td>
+                    <td>{{$via->proyecto}}</td>
                     @if($via->statusgasto == 'Autorizado')
-                    <td><a onclick="cargar_formularioviaje(3);"><button class="btn btn-primary">Liquidar</button></a>
-                        <a href="javascript:void(0);" onclick="detalleavance(2,{{$via->idgastocabeza}});">
-                            <button class="btn btn-primary">Detalles</button>
-                        </a>
-
-                        
+                    <td>
+                        <a onclick="detalleavance(5,{{$via->idcajachica}});"><button class="btn btn-primary" title="Agregar factura"><i class="glyphicon glyphicon-edit"></i></button></a>
                     </td>
                     @elseif($via->statusgasto == 'solicitado')
                     <td><a href="javascript:void(0);" onclick="detalleavance(2,{{$via->idgastocabeza}});"><button class="btn btn-primary">Detalles</button></a>
@@ -144,14 +138,7 @@
 
                 setVars: function() {
                     this.$table             = $( this.options.table );
-                    //this.$addButton         = $( this.options.addButton );
-
-                    // dialog
                     this.dialog             = {};
-                    //this.dialog.$wrapper    = $( this.options.dialog.wrapper );
-                    //this.dialog.$cancel     = $( this.options.dialog.cancelButton );
-                    //this.dialog.$confirm    = $( this.options.dialog.confirmButton );
-
                     return this;
                 },
 
@@ -184,7 +171,6 @@
                             null,
                             null,
                             null,
-                            null,
                             { "bSortable": false }
                         ],
                         aLengthMenu: [ 
@@ -201,10 +187,7 @@
 
                 events: function() {
                     var _self = this;
-
                     this.$table
-                    
-
                     return this;
                 },
             };
@@ -212,32 +195,5 @@
             $(function() {
                 EditableTable.initialize();
             });
-
         }).apply( this, [ jQuery ]);
-    </script>
-
-    <script type="text/javascript">
-        $(document).on('click','.btn-SolViaje',function(e){
-      
-
-        var errHTML="";
-        e.preventDefault();
-        $.get('viaje/status',function(data){
-            var autorizacion = data;
-/*
-            if(autorizacion == 'Contabilizado' || autorizacion == 'ninguno')
-            {
-                swal({
-                    title: "Solicitud denegada",
-                    text: "No puede realizar esta solicitud porque tiene una en proceso",
-                    type: "error",
-                    confirmButtonClass: 'btn-danger waves-effect waves-light',
-                   
-                });
-            }
-            else{*/
-                cargar_formularioviaje(3);
-            //}
-        });
-    });
     </script>
