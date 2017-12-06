@@ -38,7 +38,7 @@ class JIViajeController extends Controller
         ->join('persona as per','emp.identificacion','=','per.identificacion')
         ->join('gastoencabezado as ge','emp.idempleado','=','ge.idempleado')
         ->join('tipogasto as tg','ge.idtipogasto','=','tg.idtipogasto')
-        ->join('proyectocabeza as pc','pc.idproyecto','=','ge.idproyecto')
+        ->join('proyecto as pc','pc.idproyecto','=','ge.idproyecto')
         ->join('gastoviaje as gv','gv.idgastocabeza','=','ge.idgastocabeza')
         ->join('viaje as v','v.idviaje','=','gv.idviaje')
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','emp.idempleado','tg.tipogasto','ge.idgastocabeza','ge.montosolicitado','pc.nombreproyecto','v.fechainicio','v.fechafin')
@@ -61,7 +61,7 @@ class JIViajeController extends Controller
         ->join('persona as per','emp.identificacion','=','per.identificacion')
         ->join('gastoencabezado as ge','emp.idempleado','=','ge.idempleado')
         ->join('tipogasto as tg','ge.idtipogasto','=','tg.idtipogasto')
-        ->join('proyectocabeza as pc','pc.idproyecto','=','ge.idproyecto')
+        ->join('proyecto as pc','pc.idproyecto','=','ge.idproyecto')
         ->join('gastoviaje as gv','gv.idgastocabeza','=','ge.idgastocabeza')
         ->join('viaje as v','v.idviaje','=','gv.idviaje')
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','emp.idempleado','tg.tipogasto','ge.idgastocabeza','ge.montosolicitado','pc.nombreproyecto','v.fechainicio','v.fechafin')
@@ -85,7 +85,7 @@ class JIViajeController extends Controller
         ->join('persona as per','emp.identificacion','=','per.identificacion')
         ->join('gastoencabezado as ge','emp.idempleado','=','ge.idempleado')
         ->join('tipogasto as tg','ge.idtipogasto','=','tg.idtipogasto')
-        ->join('proyectocabeza as pc','pc.idproyecto','=','ge.idproyecto')
+        ->join('proyecto as pc','pc.idproyecto','=','ge.idproyecto')
         ->join('gastoviaje as gv','gv.idgastocabeza','=','ge.idgastocabeza')
         ->join('viaje as v','v.idviaje','=','gv.idviaje')
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','emp.idempleado','tg.tipogasto','ge.idgastocabeza','ge.montosolicitado','pc.nombreproyecto','v.fechainicio','v.fechafin')
@@ -100,7 +100,7 @@ class JIViajeController extends Controller
         $viaje = DB::table('empleado as emp')
         ->join('gastoencabezado as ge','emp.idempleado','=','ge.idempleado')
         ->join('tipogasto as tg','ge.idtipogasto','=','tg.idtipogasto')
-        ->join('proyectocabeza as pc','pc.idproyecto','=','ge.idproyecto')
+        ->join('proyecto as pc','pc.idproyecto','=','ge.idproyecto')
         ->join('gastoviaje as gv','gv.idgastocabeza','=','ge.idgastocabeza')
         ->join('viaje as v','v.idviaje','=','gv.idviaje')
         ->select('emp.idempleado','tg.tipogasto','ge.montosolicitado','pc.nombreproyecto','v.fechainicio','v.fechafin','ge.chequetransfe','ge.moneda','v.motivo','v.numerodias')
@@ -133,7 +133,7 @@ class JIViajeController extends Controller
     public function detalleautoas($id)
     {
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
-            ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
+            ->join('proyecto as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.statusgasto','=','Revisado')
@@ -156,7 +156,7 @@ class JIViajeController extends Controller
             ->first();
 
             $gastoviajeemp = DB::table('gastoviajeempleado as gve')
-                ->join('proyectocabeza as pro','gve.idproyecto','=','pro.idproyecto')
+                ->join('proyecto as pro','gve.idproyecto','=','pro.idproyecto')
                 ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
                 ->join('empleado as emp','gve.idempleado','=','emp.idempleado')
                 ->join('persona as per','emp.identificacion','=','per.identificacion')
@@ -165,7 +165,7 @@ class JIViajeController extends Controller
                 ->where('gvi.idgastocabeza','=',$proyecto->idgastocabeza)
                 ->get();
 
-            $proyectos = DB::table('proyectocabeza as pca')
+            $proyectos = DB::table('proyecto as pca')
                 ->select('pca.idproyecto','pca.nombreproyecto')
                 ->get();
 
@@ -210,7 +210,7 @@ class JIViajeController extends Controller
         ->join('persona as per','emp.identificacion','=','per.identificacion')
         ->join('gastoencabezado as ge','emp.idempleado','=','ge.idempleado')
         ->join('tipogasto as tg','ge.idtipogasto','=','tg.idtipogasto')
-        ->join('proyectocabeza as pc','pc.idproyecto','=','ge.idproyecto')
+        ->join('proyecto as pc','pc.idproyecto','=','ge.idproyecto')
         ->join('gastoviaje as gv','gv.idgastocabeza','=','ge.idgastocabeza')
         ->join('viaje as v','v.idviaje','=','gv.idviaje')
         ->select(DB::raw('CONCAT(per.nombre1," ",per.apellido1) AS nombre'),'per.identificacion','emp.idempleado','tg.tipogasto','ge.idgastocabeza','ge.montosolicitado','pc.nombreproyecto','v.fechainicio','v.fechafin')

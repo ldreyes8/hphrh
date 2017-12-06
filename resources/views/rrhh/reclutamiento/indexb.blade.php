@@ -2,24 +2,21 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h3 class="box-title" align="center">Listado de solicitudes de empleo nacional</h3>
             </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                @include('rrhh.reclutamiento.search')
-            </div>
-
         
            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                  <div class="table-responsive">
                     <input type="hidden" value="{{$var}}">
-                     <table class="table table-striped table-bordered table-condensed table-hover">
+                     <table id="datatable-buttons" class="table table-striped table-bordered table-condensed table-hover" data-order='[[6, "desc"]]'>
                          <thead>
                              <th style="width: 2%">Id</th>
                              <th style="width: 4%">Identificación</th>
                              <th style="width: 2%">Nit</th>
-                             <th style="width: 10%">Nombre</th>
+                             <th style="width: 20%">Nombre</th>
                              <th style="width: 5%">Afiliado </th>
-                             <th style="width: 10%">Puesto </th>
+                             <th style="width: 12%">Puesto </th>
+                             <th style="width: 5%">Solicitud</th>
                              <th style="width: 5%">Status</th>
-                             <th style="width: 62%">Opciones</th>
+                             <th style="width: 45%">Opciones</th>
                          </thead>
                          @foreach ($empleados as $em)
                          <tr class="even gradeA">
@@ -31,17 +28,18 @@
                             <td>{{$em->nombre1.' '.$em->nombre2.' '.$em->apellido1.' '.$em->apellido2}}</td>
                             <td>{{$em->afnombre}}</td>
                             <td>{{$em->puesto}}</td>
+                            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $em->fechasolicitud)->format('d-m-Y')}}</td>
                             <td>{{$em->status}}
                                 <input type="hidden" class="idstatus" value="{{$em->idstatus}}">
                                 
                             </td>
                             <td>
-                                <a href="{{url('empleado/solicitudes/show',array('id'=>$em->identificacion,'ids'=>$var))}}"><button class="btn btn-primary" title="Detalles">Detalles</button></a>
+                                <a href="{{url('empleado/solicitudes/show',array('id'=>$em->identificacion,'ids'=>$var))}}"><button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button></a>
                                 
-                                <a href="{{URL::action('Pprueba@update',$em->idempleado)}}"><button class="btn btn-primary">Aceptar</button></a>
+                                <a href="{{URL::action('Pprueba@update',$em->idempleado)}}"><button class="btn btn-success" title="Aceptar"><i class="fa fa-handshake-o"></i></button></a>
                             
                                 <a> 
-                                    <button id="btnrechazo" 
+                                    <button title="Rechazar" id="btnrechazo" 
                                         onclick='
                                         swal({
                                             title: "¿Está seguro de Rechazar la solicitud?",
@@ -77,14 +75,13 @@
                                             }
                                             });
                                         ' 
-                                    class="btn btn-primary btnrechazo">Rechazar</button>
+                                    class="btn btn-danger btnrechazo"><i class="fa fa-remove"></i></button>
                                 </a>
-                                <a href="{{URL::action('SController@Spdf',$em->identificacion)}}"><button class="btn btn-primary">Descargar</button></a>
+                                <a href="{{URL::action('SController@Spdf',$em->identificacion)}}"><button class="btn btn-default" title="Descargar"><i class="fa fa-download"></i></button></a>
                             </td>
                          </tr>
                          @endforeach
                      </table>
                  </div>
-                {{$empleados->render()}}
            </div>
 </div>

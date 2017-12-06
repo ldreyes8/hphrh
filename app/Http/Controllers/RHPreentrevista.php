@@ -202,26 +202,20 @@ class RHPreentrevista extends Controller
     }
     public function listadopreE (Request $request)
     {
-    	if($request)
-        {
-            $query=trim($request->get('searchText'));
+
             $empleados=DB::table('empleado as e')
             ->join('persona as p','e.identificacion','=','p.identificacion')
             ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
             ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
             ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
             ->join('status as s','e.idstatus','=','s.idstatus')
-            ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
+            ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre','e.fechasolicitud')
             ->where('e.idstatus','=',13)
             ->orwhere('e.idstatus','=',16)
-
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
-            ->orderBy('e.fechasolicitud','desc')
-            
             ->get();
-            }
             $var='2';
-            return view('rrhh.preentrevista.listadoPE',["empleados"=>$empleados,"searchText"=>$query,"var"=>$var]);	
+            return view('rrhh.preentrevista.listadoPE',["empleados"=>$empleados,"var"=>$var]);	
     }
     public function prelistadojf(Request $request)
     {

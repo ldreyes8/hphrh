@@ -131,6 +131,7 @@
 				e.preventDefault();
 				//_self.rowAdd();
 				var idliq=$('#idgastoemp').val();
+				var idemp=$('#idempleado').val();
 
                 $.ajaxSetup({
                     headers: {
@@ -172,8 +173,9 @@
                     dataType: 'json',
              
                    success: function (data) {
+                   	console.log(idemp);
                    		var urlraiz=$("#url_raiz_proyecto").val();
-	                   	$.get(urlraiz+'/empleado/viaje/liquidar/updatemonto',function(data){
+	                   	$.get(urlraiz+'/asistete/viaje/updatemonto/'+idemp,function(data){
 					        $("#disponible").html(data[0]);
 					        $("#liquidacion").html(data[1]);
 					       	$("#montot").html(data[2]);

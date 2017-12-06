@@ -464,6 +464,7 @@ Route::group(['prefix'=>'ji'],function(){
 		Route::get('viajejf/detallesliq/{id}','JIViajeController@detalleautoas');
 		Route::put('viajejf/revok','JIViajeController@revok');
 		Route::put('viajejf/revretorna','JIViajeController@revretorna');
+
 	//Reporte de vacaciones y permisos.
 		Route::get('reporte/vpempleado', 'JIReporte@reportevp')->middleware('roleshinobi:jefeinmediato');
 		Route::get('reporte/vpempleado/index', 'JIReporte@vpindex')->middleware('roleshinobi:jefeinmediato');
@@ -486,6 +487,7 @@ Route::group(['prefix'=>'asistete'],function()
 		Route::put('viaje/revisado','AsistenteC@revisado');
 		Route::put('viaje/tramite','AsistenteC@tramite');
 		Route::delete('viaje/delete/{id}','AsistenteC@elimina');
+		Route::get('viaje/updatemonto/{id}','AsistenteC@updateml');
 });
 
 Route::group(['prefix'=>'asistente'],function()

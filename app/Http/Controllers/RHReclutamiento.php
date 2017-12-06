@@ -115,25 +115,19 @@ class RHReclutamiento extends Controller
     }
     public function index(Request $request)
     {
-        if($request)
-            {
-            $dato=trim($request->get('dato_buscado'));
             $empleados=DB::table('empleado as e')
             ->join('persona as p','e.identificacion','=','p.identificacion')
             ->join('estadocivil as ec','e.idcivil','=','ec.idcivil')
             ->join('puesto as pu','p.idpuesto','=','pu.idpuesto')
             ->join('afiliado as af','p.idafiliado','=','af.idafiliado')
             ->join('status as s','e.idstatus','=','s.idstatus')
-            ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre')
+            ->select('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado as estadocivil','s.idstatus','s.statusemp as status','pu.nombre as puesto','af.nombre as afnombre','e.fechasolicitud')
             ->where('s.statusemp','=','Aspirante'  )
             ->orwhere('s.statusemp','=','Solicitante Interno')
             ->groupBy('e.idempleado','e.identificacion','e.nit','p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','ec.estado','s.statusemp','pu.nombre','af.nombre')
-            ->orderBy('e.fechasolicitud','desc')
-            ->paginate(19);
-            //->get();
+            ->get();
             $var='1';
-            return view('rrhh.reclutamiento.solicitud',["empleados"=>$empleados,"dato"=>$dato,"var"=>$var]);
-            }
+            return view('rrhh.reclutamiento.solicitud',["empleados"=>$empleados,"var"=>$var]);
     }
     public function indexjf(Request $request)
     {

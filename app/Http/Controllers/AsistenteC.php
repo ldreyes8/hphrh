@@ -47,7 +47,7 @@ class AsistenteC extends Controller
     public function detalleautoas($id)
     {
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
-            ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
+            ->join('proyecto as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.statusgasto','=','Autorizado')
@@ -58,8 +58,8 @@ class AsistenteC extends Controller
             ->first();
 
         if (empty($proyecto->idgastocabeza)) {
-                $liquidar = 0;
-                 return view ('empleado.viaje.indexliquidar',["liquidar"=>$liquidar]);
+            $liquidar = 0;
+            return view ('empleado.viaje.indexliquidar',["liquidar"=>$liquidar]);
         }
         else{
             $liquidar = 1;
@@ -71,7 +71,7 @@ class AsistenteC extends Controller
             ->first();
 
             $gastoviajeemp = DB::table('gastoviajeempleado as gve')
-                ->join('proyectocabeza as pro','gve.idproyecto','=','pro.idproyecto')
+                ->join('proyecto as pro','gve.idproyecto','=','pro.idproyecto')
                 ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
                 ->join('empleado as emp','gve.idempleado','=','emp.idempleado')
                 ->join('persona as per','emp.identificacion','=','per.identificacion')
@@ -80,7 +80,7 @@ class AsistenteC extends Controller
                 ->where('gvi.idgastocabeza','=',$proyecto->idgastocabeza)
                 ->get();
 
-            $proyectos = DB::table('proyectocabeza as pca')
+            $proyectos = DB::table('proyecto as pca')
                 ->select('pca.idproyecto','pca.nombreproyecto')
                 ->get();
 
@@ -130,7 +130,7 @@ class AsistenteC extends Controller
     }
     public function addl($id){
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
-            ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
+            ->join('proyecto as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             //->where('gen.idtipogasto','=',2)
@@ -140,7 +140,7 @@ class AsistenteC extends Controller
             ->first();
 
         $gastoviajeemp = DB::table('gastoviajeempleado as gve')
-            ->join('proyectocabeza as pro','gve.idproyecto','=','pro.idproyecto')
+            ->join('proyecto as pro','gve.idproyecto','=','pro.idproyecto')
             ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
             ->join('empleado as emp','gve.idempleado','=','emp.idempleado')
             ->join('persona as per','emp.identificacion','=','per.identificacion')
@@ -149,7 +149,7 @@ class AsistenteC extends Controller
             ->where('gvi.idgastocabeza','=',$proyecto->idgastocabeza)
             ->get();
 
-        $proyectos = DB::table('proyectocabeza as pca')
+        $proyectos = DB::table('proyecto as pca')
             ->select('pca.idproyecto','pca.nombreproyecto')
             ->get();
 
@@ -187,5 +187,29 @@ class AsistenteC extends Controller
         $gastoencabezado-> statusgasto = 'Revisado';
         $gastoencabezado->save();
         return response()->json($gastoencabezado);
+    }
+    public function updateml($id)
+    {
+        dd($id);
+        $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
+            ->join('proyecto as pca','gen.idproyecto','=','pca.idproyecto')
+            ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
+            ->join('viaje as via','gvi.idviaje','=','via.idviaje')
+            ->where('gen.statusgasto','=','Autorizado')
+            ->where('gen.idempleado','=',$id)
+            ->select('gen.idgastocabeza','gen.fechasolicitud','gen.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje','via.idviaje')
+            ->orderby('gen.idgastocabeza','desc')
+            ->first();
+
+            $liquidacion= DB::table('gastoviajeempleado as gve')
+            ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
+            ->select(DB::raw('SUM(gve.montofactura) as liquidacion'))
+            ->where('gvi.idgastocabeza','=',$proyecto->idgastocabeza)
+            ->first();
+
+        $disponible = $proyecto->monto - $liquidacion->liquidacion;
+        $calculo = array($disponible,$liquidacion->liquidacion,$proyecto->monto);
+        
+        return response()->json($calculo);
     }
 }

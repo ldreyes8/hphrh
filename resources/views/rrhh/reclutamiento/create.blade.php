@@ -59,7 +59,7 @@
         </div>
 
         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Caso</label>
                     <select name="idcaso" id="idcaso" class="form-control selectpicker" data-live-search="true" >
@@ -70,7 +70,7 @@
                 </div>                                                
             </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                 <label for="salario">Salario *</label>
                 <div class="input-group">
                     <span class="input-group-addon">Q</i></span>
@@ -81,10 +81,24 @@
                 @endif
             </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="fecha">Fecha *</label>
-                    <input id="dato1" type="text" class="form-control" name="fecha">
+                    <input id="datof" type="text" class="form-control" onkeypress="mascaraData(this)">
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                <label for="salario">Codico L4</label>
+                <div class="form-group">
+                    <input type="text" name="l4" id="l4" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="fecha">No. de Cuenta</label>
+                    <input id="ncuenta" type="text" class="form-control" name="ncuenta">
                 </div>
             </div>
         </div>
@@ -129,7 +143,6 @@
             </div>
         </div>
 
-
         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="descripcion">Observaciones</label>
@@ -147,7 +160,6 @@
                 </div>
             </div>
         </div>
-
 </div>
 <div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
   <div class="modal-dialog">
@@ -180,20 +192,13 @@
         <script src="{{asset('assets/js/bootstrap-select.min.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
         <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
-    //
         <script type="text/javascript">
-        $(document).ready(function() {
-
-            $(".select2").select2();
-
-            $('#bt_add1').click(function() {
-                    agregar7();
-                });
-        });
-            
+            $(document).ready(function() {
+                $(".select2").select2();
+                $('#bt_add1').click(function() {agregar7();});
+            });
             $("#btnguardar").hide();
             $("#btncancelar").hide();
-
             function valida(e){
                 tecla = e.keyCode || e.which;
                 tecla_final = String.fromCharCode(tecla);
@@ -207,7 +212,6 @@
                 //patron =/^\d{9}$/;
                 return patron.test(tecla_final);
             }
-            
             var contJI=0;
             function limpiar()
             {
@@ -245,7 +249,6 @@
                 }
 
             }
-            
             function eliminar(index)
             {
                 $("#fila" + index).remove();
@@ -253,8 +256,8 @@
             }
 
 
-$(document).on('click','.btnguardar',function(e){
-    var urlraiz=$("#url_raiz_proyecto").val();
+            $(document).on('click','.btnguardar',function(e){
+                var urlraiz=$("#url_raiz_proyecto").val();
                 swal({
                         title: "¿Está seguro?",
                         text: "Usted confirmara a esta persona en un puesto",
@@ -280,11 +283,13 @@ $(document).on('click','.btnguardar',function(e){
                         var formData = {
                             idpuesto: $('#idpuesto').val(),
                             idempleado: $('#idempleado').val(),
-                            fecha: $('#dato1').val(),
+                            fecha: $('#datof').val(),
                             salario: $('#salario').val(),
                             descripcion: $('#descripcion').val(),
                             idafiliado: $('#idafiliado').val(),
                             idcaso: $('#idcaso').val(),
+                            ncuenta: $('#ncuenta').val(),
+                            le4: $('#l4').val(),
                             items: itemsData,
                         };
                         $.ajaxSetup({
@@ -342,8 +347,72 @@ $(document).on('click','.btnguardar',function(e){
                          swal("Cancelado", "No se ha guardado el registro :)", "error");
                     }
                 });                            
-});
+            });
 
+            function mascaraData(val) {
+                var pass = val.value;
+                var expr = /[0123456789]/;
+
+                for (i = 0; i < pass.length; i++) {
+                    var lchar = val.value.charAt(i);
+                    var nchar = val.value.charAt(i + 1);
+
+                    if (i == 0) {
+                      if ((lchar.search(expr) != 0) || (lchar > 3)) {
+                        val.value = "";
+                      }
+
+                    } else if (i == 1) {
+
+                      if (lchar.search(expr) != 0) {
+                        var tst1 = val.value.substring(0, (i));
+                        val.value = tst1;
+                        continue;
+                      }
+
+                      if ((nchar != '/') && (nchar != '')) {
+                        var tst1 = val.value.substring(0, (i) + 1);
+
+                        if (nchar.search(expr) != 0)
+                          var tst2 = val.value.substring(i + 2, pass.length);
+                        else
+                          var tst2 = val.value.substring(i + 1, pass.length);
+
+                        val.value = tst1 + '/' + tst2;
+                      }
+
+                    } else if (i == 4) {
+
+                      if (lchar.search(expr) != 0) {
+                        var tst1 = val.value.substring(0, (i));
+                        val.value = tst1;
+                        continue;
+                      }
+
+                      if ((nchar != '/') && (nchar != '')) {
+                        var tst1 = val.value.substring(0, (i) + 1);
+
+                        if (nchar.search(expr) != 0)
+                          var tst2 = val.value.substring(i + 2, pass.length);
+                        else
+                          var tst2 = val.value.substring(i + 1, pass.length);
+
+                        val.value = tst1 + '/' + tst2;
+                      }
+                    }
+
+                    if (i >= 6) {
+                        if (lchar.search(expr) != 0) {
+                            var tst1 = val.value.substring(0, (i));
+                            val.value = tst1;
+                        }
+                    }
+                }
+
+                if (pass.length > 10)
+                    val.value = val.value.substring(0, 10);
+                return true;
+            }
         </script>
         
 @endsection

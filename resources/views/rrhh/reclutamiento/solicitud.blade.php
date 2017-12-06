@@ -31,5 +31,4 @@
         } );
         TableManageButtons.init();
     </script>
-
 @endsection

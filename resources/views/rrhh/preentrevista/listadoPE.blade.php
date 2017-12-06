@@ -7,14 +7,10 @@
         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" />
 @endsection
 @section ('contenido')
-        
-
         <div class="row">
-        
            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                  <div class="table-responsive">
-                    
-                     <table id="datatable-buttons" class="table table-striped table-bordered table-condensed table-hover">
+                     <table id="datatable-buttons" class="table table-striped table-bordered table-condensed table-hover" data-order='[[6, "desc"]]'>
                          <thead>
                              <th style="width: 2%">Id</th>
                              <th style="width: 4%">Identificación</th>
@@ -22,6 +18,7 @@
                              <th style="width: 25%">Nombre</th>
                              <th style="width: 5%">Afiliado </th>
                              <th style="width: 15%">Puesto </th>
+                             <th style="width: 5%">Solicitud</th>
                              <th style="width: 10%">Status</th>
                              <th style="width: 42%">Opciones</th>
                          </thead>
@@ -35,6 +32,7 @@
                             <td>{{$em->nombre1.' '.$em->nombre2.' '.$em->apellido1.' '.$em->apellido2}}</td>
                             <td>{{$em->afnombre}}</td>
                             <td>{{$em->puesto}}</td>
+                            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $em->fechasolicitud)->format('d-m-Y')}}</td>
                             <td>{{$em->status}}
                                 <input type="hidden" class="idstatus" value="{{$em->idstatus}}">
                                 <input type="hidden" value="{{$var}}">
@@ -42,7 +40,6 @@
                             <td>
                                 <a href="{{url('empleado/pre_entrevistado/show',array('id'=>$em->identificacion,'ids'=>$var))}}"><button class="btn btn-primary" title="Detalles"><i class="glyphicon glyphicon-zoom-in"></i></button></a>
                                 <a href="{{URL::action('RHPreentrevista@preentre',$em->idempleado)}}"><button class="btn btn-success" title="Pre Entrevistar"><i class="md md-border-color"></i></button></a>
-                            
                                 <a> 
                                     <button title="Rechazar" id="btnrechazo" 
                                         onclick='
@@ -88,8 +85,7 @@
                          </tr>
                          @endforeach
                      </table>
-                 </div>
-                 
+                 </div> 
            </div>
         </div>
 @endsection
@@ -99,11 +95,9 @@
     <!-- Sweet Alert js -->
         <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
         <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
-        
     <!-- Datatables-->
     <script src="{{asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('assets/plugins/datatables/dataTables.bootstrap.js')}}"></script>
-    
     <script src="{{asset('assets/js/RHjs/datatablesRH.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
