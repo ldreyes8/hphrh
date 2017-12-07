@@ -15,7 +15,7 @@
                              <th style="width: 5%">Afiliado </th>
                              <th style="width: 12%">Puesto </th>
                              <th style="width: 5%">Solicitud</th>
-                             <th style="width: 5%">Status</th>
+                             <th style="width: 5%">Estado</th>
                              <th style="width: 45%">Opciones</th>
                          </thead>
                          @foreach ($empleados as $em)

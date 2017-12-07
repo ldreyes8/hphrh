@@ -8,7 +8,8 @@
         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
-@section ('contenido')
+@section ('contenido') 
+<div class="card-box">
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h3>Confirmación de puesto</h3>
@@ -16,7 +17,6 @@
     </div>
 </div>
 <div class="row">
-
         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
@@ -59,7 +59,7 @@
         </div>
 
         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label>Caso</label>
                     <select name="idcaso" id="idcaso" class="form-control selectpicker" data-live-search="true" >
@@ -70,7 +70,7 @@
                 </div>                                                
             </div>
 
-            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <label for="salario">Salario *</label>
                 <div class="input-group">
                     <span class="input-group-addon">Q</i></span>
@@ -81,24 +81,10 @@
                 @endif
             </div>
 
-            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="fecha">Fecha *</label>
                     <input id="datof" type="text" class="form-control" onkeypress="mascaraData(this)">
-                </div>
-            </div>
-
-            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                <label for="salario">Codico L4</label>
-                <div class="form-group">
-                    <input type="text" name="l4" id="l4" class="form-control">
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label for="fecha">No. de Cuenta</label>
-                    <input id="ncuenta" type="text" class="form-control" name="ncuenta">
                 </div>
             </div>
         </div>
@@ -160,6 +146,8 @@
                 </div>
             </div>
         </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 <div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
   <div class="modal-dialog">
@@ -255,7 +243,6 @@
                 $("#btnguardar").hide();
             }
 
-
             $(document).on('click','.btnguardar',function(e){
                 var urlraiz=$("#url_raiz_proyecto").val();
                 swal({
@@ -288,8 +275,6 @@
                             descripcion: $('#descripcion').val(),
                             idafiliado: $('#idafiliado').val(),
                             idcaso: $('#idcaso').val(),
-                            ncuenta: $('#ncuenta').val(),
-                            le4: $('#l4').val(),
                             items: itemsData,
                         };
                         $.ajaxSetup({
@@ -336,15 +321,13 @@
                                function(){
                                     $("#erroresContent").html(errHTML); 
                                     $('#erroresModal').modal('show');
-                                });  
-
-                               
+                                });   
                             },
                             //complete: function(){ $f.data('locked', false);  // (3)
                             //}
                         }); 
                     }else {
-                         swal("Cancelado", "No se ha guardado el registro :)", "error");
+                        swal("Cancelado", "No se ha guardado el registro :)", "error");
                     }
                 });                            
             });
@@ -414,5 +397,4 @@
                 return true;
             }
         </script>
-        
 @endsection
