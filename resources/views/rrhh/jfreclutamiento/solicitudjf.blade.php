@@ -1,33 +1,25 @@
 @extends ('layouts.index')
 @section('estilos')
     @parent
-    
+        <link href="{{asset('assets/plugins/datatables/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/plugins/datatables/buttons.bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" />
 @endsection
 @section ('contenido')
-        <!--div class="row">
-        	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        		{!! Form::open(['url'=>'empleado/busquedas','method'=>'GET','role'=>'search','class'=>'navbar-form navbar-left pull-right','onkeypress'=>'return anular(event)']) !!}
-                    <div class="form-group">
-                            <input type="text" class="form-control" id="searchText" name="searchText" placeholder="Buscar..." value="{{$searchText}}">
-                            <button type="button" class="btn btn-default" onclick="buscarsolicitud();">Buscar</button>
-                    </div>
-                {{Form::close()}}
-        	</div>
-        </div-->
         <div class="row">
            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                  <div class="table-responsive">
-                     <table class="table table-striped table-bordered table-condensed table-hover">
+                     <table id="datatable-buttons" class="table table-striped table-bordered table-condensed table-hover" data-order='[[6, "asc"]]'>
                          <thead>
                              <th style="width: 2%">Id</th>
                              <th style="width: 4%">Identificación</th>
                              <th style="width: 2%">Nit</th>
-                             <th style="width: 10%">Nombre</th>
+                             <th style="width: 20%">Nombre</th>
                              <th style="width: 5%">Afiliado </th>
-                             <th style="width: 10%">Puesto </th>
+                             <th style="width: 12%">Puesto </th>
+                             <th style="width: 5%">Solicitud</th>
                              <th style="width: 5%">Estado</th>
-                             <th style="width: 62%">Opciones</th>
+                             <th style="width: 50%">Opciones</th>
                          </thead>
                          @foreach ($empleados as $em)
                          <tr class="even gradeA">
@@ -39,6 +31,7 @@
                             <td>{{$em->nombre1.' '.$em->nombre2.' '.$em->apellido1.' '.$em->apellido2}}</td>
                             <td>{{$em->afnombre}}</td>
                             <td>{{$em->puesto}}</td>
+                            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $em->fechasolicitud)->format('d-m-Y')}}</td>
                             <td>{{$em->status}}
                                 <input type="hidden" class="idstatus" value="{{$em->idstatus}}">
                                 <input type="hidden" value="{{$var}}">
@@ -101,5 +94,20 @@
     <!-- Sweet Alert js -->
         <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
         <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
+    <!-- Datatables-->
+    <script src="{{asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/datatables/dataTables.bootstrap.js')}}"></script>
+    
+    <script src="{{asset('assets/js/RHjs/datatablesRH.js')}}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+                $('#datatable').dataTable();
+                $('#datatable-keytable').DataTable( { keys: true } );
+                $('#datatable-responsive').DataTable();
+                $('#datatable-scroller').DataTable({ ajax: "../plugins/datatables/json/scroller-demo.json",deferRender:true,scrollY:380,scrollCollapse:true,scroller:true });
+                var table = $('#datatable-fixed-header').DataTable( { fixedHeader: true } );
+        } );
+        TableManageButtons.init();
+    </script>
 
 @endsection
