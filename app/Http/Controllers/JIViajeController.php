@@ -21,6 +21,10 @@ class JIViajeController extends Controller
     {
     	return view ('director.viaje.index');
     }
+    public function indexas()
+    {
+        return view ('asistente.viaje.index');
+    }
     public function solicitados()
     {
         $usuario = DB::table('users as u')
@@ -302,5 +306,10 @@ class JIViajeController extends Controller
             'observacion.required'=>'Ingrese una observación para poder continuar',
         ];
         $this->validate($request, $rules,$messages);
+    }
+    public function vasistentes()
+    {
+        $asistente=DB::select("call pcasistente(?)",array(Auth::user()->id));
+        return view('asistente.viaje.indexrev',["asistente"=>$asistente]);
     }
 }

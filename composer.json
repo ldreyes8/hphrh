@@ -8,7 +8,6 @@
         "php": ">=5.6.4",
         "anhskohbo/no-captcha": "^2.3",
         "authy/php": "2.*",
-        "backpack/backupmanager": "^1.2",
         "barryvdh/laravel-dompdf": "^0.8.0",
         "caffeinated/shinobi": "^3.0.6",
         "greggilbert/recaptcha": "dev-master",
