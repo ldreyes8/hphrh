@@ -1,6 +1,8 @@
 <div class="card-box">
     <div class="panel-heading">
-        <button class="btn btn-success" id="btnnuevoP"><i class="icon-user icon-white" ></i>Nueva solicitud de permiso</button>
+        <button class="btn btn-success waves-effect waves-light" id="btnnuevoP" title="Nueva solicitud de permiso">
+            Nuevo <i class="fa fa-plus"></i>
+        </button>
     </div>
     <div><br></div>
     <div class="row">
@@ -38,7 +40,7 @@
      
 <div class="col-lg-12">
     <div class="modal fade" id="formModalP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
             @if (!empty($usuarios->idmunicipio))
                 <input type="hidden" name="idmunicipio" value="{{$usuarios->idmunicipio}}" id="idmunicipio">
@@ -107,46 +109,74 @@
                     <div><p><br></p></div>
                     
 
-                    <div class="col-lg-6 col-md-3 col-sm-3 col-xs-12">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <div><label>Recurrente</label></div>
-                        <select name="concurrencia" class="form-control" id="concurrencia">
+                        <select name="concurrencia" class="form-control select2" data-live-search="true" id="concurrencia" >
                             <option value="No">No</option>
                             <option value="Si">Si</option>
                         </select>
                        
                     </div>
 
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <label for="horainicio">Hora inicio</label>
-                            <select name="horainicio" id="hinicio" class="form-control">
-                                <option value="00">00</option>
-                                <option value="07">07</option>
-                                <option value="08">08</option>
-                                <option value="09">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
-                                <option value="18">18</option>
-                            </select>
-                        
+                        <select name="horainicio" id="hinicio" class="form-control select2" data-live-search="true">
+                            <option value="00">00</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                        </select>
                     </div>
       
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
                         <label>Minutos inicio</label>              
-                            <select name="mini" class="form-control" id="mini">
-                                <option value="00">00</option>
-                                <option value="15">15</option>
-                                <option value="30">30</option>
-                                <option value="45">45</option>
-                            </select>
-                    </div>                    
+                        <select name="mini" class="form-control select2" data-live-search="true" id="mini">
+                            <option value="00">00</option>
+                            <option value="15">15</option>
+                            <option value="30">30</option>
+                            <option value="45">45</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label for="horainicio">Hora fin</label>
+                        <select name="horafin" id="hfin" class="form-control select2" data-live-search="true">
+                            <option value="00">00</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label>Minutos finales</label>
+                        <select name="mfin" class="form-control select2" data-live-search="true" id="mfin">
+                            <option value="00">00</option>
+                            <option value="15">15</option>
+                            <option value="30">30</option>
+                            <option value="45">45</option>
+                        </select>
+                    </div>
                 </div>
-                
+
+                <!--
                 <div class="modal-header" id="divHMF">
 
                     <div class="col-lg-6 col-md-3 col-sm-3 col-xs-12">
@@ -184,6 +214,7 @@
                            
                     </div>
                 </div>
+                -->
               
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="divENF">
                     <div class="modal-header">
@@ -215,7 +246,7 @@
                     <div><p><br></p></div>
                     <div class="form-group">
                         <label>Justificación</label>
-                        <textarea class="form-control" placeholder=".........." id="observaciones" rows="3" maxlength="100"></textarea>
+                        <textarea class="form-control" placeholder=".........." id="observaciones" rows="2" maxlength="100"></textarea>
                     </div>
                 </div>
             </form>

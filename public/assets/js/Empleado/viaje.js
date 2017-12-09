@@ -2,15 +2,13 @@ $(document).on('click','.btn-SolViaje',function(e){
     $('#inputTitleViaje').html("Solicitud de viaje");
     $('#formAgregarViaje').trigger("reset");
     $('#formModal').modal("show");
-
 }); 
 
-
 $('#btnGuardarAvance').click(function(e) {
-
     e.preventDefault();
-    var $f = $(this);
 
+    var $f = $(this);
+    var stad=$("#btnGuardarAvance").val();
 
     if($f.data('locked') == undefined && !$f.data('locked'))
     {
@@ -19,8 +17,16 @@ $('#btnGuardarAvance').click(function(e) {
         var resdeposito="ninguno";
         var resvehiculo="ninguno";
         var itemsData=[];
+        var miurl;
+        if(stad == "cajac")
+        {
+            miurl=urlraiz+"/empleado/cajachica/store";
+        }
 
-        var miurl=urlraiz+"/empleado/viaje/store";
+        if(stad =="movi")
+        {
+            miurl=urlraiz+"/empleado/viaje/store";
+        }
 
         var deposito=document.getElementsByName("deposito");
         var solicitarveh=document.getElementsByName("hvehiculo");
@@ -39,13 +45,11 @@ $('#btnGuardarAvance').click(function(e) {
             resvehiculo=solicitarveh[i].value;
         }
 
-
         $('#table-veh tr').each(function(){
             var id = $(this).closest('tr').find('input[type="hidden"]').val();
             var kilometraje = $(this).find('td').eq(2).html();
             valor = new Array(id,kilometraje);
-            itemsData.push(valor);
-            
+            itemsData.push(valor); 
         });
         
         var formData = {
@@ -60,6 +64,7 @@ $('#btnGuardarAvance').click(function(e) {
             kilometraje_inicial: $('#kinicial').val(),
             kilometraje_final: $('#kfinal').val(),
             vehiculo: itemsData,
+            afiliado: $('#idafiliado').val(),
         };
         
         $.ajaxSetup({
@@ -73,9 +78,6 @@ $('#btnGuardarAvance').click(function(e) {
             url: miurl,
             data: formData,
             dataType: 'json',
-
-            //beforeSend: function(){ $f.data('locked', true);  // (2)
-            //},
 
             success: function (data) {
                 $f.data('locked', true);
@@ -98,11 +100,10 @@ $('#btnGuardarAvance').click(function(e) {
                 }else{
                     errHTML+='<li>Error.</li>';
                 }
+                $("#inputError").html('error');
                 $("#erroresContent").html(errHTML); 
                 $('#erroresModal').modal('show');
             },
-            //complete: function(){ $f.data('locked', false);  // (3)
-            //}
         });
     }else{
         swal({
@@ -116,7 +117,8 @@ $('#btnGuardarAvance').click(function(e) {
 $(document).on('click','.btn-cancelviaje',function(e){
     e.preventDefault();
     swal({
-        title: "¿Estás seguro?",
+        title: "¿Esta seguro?",
+        text: "Retornara a la pagina principal",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#FFFF00",
@@ -134,11 +136,10 @@ $(document).on('click','.btn-cancelviaje',function(e){
                 confirmButtonText: 'OK!'
             },
             function(){
-                cargar_formularioviaje(1);
+                cargar_formularioviaje(0);
             });
         }else {
             swal("Cancelado", " :)", "error");
         }
     });    
 });
-

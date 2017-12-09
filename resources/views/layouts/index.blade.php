@@ -189,7 +189,7 @@
                                     <i class="md md-local-library"></i><span>Liquidaci&oacute;n</span>
                                 </a>
                             </li>
-
+ 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect waves-primary">&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-folder-open"></i> <span>Reportes</span>
                                      <span class="menu-arrow"></span>
@@ -203,8 +203,12 @@
 
                             @role('asistente') 
                                 <li class="menu-title"><strong>Movilización</strong></li>
-                                <li><a href="#" class="waves-effect waves-primary">&nbsp;&nbsp;<i class="md md-insert-emoticon"></i><span>Avances</span></a></li>
+                                <li>
+                                    <a href="{{url('/asistente/cajachica')}}" class="waves-effect waves-primary">&nbsp;&nbsp;&nbsp;<i class="fa fa-credit-card-alt"></i><span>caja chica</span></a>
+                                </li>
+                                <li><a href="{{ url('/asistete/viaje')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i class="md md-insert-emoticon"></i><span>Avances</span></a></li>
                             @endrole
+ 
 
                         <!-- // Recurso Humano___ // -->
 
@@ -212,8 +216,6 @@
                             @role('recurso') 
 
                                 <li class="menu-title"><strong>Recursos Humanos</strong></li>
-
-
 
                                 <li>
                                     <a href="{{ url('/rh/listado')}}" class="waves-effect waves-primary">&nbsp;&nbsp;<i
@@ -279,10 +281,10 @@
                                         class="label label-success pull-right">6</span> -->
                                 <ul class="list-unstyled">
                                     <li><a href="{{ url('/seguridad/usuario')}}">Registro usuario</a></li>
-                                </ul>                                
+                                    <li><a href="{{ url('/seguridad/proyecto/')}}">Proyectos</a></li>
+                                </ul>
                             </li>
                             @endrole
-                        
                         </ul>
                         <div class="clearfix"></div>
                     </div>
@@ -323,7 +325,6 @@
             <div class="content-page">
                 <!-- Start content -->
                 <div class="content">
-                
                     <div class="container" id="contenidoprincipal">
                         @yield('contenido')
                     </div><!-- /.row -->
@@ -332,16 +333,17 @@
                     2017 © Solera.
                 </footer><!-- /.box-body -->
             </div><!-- /.box -->
-            
+            <!-- Primer cargador en utilizar -->
             <div style="display: none;" id="cargador_empresa" align="center">
                 <br>
-                    <label style="color:#FFF; background-color:#ABB6BA; text-align:center">&nbsp;&nbsp;&nbsp;Espere... &nbsp;&nbsp;&nbsp;</label>
-                    <img src="{{asset('imagenes/cargando.gif')}}" align="middle" alt="cargador"> &nbsp;<label style="color:#ABB6BA">Realizando tarea solicitada ...</label>
+                <label style="color:#FFF; background-color:#ABB6BA; text-align:center">&nbsp;&nbsp;&nbsp;Espere... &nbsp;&nbsp;&nbsp;</label>
+                <img src="{{asset('imagenes/cargando.gif')}}" align="middle" alt="cargador"> &nbsp;<label style="color:#ABB6BA">Realizando tarea solicitada ...</label>
                 <br>
-                    <hr style="color:#003" width="50%">
+                <hr style="color:#003" width="50%">
                 <br>
             </div>
 
+            <!-- Acutal cargador en utilizar -->
             <div style="display: none;" id="cargador1" align="center">
                 <br>
                 <label style="color:#FFF; background-color:#ABB6BA; text-align:center">&nbsp;&nbsp;&nbsp;Espere... &nbsp;&nbsp;&nbsp;</label>
@@ -358,7 +360,6 @@
             </div>
 
             <div id="listadoVacante"></div>
-            
              
             <!-- ============================================================== -->
             <!-- End Right content here -->
@@ -605,8 +606,6 @@
         <!-- END wrapper -->
 
 
-
-
     <div id="modalbuscar"></div>
     <input type="hidden"  id="url_raiz_proyecto" value="{{ url("/") }}" />
     @section('fin') 
@@ -649,7 +648,7 @@
         <!-- Notification js -->
         <script src="{{asset('assets/plugins/notifyjs/dist/notify.min.js')}}"></script>
         <script src="{{asset('assets/plugins/notifications/notify-metro.js')}}"></script>
-    <meta name="_token" content="{!! csrf_token() !!}" />
+        <meta name="_token" content="{!! csrf_token() !!}" />
 
 
         @show

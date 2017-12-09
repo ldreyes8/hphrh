@@ -28,7 +28,7 @@ class UFormRequest extends FormRequest
             //'email' => 'required|email|max:255|unique:users',
             //'password' => 'required|min:6|confirmed',
             //'fotoperfil',
-            'name' => 'max:255',
+            'name' => 'max:5',
 //            'email' => 'required|email|max:255|unique:users',
 //            //'password' => 'required|min:6|confirmed',
             'fotoperfil',

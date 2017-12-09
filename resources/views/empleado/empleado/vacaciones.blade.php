@@ -1,9 +1,9 @@
 <div class="card-box">
     <div class="panel-heading">
-        <button class="btn btn-success btn-nuevoV" id="btnnuevoV"><i class="icon-user icon-white" ></i>Nueva solicitud de vacaciones</button>
+        <button class="btn btn-success waves-effect waves-light btn-nuevoV" id="btnnuevoV" title="Nueva solicitud de vacaciones">
+            Nuevo <i class="fa fa-plus"></i>
+        </button>
     </div>
-
-
     <div><br></div>
     
     @if (!empty($usuarios->idmunicipio))
@@ -12,23 +12,19 @@
         <td><input type="hidden" name="" id="municipio" value=""></td>
     @endif
 
-
-
-        @if($ausencia != null)
-            <input type="hidden" name="idempleado" value="{{$usuarios->idempleado}}" id="idempleado">
-            <input type="hidden" name="name" value="{{$usuarios->nombre}}" id="name">
-            <input type="hidden" name="solhoras" value="{{$ausencia->totalhoras}}" id="solhoras">
-            <input type="hidden" name="soldias" value="{{$ausencia->totaldias}}" id="soldias">
-            <input type="hidden" name="idvacadetalle" value="{{$ausencia->idvacadetalle}}" id="idvacadetalle">
-
-        @else
-            <input type="hidden" name="idempleado" value="{{$usuarios->idempleado}}" id="idempleado">
-            <input type="hidden" name="name" value="{{$usuarios->nombre}}" id="name">
-            <input type="hidden" name="solhoras" value="0" id="solhoras">
-            <input type="hidden" name="soldias" value="0" id="soldias">
-            <input type="hidden" name="idvacadetalle" value="{{$vacaciones->idvacadetalle}}" id="idvacadetalle">
-
-        @endif()
+    @if($ausencia != null)
+        <input type="hidden" name="idempleado" value="{{$usuarios->idempleado}}" id="idempleado">
+        <input type="hidden" name="name" value="{{$usuarios->nombre}}" id="name">
+        <input type="hidden" name="solhoras" value="{{$ausencia->totalhoras}}" id="solhoras">
+        <input type="hidden" name="soldias" value="{{$ausencia->totaldias}}" id="soldias">
+        <input type="hidden" name="idvacadetalle" value="{{$ausencia->idvacadetalle}}" id="idvacadetalle">
+    @else
+        <input type="hidden" name="idempleado" value="{{$usuarios->idempleado}}" id="idempleado">
+        <input type="hidden" name="name" value="{{$usuarios->nombre}}" id="name">
+        <input type="hidden" name="solhoras" value="0" id="solhoras">
+        <input type="hidden" name="soldias" value="0" id="soldias">
+        <input type="hidden" name="idvacadetalle" value="{{$vacaciones->idvacadetalle}}" id="idvacadetalle">
+    @endif()
         <input type="hidden" name="emergencia" id="emergencia" value="0">
 
     <div class="row">
@@ -97,7 +93,7 @@
                                 <input id="dacumulado" type="text" class="form-control" name="dias">   
                             </div>
                         </div>
-                                                <div id="divEmergencia">
+                        <div id="divEmergencia">
                         <br>
                             <input type="checkbox" id="casillaEmergencia" value="1" onclick="desactivarEmergencia()"/> Esta solicitud es por un caso de emergencia
                         </div>
@@ -316,14 +312,12 @@
             if(autorizacion == 'Autorizado' || autorizacion == 'solicitado')
             {
                 //alert('No puede realizar una solicitud porque tiene una en proceso');
-            swal({
-                title: "Solicitud denegada",
-                text: "No puede realizar una solicitud porque tiene una en proceso",
-                type: "error",
-                confirmButtonClass: 'btn-danger waves-effect waves-light',
-               
-            });
-             
+                swal({
+                    title: "Solicitud denegada",
+                    text: "No puede realizar una solicitud porque tiene una en proceso",
+                    type: "error",
+                    confirmButtonClass: 'btn-danger waves-effect waves-light',
+                });
             }
             else{
                 $('#inputTitle').html("Solicitud de vacaciones");

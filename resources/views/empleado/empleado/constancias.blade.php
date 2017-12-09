@@ -1,5 +1,3 @@
-
-
 	<div class="row"> 
 	    {!!Form::open(array('url'=>'empleado/Gpdf','method'=>'POST','autocomplete'=>'off','files'=>'true'))!!}
 	    {{Form::token()}}

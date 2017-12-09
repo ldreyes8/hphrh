@@ -8,7 +8,8 @@
         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
-@section ('contenido')
+@section ('contenido') 
+<div class="card-box">
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h3>Confirmación de puesto</h3>
@@ -16,7 +17,6 @@
     </div>
 </div>
 <div class="row">
-
         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
@@ -84,7 +84,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="fecha">Fecha *</label>
-                    <input id="dato1" type="text" class="form-control" name="fecha">
+                    <input id="datof" type="text" class="form-control" onkeypress="mascaraData(this)">
                 </div>
             </div>
         </div>
@@ -129,7 +129,6 @@
             </div>
         </div>
 
-
         <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="descripcion">Observaciones</label>
@@ -147,7 +146,8 @@
                 </div>
             </div>
         </div>
-
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 <div class="modal fade" id="erroresModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
   <div class="modal-dialog">
@@ -180,20 +180,13 @@
         <script src="{{asset('assets/js/bootstrap-select.min.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
         <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
-    //
         <script type="text/javascript">
-        $(document).ready(function() {
-
-            $(".select2").select2();
-
-            $('#bt_add1').click(function() {
-                    agregar7();
-                });
-        });
-            
+            $(document).ready(function() {
+                $(".select2").select2();
+                $('#bt_add1').click(function() {agregar7();});
+            });
             $("#btnguardar").hide();
             $("#btncancelar").hide();
-
             function valida(e){
                 tecla = e.keyCode || e.which;
                 tecla_final = String.fromCharCode(tecla);
@@ -207,7 +200,6 @@
                 //patron =/^\d{9}$/;
                 return patron.test(tecla_final);
             }
-            
             var contJI=0;
             function limpiar()
             {
@@ -245,16 +237,14 @@
                 }
 
             }
-            
             function eliminar(index)
             {
                 $("#fila" + index).remove();
                 $("#btnguardar").hide();
             }
 
-
-$(document).on('click','.btnguardar',function(e){
-    var urlraiz=$("#url_raiz_proyecto").val();
+            $(document).on('click','.btnguardar',function(e){
+                var urlraiz=$("#url_raiz_proyecto").val();
                 swal({
                         title: "¿Está seguro?",
                         text: "Usted confirmara a esta persona en un puesto",
@@ -280,7 +270,7 @@ $(document).on('click','.btnguardar',function(e){
                         var formData = {
                             idpuesto: $('#idpuesto').val(),
                             idempleado: $('#idempleado').val(),
-                            fecha: $('#dato1').val(),
+                            fecha: $('#datof').val(),
                             salario: $('#salario').val(),
                             descripcion: $('#descripcion').val(),
                             idafiliado: $('#idafiliado').val(),
@@ -331,19 +321,80 @@ $(document).on('click','.btnguardar',function(e){
                                function(){
                                     $("#erroresContent").html(errHTML); 
                                     $('#erroresModal').modal('show');
-                                });  
-
-                               
+                                });   
                             },
                             //complete: function(){ $f.data('locked', false);  // (3)
                             //}
                         }); 
                     }else {
-                         swal("Cancelado", "No se ha guardado el registro :)", "error");
+                        swal("Cancelado", "No se ha guardado el registro :)", "error");
                     }
                 });                            
-});
+            });
 
+            function mascaraData(val) {
+                var pass = val.value;
+                var expr = /[0123456789]/;
+
+                for (i = 0; i < pass.length; i++) {
+                    var lchar = val.value.charAt(i);
+                    var nchar = val.value.charAt(i + 1);
+
+                    if (i == 0) {
+                      if ((lchar.search(expr) != 0) || (lchar > 3)) {
+                        val.value = "";
+                      }
+
+                    } else if (i == 1) {
+
+                      if (lchar.search(expr) != 0) {
+                        var tst1 = val.value.substring(0, (i));
+                        val.value = tst1;
+                        continue;
+                      }
+
+                      if ((nchar != '/') && (nchar != '')) {
+                        var tst1 = val.value.substring(0, (i) + 1);
+
+                        if (nchar.search(expr) != 0)
+                          var tst2 = val.value.substring(i + 2, pass.length);
+                        else
+                          var tst2 = val.value.substring(i + 1, pass.length);
+
+                        val.value = tst1 + '/' + tst2;
+                      }
+
+                    } else if (i == 4) {
+
+                      if (lchar.search(expr) != 0) {
+                        var tst1 = val.value.substring(0, (i));
+                        val.value = tst1;
+                        continue;
+                      }
+
+                      if ((nchar != '/') && (nchar != '')) {
+                        var tst1 = val.value.substring(0, (i) + 1);
+
+                        if (nchar.search(expr) != 0)
+                          var tst2 = val.value.substring(i + 2, pass.length);
+                        else
+                          var tst2 = val.value.substring(i + 1, pass.length);
+
+                        val.value = tst1 + '/' + tst2;
+                      }
+                    }
+
+                    if (i >= 6) {
+                        if (lchar.search(expr) != 0) {
+                            var tst1 = val.value.substring(0, (i));
+                            val.value = tst1;
+                        }
+                    }
+                }
+
+                if (pass.length > 10)
+                    val.value = val.value.substring(0, 10);
+                return true;
+            }
         </script>
-        
 @endsection

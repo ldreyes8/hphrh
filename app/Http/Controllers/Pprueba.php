@@ -106,6 +106,7 @@ class Pprueba extends Controller
         ->join('status as sts','em.idstatus','=','sts.idstatus')
         ->select('per.identificacion','per.nombre1','per.nombre2','per.apellido1','per.apellido2')
         ->where('em.idstatus','=',2)
+        ->orderBy('per.nombre1','asc')
         ->get();
 
         $caso=DB::table('caso as c')

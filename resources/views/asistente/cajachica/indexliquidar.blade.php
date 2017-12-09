@@ -31,7 +31,7 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                         <button class="btn btn-info waves-effect waves-light btn-NuevoL">Agregar <i class="fa fa-plus"></i></button>
                     </div>
                     <div class="col-sm-3">
-                        <button class="btn btn-success waves-effect waves-light btn-EnviarL" id="btnEnviarL">Enviar liquidación</button>
+                        <button class="btn btn-success waves-effect waves-light btn-EnviarL" id="btnEnviarL">Enviar Reporte liquidacion</button>
                     </div>
                 </div>
             </div>

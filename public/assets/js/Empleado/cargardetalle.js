@@ -8,8 +8,8 @@ $('#cancelarmov').click(function(e) {
     {
 
         swal({
-            title: "¿Estás seguro?",
-            text: "No podrás modificar el registro",
+            title: "¿Esta seguro?",
+            text: "No podra modificar el registro",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#FFFF00",
@@ -88,6 +88,9 @@ function detalleavance(arg,id)
     $("#capa_modal").html($("#cargador_empresa").html());
     if(arg==1){var miurl =urlraiz+"/empleado/viaje/detallehistorial/"+id;}
     if(arg==2){var miurl =urlraiz+"/empleado/viaje/detalleavance/"+id;}
+    if(arg==4){var miurl =urlraiz+"/asistente/cajachica/"+id;}
+    if(arg==5){var miurl =urlraiz+"/asistente/cajachica/liquidar/"+id;}
+
 
     $.ajax({
         url: miurl

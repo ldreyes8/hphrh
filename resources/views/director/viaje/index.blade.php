@@ -1,48 +1,43 @@
 @extends ('layouts.index')
 @section('estilos')
     @parent
-
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet">
         <link href="{{asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.css')}}" rel="stylesheet">
         <link href="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/plugins/select2/select2.css')}}" rel="stylesheet" />
-                <link href="{{asset('assets/css/minimalista.css')}}" rel="stylesheet" />
-
-
-        
+        <link href="{{asset('assets/css/minimalista.css')}}" rel="stylesheet" />
 @endsection
 @section ('contenido')
-
-
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-     
-                <div id="dock-container" class="">
-                    <div class="panel-body">
-                        <ul>
-                            <li>
-                                <a onclick="cargar_formularioviaje(20);"><img src="{{asset('assets/images/collective.png')}}"/></a>
-                                <span>Solicitados</span>
-                            </li>
-                            <li>
-                                <a onclick="cargar_formularioviaje(21);"><img src="{{asset('assets/images/laravel.png')}}"/></a>
-                                <span>Autorizados</span>
-                            </li>
-                            <li>
-                                <span>Confirmados</span>
-                                <a href="#"><img src="{{asset('assets/images/chrome.png')}}"/></a>
-                            </li>
-                            <li>
-                                <span>Rechazados</span>
-                                <a onclick="cargar_formularioviaje(22);"><img src="{{asset('assets/images/danger.png')}}"/></a>
-                            </li>                            
-                        </ul>
-                    </div>
-                </div>
-                <input type="hidden"  id="url_raiz_proyecto" value="{{ url("/") }}" />
-                <div id="capa_modal" class="div_modal" style="display: none;"></div>
-                <div id="capa_formularios" class="div_contenido" style="display: none;"></div>
-                
+        <div id="dock-container" class="">
+            <div class="panel-body">
+                <ul>
+                    <li>
+                        <a onclick="cargar_formularioviaje(20);"><img src="{{asset('assets/images/solicitados.png')}}"/></a>
+                        <span>Solicitados</span>
+                    </li>
+                    <li>
+                        <a onclick="cargar_formularioviaje(21);"><img src="{{asset('assets/images/autorizados.png')}}"/></a>
+                        <span>Autorizados</span>
+                    </li>
+                    <li>
+                        <span>Revisados</span>
+                        <a onclick="cargar_formularioviaje(24);"><img src="{{asset('assets/images/revisados.png')}}"/></a>
+                    </li>
+                    <li>
+                        <span>Rechazados</span>
+                        <a onclick="cargar_formularioviaje(22);"><img src="{{asset('assets/images/rechazados.png')}}"/></a>
+                    </li>                            
+                </ul>
+            </div>
+        </div>
+        <div id="capa_formularios" class="div_modal">
+            @include('empleado.viaje.retornaindex')
+        </div>
+        <input type="hidden"  id="url_raiz_proyecto" value="{{ url('/') }}" />
+        <div id="capa_modal" class="div_modal" style="display: none;"></div>
+        <div id="capa_formularios" class="div_contenido" style="display: none;"></div>
     </div>
 </div>
 @endsection
@@ -53,13 +48,10 @@
         <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
         <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
-
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
-        <script src="{{asset('assets/js/Empleado/viaje.js')}}"></script>
-
-
+        <script src="{{asset('assets/js/Empleado/cargaravance.js')}}"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 $(".select2").select2();        
@@ -81,15 +73,10 @@
             ga('send', 'pageview');
         </script>
         <script type="text/javascript">
-    
-    $(document).on('click','.btn-openviaje',function(e){
-        $('#inputTitleViaje').html("Nuevo viaje");
-        //$('#formModificar').trigger("reset");
-        $('#formAgregarViaje').trigger('reset');
-        $('#formModal').modal('show');
-
-
-    }); 
-
-</script>
+            $(document).on('click','.btn-openviaje',function(e){
+                $('#inputTitleViaje').html("Nuevo viaje");
+                $('#formAgregarViaje').trigger('reset');
+                $('#formModal').modal('show');
+            }); 
+        </script>
 @endsection

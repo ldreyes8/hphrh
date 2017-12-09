@@ -14,8 +14,10 @@ use App\Vehiculo;
 use App\Persona;
 use App\Constants;
 use Illuminate\Support\Collection as Collection;
+use PDF;
 
 use Carbon\Carbon;  // para poder usar la fecha y hora
+
 class EViajeController extends Controller
 {   
     public function __construct()
@@ -38,7 +40,6 @@ class EViajeController extends Controller
             ->select('emp.idempleado','per.idafiliado')
             ->where('U.id','=',Auth::user()->id)
             ->first();
-
         return $empleado;
     }
 
@@ -54,7 +55,6 @@ class EViajeController extends Controller
             ->where('gas.statusgasto','!=','Cancelado')
             ->where('gas.statusgasto','!=','Contabilizado')
             ->get();
-
         return view ('empleado.viaje.indexviaje',["viaje"=>$viaje]);
     }
 
@@ -85,17 +85,17 @@ class EViajeController extends Controller
             ->first();
 
         if (empty($proyecto->idgastocabeza)) {
-                $liquidar = 0;
-                 return view ('empleado.viaje.indexhistorial',["liquidar"=>$liquidar]);
+            $liquidar = 0;
+            return view ('empleado.viaje.indexhistorial',["liquidar"=>$liquidar]);
         }
         else{
             $liquidar = 1;
 
             $liquidacion= DB::table('gastoviajeempleado as gve')
-            ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
-            ->select(DB::raw('SUM(gve.montofactura) as liquidacion'))
-            ->where('gvi.idgastocabeza','=',$id)
-            ->first();
+                ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
+                ->select(DB::raw('SUM(gve.montofactura) as liquidacion'))
+                ->where('gvi.idgastocabeza','=',$id)
+                ->first();
 
             $gastoviajeemp = DB::table('gastoviajeempleado as gve')
                 ->join('proyectocabeza as pro','gve.idproyecto','=','pro.idproyecto')
@@ -128,46 +128,40 @@ class EViajeController extends Controller
             ->select('gen.idgastocabeza','gen.fechasolicitud','gen.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje','via.idviaje')
             ->orderby('gen.idgastocabeza','desc')
             ->first();
-
         if (empty($proyecto->idgastocabeza)) {
-                $liquidar = 0;
-                 return view ('empleado.viaje.indexhistorial',["liquidar"=>$liquidar]);
+            $liquidar = 0;
+            return view ('empleado.viaje.indexhistorial',["liquidar"=>$liquidar]);
         }
         else{
             $liquidar = 1;
-
-           
-
             $vehiculo = DB::table('viajevehiculo as vve')
                 ->join('vehiculo as veh','vve.idvehiculo','=','veh.idvehiculo')
                 ->select('veh.placa','veh.color','veh.marca','veh.modelo','veh.kilacumulado','vve.idviajevehiculo','vve.kilometrajeini','vve.kilometrajefin')
                 ->where('vve.idviaje','=',$proyecto->idviaje)
                 ->get();
-
             return view ('empleado.viajeliquidacion.detalle',["proyecto"=>$proyecto,"vehiculo"=>$vehiculo,"liquidar"=>$liquidar]);
         }
-
         return view ('empleado.viaje.indexhistorial',["viaje"=>$viaje]);
-    } 
+    }
 
     public function obtenerstatus(){
         $ausencia= DB::table('gastoencabezado as gen')
-        ->join('empleado as emp','gen.idempleado','=','emp.idempleado')
-        ->join('persona as per','emp.identificacion','=','per.identificacion')
-        ->join('users as U','per.identificacion','=','U.identificacion')
-        ->select('gen.statusgasto')
-        ->orderBy('gen.idgastocabeza','DESC')
-        ->where('idtipogasto','=','2')
-        ->where('U.id','=',Auth::user()->id)
-        ->first();
+            ->join('empleado as emp','gen.idempleado','=','emp.idempleado')
+            ->join('persona as per','emp.identificacion','=','per.identificacion')
+            ->join('users as U','per.identificacion','=','U.identificacion')
+            ->select('gen.statusgasto')
+            ->orderBy('gen.idgastocabeza','DESC')
+            ->where('idtipogasto','=','2')
+            ->where('U.id','=',Auth::user()->id)
+            ->first();
 
         if($ausencia === null)
         {
-          $autorizacion = "ninguno";
+            $autorizacion = "ninguno";
         }
         else
         {
-          $autorizacion = $ausencia->statusgasto;
+            $autorizacion = $ausencia->statusgasto;
         }
 
         return response()->json($autorizacion);
@@ -214,12 +208,9 @@ class EViajeController extends Controller
 
     public function store(Request $request){
         $this->validateRequest($request);
-
         try
         {
             DB::beginTransaction();
-
-
             $fechainicio = $request->fecha_inicio; 
             $fechafinal = $request->fecha_final;
 
@@ -233,7 +224,6 @@ class EViajeController extends Controller
             $fechafinal = $fechafinal->toDateString();
 
             if($fechafinal >= $fechainicio){
-
                 //Gasto encabezado
                 $encabezado = new GastoEncabezado;
                 $viaje = new Viaje;
@@ -284,17 +274,21 @@ class EViajeController extends Controller
                 $gastoviaje->save();
 
                 if($request->veh === 'Si'){
-                    $this->validateRequestVeh($request);
                     $miArray = $request->vehiculo;
+                    if ($miArray == null) {
+                        return response()->json(array('error'=>'Debe agregar a la tabla los datos de un vehiculo, dando click en el boton buscar y seguidamente seleccionar el vehiculo y agregar '),404);
+                    }
+                    else
+                    {
+                        foreach ($miArray as $key => $value) {
+                            $viajeveh = new ViajeVehiculo;
 
-                    foreach ($miArray as $key => $value) {
-                        $viajeveh = new ViajeVehiculo;
-
-                        $viajeveh->idviaje = $viaje->idviaje;
-                        $viajeveh->idvehiculo = $value['0'];
-                        $viajeveh->kilometrajeini = $value['1'];
-                        $viajeveh->kilometrajefin = 0;
-                        $viajeveh->save();
+                            $viajeveh->idviaje = $viaje->idviaje;
+                            $viajeveh->idvehiculo = $value['0'];
+                            $viajeveh->kilometrajeini = $value['1'];
+                            $viajeveh->kilometrajefin = 0;
+                            $viajeveh->save();
+                        }
                     }
                 }
             }
@@ -312,31 +306,30 @@ class EViajeController extends Controller
     }
 
     // metodos de una nueva liquidación
-    public function liquidar(){
+    public function liquidar($id){
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
             ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.statusgasto','=','Autorizado')
-            //->where('gen.statusgasto','=','solicitado')
-            ->where('gen.idtipogasto','=',2)
-            ->where('gen.idempleado','=',$this->empleado()->idempleado)
+            ->where('gen.idgastocabeza','=', $id)
             ->select('gen.idgastocabeza','gen.fechasolicitud','gen.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje','via.idviaje')
             ->orderby('gen.idgastocabeza','desc')
             ->first();
 
+
         if (empty($proyecto->idgastocabeza)) {
-                $liquidar = 0;
-                 return view ('empleado.viaje.indexliquidar',["liquidar"=>$liquidar]);
+            $liquidar = 0;
+            return view ('empleado.viaje.indexliquidar',["liquidar"=>$liquidar]);
         }
         else{
             $liquidar = 1;
 
             $liquidacion= DB::table('gastoviajeempleado as gve')
-            ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
-            ->select(DB::raw('SUM(gve.montofactura) as liquidacion'))
-            ->where('gvi.idgastocabeza','=',$proyecto->idgastocabeza)
-            ->first();
+                ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
+                ->select(DB::raw('SUM(gve.montofactura) as liquidacion'))
+                ->where('gvi.idgastocabeza','=',$proyecto->idgastocabeza)
+                ->first();
 
             $gastoviajeemp = DB::table('gastoviajeempleado as gve')
                 ->join('proyectocabeza as pro','gve.idproyecto','=','pro.idproyecto')
@@ -388,14 +381,13 @@ class EViajeController extends Controller
         return view('empleado.viaje.row',["empleado"=>$empleado,"cuenta"=>$cuenta,"gencabezado"=>$genc]);
     }
 
-    public function addl(){
+    public function addl($id){
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
             ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.statusgasto','=','Autorizado')
-            //->where('gen.statusgasto','=','solicitado')
-            ->where('gen.idtipogasto','=',2)
+            ->where('gen.idgastocabeza','=',$id)
             ->where('gen.idempleado','=',$this->empleado()->idempleado)
             ->select('gen.idgastocabeza','gen.fechasolicitud','gen.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje')
             ->orderby('gen.idgastocabeza','desc')
@@ -426,7 +418,6 @@ class EViajeController extends Controller
             ->orderby('ntr.idnomytas','desc')
             ->first();
 
-
         $genc = GastoEncabezado::findOrFail($proyecto->idgastocabeza);
 
         $empleado = new Persona();
@@ -436,7 +427,7 @@ class EViajeController extends Controller
             ->select('c.codigocuenta','c.nombrecuenta')
             ->get();
 
-        return view ('empleado.viajeliquidacion.create',["proyecto"=>$proyecto,"empleado"=>$empleado,"cuenta"=>$cuenta,"gencabezado"=>$genc,"proyectos"=>$proyectos,"gastoviajeemp"=>$gastoviajeemp]);        
+        return view ('empleado.viajeliquidacion.create',["proyecto"=>$proyecto,"empleado"=>$empleado,"cuenta"=>$cuenta,"gencabezado"=>$genc,"proyectos"=>$proyectos,"gastoviajeemp"=>$gastoviajeemp]);
     }
 
     public function storel(Request $request){
@@ -444,11 +435,9 @@ class EViajeController extends Controller
         try 
         {
             DB::beginTransaction();
-
             $fechafactura = $request->fecha_factura;
             $fechafactura = Carbon::createFromFormat('d/m/Y',$fechafactura);
             $fechafactura = $fechafactura->toDateString();
-
             //Gasto viaje empleado
             $gastoempleado = new GastoViajeEmpleado;
             $gastoempleado->idempleado   = $request->empleado;
@@ -459,9 +448,7 @@ class EViajeController extends Controller
             $gastoempleado->codigocuenta = $request->cuenta;
             $gastoempleado->idproyecto   = $request->proyecto;
             $gastoempleado->idgastoviaje = $request->gastoviaje;
-
             $gastoempleado->save();
-
             $gastoviajeemp = DB::table('gastoviajeempleado as gve')
                 ->join('proyectocabeza as pro','gve.idproyecto','=','pro.idproyecto')
                 ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
@@ -563,7 +550,6 @@ class EViajeController extends Controller
             $gastoempleado->codigocuenta = $request->cuenta;
             $gastoempleado->idproyecto   = $request->proyecto;
             $gastoempleado->idgastoviaje = $request->gastoviaje;
-
             $gastoempleado->save();
 
             $gastoviajeemp = DB::table('gastoviajeempleado as gve')
@@ -588,13 +574,12 @@ class EViajeController extends Controller
 
     // update monto liquidacion y monto disponible
     public function updateml(){
+
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
             ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.statusgasto','=','Autorizado')
-            //->where('gen.statusgasto','=','solicitado')
-            ->where('gen.idtipogasto','=',2)
             ->where('gen.idempleado','=',$this->empleado()->idempleado)
             ->select('gen.idgastocabeza','gen.fechasolicitud','gen.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje','via.idviaje')
             ->orderby('gen.idgastocabeza','desc')
@@ -607,7 +592,6 @@ class EViajeController extends Controller
             ->first();
 
         $disponible = $proyecto->monto - $liquidacion->liquidacion;
-
         $calculo = array($disponible,$liquidacion->liquidacion,$proyecto->monto);
         
         return response()->json($calculo);
@@ -629,6 +613,14 @@ class EViajeController extends Controller
         $gastoencabezado->save();
 
         return response()->json($gastoencabezado);
+    }
+
+    public function deletel($id)
+    {
+        $gastoviajeempleado = GastoViajeEmpleado::find($id);
+        $gastoviajeempleado->delete();
+        
+        return response()->json($gastoviajeempleado);
     }
 
     public function vehedit($id){
@@ -665,42 +657,52 @@ class EViajeController extends Controller
         return response()->json($vehiculo);
     }
 
+    public function descargardetalle($id){
+        $today = Carbon::now();
+        $year = $today->format('d/m/Y');
+
+        $gastoviajeemp = DB::select("call E_detallegasto(?)",array($id));
+        $pdf= PDF::loadView('empleado.viajeliquidacion.pdf',["gastoviajeemp"=>$gastoviajeemp]);
+        $pdf->setPaper("letter","landscape");       //Se convierte el html en hoja vertical para su descargue
+        return $pdf->download('liquidacion-'.$year.'.pdf');
+    }
+
     public function validateRequest($request){
         $rules=[
-        'fecha_inicio' => 'required',
-        'fecha_final' => 'required',
-        'motivo' => 'required',
+            'fecha_inicio' => 'required',
+            'fecha_final' => 'required',
+            'motivo' => 'required',
         ];
         $messages=[
-          'required' => 'Debe ingresar :attribute.',
-          'max'  => 'La capacidad del campo :attribute es :max',
+            'required' => 'Debe ingresar :attribute.',
+            'max'  => 'La capacidad del campo :attribute es :max',
         ];
         $this->validate($request, $rules,$messages);        
     }
 
     public function validateRequestVeh($request){
         $rules=[
-        'vehiculo' => 'required',
+            'vehiculo' => 'required',
         ];
         $messages=[
-          'required' => 'Debe ingresar :attribute.',
-          'max'  => 'La capacidad del campo :attribute es :max',
+            'required' => 'Debe ingresar :attribute.',
+            'max'  => 'La capacidad del campo :attribute es :max',
         ];
         $this->validate($request, $rules,$messages);        
     }
 
     public function validateRequestViaje($request){
         $rules=[
-        'fecha_factura' => 'required',
-        'factura' => 'required',
-        'monto' => 'required',
-        'empleado' => 'required',
-        'proyecto' => 'required',
-        'descripcion' => 'required',
+            'fecha_factura' => 'required',
+            'factura' => 'required',
+            'monto' => 'required',
+            'empleado' => 'required',
+            'proyecto' => 'required',
+            'descripcion' => 'required',
         ];
         $messages=[
-          'required' => 'Debe ingresar :attribute.',
-          'max'  => 'La capacidad del campo :attribute es :max',
+            'required' => 'Debe ingresar :attribute.',
+            'max'  => 'La capacidad del campo :attribute es :max',
         ];
         $this->validate($request, $rules,$messages);        
     }

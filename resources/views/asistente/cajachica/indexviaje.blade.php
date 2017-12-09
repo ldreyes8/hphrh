@@ -1,40 +1,40 @@
 <div class="card-box" id="SviajeE">
-    <h4 class="box-title" align="center">Solicitar viaje</h4>
+    <h4 class="box-title" align="center">Liquidaciones en proceso</h4>
     <hr style="border-color:black;" />
 
     <input type="hidden" name="_token" id="_token"  value="<?= csrf_token(); ?>">
 
-    <!--  searchempleado-->
-
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="m-b-30">
-                <button class="btn btn-primary waves-effect waves-light btn-SolViaje" onclick="cargar_formularioviaje(3);">Agregar <i class="fa fa-plus"></i></button>
-            </div>
-        </div>
-    </div>
-
     <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <div class="table-responsive">
-            <table class="table table-striped table-bordered table-condensed table-hover" id="index-viaje">
+            <table class="table table-striped table-bordered table-condensed table-hover" id="index-viaje"> 
                 <thead>
                     <th>Solicitud</th>
-                    <th>Inicio</th>
-                    <th>Fin</th>
                     <th>Monto solicitado</th>
-                    <th>Tipo proyecto</th>
-                    <th>Autorizaci&oacute;n</th>                                
+                    <th>Tipo gasto</th>
+                    <th>Autorizaci&oacute;n</th>
+                    <th>Proyecto</th>                                
                     <th>Opciones</th>
                 </thead>
                 @foreach ($viaje as $via)
                 <tr>
                     <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$via->fechasolicitud)->format('d/m/Y')}}</td>
-                    <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$via->fechainicio)->format('d/m/Y')}}</td>
-                    <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$via->fechafin)->format('d/m/Y')}}</td>
                     <td>{{$via->montosolicitado}}</td>
                     <td>{{$via->tipogasto}}</td>
                     <td>{{$via->statusgasto}}</td>
-                    <td><a href="#"><button class="btn btn-primary">Detalles</button></a></td>
+                    <td>{{$via->proyecto}}</td>
+                    @if($via->statusgasto == 'Autorizado')
+                    <td>
+                        <a onclick="detalleavance(5,{{$via->idcajachica}});"><button class="btn btn-primary" title="Agregar factura"><i class="glyphicon glyphicon-edit"></i></button></a>
+                    </td>
+                    @elseif($via->statusgasto == 'solicitado')
+                    <td><a href="javascript:void(0);" onclick="detalleavance(2,{{$via->idgastocabeza}});"><button class="btn btn-primary">Detalles</button></a>
+                        <a href="#"><button class="btn btn-danger" id="cancelarmov" value="{{$via->idgastocabeza}}">Cancelar</button></a></td>
+                    @elseif($via->statusgasto == 'Finalizado')
+                    <td><a href="javascript:void(0);" onclick="detalleavance(2,{{$via->idgastocabeza}});"><button class="btn btn-primary">Detalles</button></a>
+                         <a href="{{URL::action('EViajeController@descargardetalle',$via->idgastocabeza)}}"><button class="btn btn-success">Descargar</button></a></td>
+                    @else
+                        <td><a href="#"><button class="btn btn-primary">Detalles</button></a>
+                    @endif
                 </tr> 
                 @endforeach
             </table>
@@ -42,16 +42,27 @@
     </div>
 </div>
 
+<!-- l10  = 1000 -->
+<!-- l5 descartado -->
+<!-- FONDOS LOCALES-PAGO CASAS default L8  titulo Linea de presupuesto-->
+<!-- A ON -->           <!-- l2 !-->
+<!-- P Afilidaso -->
+<!-- f steve -->
+<!-- L5 DEFAULT GENERIC Y OCULTO -->
+<!-- L9 SIRVIENDO FAMILIAS GUATEMALTEC default -->
+<!-- FACTURAS ESPECIALES NEGATIVOS -->
+
     <!-- Examples -->
         <script src="{{asset('assets/plugins/magnific-popup/dist/jquery.magnific-popup.min.js')}}"></script>
         <script src="{{asset('assets/plugins/jquery-datatables-editable/jquery.dataTables.js')}}"></script>
         <script src="{{asset('assets/plugins/datatables/dataTables.bootstrap.js')}}"></script>
         <script src="{{asset('assets/plugins/tiny-editable/mindmup-editabletable.js')}}"></script>
-        <script src="{{asset('assets/plugins/tiny-editable/numeric-input-example.js')}}"></script>
 
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>       
         <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
+
+        <script src="{{asset('assets/js/Empleado/cargardetalle.js')}}"></script>
 
     <script type="text/javascript">
         $("#vehoculto").hide();
@@ -127,14 +138,7 @@
 
                 setVars: function() {
                     this.$table             = $( this.options.table );
-                    //this.$addButton         = $( this.options.addButton );
-
-                    // dialog
                     this.dialog             = {};
-                    //this.dialog.$wrapper    = $( this.options.dialog.wrapper );
-                    //this.dialog.$cancel     = $( this.options.dialog.cancelButton );
-                    //this.dialog.$confirm    = $( this.options.dialog.confirmButton );
-
                     return this;
                 },
 
@@ -142,9 +146,9 @@
                     this.datatable = this.$table.DataTable({
                         "language": {
                             "decimal":        "",
-                            "emptyTable":     "No data available in table",
+                            "emptyTable":     "No hay datos disponibles en la tabla",
                             "info":           "Mostrando _START_ a _END_ de _TOTAL_ registros por pagina",
-                            "infoEmpty":      "Showing 0 to 0 of 0 entries",
+                            "infoEmpty":      "Mostrando 0 a 0 de 0 registros",
                             "infoFiltered":   "(filtered from _MAX_ total entries)",
                             "infoPostFix":    "",
                             "thousands":      ",",
@@ -167,7 +171,6 @@
                             null,
                             null,
                             null,
-                            null,
                             { "bSortable": false }
                         ],
                         aLengthMenu: [ 
@@ -181,22 +184,16 @@
 
                     return this;
                 },
-         
 
                 events: function() {
                     var _self = this;
-
                     this.$table
-                    
-
                     return this;
                 },
-
             };
          
             $(function() {
                 EditableTable.initialize();
             });
-
         }).apply( this, [ jQuery ]);
     </script>

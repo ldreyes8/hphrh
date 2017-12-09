@@ -80,131 +80,28 @@ class UController extends Controller
             ->with("usuarios", $usuarios )
             ->with("rolsel", $rolsel )
             ->with("roles", $roles );       
-        } 
+        }
 
-        public function add()
+        public function galeria()
         {
-            //return view("seguridad.usuario.create",["personas"=>$personas,"articulos"=>$articulos]);
-        	//$empleados=DB::table('persona')->where('tipo_persona','=','empleado')->get();
-        	//return view("seguridad.usuario.create",["empleados"=>$empleados])
-        	$usuario = user::all();
-        	return view("seguridad.usuario.create",["usuario"=>$usuario]);
-        }
-        public function store(UFormRequest $request)
-        {
-        	$usuario=new User;
-        	$usuario->name=$request->get('name');
-        	$usuario->email=$request->get('email');
-        	$usuario->password=bcrypt($request->get('password'));
-        	$usuario->identificacion=$request->get('identificacion');
-        	$usuario->save();
-        	return Redirect::to('seguridad/usuario');		
-        }
-
-        public function editar_usuario($id)
-        {
-            $usuario=User::find($id);
-            $roles=Role::all();
-            return view("seguridad.usuario.editarusuario")
-            ->with("usuario",$usuario)
-            ->with("roles",$roles);
-        }
-
-        public function asignar_rol($idusu,$idrol){
-            $usuario=User::find($idusu);
-            $usuario->assignRole($idrol);
-
-            $usuario=User::find($idusu);
-            $rolesasignados=$usuario->getRoles();
-            return json_encode ($rolesasignados); 
-        }
-
-        public function quitar_rol($idusu,$idrol){
-            $usuario=User::find($idusu);
-            $usuario->revokeRole($idrol);
-            $rolesasignados=$usuario->getRoles();
-            return json_encode ($rolesasignados);
-        }
-
-        public function form_nuevo_rol(){
-            //carga el formulario para agregar un nuevo rol
-            $roles=Role::all();
-            return view("seguridad.usuario.form_nuevo_rol")->with("roles",$roles);
-        }
-
-        public function crear_rol(Request $request){
-            $rol=new Role;
-            $rol->name=$request->input("rol_nombre") ;
-            $rol->slug=$request->input("rol_slug") ;
-            $rol->description=$request->input("rol_descripcion") ;
-            if($rol->save())
-            {
-                return view("mensajes.msj_rol_creado")->with("msj","Rol agregado correctamente") ;
-            }
-            else
-            {
-                return view("mensajes.mensaje_error")->with("msj","...Hubo un error al agregar ;...") ;
-            }
-        }
-        public function borrar_rol($idrole){
-            $role = Role::find($idrole);
-            $role->delete();
-            return "ok";
-        }
-        public function update(UsuarioFormRequest $request, $id)
-        {
-            $usuario=User::findOrFail($id);
-        	$usuario->name=$request->get('name');
-        	$usuario->email=$request->get('email');
-        	$usuario->password=bcrypt($request->get('password'));
-        	$usuario->id_persona=$request->get('id_persona');
-        	$usuario->update();
-        	return Redirect::to('seguridad/usuario');
-        }
-        	
-        public function destroy($id)
-        {
-        	$usuario =DB::table('users')->where('id','=',$id)->delete();
-        	return Redirect::to('seguridad/usuario');
-        }
-
-        public function cambiar_password(Request $request){
-                $this->validateRequestPassword($request);
-                $id=$request->get('idusuario');
-                $usuario=User::find($id);
-                $password=$request->input("password");
-                $usuario->password=bcrypt($password);
-                $r=$usuario->save();
-
-                if($r){
-                    return response()->json($usuario);
-                }
-                else
-                {
-                    return view("mensajes.msj_rechazado")->with("msj","Error al actualizar el password");
-                }
-        }
-
-        	public function galeria()
-        	{
-                $users=DB::table('users as U')
-                ->join('persona as per','U.identificacion','=','per.identificacion')
-                ->join('empleado as emp','per.identificacion','=','emp.identificacion')
-                ->join('nomytras as nt','emp.idempleado','=','nt.idempleado')
-                ->join('puesto as p','nt.idpuesto','=','p.idpuesto')
-                ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
-                ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado','emp.idempleado',DB::raw('max(nt.idnomytas) as idnomytas'))
-                ->where('U.id','!=',Auth::user()->id)
-                ->where('U.estado','=',1)
-                ->groupBy('emp.idempleado')            
-                ->paginate(30);
+            $users=DB::table('users as U')
+            ->join('persona as per','U.identificacion','=','per.identificacion')
+            ->join('empleado as emp','per.identificacion','=','emp.identificacion')
+            ->join('nomytras as nt','emp.idempleado','=','nt.idempleado')
+            ->join('puesto as p','nt.idpuesto','=','p.idpuesto')
+            ->join('afiliado as a','nt.idafiliado','=','a.idafiliado')
+            ->select('U.name','U.email','emp.celcorporativo','U.fotoperfil','p.nombre as puesto','a.nombre as afiliado','emp.idempleado',DB::raw('max(nt.idnomytas) as idnomytas'))
+            ->where('U.id','!=',Auth::user()->id)
+            ->where('U.estado','=',1)
+            ->groupBy('emp.idempleado')            
+            ->paginate(30);
                
             
         		/*
         		$data =  array("users"=>$users);
         		return json_encode($data);*/
-                return view("hr.galeria")->with("usuario",$users);    		
-        	}
+            return view("hr.galeria")->with("usuario",$users);    		
+        }
 
             public function buscar_personal($dato){
               

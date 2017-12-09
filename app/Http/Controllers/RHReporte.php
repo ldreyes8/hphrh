@@ -51,8 +51,6 @@ class RHReporte extends Controller
         $empleado = $empleado->selectQuery(Constants::RH_vempleado,array());
 
 
-
-
         return view("rrhh.reporte.vpempleado",["empleado"=>$empleado]);
 
     }

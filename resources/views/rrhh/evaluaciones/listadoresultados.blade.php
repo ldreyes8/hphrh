@@ -18,7 +18,7 @@
                              <th style="width: 25%">Nombre</th>
                              <th style="width: 5%">Afiliado </th>
                              <th style="width: 15%">Puesto </th>
-                             <th style="width: 10%">Status</th>
+                             <th style="width: 10%">Estado</th>
                              <th style="width: 42%">Opciones</th>
                          </thead>
                          @foreach ($empleados as $em)

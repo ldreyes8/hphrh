@@ -1,6 +1,7 @@
 <div class="card-box" id="VPJF">
     <h4 class="box-title" align="center">Solicitar viaje</h4>
     <hr style="border-color:black;" />    
+    <input type="hidden" name="" id="idafiliado" value="">
 
         <form role="form" id="formAgregarViaje">
             <div class="modal-header">
@@ -100,7 +101,7 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-danger btn-cancelviaje" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary btn-addviaje" id="btnGuardarAvance">Guardar</button>
+        <button type="button" class="btn btn-primary btn-addviaje" id="btnGuardarAvance" value="movi">Guardar</button>
         <input type="hidden" name="idE" id="idE" value="0"/>
     </div>
 </div>

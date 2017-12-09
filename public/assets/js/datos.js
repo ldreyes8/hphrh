@@ -202,7 +202,7 @@ $(document).ready(function() {
                 });
                 $('#btnextacad').click(function(){
                     var valores =[];
-                    var tablaPF=$("#detalle7 tr");
+                    var tablaPF=$("#detalle6 tr");
                     tablaPF.each(function(){
                         var nombref = $(this).find('td').eq(1).html();
                         valor = new Array(nombref);

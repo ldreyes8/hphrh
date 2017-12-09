@@ -12,7 +12,7 @@
                     <th>Inicio</th>
                     <th>Fin</th>
                     <th>Monto solicitado</th>
-                    <th>Tipo proyecto</th>
+                    <th>Tipo gasto</th>
                     <th>Autorizaci&oacute;n</th>                                
                     <th>Opciones</th>
                 </thead>
@@ -25,10 +25,19 @@
                     <td>{{$via->tipogasto}}</td>
                     <td>{{$via->statusgasto}}</td>
                     @if($via->statusgasto == 'Autorizado')
-                    <td><a onclick="cargar_formularioviaje(3);"><button class="btn btn-primary">Liquidar</button></a></td>
+                    <td>
+                        <a onclick="cargar_liquidacion(3,{{$via->idgastocabeza}});"><button class="btn btn-primary" title="Agregar factura" value="ad" id="liquidarvia"><i class="glyphicon glyphicon-edit"></i></button></a>
+                    </td>
                     @elseif($via->statusgasto == 'solicitado')
-                    <td><a href="javascript:void(0);" onclick="detalleavance(2,{{$via->idgastocabeza}});"><button class="btn btn-primary">Detalles</button></a>
-                        <a href="#"><button class="btn btn-danger" id="cancelarmov" value="{{$via->idgastocabeza}}">Cancelar</button></a></td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="detalleavance(2,{{$via->idgastocabeza}});"><button class="btn btn-info btn-md" title="Detalles"><i class="glyphicon glyphicon-list-alt"></i></button></a>
+                        <a href="#"><button class="btn btn-danger btn-md" title="Cancelar viaje" id="cancelarmov" value="{{$via->idgastocabeza}}"><i class="glyphicon glyphicon-remove"></i></button></a></td>
+
+                    @elseif($via->statusgasto == 'Finalizado')
+                    <td>
+                        <a href="javascript:void(0);" onclick="detalleavance(2,{{$via->idgastocabeza}});"><button class="btn btn-info btn-md" title="Detalles"><i class="glyphicon glyphicon-list-alt"></i></button></a>
+                        <a href="{{URL::action('EViajeController@descargardetalle',$via->idgastocabeza)}}"><button class="btn btn-success" title="Descargar"><i class="glyphicon glyphicon-cloud-download"></i></button></a>
+                    </td>
                     @else
                         <td><a href="#"><button class="btn btn-primary">Detalles</button></a>
                     @endif

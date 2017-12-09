@@ -21,7 +21,7 @@
 
            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                  <div class="table-responsive">
-                     <table class="table table-striped table-bordered table-condensed table-hover" id= "index-reportevpempleado">
+                     <table class="table table-striped table-bordered table-condensed table-hover" id= "index-reportevpempleado" data-order='[[4, "asc"]]'>
                         <thead>
                              <th>Id</th>
                              <th>Identificación</th>
@@ -46,8 +46,7 @@
                                 <button class="btn btn-primary btn-permisos" onclick="rh_reporte(2,{{$em->idempleado }})" title="Permisos"><i class="fa fa-leanpub"></i></button>
                             </td>
                         </tr>
-
-                         @endforeach
+                        @endforeach
                      </table>
                  </div>
            </div>

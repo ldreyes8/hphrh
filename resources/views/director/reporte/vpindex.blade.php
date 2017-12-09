@@ -1,57 +1,52 @@
-     <link rel="stylesheet" href="{{asset('assets/plugins/magnific-popup/dist/magnific-popup.css')}}" />
-        <link rel="stylesheet" href="{{asset('assets/plugins/jquery-datatables-editable/datatables.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/plugins/magnific-popup/dist/magnific-popup.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/plugins/jquery-datatables-editable/datatables.css')}}" />
 
 <div class="card-box" id="lisadoEmp">
     <h4 class="box-title" align="center">Reporte vacaciones y permisos</h4>
-        <hr style="border-color:black;" />
-        <div class="row">
-
-           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                 <div class="table-responsive">
-                     <table class="table table-striped table-bordered table-condensed table-hover" id= "index-reportevpempleado">
-                        <thead>
-                             <th>Id</th>
-                             <th>Identificación</th>
-                             <th>Nit</th>
-                             <th>Nombre</th>
-                             <th>Afiliado</th>
-                             <th>Puesto</th>
-                             <th>Status</th>
-                             <th style="width: 10%">Opciones</th>
-                        </thead>
-                         @foreach ($empleado as $em)
-                        <tr>
-                            <td>{{$em->idempleado}}</td>
-                            <td>{{$em->identificacion}}</td>
-                            <td>{{$em->nit}}</td>
-                            <td>{{$em->persona->nombre1.' '.$em->persona->nombre2.' '.$em->persona->apellido1.' '.$em->persona->apellido2}}</td>
-                            <td>{{$em->afiliado}}</td>
-                            <td>{{$em->puesto}}</td>
-                            <td>{{$em->statusn}}</td>
-                            <td>
-                                <button class="btn btn-primary btn-vacaciones" onclick="ji_reporte(1,{{$em->idempleado }})" title="Vacaciones"><i class="fa fa-camera-retro fa-xs"></i></button>
-                                <button class="btn btn-primary btn-permisos" onclick="ji_reporte(2,{{$em->idempleado }})" title="Permisos"><i class="fa fa-leanpub"></i></button>
-                            </td>
-                        </tr>
-
-                         @endforeach
-                     </table>
-                 </div>
-           </div>
+    <hr style="border-color:black;" />
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-condensed table-hover" id= "index-reportevpempleado" data-order='[[4, "asc"]]'>
+                    <thead>
+                        <th>Id</th>
+                        <th>Identificación</th>
+                        <th>Nit</th>
+                        <th>Nombre</th>
+                        <th>Afiliado</th>
+                        <th>Puesto</th>
+                        <th>Status</th>
+                        <th style="width: 10%">Opciones</th>
+                    </thead>
+                    @foreach ($empleado as $em)
+                    <tr>
+                        <td>{{$em->idempleado}}</td>
+                        <td>{{$em->identificacion}}</td>
+                        <td>{{$em->nit}}</td>
+                        <td>{{$em->nombre1.' '.$em->nombre2.' '.$em->apellido1.' '.$em->apellido2}}</td>
+                        <td>{{$em->afiliado}}</td>
+                        <td>{{$em->puesto}}</td>
+                        <td>{{$em->statusn}}</td>
+                        <td>
+                            <button class="btn btn-primary btn-vacaciones" onclick="ji_reporte(1,{{$em->idempleado }})" title="Vacaciones"><i class="fa fa-camera-retro fa-xs"></i></button>
+                            <button class="btn btn-primary btn-permisos" onclick="ji_reporte(2,{{$em->idempleado }})" title="Permisos"><i class="fa fa-leanpub"></i></button>
+                        </td>
+                    </tr>
+                    @endforeach
+                </table>
+            </div>
         </div>
+    </div>
 </div>
 
-        <script src="{{asset('assets/plugins/magnific-popup/dist/jquery.magnific-popup.min.js')}}"></script>
-        <script src="{{asset('assets/plugins/jquery-datatables-editable/jquery.dataTables.js')}}"></script>
-        <script src="{{asset('assets/plugins/datatables/dataTables.bootstrap.js')}}"></script>
-        <script src="{{asset('assets/plugins/tiny-editable/mindmup-editabletable.js')}}"></script>
-        <script src="{{asset('assets/js/JefeInmediato/reporte.js')}}"></script>
+<script src="{{asset('assets/plugins/magnific-popup/dist/jquery.magnific-popup.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatables-editable/jquery.dataTables.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables/dataTables.bootstrap.js')}}"></script>
+<script src="{{asset('assets/plugins/tiny-editable/mindmup-editabletable.js')}}"></script>
+<script src="{{asset('assets/js/JefeInmediato/reporte.js')}}"></script>
 
-
-
-
-        <script type="text/javascript">
-        (function( $ ) {
+<script type="text/javascript">
+    (function( $ ) {
 
             'use strict';
 
@@ -145,5 +140,5 @@
                 EditableTable.initialize();
             });
 
-        }).apply( this, [ jQuery ]);
-    </script>
+    }).apply( this, [ jQuery ]);
+</script>

@@ -21,7 +21,7 @@
 
            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                  <div class="table-responsive">
-                     <table class="table table-striped table-bordered table-condensed table-hover" id= "index-reportevpempleado">
+                     <table class="table table-striped table-bordered table-condensed table-hover" id= "index-reportevpempleado" data-order='[[4, "asc"]]'>
                         <thead>
                              <th>Id</th>
                              <th>Identificación</th>
@@ -37,7 +37,7 @@
                             <td>{{$em->idempleado}}</td>
                             <td>{{$em->identificacion}}</td>
                             <td>{{$em->nit}}</td>
-                            <td>{{$em->persona->nombre1.' '.$em->persona->nombre2.' '.$em->persona->apellido1.' '.$em->persona->apellido2}}</td>
+                            <td>{{$em->nombre1.' '.$em->nombre2.' '.$em->apellido1.' '.$em->apellido2}}</td>
                             <td>{{$em->afiliado}}</td>
                             <td>{{$em->puesto}}</td>
                             <td>{{$em->statusn}}</td>
@@ -61,10 +61,6 @@
     @parent
         <meta name="_token" content="{!! csrf_token() !!}" />
         <script src="{{asset('assets/js/RHjs/listados.js')}}"></script>
-        <!--
-        <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
-        <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
-        -->
 
         <script src="{{asset('assets/plugins/magnific-popup/dist/jquery.magnific-popup.min.js')}}"></script>
         <script src="{{asset('assets/plugins/jquery-datatables-editable/jquery.dataTables.js')}}"></script>
@@ -147,6 +143,7 @@
                             25, 
                             30, 
                         ]
+
                     });
 
                     window.dt = this.datatable;

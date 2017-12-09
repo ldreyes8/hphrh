@@ -79,8 +79,7 @@
 			window.dt = this.datatable;
 			return this;
 		},
- 
-
+		
 		events: function() {
 			var _self = this;
 
@@ -105,10 +104,18 @@
 					e.preventDefault();
 
 					var $row = $(this).closest( 'tr' );
+					var id = $row.children('td').eq(0).html();
+					var urlraiz=$("#url_raiz_proyecto").val();
+
+					$.ajaxSetup({
+                		headers: {
+                    		'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                		}
+            		});
 
 					swal({
-	                	title: "¿Estás seguro?",
-	                	text: "No podrás recuperar este registro",
+	                	title: "¿Esta seguro?",
+	                	text: "No podra recuperar este registro",
 		                type: "warning",
 		                showCancelButton: true,
 		                confirmButtonColor: "#FFFF00",
@@ -118,12 +125,21 @@
 		                closeOnCancel: false
 	            	}, function (isConfirm) {
 	                	if (isConfirm) {
-	                    	swal("Eliminado", "Se ha eliminado el registro", "success");
-	                    	_self.rowRemove( $row);
+	                		$.ajax({
+				                type: "DELETE",
+				                url: urlraiz+"/empleado/viaje/liquidar/delete/"+id,
+				                success: function (data) {
+				                   	_self.rowRemove( $row);
+				                    swal("Eliminado", "Se ha eliminado el registro", "success");
+				                },
+				                error: function (data) {
+				                    console.log('Error:', data);
+				                }
+				            });
 	                	} else {
 	                    	swal("Cancelado", "No se ha eliminado el registro :)", "error");
 	                	}
-	            	});	
+	            	});
 				});
 
 			this.$addButton.on( 'click', function(e) {
@@ -170,29 +186,19 @@
                     data: formData,
                     dataType: 'json',
              
-                   success: function (data) {
+                	success: function (data) {
+                   		var urlraiz=$("#url_raiz_proyecto").val();
+	                   	$.get(urlraiz+'/empleado/viaje/liquidar/updatemonto',function(data){
+					            $("#disponible").html(data[0]);
+					            $("#liquidacion").html(data[1]);
+					       		$("#montot").html(data[2]);
+					    });
+
 	                   	if(state == "add"){	
-	                   		var urlraiz=$("#url_raiz_proyecto").val();
-	                   		$.get(urlraiz+'/empleado/viaje/liquidar/updatemonto',function(data){
-					            $("#disponible").html(data[0]);
-					            $("#liquidacion").html(data[1]);
-					       		$("#montot").html(data[2]);
-
-					        });
-
-	                   		_self.rowAdd(data); }
+	                   		_self.rowAdd(data);
+	                   	}
 	                   	if(state == "update"){
-
-	                   		var urlraiz=$("#url_raiz_proyecto").val();
-	                   		$.get(urlraiz+'/empleado/viaje/liquidar/updatemonto',function(data){
-					            $("#disponible").html(data[0]);
-					            $("#liquidacion").html(data[1]);
-					       		$("#montot").html(data[2]);
-
-					        });
-
 	                   		_self.rowUpdate(data);
-	                   		console.log(data);
 	                   	}
               			
                         $('#formAgregarLiquidar').trigger("reset");
@@ -359,8 +365,7 @@
 
 			this.datatable.row(indice).data(values);
 			this.datatable.draw();
-			//console.log(this.datatable.row(indice).data(values));
-		},
+	},
 
 		rowSave: function( $row ) {
 			var _self     = this,
@@ -446,8 +451,8 @@ $(document).on('click','.btn-EnviarL',function(e){
     {
 
 		swal({
-		    title: "¿Estás seguro?",
-		    text: "No podrás modificar el registro por el momento",
+		    title: "¿Esta seguro?",
+		    text: "No podra modificar el registro por el momento",
 			type: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#FFFF00",

@@ -42,25 +42,13 @@ class JIReporte extends Controller
 
 
         $empleado = DB::select("call JI_vempleado(?)",array($this->JI()->identificacion));
-
-
         return view("director.reporte.vpempleado",["empleado"=>$empleado]);
     }
 
 
     public function vpindex(Request $request)
     {
-        $empleado = Empleado::join('nomytras as nt','empleado.idempleado','=','nt.idempleado')
-        ->join('status as st','empleado.idstatus','=','st.idstatus')
-        ->join('puesto as pu','nt.idpuesto','=','pu.idpuesto')
-        ->join('afiliado as af','nt.idafiliado','=','af.idafiliado')
-        ->join('caso as c','c.idcaso','=','nt.idcaso')
-      ->join('asignajefe as aj','empleado.idempleado','=','aj.idempleado')
-        ->select('empleado.idempleado','empleado.identificacion','empleado.nit','st.statusemp as statusn','pu.nombre as puesto','af.nombre as afiliado','c.idcaso',DB::raw('max(nt.idnomytas) as idnomytas'))
-        ->where('aj.identificacion','=',$this->JI()->identificacion)
-        ->groupBy('empleado.idempleado')
-        ->get();
-
+        $empleado = DB::select("call JI_vempleado(?)",array($this->JI()->identificacion));
         return view("director.reporte.vpindex",["empleado"=>$empleado]);
     }
 

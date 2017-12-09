@@ -24,8 +24,9 @@
                     <td>{{$via->montosolicitado}}</td>
                     <td>{{$via->tipogasto}}</td>
                     <td>{{$via->statusgasto}}</td>
-                 
-                    <td><a href="javascript:void(0);" onclick="detalleavance(1,{{$via->idgastocabeza}});"><button class="btn btn-primary">Detalles</button></a></td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="detalleavance(1,{{$via->idgastocabeza}});"><button class="btn btn-info btn-md" title="Detalles"><i class="glyphicon glyphicon-list-alt"></i></button></a>
+                    </td>
                 </tr> 
                 @endforeach
             </table>

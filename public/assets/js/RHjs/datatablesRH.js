@@ -38,6 +38,7 @@ var handleDataTableButtons = function() {
 					null, 			
 					null, 		
 					null,
+                    null,
 					null, 					
 					{ "bSortable": false }
 				],

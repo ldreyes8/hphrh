@@ -348,26 +348,27 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('viaje/cargarbusqueda','EViajeController@cargarbusqueda');
 	Route::post('viaje/store','EViajeController@store');
 
-	Route::get('viaje/liquidar','EViajeController@liquidar');
-	Route::get('viaje/liquidar/add','EViajeController@addl');
-	Route::post('viaje/liquidar/store','EViajeController@storel');
-	Route::get('viaje/liquidar/edit/{id}','EViajeController@editl');
-	Route::put('viaje/liquidar/update/{id}','EViajeController@updatel');
-	Route::post('viaje/liquidar/envio','EViajeController@enviol');
-	Route::get('viaje/liquidar/updatemonto','EViajeController@updateml');
-	Route::post('viaje/liquidar/cancelar','EViajeController@cancelarl');
+	Route::get('viaje/liquidar/pdf/{id}','EViajeController@descargardetalle');
+	Route::get 	('viaje/liquidar/updatemonto','EViajeController@updateml');
 
-	Route::get('viaje/vehiculo/edit/{id}','EViajeController@vehedit');
-	Route::put('viaje/vehiculo/update/{id}','EViajeController@vehupdate');
+	Route::get 	('viaje/liquidar/{id}','EViajeController@liquidar');
+	Route::get 	('viaje/liquidar/add/{id}','EViajeController@addl');
+	Route::post ('viaje/liquidar/store','EViajeController@storel');
+	Route::get 	('viaje/liquidar/edit/{id}','EViajeController@editl');
+	Route::put 	('viaje/liquidar/update/{id}','EViajeController@updatel');
+	Route::delete('viaje/liquidar/delete/{id}','EViajeController@deletel');
+	Route::post ('viaje/liquidar/envio','EViajeController@enviol');
+	Route::post ('viaje/liquidar/cancelar','EViajeController@cancelarl');
 
-	Route::get('viaje/indexhistorial','EViajeController@indexhistorial');
-	Route::get('viaje/detallehistorial/{id}','EViajeController@detallehistorial');
-	Route::get('viaje/detalleavance/{id}','EViajeController@detalle');
+	Route::get 	('viaje/vehiculo/edit/{id}','EViajeController@vehedit');
+	Route::put 	('viaje/vehiculo/update/{id}','EViajeController@vehupdate');
 
-	Route::get('cajachica/add','ECajaChica@add');
+	Route::get 	('viaje/indexhistorial','EViajeController@indexhistorial');
+	Route::get 	('viaje/detallehistorial/{id}','EViajeController@detallehistorial');
+	Route::get 	('viaje/detalleavance/{id}','EViajeController@detalle');
 
-
-
+	Route::get 	('cajachica/add','ECajaChica@add');
+	Route::post ('cajachica/store','ECajaChica@store');
 
 });
 
@@ -455,11 +456,14 @@ Route::group(['prefix'=>'ji'],function(){
 		Route::get('viajejf','JIViajeController@index');
 		Route::get('viajejf/solicitados','JIViajeController@solicitados');
 		Route::get('viajejf/autorizados','JIViajeController@autorizados');
-		Route::get('viajejf/detalleauto/{id}','JIViajeController@detalleauto');
+		Route::get('viajejf/revisionji','JIViajeController@revisionji');
+		Route::get('viajejf/rechazados','JIViajeController@rechazados');
 		Route::get('viajejf/detallesolicitud/{id}','JIViajeController@detallesolicitud');
 		Route::put('viajejf/respuesta','JIViajeController@respuestaviaje');
 		Route::delete('viajejf/delvhc/{id}','JIViajeController@delvhc');
-		Route::get('viajejf/rechazados','JIViajeController@rechazados');
+		Route::get('viajejf/detallesliq/{id}','JIViajeController@detalleautoas');
+		Route::put('viajejf/revok','JIViajeController@revok');
+		Route::put('viajejf/revretorna','JIViajeController@revretorna');
 
 	//Reporte de vacaciones y permisos.
 		Route::get('reporte/vpempleado', 'JIReporte@reportevp')->middleware('roleshinobi:jefeinmediato');
@@ -469,14 +473,52 @@ Route::group(['prefix'=>'ji'],function(){
 
 });
 
+//Rutas asistente o conta
+Route::group(['prefix'=>'asistete'],function()
+{
+	//viaje
+
+		Route::get('viaje','AsistenteC@index');
+		Route::get('viaje/avancesol','AsistenteC@vasistentes');
+		Route::get('viaje/avance','AsistenteC@revasistentes');
+		Route::get('viaje/detallesliq/{id}','AsistenteC@detalleautoas');
+		Route::put('viaje/revision','AsistenteC@revision');
+		Route::put('viaje/revision2','AsistenteC@revision2');
+		Route::get('viaje/liquidar/add/{id}','AsistenteC@addl');
+		Route::put('viaje/revisado','AsistenteC@revisado');
+		Route::put('viaje/tramite','AsistenteC@tramite');
+		Route::delete('viaje/delete/{id}','AsistenteC@elimina');
+		Route::get('viaje/updatemonto/{id}','AsistenteC@updateml');
+
+});
+
+Route::group(['prefix'=>'asistente'],function()
+{
+	//Aperturar Caja chica
+		Route::get 	('cajachica','ACajaChica@index');
+		Route::get 	('cajachica/create','ACajaChica@create');
+		Route::post ('cajachica/store','ACajaChica@store');
+		Route::get 	('cajachica/indexliquidar','ACajaChica@indexliquidar');
+		Route::get  ('cajachica/liquidando','ACajaChica@indexliquidar');
+		Route::get 	('cajachica/liquidar/{id}','ACajaChica@liquidar');
+
+});
 
 //rutas del controlador de Usuario
 
-Route::get('seguridad/usuario', 'PCUsuarioController@contenedor')->middleware('roleshinobi:informatica');
-Route::get('seguridad/usuarios/{page?}','PCUsuarioController@index')->middleware('roleshinobi:informatica');
-Route::get('seguridad/usuario/create','PCUsuarioController@add')->middleware('roleshinobi:informatica');
-Route::post('seguridad/usuario/store','PCUsuarioController@store')->middleware('roleshinobi:informatica');
-Route::get('seguridad/usuario/editar_usuario/{id}', 'PCUsuarioController@editar_usuario')->middleware('roleshinobi:informatica');
+Route::group(['prefix'=>'seguridad'],function()
+{
+	Route::get('usuario', 'PCUsuarioController@contenedor')->middleware('roleshinobi:informatica');
+	Route::get('usuarios/{page?}','PCUsuarioController@index')->middleware('roleshinobi:informatica');
+	Route::get('usuario/create','PCUsuarioController@add')->middleware('roleshinobi:informatica');
+	Route::post('usuario/store','PCUsuarioController@store')->middleware('roleshinobi:informatica');
+	Route::get('usuario/editar_usuario/{id}', 'PCUsuarioController@editar_usuario')->middleware('roleshinobi:informatica');
+
+	// Rutas del proyecto de liquidacion, caja chica.
+
+	Route::get('proyecto','PCProyecto@index')->middleware('roleshinobi:informatica');
+});
+
 Route::delete('destroy/{id}','PCUsuarioController@destroy')->middleware('roleshinobi:informatica');
 Route::get('asignar_rol/{idusu}/{idrol}', 'PCUsuarioController@asignar_rol')->middleware('roleshinobi:informatica');
 Route::get('quitar_rol/{idusu}/{idrol}','PCUsuarioController@quitar_rol')->middleware('roleshinobi:informatica');
@@ -488,6 +530,9 @@ Route::get('seguridad/buscar_usuarios/{rol}/{dato?}', 'PCUsuarioController@busca
 
 Route::post('crear_rol', 'PCUsuarioController@crear_rol')->middleware('roleshinobi:informatica');
 Route::get('borrar_rol/{idrol}', 'PCUsuarioController@borrar_rol')->middleware('roleshinobi:informatica');
+
+
+
 
 //reporte empleado vacaciones y permisos.
 
