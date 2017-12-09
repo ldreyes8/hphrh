@@ -477,7 +477,7 @@ Route::group(['prefix'=>'ji'],function(){
 Route::group(['prefix'=>'asistete'],function()
 {
 	//viaje
-<<<<<<< HEAD
+
 		Route::get('viaje','AsistenteC@index');
 		Route::get('viaje/avancesol','AsistenteC@vasistentes');
 		Route::get('viaje/avance','AsistenteC@revasistentes');
@@ -489,10 +489,7 @@ Route::group(['prefix'=>'asistete'],function()
 		Route::put('viaje/tramite','AsistenteC@tramite');
 		Route::delete('viaje/delete/{id}','AsistenteC@elimina');
 		Route::get('viaje/updatemonto/{id}','AsistenteC@updateml');
-=======
-		Route::get('viaje','JIViajeController@indexas');
-		Route::get('viaje/avance','JIViajeController@vasistentes');
->>>>>>> parent of d2dac8a... Se esta modificando viajes en asistentes
+
 });
 
 Route::group(['prefix'=>'asistente'],function()

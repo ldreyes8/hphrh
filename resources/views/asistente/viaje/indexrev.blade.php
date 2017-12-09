@@ -35,7 +35,7 @@
                                 <a href="#"><button class="btn btn-success btn-md" value="{{$v->idgastocabeza}}" id="btnconfirmac" title="Caja Chica"><i class="ion-checkmark-circled"></i></button></a>
                                 <a href="#"><button class="btn btn-danger btn-md" id="btnrechazov" title="Rechazar"><i class="ion-close-circled"></i></button></a>
                             @else
-                                <a onclick="detalleviaje(3,{{$v->idempleado}});"><button class="btn btn-info btn-md" id="btnconfirmav" title="Detalles"><i class="glyphicon glyphicon-list-alt"></i></button></a>
+                                <a onclick="detalleviaje(2,{{$v->idempleado}});"><button class="btn btn-info btn-md" id="btnconfirmav" title="Detalles"><i class="glyphicon glyphicon-list-alt"></i></button></a>
                             @endif
                         </td>
                     </tr>
