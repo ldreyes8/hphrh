@@ -2,28 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Input;
-use App\Http\Requests\UFormRequest;
-use App\User;  
-use Validator;
 
 use DB;
-
-use Illuminate\Http\File;
-
-use Carbon\Carbon;  // para poder usar la fecha y hora
+use App\User;
 use Response;
+use Validator;
+use Carbon\Carbon;  // para poder usar la fecha y hora
+use App\Http\Requests;
+use Illuminate\Http\File;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-
-
-use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UFormRequest;
 use Illuminate\Support\Facades\Auth;
-
 use Caffeinated\Shinobi\Models\Role;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
 use Caffeinated\Shinobi\Models\Permission;
 
 
@@ -58,7 +52,7 @@ class PCUsuarioController extends Controller
         ->with("usuarios", $usuarios )
         ->with("rolsel", $rolsel )
         ->with("roles", $roles );       
-    } 
+    }
 
     public function add()
     {

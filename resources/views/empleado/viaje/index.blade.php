@@ -22,35 +22,23 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div id="dock-container" class="">
-                    <div class="panel-body">
-                        <ul>
-                            <li>
+            <div class="panel-body">
+                <ul>
+                    <li>
                                 <a onclick="openmodal();"><img src="{{asset('assets/images/viaje.png')}}"/></a>
                                 <span>Apertura avance</span>
-                            </li>
-                            <li>
+                    </li>
+                    <li>
                                 <!--<a onclick="cargar_formularioviaje(2);"><img src="{{asset('assets/images/laravel.png')}}"/></a>-->
                                 <a onclick="cargar_formularioviaje(2);"><img src="{{asset('assets/images/liquidar.png')}}"/></a>
                                 <span>Liquidar</span>
-                            </li>
-                            <li>
+                    </li>
+                    <li>
                                 <span>Historial</span>
                                 <a onclick="cargar_formularioviaje(4);"><img src="{{asset('assets/images/historial.png')}}"/></a>
-                            </li>
-                            <!--
-                            <li>
-                                <span>Liquidación caja chica</span>
-                                <a href="#"><img src="{{asset('assets/images/danger.png')}}"/></a>
-                            </li>
-                            -->
-                            <!--Funciones de la encargada de caja chica -->
-                            <!--
-                            <li>
-                                <span>Solicitar caja chica</span>
-                            </li>
-                            -->
-                        </ul>
-                    </div>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <div id="capa_formularios" class="div_modal">
@@ -71,7 +59,7 @@
                                     <div class="modal-header">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <label>Monto a solicitar</label>
-                                            <input id="MSinicial" type="number" min="0" value="0" class="form-control" onkeypress="return valida(event)">
+                                            <input id="MSinicial" type="number" min="0" value="0" class="form-control"  onkeypress="return validadecimal(event,this)">
                                         </div>
                                     </div>
                                 </form>

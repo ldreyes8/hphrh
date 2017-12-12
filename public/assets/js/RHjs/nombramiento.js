@@ -89,6 +89,7 @@ function eliminar(index)
 
 function asignar_jefeinmediato(idempleado){
     var identificacion=$("#jefe1").val();
+    var jefe = $("#jefe1 option:selected").text();
     var notifica = $("#confirma1").val();
     var urlraiz=$("#url_raiz_proyecto").val();
     
@@ -104,10 +105,18 @@ function asignar_jefeinmediato(idempleado){
     $.ajax({
         url: miurl
     }).done( function(resul) 
-    { 
+    {
+        var combo = document.getElementById("jefe1");
+        combo.remove(document.getElementById("jefe1").selectedIndex);
+
+        $(combo).prop('selectedIndex', 0).change();
+
+        $("#jefe2").append('<option selected value='+identificacion+'>'+jefe+'</option>');
+        $('#jefe2').trigger('select2:updated');
+
         var etiquetas="";
+        var roles=$.parseJSON(resul);
         $.each(roles,function(index, value) {
-            console.log(resul);
             etiquetas+= '<span class="label label-warning">'+value+'</span> ';
         })
         $("#zona_etiquetas_nombramiento").html(etiquetas);
@@ -119,6 +128,8 @@ function asignar_jefeinmediato(idempleado){
 
 function quitar_jefeinmediato(idempleado){
     var identificacion=$("#jefe2").val();
+    var jefe = $("#jefe2 option:selected").text();
+
     var urlraiz=$("#url_raiz_proyecto").val();
     $("#zona_etiquetas_nombramiento").html($("#cargador_empresa").html());
     var miurl=urlraiz+"/empleado/quitar_jefeinmediato/"+idempleado+"/"+identificacion+""; 
@@ -126,7 +137,14 @@ function quitar_jefeinmediato(idempleado){
     $.ajax({
         url: miurl
     }).done( function(resul) 
-    { 
+    {
+        var combo = document.getElementById("jefe2");
+        combo.remove(document.getElementById("jefe2").selectedIndex);
+        $(combo).trigger('change');
+        
+        $("#jefe1").append('<option selected value='+identificacion+'>'+jefe+'</option>');
+        $('#jefe1').trigger('select2:updated');
+
         var etiquetas="";
         var roles=$.parseJSON(resul);
         $.each(roles,function(index, value) {
@@ -139,10 +157,65 @@ function quitar_jefeinmediato(idempleado){
     });
 }
 
+
+function modificar_datoscontables(idempleado){
+    var l4=$("#l4").val();
+    var cuentaban = $("#cuentaban").val();
+
+    console.log(l4,cuentaban);
+    var urlraiz=$("#url_raiz_proyecto").val();
+
+    var miurl=urlraiz+"/empleado/update_dcontable";
+
+    var formData = {
+        empleado: $('#idempleado').val(),
+        l4: $('#l4').val(),
+        cuentaban: $('#cuentaban').val(),
+    };
+    
+    $.ajaxSetup({
+        headers: {
+           'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: miurl,
+        data: formData,
+        dataType: 'json',
+        success: function (data) {
+            swal({ 
+                title:"Envio correcto",
+                text: "Gracias",
+                type: "success"
+            },
+            function(){
+                $("#l4").val(data.l4);
+                $("#cuentaban").val(data.ctabanco);
+            });                                
+        },
+        error: function (data) {
+            $('#loading').modal('hide');
+            var errHTML="";
+            if((typeof data.responseJSON != 'undefined')){
+                for( var er in data.responseJSON){
+                    errHTML+="<li>"+data.responseJSON[er]+"</li>";
+                }
+            }else{
+                errHTML+='<li>Error...</li>';
+            }
+            
+            $("#erroresContent").html(errHTML); 
+            $('#erroresModal').modal('show');
+        }
+    });
+}
+
 $(document).on('click','.btn-guardarAsecenso',function(e){
     swal({
-        title: "¿Estás seguro?",
-        text: "No podrás eliminar este registro",
+        title: "Â¿EstÃ¡s seguro?",
+        text: "No podrÃ¡s eliminar este registro",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#FFFF00",
@@ -295,8 +368,8 @@ $(document).on('click','.btn-rechazar',function(e){
 
     var idvacante =$(this).val();    
     swal({
-        title: "¿Estás seguro?",
-        text: "No podrás recuperar este registro",
+        title: "Â¿EstÃ¡s seguro?",
+        text: "No podrÃ¡s recuperar este registro",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#FFFF00",
@@ -361,12 +434,11 @@ $(document).on('click','.btn-rechazar',function(e){
     });                
 });
 
-
 $(document).on('click','.btn-disablevacante',function(e){
     var idvacante =$(this).val();    
     swal({
-        title: "¿Estás seguro?",
-        text: "No podrás recuperar este registro",
+        title: "Â¿EstÃ¡s seguro?",
+        text: "No podrÃ¡s recuperar este registro",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#FFFF00",

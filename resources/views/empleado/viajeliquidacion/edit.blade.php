@@ -15,7 +15,7 @@
         </div>
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
             <label for="numerodependientes">Monto</label>
-            <input id="monto" type="number" min="0" value="{{$gastoempleado->montofactura}}" class="form-control" onkeypress="return valida(event)">
+            <input id="monto" type="number" min="0" value="{{$gastoempleado->montofactura}}" class="form-control" onkeypress="return validadecimal(event,this)">
         </div>
     </div>
     <div class="modal-header">

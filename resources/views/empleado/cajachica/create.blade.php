@@ -3,7 +3,7 @@
     <hr style="border-color:black;" />
     <input type="hidden" name="" id="idafiliado" value="{{$afiliado->idafiliado}}">
 
-        <form role="form" id="formAgregarViaje">
+    <form role="form" id="formAgregarViaje">
             <div class="modal-header">
                 <label class="control-label">Proyecto</label>
                 <select class="form-control select2" id="idproyecto">
@@ -17,7 +17,7 @@
             <div class="modal-header">
                 <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label">Monto solicitado</label>
-                    <input id="monto" type="number" min="0" class="form-control" onkeypress="return valida(event)" value="0">
+                    <input id="monto" type="number" min="0" class="form-control" onkeypress="return validadecimal(event,this)" value="0">
                 </div>
                 <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label">Tipo moneda</label>
@@ -145,49 +145,17 @@
         document.getElementById("fecha_inicio").focus();
     });
 
-        $("#vehoculto").hide();
+    $("#vehoculto").hide();
 
-        function mostrar() {
-            if($("#solvehiculo:checked").val()=="Si") {
-                $("#vehoculto").show();
-                $("#taboculto").show();
-            }
-            if($("#solvehiculo:checked").val()=="No") {
-                $("#vehoculto").hide();
-                $("#taboculto").hide();
-            }
+    function mostrar() {
+        if($("#solvehiculo:checked").val()=="Si") {
+            $("#vehoculto").show();
+            $("#taboculto").show();
         }
-            function valida(e){
-                tecla = e.keyCode || e.which;
-                tecla_final = String.fromCharCode(tecla);
-                //Tecla de retroceso para borrar, siempre la permite
-                if (tecla==8 || tecla==37 || tecla==39 ||tecla==46 ||tecla==9)
-                    {
-                        return true;
-                    } 
-                // Patron de entrada, en este caso solo acepta numeros
-                patron =/[0-9]/;
-                //patron =/^\d{9}$/;
-                return patron.test(tecla_final);
-
-            }
-            //Se utiliza para que el campo de texto solo acepte letras
-            function validaL(e) {
-                key = e.keyCode || e.which;
-                tecla = String.fromCharCode(key).toString();
-                letras = " áéíóúabcdefghijklmnñopqrstuvwxyzÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ63";//Se define todo el abecedario que se quiere que se muestre.
-                especiales = [8, 37, 39, 46, 9]; //Es la validación del KeyCodes, que teclas recibe el campo de texto.
-                tecla_especial = false
-                for(var i in especiales) {
-                    if(key == especiales[i]) {
-                        tecla_especial = true;
-                        break;
-                    }
-                }
-                if(letras.indexOf(tecla) == -1 && !tecla_especial){
-                    //alert('Tecla no aceptada');
-                    return false;
-                  }
-            }
+        if($("#solvehiculo:checked").val()=="No") {
+            $("#vehoculto").hide();
+            $("#taboculto").hide();
+        }
+    }
 </script>
 

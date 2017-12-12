@@ -275,9 +275,7 @@
     </div>
 </div>
     
-    <!-- -->
-    <script src="{{asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
-    <script src="{{asset('assets/pages/jquery.sweet-alert.init.js')}}"></script>
+    
     <!-- Parsleyjs -->
     <script type="text/javascript" src="{{asset('assets/plugins/parsleyjs/dist/parsley.js')}}"></script>
 

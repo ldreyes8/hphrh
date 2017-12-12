@@ -1,47 +1,47 @@
 <div class="card-box" id="VPJF">
     <h4 class="box-title" align="center">Solicitar viaje</h4>
     <hr style="border-color:black;" />    
-    <input type="hidden" name="" id="idafiliado" value="">
 
-        <form role="form" id="formAgregarViaje">
-            <div class="modal-header">
-                <label class="control-label">Proyecto</label>
-                <select class="form-control select2" id="idproyecto">
-                @if (isset($proyectos))
-                @foreach($proyectos as $pro)
-                    <option value="{{$pro->idproyecto}}">{{$pro->proyecto}}</option>
-                @endforeach
-                @endif
+    <input type="hidden" name="" id="idafiliado" value="">
+    <form role="form" id="formAgregarViaje">
+        <div class="modal-header">
+            <label class="control-label">Proyecto</label>
+            <select class="form-control select2" id="idproyecto">
+            @if (isset($proyectos))
+            @foreach($proyectos as $pro)
+                <option value="{{$pro->idproyecto}}">{{$pro->proyecto}}</option>
+            @endforeach
+            @endif
+            </select>
+        </div>
+        <div class="modal-header">
+            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                <label class="control-label">Monto solicitado</label>
+                <input id="monto" type="number" min="0" class="form-control" onkeypress="return validadecimal(event,this)" value="0">
+            </div>
+            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                <label class="control-label">Tipo moneda</label>
+                <select class="form-control" id="moneda">
+                    <option>GTQ</option>
+                    <option>USD</option>
                 </select>
             </div>
-            <div class="modal-header">
-                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                    <label class="control-label">Monto solicitado</label>
-                    <input id="monto" type="number" min="0" class="form-control" onkeypress="return valida(event)" value="0">
-                </div>
-                <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                    <label class="control-label">Tipo moneda</label>
-                    <select class="form-control" id="moneda">
-                        <option>GTQ</option>
-                        <option>USD</option>
-                    </select>
-                </div>
-                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                    <label class="control-label">Deposito</label>
-                    <div class="form-group">
-                        <div class="radio radio-success radio-inline">
-                            <input type="radio" id="deposito" value="cheque" name="deposito" checked>
-                            <label for="inlineRadio2">Cheque</label><!--No se tomo a su totalidad los dias solicitados-->
-                        </div>
-                        <div class="radio radio-info radio-inline">
-                            <input type="radio" id="deposito" value="transferencia" name="deposito" checked>
-                            <label for="inlineRadio16">Transferencia</label> <!-- Se tomo todos los dias solicitados -->
-                        </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                <label class="control-label">Deposito</label>
+                <div class="form-group">
+                    <div class="radio radio-success radio-inline">
+                        <input type="radio" id="deposito" value="cheque" name="deposito" checked>
+                        <label for="inlineRadio2">Cheque</label><!--No se tomo a su totalidad los dias solicitados-->
+                    </div>
+                    <div class="radio radio-info radio-inline">
+                        <input type="radio" id="deposito" value="transferencia" name="deposito" checked>
+                        <label for="inlineRadio16">Transferencia</label> <!-- Se tomo todos los dias solicitados -->
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="modal-header">
+        <div class="modal-header">
             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                 <label class="control-label">Fecha inicio</label>
                 <div class="input-group">
@@ -75,22 +75,22 @@
                     <button type="button" class="btn btn-success btn-buscarveh" title="Buscar Vehiculo" ><i class="fa fa-search"></i></button>
                 </a>
             </div>
-
             <div id="taboculto" class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                        <div><br></div>
-                    <table id="table-veh" class="table table-striped table-bordered table-hover">
-                        <thead style="background-color:#A9D0F5">
-                            <tr>
-                                <th>Opciones</th>
-                                <th>Vehiculo</th>
-                                <th>Kilometraje</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                <div><br></div>
+                <table id="table-veh" class="table table-striped table-bordered table-hover">
+                    <thead style="background-color:#A9D0F5">
+                        <tr>
+                            <th>Opciones</th>
+                            <th>Vehiculo</th>
+                            <th>Kilometraje</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
         </div>
+
         <div class="modal-header">
             <div class="form-group">
                 <label>Motivo</label>
@@ -139,7 +139,6 @@
     function eliminar(index){
         console.log(index);
         $("#veh" + index).remove();
-        //evaluar();
     }
 
     $(document).ready(function() {
@@ -148,49 +147,17 @@
         document.getElementById("fecha_inicio").focus();
     });
 
-        $("#vehoculto").hide();
+    $("#vehoculto").hide();
 
-        function mostrar() {
-            if($("#solvehiculo:checked").val()=="Si") {
-                $("#vehoculto").show();
-                $("#taboculto").show();
-            }
-            if($("#solvehiculo:checked").val()=="No") {
-                $("#vehoculto").hide();
-                $("#taboculto").hide();
-            }
+    function mostrar() {
+        if($("#solvehiculo:checked").val()=="Si") {
+            $("#vehoculto").show();
+            $("#taboculto").show();
         }
-            function valida(e){
-                tecla = e.keyCode || e.which;
-                tecla_final = String.fromCharCode(tecla);
-                //Tecla de retroceso para borrar, siempre la permite
-                if (tecla==8 || tecla==37 || tecla==39 ||tecla==46 ||tecla==9)
-                    {
-                        return true;
-                    } 
-                // Patron de entrada, en este caso solo acepta numeros
-                patron =/[0-9]/;
-                //patron =/^\d{9}$/;
-                return patron.test(tecla_final);
-
-            }
-            //Se utiliza para que el campo de texto solo acepte letras
-            function validaL(e) {
-                key = e.keyCode || e.which;
-                tecla = String.fromCharCode(key).toString();
-                letras = " áéíóúabcdefghijklmnñopqrstuvwxyzÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ63";//Se define todo el abecedario que se quiere que se muestre.
-                especiales = [8, 37, 39, 46, 9]; //Es la validación del KeyCodes, que teclas recibe el campo de texto.
-                tecla_especial = false
-                for(var i in especiales) {
-                    if(key == especiales[i]) {
-                        tecla_especial = true;
-                        break;
-                    }
-                }
-                if(letras.indexOf(tecla) == -1 && !tecla_especial){
-                    //alert('Tecla no aceptada');
-                    return false;
-                  }
-            }
+        if($("#solvehiculo:checked").val()=="No") {
+            $("#vehoculto").hide();
+            $("#taboculto").hide();
+        }
+    }
 </script>
 

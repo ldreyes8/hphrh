@@ -110,4 +110,9 @@ class Role extends Model
 
         return $this->hasAnyPermission($permission, $this->getPermissions());
     }
+
+    public function scopeRol($query,$rol)
+    {
+        return $query->where('roles.id', '=', $rol);
+    }
 }

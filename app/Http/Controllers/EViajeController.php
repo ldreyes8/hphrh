@@ -46,7 +46,7 @@ class EViajeController extends Controller
     public function viaje(){
         $viaje = DB::table('gastoencabezado as gas')
             ->join('tipogasto as tga','gas.idtipogasto','=','tga.idtipogasto')
-            ->join('proyectocabeza as pca','gas.idproyecto','=','pca.idproyecto')
+            ->join('proyecto as pca','gas.idproyecto','=','pca.idproyecto')
             ->join('empleado as emp','gas.idempleado','=','emp.idempleado')
             ->join('gastoviaje as gvi','gas.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
@@ -61,7 +61,7 @@ class EViajeController extends Controller
     public function indexhistorial(){
         $viaje = DB::table('gastoencabezado as gas')
             ->join('tipogasto as tga','gas.idtipogasto','=','tga.idtipogasto')
-            ->join('proyectocabeza as pca','gas.idproyecto','=','pca.idproyecto')
+            ->join('proyecto as pca','gas.idproyecto','=','pca.idproyecto')
             ->join('empleado as emp','gas.idempleado','=','emp.idempleado')
             ->join('gastoviaje as gvi','gas.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
@@ -76,7 +76,7 @@ class EViajeController extends Controller
 
     public function detallehistorial($id){
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
-            ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
+            ->join('proyecto as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.idgastocabeza','=',$id)
@@ -98,7 +98,7 @@ class EViajeController extends Controller
                 ->first();
 
             $gastoviajeemp = DB::table('gastoviajeempleado as gve')
-                ->join('proyectocabeza as pro','gve.idproyecto','=','pro.idproyecto')
+                ->join('proyecto as pro','gve.idproyecto','=','pro.idproyecto')
                 ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
                 ->join('empleado as emp','gve.idempleado','=','emp.idempleado')
                 ->join('persona as per','emp.identificacion','=','per.identificacion')
@@ -121,7 +121,7 @@ class EViajeController extends Controller
 
     public function detalle($id){
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
-            ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
+            ->join('proyecto as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.idgastocabeza','=',$id)
@@ -168,7 +168,7 @@ class EViajeController extends Controller
     }
 
     public function addv(){
-        $proyectos = DB::table('proyectocabeza as pca')
+        $proyectos = DB::table('proyecto as pca')
             ->select('pca.idproyecto','pca.nombreproyecto as proyecto')
             ->get();
 
@@ -241,36 +241,36 @@ class EViajeController extends Controller
                     }
                 }
 
-                $mytime = Carbon::now('America/Guatemala');
-                $today = Carbon::now();
-                $year = $today->format('Y');
-                $month = $today->format('m');
+                $mytime     = Carbon::now('America/Guatemala');
+                $today      = Carbon::now();
+                $year       = $today->format('Y');
+                $month      = $today->format('m');
 
-                $encabezado-> fechasolicitud = $mytime->toDateString(); 
-                $encabezado-> montosolicitado = $request->monto_solicitado;
-                $encabezado-> chequetransfe = $request->cheque_o_transferencia;
-                $encabezado-> montogastado = 0;
-                $encabezado-> fechaliquidacion = $mytime->toDateString();
-                $encabezado-> moneda = $request->moneda;
-                $encabezado-> periodo = $year.'/'.$month;
-                $encabezado-> idtipogasto = 2;
-                $encabezado-> idproyecto = $request->proyecto;
-                $encabezado-> idempleado = $this->empleado()->idempleado;
-                $encabezado-> statusgasto = 'solicitado';
-                $encabezado-> statuspago = 0;
-                $encabezado-> observacion = $request->motivo;
+                $encabezado-> fechasolicitud    = $mytime->toDateString(); 
+                $encabezado-> montosolicitado   = $request->monto_solicitado;
+                $encabezado-> chequetransfe     = $request->cheque_o_transferencia;
+                $encabezado-> montogastado      = 0;
+                $encabezado-> fechaliquidacion  = $mytime->toDateString();
+                $encabezado-> moneda            = $request->moneda;
+                $encabezado-> periodo           = $year.'/'.$month;
+                $encabezado-> idtipogasto       = 2;
+                $encabezado-> idproyecto        = $request->proyecto;
+                $encabezado-> idempleado        = $this->empleado()->idempleado;
+                $encabezado-> statusgasto       = 'solicitado';
+                $encabezado-> statuspago        = 0;
+                $encabezado-> observacion       = $request->motivo;
 
                 $encabezado->save();
 
-                $viaje-> fechainicio = $fechainicio;
-                $viaje-> fechafin = $fechafinal;
-                $viaje-> numerodias = $days;
-                $viaje-> motivo = $request->motivo;
+                $viaje-> fechainicio            = $fechainicio;
+                $viaje-> fechafin               = $fechafinal;
+                $viaje-> numerodias             = $days;
+                $viaje-> motivo                 = $request->motivo;
 
                 $viaje->save();
 
-                $gastoviaje-> idgastocabeza = $encabezado->idgastocabeza;
-                $gastoviaje-> idviaje = $viaje->idviaje;
+                $gastoviaje-> idgastocabeza     = $encabezado->idgastocabeza;
+                $gastoviaje-> idviaje           = $viaje->idviaje;
                 $gastoviaje->save();
 
                 if($request->veh === 'Si'){
@@ -308,7 +308,7 @@ class EViajeController extends Controller
     // metodos de una nueva liquidación
     public function liquidar($id){
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
-            ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
+            ->join('proyecto as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.statusgasto','=','Autorizado')
@@ -316,7 +316,6 @@ class EViajeController extends Controller
             ->select('gen.idgastocabeza','gen.fechasolicitud','gen.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje','via.idviaje')
             ->orderby('gen.idgastocabeza','desc')
             ->first();
-
 
         if (empty($proyecto->idgastocabeza)) {
             $liquidar = 0;
@@ -332,7 +331,7 @@ class EViajeController extends Controller
                 ->first();
 
             $gastoviajeemp = DB::table('gastoviajeempleado as gve')
-                ->join('proyectocabeza as pro','gve.idproyecto','=','pro.idproyecto')
+                ->join('proyecto as pro','gve.idproyecto','=','pro.idproyecto')
                 ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
                 ->join('empleado as emp','gve.idempleado','=','emp.idempleado')
                 ->join('persona as per','emp.identificacion','=','per.identificacion')
@@ -383,7 +382,7 @@ class EViajeController extends Controller
 
     public function addl($id){
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
-            ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
+            ->join('proyecto as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.statusgasto','=','Autorizado')
@@ -394,7 +393,7 @@ class EViajeController extends Controller
             ->first();
 
         $gastoviajeemp = DB::table('gastoviajeempleado as gve')
-            ->join('proyectocabeza as pro','gve.idproyecto','=','pro.idproyecto')
+            ->join('proyecto as pro','gve.idproyecto','=','pro.idproyecto')
             ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
             ->join('empleado as emp','gve.idempleado','=','emp.idempleado')
             ->join('persona as per','emp.identificacion','=','per.identificacion')
@@ -403,7 +402,7 @@ class EViajeController extends Controller
             ->where('gvi.idgastocabeza','=',$proyecto->idgastocabeza)
             ->get();
 
-        $proyectos = DB::table('proyectocabeza as pca')
+        $proyectos = DB::table('proyecto as pca')
             ->select('pca.idproyecto','pca.nombreproyecto')
             ->get();
 
@@ -450,7 +449,7 @@ class EViajeController extends Controller
             $gastoempleado->idgastoviaje = $request->gastoviaje;
             $gastoempleado->save();
             $gastoviajeemp = DB::table('gastoviajeempleado as gve')
-                ->join('proyectocabeza as pro','gve.idproyecto','=','pro.idproyecto')
+                ->join('proyecto as pro','gve.idproyecto','=','pro.idproyecto')
                 ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
                 ->join('empleado as emp','gve.idempleado','=','emp.idempleado')
                 ->join('persona as per','emp.identificacion','=','per.identificacion')
@@ -472,7 +471,7 @@ class EViajeController extends Controller
     //donador, proyecto, funcion l2, monto, saldo
     public function editl(Request $request,$id){
         $gastoempleado = DB::table('gastoviajeempleado as gvi')
-            ->join('proyectocabeza as pca','gvi.idproyecto','=','pca.idproyecto')
+            ->join('proyecto as pca','gvi.idproyecto','=','pca.idproyecto')
             ->join('plancuentas as pcu','gvi.codigocuenta','=','pcu.codigocuenta')
             ->join('empleado as emp','gvi.idempleado','=','emp.idempleado')
             ->join('persona as per','emp.identificacion','=','per.identificacion')
@@ -483,7 +482,7 @@ class EViajeController extends Controller
             ->first();
 
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
-            ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
+            ->join('proyecto as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.statusgasto','=','Autorizado')
@@ -495,7 +494,7 @@ class EViajeController extends Controller
             ->first();
 
         $gastoviajeemp = DB::table('gastoviajeempleado as gve')
-            ->join('proyectocabeza as pro','gve.idproyecto','=','pro.idproyecto')
+            ->join('proyecto as pro','gve.idproyecto','=','pro.idproyecto')
             ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
             ->join('empleado as emp','gve.idempleado','=','emp.idempleado')
             ->join('persona as per','emp.identificacion','=','per.identificacion')
@@ -504,7 +503,7 @@ class EViajeController extends Controller
             ->where('gvi.idgastocabeza','=',$proyecto->idgastocabeza)
             ->get();
 
-        $proyectos = DB::table('proyectocabeza as pca')
+        $proyectos = DB::table('proyecto as pca')
             ->select('pca.idproyecto','pca.nombreproyecto')
             ->get();
 
@@ -553,7 +552,7 @@ class EViajeController extends Controller
             $gastoempleado->save();
 
             $gastoviajeemp = DB::table('gastoviajeempleado as gve')
-                ->join('proyectocabeza as pro','gve.idproyecto','=','pro.idproyecto')
+                ->join('proyecto as pro','gve.idproyecto','=','pro.idproyecto')
                 ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
                 ->join('empleado as emp','gve.idempleado','=','emp.idempleado')
                 ->join('persona as per','emp.identificacion','=','per.identificacion')
@@ -576,7 +575,7 @@ class EViajeController extends Controller
     public function updateml(){
 
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
-            ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
+            ->join('proyecto as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.statusgasto','=','Autorizado')

@@ -17,7 +17,6 @@ use App\Viaje;
 use Illuminate\Support\Collection as Collection;
 use Carbon\Carbon;  // para poder usar la fecha y hora
 
-
 class ECajaChica extends Controller
 {
     public function empleado(){
@@ -31,20 +30,20 @@ class ECajaChica extends Controller
     }
 
     public function add(){
-        $proyectos = DB::table('proyectocabeza as pca')
-        ->select('pca.idproyecto','pca.nombreproyecto as proyecto')
-        ->get();
+        $proyectos = DB::table('proyecto as pca')
+            ->select('pca.idproyecto','pca.nombreproyecto as proyecto')
+            ->get();
 
         $vehiculos = DB::table('vehiculo as veh')
-        ->join('vstatus as vst','veh.idvstatus','=','vst.idvstatus')
-        ->select('veh.color','veh.marca','veh.modelo','veh.idvehiculo')
-        ->where('veh.idvstatus','=',1)
-        ->get();
+            ->join('vstatus as vst','veh.idvstatus','=','vst.idvstatus')
+            ->select('veh.color','veh.marca','veh.modelo','veh.idvehiculo')
+            ->where('veh.idvstatus','=',1)
+            ->get();
 
         $eles = DB::table('codigointerno as cin')
-        ->join('codigoraiz as cra','cin.idele','=','cra.idele')
-        ->select('cin.codigo','cin.nombre','cra.codigo as L','cra.nombre as craiz')
-        ->get();
+            ->join('codigoraiz as cra','cin.idele','=','cra.idele')
+            ->select('cin.codigo','cin.nombre','cra.codigo as L','cra.nombre as craiz')
+            ->get();
 
         $afiliado = DB::table('nomytras as ntr')
             ->select('ntr.idafiliado')

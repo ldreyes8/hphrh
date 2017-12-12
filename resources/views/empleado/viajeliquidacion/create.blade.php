@@ -15,7 +15,7 @@
         </div>
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
             <label for="numerodependientes">Monto</label>
-            <input id="monto" type="number" min="0" value="0" class="form-control" onkeypress="return valida(event)">
+            <input id="monto" type="number" min="0" value="0" class="form-control" onkeypress="return validadecimal(event,this)">
         </div>
     </div>
     <div class="modal-header">
@@ -49,30 +49,9 @@
                 <option>Reparadas/Casa mejoradas</option> 
             </select>
         </div>
-
-        <!--<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-            <label class="control-label">Cliente</label>
-            <select class="form-control select2" id="cliente">
-                <option>Activos Intangibles</option>
-                <option>Aldea Global</option>
-                <option>Aguinaldo</option>
-                <option>Alimentacion</option>
-            </select>
-        </div>-->
     </div>
     <div class="modal-header">
         <br>
-        
-        <!--
-        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-            <label class="control-label">LOB L10</label>
-            <select class="form-control select2" data-live-search="true" id="l10">
-                <option>Servicios directo a la Familia</option>
-                <option>Casa Nuevas</option>
-                <option>Reparadas/Casa mejoradas</option> 
-            </select>
-        </div>
-        -->
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
             <label class="control-label">Línea de presupuesto</label>
             <select class="form-control select2" id="donador">
@@ -81,7 +60,6 @@
                 <option>Fondos HFHI-DESIGNADOS</option>
             </select>
         </div>
-
 
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
             <label class="control-label">Proyecto</label>

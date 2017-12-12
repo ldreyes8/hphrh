@@ -40,3 +40,31 @@
                     return false;
                 }
             }
+
+            function validadecimal(e,field) {
+                // Backspace = 8, Enter = 13, ’0′ = 48, ’9′ = 57, ‘.’ = 46
+                
+                key = e.keyCode ? e.keyCode : e.which;
+ 
+                if (key == 8) return true;
+                if (key > 47 && key < 58) {
+                    if (field.value === "") return true;
+                    var existePto = (/[.]/).test(field.value);
+                    if (existePto === false){
+                        regexp = /.[0-9]{10}$/;
+                    }
+                    else {
+                        regexp = /.[0-9]{2}$/;
+                    }
+                    return !(regexp.test(field.value));
+                }
+                if (key == 46) {
+                    if (field.value === "") return false;
+                    regexp = /^[0-9]+$/;
+                    return regexp.test(field.value);
+                }
+                return false;
+            };
+
+
+

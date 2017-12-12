@@ -54,6 +54,25 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-12">
+            <br>
+            <div class="form-group">
+                <label class="col-sm-2" for="tipo">Código L4</label>
+                <div class="col-sm-3" >         
+                    <input type="text" class="form-control" id="l4" maxlength="10" value="" name="">    
+                </div>
+
+                <label class="col-sm-2" for="tipo">Cuenta bancaria</label>
+                <div class="col-sm-3" >         
+                    <input type="text" class="form-control" id="cuentaban" maxlength="15" name="" value="">    
+                </div>
+                
+                <div class="col-sm-2" >         
+                    <button type="button" class="btn btn-xs btn-primary" onclick="modificar_datoscontables(386);" >Modificar</button>    
+                </div>
+            </div>
+        </div>
     </div>
     
     <br><br><br>

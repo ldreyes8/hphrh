@@ -86,6 +86,9 @@ $('#btnGuardarAvance').click(function(e) {
                     title:"Envio correcto",
                     text: "La solicitud ha sido enviada correctamente",
                     type: "success",
+                },
+                function(){
+                    cargar_formularioviaje(2);
                 });
 
                 $f.data('locked',false);                    
@@ -128,7 +131,7 @@ $(document).on('click','.btn-cancelviaje',function(e){
         closeOnCancel: false
     }, function (isConfirm) {
         if (isConfirm) {
-            swal({ 
+            swal({
                 title:"Gracias",
                 text: "Solicitud cancelada",
                 type: "success",
