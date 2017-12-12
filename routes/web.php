@@ -162,7 +162,7 @@ Route::group(['prefix'=>'empleado'],function(){
 
 	//Reporte
 	Route::get('Rmintrab','Controllermintrab@index');
-	Route::post('cambiar_password', 'UController@cambiar_password'); 
+	Route::post('cambiar_password', 'PCUsuarioController@cambiar_password'); 
 	Route::get('solicitud','PerController@solicitud');
 	Route::get('solicitudpermiso','PerController@solicitudpermiso');
 

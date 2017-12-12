@@ -68,36 +68,58 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title" id="inputTitle"></h4>
                 </div>
 
                 <div class="modal-body">
                     <form role="form" id="formAgregar">
                         <div class="form-group">
-                            <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-                                <label class="control-label">Nombre del proyecto</label>
-                                <input type="text" id="fecha_inicio" class="form-control" name="fechainicio">                            
-                            </div>
+                            <label>Nombre del proyecto</label>
+                            <input class="form-control" id="proyecto" required="true"/>
+                        </div>
+                        
+                        <div class="form-group col-md-6">
+                            <label>Monto</label>
+                            <input class="form-control" id="monto" required="true" onkeypress="return validadecimal(event,this)"/>
+                        </div>
 
-                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                                <label class="control-label">Monto</label>
-                                <input type="text" id="fecha_final" class="form-control" name="fechafin">
+                        <div class="form-group col-md-6">
+                            <label>codigo conta</label>
+                            <input class="form-control" id="codigoconta" type="text" name="">
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                            <label class="control-label">Fecha inicio</label>
+                            <div class="input-group">
+                                <input type="text" id="fecha_inicio" class="form-control" name="fechainicio">
+                                <span class="input-group-addon bg-primary b-0 text-white"><i class="ion-calendar"></i></span>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <label for="numerodependientes">Descripción</label>
-                                <textarea class="form-control" id="descripcion" rows="2"></textarea>
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                            <label class="control-label">Fecha final</label>
+                            <div class="input-group">
+                                <input type="text" id="fecha_final" class="form-control" name="fechafin">
+                                <span class="input-group-addon bg-primary b-0 text-white"><i class="ion-calendar"></i></span>
                             </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <br>
+                            <input type="checkbox" id="casilla" value="1" onclick="desactivar()"/>Dejar como predeterminado este proyecto.
+                        </div>
+
+                        <div class="form-group">
+                            <label>Descripci&oacute;n</label>
+                            <textarea class="form-control" id="descripcion" rows="3" style="width: 100%"></textarea>
                         </div>
                     </form>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="btnGuardar">Guardar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnGuardar">      Guardar</button>
                 </div>
             </div>
         </div>
@@ -125,5 +147,9 @@
 
     <script src="{{asset('assets/js/PanelControl/Usuario.js')}}"></script>
     <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
+    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js')}}"></script>    
+    <script src="{{asset('assets/plugins/bootstrap-datepicker/dist/js/conversion.js')}}"></script>
+    <script src="{{asset('assets/js/valida.js')}}"></script>
 
 @endsection

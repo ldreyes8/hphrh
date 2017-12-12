@@ -192,4 +192,16 @@ class PCUsuarioController extends Controller
         ];
         $this->validate($request, $rules,$messages);        
     }
+
+    public function validateRequestPassword($request){
+            $rules=[
+            'password' => 'required',
+
+            ];
+            $messages=[
+            'required' => 'Debe ingresar :attribute.',
+            'max'  => 'La capacidad del campo :attribute es :max',
+            ];
+            $this->validate($request, $rules,$messages);        
+        }
 }
