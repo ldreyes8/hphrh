@@ -112,10 +112,10 @@ class AsistenteC extends Controller
     }
     public function revision(Request $request)
     {
-    	$id=$request->get('idgasto');
-    	$valor=$request->get('valores');
-    	$gve=GastoViajeEmpleado::findOrFail($id);
-    	$gve-> check1 = $valor;
+        $id=$request->get('idgasto');
+        $valor=$request->get('valores');
+        $gve=GastoViajeEmpleado::findOrFail($id);
+        $gve-> check1 = $valor;
         $gve-> save();
         return response()->json($gve);
     }
@@ -190,7 +190,6 @@ class AsistenteC extends Controller
     }
     public function updateml($id)
     {
-        dd($id);
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
             ->join('proyecto as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
