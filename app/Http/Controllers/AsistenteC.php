@@ -190,15 +190,20 @@ class AsistenteC extends Controller
     }
     public function updateml($id)
     {
+
         $proyecto = DB::table('gastoencabezado as gen','gen.idproyecto','gen.idempleado')
             ->join('proyecto as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.statusgasto','=','Autorizado')
+            //->where('gen.statusgasto','=','Revisado')
             ->where('gen.idempleado','=',$id)
-            ->select('gen.idgastocabeza','gen.fechasolicitud','gen.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje','via.idviaje')
+            ->select('gen.idgastocabeza','gen.fechasolicitud','gen.statusgasto','gen.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje','via.idviaje')
             ->orderby('gen.idgastocabeza','desc')
             ->first();
+
+            //dd($proyecto->statusgasto);
+            //if ($proyecto->statusgasto==='Autorizado') {
 
             $liquidacion= DB::table('gastoviajeempleado as gve')
             ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
@@ -209,6 +214,7 @@ class AsistenteC extends Controller
         $disponible = $proyecto->monto - $liquidacion->liquidacion;
         $calculo = array($disponible,$liquidacion->liquidacion,$proyecto->monto);
         
+        //}
         return response()->json($calculo);
     }
 }

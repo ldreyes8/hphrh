@@ -28,7 +28,7 @@
                             <td>{{$em->nombre1.' '.$em->nombre2.' '.$em->apellido1.' '.$em->apellido2}}</td>
                             <td>{{$em->afnombre}}</td>
                             <td>{{$em->puesto}}</td>
-                            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $em->fechasolicitud)->format('d-m-Y')}}</td>
+                            <td>{{$em->fechasolicitud}}</td>
                             <td>{{$em->status}}
                                 <input type="hidden" class="idstatus" value="{{$em->idstatus}}">
                                 

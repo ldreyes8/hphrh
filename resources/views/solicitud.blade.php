@@ -525,13 +525,13 @@
                                                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                                     <div class="form-group ">
                                                                         <label >Fecha de ingreso</label>
-                                                                        <input type="text" id="dato2" class="form-control">
+                                                                        <input type="text" id="dato2" data-mask="99/99/9999" class="form-control">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                                                     <div class="form-group ">
                                                                         <label for="fsalida">Fecha de salida</label>
-                                                                        <input type="text" id="dato3" class="form-control">
+                                                                        <input type="text" id="dato3" data-mask="99/99/9999" class="form-control">
                                                                     </div>
                                                                 </div> 
                                                             </div>

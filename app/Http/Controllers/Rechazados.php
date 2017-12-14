@@ -7,9 +7,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use Storage;
 use DB;
-use Carbon\Carbon; //para poder usar la fecha y hora
+use Carbon\Carbon; 
 use Response;
-
 use App\Persona;
 use App\Empleado;
 use Illuminate\Support\Collection;
@@ -52,6 +51,7 @@ class Rechazados extends Controller
     }
     public function nombrelistr($id)
     {
+        //dd($id);
         $empleado=DB::table('persona as p')
         ->join('empleado as e','e.identificacion','=','p.identificacion')
         ->select('p.nombre1','p.nombre2','p.nombre3','p.apellido1','p.apellido2','p.apellido3','e.idempleado')
@@ -150,8 +150,8 @@ class Rechazados extends Controller
 
         $cre = Persona::findOrFail($id); 
             Persona::destroy($id); 
-        return Redirect::to('listados/rechazados');
-        //return view('listados.rechazados.index');
+        return Redirect::to('rh/listado');
+        //return view('rrhh.empleados.rechazados');
     }
     public function uprechazo(Request $request, $id)
     {
@@ -164,6 +164,8 @@ class Rechazados extends Controller
 
         $emp= Empleado::findOrFail($idemp);
         $emp-> idstatus = '1';
+        $mytime = Carbon::now('America/Guatemala');
+        $emp-> fechasolicitud=$mytime->toDateTimeString();
         $emp->save();
 
         return response()->json($upp);

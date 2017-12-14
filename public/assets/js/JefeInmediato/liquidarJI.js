@@ -173,6 +173,7 @@
                     dataType: 'json',
              
                    success: function (data) {
+                   	
                    	console.log(idemp);
                    		var urlraiz=$("#url_raiz_proyecto").val();
 	                   	$.get(urlraiz+'/asistete/viaje/updatemonto/'+idemp,function(data){

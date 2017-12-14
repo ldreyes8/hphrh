@@ -7,7 +7,7 @@ $(".select2").select2();
             $('#nombre').val(data.nombre1+' '+data.nombre2+' '+data.apellido1+' '+data.apellido2);
             $('#idempleado').val(data.idempleado);
         });
-        $('#inputTitle').html("Cambiar de Estatus a solicitante");
+        $('#inputTitle').html("Cambiar de estado a Aspirante");
         $('#formAgregar').trigger("reset");
         $('#formModal').modal('show');
         $('#identificacion').val(idper);
@@ -58,7 +58,5 @@ $(".select2").select2();
                 $('#erroresModal').modal('show');
             }
         });
-
-
     });
 });

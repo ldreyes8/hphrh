@@ -226,7 +226,7 @@ $(document).ready(function() {
                     if (valores !=""){}
                     else
                     {
-                        swal("Error", "Debe inresar datos de refenicas para poder continuar.", "error");
+                        swal("Error", "Debe ingresar datos de refenicas para poder continuar.", "error");
                         return false;
                     }
                 });
@@ -498,7 +498,7 @@ $(document).ready(function() {
 
             function eliminarP(index)
             {
-                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                if (!confirm("ADVERTENCIA!! va a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
                 {
                     return false;
                 }
@@ -529,7 +529,7 @@ $(document).ready(function() {
 
             function eliminarC(index)
             {
-                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                if (!confirm("ADVERTENCIA!! va a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
                 {
                     return false;
                 }
@@ -563,7 +563,7 @@ $(document).ready(function() {
 
             function eliminarR(index)
             {
-                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                if (!confirm("ADVERTENCIA!! va a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
                 {
                     return false;
                 }
@@ -610,7 +610,7 @@ $(document).ready(function() {
             }
             function eliminarF(index)
             {
-                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                if (!confirm("ADVERTENCIA!! va a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
                 {
                     return false;
                 }
@@ -645,7 +645,7 @@ $(document).ready(function() {
             }
             function eliminarEl(index)
             {
-                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                if (!confirm("ADVERTENCIA!! va a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
                 {
                     return false;
                 }
@@ -733,7 +733,7 @@ $(document).ready(function() {
             }
             function eliminarA(index)
             {
-                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                if (!confirm("ADVERTENCIA!! va a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
                 {
                     return false;
                 }
@@ -762,7 +762,7 @@ $(document).ready(function() {
             }
             function eliminarI(index)
             {
-                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                if (!confirm("ADVERTENCIA!! va a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
                 {
                     return false;
                 }
@@ -791,7 +791,7 @@ $(document).ready(function() {
             }
             function eliminarL(index)
             {
-                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                if (!confirm("ADVERTENCIA!! va a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
                 {
                     return false;
                 }
@@ -826,7 +826,7 @@ $(document).ready(function() {
             }
             function eliminarTE(index)
             {
-                if (!confirm("ADVERTENCIA!! va a proceder a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
+                if (!confirm("ADVERTENCIA!! va a eliminar este registro, si desea eliminarlo de click en ACEPTAR\n de lo contrario de click en CANCELAR.")) 
                 {
                     return false;
                 }
