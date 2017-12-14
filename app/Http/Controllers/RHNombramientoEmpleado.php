@@ -149,6 +149,16 @@ class RHNombramientoEmpleado extends Controller
         //return Redirect::to('listados/pprueba/create');
     }
 
+     public function modificar_dcontable(Request $request)
+    {
+        $empleado = Empleado::findOrFail($request->empleado);
+        $empleado->l4 = $request->l4;
+        $empleado->ctabanco = $request->cuentaban;
+        $empleado->save();
+
+        return response()->json($empleado);
+    }
+
     public function asignar_jefeinmediato($idempleado,$identificacion,$notifica){
 
         $asignajefe = new asignajefe;

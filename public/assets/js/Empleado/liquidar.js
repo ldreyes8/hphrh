@@ -168,6 +168,8 @@
                     cuenta: $("#cuenta").val(),
                     proyecto: $("#proyecto").val(),
                     gastoviaje: $("#idgastoviaje").val(),
+                    eventos: $("#evento").val(),
+                    linea_presupuesto: $("#donador").val(),
                 };
 
                 if (state == "update") 
@@ -261,7 +263,7 @@
 											$data.descripcion,
 											$data.factura,
 											n1+" "+n2+" "+n3+" "+a1+" "+a2+" "+a3,
-											$data.cuenta,'','',
+											$data.cuenta,$data.evento,$data.donante,
 											$data.proyecto,'',
 											$data.monto,
 											actions
@@ -347,25 +349,25 @@
 				a1 = $data.apellido1,
 				a2 = $data.apellido2,
 				a3 = $data.apellido3;
-				if(n2 == null){n2 = "";}
-				if(n3 == null){n3 = "";}
-				if(a2 == null){a2 = "";}
-				if(a3 == null){a3 = "";}
+			if(n2 == null){n2 = "";}
+			if(n3 == null){n3 = "";}
+			if(a2 == null){a2 = "";}
+			if(a3 == null){a3 = "";}
 
-				values = [	$data.idgastoempleado,
-							$data.fecha,
-							$data.descripcion,
-							$data.factura,
-							n1+" "+n2+" "+n3+" "+a1+" "+a2+" "+a3,
-							$data.cuenta,'','',
-							$data.proyecto,'',
-							$data.monto,
-							actions
-						];
+			values = [	$data.idgastoempleado,
+						$data.fecha,
+						$data.descripcion,
+						$data.factura,
+						n1+" "+n2+" "+n3+" "+a1+" "+a2+" "+a3,
+						$data.cuenta,$data.evento,$data.donante,
+						$data.proyecto,'',
+						$data.monto,
+						actions
+					];
 
 			this.datatable.row(indice).data(values);
 			this.datatable.draw();
-	},
+		},
 
 		rowSave: function( $row ) {
 			var _self     = this,
@@ -434,7 +436,7 @@ $(document).ready(function() {
         var kfin = $(this).find('td').eq(3).html();
         if(kfin == "")
         {
-             cont++;   
+            cont++;   
         }
     });
     if(cont>0)
@@ -445,11 +447,8 @@ $(document).ready(function() {
 $(document).on('click','.btn-EnviarL',function(e){
 
 	var $f = $(this);
-
-
     if($f.data('locked') == undefined && !$f.data('locked'))
     {
-
 		swal({
 		    title: "¿Esta seguro?",
 		    text: "No podra modificar el registro por el momento",

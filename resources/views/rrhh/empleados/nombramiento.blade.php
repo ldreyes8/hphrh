@@ -1,11 +1,17 @@
 <div class="card-box">
-    <button class="btn btn-success btn-md"onclick="cargar_formularioRH(4);"><i class="fa fa-reply-all"></i></button>
-    <div class="box-header with-border my-box-header">
-        <h3 class="box-title" align="center"><strong>Asignar y/o quitar jefe inmediato</strong></h3>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="navbar-form navbar-left pull-left">
+            <button class="btn btn-success btn-md"onclick="cargar_formularioRH(4);"><i class="fa fa-reply-all"></i></button>
+        </div>
+
+        <div class="box-header with-border my-box-header">
+            <h3 class="box-title" align="center"><strong>Asignar y/o quitar jefe inmediato</strong></h3>
+        </div>
+
+        <hr style="border-color:black;" />
     </div>
-
-    <hr style="border-color:black;" />
-
+    
     <div id="zona_etiquetas_nombramiento" style="background-color:white;" >
         Jefes asignados:
         @foreach($jefeasignado as $jfa)
@@ -36,10 +42,9 @@
                 </div>
             </div>
         </div>
-        <hr>
 
         <div class="col-md-12">
-             <div class="form-group">
+            <div class="form-group">
                 <label class="col-sm-2" for="tipo">Jefe inmediato a quitar</label>
                 <div class="col-sm-7" >         
                     <select id="jefe2" name="jefe2" class="form-control select2" data-live-search="true">
@@ -49,7 +54,7 @@
                     </select>    
                 </div>
                 
-                <div class="col-sm-2" >         
+                <div class="col-sm-2">         
                     <button type="button" class="btn btn-xs btn-primary" onclick="quitar_jefeinmediato({{$empleado->idempleado}});" >Quitar jefe inmediato</button>    
                 </div>
             </div>
@@ -60,26 +65,25 @@
             <div class="form-group">
                 <label class="col-sm-2" for="tipo">Código L4</label>
                 <div class="col-sm-3" >         
-                    <input type="text" class="form-control" id="l4" maxlength="10" value="" name="">    
+                    <input type="text" class="form-control" id="l4" maxlength="10" value="{{$empleado->l4}}" name="">    
                 </div>
 
                 <label class="col-sm-2" for="tipo">Cuenta bancaria</label>
                 <div class="col-sm-3" >         
-                    <input type="text" class="form-control" id="cuentaban" maxlength="15" name="" value="">    
+                    <input type="text" class="form-control" id="cuentaban" maxlength="15" name="" value="{{$empleado->ctabanco}}">    
                 </div>
                 
                 <div class="col-sm-2" >         
-                    <button type="button" class="btn btn-xs btn-primary" onclick="modificar_datoscontables(386);" >Modificar</button>    
+                    <button type="button" class="btn btn-xs btn-primary" onclick="modificar_datoscontables({{$empleado->idempleado}});" >Modificar</button>    
                 </div>
             </div>
         </div>
     </div>
-    
-    <br><br><br>
+
 
     <div class="box-header with-border my-box-header">
         <h3 class="box-title" align="center"><strong>Agregar nuevo nombramiento y/o asecenso</strong></h3>
-    </div>   
+    </div>
 
     <hr style="border-color:black;" />
     <div class="row">
@@ -278,5 +282,3 @@
                }
  
         </script>
-
-       

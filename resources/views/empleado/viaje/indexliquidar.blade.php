@@ -158,8 +158,8 @@ input[type="text"]{ width: 40px; } /* ancho a los elementos input="text" */
                                 <td>{{$gvi->factura}}</td>
                                 <td>{{$gvi->nombre1.' '.$gvi->nombre2.' '.$gvi->nombre3.' '.$gvi->apellido1.' '.$gvi->apellido2.' '.$gvi->apellido3}}</td>
                                 <td>{{$gvi->cuenta}}</td>
-                                <td>Even</td>
-                                <td>ff</td>
+                                <td>{{$gvi->evento}}</td>
+                                <td>{{$gvi->donante}}</td>
                                 <td>{{$gvi->proyecto}}</td>
                                 <td>10</td>
                                 <td>{{$gvi->monto}}</td>

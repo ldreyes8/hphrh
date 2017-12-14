@@ -42,12 +42,14 @@
         </div>
 
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-            <label class="control-label">Eventos</label> 
-            <select class="form-control select2" id="evento">
-                <option>Servicios directo a la Familia</option>
-                <option>Casa Nuevas</option>
-                <option>Reparadas/Casa mejoradas</option> 
-            </select>
+            <label class="control-label">Eventos</label>
+                <select class="form-control select2" id="evento">
+                    @foreach($eventos as $eve)
+                    <option value="{{$eve->codigo}}">{{$eve->nombre}}</option>
+                    @endforeach
+                </select>
+
+           
         </div>
     </div>
     <div class="modal-header">
@@ -55,9 +57,9 @@
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
             <label class="control-label">Línea de presupuesto</label>
             <select class="form-control select2" id="donador">
-                <option>Donante Generico</option>
-                <option>Fondos de agencia</option>
-                <option>Fondos HFHI-DESIGNADOS</option>
+                @foreach($donantes as $don)
+                    <option value="{{$don->codigo}}">{{$don->nombre}}</option>
+                    @endforeach
             </select>
         </div>
 
@@ -68,7 +70,7 @@
             @if($gencabezado->idproyecto == $pro->idproyecto)
                 <option value="{{$pro->idproyecto}}" selected="">{{$pro->nombreproyecto}}</option>
             @else
-                <option value="{{$pro->idproyecto}}" selected="">{{$pro->nombreproyecto}}</option>
+                <option value="{{$pro->idproyecto}}">{{$pro->nombreproyecto}}</option>
             @endif
             @endforeach
             </select>

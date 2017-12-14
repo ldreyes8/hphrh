@@ -77,11 +77,108 @@ class RHReporte extends Controller
         return view("rrhh.reporte.vpindex",["empleado"=>$empleado]);
     }
 
+
+    public function calculardias(request $request, $id)
+    {
+
+        $dias =DB::table('vacadetalle as va')
+            ->join('empleado as emp','va.idempleado','=','emp.idempleado')
+            ->join('persona as per','emp.identificacion','=','per.identificacion')
+            ->select('va.idempleado','va.idausencia','va.acuhoras','va.acudias','va.fecharegistro','va.idvacadetalle','va.solhoras','va.soldias') 
+            ->where('emp.idempleado','=',$id)
+            ->where('va.estado','=','1')
+            ->orderBy('va.idvacadetalle','desc')
+            ->first();
+
+        $ausencia= DB::table('ausencia as a')
+            ->join('empleado as emp','a.idempleado','=','emp.idempleado')
+            ->join('persona as per','emp.identificacion','=','per.identificacion')
+            ->join('users as U','per.identificacion','=','U.identificacion')
+            ->select('a.autorizacion')
+            ->orderBy('a.idausencia','DESC')
+            ->where('idtipoausencia','=','3')
+            ->where('U.id','=',$id)
+            ->first();
+
+        if($ausencia === null)
+        {   $autorizacion = "ninguno";}
+        else
+        {   $autorizacion = $ausencia->autorizacion;    }
+
+        $fecharegistro = $dias->fecharegistro;    
+        $diasactual = $dias->acudias;   //obtiene la ultima fecha en donde se registro un nuevo registro
+        $horasactual = $dias->acuhoras;
+        $diasol = $dias->soldias;
+        $horasol = $dias->solhoras;
+
+        $dt = Carbon::parse($fecharegistro);  // convertimos la fecha en el formato Y-mm-dddd h:i:s
+        $today = Carbon::now();
+        $year = $today->format('Y');
+
+        if((($year%4 == 0) && ($year%100)) || $year%400 == 0)
+        {$year = 366;}
+        else{$year = 365;}
+
+        $ftoday = $today->toDateString();
+       
+        if($fecharegistro >= $ftoday)
+        {
+            $thoras = $horasactual + $horasol;
+            $dias = $diasactual + $diasol; 
+            if($thoras >= 8)
+            {
+                $thoras = $thoras -8;
+                $dias = $dias +1;
+            }
+        }
+        else
+        {
+            $add = $today->dayOfYear;  //obtiene los dias transcurridos hasta la fecha actual
+            $dias = (strtotime($today)-strtotime($fecharegistro))/86400;
+            $dias   = abs($dias); $dias = floor($dias); 
+           
+            $dias = $dias * 20;
+
+            $dias = $dias / $year;
+            $dias = round($dias, 2);
+
+            $tdia = explode(".",$dias);
+
+            $dias = $tdia[0];
+
+            if (empty($tdia[1])) {
+                $thoras =0;
+                $thoras = $horasactual + $thoras + $horasol;
+                $dias = $diasactual + $dias + $diasol; 
+            }
+            else{ 
+                $thoras = $tdia[1];
+
+                $thoras = '0.'.$thoras;
+                $thoras = $thoras * 8;
+
+                $thora = explode(".",$thoras);
+                $thoras = $thora[0];
+
+                $thoras = $horasactual + $thoras + $horasol;
+                $dias = $diasactual + $dias + $diasol; 
+            }
+
+            if($thoras >= 8)
+            {
+                $thoras = $thoras -8;
+                $dias = $dias +1;
+            }      
+        }
+        $calculo = array($thoras,$dias,$autorizacion);
+        return response()->json($calculo);
+    }
+
     public function vempleado(Request $request,$id)
     {
     	$today = Carbon::now();
     
-	    $year = $today->format('Y');
+	   
 	    $year1 = $today->format('Y');
 
     	$inicioaño = $year1.'-01-01';      // se concatena el año actual con un texto determinado para obtener el incio del año actual
@@ -101,7 +198,98 @@ class RHReporte extends Controller
 	        ->orderBy('a.fechasolicitud','desc')
 	        ->get();
 
-        return view("rrhh.reporte.empleadov",["historialvacaciones"=>$historialvacaciones,"year"=>$year]);
+        $dias =DB::table('vacadetalle as va')
+            ->join('empleado as emp','va.idempleado','=','emp.idempleado')
+            ->join('persona as per','emp.identificacion','=','per.identificacion')
+            ->select('va.idempleado','va.idausencia','va.acuhoras','va.acudias','va.fecharegistro','va.idvacadetalle','va.solhoras','va.soldias') 
+            ->where('emp.idempleado','=',$id)
+            ->where('va.estado','=','1')
+            ->orderBy('va.idvacadetalle','desc')
+            ->first();
+
+        $ausencia= DB::table('ausencia as a')
+            ->join('empleado as emp','a.idempleado','=','emp.idempleado')
+            ->join('persona as per','emp.identificacion','=','per.identificacion')
+            ->join('users as U','per.identificacion','=','U.identificacion')
+            ->select('a.autorizacion')
+            ->orderBy('a.idausencia','DESC')
+            ->where('idtipoausencia','=','3')
+            ->where('U.id','=',$id)
+            ->first();
+
+        if($ausencia === null)
+        {   $autorizacion = "ninguno";}
+        else
+        {   $autorizacion = $ausencia->autorizacion;    }
+
+        $fecharegistro = $dias->fecharegistro;    
+        $diasactual = $dias->acudias;   //obtiene la ultima fecha en donde se registro un nuevo registro
+        $horasactual = $dias->acuhoras;
+        $diasol = $dias->soldias;
+        $horasol = $dias->solhoras;
+
+        $dt = Carbon::parse($fecharegistro);  // convertimos la fecha en el formato Y-mm-dddd h:i:s
+        $today = Carbon::now();
+        $year = $today->format('Y');
+
+        if((($year%4 == 0) && ($year%100)) || $year%400 == 0)
+        {$year = 366;}
+        else{$year = 365;}
+
+        $ftoday = $today->toDateString();
+       
+        if($fecharegistro >= $ftoday)
+        {
+            $thoras = $horasactual + $horasol;
+            $dias = $diasactual + $diasol; 
+            if($thoras >= 8)
+            {
+                $thoras = $thoras -8;
+                $dias = $dias +1;
+            }
+        }
+        else
+        {
+            $add = $today->dayOfYear;  //obtiene los dias transcurridos hasta la fecha actual
+            $dias = (strtotime($today)-strtotime($fecharegistro))/86400;
+            $dias   = abs($dias); $dias = floor($dias); 
+           
+            $dias = $dias * 20;
+
+            $dias = $dias / $year;
+            $dias = round($dias, 2);
+
+            $tdia = explode(".",$dias);
+
+            $dias = $tdia[0];
+
+            if (empty($tdia[1])) {
+                $thoras =0;
+                $thoras = $horasactual + $thoras + $horasol;
+                $dias = $diasactual + $dias + $diasol; 
+            }
+            else{ 
+                $thoras = $tdia[1];
+
+                $thoras = '0.'.$thoras;
+                $thoras = $thoras * 8;
+
+                $thora = explode(".",$thoras);
+                $thoras = $thora[0];
+
+                $thoras = $horasactual + $thoras + $horasol;
+                $dias = $diasactual + $dias + $diasol; 
+            }
+
+            if($thoras >= 8)
+            {
+                $thoras = $thoras -8;
+                $dias = $dias +1;
+            }      
+        }
+        $calculo = array($thoras,$dias,$autorizacion);
+
+        return view("rrhh.reporte.empleadov",["historialvacaciones"=>$historialvacaciones,"year"=>$year1,"calculo"=>$calculo]);
     }
 
     public function pempleado(Request $request,$id)

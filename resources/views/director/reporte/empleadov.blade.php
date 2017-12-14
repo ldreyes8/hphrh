@@ -8,6 +8,9 @@
 			<hr style="border-color:black;" />
 		</div>
 		<div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4>Días disponibles a la fecha:: {{$calculo[1].' días con '.$calculo[0].' horas'}}</h4>
+            </div>
 	    </div>
 
         <div class="table-responsive">

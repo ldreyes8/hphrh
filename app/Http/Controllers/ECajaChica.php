@@ -34,6 +34,11 @@ class ECajaChica extends Controller
             ->select('pca.idproyecto','pca.nombreproyecto as proyecto')
             ->get();
 
+        $proyecto = DB::table('proyecto as pca')
+            ->select('pca.idproyecto','pca.nombreproyecto as proyecto')
+            ->where('pca.indice','=',1)
+            ->first();
+
         $vehiculos = DB::table('vehiculo as veh')
             ->join('vstatus as vst','veh.idvstatus','=','vst.idvstatus')
             ->select('veh.color','veh.marca','veh.modelo','veh.idvehiculo')
@@ -51,7 +56,7 @@ class ECajaChica extends Controller
             ->orderby('ntr.idnomytas','desc')
             ->first();
 
-        return view ('empleado.cajachica.create',["eles"=>$eles,"proyectos"=>$proyectos,"vehiculos"=>$vehiculos,"afiliado"=>$afiliado]);
+        return view ('empleado.cajachica.create',["eles"=>$eles,"proyectos"=>$proyectos,"vehiculos"=>$vehiculos,"afiliado"=>$afiliado,"proyecto"=>$proyecto]);
     }
 
     public function store(Request $request){

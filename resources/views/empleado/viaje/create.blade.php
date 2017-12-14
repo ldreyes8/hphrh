@@ -9,7 +9,11 @@
             <select class="form-control select2" id="idproyecto">
             @if (isset($proyectos))
             @foreach($proyectos as $pro)
-                <option value="{{$pro->idproyecto}}">{{$pro->proyecto}}</option>
+                @if($proyecto->idproyecto == $pro->idproyecto)
+                <option value="{{$pro->idproyecto}}" selected="">{{$pro->proyecto}}</option>
+                @else
+                    <option value="{{$pro->idproyecto}}">{{$pro->proyecto}}</option>
+                @endif
             @endforeach
             @endif
             </select>

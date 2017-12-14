@@ -370,6 +370,9 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get 	('cajachica/add','ECajaChica@add');
 	Route::post ('cajachica/store','ECajaChica@store');
 
+	// Actualizar l4 y cuneta bancaria.
+	Route::post('update_dcontable','RHNombramientoEmpleado@modificar_dcontable');
+
 });
 
 Route::get('totalvacaciones','RHMintrab@ttvacaciones');
@@ -516,7 +519,10 @@ Route::group(['prefix'=>'seguridad'],function()
 
 	// Rutas del proyecto de liquidacion, caja chica.
 
-	Route::get('proyecto','PCProyecto@index')->middleware('roleshinobi:informatica');
+	Route::get ('proyecto','PCProyecto@index')->middleware('roleshinobi:informatica');
+	Route::post('proyecto/store','PCProyecto@store')->middleware('roleshinobi:informatica');
+	Route::put ('proyecto/determinado','PCProyecto@default')->middleware('roleshinobi:informatica');
+	
 });
 
 Route::delete('destroy/{id}','PCUsuarioController@destroy')->middleware('roleshinobi:informatica');

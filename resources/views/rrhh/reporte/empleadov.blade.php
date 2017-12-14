@@ -4,10 +4,13 @@
         	<div class="navbar-form navbar-left pull-left">
 				<button class="btn btn-success btn-md" onclick="rh_reportes(0);"><i class="fa fa-reply-all"></i></button>
 			</div>
-			<h4 class="box-title" align="center">Historial de vacaciones del año {{$year}}</h4>
+			<h4 class="box-title" align="center">Historial de vacaciones del año {{$year}}</h4> 
 			<hr style="border-color:black;" />
 		</div>
 		<div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4>Días disponibles a la fecha: {{$calculo[1].' días con '.$calculo[0].' horas'}}</h4>
+            </div>
 	    </div>
 
         <div class="table-responsive">

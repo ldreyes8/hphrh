@@ -59,9 +59,13 @@
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
             <label class="control-label">Eventos</label> 
             <select class="form-control select2" id="evento">
-                <option>Servicios directo a la Familia</option>
-                <option>Casa Nuevas</option>
-                <option>Reparadas/Casa mejoradas</option> 
+                @foreach($eventos as $eve)
+                @if($gastoempleado->evento == $eve->codigo)
+                <option value="{{$eve->codigo}}" selected="">{{$eve->nombre}}</option>
+                @else
+                <option value="{{$eve->codigo}}">{{$eve->nombre}}</option>
+                @endif
+                @endforeach
             </select>
         </div>
 
@@ -84,9 +88,13 @@
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
             <label class="control-label">Linea de presupuesto</label>
             <select class="form-control select2" id="donador">
-                <option>Donante Generico</option>
-                <option>Fondos de agencia</option>
-                <option>Fondos HFHI-DESIGNADOS</option>
+                @foreach($donantes as $eve)
+                @if($gastoempleado->donante == $eve->codigo)
+                <option value="{{$eve->codigo}}" selected="">{{$eve->nombre}}</option>
+                @else
+                <option value="{{$eve->codigo}}">{{$eve->nombre}}</option>
+                @endif
+                @endforeach
             </select>
         </div>
 

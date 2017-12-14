@@ -29,7 +29,7 @@ class ACajaChica extends Controller
     }
 
     public function create(){
-        $proyectos = DB::table('proyectocabeza as pca')
+        $proyectos = DB::table('proyecto as pca')
             ->select('pca.idproyecto','pca.nombreproyecto as proyecto')
             ->get();
 
@@ -151,12 +151,12 @@ class ACajaChica extends Controller
     public function liquidar($id){
         $proyecto = DB::table('cajachica as caj')
             ->join('gastoencabezado as gen','caj.idcajachica','=','gen.idcajachica')
-            ->join('proyectocabeza as pca','gen.idproyecto','=','pca.idproyecto')
+            ->join('proyecto as pca','gen.idproyecto','=','pca.idproyecto')
             ->join('gastoviaje as gvi','gen.idgastocabeza','=','gvi.idgastocabeza')
             ->join('viaje as via','gvi.idviaje','=','via.idviaje')
             ->where('gen.statusgasto','=','Autorizado')
             ->where('gen.idcajachica','=', $id)
-            ->select('gen.idgastocabeza','gen.fechasolicitud','caj.montosolicitado as monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje','via.idviaje')
+            ->select('gen.idgastocabeza','gen.fechasolicitud','caj.monto','gen.chequetransfe','gen.moneda','gen.periodo','gen.idproyecto','pca.nombreproyecto','via.fechainicio','via.fechafin','gen.idempleado','gen.idgastocabeza','gvi.idgastoviaje','via.idviaje')
             ->first();
 
         if (empty($proyecto->idgastocabeza)) {
@@ -175,7 +175,7 @@ class ACajaChica extends Controller
                 ->first();
 
             $gastoviajeemp = DB::table('gastoviajeempleado as gve')
-                ->join('proyectocabeza as pro','gve.idproyecto','=','pro.idproyecto')
+                ->join('proyecto as pro','gve.idproyecto','=','pro.idproyecto')
                 ->join('gastoviaje as gvi','gve.idgastoviaje','=','gvi.idgastoviaje')
                 ->join('empleado as emp','gve.idempleado','=','emp.idempleado')
                 ->join('persona as per','emp.identificacion','=','per.identificacion')
@@ -198,16 +198,13 @@ class ACajaChica extends Controller
 
     public function indexliquidar(){
         $viaje = DB::table('cajachica as caj')
-            ->join('tipogasto as tga','caj.idtipogasto','=','tga.idtipogasto')
-            ->join('proyectocabeza as pca','caj.idproyecto','=','pca.idproyecto')
+            
             ->join('empleado as emp','caj.idempleado','=','emp.idempleado')
-            ->select('caj.fechasolicitud','caj.montosolicitado','caj.statusgasto','tga.tipogasto','caj.idcajachica','pca.nombreproyecto as proyecto')
+            ->select('caj.fechainicio','caj.monto','caj.status','caj.idcajachica')
             ->where('emp.idempleado','=',$this->empleado()->idempleado)
             ->get();
         return view ('asistente.cajachica.indexviaje',["viaje"=>$viaje]);
     }
-
-
 
     public function validateRequest($request){
         $rules=[

@@ -4,41 +4,47 @@
     <input type="hidden" name="" id="idafiliado" value="{{$afiliado->idafiliado}}">
 
     <form role="form" id="formAgregarViaje">
-            <div class="modal-header">
-                <label class="control-label">Proyecto</label>
-                <select class="form-control select2" id="idproyecto">
-                @if (isset($proyectos))
-                @foreach($proyectos as $pro)
-                    <option value="{{$pro->idproyecto}}">{{$pro->proyecto}}</option>
-                @endforeach
-                @endif
+        <div class="modal-header">
+            <label class="control-label">Proyecto</label>
+            <select class="form-control select2" id="idproyecto">
+            @if (isset($proyectos))
+            @foreach($proyectos as $pro)
+
+            @if($proyecto->idproyecto == $pro->idproyecto)
+            <option value="{{$pro->idproyecto}}" selected="">{{$pro->proyecto}}</option>
+            @else
+            <option value="{{$pro->idproyecto}}">{{$pro->proyecto}}</option>
+            @endif
+      
+            @endforeach
+            @endif
+            </select>
+        </div>
+        <div class="modal-header">
+            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                <label class="control-label">Monto solicitado</label>
+                <input id="monto" type="number" min="0" class="form-control" onkeypress="return validadecimal(event,this)" value="0">
+            </div>
+            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                <label class="control-label">Tipo moneda</label>
+                <select class="form-control" id="moneda">
+                    <option>GTQ</option>
+                    <option>USD</option>
                 </select>
             </div>
-            <div class="modal-header">
-                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                    <label class="control-label">Monto solicitado</label>
-                    <input id="monto" type="number" min="0" class="form-control" onkeypress="return validadecimal(event,this)" value="0">
-                </div>
-                <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                    <label class="control-label">Tipo moneda</label>
-                    <select class="form-control" id="moneda">
-                        <option>GTQ</option>
-                        <option>USD</option>
-                    </select>
-                </div>
                 
-                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                    <label class="control-label">Deposito</label>
-                    <div class="form-group">
-                        <div class="radio radio-success radio-inline">
-                            <input type="radio" id="deposito" value="cheque" name="deposito" checked>
-                            <label for="inlineRadio2">Efectivo</label>
-                        </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                <label class="control-label">Deposito</label>
+                <div class="form-group">
+                    <div class="radio radio-success radio-inline">
+                        <input type="radio" id="deposito" value="cheque" name="deposito" checked>
+                        <label for="inlineRadio2">Efectivo</label>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="modal-header">
+        <div class="modal-header">
             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                 <label class="control-label">Fecha inicio</label>
                 <div class="input-group">
@@ -158,4 +164,3 @@
         }
     }
 </script>
-
