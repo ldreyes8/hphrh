@@ -201,7 +201,7 @@
                             </li>
                         
                             @endrole
-<!--
+<!-- 
                             @role('asistente') 
                                 <li class="menu-title"><strong>Movilización</strong></li>
                                 <li>
