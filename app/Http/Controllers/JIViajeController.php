@@ -34,9 +34,6 @@ class JIViajeController extends Controller
         ->where('u.id','=',Auth::user()->id)
         ->first();
 
-        /*$asistente =DB::select("call pcasistentes(?)",array(Auth::user()->id));
-        dd($asistente);*/
-
         $viaje = DB::table('empleado as emp')
         ->join('asignajefe as aj','aj.idempleado','=','emp.idempleado')
         ->join('persona as per','emp.identificacion','=','per.identificacion')

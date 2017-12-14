@@ -81,7 +81,7 @@ Route::group(['prefix'=>'empleado'],function(){
 
 	//Listapo reclutamiento
 /*##########################*/
-	Route::get('nombrelistr/{id}','Rechazados@nombrelistr');
+	//Route::get('nombrelistr/{id}','Rechazados@nombrelistr');
 	Route::get('listadoR','RHReclutamiento@listadoR');
 	Route::get('solicitudes','RHReclutamiento@index');
 	Route::get('solicitudes/show/{id}/{idv?}','RHPreentrevista@show');
@@ -197,7 +197,7 @@ Route::group(['prefix'=>'empleado'],function(){
 	Route::get('rechazojf/{id}/{ids?}','SController@rechazojf');
 	Route::get('rechazopej/{id}/{ids?}','SController@rechazopej');
 	Route::get('rechazojpc/{id}/{ids?}','SController@rechazojpc');
-	Route::put('uprechazo/{id}','Rechazados@uprechazo');
+	//Route::put('uprechazo/{id}','Rechazados@uprechazo');
 	//Route::get();
 	Route::get('rechazoPP/{id}','SController@rechazoPP');
 	Route::get('rechazoPI/{id}','SController@rechazoPI');
@@ -449,7 +449,9 @@ Route::group(['prefix'=>'rh'],function(){
 	Route::get('reporte/vacaciones/{id}', 'RHReporte@vempleado')->middleware('roleshinobi:recurso');
 	Route::get('reporte/permiso/{id}', 'RHReporte@pempleado')->middleware('roleshinobi:recurso');
 
-
+	//Listapo reclutamiento
+	Route::get('nombrelistr/{id}','Rechazados@nombrelistr');
+	Route::put('uprechazo/{id}','Rechazados@uprechazo');
 });
 
 //Rutas para Jefe Inmediato

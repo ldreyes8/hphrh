@@ -8,7 +8,7 @@
 <div class="row">
     
 @role('jfreclutamiento')
-    <h3>Reclutamineto de personal Afiliados</h3>
+    <h3>Reclutamiento</h3>
     <div class="col-sm-4 col-xs-12">
                                 <div class="card m-b-2 card-inverse" style="background-color: #333; border-color: #333;">
                                     <div class="card-box" style="background-color: #333; border-color: #333;">
@@ -34,8 +34,6 @@
                                 </div>
                             </div>
 @endrole
-
-
 
 @role('rhreclutamiento')
     <h3>Reclutamiento de personal Nacional</h3>
